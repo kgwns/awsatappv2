@@ -1,7 +1,7 @@
 import React from 'react'
 import { render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData'
+import { storeSampleData } from '../../../../constants/Constants'
 import { SectionArticlesParentScreen } from '../SectionArticlesParentScreen'
 import { useRoute } from '@react-navigation/native'
 
@@ -13,6 +13,7 @@ jest.mock('@react-navigation/native', () => ({
         goBack: jest.fn(),
         addListener: jest.fn(),
       }),
+      useIsFocused: jest.fn()
   }));
 
 jest.mock('react-native-safe-area-context', () => ({
@@ -122,7 +123,55 @@ describe('<SectionArticlesParentScreen> keyName empty', () => {
 describe('<SectionArticlesParentScreen> keyName empty', () => {
     let instance: RenderAPI
 
-    const params = {"params":{ "sectionId":102811, "title":"رياضة عالمية"}};
+    const params = {"params":{"sectionId":102811, "title":"رياضة عالمية"}};
+    
+    beforeEach(() => {
+        (useRoute as jest.Mock).mockReturnValue(params);
+        const component = 
+            <Provider store={storeSampleData}>
+                <SectionArticlesParentScreen />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
+describe('<SectionArticlesParentScreen> keyName opinion', () => {
+    let instance: RenderAPI
+
+    const params = {"params":{"keyName":"opinion","sectionId":102811, "title":"رياضة عالمية"}};
+    
+    beforeEach(() => {
+        (useRoute as jest.Mock).mockReturnValue(params);
+        const component = 
+            <Provider store={storeSampleData}>
+                <SectionArticlesParentScreen />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
+describe('<SectionArticlesParentScreen> keyName photos', () => {
+    let instance: RenderAPI
+
+    const params = {"params":{"keyName":"photos","sectionId":102811, "title":"رياضة عالمية"}};
     
     beforeEach(() => {
         (useRoute as jest.Mock).mockReturnValue(params);

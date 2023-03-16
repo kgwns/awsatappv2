@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {NewsWithImageItem} from '../molecules';
 import {SectionHeader} from '../molecules/podcast/SectionHeader';
 import {NewsWithImageItemProps} from '../molecules/podcast/NewsWithImageItem';
@@ -17,6 +17,9 @@ export const LatestNewsSummarySection = ({
   data,
 }: LatestNewsSummarySectionProps) => {
   const style = useThemeAwareObject(customStyle)
+  const LATEST_NEWS_SUMMARY_HEADER_LEFT = TranslateConstants({key:TranslateKey.LATEST_NEWS_SUMMARY_HEADER_LEFT})
+  const LATEST_NEWS_SUMMARY_HEADER_RIGHT = TranslateConstants({key:TranslateKey.LATEST_NEWS_SUMMARY_HEADER_RIGHT})
+
   const renderItem = (item: NewsWithImageItemProps, index: number) => (
     <View key={flatListUniqueKey.LATEST_NEWS_SUMMARY_WIDGET + index}>
       <NewsWithImageItem
@@ -32,7 +35,7 @@ export const LatestNewsSummarySection = ({
 
   return (
     <View>
-      <SectionHeader headerLeft={'المزيد'} headerRight={'ملخص آخر الأخبار'} />
+      <SectionHeader headerLeft={LATEST_NEWS_SUMMARY_HEADER_LEFT} headerRight={LATEST_NEWS_SUMMARY_HEADER_RIGHT} />
       <FlatList
         horizontal
         keyExtractor={(_, index) => index.toString()}

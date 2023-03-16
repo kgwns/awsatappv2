@@ -1,18 +1,18 @@
 import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties } from 'src/constants/SampleData'
-import { ArticleDetailFooter, DraggableVideoPlayer, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
-import { Divider, HeaderElementProps, LabelTypeProp } from 'src/components/atoms'
+import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants'
+import { ArticleDetailFooter, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
+import { Divider, HeaderElementProps, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
-import { ArticleDetailDataType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
+import { ArticleDetailDataType, ArticleReadAlsoType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useAppPlayer, useBookmark, useLogin } from 'src/hooks'
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
@@ -25,7 +25,15 @@ import SystemNavigationBar from 'react-native-system-navigation-bar'
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget'
 import { ArticleDetailBody } from './components/ArticleDetailBody'
 import { requestArticleDetail, requestArticleSection, requestRelatedArticle } from 'src/services/articleDetailService'
-import { parseArticleDetailSuccess, parseArticleSectionSuccess, parseOpinionBundleSuccess, parseRelatedArticleSuccess, parseRichArticleContentBundleSuccess, parseRichArticleReadAlso, updatedContentBundleContent, updatedOpinionBundle, updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
+import { parseArticleDetailSuccess, 
+  parseArticleSectionSuccess, 
+  parseOpinionBundleSuccess, 
+  parseRelatedArticleSuccess, 
+  parseRichArticleContentBundleSuccess, 
+  parseRichArticleReadAlso, 
+  updatedContentBundleContent, 
+  updatedOpinionBundle, 
+  updatedReadAlsoContent } from 'src/redux/articleDetail/sagas'
 import { getBookMarkDetailInfoService } from 'src/services/bookmarkService'
 import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService'
 import { AxiosError } from 'axios'
@@ -36,13 +44,6 @@ export interface ArticleDetailScreenProps {
   route: any
 }
 
-const relatedShortArticleHeaderLeft: HeaderElementProps = {
-  title: 'مقالات ذات صلة',
-  labelType: LabelTypeProp.h2,
-  color: Styles.color.greenishBlue,
-  elementContainerStyle: { paddingVertical: normalize(15) },
-  textStyle: {fontSize:20, lineHeight:30}
-}
 
 export const ArticleDetailScreen = ({
   route
@@ -52,6 +53,15 @@ export const ArticleDetailScreen = ({
   const style = useThemeAwareObject(customStyle);
   const isFocused = useIsFocused();
   const dimensions = useWindowDimensions()
+  const SHORT_ARTICLE_TITLE = TranslateConstants({key:TranslateKey.SHORT_ARTICLE_TITLE})
+
+  const relatedShortArticleHeaderLeft: HeaderElementProps = {
+    title: SHORT_ARTICLE_TITLE,
+    labelType: LabelTypeProp.h2,
+    color: Styles.color.greenishBlue,
+    elementContainerStyle: { paddingVertical: normalize(15) },
+    textStyle: {fontSize:20, lineHeight:30}
+  }
 
   const { themeData } = useTheme()
   const { isLoggedIn } = useLogin()
@@ -84,11 +94,12 @@ export const ArticleDetailScreen = ({
   const [isArticleSectionLoaded, setIsArticleSectionLoaded] = useState(false)
   const [richHTML, setRichHTML] = useState<HTMLElementParseStore[]>([])
   const { showMiniPlayer } = useAppPlayer()
+  const fullScreenBackgroundColor = isFullScreen ? style.fullScreenBackground.backgroundColor : ''
   
-  const detailRoutes = useMemo(() => routes.filter((routes) => 
-    routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN || 
-    routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN || 
-    routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const detailRoutes = useMemo(() => routes.filter((detailRoute) => 
+    detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN || 
+    detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN || 
+    detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfDetailRoutes = detailRoutes.length
 
   const videoRefs = useRef<any[]>([]);
@@ -111,7 +122,7 @@ export const ArticleDetailScreen = ({
   }
 
   useEffect(() => {
-    if (isNonEmptyArray(articleDetailState) && articleDetailState.length == 1 && isLoading) {
+    if (isNonEmptyArray(articleDetailState) && articleDetailState.length === 1 && isLoading) {
       const firstArticleData = articleDetailState[0];
       setIsLoading(false)
       getVideoUrlInfo(firstArticleData);
@@ -150,7 +161,7 @@ export const ArticleDetailScreen = ({
   }
 
   const getArticleSection = async (articleData: ArticleDetailDataType) => {
-    let allArticleDetail = [...articleDetailState]
+    const allArticleDetail = [...articleDetailState]
     if (isObjectNonEmpty(articleData)
       && isObjectNonEmpty(articleData.news_categories)
       && isNotEmpty(articleData.news_categories.id)) {
@@ -170,21 +181,26 @@ export const ArticleDetailScreen = ({
   const getRichContentDetail = async (articleData: ArticleDetailDataType) => {
     if (isNonEmptyArray(articleData.richHTML)) {
       //Read Also Bundle
-      const readAlsoElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.READ_ALSO)
-      if (isNonEmptyArray(readAlsoElement) && isNonEmptyArray(readAlsoElement[0].data.related_content)) {
-        const nidList = joinArray(readAlsoElement[0].data.related_content, '+')
-        try {
-          const readAlsoResponse = await getBookMarkDetailInfoService({ nid: nidList, page: 0 })
-          const readAlsoResult = parseRichArticleReadAlso(readAlsoResponse)
-          const richHtmlInfo = updatedReadAlsoContent(articleData, readAlsoResult)
-          setRichHTML(richHtmlInfo)
-        } catch (error) {
-          handleAxiosError(error)
-        }
+      const readAlsoElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.READ_ALSO)
+      if (isNonEmptyArray(readAlsoElement)) {
+        readAlsoElement.forEach(async (element: ArticleReadAlsoType) => {
+          const content = element.data.related_content;
+          if (isNonEmptyArray(content)) {
+            const nidList = joinArray(content, '+');
+            try {
+              const readAlsoResponse = await getBookMarkDetailInfoService({ nid: nidList, page: 0 })
+              const readAlsoResult = parseRichArticleReadAlso(readAlsoResponse)
+              const richHtmlInfo = updatedReadAlsoContent(articleData, readAlsoResult)
+              setRichHTML(richHtmlInfo)
+            } catch (error) {
+              handleAxiosError(error)
+            }
+          }
+        });
       }
 
       // Content Also Bundle
-      const contentElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.CONTENT)
+      const contentElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.CONTENT)
       if (isNonEmptyArray(contentElement) && contentElement[0].data.content) {
         try {
           const contentResponse = await requestArticleDetail({ nid: contentElement[0].data.content })
@@ -197,11 +213,13 @@ export const ArticleDetailScreen = ({
       }
 
       //Opinion Bundle
-      const opinionElement: any = articleData.richHTML?.filter((item) => item.type == RichHTMLType.OPINION)
+      const opinionElement: any = articleData.richHTML?.filter((item) => item.type === RichHTMLType.OPINION)
       if (isNonEmptyArray(opinionElement)) {
         opinionElement.forEach(async (_: any, index: number) => {
+          const opinionId = opinionElement[index].data.opinion;
+          const id = isNonEmptyArray(opinionId) ? opinionId[0] : opinionId;
           try {
-            const opinionResponse = await requestOpinionArticleDetailAPI({ nid: parseInt(opinionElement[index].data.opinion) })
+            const opinionResponse = await requestOpinionArticleDetailAPI({ nid: parseInt(id) })
             const opinionResult = parseOpinionBundleSuccess(opinionResponse)
             const richHtmlInfo = updatedOpinionBundle(articleData, opinionResult)
             setRichHTML(richHtmlInfo)
@@ -222,7 +240,7 @@ export const ArticleDetailScreen = ({
   }
   
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && isTab ) {
       Orientation.unlockAllOrientations();
       Orientation.getDeviceOrientation(updateScreenEdge);
       Orientation.addDeviceOrientationListener(updateScreenEdge);
@@ -243,7 +261,7 @@ export const ArticleDetailScreen = ({
   }, [isArticleSectionLoaded])
 
   useEffect(() => {
-    if (fontSize != articleFontSize) {
+    if (fontSize !== articleFontSize) {
       setFontSize(articleFontSize)
     }
   }, [articleFontSize])
@@ -273,8 +291,8 @@ export const ArticleDetailScreen = ({
 
   useEffect(() => {
     if (isNonEmptyArray(articleDetailState) && articleDetailState[bookmarkIndex] && articleDetailState[bookmarkIndex].nid) {
-      const isBookmarked = validateBookmark(articleDetailState[bookmarkIndex].nid)
-      setIsBookmarked(isBookmarked)
+      const isBookmark = validateBookmark(articleDetailState[bookmarkIndex].nid)
+      setIsBookmarked(isBookmark)
     }
   }, [articleDetailState, bookmarkIndex, bookmarkIdInfo])
 
@@ -287,7 +305,9 @@ export const ArticleDetailScreen = ({
 
   const updatedRelatedArticle = (relatedData: RelatedArticleDataType[]) => {
     if (isNonEmptyArray(relatedData)) {
-      const relatedArticleListData = relatedData.filter((data) => { return data.nid != currentNId})
+      const relatedArticleListData = relatedData.filter((data) => { 
+        return data.nid !== currentNId
+      })
       const relatedArticleInfo = relatedArticleListData.map((item: RelatedArticleDataType) => {
         return {
           ...item,
@@ -303,7 +323,7 @@ export const ArticleDetailScreen = ({
   }
 
   useLayoutEffect(() => {
-    if(isDefaultDimension != dimensions.width && !isDimensionChanged){
+    if(isDefaultDimension !== dimensions.width && !isDimensionChanged){
       setIsDimensionChanged(true)
     } else if(!isEdgeUpdated && isEdgePortrait){
       setIsDimensionChanged(true)
@@ -312,13 +332,13 @@ export const ArticleDetailScreen = ({
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     setOrientation(deviceOrientation);
-    if(!isEdgeUpdated && (deviceOrientation == 'LANDSCAPE-RIGHT' || deviceOrientation == 'LANDSCAPE-LEFT') && !isEdgePortrait){
+    if(!isEdgeUpdated && (deviceOrientation === 'LANDSCAPE-RIGHT' || deviceOrientation === 'LANDSCAPE-LEFT') && !isEdgePortrait){
       setIsEdgeUpdated(true)
    } else{
      setIsEdgePortrait(true)
    }
-    const edge = getScreenEdge(deviceOrientation)
-    isNonEmptyArray(edge) && setEdge(edge);
+    const screenEdge = getScreenEdge(deviceOrientation)
+    isNonEmptyArray(screenEdge) && setEdge(screenEdge);
   }
 
 
@@ -332,7 +352,7 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const stopVideoPlayer = (showReplay: boolean = false) => {
+  const stopVideoPlayer = (showReplayProps: boolean = false) => {
     try {
       if (videoRefs) {
         videoRefs?.current[0]?.setNativeProps({
@@ -344,14 +364,14 @@ export const ArticleDetailScreen = ({
         videoRefs?.current[2]?.setNativeProps({
           paused: true
         })
-        setShowReplay(showReplay);
+        setShowReplay(showReplayProps);
       }
     } catch (e) {
     }
   }
 
   const onPressArticle = (nid: string) => {
-    if (nid && nid!=currentNId) {
+    if (nid && nid!==currentNId) {
       stopVideoPlayer(true);
       const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
       recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
@@ -400,7 +420,7 @@ export const ArticleDetailScreen = ({
       StatusBar.setHidden(false)
       SystemNavigationBar.navigationShow();
       Orientation.lockToPortrait();
-      Orientation.unlockAllOrientations();
+      isTab && Orientation.unlockAllOrientations();
     }
     setIsFullScreen(isFullscreen)
   }
@@ -409,7 +429,6 @@ export const ArticleDetailScreen = ({
   // const onScroll = (event: any) => {
   //   Number.parseInt(event.nativeEvent.contentOffset.y) > 100 && showVideoMiniPlayer && !showReplay ? setPlayerVisible(true) : setPlayerVisible(false);
   // }
-
   useEffect(() => {
     const backAction = () => {
       let value  = false;
@@ -433,7 +452,7 @@ export const ArticleDetailScreen = ({
   const onPressBack = () => {
     requestAnimationFrame(() => {
       stopVideoPlayer()
-      if (!route.params.isRelatedArticle) {
+      if (!route.params.isRelatedArticle && isTab) {
         Orientation.unlockAllOrientations()
         Orientation.lockToPortrait()
       }
@@ -537,30 +556,32 @@ export const ArticleDetailScreen = ({
       </View>
   )}
 
-  const setPlayerDetails = (time: any , paused: boolean) => {
+  const setPlayerDetails = (time: any , pausedProps: boolean) => {
     setCurrentTime(time)
-    setPaused(paused)
+    setPaused(pausedProps)
   }
-
-  const closeMiniPlayer = (visible: boolean) => {
-    setPlayerVisible(visible);
-    setShowVideoMiniPlayer(visible)
-  }
+  // As per ticket AMAR-1044 we dont show the PIP
+  // const closeMiniPlayer = (visible: boolean) => {
+  //   setPlayerVisible(visible);
+  //   setShowVideoMiniPlayer(visible)
+  // }
 
   const onViewableItemRef = useRef((viewableItems: any) => {
     setBookmarkIndex(viewableItems.changed[0].index)
   })
+  
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
-    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading == false}>
+    backgroundColor={fullScreenBackgroundColor}
+    isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading === false}>
       {isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
         <FlatList
           testID='ArticleDetailScreenFlatlist01'
           onViewableItemsChanged={onViewableItemRef.current}
           viewabilityConfig={viewConfigRef.current}
-          style={{ flex: 1, height: '100%' }}
+          style={style.containerStyle}
           data={articleDetailState}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderItem}
@@ -583,6 +604,9 @@ export const ArticleDetailScreen = ({
           />
         } */}
         { !isFullScreen && <View style={style.bottom} />}
+        {!isArticleSectionLoaded && <View style={style.bottomSpinner}>
+          <LoadingState />
+        </View>}
         {!isFullScreen && <View style={[style.footer, style.shadowEffect]}>
           <ArticleDetailFooter articleDetailData={articleDetailState[bookmarkIndex]}
             isBookmarked={isBookmarked}
@@ -653,6 +677,20 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   leftContainerStyle: {
     width: (screenWidth * 0.5 - 40) -  144,
+  },
+  containerStyle: {
+    flex: 1,
+    height: '100%'
+  },
+  bottomSpinner: {
+    width: '100%',
+    height: normalize(45),
+    backgroundColor: colors.transparent,
+    position: 'absolute', 
+    bottom: isIOS ? normalize(70) : normalize(60)
+  },
+  fullScreenBackground: {
+    backgroundColor: colors.black
   }
 })
 

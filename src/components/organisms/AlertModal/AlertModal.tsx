@@ -1,6 +1,6 @@
+import { Label } from 'src/components/atoms/label/Label'
 import React, { useEffect, useState } from "react";
 import { Modal, View, TouchableOpacity, StyleSheet } from "react-native";
-import { Label } from 'src/components/atoms'
 import { normalize, isDarkTheme } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
@@ -130,3 +130,4 @@ const customStyle = (theme: CustomThemeType) =>
             paddingBottom: normalize(20)
         }
     })
+    

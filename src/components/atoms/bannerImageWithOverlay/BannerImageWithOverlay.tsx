@@ -1,21 +1,23 @@
 import React, { useState } from 'react'
 import { View, StyleSheet } from 'react-native'
 import { ImageResize } from '../../../shared/styles/text-styles'
-import { Image, LiveBlogTag, Overlay } from '..'
+import { Image } from 'src/components/atoms/image/Image'
+import {  Overlay } from 'src/components/atoms/overlay/Overlay'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'
+import { ArticleLabel } from 'src/components/molecules/articleLabel/ArticleLabel'
 
 export interface BannerImageWithOverlayProps {
     image?: string
     onImageLoadEnd?(isSuccess: boolean): void
     isImageLoaded?: boolean
     showOverlay?: boolean;
-    isLive?: boolean; 
     isAlbum: boolean;
+    displayType?: string;
 }
 
 export const RenderPhotoIcon = () => (
-    <View style={{ position: 'absolute', top: 15, right: 15 }}>
+    <View style={bannerImageWithOverlayStyle.photoIconContainer}>
         {getSvgImages({
             name: ImagesName.photoIcon,
             width: 27,
@@ -29,7 +31,7 @@ export const BannerImageWithOverlay = ({
     onImageLoadEnd,
     isImageLoaded,
     showOverlay,
-    isLive = false,
+    displayType,
     isAlbum = false,
 }: BannerImageWithOverlayProps) => {
     const [isError, setIsError] = useState(false) 
@@ -42,7 +44,7 @@ export const BannerImageWithOverlay = ({
     const onError = () => {
         setIsError(true)
     }
-
+    
     return (
         <View>
             <Image fallback url={image} style={bannerImageWithOverlayStyle.image}
@@ -51,8 +53,8 @@ export const BannerImageWithOverlay = ({
                 onError={onError}
             />
             {isAlbum && <RenderPhotoIcon />}
-            {isLive && <View style={bannerImageWithOverlayStyle.liveTagContainer}>
-                <LiveBlogTag />
+            {displayType && <View style={bannerImageWithOverlayStyle.liveTagContainer}>
+                <ArticleLabel displayType={displayType}/>
             </View>}
             {showOverlay && isImageLoaded && <Overlay />}
         </View>
@@ -70,5 +72,10 @@ const bannerImageWithOverlayStyle = StyleSheet.create({
         position: 'absolute',
         left: 0,
         top: 0,
+    },
+    photoIconContainer: {
+        position: 'absolute', 
+        top: 15, 
+        right: 15
     }
 })

@@ -1,4 +1,4 @@
-import { storeInfo } from "src/constants/SampleData"
+import { storeInfo } from "src/constants/Constants"
 import { getError, getHeroData, getHeroListData, getIsLoading, getOpinionData, 
         getSectionComboFiveData, getSectionComboFourData, 
         getSectionComboOneData, getSectionComboSevenData, 

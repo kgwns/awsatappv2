@@ -1,4 +1,4 @@
-import {render, RenderAPI} from '@testing-library/react-native'
+import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
 import FixedTouchable from '../FixedTouchable'
 import React, {useRef}  from 'react';
 
@@ -7,33 +7,22 @@ jest.mock('react', () => ({
   useRef: jest.fn(),
 }));
 
-const data: any = {current :
-  [
-  {
-    pageX: 90,
-    pageY: 89,
-  },
-  {
-    pageX: 90,
-    pageY: 89,
-  },
-  {
-    pageX: 90,
-    pageY: 89,
-  },
-  {
-    pageX: 90,
-    pageY: 89,
-  },
-]}
+const data = {
+  _touchActivatePositionRef: {
+    current: {
+      pageX:32,
+      pageY:49
+    }
+  }
+  
+}
 
 describe('<FixedTouchable />', () => {
   let instance: RenderAPI
   const mockFunction = jest.fn();
-  const _touchActivatePositionRef = mockFunction;
 
   beforeEach(() => {
-    (useRef as jest.Mock).mockImplementation(() => [data, _touchActivatePositionRef]);
+    (useRef as jest.Mock).mockReturnValue(data);
     const component = <FixedTouchable onPress={mockFunction} onPressIn={mockFunction}/>
     instance = render(component)
   })
@@ -45,6 +34,18 @@ describe('<FixedTouchable />', () => {
 
   it('should render component', () => {
     expect(instance).toBeDefined()
+  })
+
+  it('test FixedTouchable01 onPress',() => {
+    const testId = instance.getByTestId('FixedTouchable01');
+    fireEvent(testId,'onPress', {nativeEvent:{pageX:3,pageY:5}});
+    expect(mockFunction).toHaveBeenCalled();
+  })
+
+  it('test FixedTouchable01 onPressIn',() => {
+    const testId = instance.getByTestId('FixedTouchable01');
+    fireEvent(testId,'onPressIn', {nativeEvent:{pageX:3,pageY:5}});
+    expect(mockFunction).toHaveBeenCalled();
   })
   
 })

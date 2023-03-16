@@ -1,8 +1,10 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleSheet, Linking, TouchableOpacity } from 'react-native';
-import { Label, Image, ButtonOutline, LabelTypeProp } from 'src/components/atoms/';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
+import { Image } from 'src/components/atoms/image/Image'
+import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
 import { PodcastVerticalListProps } from 'src/components/molecules/';
-import { isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isAndroid, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors } from 'src/shared/styles/colors';
 import ApplePodcastIcon from 'src/assets/images/icons/apple_podcast_icon.svg';
@@ -11,12 +13,11 @@ import SpotifyIcon from 'src/assets/images/icons/spotify_episode_icon.svg';
 import AnghamiPodcastIcon from 'src/assets/images/icons/anghami_icon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import PauseIcon from 'src/assets/images/icons/pauseIconBlack.svg';
-import { useTranslation } from 'react-i18next';
 import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
-import { podcastServices } from 'src/constants/SharedConstants';
+import { podcastServices, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -34,7 +35,8 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     const insets = useSafeAreaInsets();
 
     const styles = useThemeAwareObject(createStyles);
-    const [t] = useTranslation();
+    const PODCAST_EPISODE_LISTEN_TO = TranslateConstants({key:TranslateKey.PODCAST_EPISODE_LISTEN_TO})
+    const PODCAST_EPISODE_LISTEN_TO_EPISODE = TranslateConstants({key:TranslateKey.PODCAST_EPISODE_LISTEN_TO_EPISODE})
 
     const playbackState = usePlaybackState();
     const { selectedTrack } = useAppPlayer();
@@ -94,8 +96,8 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     }
 
     const renderPodcastView = () => (
-        <View style={{ alignItems: 'center', paddingTop: normalize(20) }}>
-            <Label children={t('podcastEpisode.listenTo')} style={styles.listToText} />
+        <View style={styles.mainContainer}>
+            <Label children={PODCAST_EPISODE_LISTEN_TO} style={styles.listToText} />
             <View style={styles.podcastContainer}>
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)} testID = "spotifyUrl">
                     <SpotifyIcon width={25} height={25} />
@@ -115,7 +117,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
 
     const playPauseIcon = () => (
         <View style={styles.rightIconStyle}>
-            {selectedTrack && selectedTrack.id == fieldData.nid && playbackState === State.Playing || isBuffering ?
+            {selectedTrack && selectedTrack.id === fieldData.nid && playbackState === State.Playing || isBuffering ?
                 <PauseIcon fill={colors.black} width={13} height={13} /> :
                 <PlayIcon fill={colors.black} />
             }
@@ -127,12 +129,12 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
             <Label style={styles.titleTextStyle} children={fieldData.title} />
             <View style={isTab ? styles.imageTab : styles.imageStyle}>
                 <Image fallback url={fieldData?.field_podcast_sect_export?.image}
-                    style={{ width: '100%', height: '100%' }}
+                    style={styles.image}
                     resizeMode={ImageResize.COVER}
                 />
             </View>
             {hasNewSubTitle &&
-                <View style={[styles.containerSpace, { paddingTop: normalize(15) }]} >
+                <View style={styles.containerSpace} >
                     <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
                 </View>
             }
@@ -146,7 +148,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
 
     const bottomView = () => (
         <View style={[styles.bottomContainer, { bottom: insets.bottom + normalize(20) }]}>
-            <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
+            <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
                 style={styles.buttonStyle}
                 labelStyle={styles.buttonLabel}
                 titleType={LabelTypeProp.h1}
@@ -232,12 +234,14 @@ const createStyles = () => StyleSheet.create({
         paddingBottom: normalize(10),
     },
     containerSpace: {
-        paddingVertical: normalize(8)
+        paddingVertical: normalize(8),
+        paddingTop: normalize(15)
     },
     podcastContainer: {
         flexDirection: 'row',
         justifyContent: 'space-evenly',
         width: 0.76 * screenWidth,
+        paddingBottom:  isAndroid ? normalize(30) : normalize(0)
     },
     buttonStyle: {
         backgroundColor: colors.white,
@@ -279,5 +283,13 @@ const createStyles = () => StyleSheet.create({
     verticalLine: {
         height: 10,
         marginHorizontal: 8,
+    },
+    image: {
+        width: '100%',
+        height: '100%' 
+    },
+    mainContainer: {
+        alignItems: 'center', 
+        paddingTop: normalize(20) 
     }
 });

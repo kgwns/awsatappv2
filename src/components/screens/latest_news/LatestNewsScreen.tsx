@@ -5,16 +5,15 @@ import {
   ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps, AlertModal
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties, storyWidgetData } from 'src/constants/SampleData';
+import { shortArticleWithTagProperties, storyWidgetData, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { horizontalEdge, isNonEmptyArray, isTab, normalize, isIOS } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { getPodcastUrl } from 'src/shared/utils/utilities';
@@ -64,7 +63,9 @@ const sectionComboFourPayload: RequestSectionComboBodyGet = {
 
 export const LatestNewsScreen = () => {
   const { themeData } = useTheme()
-  const [t] = useTranslation()
+  const SECTION_COMBO_TWO = TranslateConstants({key:TranslateKey.SECTION_COMBO_TWO})
+  const SECTION_COMBO_THREE = TranslateConstants({key:TranslateKey.SECTION_COMBO_THREE})
+
   const navigation = useNavigation<StackNavigationProp<any>>()
   const latestNewsScreenStyle = useThemeAwareObject(customStyle)
 
@@ -151,7 +152,7 @@ export const LatestNewsScreen = () => {
       return
     }
     
-    const index = sectionComboOneInfo.findIndex((item) => item.nid == nid)
+    const index = sectionComboOneInfo.findIndex((item) => item.nid === nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
   }
@@ -173,7 +174,7 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboTwoInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboTwoInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboTwoInfo, index)
     setSectionComboTwoInfo(updatedData)
   }
@@ -195,7 +196,7 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboThreeInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboThreeInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboThreeInfo, index)
     setSectionComboThreeInfo(updatedData)
   }
@@ -218,7 +219,7 @@ export const LatestNewsScreen = () => {
       return
     }
 
-    const index = sectionComboFour.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboFour.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFour, index)
     setSectionComboFourInfo(updatedData)
   }
@@ -255,7 +256,9 @@ export const LatestNewsScreen = () => {
   const podcastData = podcastHome && isNonEmptyArray(podcastHome) ? podcastHome[0] : {} as LatestArticleDataType;
   useFocusEffect(
     React.useCallback(() => {
-      const unsubscribe = () => { TrackPlayer.stop() };
+      const unsubscribe = () => { 
+        TrackPlayer.stop() 
+      };
       return () => unsubscribe();
     }, [isPlayerVisible])
   );
@@ -320,7 +323,7 @@ export const LatestNewsScreen = () => {
 
   const onListenPodcast = async () => {
     setPlayerVisibility(true)
-    if (playbackState == State.Playing) {
+    if (playbackState === State.Playing) {
       return
     }
     await TrackPlayer.setupPlayer();
@@ -333,27 +336,6 @@ export const LatestNewsScreen = () => {
     });
     await TrackPlayer.play();
   }
-
-  const togglePlayback = async () => {
-    if (playbackState === State.Playing) {
-      await TrackPlayer.pause();
-    }
-    else if (playbackState === State.Paused) {
-      await TrackPlayer.play();
-    }
-    else if ( playbackState === State.Paused || playbackState == State.None || playbackState == State.Stopped) {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: podcastData.nid,
-        url: getPodcastUrl(podcastData.field_spreaker_episode_export),
-        title: podcastData.title,
-        artist: podcastData.title,
-      });
-      TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-  };
 
   const onClose = async () => {
     await TrackPlayer.stop()
@@ -403,7 +385,7 @@ export const LatestNewsScreen = () => {
         showSignUpPopUp={makeSignUpAlert}
       />
       <BannerArticleSection data={sectionComboTwoInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+        title={SECTION_COMBO_TWO}
         sectionId={'871'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboTwoBookmark}
@@ -414,21 +396,21 @@ export const LatestNewsScreen = () => {
       <AuthorWidget data={opinionList} />
       <BannerArticleSection
         data={sectionComboThreeInfo}
-        title={t('latestNewsTab.sectionComboThree.headerLeft')}
+        title={SECTION_COMBO_THREE}
         sectionId={'11'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
-      <Divider style={{ height: normalize(20) }} />
+      <Divider style={latestNewsScreenStyle.dividerStyle} />
       <BannerArticleSection
         data={sectionComboFourInfo}
-        title={t('latestNewsTab.sectionComboTwo.headerLeft')}
+        title={SECTION_COMBO_TWO}
         sectionId={'10'}
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboFourBookmark}
         isDivider
       />
-      <Divider style={{ height: normalize(50) }} />
+      <Divider style={latestNewsScreenStyle.divider} />
     </View>
   )
 
@@ -437,7 +419,7 @@ export const LatestNewsScreen = () => {
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <FlatList
-        style={{ flex: 1, height: '100%' }}
+        style={latestNewsScreenStyle.container}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -452,7 +434,7 @@ export const LatestNewsScreen = () => {
         }
       />
       {isPlayerVisible && <View style={latestNewsScreenStyle.miniPlayerContainer}>
-        <PodCastMiniPlayer data={podcastData} onClose={onClose} onPlaybackPress={togglePlayback} />
+        <PodCastMiniPlayer data={podcastData} onClose={onClose}  />
       </View>}
     </ScreenContainer>
   )
@@ -504,6 +486,14 @@ const customStyle = (theme: CustomThemeType) => {
       height: 1,
       backgroundColor: theme.dividerColor,
     },
-
+    dividerStyle: {
+      height: normalize(20) 
+    },
+    divider: {
+      height: normalize(50) 
+    },
+    container: {
+      flex: 1, height: '100%' 
+    }
   })
 }

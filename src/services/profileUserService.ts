@@ -2,10 +2,7 @@ import {UMS_BASE_URL} from 'src/services/apiUrls';
 import {postApiRequest} from 'src/services/api';
 import {USER_PROFILE_DETAIL, SEND_PROFILE_DETAIL, UPDATE_PROFILE_USER_IMAGE} from './apiEndPoints';
 import {
-  FetchProfileUserDetailsSuccessPayloadType, SendUserData,
-} from 'src/redux/profileUserDetail/types';
-import {
-  UpdateUserImageBodyType,
+  FetchProfileUserDetailsSuccessPayloadType, SendUserData,  UpdateUserImageBodyType,
   UpdateUserImageSuccessPayloadType,
 } from 'src/redux/profileUserDetail/types';
 import { AxiosError} from 'axios';
@@ -36,12 +33,12 @@ export const sendUserProfileApi = async (body: SendUserData) => {
 }
 
 export const updateProfileUserImage = async (body: UpdateUserImageBodyType) => {
-    var photo = {
+    const photo = {
       uri: body.image,
       type: 'image/jpeg',
       name: 'photo.jpg',
   };
-    var formData = new FormData();
+    const formData = new FormData();
     formData.append("image", photo);
     try {
       const response: UpdateUserImageSuccessPayloadType = await postApiRequest(
@@ -54,3 +51,4 @@ export const updateProfileUserImage = async (body: UpdateUserImageBodyType) => {
       throw errorResponse;
     }
   };
+  

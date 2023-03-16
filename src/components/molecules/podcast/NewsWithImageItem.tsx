@@ -1,12 +1,14 @@
 import React from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
-import { isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Label, Image, LabelTypeProp, RenderPhotoIcon } from 'src/components/atoms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { fonts } from 'src/shared/styles/fonts';
+import { ArticleLabel } from '../articleLabel/ArticleLabel';
+import { Styles } from 'src/shared/styles';
 
 export interface NewsWithImageItemProps {
   imageUrl?: string;
@@ -20,6 +22,7 @@ export interface NewsWithImageItemProps {
   showHighlightTitle?: boolean;
   containerStyle?: StyleProp<ViewStyle>;
   isAlbum: boolean;
+  displayType?: string;
 }
 
 export const NewsWithImageItem = ({
@@ -34,18 +37,27 @@ export const NewsWithImageItem = ({
   showHighlightTitle = true,
   containerStyle,
   isAlbum,
+  displayType,
 }: NewsWithImageItemProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
+
+  const renderArticleLabel = () => (
+    <View style={style.tagContainer}>
+      <ArticleLabel displayType={displayType} />
+    </View>
+  );
+
   return (
     <View style={StyleSheet.flatten([style.container, containerStyle])}>
       {imageUrl &&
         <View style={isTab ? style.tabImage : style.image}>
           <Image url={imageUrl}
             resizeMode={ImageResize.COVER} fallback
-            style={{ width: '100%', height: '100%' }}
+            style={style.imageStyle}
           />
           {isAlbum && <RenderPhotoIcon />}
+          {isNotEmpty(displayType) && renderArticleLabel()}
         </View>
       }
       { showHighlightTitle && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
@@ -62,11 +74,7 @@ export const NewsWithImageItem = ({
         />
       )}
       <View
-        style={{
-          flexDirection: 'row',
-          alignItems: 'flex-start',
-          marginTop: normalize(10),
-        }}>
+        style={style.footerContainer}>
         {footerRightLabel && (
           <Label
             style={style.footerRightLabel}
@@ -140,6 +148,21 @@ const customStyle = (theme: CustomThemeType) => {
     footerLeftLabel: {
       marginStart: normalize(5),
     },
+    footerContainer: {
+      flexDirection: 'row',
+      alignItems: 'flex-start',
+      marginTop: normalize(10),
+    },
+    imageStyle: {
+       width: '100%', 
+       height: '100%' 
+    },
+    tagContainer: {
+      position: 'absolute',
+      left: 0,
+      backgroundColor: Styles.color.greenishBlue,
+      flexWrap: 'wrap',
+  },
   });
   return NewsWithImageItemStyle;
 };

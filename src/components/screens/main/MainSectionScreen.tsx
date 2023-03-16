@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator } from 'react-native';
+import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
@@ -7,16 +7,15 @@ import {
   ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/SampleData';
+import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/Constants';
 import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
 import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { Styles } from 'src/shared/styles';
 import TrackPlayer, { usePlaybackState, State} from 'react-native-track-player';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -26,18 +25,12 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { Label } from 'src/components/atoms';
 import { getPodcastUrl, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
 import { SECTION_COMBO_SIX } from 'src/services/apiEndPoints';
 
-
-// const heroListTopListPayload: LatestArticleBodyGet = {
-//   items_per_page: 10,
-//   page: 0,
-//   offset: 6
-// }
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
   page: 0,
@@ -90,11 +83,15 @@ const sectionComboEightPayload: RequestSectionComboBodyGet = {
   page: 0
 }
 
-export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, currentIndex}:{hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number;}) => {
-  const { themeData } = useTheme()
-  const mainSectionStyle = useThemeAwareObject(customStyle)
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-  const [t] = useTranslation()
+export const MainSectionScreen = React.memo((
+  {hidePlayerVisibility, tabIndex, currentIndex, scrollY }:
+  {hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number; scrollY?: any; }) => {
+  const { themeData } = useTheme()
+  const mainSectionStyle = useThemeAwareObject(customStyle);
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
+
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const ref = React.useRef(null);
@@ -113,7 +110,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   const _sectionComboSevenTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_SEVEN})
   const _sectionComboEightTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_EIGHT})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
-  const EDITORS_PICK_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITORS_PICK_HEADER_TITLE})
   const _archivedArticleTitle = TranslateConstants({key: TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE})
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
@@ -124,7 +120,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     // topList,  // enable when toplist is required
     opinionList,podcastHome,
     sectionComboOne, sectionComboTwo, sectionComboThree, sectionComboFour, sectionComboFive, sectionComboSix, sectionComboSeven, sectionComboEight,
-    coverage, featuredArticle, horizontalArticle, editorsChoice, spotlight, spotlightArticleSection, infoGraphicBlock, archivedArticleSection,
+    coverage, featuredArticle, editorsChoice, spotlight, spotlightArticleSection, infoGraphicBlock, archivedArticleSection,
     coverageInfoLoaded, featuredArticleLoaded, horizontalArticleLoaded,
     opinionLoaded, podcastHomeLoaded, editorChoiceLoaded,
     sectionComboOneLoaded, sectionComboTwoLoaded, sectionComboThreeLoaded,
@@ -139,7 +135,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     fetchEditorsChoice, fetchSpotlight, fetchInfoGraphicBlockData, fetchArchivedArticleSection,
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
-
+  
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
@@ -179,7 +175,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
 
     }, [])
   );
-
 
   
   const updateBookmark = (data: any[]): any => {
@@ -227,7 +222,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     setCoverageInfo(updatedData)
   }
 
-
   useEffect(() => {
     if (isNonEmptyArray(sectionComboOne)) {
       updateSectionComboOneData()
@@ -242,7 +236,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     const data = listPartition(newData, 4)
     setOpinionListData(data)
   }, [opinionList])
-
   useEffect(() => {
     if (isNonEmptyArray(sectionComboFive)) {
       updateSectionComboFiveData()
@@ -298,7 +291,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboOneInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboOneInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboOneInfo, index)
     setSectionComboOneInfo(updatedData)
   }
@@ -309,7 +302,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboFiveInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboFiveInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFiveInfo, index)
     setSectionComboFiveInfo(updatedData)
   }
@@ -320,7 +313,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboSixInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboSixInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboSixInfo, index)
     setSectionComboSixInfo(updatedData)
   }
@@ -331,7 +324,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboSevenInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboSevenInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
     setSectionComboSevenInfo(updatedData)
   }
@@ -342,8 +335,8 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboEightInfo.findIndex((item) => item.nid == article.nid)
-    const updatedData = updatedChangeBookmark(sectionComboSevenInfo, index)
+    const index = sectionComboEightInfo.findIndex((item) => item.nid === article.nid)
+    const updatedData = updatedChangeBookmark(sectionComboEightInfo, index)
     setSectionComboEightInfo(updatedData)
   }
 
@@ -375,21 +368,21 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboTwoInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboTwoInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboTwoInfo, index)
     setSectionComboTwoInfo(updatedData)
   }
 
-  const updatedEditorsChoiceBookmark = (article: EditorsChoiceDataType) => {
-    if (!isLoggedIn) {
-      setShowPopUp(true)
-      return
-    }
+  // const updatedEditorsChoiceBookmark = (article: EditorsChoiceDataType) => {
+  //   if (!isLoggedIn) {
+  //     setShowPopUp(true)
+  //     return
+  //   }
 
-    const index = editorsChoiceInfo.findIndex((item) => item.nid == article.nid)
-    const updatedData = updatedChangeBookmark(editorsChoiceInfo, index)
-    setEditorsChoiceInfo(updatedData)
-  }
+  //   const index = editorsChoiceInfo.findIndex((item) => item.nid == article.nid)
+  //   const updatedData = updatedChangeBookmark(editorsChoiceInfo, index)
+  //   setEditorsChoiceInfo(updatedData)
+  // }
 
   useEffect(() => {
     if (isNonEmptyArray(sectionComboThree)) {
@@ -408,7 +401,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboThreeInfo.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboThreeInfo.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboThreeInfo, index)
     setSectionComboThreeInfo(updatedData)
   }
@@ -431,7 +424,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       return
     }
 
-    const index = sectionComboFour.findIndex((item) => item.nid == article.nid)
+    const index = sectionComboFour.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFour, index)
     setSectionComboFourInfo(updatedData)
   }
@@ -458,7 +451,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   ))
 
   const heroListInfoOne = [...featuredArticleInfo].splice(0, 2)
-  const heroListInfoTwo = [...featuredArticleInfo].splice(2, 5)
+  // const heroListInfoTwo = [...featuredArticleInfo].splice(2, 5)
   // ENABLE WHEN TOP LIST IS REQUIRED
   // const topListData = topList.map((item: LatestArticleDataType) => (
   //   {
@@ -566,7 +559,6 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     setShowPopUp(true)
   }
 
-
   const onListenPodcast = (podcastData: any) => {
     if(isObjectNonEmpty(podcastData)){
       const trackPlayerData = {
@@ -577,11 +569,12 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         artist: podcastData.title,
         artwork: podcastData?.field_podcast_sect_export?.image
       }
-      if((trackData && trackData.id != trackPlayerData.id) || trackData == null ) {
+
+      if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ) {
         setPlayerTrack(trackPlayerData);
       }
       !showMiniPlayer && setShowMiniPlayer(true);
-      showMiniPlayer && playbackState == State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
+      showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
 
     setSelectedTrack(podcastData.nid);
@@ -598,7 +591,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
   }
 
   const getSelectedTrack = (id: any, type: 'OPINION' | 'PODCAST') => {
-    if(selectedTrack != id){
+    if(selectedTrack !== id){
       setSelectedTrack(id);
       setSelectedType(type);
     }
@@ -625,12 +618,16 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       />}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false}/>
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      {isNonEmptyArray(opinionListData) && 
+      <AuthorSlider data={opinionListData} 
+        selectedType={selectedType} 
+        getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
+        onClose={onClose} />
+      }
       {isNonEmptyArray(podcastHome) &&
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast}/>
         </View>}
-      
       {/* <BannerArticleSection data={editorsChoiceInfo} // Commented in the update of AMAR-1018 
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         onPress={onPressArticle}
@@ -651,7 +648,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboOneBookmark}
       />
-      {isNonEmptyArray(sectionComboOneInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboOneInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboOneInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboTwoInfo}
@@ -660,7 +657,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboTwoBookmark}
       />
-      {isNonEmptyArray(sectionComboTwoInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboTwoInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboTwoInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboThreeInfo}
@@ -669,7 +666,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboThreeBookmark}
       />
-      {isNonEmptyArray(sectionComboThreeInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboThreeInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboThreeInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboFourInfo}
@@ -678,7 +675,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onPress={onPressArticle}
         onUpdateBookmark={updatedSectionComboFourBookmark}
       />
-      {isNonEmptyArray(sectionComboFourInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboFourInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboFourInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection 
         data={archivedArticleSection}
@@ -740,7 +737,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboSixBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboSixInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboSixInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboSevenInfo}
@@ -750,7 +747,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboSevenBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboSevenInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboSevenInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboSevenInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <BannerArticleSection
         data={sectionComboEightInfo}
@@ -760,7 +757,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
         onUpdateBookmark={updatedSectionComboEightBookmark}
         isDivider
       />
-      {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: normalize(20) }} />}
+      {isNonEmptyArray(sectionComboEightInfo) && <Divider style={mainSectionStyle.dividerStyle} />}
       {isNonEmptyArray(sectionComboEightInfo) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       {showBottomSpinner()}
     </View>
@@ -798,12 +795,18 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
       {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
-      {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
+      {/* AMAR-1097 - Hide Infographic for iPad and Tablet */}
+      {/* {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
         title={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
-      />}
+      />} */}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} />
-      {isNonEmptyArray(opinionListData) && <AuthorSlider data={opinionListData} selectedType={selectedType} getSelectedTrack={(id, type) => getSelectedTrack(id, type)} onClose={onClose} />}
+      {isNonEmptyArray(opinionListData) && 
+      <AuthorSlider data={opinionListData} 
+      selectedType={selectedType} 
+      getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
+      onClose={onClose} 
+      />}
       {isNonEmptyArray(podcastHome) &&
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast} />
       }
@@ -851,7 +854,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
             sectionId={'97120'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboThreeBookmark}
-            containerStyle={{ paddingTop: 0 }}
+            containerStyle={mainSectionStyle.containerStyle}
           />
         </View>
       </View>
@@ -975,7 +978,7 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     }
 
     return (
-      <View style={{ margin: normalize(28) }}>
+      <View style={mainSectionStyle.loaderSyle}>
         <ActivityIndicator size={'large'} color={themeData.primary} />
       </View>
     )
@@ -986,9 +989,14 @@ export const MainSectionScreen = React.memo(({hidePlayerVisibility, tabIndex, cu
     <ScreenContainer edge={horizontalEdge} isLoading={refreshing ? false : showSpinner}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert}>
-      <FlatList
+      <AnimatedFlatList
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
+        onScroll={Animated.event(
+          [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
+          {useNativeDriver: false}
+        )}
+        scrollEventThrottle={1}
         style={mainSectionStyle.flatList}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
@@ -1104,6 +1112,15 @@ const customStyle = (theme: CustomThemeType) => {
     },
     shortArticleContainer: {
       paddingBottom: 8
+    },
+    dividerStyle: {
+      height: normalize(20)
+    },
+    containerStyle: {
+      paddingTop: 0 
+    },
+    loaderSyle: {
+      margin: normalize(28) 
     }
   })
 }

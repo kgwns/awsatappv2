@@ -1,7 +1,7 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { ShortArticle } from 'src/components/organisms';
-import { shortArticleData } from 'src/constants/SampleData';
+import { shortArticleData } from 'src/constants/Constants';
 import { ArticleFooter } from 'src/components/molecules';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useLogin } from 'src/hooks';

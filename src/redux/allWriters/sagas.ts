@@ -10,7 +10,17 @@ import {
   FetchAllSelectedWritersDetailsType,
   FetchAllSelectedWritersDetailsListSuccessPayloadType,
 } from './types';
-import { fetchAllWritersFailed, fetchAllWritersSuccess, sendSelectedAuthorFailed, sendSelectedAuthorSuccess,getSelectedAuthorsFailed, getSelectedAuthorsSuccess, removeAuthorSuccess, removeAuthorFailed,fetchAllSelectedWritersDetails,fetchAllSelectedWritersDetailsFailed,fetchAllSelectedWritersDetailsSuccess } from './action';
+import { fetchAllWritersFailed, 
+  fetchAllWritersSuccess, 
+  sendSelectedAuthorFailed, 
+  sendSelectedAuthorSuccess,
+  getSelectedAuthorsFailed, 
+  getSelectedAuthorsSuccess, 
+  removeAuthorSuccess, 
+  removeAuthorFailed,
+  fetchAllSelectedWritersDetails,
+  fetchAllSelectedWritersDetailsFailed,
+  fetchAllSelectedWritersDetailsSuccess } from './action';
 import { FETCH_ALL_WRITERS, SEND_SELECTED_AUTHOR,GET_SELECTED_AUTHOR,EMPTY_SELECTED_AUTHORS_INFO, REMOVE_AUTHOR, FETCH_ALL_SELECTED_WRITERS_DETAILS, } from './actionTypes';
 import { fetchAllWritersApi, sendSelectedWritersApi,getSelectedAuthorsApi,removeWritersApi, fetchAllSelectedWritersDataApi } from 'src/services/allWritersService';
 
@@ -80,9 +90,6 @@ export function* removeSelectedWriters(action: RemoveAuthorType) {
   }
 }
 
-export function* emptySelectedAuthorInfo() {
-  emptySelectedAuthorInfo();
-}
 
 export function* fetchAllSelectedWritersDetailsData(action: FetchAllSelectedWritersDetailsType) {
   try {
@@ -104,7 +111,6 @@ function* allWritersSaga() {
   yield all([takeLatest(FETCH_ALL_WRITERS, fetchAllWriters)]);
   yield all([takeLatest(SEND_SELECTED_AUTHOR, postSelectedWriters)]);
   yield all([takeLatest(GET_SELECTED_AUTHOR, getSelectedtAuthors)]);
-  yield all([takeLatest(EMPTY_SELECTED_AUTHORS_INFO, emptySelectedAuthorInfo)]);
   yield all([takeLatest(REMOVE_AUTHOR, removeSelectedWriters)]);
   yield all([takeLatest(FETCH_ALL_SELECTED_WRITERS_DETAILS, fetchAllSelectedWritersDetailsData)]);
 }

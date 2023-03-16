@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {Divider} from '../atoms';
 import {ArticleRectangleCardProps} from '../molecules/podcast/ArticleRectangleCard';
 import {SectionHeader} from '../molecules/podcast/SectionHeader';
@@ -16,6 +16,9 @@ export const PodcastOpinionArticleSection = ({
   data,
 }: PodcastOpinionArticleSectionProps) => {
   const style = useThemeAwareObject(customStyle);
+  const PODCAST_OPINION_ARTICLE_HEADER_LEFT = TranslateConstants({key:TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_LEFT})
+  const PODCAST_OPINION_ARTICLE_HEADER_RIGHT = TranslateConstants({key:TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_RIGHT})
+
   const renderItem = (item: ArticleRectangleCardProps, index: number) => {
     return (
       <View key={flatListUniqueKey.PODCAST_OPINION_ARTICLE_WIDGET + index}>
@@ -50,7 +53,7 @@ export const PodcastOpinionArticleSection = ({
 
   return (
     <View>
-      <SectionHeader headerLeft={'المزيد'} headerRight={'مقالات الرأي'} />
+      <SectionHeader headerLeft={PODCAST_OPINION_ARTICLE_HEADER_LEFT} headerRight={PODCAST_OPINION_ARTICLE_HEADER_RIGHT} />
       <FlatList
         horizontal
         keyExtractor={(_, index) => index.toString()}

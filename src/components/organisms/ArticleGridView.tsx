@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { GridViewItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -10,7 +10,6 @@ import { Divider } from '../atoms';
 import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { displayTypes } from 'src/constants/SharedConstants';
 
 interface ArticleGridViewProps {
     data: MainSectionBlockType[];
@@ -33,7 +32,6 @@ export const ArticleGridView = ({
 
     const renderItem = (item: MainSectionBlockType, index: number) => {
         const highlightTitle = item.news_categories?.title || ''
-        const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
         const isAlbum = isTypeAlbum(item.type);
 
         return (
@@ -45,7 +43,7 @@ export const ArticleGridView = ({
                     highlightedTitle={highlightTitle}
                     showHighlightTitle={showHighlightTitle}
                     index={index}
-                    isLive={isLive}
+                    displayType={item.displayType}
                     isAlbum={isTypeAlbum(item.type)}
                 />
             </TouchableOpacity>

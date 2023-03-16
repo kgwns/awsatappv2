@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Animated, StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {
   OpinionWritersArticlesSection,
@@ -13,16 +13,18 @@ import {WritersBodyGet} from 'src/redux/writers/types';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { useAppPlayer, useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
 import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreenContainer } from '../ScreenContainer/ScreenContainer';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
-  const navigation = useNavigation<StackNavigationProp<any>>()
+export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any;}) => {
+  const navigation = useNavigation<StackNavigationProp<any>>();
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
 
   const [page, setPage] = useState(0);
   const [isShowPlayer, setIsShowPlayer] = useState(false)
@@ -79,7 +81,6 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
 
   const [opinionsDataInfo, setOpinionsDataInfo] = useState(opinionsData)
   const [showupUp,setShowPopUp] = useState(false)
-
   useEffect(() => {
     updateOpinionsData()
   }, [opinionsData,bookmarkIdInfo,isFocused])
@@ -146,7 +147,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
   }
 
   const renderItem = () => (
-    <View style={{ width: '100%' }}>
+    <View style={style.itemContainer}>
       {isNonEmptyArray(opinionWriterData) &&
         <OpinionWritersSection data={opinionWriterData}
           onPressWriter={onPressWriter}
@@ -169,9 +170,14 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:nu
     <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)} showPlayer={isShowPlayer}
       backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
-      <FlatList
+      <AnimatedFlatList
         ref={ref}
         onScrollBeginDrag={() => global.refFlatList = ref}
+        onScroll={Animated.event(
+          [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
+          {useNativeDriver: false}
+        )}
+        scrollEventThrottle={16}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -201,6 +207,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     screenBackgroundColor: {
       backgroundColor: theme.backgroundColor,
+    },
+    itemContainer: {
+      width: '100%' 
     }
   });
   return OpinionScreenStyle;

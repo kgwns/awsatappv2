@@ -322,4 +322,11 @@ describe('ArticleDetail Reducer', () => {
         })
         expect(nextState.isLoading).toBe(false)
     })
+
+    test('Default State', () => {
+        const nextState = articleDetailReducer(
+          initialState, { type:'' }
+        )
+        expect(nextState.isLoading).toBeTruthy()
+      })
 })

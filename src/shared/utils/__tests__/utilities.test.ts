@@ -1,9 +1,9 @@
 import { Theme } from "../../../redux/appCommon/types"
-import { calculateDate, calculateMonth, calculateTimeSince, CustomAlert, isDarkTheme, isNonEmptyArray, isObjectNonEmpty } from ".."
+import { calculateDate, calculateMonth, CustomAlert, isDarkTheme, isNonEmptyArray, isObjectNonEmpty } from ".."
 import { arabic } from "src/assets/locales/ar/common-ar"
 import { Alert } from "react-native"
-import { getFormattedDate, getFullDate, getPodcastDate, getPodcastUrl, getProfileImageUrl, getSecondsToHms, isNotEmpty, isValidHttpUrl, joinArray } from "../utilities"
-
+import { calculateDateNumber, calculateDay, calculateHour, calculateMinutes, calculateMothNumber, calculateNonUtcDate, calculateNonUtcDateNumber, calculateNonUtcMonth, calculateNonUtcYear, convertSecondsToHMS, DateIcon, dateTimeAgo, decodeHTMLTags, getArticleImage, getConvertedTime, getCountryNameFromCode, getDay, getDeviceName, getFormattedDate, getFullDate, getImageUrl, getPodcastDate, getPodcastUrl, getProfileImageUrl, getSecondsToHms, getShareUrl, getUpdatedObject, isArray, isInvalidOrEmptyArray, isNonNegativeNumber, isNotEmpty, isStringIncludes, isTypeAlbum, isValidDate, isValidHttpUrl, joinArray, removeWhiteSpace, spliceArray, testProps, timeAgo, TimeIcon } from "../utilities"
+import { HomePageArticleType } from "src/redux/latestNews/types"
 describe('<Utilities>', () => {
 
     beforeEach(() => {
@@ -68,24 +68,6 @@ describe('<Utilities>', () => {
     })
 
     describe('<<< Time Ago >>>', () => {
-        it('Check calculate time since', () => {
-            const date = "2021-05-20T21:05:00+0000"
-            const result = calculateTimeSince(date)
-            expect(result).toBe('timeSince.just_now')
-        })
-
-        it('Check calculate time with current time', () => {
-            const date =new Date().getTime()
-            const result = calculateTimeSince(date)
-            expect(result).toBe('0 timeSince.seconds')
-        })
-
-        it('Check calculate time for from now', () => {
-            const date =new Date().getTime() + 100
-            const result = calculateTimeSince(date)
-            expect(result).toBe('0 timeSince.seconds')
-        })
-
 
         it('Check month is return correctly', () => {
             const date = "2021-05-20T21:05:00+0000"
@@ -183,6 +165,271 @@ describe('<Utilities>', () => {
             expect(result).toBe('https://picsum.photos/200')
         })
     })
-  
+
+   
+})
+
+describe("check methods in utilities",() => {
+    beforeEach(() => {
+        jest.useFakeTimers('legacy');
+    })
+    afterEach(() => {
+        jest.clearAllMocks();
+    })
+
+    it("test convertSecondsToHMS returns a valid time ",() => {
+        const result = convertSecondsToHMS(2333);
+        expect(result).toBeDefined();
+        expect(result).toBe("38:53");
+        expect(typeof result).toBe('string');
+    })
+
+    it("test decodeHTMLTags returns the text without any html tags",() => {
+        const result = decodeHTMLTags('<p>description</p>');
+        expect(result).toBeDefined();
+        expect(result).toBe('description')
+        expect(typeof result).toBe('string');
+    })
+
+    it("test getImageUrl with valid url and returns a url",() => {
+        const result = getImageUrl('https://imageURl.com');
+        expect(result).toBeDefined();
+        expect(result).toBe('https://imageURl.com')
+        expect(typeof result).toBe('string');
+    })
+
+    it("test getImageUrl by passing a invalid url and returns a default url",() => {
+        const result = getImageUrl('imageURl');
+        expect(result).toBeDefined();
+        expect(result).toBe("https://aawsat.srpcdigital.com/imageURl")
+        expect(typeof result).toBe('string');
+    })
+
+    it("test spliceArray",() => {
+        const result = spliceArray([{result:true},{result:false}],0,1);
+        expect(result).toBeDefined();
+        expect(result).toStrictEqual([{"result": true}])
+        expect(typeof result).toBe('object');
+    })
+
+    it("test testProps",() => {
+        const result = testProps('testId');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('object');
+    })
+
+    it("test if the array is valid or invalid",() => {
+        const result = isInvalidOrEmptyArray({result:true});
+        expect(result).toBeDefined();
+        expect(result).toBeTruthy();
+        expect(typeof result).toBe('boolean');
+    })
+
+    it("test isNonNegativeNumber passing positive value",() => {
+        const result = isNonNegativeNumber(34);
+        expect(result).toBeDefined();
+        expect(result).toBe(true);
+        expect(typeof result).toBe('boolean');
+    })
+
+    it("test isNonNegativeNumber passing negative value",() => {
+        const result = isNonNegativeNumber(-34);
+        expect(result).toBeDefined();
+        expect(result).toBe(false);
+        expect(typeof result).toBe('boolean');
+    })
+
+    it("test the props is an array",() => {
+        const result = isArray([{result:true}]);
+        expect(result).toBeDefined();
+        expect(result).toBeTruthy();
+        expect(typeof result).toBe('boolean');
+    })
+
+    it("test the props is not an array",() => {
+        const result = isArray({result:true});
+        expect(result).toBeDefined();
+        expect(result).toBeFalsy();
+        expect(typeof result).toBe('boolean');
+    })
+
+    it("test timeAgo method should return a full date format",() => {
+        const result = timeAgo(30);
+        expect(result).toBeDefined();
+        expect(result).toBe("يناير 1, 1970")
+        expect(typeof result).toBe('string');
+    })
+
+    it("test getDay method with passing time as props",() => {
+        const result = getDay('3');
+        expect(result).toBeDefined();
+        expect(result).toBe("الخميس, 1 مارس 2001")
+        expect(typeof result).toBe('string');
+    })
+
+    it("test getDay method without passing empty string as props",() => {
+        const result = getDay('');
+        expect(result).toBeDefined();
+        expect(result).toBe('');
+        expect(typeof result).toBe('string');
+    })
+
+    it("test removeWhiteSpace method passing string as props",() => {
+        const result = removeWhiteSpace('value');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('string');
+    })
+
+    it("test removeWhiteSpace method passing number as props",() => {
+        const result = removeWhiteSpace(3);
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test to calculateDay",() => {
+        const result = calculateDay('23:00');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test to calculateHour",() => {
+        const result = calculateHour('23:00');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test to calculateMinutes",() => {
+        const result = calculateMinutes('23:00');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test to calculateDateNumber",() => {
+        const result = calculateDateNumber('23:00');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test to calculateMothNumber",() => {
+        const result = calculateMothNumber('23:00');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test to calculateNonUtcDateNumber",() => {
+        const result = calculateNonUtcDateNumber('23:00');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test to calculateNonUtcDate",() => {
+        const result = calculateNonUtcDate('23:00');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test to calculateNonUtcYear",() => {
+        const result = calculateNonUtcYear('23:00');
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('number');
+    })
+
+    it("test getUpdatedObject",() => {
+        const result = getUpdatedObject({result:true},'result',true,false);
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('object');
+    })
+
+    it("test getConvertedTime with no props",() => {
+        const result = getConvertedTime();
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('string');
+    })
+
+    it("test getConvertedTime with props",() => {
+        const result = getConvertedTime(23,24543);
+        expect(result).toBeDefined();
+        expect(result).toBe("05:30:23");
+        expect(typeof result).toBe('string');
+    })
+
+    it("test getCountryNameFromCode method returns a country name",() => {
+        const result = getCountryNameFromCode('32');
+        expect(result).toBeDefined();
+        expect(result).toBe("الأرجنتين")
+        expect(typeof result).toBe('string');
+    })
+
+    it("test isValidDate returns if the date is valid or not",() => {
+        const result = isValidDate(new Date());
+        expect(result).toBeDefined();
+        expect(typeof result).toBe('boolean');
+    })
+
+    it("test getShareUrl returns a short url",() => {
+        const result = getShareUrl('http://shorturl.com','http://linknodeurl.in');
+        expect(result).toBeDefined();
+        expect(result).toBe('http://shorturl.com');
+        expect(typeof result).toBe('string');
+    })
+
+    it("test getShareUrl returns a linkNodeUrl url",() => {
+        const result = getShareUrl('','http://linknodeurl.in');
+        expect(result).toBeDefined();
+        expect(result).toBe('http://linknodeurl.in');
+        expect(typeof result).toBe('string');
+    })
+
+    it("check isTypeAlbum returns true if the type is album",() => {
+        const result = isTypeAlbum(HomePageArticleType.ALBUM);
+        expect(result).toBeDefined();
+        expect(result).toBe(true);
+        expect(typeof result).toBe('boolean');
+    })
+
+    it("check isTypeAlbum returns false if the type is not album",() => {
+        const result = isTypeAlbum(HomePageArticleType.ARTICLE);
+        expect(result).toBeDefined();
+        expect(result).toBe(false);
+        expect(typeof result).toBe('boolean');
+    })
+
+    it("check getDeviceName returns a device name",() => {
+        const result = getDeviceName();
+        expect(result).toBeDefined();
+    })
+
+    it("check getArticleImage returns fieldImage url",() => {
+        const result = getArticleImage('fieldImage','newPhoto');
+        expect(result).toBeDefined();
+        expect(result).toBe("https://aawsat.srpcdigital.com/fieldImage")
+    })
+
+    it("check getArticleImage returns newPhoto url",() => {
+        const result = getArticleImage('','newPhoto');
+        expect(result).toBeDefined();
+        expect(result).toBe("https://aawsat.srpcdigital.com/newPhoto")
+    })
+
+    it("check isStringIncludes returns true",() => {
+        const result = isStringIncludes('data','ta');
+        expect(result).toBeDefined();
+        expect(result).toBe(true);
+        expect(typeof result).toBe('boolean')
+    })
+
+    it("check isStringIncludes returns false",() => {
+        const result = isStringIncludes('data','dd');
+        expect(result).toBeDefined();
+        expect(result).toBe(false);
+        expect(typeof result).toBe('boolean')
+    })
+
+    it("test dateTimeAgo",() => {
+        const result = dateTimeAgo(80);
+        expect(result).toBeDefined();
+        expect(result).toStrictEqual({"icon": 1, "time": "الخميس 01/01 01:20"});
+        expect(typeof result).toBe('object');
+    })
 
 })

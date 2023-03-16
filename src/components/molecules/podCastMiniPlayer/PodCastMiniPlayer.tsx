@@ -81,11 +81,11 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         </>
     )
 
-    const onPlayPausePress = async (playbackState: any) => {
+    const onPlayPausePress = async () => {
         const state = await TrackPlayer.getState()
 
         if(selectedTrack != null){
-            if(state == State.Paused){
+            if(state === State.Paused){
                 await TrackPlayer.play()
             }else{
                 await TrackPlayer.pause()
@@ -104,7 +104,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
         const duration = progress.duration
         let seekPosition = position
         
-        if(type == 'forward'){
+        if(type === 'forward'){
             seekPosition = duration > (position + seekValue) ? (position + seekValue) : position
         }else{
             seekPosition = (position - seekValue) > 0 ? (position - seekValue) : position
@@ -160,14 +160,19 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     />
                 </View>
                 <View style={[style.durationContainer, isAndroid && {paddingHorizontal: 15} ]} >
-                    <Label children={convertSecondsToHMS(progress.duration < progress.position ? progress.duration : Math.floor(progress.position || 0))} style={style.durationText}/>
+                    <Label 
+                        children={
+                            convertSecondsToHMS(progress.duration < progress.position ? progress.duration : Math.floor(progress.position || 0))
+                        } 
+                        style={style.durationText}
+                    />
                     <Label children={convertSecondsToHMS(progress.duration || 0)} style={style.durationText}/>
                 </View>
                 <View style={style.controls} >
                     <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playForwardIcon' onPress={() => { seekForwardBackward('backward') }}>
                         {_playForwardIcon}
                     </TouchableOpacity>
-                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playPause' onPress={() => onPlayPausePress(playbackState)}>
+                    <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playPause' onPress={() => onPlayPausePress()}>
                         { isPlaying || isBuffering ? _pauseIcon : _playIcon }
                     </TouchableOpacity>
                     <TouchableOpacity hitSlop={DEFAULT_HIT_SLOP} testID='playBackwardIcon' onPress={() => { seekForwardBackward('forward') }}>
@@ -180,7 +185,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     )
     
     return (
-        <View style={{width: '100%'}} >
+        <View style={style.mainContainer} >
             <View style={StyleSheet.flatten([style.container, playerPosition, (!isPortrait() && !isTab) ? style.containerLandscape : null]) }>
                 <View style={style.miniPlayer}>
                     <TouchableOpacity testID={'Miniplayer'} onPress={() => { setShowControl(true);} } style={style.rowStyleContainer}>
@@ -201,7 +206,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                             />
                         </View>
                         <View style={style.buttonBackground}>
-                            <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress(playbackState)}>
+                            <TouchableOpacity testID={'playingState'} onPress={() => onPlayPausePress()}>
                                 <View style={style.buttonContainer}>
                                     {isLoading ? <ActivityIndicator /> : isPlaying ? <Pause /> : <Play />}
                                 </View>
@@ -358,6 +363,9 @@ const customStyle = (theme: CustomThemeType) => {
         },
         sliderContainer: {
             transform: [{ scaleX: isIOS ? 0.5:1 }, { scaleY: isIOS ? 0.5:1 }]
+        },
+        mainContainer: {
+            width: '100%'
         }
     })
 }

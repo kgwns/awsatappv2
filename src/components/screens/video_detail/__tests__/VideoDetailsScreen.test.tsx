@@ -2,13 +2,15 @@ import { render, RenderAPI, fireEvent } from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { VideoDetailScreen, VideoDetailScreenProps } from '../VideoDetailScreen';
 import { Provider } from 'react-redux'
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { PodcastProgramHeader } from 'src/components/molecules';
 import {useNavigation} from '@react-navigation/native';
 import { VideoInfo, VideosList } from 'src/components/organisms';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { VideoItemType } from 'src/redux/videoList/types';
+import Share from 'react-native-share';
+import { getVideoDetail } from 'src/services/videoDetailService';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -20,6 +22,10 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+jest.mock('src/services/videoDetailService',() => ({
+  ...jest.requireActual('src/services/videoDetailService'),
+  getVideoDetail:jest.fn()
+}))
 
 jest.mock("src/hooks/useAppPlayer", () => ({
   useAppPlayer: () => {
@@ -117,7 +123,8 @@ describe('<VideoDetailScreen >', () => {
   const isBookmarked = mockFunction
   const showupUp = mockFunction
   const videoUrl = mockFunction
-  
+  const getVideoDetailMock = mockFunction
+  const detailData = mockFunction
   const navigation = {
     navigate: mockFunction,
     goBack: mockFunction,
@@ -125,9 +132,13 @@ describe('<VideoDetailScreen >', () => {
 
   describe('when VideoDetailScreen  only', () => {
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      (getVideoDetail as jest.Mock).mockImplementation(getVideoDetailMock);
+      getVideoDetailMock.mockReturnValue([{response:true}]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useState as jest.Mock).mockImplementation(() => [[{nid:'2',title:'title'}],detailData]);
+      (useState as jest.Mock).mockImplementation(() => [{nid:'2',mediaId:3}, selectedVideo]);
       (useState as jest.Mock).mockImplementation(() => [sampleData, videolistData]);
-      (useState as jest.Mock).mockImplementation(() => [sampleData, selectedVideo]);
       (useState as jest.Mock).mockImplementation(() => [false, isBookmarked]);
       (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
       (useState as jest.Mock).mockImplementation(() => ['abc.com', videoUrl]);
@@ -148,7 +159,14 @@ describe('<VideoDetailScreen >', () => {
     it('Should render VideoDetailScreen ', () => {
       expect(instance).toBeDefined();
     });
-    it('when onPressShare is pressed from header', () => {
+    it('when onPressShare is pressed from header and return response', () => {
+      jest.spyOn(Share,'open').mockResolvedValue({response:true} as any);
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onPressShare');
+      expect(mockFunction).toBeTruthy();
+    });
+    it('when onPressShare is pressed from header,and throw error', () => {
+      jest.spyOn(Share,'open').mockRejectedValue({error:'error'});
       const testID = instance.container.findByType(PodcastProgramHeader);
       fireEvent(testID, 'onPressShare');
       expect(mockFunction).toBeTruthy();
@@ -184,5 +202,10 @@ describe('<VideoDetailScreen >', () => {
       fireEvent(element, 'onItemActionPress', sampleData[3]);
       expect(navigation.navigate).toBeTruthy()
     });
+
+    test("should getVideoDetail return response",async() =>{
+      const response = await getVideoDetail({nid:'2'});
+      expect(response).toBeDefined();
+    })
   });
 });

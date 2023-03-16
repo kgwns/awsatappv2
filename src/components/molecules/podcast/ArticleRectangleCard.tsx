@@ -39,7 +39,7 @@ export const ArticleRectangleCard = ({
       <View style={style.container}>
         <View>
           {trendingNumber && (
-            <View style={{marginStart: normalize(4)}}>
+            <View style={style.startMargin}>
               <Label style={style.trendingNumber}>{trendingNumber}</Label>
             </View>
           )}
@@ -47,12 +47,12 @@ export const ArticleRectangleCard = ({
 
         <View>
           {imageUrl && (
-            <View style={{marginStart: normalize(4)}}>
+            <View style={style.startMargin}>
               <Image
                 url={imageUrl}
                 size={imageSize}
                 style={style.image}
-                type={imageType == 'round' ? 'round' : 'standard'}
+                type={imageType === 'round' ? 'round' : 'standard'}
               />
             </View>
           )}
@@ -60,7 +60,7 @@ export const ArticleRectangleCard = ({
 
         <View style={style.contentcontainer}>
           {title && (
-            <View style={{marginTop: normalize(5), width: 220}}>
+            <View style={style.titleContainer}>
               <Label style={style.title} numberOfLines={2}>
                 {title}
               </Label>
@@ -168,6 +168,13 @@ const customStyle = (theme: CustomThemeType) => {
       left: normalize(-20),
     },
     footerLeft: {},
+    titleContainer: {
+      marginTop: normalize(5), 
+      width: 220
+    },
+    startMargin: {
+      marginStart: normalize(4)
+    }
   });
   return ArticleRectangelCardStyle;
 };

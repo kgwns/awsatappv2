@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert } from 'react-native';
-import { colors } from 'src/shared/styles/colors';
+import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
 import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight } from 'src/shared/utils';
-import { useTranslation } from 'react-i18next';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { CustomThemeType } from 'src/shared/styles/colors';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
@@ -16,16 +14,25 @@ import { fonts } from 'src/shared/styles/fonts';
 
 export const SelectTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
-  const [t] = useTranslation();
   const isFocused = useIsFocused()
-
-  const { isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest, updateAllSiteCategoriesData, emptySendTopicsInfoData } = useAllSiteCategories();
+  const { isLoading, 
+    allSiteCategoriesData, 
+    sentTopicsData, 
+    sendSelectedTopicInfo, 
+    fetchAllSiteCategoriesRequest, 
+    updateAllSiteCategoriesData, 
+    emptySendTopicsInfoData } = useAllSiteCategories();
   const {userProfileData} = useUserProfileData();
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [categoriesInfo, setCategoriesInfo] = useState<AllSiteCategoriesItemType[]>([])
   const [updatedTopics, setUpdatedTopics] = useState<string[]>([])
 
-  const OK = t('common.ok');
+  const OK = TranslateConstants({key:TranslateKey.COMMON_OK})
+  const ONBOARD_SELECT_TOPICS_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_TITLE})
+  const ONBOARD_SELECT_TOPICS_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION})
+  const ONBOARD_COMMON_NEXT_BUTTON = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_NEXT_BUTTON})
+
+
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -60,7 +67,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const onTopicsChanged = (item: any, selected: boolean) => {
     const data = [...categoriesInfo]
     for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
+      if (item.tid === data[i].tid) {
         data[i].isSelected = selected;
       }
     }
@@ -77,8 +84,8 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const updateNextButton = () => {
     const selectedTIDData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNextBtn)
   }
   
   const getSelectedData = () => {
@@ -103,10 +110,10 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
             {justifyContent: isTab ? 'center' : 'flex-end'},
           ]}>
           <Label style={style.titleStyle}>
-            {t('onBoard.selectTopics.title')}
+            {ONBOARD_SELECT_TOPICS_TITLE}
           </Label>
           <Label style={style.descStyle}>
-            {t('onBoard.selectTopics.description')}
+            {ONBOARD_SELECT_TOPICS_DESCRIPTION}
           </Label>
         </View>
         <View style={style.widgetContainer}>
@@ -118,7 +125,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
         <NextButton 
             testID="nextButtonTestId"
             disabled={disableNext}
-            title={t('onBoard.common.nextBtn')}
+            title={ONBOARD_COMMON_NEXT_BUTTON}
             onPress={onPressNext}
             style={style}
           />

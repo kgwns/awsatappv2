@@ -1,76 +1,63 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React, {useState}  from 'react';
-import { TouchableOpacity } from 'react-native';
-import  {PodCastMiniPlayer} from '../PodCastMiniPlayer';
+import React, { useState } from 'react';
+import RBSheet from 'react-native-raw-bottom-sheet';
+import TrackPlayer from 'react-native-track-player';
+import { PodCastMiniPlayer } from '../PodCastMiniPlayer';
+
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
 
-jest.mock("src/hooks/useAppPlayer", () => ({
-  useAppPlayer: () => {
-    return {
-      selectedTrack: {
-        id: 1,
-        artwork: 'abc.com',
-        title: 'example'
-      },
-    }
-  },
-}));
+jest.mock("react-native-track-player", () => ({
+  TrackPlayer: jest.fn(),
+  play: jest.fn(),
+  Event: ['PlaybackState', 'PlaybackError', 'PlaybackQueueEnded'],
+  usePlaybackState: jest.fn(),
+  useProgress: jest.fn().mockReturnValue({ duration: 43 }),
+  useTrackPlayerEvents: jest.fn(),
+  pause: jest.fn(),
+  getState: jest.fn(),
+  State: ['Playing', 'Buffering']
+}))
 
-describe('<PodCastMiniPlayer />', () => {
-  let instance: RenderAPI
-  const mockFunction = jest.fn();
+describe('<PodCastMiniPlayer>', () => {
+  let instance: RenderAPI;
   const showControl = jest.fn();
+  const setShowControl = jest.fn()
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [true, showControl]);
-    const component = <PodCastMiniPlayer/>
-    instance = render(component)
-  })
+    (useState as jest.Mock).mockImplementation(() => [true, setShowControl]);
+    instance = render(<PodCastMiniPlayer />);
+  });
 
   afterEach(() => {
-    jest.clearAllMocks()
-    instance.unmount()
+    instance.unmount();
+  });
+
+  it('should render `PodCastMiniPlayer`', () => {
+    expect(instance).toBeDefined();
+  });
+
+  it('should press playingState onpress', () => {
+    const testId = instance.getByTestId('playingState');
+    fireEvent(testId, 'onPress');
+    expect(TrackPlayer.getState).toHaveBeenCalled();
   })
 
-  it('should render component', () => {
-    expect(instance).toBeDefined()
-  });
-  it('When Press Miniplayer', () => {
-    const testID = instance.getByTestId('Miniplayer');
-    fireEvent(testID, 'onPress')
-    expect(mockFunction).toHaveBeenCalled;
-  });
-  it('When Press closeIcon', () => {
-    const testID = instance.getByTestId('closeIcon');
-    fireEvent(testID, 'onPress')
-    expect(mockFunction).toHaveBeenCalled;
-  });
-  it('When Press playPause', () => {
-    const testID = instance.getByTestId('playingState');
-    fireEvent(testID, 'onPress')
-    expect(mockFunction).toHaveBeenCalled;
-  });
+  it('should press Miniplayer onpress', () => {
+    const testId = instance.getByTestId('Miniplayer');
+    fireEvent(testId, 'onPress');
+    expect(setShowControl).toBeCalledWith(true);
+  })
 
-  it('When Press onPress', () => {
-    const testID = instance.container.findAllByType(TouchableOpacity)[0];
-    fireEvent(testID, 'onPress', {type: 'backward'})
-    expect(mockFunction).toHaveBeenCalled;
-  });
+  it('when AlertModal only When onClose', () => {
+    const testID = instance.container.findByType(RBSheet);
+    fireEvent(testID, 'onClose');
+    expect(setShowControl).toBeCalledWith(false);
+});
+         
+});
 
-  it('When Press onPress', () => {
-    const testID = instance.container.findAllByType(TouchableOpacity)[1];
-    fireEvent(testID, 'onPress')
-    expect(mockFunction).toHaveBeenCalled;
-  });
-
-  it('When Press onPress', () => {
-    const testID = instance.container.findAllByType(TouchableOpacity)[2];
-    fireEvent(testID, 'onPress')
-    expect(mockFunction).toHaveBeenCalled;
-  });
-
-})

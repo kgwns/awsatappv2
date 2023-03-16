@@ -1,6 +1,6 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
-import {useDispatch} from 'react-redux';
-import { DESELECT_ALL_WRITERS, EMPTY_SELECTED_AUTHORS_INFO, EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD, EMPTY_SEND_AUTHOR_INFO, GET_SELECTED_AUTHOR } from 'src/redux/allWriters/actionTypes';
+import {useDispatch, useSelector} from 'react-redux';
+import { DESELECT_ALL_WRITERS, EMPTY_SELECTED_AUTHORS_INFO, EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD, EMPTY_SEND_AUTHOR_INFO, GET_SELECTED_AUTHOR, REMOVE_AUTHOR } from 'src/redux/allWriters/actionTypes';
 import {
   useAllWriters,
   UseAllWritersReturn,
@@ -13,7 +13,6 @@ jest.mock('react-redux', () => ({
 
 describe('#useAllWriters', () => {
   let result: RenderHookResult<undefined, UseAllWritersReturn>;
-
   const dispatchMock = jest.fn();
 
   beforeAll(() => {
@@ -209,5 +208,4 @@ describe('#useAllWriters', () => {
       expect(dispatchMock).toHaveBeenCalled();
     });
   });
-
 });

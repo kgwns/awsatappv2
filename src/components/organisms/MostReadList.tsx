@@ -1,14 +1,12 @@
 import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import React, { useEffect, useState } from 'react';
-import {flatListUniqueKey, ScreensConstants} from 'src/constants';
+import {flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {ArticleItem, ArticleWithOutImageProps} from 'src/components/molecules';
 import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
 import {isTab, screenWidth, normalize} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
-import {MOST_READ} from 'src/constants/SharedConstants';
 import { Styles } from 'src/shared/styles';
 import {dateTimeAgo, getArticleImage, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
-import {useTranslation} from 'react-i18next';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useAppPlayer, useBookmark, useLogin } from 'src/hooks';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -40,7 +38,7 @@ const MostReadList = ({
   enableTag = false,
   flag = true,
 }: ArticleSectionProps) => {
-  const [t] = useTranslation();
+  const MOST_READ_TITLE = TranslateConstants({key:TranslateKey.MOST_READ_TITLE})
   const navigation = useNavigation();
 
   const theme = useTheme();
@@ -82,11 +80,11 @@ const MostReadList = ({
   }
 
   const onPressBookmark = (index: number) => {
-    const data = [...articleData]
-    const isBookmarked = !data[index].isBookmarked ?? true
-    data[index].isBookmarked = isBookmarked
-    updateBookmarkInfo(data[index].nid, isBookmarked)
-    setArticleData(data)
+    const articleDetailData = [...articleData]
+    const isBookmarked = !articleDetailData[index].isBookmarked ?? true
+    articleDetailData[index].isBookmarked = isBookmarked
+    updateBookmarkInfo(articleDetailData[index].nid, isBookmarked)
+    setArticleData(articleDetailData)
   }
 
   const checkAndUpdateBookmark = (index: number) => {
@@ -126,7 +124,9 @@ const MostReadList = ({
     item.tagStyle = {marginLeft: normalize(20)};
     item.tagLabelType = LabelTypeProp.p3;
     item.image = item.image ? item.image : getArticleImage(item.field_image, item.field_new_photo);
-    if(flag) item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : '';
+    if(flag) {
+      item.flag = isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0]?.title : '';
+    }
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
     return (
@@ -141,10 +141,10 @@ const MostReadList = ({
           onPressBookmark={() => checkAndUpdateBookmark(index)}
           titleStyle={style.titleStyle}
           titleContainerStyle={style.titleContainerStyle}
-          articleItemStyle={{paddingBottom: 0}}
+          articleItemStyle={style.articleItemStyle}
         />
-        {isLoading && (data.length - 1 == index) && (
-          <View style={{margin: normalize(28)}}>
+        {isLoading && (data.length - 1 === index) && (
+          <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>
         )}
@@ -155,14 +155,13 @@ const MostReadList = ({
   const listHeader = () => (
     <View style={{paddingLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth), paddingVertical: normalize(5)}}>
       <Label
-        children={MOST_READ}
+        children={MOST_READ_TITLE}
         labelType={LabelTypeProp.h2}
         color={Styles.color.greenishBlue}
       />
     </View>
   );
 
-  
 
   return (
     <View style={style.container}>
@@ -175,7 +174,7 @@ const MostReadList = ({
         data={articleData}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => renderItem(item, index)}
-        onEndReached={onScroll ? onScroll : () => {}}
+        onEndReached={onScroll ? onScroll : () => ({})}
         onEndReachedThreshold={0.3}
         contentContainerStyle={showMiniPlayer && style.contentContainer}
       />
@@ -224,5 +223,11 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   footerTitleColor: {
     color: theme.footerTextColor
+  },
+  articleItemStyle: {
+    paddingBottom: 0
+  },
+  loaderStyle: {
+    margin: normalize(28)
   }
 });

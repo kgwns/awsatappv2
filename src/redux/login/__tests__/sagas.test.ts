@@ -1,6 +1,6 @@
 import { all, takeLatest } from 'redux-saga/effects';
-import { FETCH_LOGIN, FORGOT_PASSWORD_REQUEST, FETCH_USER_LOGOUT, EMPTY_FORGOT_PASSWORD_RESPONSE, EMPTY_LOGIN_DATA } from '../actionTypes';
-import loginSaga, { fetchLogin, fetchLogout,requestForgotPassword, emptyForgotPasswordResponseInfo, emptyLoginDataInfo } from '../sagas';
+import { FETCH_LOGIN, FORGOT_PASSWORD_REQUEST, FETCH_USER_LOGOUT } from '../actionTypes';
+import loginSaga, { fetchLogin, fetchLogout,requestForgotPassword } from '../sagas';
 
 const mockString = 'mockString';
 
@@ -27,8 +27,6 @@ describe('Check loginSaga sage method', () => {
                 takeLatest(FETCH_LOGIN, fetchLogin),
                 takeLatest(FETCH_USER_LOGOUT, fetchLogout),
                 takeLatest(FORGOT_PASSWORD_REQUEST,requestForgotPassword),
-                takeLatest(EMPTY_FORGOT_PASSWORD_RESPONSE,emptyForgotPasswordResponseInfo),
-                takeLatest(EMPTY_LOGIN_DATA,emptyLoginDataInfo),
             ])
         );
     });
@@ -144,19 +142,4 @@ describe('Test requestForgotPassword', () => {
         genObject.next();
         genObject.throw({});
     });
-});
-
-describe('Test emptyForgotPassword ', () => {
-
-    it('check emptyForgotPasswordResponseInfo success', () => {
-      const genObject = emptyForgotPasswordResponseInfo();
-      genObject.next();
-      genObject.next();
-    });
-
-    it('check emptyLoginDataInfo success', () => {
-        const genObject = emptyLoginDataInfo();
-        genObject.next();
-        genObject.next();
-      });
 });

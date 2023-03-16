@@ -9,3 +9,4 @@ export const getSectionArticlesData: Selector<payloadType> = (state: AppState) =
 
 export const getSectionArticlesError: Selector<string> = (state: AppState) =>
   state.sectionArticles.error;
+  

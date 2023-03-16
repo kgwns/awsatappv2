@@ -3,12 +3,10 @@ import { testSaga } from 'redux-saga-test-plan';
 import {
     FETCH_ALBUM_LIST,
     FETCH_ALBUM_DETAIL,
-    EMPTY_ALL_DATA,
 } from '../actionTypes';
 import albumListSaga, {
     fetchAlbumList,
     fetchAlbumDetail,
-    emptyAllData,
 } from '../sagas';
 import { fetchAlbumListSuccess, fetchAlbumDetailuccess } from '../action';
 import {
@@ -69,8 +67,6 @@ describe('Test AlbumList  saga', () => {
             .all([takeLatest(FETCH_ALBUM_LIST, fetchAlbumList)])
             .next()
             .all([takeLatest(FETCH_ALBUM_DETAIL, fetchAlbumDetail)])
-            .next()
-            .all([takeLatest(EMPTY_ALL_DATA, emptyAllData)])
             .finish()
             .isDone();
     });
@@ -119,11 +115,5 @@ describe('Test Album Detail  error', () => {
         });
         genObject.next();
         genObject.throw(errorResponse);
-    });
-});
-
-describe('Empty All List', () => {
-    it('check empty all list', () => {
-        testSaga(emptyAllData).next().finish().isDone();
     });
 });

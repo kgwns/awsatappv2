@@ -52,4 +52,11 @@ describe('topMenu reducer', () => {
     expect(nextState.isLoading).toBeFalsy();
     expect(nextState.error).toEqual(testError);
   });
+
+  test('Default State', () => {
+    const nextState = topMenuReducer(
+      initialState, { type:'' }
+    )
+    expect(nextState.isLoading).toBe(false)
+  })
 });

@@ -7,11 +7,11 @@ import { ImageResize } from 'src/shared/styles/text-styles';
 import { DetailPodCastFooter } from 'src/components/molecules'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useTranslation } from 'react-i18next'
 import { convertSecondsToHMS, getString, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { fonts } from 'src/shared/styles/fonts'
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService'
+import { TranslateConstants, TranslateKey } from '../../constants/Constants'
 
 
 export interface ArticlePodCastWidgetProps {
@@ -39,7 +39,7 @@ const ArticlePodCastWidget = ({
     onPressBookmark,
     onPress
 }: ArticlePodCastWidgetProps) => {
-    const [t] = useTranslation()
+    const PODCAST_HOME_LISTEN_TO_PODCAST = TranslateConstants({key:TranslateKey.PODCAST_HOME_LISTEN_TO_PODCAST})
     const style = useThemeAwareObject(customStyle)
     const { themeData } = useTheme()
     const [duration, setDurartion] = useState(0)
@@ -71,7 +71,7 @@ const ArticlePodCastWidget = ({
                 </View>
                 <Image style={style.imageContainer} url={imageUrl} resizeMode={ImageResize.COVER} />
             </View>
-            <DetailPodCastFooter leftTitle={t('podcastHome.listen_to_podcast')}
+            <DetailPodCastFooter leftTitle={PODCAST_HOME_LISTEN_TO_PODCAST}
                 leftTitleColor={themeData.primary}
                 leftTimeLabel={convertSecondsToHMS(duration)}
                 leftTimeLabelColor={Styles.color.spanishGray}

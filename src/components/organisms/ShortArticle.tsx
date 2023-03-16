@@ -11,7 +11,7 @@ import { Styles } from 'src/shared/styles'
 import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
-import { flatListUniqueKey } from 'src/constants';
+import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
 import { useLogin } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -19,6 +19,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { HomePageArticleType } from 'src/redux/latestNews/types';
+import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -28,6 +29,7 @@ export interface ShortArticleProps extends TextWithFlagProps {
   isBookmarked: boolean;
   body: string
   type: HomePageArticleType;
+  displayType?: string;
 }
 
 export interface ArticleSectionProps {
@@ -107,9 +109,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
     shortArticleFooter.rightIcon = () => TimeIcon(timeFormat.icon)
     shortArticleFooter.leftTitle = showLeftTitle ? item.author : ''
     shortArticleFooter.leftTitleColor = style.footerTitleColor.color
-
-    const cardStyle = (numColumns > 1 && index % 2 == 0) ? {marginRight: normalize(20)} : {}
-    const showDivider = (numColumns == 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
+    const cardStyle = (numColumns > 1 && index % 2 === 0) ? {marginRight: normalize(20)} : {}
+    const showDivider = (numColumns === 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
     const isAlbum = isTypeAlbum(item.type);
@@ -117,8 +118,9 @@ const ShortArticle = ({ data, headerLeft, onPress,
     return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid, isAlbum)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={style.containerStyle}>
           <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
+            <ArticleLabel displayType={item.displayType} enableBottomMargin />
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
               <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
             </View>
@@ -131,7 +133,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
               />
             }
             {!isFooterOutside && <View style={[style.footerContainer]}>
-              <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
+              <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
                 onPress={() => checkAndUpdateBookmark(index)}
                 isBookmarked={item.isBookmarked}
               />
@@ -143,7 +145,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
           </View>}
         </View>
         {isFooterOutside && <View style={style.outsideFooterContainer}>
-              <ArticleFooter {...shortArticleFooter} style={{ flex: 1 }}
+              <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
                 onPress={() => checkAndUpdateBookmark(index)}
                 isBookmarked={item.isBookmarked}
               />
@@ -153,7 +155,6 @@ const ShortArticle = ({ data, headerLeft, onPress,
       {showDivider && hideImage && <Divider style={style.divider}/>}
     </FixedTouchable>
   };
-
   return (
     <View style={[style.container, addStyle]}>
       <WidgetHeader headerLeft={headerLeft} widgetHeaderStyle={{}} />
@@ -237,5 +238,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   footerTitleColor: {
     color: theme.footerTextColor
   },
+  containerStyle: {
+    flexDirection: 'row' 
+  },
+  articleFooterStyle: {
+    flex: 1 
+  }
 })
 

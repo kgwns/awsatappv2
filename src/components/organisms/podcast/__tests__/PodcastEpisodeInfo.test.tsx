@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { PodcastEpisodeInfo } from '../PodcastEpisodeInfo';
 import { ButtonOutline } from 'src/components/atoms';
 import { Linking } from 'react-native';
+import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 const PodcastEpisodeData: any = {
   nid: '12',
   title: 'example',
@@ -12,7 +13,7 @@ const PodcastEpisodeData: any = {
     anghami: {
       url: 'anghami@test.com',
     },
-    apple_podcasts: {
+    apple_podcasts: { 
       url: 'apple@test.com',
     },
     google_podcast: {
@@ -29,6 +30,8 @@ const PodcastEpisodeData: any = {
   created_export: '2021-05-20T20:05:45+0000',
 }
 
+jest.mock('src/services/podcastService');
+
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
     ...jest.requireActual('src/shared/utils/dimensions'),
@@ -38,9 +41,11 @@ jest.mock('src/shared/utils/dimensions', () => ({
 describe('<PodcastEpisodeInfo>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
-
+  const fetchSingleEpisodeSpreakerApiMock = jest.fn();
   describe('PodcastEpisodeInfo with props data ', () => {
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
       const component = (
         <PodcastEpisodeInfo data={PodcastEpisodeData} onListenPress={mockFunction} />
       );
@@ -81,7 +86,12 @@ describe('<PodcastEpisodeInfo>', () => {
       const testId = instance.getByTestId('anghamiUrl')
       fireEvent(testId, 'onPress');
       expect(Linking.openURL).toBeCalled();
-    })
+    });
+    it("test fetchSingleEpisodeSpreakerApi to return response",async() => {
+      (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({response:{episode:{result:true}}});
+      const response = await fetchSingleEpisodeSpreakerApi({episodeId:'2'});
+      expect(response).toEqual({response:{episode:{result:true}}});
+    });
   });
 
   describe('PodcastEpisodeInfo with props data in Tablet ', () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {ActivityIndicator, FlatList, Platform, StyleSheet, View} from 'react-native';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey} from 'src/constants/Constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import OpinionWritersCardView from 'src/components/molecules/opinionWriters/OpinionWriterCardView';
@@ -11,13 +11,11 @@ import {
   getImageUrl,
   isNonEmptyArray,
   isNotEmpty,
-  isObjectNonEmpty,
 } from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { fonts } from 'src/shared/styles/fonts';
 import { Label } from '../atoms';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 interface OpinionWritersArticlesSectionProps {
   data: OpinionsListItemType[];
@@ -41,50 +39,8 @@ const OpinionWritersArticlesSection = ({
 
   const slice = screenWidth * 0.80;
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
-  const playbackState = usePlaybackState();
 
   const CONST_OPINION_ARTICLE_TITLE = TranslateConstants({key: TranslateKey.OPINION_ARTICLE_TITLE})
-
-  const togglePlayback = async (nid: string, mediaData: any) => {
-    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
-
-    if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
-      return
-    }
-
-    const id = nid
-    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
-    const title = mediaData.title ? mediaData.title : '';
-
-    const setupPlayer = async () => {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: id,
-        url: media,
-        title: title,
-        artist: title,
-      });
-      await TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-
-    if(selectedTrack == nid){
-      if (playbackState === State.Playing) {
-        await TrackPlayer.pause();
-      }
-      else if (playbackState === State.Paused) {
-        await TrackPlayer.play();
-      }
-      else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-        setupPlayer()
-      }
-    }else{
-        await TrackPlayer.reset();
-        setupPlayer()
-    }
-    setSelectedTrack(nid) 
-  }
 
 
   const renderItem = (item: any, index: number) => {
@@ -115,14 +71,13 @@ const OpinionWritersArticlesSection = ({
           isBookmarked={item.isBookmarked}
           mediaVisibility={item.field_jwplayer_id_opinion_export ? isNotEmpty(item.field_jwplayer_id_opinion_export) : isNotEmpty(item.jwplayer)}
           jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : (isNotEmpty(item.jwplayer) ? item.jwplayer : null)}
-          togglePlayback={togglePlayback}
           selectedTrack={selectedTrack}
           onPressBookmark={() => {onUpdateOpinionArticlesBookmark(index)}}
           audioLabel={audioLabel}
           hideImageView={hideImageView}
         />
-        {isLoading && data.length - 1 == index && (
-          <View style={{margin: normalize(28)}}>
+        {isLoading && data.length - 1 === index && (
+          <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>
         )}
@@ -165,6 +120,9 @@ const customStyle = (theme: CustomThemeType) => {
       marginBottom: normalize(8),
       fontFamily: fonts.AwsatDigital_Bold,
     },
+    loaderStyle: {
+      margin: normalize(28)
+    }
   });
   return OpinionWritersArticlesSectionStyle;
 };

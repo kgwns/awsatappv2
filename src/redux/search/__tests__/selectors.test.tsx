@@ -1,4 +1,4 @@
-import {storeInfo} from 'src/constants/SampleData';
+import {storeInfo} from 'src/constants/Constants';
 import {getIsLoading, getSearchData, getSearchError, getSearchHistory} from '../selectors';
 import {SearchItemType} from '../types';
 

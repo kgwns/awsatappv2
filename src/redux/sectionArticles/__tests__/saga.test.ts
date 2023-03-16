@@ -1,7 +1,7 @@
 import {takeLatest} from 'redux-saga/effects';
 import {testSaga} from 'redux-saga-test-plan';
-import sectionArticlesSaga, {fetchSectionArticles, emptySectionArticlesData} from '../sagas';
-import {FETCH_SECTION_ARTICLES, EMPTY_SECTION_ARTICLES} from '../actionTypes';
+import sectionArticlesSaga, {fetchSectionArticles} from '../sagas';
+import {FETCH_SECTION_ARTICLES} from '../actionTypes';
 
 const errorResponse = {
   response: {data: 'Error', status: 500, statusText: 'Error'},
@@ -12,8 +12,6 @@ describe('test sectionArticlesSaga  saga', () => {
     testSaga(sectionArticlesSaga)
       .next()
       .all([takeLatest(FETCH_SECTION_ARTICLES, fetchSectionArticles)])
-      .next()
-      .all([takeLatest(EMPTY_SECTION_ARTICLES, emptySectionArticlesData)])
       .finish()
       .isDone();
   });
@@ -57,10 +55,3 @@ describe('Test fetchSectionArticles', () => {
   });
 });
 
-describe('Test emptySectionArticlesData', () => {
-  it('check emptySectionArticlesData success', () => {
-    const genObject = emptySectionArticlesData();
-    genObject.next();
-    genObject.next();
-  });
-});

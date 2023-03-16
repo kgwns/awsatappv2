@@ -4,10 +4,9 @@ import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
 import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useIsFocused } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreenContainer } from '..';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { NewsLettersWidget } from 'src/components/organisms';
 import { useNewsLetters } from 'src/hooks';
 import { NewsLetterItemType } from 'src/redux/newsLetter/types';
@@ -15,14 +14,26 @@ import { fonts } from 'src/shared/styles/fonts';
 
 export const NewsLetterScreen = ({ navigation, route }: any) => {
 
-  const [t] = useTranslation();
+  const ONBOARD_COMMON_NEXT_BUTTON = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_NEXT_BUTTON})
+  const ONBOARD_NEWSLETTER_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_NEWSLETTER_TITLE})
+  const ONBOARD_NEWSLETTER_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_NEWSLETTER_DESCRIPTION})
+
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [canGoBack, setCanGoBack] = useState((route.params && route.params.canGoBack)?true:false)
   const [newsLettersDataInfo, setNewsLettersDataInfo] = useState<NewsLetterItemType[]>([])
   const isFocused = useIsFocused();
 
-  const { getSelectedNewsLettersData, selectedNewsLettersData, sentNewsLettersInfoData, sendSelectedNewsLettersInfo, emptySelectedNewsLettersInfoData, isLoading , myNewsLetters, isMyNewsLoading, getMyNewsLettersData, sendSelectedFromNewsletterOnboard, selectedNewsLetterDataOnboard } = useNewsLetters()
+  const { getSelectedNewsLettersData, 
+    selectedNewsLettersData, 
+    sentNewsLettersInfoData, 
+    sendSelectedNewsLettersInfo,
+    emptySelectedNewsLettersInfoData, 
+    isLoading , 
+    myNewsLetters, 
+    getMyNewsLettersData, 
+    sendSelectedFromNewsletterOnboard, 
+    selectedNewsLetterDataOnboard } = useNewsLetters()
 
   useEffect(() => {
     getSelectedNewsLettersData();
@@ -164,7 +175,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   const changeSelectedStatus = (item: any, selected: boolean) => {
     for (let i = 0; i < newsLettersDataInfo.length; i++) {
-      if (item.tid == newsLettersDataInfo[i].tid) {
+      if (item.tid === newsLettersDataInfo[i].tid) {
         newsLettersDataInfo[i].isSelected = !newsLettersDataInfo[i].isSelected;
       }
     }
@@ -178,8 +189,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   const updateNextButton = () => {
     const selectedTIDData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNextBtn)
   }
 
   const getSelectedData = () => {
@@ -209,12 +220,12 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}
       backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
-        <View style={[style.textContainer, { justifyContent:  'center' }]}>
+        <View style={style.textContainer}>
           {!canGoBack && <Label style={style.titleStyle}>
-            {t('onBoard.newsLetter.title')}
+            {ONBOARD_NEWSLETTER_TITLE}
           </Label>}
           <Label style={style.descStyle}>
-            {t('onBoard.newsLetter.description')}
+            {ONBOARD_NEWSLETTER_DESCRIPTION}
           </Label>
         </View>
         <View style={!canGoBack ? style.contentStyle : style.profileSettingContentStyle }>
@@ -231,7 +242,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
           <NextButton
             disabled={disableNext}
             testID="nextButtonTestId"
-            title={t('onBoard.common.nextBtn')}
+            title={ONBOARD_COMMON_NEXT_BUTTON}
             onPress={onPressNext}
             style={style}
             icon={!canGoBack}
@@ -257,6 +268,7 @@ const customStyle = (theme: CustomThemeType) => {
     textContainer: {
       flex: 0.15,
       paddingHorizontal: normalize(5),
+      justifyContent:  'center'
     },
     titleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,

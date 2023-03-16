@@ -1,7 +1,7 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import {StoryWidget} from 'src/components/organisms';
-import { storyWidgetData } from 'src/constants/SampleData';
+import { storyWidgetData } from 'src/constants/Constants';
 import { StoryCircle } from 'src/components/molecules';
 
 describe('<StoryWidget>', () => {

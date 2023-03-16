@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData'
+import { storeSampleData } from '../../../../constants/Constants'
 import { useNavigation } from '@react-navigation/native'
 import { ArticleDetailScreen } from '../ArticleDetailScreen';
 import { ArticleDetailDataType, HTMLElementParseStore, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
@@ -10,8 +10,18 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { useLogin } from 'src/hooks';
 import { FlatList } from 'react-native'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms'
+import { ArticleDetailFooter } from 'src/components/molecules'
+import * as ArticleDetailSaga from 'src/redux/articleDetail/sagas';
+import { requestArticleDetail } from 'src/services/articleDetailService'
+import { AxiosError } from 'axios'
 
 const sampleData = { params: { nid: '123', isRelatedArticle: true } };
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false,
+  isTab: false
+}));
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -174,11 +184,11 @@ describe('<ArticleDetailScreen>', () => {
     navigate: mockFunction,
     pop: mockFunction,
   }
-  const articleDetailState = mockFunction
   const useLoginMock = mockFunction
   const isLoading = mockFunction
 
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useState as jest.Mock).mockImplementation(() => [true, isLoading]);
@@ -198,6 +208,8 @@ describe('<ArticleDetailScreen>', () => {
   })
 
   test('Should render component', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    DeviceTypeUtilsMock.isIOS = true;
     expect(instance).toBeDefined()
   })
 
@@ -229,44 +241,48 @@ describe('<ArticleDetailScreen>', () => {
     expect(mockFunction).toBeTruthy()
   });
 
-  describe('<< With Valid Article Detail >>', () => {
-    beforeEach(() => {
-      (useState as jest.Mock).mockImplementation(() => [sampleData1, articleDetailState]);
+});
 
-      const component =
-        <Provider store={storeSampleData}>
-          <ArticleDetailScreen route={sampleData} />
-        </Provider>
-      instance = render(component)
-    })
+describe('<< With Valid Article Detail >>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const articleDetailState = mockFunction;
+  beforeEach(() => {
+    jest.useFakeTimers('legacy');
+    (useState as jest.Mock).mockImplementation(() => [sampleData1, articleDetailState]);
 
-    afterEach(() => {
-      jest.clearAllMocks()
-      instance.unmount()
-    })
-
-    test('Should call FlatList keyExtractor', () => {
-      const element = instance.container.findByType(FlatList)
-      fireEvent(element, 'keyExtractor', '', 2);
-      expect(element).toBeDefined()
-    });
-
-    test('Should call FlatList onViewableItemsChanged', () => {
-      const element = instance.container.findByType(FlatList)
-      fireEvent(element, 'onViewableItemsChanged', { changed: [{ index: 0 }] });
-    });
-
-    test('Test ArticleDetailWidget setMiniPlayerVisible', () => {
-      const element = instance.container.findAllByType(ArticleDetailWidget)[0];
-      fireEvent(element, 'setMiniPlayerVisible', true)
-    })
-
-    test('Test ArticleDetailWidget onChangeFullScreen', () => {
-      const element = instance.container.findAllByType(ArticleDetailWidget)[0];
-      fireEvent(element, 'onChangeFullScreen', true)
-    })
+    const component =
+      <Provider store={storeSampleData}>
+        <ArticleDetailScreen route={sampleData} />
+      </Provider>
+    instance = render(component)
   })
 
+  afterEach(() => {
+    jest.clearAllMocks()
+    instance.unmount()
+  })
+
+  test('Should call FlatList keyExtractor', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'keyExtractor', '', 2);
+    expect(element).toBeDefined()
+  });
+
+  test('Should call FlatList onViewableItemsChanged', () => {
+    const element = instance.container.findByType(FlatList)
+    fireEvent(element, 'onViewableItemsChanged', { changed: [{ index: 0 }] });
+  });
+
+  test('Test ArticleDetailWidget setMiniPlayerVisible', () => {
+    const element = instance.container.findAllByType(ArticleDetailWidget)[0];
+    fireEvent(element, 'setMiniPlayerVisible', true)
+  })
+
+  test('Test ArticleDetailWidget onChangeFullScreen', () => {
+    const element = instance.container.findAllByType(ArticleDetailWidget)[0];
+    fireEvent(element, 'onChangeFullScreen', true)
+  })
 })
 
 describe('<ArticleDetailScreen>', () => {
@@ -370,6 +386,96 @@ describe('<ArticleDetailScreen Related Article Test>', () => {
 
   test('### Test onPress event for Related Article', () => {
     const element = instance.container.findAllByType(ShortArticle)[0];
-    fireEvent(element, 'OnPress', '123')
+    fireEvent(element, 'onPress', '123')
   })
+
+  test('Test onPress event for Related Article with different nid', () => {
+    const element = instance.container.findAllByType(ShortArticle)[0];
+    fireEvent(element, 'onPress', '321')
+  })
+})
+
+
+describe('should call parseArticleDetailSuccess', () => {
+  let instance: RenderAPI
+  const mockFunction = jest.fn();
+
+  const responseFromParseArticleDetailSuccess = {
+    articleDetailData: [{
+      title: 'title',
+      body: 'body',
+      nid: '32',
+      image: 'image',
+      view_node: 'viewNode',
+      news_categories: {
+        id: 'id',
+        title: 'title',
+        url: 'url',
+        bundle: 'string',
+        name: 'string',
+      },
+      tag_topics: {
+        id: 'id',
+        title: 'title',
+        url: 'url',
+        bundle: 'string',
+        name: 'string',
+      },
+      author: 'author',
+      isBookmarked: true,
+      caption: 'string',
+      subtitle: 'subTitle',
+      jwplayerId: 'string',
+      journalistId: ['journalistId1'],
+      journalistName: ['journalistName'],
+      journalistCity: ['journalistCity'],
+      shortUrl: 'shortURL',
+      scribbleLiveId: 'scribbleLiveId',
+      created:'created',
+      link_node: 'linkNode'
+    }],
+    pager:{
+      current_page: 34,
+      items_per_page: 23
+    }
+  }
+  const navigation = {
+    push: mockFunction,
+    navigate: mockFunction,
+    pop: mockFunction,
+  }
+
+  const isEdgePortrait = mockFunction
+  const useLoginMock = mockFunction
+
+  beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useLogin as jest.Mock).mockImplementation(useLoginMock);
+
+    (useState as jest.Mock).mockImplementation(() => [true, isEdgePortrait]);
+
+    useLoginMock.mockReturnValue({
+      isLoggedIn: true,
+    });
+    const component =
+      <Provider store={storeSampleData}>
+        <ArticleDetailScreen route={sampleData} />
+      </Provider>
+    instance = render(component)
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+    instance.unmount()
+  })
+
+  it("test parseArticleDetailSuccess method", () => {
+    const spy = jest.spyOn(ArticleDetailSaga, 'parseArticleDetailSuccess').mockReturnValue(responseFromParseArticleDetailSuccess);
+    ArticleDetailSaga.parseArticleDetailSuccess(34);
+
+    expect(spy).toHaveBeenCalled();
+    expect(spy).toHaveBeenCalledTimes(1);
+    expect(spy).toHaveBeenCalledWith(34);
+  });
+
 })

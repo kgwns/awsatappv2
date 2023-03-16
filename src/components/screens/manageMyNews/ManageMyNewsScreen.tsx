@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FlatList, ScrollView, StyleSheet, View,TouchableWithoutFeedback } from 'react-native';
+import { FlatList, ScrollView, StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, isNotchDevice, normalize, screenHeight, screenWidth, joinArray, isIOS } from 'src/shared/utils';
@@ -8,7 +8,7 @@ import { ScreenContainer } from '..';
 import { FollowFavoriteAuthor } from 'src/components/molecules';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useAllSiteCategories, useAllWriters } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType, } from 'src/redux/allSiteCategories/types';
@@ -17,33 +17,34 @@ import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { AlertPayloadType } from '../ScreenContainer/ScreenContainer';
 import { fonts } from 'src/shared/styles/fonts';
 import { FLEX_START } from 'src/shared/styles/item-alignment';
-import { useTranslation } from 'react-i18next';
 
-const ContinueLabel = ({ label, goToScreen, writer, onPressContinue }: { label: any, goToScreen: any, writer: boolean, onPressContinue: (writer: boolean, goToScreen: any) => void; }) => {
+const ContinueLabel = (
+  { label, goToScreen, writer, onPressContinue }: { label: any, goToScreen: any, writer: boolean, onPressContinue: (writer: boolean, goToScreen: any) => void; }) => {
   const style = useThemeAwareObject(customStyle);
   return (
-    <TouchableWithoutFeedback  onPress={() => onPressContinue(writer, goToScreen)}>
-     <View style = {style.continueLabelView}>
-     {getSvgImages({
-        name: ImagesName.plusSvg,
-        size: normalize(9),
-      })}
-      <Label style={style.continueLabel}>{label}</Label>
-     </View>
+    <TouchableWithoutFeedback testID='continueId' onPress={() => onPressContinue(writer, goToScreen)}>
+      <View style={style.continueLabelView}>
+        {getSvgImages({
+          name: ImagesName.plusSvg,
+          size: normalize(9),
+        })}
+        <Label style={style.continueLabel}>{label}</Label>
+      </View>
     </TouchableWithoutFeedback>
   )
 };
 
 const MyFavoriteBooks = (props: any) => {
   const style = useThemeAwareObject(customStyle);
-  const [t] = useTranslation();
   const data = props.data;
   const scrollRef = useRef<any>(null);
+  const MANAGE_MY_NEWS_MY_FAVORITE_BOOKS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_BOOKS })
+  const MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS })
 
   const scrollToStart = () => {
     if (isIOS) {
       scrollRef.current?.scrollTo(0);
-    }else{
+    } else {
       scrollRef.current?.scrollToEnd();
     }
   }
@@ -51,9 +52,15 @@ const MyFavoriteBooks = (props: any) => {
   return (
     <View style={style.favBooksView}>
       <Label style={style.titleLabel}>
-        {t('manageMyNews.myFavoriteBooks')}
+        {MANAGE_MY_NEWS_MY_FAVORITE_BOOKS}
       </Label>
-      {isNonEmptyArray(data) &&  <ScrollView horizontal={true} bounces={false} ref={scrollRef} showsHorizontalScrollIndicator={false} onContentSizeChange={scrollToStart} keyboardShouldPersistTaps={'always'} >
+      {isNonEmptyArray(data) && 
+      <ScrollView horizontal={true} 
+        bounces={false} ref={scrollRef} 
+        showsHorizontalScrollIndicator={false} 
+        onContentSizeChange={scrollToStart} 
+        keyboardShouldPersistTaps={'always'} 
+      >
         {
           data.map((item: any, index: number) =>
             <FollowFavoriteAuthor
@@ -69,7 +76,12 @@ const MyFavoriteBooks = (props: any) => {
         }
       </ScrollView>}
       <View style={style.booksContinue}>
-        <ContinueLabel label={t('manageMyNews.continueReadingMoreBooks')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} writer={true} onPressContinue={props.onPressContinue} />
+        <ContinueLabel 
+          label={MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS} 
+          goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} 
+          writer={true} 
+          onPressContinue={props.onPressContinue} 
+        />
       </View>
     </View>
   );
@@ -77,16 +89,17 @@ const MyFavoriteBooks = (props: any) => {
 
 const MyFavoriteTopics = (props: any) => {
   const style = useThemeAwareObject(customStyle);
-  const [t] = useTranslation();
   const data = props.data;
   const numberOfTopics = data.length as number
   const numberOfRows = isTab ? numberOfTopics > 7 ? 3 : 1 : numberOfTopics > 3 ? 3 : 1;
   const scrollRef = useRef<any>(null);
+  const MANAGE_MY_NEWS_MY_FAVORITE_TOPICS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_TOPICS })
+  const MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS })
 
   const scrollToStart = () => {
     if (isIOS) {
       scrollRef.current?.scrollTo(0);
-    }else{
+    } else {
       scrollRef.current?.scrollToEnd();
     }
   }
@@ -98,18 +111,18 @@ const MyFavoriteTopics = (props: any) => {
   );
 
   const renderTopics = () => {
-    let rows = data ? Math.ceil(data.length / numberOfRows) : 3
+    const rows = data ? Math.ceil(data.length / numberOfRows) : 3
     return (
       <>
         <Label style={style.titleLabel}>
-          {t('manageMyNews.myFavoriteTopics')}
+          {MANAGE_MY_NEWS_MY_FAVORITE_TOPICS}
         </Label>
         {isNonEmptyArray(data) && <View style={style.favTopicsView}>
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
             bounces={false}
-            ref={scrollRef} 
+            ref={scrollRef}
             onContentSizeChange={scrollToStart}
             style={style.favTopicsScrollView}>
             <FlatList
@@ -127,7 +140,12 @@ const MyFavoriteTopics = (props: any) => {
           </ScrollView>
         </View>}
         <View style={style.topicsContinue}>
-          <ContinueLabel label={t('manageMyNews.followMoreTopics')} goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} writer={false} onPressContinue={props.onPressContinue} />
+          <ContinueLabel 
+            label={MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS} 
+            goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} 
+            writer={false} 
+            onPressContinue={props.onPressContinue} 
+          />
         </View>
       </>
     )
@@ -144,12 +162,15 @@ export const ManageMyNewsScreen = () => {
 
   const navigation = useNavigation();
   const style = useThemeAwareObject(customStyle);
-  const [t] = useTranslation();
   const isFocused = useIsFocused();
 
+  const MANAGE_MY_NEWS_ALERT = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_ALERT })
+  const MANAGE_MY_NEWS_REMOVE_AUTHOR = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_REMOVE_AUTHOR })
+  const MANAGE_MY_NEWS_REMOVE = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_REMOVE })
+  const MANAGE_MY_NEWS_REMOVE_TOPIC = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_REMOVE_TOPIC })
+
+
   const {
-    allWritersData,
-    isLoading: authorLoading,
     getSelectedAuthorsData,
     selectedAuthorsData,
     fetchAllWritersRequest,
@@ -163,12 +184,10 @@ export const ManageMyNewsScreen = () => {
   } = useAllWriters();
 
   const {
-    isLoading,
     fetchAllSiteCategoriesRequest,
     allSiteCategoriesData,
     getSelectedTopicsData,
     selectedTopicsData,
-    emptySelectedTopicsInfoData,
     sendSelectedTopicInfo,
     sentTopicsData,
     emptySendTopicsInfoData
@@ -188,15 +207,16 @@ export const ManageMyNewsScreen = () => {
   };
 
   const removeFavAuthorAlertPayload: AlertPayloadType = {
-    title: t('manageMyNews.alert'),
-    message: t('manageMyNews.removeAuthor'),
-    buttonTitle: t('manageMyNews.remove')
+    title: MANAGE_MY_NEWS_ALERT,
+    message: MANAGE_MY_NEWS_REMOVE_AUTHOR,
+    buttonTitle: MANAGE_MY_NEWS_REMOVE
   }
 
+
   const removeTopicAlertPayload: AlertPayloadType = {
-    title: t('manageMyNews.alert'),
-    message: t('manageMyNews.removeTopic'),
-    buttonTitle: t('manageMyNews.remove')
+    title: MANAGE_MY_NEWS_ALERT,
+    message: MANAGE_MY_NEWS_REMOVE_TOPIC,
+    buttonTitle: MANAGE_MY_NEWS_REMOVE
   }
 
   const Remove_Author = 'Remove_Author';
@@ -218,9 +238,7 @@ export const ManageMyNewsScreen = () => {
   }, [isFocused]);
 
   useEffect(() => {
-    return () => {
       emptySelectedAuthorsInfoData();
-    }
   }, [])
 
   useEffect(() => {
@@ -250,9 +268,9 @@ export const ManageMyNewsScreen = () => {
 
   useEffect(() => {
     if (isFocused && allSelectedWritersDetailList) {
-      let allSelectedWriters = allSelectedWritersDetailList
-      let selectedWritersWithCorrectOrder = selectedAuthorsData.data;
-      let tidArray: string[] = []
+      const allSelectedWriters = allSelectedWritersDetailList
+      const selectedWritersWithCorrectOrder = selectedAuthorsData.data;
+      const tidArray: string[] = []
       selectedWritersWithCorrectOrder?.forEach((arr: any) => {
         tidArray.push(arr.tid);
       });
@@ -263,13 +281,13 @@ export const ManageMyNewsScreen = () => {
 
   const alertOnPress = () => {
     if (popupType === Remove_Author) {
-      const authorsData = selectedWriters.filter((i) => filteredSelectedAuthor.find((j) => Number(j) == Number(i.tid)));
+      const authorsData = selectedWriters.filter((i) => filteredSelectedAuthor.find((j) => Number(j) === Number(i.tid)));
       setSelectedWriters(authorsData)
       sendSelectedWriterInfo({ tid: joinArray(filteredSelectedAuthor), isList: true })
       setFilteredSelectedAuthor([]);
     } else if (popupType === Remove_Topic) {
       sendSelectedTopicInfo({ tid: joinArray(filteredSelectedTopic) })
-      const topicsData = selectedInterested.filter((i) => filteredSelectedTopic.find((j) => Number(j) == Number(i.tid)));
+      const topicsData = selectedInterested.filter((i) => filteredSelectedTopic.find((j) => Number(j) === Number(i.tid)));
       setSelectedInterested(topicsData)
     }
     setIsAlertVisible(false);

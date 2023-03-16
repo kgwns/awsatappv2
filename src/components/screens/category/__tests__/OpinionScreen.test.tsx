@@ -2,13 +2,14 @@ import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { OpinionScreen } from '../OpinionScreen'
 import { FlatList } from 'react-native';
-import { OpinionWritersSection, PopUp } from 'src/components/organisms';
+import { OpinionWritersArticlesSection, OpinionWritersSection, PopUp } from 'src/components/organisms';
 import {useNavigation} from '@react-navigation/native';
-import { useBookmark } from 'src/hooks';
+import { useBookmark, useLogin } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useNavigationState: () => ([]),
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
@@ -56,11 +57,7 @@ jest.mock('react', () => ({
 }));
 
 jest.mock("src/hooks/useLogin", () => ({
-    useLogin: () => {
-      return {
-        isLoggedIn: false,
-      }
-    },
+    useLogin: jest.fn()
 }));
 
 const opinionsData = [
@@ -102,7 +99,7 @@ const opinionsData = [
 jest.mock("src/hooks/useOpinions", () => ({
     useOpinions: () => {
         return {
-            isLoading: true,
+            isLoading: false,
             opinionsData: opinionsData,
             opinionsError: '',
             writerOpinionsData: [],
@@ -140,9 +137,14 @@ describe('<OpinionScreen>', () => {
     }
 
     const useBookmarkMock = jest.fn();
+    const useLoginMock = jest.fn();
 
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useLoginMock).mockReturnValue({
+              isLoggedIn: false,
+        });
         (useState as jest.Mock).mockImplementation(() => [opinionsData, opinionsDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [false, isShowPlayer]);
         (useState as jest.Mock).mockImplementation(() => [0, page]);
@@ -267,4 +269,107 @@ describe('<OpinionScreen>', () => {
         expect(mockFunction).toBeTruthy();
     });
 
+})
+
+describe('<OpinionWritersArticlesSection> when the user is not logged in', () => {
+    let instance: RenderAPI
+    const mockFunction = jest.fn();
+    const opinionsDataInfo= mockFunction;
+    const isShowPlayer= mockFunction;
+    const page = mockFunction;
+    const showupUp = mockFunction;
+
+    const navigation = {
+        navigate: mockFunction,
+        reset: mockFunction,
+    }
+
+    const useBookmarkMock = jest.fn();
+    const useLoginMock = jest.fn();
+
+    beforeEach(() => {
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useLoginMock).mockReturnValue({
+              isLoggedIn: false,
+        });
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [opinionsData, opinionsDataInfo]);
+        (useBookmark as jest.Mock).mockImplementation(useBookmarkMock);
+        useBookmarkMock.mockReturnValue({
+            bookmarkIdInfo: [],
+            sendBookmarkInfo: () => [],
+            removeBookmarkedInfo: () => [],
+        });
+        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it("test OpinionWritersArticlesSection onScroll",() => {
+        const element = instance.container.findByType(OpinionWritersArticlesSection);
+        fireEvent(element,'onScroll');
+        expect(element).toBeTruthy();
+    });
+
+    it("test OpinionWritersArticlesSection onUpdateOpinionArticlesBookmark",() => {
+        const element = instance.container.findByType(OpinionWritersArticlesSection);
+        fireEvent(element,'onUpdateOpinionArticlesBookmark');
+        expect(opinionsDataInfo).toHaveBeenCalled();
+    });
+})
+
+
+describe('<OpinionWritersArticlesSection> when the user is logged in', () => {
+    let instance: RenderAPI
+    const mockFunction = jest.fn();
+    const opinionsDataInfo= mockFunction;
+    const isShowPlayer= mockFunction;
+    const page = mockFunction;
+    const showupUp = mockFunction;
+
+    const navigation = {
+        navigate: mockFunction,
+        reset: mockFunction,
+    }
+
+    const useBookmarkMock = jest.fn();
+    const useLoginMock = jest.fn();
+
+    beforeEach(() => {
+        (useLogin as jest.Mock).mockImplementation(useLoginMock);
+        (useLoginMock).mockReturnValue({
+              isLoggedIn: true,
+        });
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [opinionsData, opinionsDataInfo]);
+        (useBookmark as jest.Mock).mockImplementation(useBookmarkMock);
+        useBookmarkMock.mockReturnValue({
+            bookmarkIdInfo: [],
+            sendBookmarkInfo: () => [],
+            removeBookmarkedInfo: () => [],
+        });
+        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it("test OpinionWritersArticlesSection onScroll",() => {
+        const element = instance.container.findByType(OpinionWritersArticlesSection);
+        fireEvent(element,'onScroll');
+        expect(element).toBeTruthy();
+    });
+
+    it("test OpinionWritersArticlesSection onUpdateOpinionArticlesBookmark",() => {
+        const element = instance.container.findByType(OpinionWritersArticlesSection);
+        fireEvent(element,'onUpdateOpinionArticlesBookmark',0);
+        expect(opinionsDataInfo).toHaveBeenCalled();
+    });
 })

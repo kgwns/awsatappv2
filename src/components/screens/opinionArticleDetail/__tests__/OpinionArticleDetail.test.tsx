@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../../constants/SampleData';
+import {storeSampleData} from '../../../../constants/Constants';
 import {OpinionArticleDetail} from '../OpinionArticleDetail';
 import { OpinionArticleDetailItemType, OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
@@ -43,7 +43,18 @@ const opinionArticleDetailData: OpinionArticleDetailItemType[] = [
     created_export: '2021-05-19T20:48:09+0000',
     jwplayer: null,
     field_edit_letter_writer_export: null,
-    writer: [],
+    writer: [
+      {
+        id:'1',
+        bundle:'bundle',
+        description:'description',
+        langcode:'langCode',
+        name:'name',
+        opinion_writer_photo:'opinion_writer_photo',
+        title:'title',
+        url:'url'
+      }
+    ],
     isBookmarked: false,
     isFollowed: false
   }
@@ -315,6 +326,7 @@ describe('<OpinionArticleDetail>', () => {
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useState as jest.Mock).mockImplementation(() => [opinionData, opinionArticle]);
     (useState as jest.Mock).mockImplementation(() => [opinionData, relatedOpinionInfo]);
+    
     useLoginMock.mockReturnValue({
       isLoggedIn: true,
     });
@@ -382,6 +394,12 @@ describe('<OpinionArticleDetail>', () => {
   test('Should call OpinionArticleDetailWidget onPressFollow', () => {
     const element = instance.container.findByType(OpinionArticleDetailWidget)
     fireEvent(element, 'onPressFollow', opinionData[0].writer[0].id);
+    expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call OpinionArticleDetailWidget onPressWriter', () => {
+    const element = instance.container.findByType(OpinionArticleDetailWidget)
+    fireEvent(element, 'onPressWriter');
     expect(mockFunction).toBeTruthy()
   });
 

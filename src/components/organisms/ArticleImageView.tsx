@@ -1,17 +1,17 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isNonEmptyArray, isNotEmpty, isTab, isTypeAlbum, screenWidth } from 'src/shared/utils';
-import { Divider, Label, Image, LabelTypeProp, LiveBlogTag, RenderPhotoIcon } from '../atoms';
+import { Divider, Label, Image, LabelTypeProp, RenderPhotoIcon } from '../atoms';
 import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { fonts } from 'src/shared/styles/fonts';
-import { displayTypes } from 'src/constants/SharedConstants';
+import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 
 interface ArticleImageViewProps {
     data: MainSectionBlockType[];
@@ -36,7 +36,6 @@ export const ArticleImageView = ({
     
     const renderItem = (item: MainSectionBlockType, index: number) => {
         const highlightTitle = item.news_categories?.title || ''
-        const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
         const isAlbum = isTypeAlbum(item.type);
 
         return (
@@ -44,8 +43,8 @@ export const ArticleImageView = ({
                 <View style={style.rowContainer}>
                     <View style={style.labelContainer}>
                         {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightTitle} labelType={LabelTypeProp.h5} />}
-                        {isLive && <LiveBlogTag enableBottomMargin/>}
-                        <Label children={item.title} numberOfLines={3} style={[style.labelStyle, isLive && {marginTop:10}]} />
+                        <ArticleLabel displayType={item.displayType} enableBottomMargin />
+                        <Label children={item.title} numberOfLines={3} style={[style.labelStyle, isNotEmpty(item.displayType) && { marginTop: 10 }]} />
                     </View>
                     {showImage && <View>
                         <View style={style.imageContainer}>

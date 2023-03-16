@@ -13,7 +13,7 @@ describe('<MenuButton/>', () => {
   beforeEach(() => {
     const component = (
       <MenuButton
-        icon={'newsIcon'}
+        icon='bookmarkActive'
         title={stringData}
         onPress={mockFunction}
         screenName={''}
@@ -31,9 +31,9 @@ describe('<MenuButton/>', () => {
     expect(instance).toBeDefined();
   });
 
-  it('When MenuButton Press', () => {
-    const listButton = instance.container.findByType(TouchableOpacity);
-    fireEvent(listButton, 'onPress');
-    expect(mockFunction).toHaveBeenCalled;
+  it('When ListenToArticleCardBI1 is pressed', () => {
+    const testItemId = instance.getByTestId('menuArticleId');
+    fireEvent(testItemId, 'onPress', {screenName:''});
+    expect(mockFunction).toBeTruthy();
   });
 });

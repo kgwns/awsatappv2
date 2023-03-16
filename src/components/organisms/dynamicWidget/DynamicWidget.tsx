@@ -1,8 +1,7 @@
 import { ActivityIndicator, FlatList, ListRenderItem, View, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { PopulateWidget } from 'src/components/molecules'
-import { isNonEmptyArray, isObjectNonEmpty, normalize } from 'src/shared/utils'
-import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player'
+import { isNonEmptyArray, normalize } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useAppPlayer } from 'src/hooks'
 
@@ -22,56 +21,14 @@ export const DynamicWidget = ({
     const { themeData } = useTheme()
 
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
-    const playbackState = usePlaybackState();
     const { showMiniPlayer } = useAppPlayer()
-
-    const togglePlayback = async (nid: string, mediaData: any) => {
-        const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
-
-        if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
-        return
-        }
-
-        const id = nid
-        const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
-        const title = mediaData.title ? mediaData.title : '';
-
-        const setupPlayer = async () => {
-        await TrackPlayer.setupPlayer();
-        await TrackPlayer.updateOptions({ stopWithApp: true });
-        await TrackPlayer.add({
-            id: id,
-            url: media,
-            title: title,
-            artist: title,
-        });
-        await TrackPlayer.setRepeatMode(RepeatMode.Off);
-        await TrackPlayer.play();
-        }
-
-        if(selectedTrack == nid){
-        if (playbackState === State.Playing) {
-            await TrackPlayer.pause();
-        }
-        else if (playbackState === State.Paused) {
-            await TrackPlayer.play();
-        }
-        else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-            setupPlayer()
-        }
-        }else{
-            await TrackPlayer.reset();
-            setupPlayer()
-        }
-        setSelectedTrack(nid) 
-    }
 
     const listFooterComponent = () => {
         if (!isLoading) {
             return null
         }
         return (
-            <View style={{ margin: normalize(28) }}>
+            <View style={styles.loaderContainer}>
                 <ActivityIndicator size={'small'} color={themeData.primary} />
             </View>
         )
@@ -81,7 +38,6 @@ export const DynamicWidget = ({
         return (
             <PopulateWidget key={index} {...item}
                 onPressBookmark={() => onPressBookmark(item)}
-                togglePlayback={togglePlayback}
                 selectedTrack={selectedTrack} />
         )
     }
@@ -92,7 +48,7 @@ export const DynamicWidget = ({
 
     return(
         <FlatList 
-           style={{flex: 1}}
+           style={styles.container}
            data={data}
            keyExtractor={(_,index) => index.toString()}
            renderItem={renderItem}
@@ -108,5 +64,11 @@ export const DynamicWidget = ({
 const styles = StyleSheet.create({
     contentContainer: {
         paddingBottom: normalize(80)
+    },
+    loaderContainer: {
+        margin: normalize(28) 
+    },
+    container: {
+        flex: 1
     }
 })

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { View, StyleSheet,TouchableOpacity } from 'react-native'
-import { ButtonImage, Image, Label, LabelTypeProp } from '../atoms'
+import { ButtonImage} from 'src/components/atoms/button-image/ButtonImage'
+import { Image} from 'src/components/atoms/image/Image'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { isNonEmptyArray, isObjectNonEmpty, normalize, isNotEmpty, isIOS } from '../../shared/utils'
 import { ImagesName } from '../../shared/styles'
 import { isTab } from 'src/shared/utils'
@@ -8,10 +10,9 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { useTranslation } from 'react-i18next'
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
@@ -56,7 +57,6 @@ const AuthorItem = ({
     renderLabelsOrder = [LabelsType.authorName,LabelsType.title]
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
-    const [t] = useTranslation();
     const style = useThemeAwareObject(customStyle);
     const navigation = useNavigation<StackNavigationProp<any>>()
     const playbackState = usePlaybackState();
@@ -66,7 +66,7 @@ const AuthorItem = ({
     const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
     const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
-  
+    const CONST_OPINION_LISTEN_TO_ARTICLE_LIST = TranslateConstants({key:TranslateKey.OPINION_LISTEN_TO_ARTICLE_LIST})
     useEffect(() => {
         if(jwPlayerID){
           getNarratedOpinion()
@@ -74,7 +74,7 @@ const AuthorItem = ({
     }, [])
 
     useEffect(() => {
-      if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+      if (trackData && trackData.id === (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
         setIsBuffering(true);
       } else {
         setIsBuffering(false);
@@ -97,6 +97,7 @@ const AuthorItem = ({
           const errorResponse: AxiosError = error as AxiosError;
           if (errorResponse.response) {
             const errorMessage: { message: string } = errorResponse.response.data;
+            console.log(errorMessage,'errorMessage');
           }
         }
       }
@@ -108,11 +109,10 @@ const AuthorItem = ({
         }
     }
 
-    const onPlayPausePress = async (playbackState: any) => {
+    const onPlayPausePress = async () => {
         const state = await TrackPlayer.getState()
-    
         if(trackData != null){
-            if(state == State.Paused){
+            if(state === State.Paused){
                 await TrackPlayer.play()
             }else{
                 await TrackPlayer.pause()
@@ -137,12 +137,11 @@ const AuthorItem = ({
           artist: mediaData.title ? mediaData.title : '',
           artwork: image
         }
-    
-        if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+        if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
           setPlayerTrack(trackPlayerData);
           !showMiniPlayer && setShowMiniPlayer(true);
         }else{
-          showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+          showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
           
         }
         
@@ -159,12 +158,12 @@ const AuthorItem = ({
     }
 
     const renderLabels = () => {
-      return renderLabelsOrder.map((item: LabelsType, index: number) => {
+      return renderLabelsOrder.map((item: LabelsType, indexKey: number) => {
         switch (item) {
           case LabelsType.authorName:
             return (
                 <Label 
-                  key={index}
+                  key={indexKey}
                   children={author}
                   labelType={LabelTypeProp.p4}
                   style={style.authorTitle}
@@ -177,7 +176,7 @@ const AuthorItem = ({
             );
           case LabelsType.title:
             return (
-              <TouchableOpacity key={index} onPress={onPress}>
+              <TouchableOpacity key={indexKey} onPress={onPress} testID = "titleId">
                 <Label
                   children={body}
                   labelType={LabelTypeProp.h3}
@@ -191,20 +190,21 @@ const AuthorItem = ({
         }
       });
     };
-
     return (
         <View testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} >
-            <View style={{ flex: 1 }}>
+            <View style={style.contentContainer}>
                 {renderLabels()}
                 {mediaVisibility && <View style={style.mediaFooter}>
                     <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.mediaFooter}>
                         <ButtonImage
                         icon={() =>
-                            trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                            trackData && trackData.id === (nid+'opinion') && 
+                            playbackState === State.Playing || isBuffering ? 
+                            getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                             getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                         }
                         onPress={onPressPlay} />
-                        <Label children={t('opinion.listenToArticleText')} style={style.articleLabelSyle}
+                        <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     </TouchableOpacity>
                     { timeDuration && <Label children={timeDuration} style={style.durationLabel} /> }
@@ -256,5 +256,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: 14,
         lineHeight:22,
         fontFamily: fonts.IBMPlexSansArabic_Regular
+    },
+    contentContainer: {
+      flex: 1
     }
 })

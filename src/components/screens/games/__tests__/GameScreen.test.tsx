@@ -3,7 +3,11 @@ import React from 'react'
 import  {GameScreen, GameType} from 'src/components/screens/games/GameScreen'
 import { GameIntroCard } from 'src/components/molecules';
 import { ScrollView } from 'react-native';
-
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isDarkMode: false,
+}));
 describe('<GameScreen />', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
@@ -30,8 +34,15 @@ describe('<GameScreen />', () => {
   })
 
   it('should render component', () => {
+    DeviceTypeUtilsMock.isDarkMode = true;
     expect(instance).toBeDefined()
   })
+
+  it('should render component', () => {
+    DeviceTypeUtilsMock.isDarkMode = false;
+    expect(instance).toBeDefined()
+  })
+
 
   it('should render component', () => {
     expect(render( <GameScreen tabIndex={0} currentIndex={3}/>)).toBeDefined()

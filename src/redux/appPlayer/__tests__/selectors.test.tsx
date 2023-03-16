@@ -1,4 +1,4 @@
-import {storeInfo} from 'src/constants/SampleData';
+import {storeInfo} from 'src/constants/Constants';
 import {getPlayerControl, getIsPlaying, getSelectedTrack, getControlState} from '../selectors';
 
 describe('App Common Selector', () => {

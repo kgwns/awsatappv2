@@ -1,8 +1,8 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
 import React from 'react'
-import ArchiveArticle from '../ArchiveArticle';
+import ArchiveArticle from 'src/components/molecules/ArchiveArticle';
 import {useNavigation} from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 
 jest.mock('@react-navigation/native', () => ({
@@ -67,5 +67,4 @@ describe('<ArchiveArticle />', () => {
     fireEvent(element, 'onPress');
     expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {nid: '2'});
 })
-
 });

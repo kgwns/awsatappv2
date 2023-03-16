@@ -1,12 +1,19 @@
 import React, {useState}  from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { ManageMyFavoriteAuthorScreen } from '../ManageMyFavoriteAuthorScreen';
 import { AllWritersItemType } from 'src/redux/allWriters/types';
 import { FollowFavoriteAuthorWidget } from 'src/components/organisms';
 import { NextButton } from 'src/components/atoms';
 import { useAllWriters } from 'src/hooks';
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isIOS: false
+}));
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -128,7 +135,7 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
             ],
             emptySendAuthorInfoData: () => [],
             sentAuthorInfoData: { 
-            code: 2,
+            code: 200,
             message: 'string'
             },
             selectedAuthorsData: {
@@ -158,6 +165,8 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
     });
 
     it('Should render ManageMyFavoriteAuthorScreen component', () => {
+        DeviceTypeUtilsMock.isTab = true;
+        DeviceTypeUtilsMock.isIOS = true;
         expect(instance).toBeDefined();
     });
 
@@ -169,7 +178,7 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
 
     test('Should call FollowFavoriteAuthorWidget changeSelectedStatus', () => {
         const element = instance.container.findByType(FollowFavoriteAuthorWidget)
-        fireEvent(element, 'changeSelectedStatus', {item: {tid: '12'}}, true);
+        fireEvent(element, 'changeSelectedStatus', {tid: '12'}, true);
         expect(mockFunction).toBeTruthy()
     })
 
@@ -279,7 +288,7 @@ describe('<ManageMyFavoriteAuthorScreen>', () => {
                 message: 'string',
                 data: [
                     {
-                        tid: '12',
+                        tid: '124',
                     },
                     {
                         tid: '13',

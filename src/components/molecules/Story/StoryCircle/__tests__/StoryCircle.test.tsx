@@ -1,6 +1,6 @@
 import { render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
-import StoryCircle from '../StoryCircle'
+import StoryCircle from 'src/components/molecules/Story/StoryCircle/StoryCircle'
 
 describe('<StoryCircle />', () => {
     let instance: RenderAPI

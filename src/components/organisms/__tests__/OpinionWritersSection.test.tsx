@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {
   opinionWritersData,
   storeSampleData,
-} from '../../../constants/SampleData';
+} from '../../../constants/Constants';
 import {OpinionWritersSection} from '..';
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({

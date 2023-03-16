@@ -1,7 +1,7 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
 import SectionArticleItem from 'src/components/molecules/sectionArticleItem/SectionArticleItem';
-import {moleculesTestID} from 'src/constants';
+import {moleculesTestID} from 'src/constants/Constants';
 
 describe('<SectionArticleItem/>', () => {
   let instance: RenderAPI;

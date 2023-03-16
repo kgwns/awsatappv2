@@ -1,4 +1,4 @@
-import { storeInfo, storeSampleData } from 'src/constants/SampleData';
+import { storeInfo, storeSampleData } from 'src/constants/Constants';
 import {
   getIsLoading,
   getOpinionArticleData,

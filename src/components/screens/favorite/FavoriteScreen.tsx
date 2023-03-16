@@ -1,32 +1,27 @@
-import React, { useRef, useState } from 'react';
-import { View, FlatList } from 'react-native';
+import React, { useRef } from 'react';
+import { View, StyleSheet} from 'react-native';
 import { horizontalEdge } from 'src/shared/utils';
-import { TabBarComponent, TabBarDataProps, SignupAlertCard } from 'src/components/molecules';
+import { SignupAlertCard } from 'src/components/molecules';
 import { ScreenContainer } from '..';
-import { useTranslation } from 'react-i18next';
 import { Archives } from 'src/components/organisms';
 import {useLogin} from 'src/hooks';
-import { ScreensConstants } from 'src/constants';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 
 
 export const FavoriteScreen = () => {
-  const [t] = useTranslation()
 
   const navigation = useNavigation();
 
   const {isLoggedIn} = useLogin();
+  const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
+  const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
+  const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
 
-  const tabItemData: TabBarDataProps[] = [
-    {
-      tabName: t('favorite.tabItem.archives'),
-      isSelected: true,
-    }
-  ]
-
-  const [tabItem, setTabItem] = useState<TabBarDataProps[]>(tabItemData);
-  const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
   const showupUp = useRef(!isLoggedIn)
+
+  const style = useThemeAwareObject(customStyle);
 
   const ref = React.useRef(null);
 
@@ -36,28 +31,14 @@ export const FavoriteScreen = () => {
     }, [])
   );
 
-
-
-  // const onPressTabItem = (index: number) => {
-  //   const tabData = tabItem
-  //   tabData[tabSelectedIndex].isSelected = false;
-  //   tabData[index].isSelected = true;
-  //   setTabItem(tabData)
-  //   setTabSelectedIndex(index);
-  // };
-
-  // const renderTabBarComponent = () => (
-  //   <TabBarComponent tabItem={tabItem} onPressTabItem={onPressTabItem} />
-  // );
-
   const renderArchives = () => (
-    <View style={{ flex: 1 }}>
+    <View style={style.container}>
       <Archives />
     </View>
   )
 
   const renderItem = () => (
-    <View style={{ flex: 1 }}>
+    <View style={style.container}>
       {renderArchives()}
     </View>
   )
@@ -80,9 +61,14 @@ export const FavoriteScreen = () => {
     >
       {isLoggedIn  ?
        renderItem() :
-     <SignupAlertCard title={t('signUpPH.title')} message={t('signUpPH.message')}
-     buttonText={t('signUpPH.signUp')} onPress={onPressSignup}/> }
+     <SignupAlertCard title={SIGN_UP_PH_TITLE} message={SIGN_UP_PH_MESSAGE}
+     buttonText={SIGN_UP_PH_SIGNUP} onPress={onPressSignup}/> }
      
     </ScreenContainer>
   );
 };
+const customStyle = () => StyleSheet.create({
+  container: {
+      flex: 1
+  }
+})

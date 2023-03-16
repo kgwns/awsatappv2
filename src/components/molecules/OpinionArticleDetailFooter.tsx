@@ -1,6 +1,6 @@
 import {View, StyleSheet} from 'react-native';
 import React from 'react';
-import {ButtonImage} from 'src/components/atoms';
+import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {isIOS, normalize} from 'src/shared/utils';
@@ -28,10 +28,10 @@ export const OpinionArticleDetailFooter = ({
 
 
   const onPressShare = async () => {
-    const {title, view_node, field_shorturl} = opinionArticleDetailData;
+    const {title, link_node, field_shorturl} = opinionArticleDetailData;
     await Share.open({
       title,
-      url: getShareUrl(field_shorturl,view_node),
+      url: getShareUrl(field_shorturl,link_node),
       failOnCancel: true,
       subject: title,
     })

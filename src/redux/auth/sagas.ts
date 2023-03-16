@@ -6,7 +6,6 @@ import { FETCH_EMAIL_CHECK } from './actionTypes';
 import { fetchEmailCheckApi } from 'src/services/emailCheckService';
 
 export function* fetchEmailCheck(action: FetchEmailCheckType) {
-  //console.log("saga fetchMostRead");
 
   try {
     const payload: FetchEmailCheckSuccessPayloadType = yield call(

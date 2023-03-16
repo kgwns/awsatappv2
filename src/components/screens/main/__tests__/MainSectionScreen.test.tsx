@@ -1,14 +1,20 @@
-import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React, {useState}  from 'react';
+import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
+import React, { useState } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
 import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget, ShortArticle } from 'src/components/organisms';
 import { EditorsChoiceDataType, HomePageArticleType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AuthorSlider from 'src/components/organisms/AuthorsSlider';
 import { useAppPlayer, useLogin } from 'src/hooks';
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -21,8 +27,8 @@ jest.mock('@react-navigation/native', () => ({
   useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
 }));
 
-jest.mock('src/hooks/useLogin', () => ({useLogin: jest.fn()}));
-jest.mock('src/hooks/useAppPlayer', () => ({useAppPlayer: jest.fn()}));
+jest.mock('src/hooks/useLogin', () => ({ useLogin: jest.fn() }));
+jest.mock('src/hooks/useAppPlayer', () => ({ useAppPlayer: jest.fn() }));
 
 const videoData: VideoItemType[] = [
   {
@@ -65,13 +71,13 @@ jest.mock("src/hooks/useUserProfileData", () => ({
 }));
 
 jest.mock("react-native-track-player", () => ({
-  play:jest.fn(),
-  Event:['PlaybackState','PlaybackError','PlaybackQueueEnded'],
-  usePlaybackState:jest.fn(),
-  useProgress:jest.fn().mockReturnValue({duration:43}),
-  useTrackPlayerEvents:jest.fn(),
-  pause:jest.fn(),
-  State:['Playing','Buffering']
+  play: jest.fn(),
+  Event: ['PlaybackState', 'PlaybackError', 'PlaybackQueueEnded'],
+  usePlaybackState: jest.fn(),
+  useProgress: jest.fn().mockReturnValue({ duration: 43 }),
+  useTrackPlayerEvents: jest.fn(),
+  pause: jest.fn(),
+  State: ['Playing', 'Buffering']
 }))
 
 const podCastData: LatestPodcastDataType[] = [
@@ -116,7 +122,7 @@ const MainSectionBlockTypeData: MainSectionBlockType[] = [
     title: 'example',
     nid: '1',
     image: 'example',
-    news_categories : {
+    news_categories: {
       id: '1',
       title: 'abc',
       url: 'acs',
@@ -136,7 +142,7 @@ const MainSectionBlockTypeData: MainSectionBlockType[] = [
     title: 'example',
     nid: '2',
     image: 'example',
-    news_categories : {
+    news_categories: {
       id: '1',
       title: 'abc',
       url: 'acs',
@@ -267,129 +273,132 @@ const latestArticleData: LatestArticleDataType[] = [
 jest.mock("src/hooks/useLatestNewsTab", () => ({
   useLatestNewsTab: () => {
     return {
-            ticker: latestArticleData,
-            hero: latestArticleData,
-            heroList: latestArticleData,
-            topList: latestArticleData,
-            opinionList: [
-              {
-                title: 'string',
-                body: 'string',
-                nid: 'string',
-                field_opinion_writer_node_export: {
-                  id: 'string',
-                  title: 'string',
-                  langcode: 'string',
-                  url: 'string',
-                  bundle: 'string',
-                  name: 'string',
-                  opinion_writer_photo: 'string',
-                }
-              },
-            ],
-            fetchOpinionTopList: () => [],
-            sectionComboOne: latestArticleData,
-            sectionComboTwo: latestArticleData,
-            sectionComboThree: latestArticleData,
-            sectionComboFour: latestArticleData,
-            sectionComboFive: latestArticleData,
-            sectionComboSix: latestArticleData,
-            sectionComboSeven: latestArticleData,
-            podcastHome: podCastData,
-            coverage: [],
-            featuredArticle: [],
-            horizontalArticle: [],
-            editorsChoice: EditorsChoiceDataTypeData,
-            spotlight: [
-              {
-                title: 'example',
-                field_tag_spotlight_export: {
-                  id: '11',
-                  title: 'example',
-                  bundle: 'example',
-                  name: 'example',
-                },
-                field_image: 'example',
-              },
-              {
-                title: 'example',
-                field_tag_spotlight_export: {
-                  id: '12',
-                  title: 'example',
-                  bundle: 'example',
-                  name: 'example',
-                },
-                field_image: 'example',
-              },
-            ],
-            spotlightArticleSection: latestArticleData,
-            coverageInfoLoaded: true,
-            featuredArticleLoaded: true,
-            horizontalArticleLoaded: true,
-            opinionLoaded: true,
-            podcastHomeLoaded: true,
-            editorChoiceLoaded: true,
-            sectionComboOneLoaded: true,
-            sectionComboTwoLoaded: true,
-            sectionComboThreeLoaded: true,
+      ticker: latestArticleData,
+      hero: latestArticleData,
+      heroList: latestArticleData,
+      topList: latestArticleData,
+      opinionList: [
+        {
+          title: 'string',
+          body: 'string',
+          nid: 'string',
+          field_opinion_writer_node_export: {
+            id: 'string',
+            title: 'string',
+            langcode: 'string',
+            url: 'string',
+            bundle: 'string',
+            name: 'string',
+            opinion_writer_photo: 'string',
+          }
+        },
+      ],
+      fetchOpinionTopList: () => [],
+      sectionComboOne: latestArticleData,
+      sectionComboTwo: latestArticleData,
+      sectionComboThree: latestArticleData,
+      sectionComboFour: latestArticleData,
+      sectionComboFive: latestArticleData,
+      sectionComboSix: latestArticleData,
+      sectionComboSeven: latestArticleData,
+      podcastHome: podCastData,
+      infoGraphicBlock: latestArticleData,
+      coverage: [],
+      featuredArticle: latestArticleData,
+      horizontalArticle: [],
+      editorsChoice: EditorsChoiceDataTypeData,
+      archivedArticleSection: latestArticleData,
+      spotlight: [
+        {
+          title: 'example',
+          field_tag_spotlight_export: {
+            id: '11',
+            title: 'example',
+            bundle: 'example',
+            name: 'example',
+          },
+          field_image: 'example',
+        },
+        {
+          title: 'example',
+          field_tag_spotlight_export: {
+            id: '12',
+            title: 'example',
+            bundle: 'example',
+            name: 'example',
+          },
+          field_image: 'example',
+        },
+      ],
+      spotlightArticleSection: latestArticleData,
+      coverageInfoLoaded: true,
+      featuredArticleLoaded: true,
+      horizontalArticleLoaded: true,
+      opinionLoaded: true,
+      podcastHomeLoaded: true,
+      editorChoiceLoaded: true,
+      sectionComboOneLoaded: true,
+      sectionComboTwoLoaded: true,
+      sectionComboThreeLoaded: true,
+      infoGraphicBlockInfoLoaded:true,
 
-            fetchTickerAndHeroArticle: () => {
-                return []
-            },
-            fetchHeroListTopList: () => {
-                return []
-            },
-            fetchSectionComboOne: () => {
-                return []
-            },
-            fetchSectionComboTwo: () => {
-                return []
-            },
-            fetchSectionComboThree: () => {
-                return []
-            },
-            fetchSectionComboFour: () => {
-                return []
-            },
-            fetchPodcastHome: () => {
-                return []
-            },
-            fetchSectionComboFive: () => {
-                return []
-            },
-            fetchSectionComboSix: () => {
-                return []
-            },
-            fetchSectionComboSeven: () => {
-                return []
-            },
-            fetchSectionComboEight: () => {
-                return []
-            },
-            fetchCoverageBlockData: () => {
-                return []
-            },
-            fetchFeaturedArticleData: () => {
-                return []
-            },
-            fetchHorizontalArticleData: () => {
-                return []
-            },
-            fetchInfoGraphicBlockData: () => {
-                return []
-            },
-            fetchEditorsChoice: () => {
-                return []
-            },
-            fetchSpotlight: () => {
-                return []
-            },
-            fetchSpotlightArticleSection: () => {
-                return []
-            },
-            fetchArchivedArticleSection: () => {
-                return []
-            }
+      fetchTickerAndHeroArticle: () => {
+        return []
+      },
+      fetchHeroListTopList: () => {
+        return []
+      },
+      fetchSectionComboOne: () => {
+        return []
+      },
+      fetchSectionComboTwo: () => {
+        return []
+      },
+      fetchSectionComboThree: () => {
+        return []
+      },
+      fetchSectionComboFour: () => {
+        return []
+      },
+      fetchPodcastHome: () => {
+        return []
+      },
+      fetchSectionComboFive: () => {
+        return []
+      },
+      fetchSectionComboSix: () => {
+        return []
+      },
+      fetchSectionComboSeven: () => {
+        return []
+      },
+      fetchSectionComboEight: () => {
+        return []
+      },
+      fetchCoverageBlockData: () => {
+        return []
+      },
+      fetchFeaturedArticleData: () => {
+        return []
+      },
+      fetchHorizontalArticleData: () => {
+        return []
+      },
+      fetchInfoGraphicBlockData: () => {
+        return []
+      },
+      fetchEditorsChoice: () => {
+        return []
+      },
+      fetchSpotlight: () => {
+        return []
+      },
+      fetchSpotlightArticleSection: () => {
+        return []
+      },
+      fetchArchivedArticleSection: () => {
+        return []
+      },
     }
   },
 }));
@@ -402,12 +411,12 @@ jest.mock("src/hooks/useBookmark", () => ({
       error: 'string',
       bookmarkIdInfo: [
         {
-            nid: '1',
-            bundle: 'string'
+          nid: '1',
+          bundle: 'string'
         },
         {
-            nid: '2',
-            bundle: 'string'
+          nid: '2',
+          bundle: 'string'
         }
       ],
       sendBookmarkInfo: () => [],
@@ -465,7 +474,7 @@ describe('<MainSectionScreen>', () => {
     (useState as jest.Mock).mockImplementation(() => ['abc', selectedType]);
     (useState as jest.Mock).mockImplementation(() => [EditorsChoiceDataTypeData, editorsChoiceInfo]);
     useLoginMock.mockReturnValue({
-      isLoggedIn: false,
+      isLoggedIn: true,
     });
     useAppPlayerMock.mockReturnValue({
       showMiniPlayer: false,
@@ -496,6 +505,12 @@ describe('<MainSectionScreen>', () => {
     expect(instance).toBeDefined();
   });
 
+  it("should call ArticleSection onUpdateBookmark",() =>{
+    const element = instance.container.findByType(ArticleSection)
+    fireEvent(element, 'onUpdateBookmark','21',true);
+    expect(mockFunction).toBeTruthy()
+  });
+
   test('Should call FlatList onPress', () => {
     const element = instance.container.findByType(ScreenContainer)
     fireEvent(element, 'onCloseSignUpAlert');
@@ -515,7 +530,7 @@ describe('<MainSectionScreen>', () => {
   });
 
   test('Should call FlatList onPress', () => {
-    expect(instance.container.findAllByType(FlatList).length).toBe(15)
+    expect(instance.container.findAllByType(FlatList).length).toBe(17)
   });
 
   it('when BannerArticleSection only When onPress', () => {
@@ -616,19 +631,25 @@ describe('<MainSectionScreen>', () => {
 
   it('when CarouselSlider only When onUpdateHeroBookmark', () => {
     const testID = instance.container.findAllByType(CarouselSlider)[0];
-    fireEvent(testID, 'onUpdateHeroBookmark', {index: 2});
+    fireEvent(testID, 'onUpdateHeroBookmark', { index: 2 });
     expect(mockFunction).toBeTruthy();
   });
 
   it('when RefreshControl only When onRefresh', () => {
     const testID = instance.container.findAllByType(RefreshControl)[0];
-    fireEvent(testID, 'onRefresh', {index: 2});
+    fireEvent(testID, 'onRefresh', { index: 2 });
     expect(refreshing).toBeTruthy();
   });
 
   it('when PodcastWidget only When onPress', () => {
     const testID = instance.container.findAllByType(PodcastWidget)[0];
     fireEvent(testID, 'onPress', podCastData[0]);
+    expect(mockFunction).toBeTruthy();
+  });
+
+  it('when PodcastWidget only When onMorePress', () => {
+    const testID = instance.container.findAllByType(PodcastWidget)[0];
+    fireEvent(testID, 'onMorePress', podCastData[0]);
     expect(mockFunction).toBeTruthy();
   });
 
@@ -740,6 +761,7 @@ describe('<MainSectionScreen>', () => {
   });
 
   it('should render MainSectionScreen component', () => {
+    DeviceTypeUtilsMock.isTab = true;
     expect(instance).toBeDefined();
   });
 
@@ -859,13 +881,13 @@ describe('<MainSectionScreen>', () => {
 
   it('when CarouselSlider only When onUpdateHeroBookmark', () => {
     const testID = instance.container.findAllByType(CarouselSlider)[0];
-    fireEvent(testID, 'onUpdateHeroBookmark', {index: 2});
+    fireEvent(testID, 'onUpdateHeroBookmark', { index: 2 });
     expect(mockFunction).toBeTruthy();
   });
 
   it('when RefreshControl only When onRefresh', () => {
     const testID = instance.container.findAllByType(RefreshControl)[0];
-    fireEvent(testID, 'onRefresh', {index: 2});
+    fireEvent(testID, 'onRefresh', { index: 2 });
     expect(refreshing).toBeTruthy();
   });
 
@@ -969,4 +991,3 @@ describe('<MainSectionScreen>', () => {
   });
 
 });
-

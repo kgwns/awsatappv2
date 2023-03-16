@@ -1,7 +1,9 @@
 import React, {useState, FunctionComponent} from 'react';
 import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import { Styles } from 'src/shared/styles';
-import { Label, LabelTypeProp, ButtonOutline, Image } from 'src/components/atoms';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
+import { ButtonOutline } from 'src/components/atoms/button-outline/ButtonOutline';
+import { Image } from 'src/components/atoms/image/Image';
 import { normalize, recordLogEvent } from 'src/shared/utils';
 import { StoryContainer } from 'react-native-stories-view';
 import CloseIcon from 'src/assets/images/icons/close.svg';
@@ -73,7 +75,7 @@ export const StoryListView: FunctionComponent<StoryListDataProps> = ({
         const imagesList = item.data.map((list:StoryListItemProps)=>{
           return list.imageUrl
         })
-        if(selectedItemIndex!=index) {
+        if(selectedItemIndex!==index) {
           return null;
         }
         return (

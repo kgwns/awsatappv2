@@ -11,11 +11,10 @@ import {
 import {isIOS, isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from 'src/components/organisms/';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import {useTranslation} from 'react-i18next';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {
   useBookmark,
@@ -86,7 +85,6 @@ export interface SignInPageProps {
 export const SignInPage = ({route}: SignInPageProps) => {
   const navigation = useNavigation();
   const {themeData} = useTheme();
-  const [t] = useTranslation();
   const styles = useThemeAwareObject(createStyles);
   const [email, setEmail] = useState(route.params.email);
   const [password, setPassword] = useState('');
@@ -105,21 +103,16 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
   const dispatch = useDispatch();
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
-  const credentialsAreIncorrect = t('signIn.credentialsAreIncorrect');
-  const verifyMailAndPasswordAndTryAgain = t(
-    'signIn.verifyMailAndPasswordAndTryAgain',
-  );
-  const CONST_OK = t('common.ok');
-  const CONST_ALERT = t('common.alert');
+  const credentialsAreIncorrect = TranslateConstants({key:TranslateKey.CREDENTIALS_ARE_INCORRECT});
+  const verifyMailAndPasswordAndTryAgain = TranslateConstants({key:TranslateKey.VERIFY_MAIL_AND_PASSWORD_AND_TRY_AGAIN});
+  const CONST_OK = TranslateConstants({key:TranslateKey.COMMON_OK});
+  const CONST_ALERT = TranslateConstants({key:TranslateKey.COMMON_ALERT});
+  const COMMON_NO_INTERNET_CONNECTION = TranslateConstants({key:TranslateKey.COMMON_NO_INTERNET_CONNECTION})
+  const SIGNIN_RETURN = TranslateConstants({key:TranslateKey.SIGNIN_RETURN})
 
   const noInternetConnection: AlertPayloadType = {
     title: CONST_ALERT,
-    message: t('common.noInternetConnection'),
-    buttonTitle: CONST_OK,
-  };
-  const somthingWentWrong: AlertPayloadType = {
-    title: CONST_ALERT,
-    message: t('common.somthingWentWrong'),
+    message: COMMON_NO_INTERNET_CONNECTION,
     buttonTitle: CONST_OK,
   };
 
@@ -166,8 +159,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
   }, [loginError]);
 
   const getDeviceName = async () => {
-    const deviceName = await DeviceInfo.getDeviceName();
-    setDeviceName(deviceName);
+    const deviceNameInfo = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceNameInfo);
   };
 
   const {getBookmarkedId} = useBookmark();
@@ -334,7 +327,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
                 <View style={styles.headerContainer}>
                   <BackIcon fill={themeData.backIconColor} style={{marginBottom: isIOS ? 5 : 0}} />
                   <Label
-                    children={t('signIn.return')}
+                    children={SIGNIN_RETURN}
                     style={styles.headerLabelStyle}
                   />
                 </View>

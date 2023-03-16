@@ -1,6 +1,6 @@
 import React from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import {SectionHeader} from '../SectionHeader';
+import {SectionHeader} from 'src/components/molecules/podcast/SectionHeader';
 
 describe('<SectionHeader/>', () => {
   let instance: RenderAPI;

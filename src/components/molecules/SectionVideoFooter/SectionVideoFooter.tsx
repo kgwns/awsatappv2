@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { Styles } from '../../../shared/styles'
-import { ButtonImage } from '../../atoms'
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage'
 import { ImagesName } from '../../../shared/styles/images'
 import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 import { getSvgImages } from 'src/shared/styles/svgImages'
@@ -44,7 +44,7 @@ const SectionVideoFooter = ({
   const bookmarkIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG
   return (
     <View style={{ ...SectionVideoFooterStyle.container, ...style }}>
-      <View style={{ flexDirection: 'row' }}>
+      <View style={SectionVideoFooterStyle.titleContainer}>
         {(leftTitle || leftViews) && <View style={SectionVideoFooterStyle.leftViewStyle}><FooterCaptionWithImage title={leftTitle} icon={leftIcon}
           color={leftTitleColor}
           subTitle={leftViews}
@@ -52,7 +52,15 @@ const SectionVideoFooter = ({
           labelStyle={SectionVideoFooterStyle.leftStyle}
         /></View>}
         {(leftTitle || leftViews) && (rightDate || rightTitle) && <Text children={'|'} style={SectionVideoFooterStyle.verticalDivider} />}
-        {(rightDate || rightTitle) && <FooterCaptionWithImage labelStyle={SectionVideoFooterStyle.rightTitleStyle} title={rightTitle} icon={rightIcon} color={rightTitleColor} subTitle={rightDate} subTitleColor={rightDateColor} />}
+        {(rightDate || rightTitle) && 
+        <FooterCaptionWithImage 
+          labelStyle={SectionVideoFooterStyle.rightTitleStyle} 
+          title={rightTitle} 
+          icon={rightIcon} 
+          color={rightTitleColor} 
+          subTitle={rightDate} 
+          subTitleColor={rightDateColor} 
+        />}
       </View>
     {addBookMark && 
       <ButtonImage
@@ -103,5 +111,8 @@ const SectionVideoFooterStyle = StyleSheet.create({
   rightTitleStyle: {
     fontFamily: fonts.IBMPlexSansArabic_Regular,
     fontSize: normalize(11)
+  },
+  titleContainer: {
+    flexDirection: 'row'
   }
 })

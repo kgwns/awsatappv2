@@ -4,7 +4,6 @@ import { VideosVerticalList } from 'src/components/molecules/';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType,colors} from 'src/shared/styles/colors';
-import {useTranslation} from 'react-i18next';
 import {getImageUrl, convertSecondsToHMS} from 'src/shared/utils/utilities';
 
 export interface VideosListProps {
@@ -21,7 +20,6 @@ export const VideosList: FunctionComponent<VideosListProps> = ({
   data,
 }) => {
   const styles = useThemeAwareObject(createStyles);
-  const [t] = useTranslation();
 
   const handleOnItemPressAction = (item: any) => {
     if (onItemActionPress) {

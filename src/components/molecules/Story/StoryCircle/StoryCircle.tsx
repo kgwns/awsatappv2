@@ -4,7 +4,7 @@ import {
     StyleSheet
 } from 'react-native';
 
-import { Image } from '../../../atoms';
+import { Image } from 'src/components/atoms/image/Image';
 import { colors } from '../../../../shared/styles/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ImageResize } from '../../../../shared/styles/text-styles';

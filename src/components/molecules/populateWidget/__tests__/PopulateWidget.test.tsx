@@ -1,7 +1,7 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import { PopulateWidget, PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
-import { moleculesTestID } from 'src/constants';
+import { moleculesTestID } from 'src/constants/Constants';
 import { VideoItem } from '../../video-item/VideoItem';
 import {useNavigation} from '@react-navigation/native';
 import { PhotoGalleryItem } from '../../photogallery/PhotoGalleryItem';
@@ -13,6 +13,12 @@ jest.mock('@react-navigation/native', () => ({
   useNavigation: jest.fn(),
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
   useNavigationState: () => ([]),
+}));
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false
 }));
 
 jest.mock('react-native-safe-area-context', () => ({
@@ -69,6 +75,11 @@ describe('<PopulateWidget/>', () => {
       instance.unmount();
     });
     it('Should render widget', () => {
+      expect(instance).toBeDefined();
+    });
+
+    it('Should render widget in Tab', () => {
+      DeviceTypeUtilsMock.isTab = true;
       expect(instance).toBeDefined();
     });
 

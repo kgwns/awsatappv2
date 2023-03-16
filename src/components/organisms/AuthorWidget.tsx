@@ -3,10 +3,9 @@ import React from 'react'
 import { WidgetHeader, Divider, LabelTypeProp,WidgetHeaderProps } from '../atoms'
 import { AuthorItem } from '../molecules'
 import { isNonEmptyArray, isTab, normalize, screenWidth, isNotEmpty } from 'src/shared/utils'
-import { flatListUniqueKey } from '../../constants'
+import { flatListUniqueKey, TranslateConstants, TranslateKey } from '../../constants/Constants'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
-import { useTranslation } from 'react-i18next';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { getImageUrl, getSecondsToHms } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
@@ -35,7 +34,7 @@ const AuthorWidget = ({
     showHeader?: boolean
 }) => {
     const style = useThemeAwareObject(customStyle)
-    const [t] = useTranslation()
+    const OPINION_COMBO_TITLE = TranslateConstants({key:TranslateKey.OPINION_COMBO_TITLE})
     const { themeData } = useTheme()
     
 
@@ -71,7 +70,7 @@ const AuthorWidget = ({
 
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
-            title: widgetHeader ? widgetHeader : t('latestNewsTab.sectionWriters.headerLeft'),
+            title: widgetHeader ? widgetHeader : OPINION_COMBO_TITLE,
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
             elementContainerStyle: style.headerLeftContainer,

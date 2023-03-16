@@ -55,7 +55,7 @@ export const SectionArticlesScreen = () => {
               flag={false}
             />
             {(isLoading && sectionArticlesData && isNonEmptyArray(sectionArticlesData.rows)) &&
-            <View style={{ margin: normalize(28) }}>
+            <View style={styles.loaderStyle}>
                 <ActivityIndicator size={'small'} color={themeData.primary} />
             </View>
             }
@@ -78,5 +78,8 @@ const createStyles = () =>
     },
     labelStyle: {
       textAlign: 'center',
+    },
+    loaderStyle: {
+      margin: normalize(28) 
     }
 })

@@ -2,12 +2,13 @@ import React, { useCallback, useEffect, useState } from 'react';
 import {StyleSheet, View } from 'react-native';
 import {isTab, normalize} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {ButtonImage, Label, Image} from 'src/components/atoms';
+import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
+import {Image} from 'src/components/atoms/image/Image';
+import { Label } from 'src/components/atoms/label/Label';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
 import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay} from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
@@ -44,7 +45,6 @@ export const PodcastVerticalList = ({
   onPressBookmark
 }: PodcastVerticalListProps) => {
   const style = useThemeAwareObject(customStyle);
-  const theme = useTheme();
   const [duration, setDuration] = useState<any>(null)
   const [isTitleLineCount, setIsTitleLineCount] = useState(1)
 
@@ -96,7 +96,7 @@ export const PodcastVerticalList = ({
             <Label style={style.footerRightTextStyle} numberOfLines={1}>
               {getDay(footerRight)}
             </Label>
-            {footerRight && spreakerId &&<Label style={{fontSize:12}} color={colors.spanishGray}>|</Label>}
+            {footerRight && spreakerId &&<Label style={style.footerRightLabelStyle} color={colors.spanishGray}>|</Label>}
             {spreakerId && <Label style={style.footerLeftTextStyle} numberOfLines={1}>
               {convertSecondsToHMS(duration)}
             </Label>}
@@ -183,6 +183,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     headerTitleStyle: {
       alignItems: 'flex-start'
+    },
+    footerRightLabelStyle: {
+      fontSize:12
     }
   });
   return PodcastCardStyle;

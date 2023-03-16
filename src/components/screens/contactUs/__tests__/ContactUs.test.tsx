@@ -1,22 +1,21 @@
 import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData'
+import { storeSampleData } from '../../../../constants/Constants'
 import { ContactUs } from '../ContactUs'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { TextInputField } from 'src/components/atoms'
 import { useNavigation } from '@react-navigation/native'
 import { useContactUs } from 'src/hooks'
-
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
 }));
 
-jest.mock('@react-navigation/native', () => ({
-    ...jest.requireActual('@react-navigation/native'),
-    useNavigation: jest.fn(),
-}));
+jest.mock('src/shared/validators',() => ({
+    ...jest.requireActual('src/shared/validators'),
+    emailValidation: jest.fn()
+}))
 
 jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
@@ -91,45 +90,45 @@ describe('<ContactUs>', () => {
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[0];
         fireEvent(testId, 'onChangeText', 'mockName', 0);
-        expect(mockFunction).toHaveBeenCalled;
+        expect(mockFunction).toHaveBeenCalled();
     });
 
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[1];
         fireEvent(testId, 'onChangeText', 'mockEmail@gmail.com', 1);
-        expect(mockFunction).toHaveBeenCalled;
+        expect(mockFunction).toHaveBeenCalled();
     });
 
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[2];
         fireEvent(testId, 'onChangeText', 'mockString', 2);
-        expect(mockFunction).toHaveBeenCalled;
+        expect(mockFunction).toHaveBeenCalled();
     });
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[0];
         fireEvent(testId, 'onChangeText', '', 4);
-        expect(mockFunction).toHaveBeenCalled;
+        expect(mockFunction).toHaveBeenCalled();
     });
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[1];
         fireEvent(testId, 'onChangeText', '', 4);
-        expect(mockFunction).toHaveBeenCalled;
+        expect(mockFunction).toHaveBeenCalled();
     });
 
     it('When TextInputField change', () => {
         const testId = instance.container.findAllByType(TextInputField)[2];
         fireEvent(testId, 'onChangeText', '', 4);
-        expect(mockFunction).toHaveBeenCalled;
+        expect(mockFunction).toHaveBeenCalled();
     });
 
     it('When TouchableOpacity onPress', () => {
         const testId = instance.getByTestId('ContactUsTestId01');
         fireEvent(testId, 'onPress');
-        expect(mockFunction).toHaveBeenCalled;
+        expect(mockFunction).toHaveBeenCalled();
     });
 })
 

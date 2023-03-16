@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { SuccessScreen } from '../SuccessScreen';
 import {useNavigation} from '@react-navigation/native';
-import LottieView from 'lottie-react-native';
 import { ButtonOnboard } from 'src/components/atoms';
+import { AppState, NativeEventSubscription } from 'react-native';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -25,6 +25,7 @@ jest.mock("src/hooks/useAllWriters", () => ({
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+  useRef: jest.fn()
 }));
 
 jest.mock("src/hooks/useNewsLetters", () => ({
@@ -46,7 +47,18 @@ describe('<SuccessScreen>', () => {
   }
   const animationRef = mockFunction;
 
+  const LottieView = {
+    props:{
+      autoplay: false,
+      autosize: true
+    },
+    context:{},
+    refs:{},
+    resume: jest.fn()
+  }
+
   beforeEach(() => {
+    (useRef as jest.Mock).mockImplementation(() => ({current: 'inactive'}));
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [LottieView, animationRef]);
     const component = (
@@ -63,7 +75,14 @@ describe('<SuccessScreen>', () => {
   });
 
   test('Should render SuccessScreen', () => {
+    const appStateSpy = jest.spyOn(AppState, 'addEventListener').mockImplementation((_mockvalue,nextAppState) =>{
+      nextAppState('inactive')
+      return {
+      } as NativeEventSubscription
+    });
+    appStateSpy.mock.calls[0][1]('active')
     expect(instance).toBeDefined();
+    expect(LottieView.resume).toBeCalled();
   });
 
   it('When MenuButton Press', () => {

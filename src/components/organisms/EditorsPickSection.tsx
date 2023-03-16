@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { SectionHeader } from '../molecules/podcast/SectionHeader';
 import { NewsWithImageItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -41,13 +41,14 @@ export const EditorsPickSection = ({
     return (
       <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.EDITORS_PICK_WIDGET + index}
         onPress={() => onPress(item.nid, isAlbum)}
-        style={index == 0 && isTab && { paddingStart: 0.02 * screenWidth }}>
+        style={index === 0 && isTab && { paddingStart: 0.02 * screenWidth }}>
         <NewsWithImageItem
           imageUrl={item.image}
           title={item.title}
           highlightedTitle={highlightTitle}
           showHighlightTitle={showHighlightTitle}
           isAlbum={isAlbum}
+          displayType={item.displayType}
         />
       </TouchableOpacity>
     );

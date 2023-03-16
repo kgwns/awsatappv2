@@ -1,13 +1,14 @@
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import { ButtonIconWithLabel, Label } from 'src/components/atoms'
+import { ButtonIconWithLabel} from 'src/components/atoms/buttonIconWithLabel/ButtonIconWithLabel'
+import { Label } from 'src/components/atoms/label/Label'
 import { isIOS, normalize, screenWidth } from 'src/shared/utils'
 import { ImagesName } from 'src/shared/styles'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useNavigation } from '@react-navigation/native'
-import { TranslateConstants, TranslateKey } from 'src/constants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
 
 export type StaticPageHeaderType = {

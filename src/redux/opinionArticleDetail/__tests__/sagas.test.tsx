@@ -1,7 +1,7 @@
 import { takeLatest } from 'redux-saga/effects';
 import { testSaga } from 'redux-saga-test-plan';
-import { EMPTY_OPINION_ARTICLE_DETAIL, EMPTY_RELATED_OPINION_DATA, REQUEST_NARRATED_OPINION_ARTICLE, REQUEST_OPINION_ARTICLE_DETAIL, REQUEST_RELATED_OPINION } from '../actionTypes';
-import opinionArticleDetailSaga, { emptyOpinionArticleDetailData, emptyRelatedOpinionDataList, fetchNarratedOpinion, fetchOpinionArticleDetail, fetchRelatedOpinion } from '../sagas';
+import {  REQUEST_NARRATED_OPINION_ARTICLE, REQUEST_OPINION_ARTICLE_DETAIL, REQUEST_RELATED_OPINION } from '../actionTypes';
+import opinionArticleDetailSaga, { fetchNarratedOpinion, fetchOpinionArticleDetail, fetchRelatedOpinion } from '../sagas';
 import { requestOpinionArticleDetailSuccess } from '../action';
 import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService';
 
@@ -111,21 +111,6 @@ describe('Test OpinionArticleDetail  error', () => {
     });
   })
 
-  describe('Test Empty', () => {
-
-    it('check emptyRelatedOpinionDataList success', () => {
-      const genObject = emptyRelatedOpinionDataList();
-      genObject.next();
-      genObject.next();
-    });
-
-    it('check emptyOpinionArticleDetailData success', () => {
-        const genObject = emptyOpinionArticleDetailData();
-        genObject.next();
-        genObject.next();
-    });
-  });
-
   describe('Test fetchNarratedOpinion', () => {
     it('check fetchNarratedOpinion success', () => {
       const genObject = fetchNarratedOpinion({
@@ -162,10 +147,6 @@ describe('Test OpinionArticleDetail  error', () => {
         .all([takeLatest(REQUEST_OPINION_ARTICLE_DETAIL, fetchOpinionArticleDetail)])
         .next()
         .all([takeLatest(REQUEST_RELATED_OPINION, fetchRelatedOpinion)])
-        .next()
-        .all([takeLatest(EMPTY_RELATED_OPINION_DATA, emptyRelatedOpinionDataList)])
-        .next()
-        .all([takeLatest(EMPTY_OPINION_ARTICLE_DETAIL, emptyOpinionArticleDetailData)])
         .next()
         .all([takeLatest(REQUEST_NARRATED_OPINION_ARTICLE, fetchNarratedOpinion)])
         .finish()

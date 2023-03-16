@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../../constants/SampleData';
+import {storeSampleData} from '../../../../constants/Constants';
 import {NewsLetterScreen} from '../NewsLetterScreen';
 import { useNewsLetters } from 'src/hooks';
 import { NewsLetterItemType } from 'src/redux/newsLetter/types';
 import { NewsLettersWidget } from 'src/components/organisms';
+import { NextButton } from 'src/components/atoms/NextButton/NextButton';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
 }));
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false
+}));
+
 
 jest.mock('src/hooks/useNewsLetters', () => ({useNewsLetters: jest.fn()}));
 
@@ -58,7 +65,7 @@ describe('<NewsLettersScreen>', () => {
         message: "string"
       },
       selectedNewsLettersData: {
-        code: 2,
+        code: 200,
         message: "string",
         data: sampleData,
       },
@@ -93,6 +100,11 @@ describe('<NewsLettersScreen>', () => {
     expect(instance).toBeDefined();
   });
 
+  it('Should render NewsLettersScreen component in Tab', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+
   test('Should call NewsLettersWidget changeSelectedStatus', () => {
     const element = instance.container.findByType(NewsLettersWidget)
     fireEvent(element, 'changeSelectedStatus', {item: sampleData[0], selected: true});
@@ -124,10 +136,13 @@ describe('<NewsLettersScreen>', () => {
     useNewsLettersMock.mockReturnValue({
       isLoading: false,
       sentNewsLettersInfoData: {
-        code: 2,
+        code: 200,
         message: "string"
       },
-      selectedNewsLettersData: {},
+      selectedNewsLettersData: {
+        code:200,
+        message:'message'
+      },
       isMyNewsLoading: false,
       myNewsLetters: {},
       selectedNewsLetterDataOnboard: {},
@@ -154,5 +169,5 @@ describe('<NewsLettersScreen>', () => {
   it('Should render NewsLettersScreen component', () => {
     expect(instance).toBeDefined();
   });
-  
+
 });

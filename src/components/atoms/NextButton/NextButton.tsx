@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import {ImagesName} from '../../../shared/styles';
-import {Label} from '../../atoms';
+import {ImagesName} from 'src/shared/styles/images';
+import {Label} from 'src/components/atoms/label/Label';
 import {getSvgImages} from '../../../shared/styles/svgImages';
 import {normalize} from 'src/shared/utils';
 

@@ -6,7 +6,7 @@ import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, isIOS} from 'src/shared/utils';
 import {ImagesName, Styles} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
@@ -66,7 +66,7 @@ const OpinionWritersCardView = ({
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
   const detailRoutes = useMemo(() =>
-    routes.filter((routes) => routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+    routes.filter((filteredRoutes) => filteredRoutes.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfWriterRoutes = detailRoutes.length
 
   useEffect(() => {
@@ -76,7 +76,7 @@ const OpinionWritersCardView = ({
   }, [])
 
   useEffect(() => {
-    if (trackData && trackData.id == (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
@@ -99,6 +99,7 @@ const OpinionWritersCardView = ({
         const errorResponse: AxiosError = error as AxiosError;
         if (errorResponse.response) {
           const errorMessage: { message: string } = errorResponse.response.data;
+          console.log(errorMessage,'errorMessage');
         }
       }
   }
@@ -117,11 +118,11 @@ const OpinionWritersCardView = ({
     }
   }
 
-  const onPlayPausePress = async (playbackState: any) => {
+  const onPlayPausePress = async () => {
     const state = await TrackPlayer.getState()
 
     if(trackData != null){
-        if(state == State.Paused){
+        if(state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -147,11 +148,11 @@ const onPressPlay = () => {
       artwork: imageUrl
     }
 
-    if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+    if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
       setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);
     }else{
-      showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+      showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
       
     }
     
@@ -188,10 +189,12 @@ const onPressPlay = () => {
       <View style={[style.footerContainer, mediaVisibility && style.footerContainerMedia]}>
         <View style={style.listenArticleContainer}>
           {mediaVisibility && <>
-            <TouchableOpacity onPress={onPressPlay} style={style.listenArticleContainer}>
+            <TouchableOpacity onPress={onPressPlay} testID = "onPressPlayTestId" style={style.listenArticleContainer}>
               <ButtonImage
                 icon={() =>
-                  trackData && trackData.id == (nid+'opinion') && playbackState === State.Playing || isBuffering   ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                  trackData && trackData.id === (nid+'opinion') && 
+                  playbackState === State.Playing || isBuffering   ? 
+                  getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                   getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
                 }
                 style={style.playIcon}

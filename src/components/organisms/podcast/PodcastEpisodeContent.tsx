@@ -1,12 +1,12 @@
 import React, {FunctionComponent} from 'react';
 import {View, FlatList, ListRenderItem, StyleSheet} from 'react-native';
-import { Label } from 'src/components/atoms/';
+import { Label } from 'src/components/atoms/label/Label';
 import { PodcastVerticalList, PodcastVerticalListProps } from 'src/components/molecules/';
 import { normalize } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType,colors} from 'src/shared/styles/colors';
-import {useTranslation} from 'react-i18next';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 export interface PodcastEpisodeContentProps {
   onItemActionPress?: (item: PodcastVerticalListProps) => void;
@@ -24,7 +24,7 @@ export const PodcastEpisodeContent: FunctionComponent<PodcastEpisodeContentProps
   onPressBookmark
 }) => {
   const styles = useThemeAwareObject(createStyles);
-  const [t] = useTranslation();
+  const PODCAST_EPISODE_MORE_EPISODES = TranslateConstants({key:TranslateKey.PODCAST_EPISODE_MORE_EPISODES})
 
   const handleOnItemPressAction = (item: any) => {
     if (onItemActionPress) {
@@ -54,7 +54,7 @@ export const PodcastEpisodeContent: FunctionComponent<PodcastEpisodeContentProps
     <View style={styles.containerStyle}>
       <View style={styles.rowStyle} >
         <View style={styles.headerLeftStyle}>
-          <Label style={styles.textStyle} children={t('podcastEpisode.moreEpisodes')} />
+          <Label style={styles.textStyle} children={PODCAST_EPISODE_MORE_EPISODES} />
         </View>
       </View>
       <FlatList

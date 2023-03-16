@@ -44,4 +44,19 @@ describe('#useNewPassword', () => {
     });
   });
 
+  describe('#emptyPasswordResponseInfo', () => {
+    it('should call dispatch with emptyPasswordResponseInfo', () => {
+      const {
+        result: {
+          current: {emptyPasswordResponseInfo},
+        },
+      } = result;
+
+      act(() => {
+        emptyPasswordResponseInfo();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
 });

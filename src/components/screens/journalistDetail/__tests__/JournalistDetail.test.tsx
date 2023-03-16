@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { fireEvent, render } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
-import { storeSampleData } from '../../../../constants/SampleData';
+import { storeSampleData } from '../../../../constants/Constants';
 import { JournalistDetail } from '../JournalistDetail';
 import { useJournalist, UseJournalistReturn } from 'src/hooks/useJournalist';
 import { JournalistArticleData, JournalistDetailDataType } from 'src/redux/journalist/types';
@@ -134,7 +134,7 @@ jest.mock('src/hooks/useWriterDetail', () => ({
 }))
 
 const showupUp = false;
-const page = 0;
+const page = 2;
 const isFollowed = false;
 const scrollY = new Animated.Value(60);
 const articleState = [sampleArticleData];

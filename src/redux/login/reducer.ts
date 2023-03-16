@@ -23,7 +23,6 @@ const initialAuthState: LoginState = {
 };
 
 export default (state = initialAuthState, action: LoginActions) => {
- // console.log('loginData login reducer', action.payload.loginData);
   switch (action.type) {
     case FETCH_LOGIN_SUCCESS:
       return {

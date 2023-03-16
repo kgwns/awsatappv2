@@ -1,8 +1,14 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
-import { CustomTabBarItem } from '../CustomTabBarItem'
-import { moleculesTestID } from 'src/constants'
+import { CustomTabBarItem } from 'src/components/molecules/customTabBarItem/CustomTabBarItem'
+import  * as constant from 'src/constants/Constants'
 import { TouchableOpacity } from 'react-native'
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isAndroid: false
+}));
 
 describe('<CustomTabBarItem>', () => {
     let instance: RenderAPI
@@ -17,7 +23,7 @@ describe('<CustomTabBarItem>', () => {
     })
 
     beforeEach(() => {
-        const component = <CustomTabBarItem tabName='مواضيعي' index={0} onPress={mockOnPress} isSelected={false} />
+        const component = <CustomTabBarItem tabName='كتابي' index={0} onPress={mockOnPress} isSelected={false} />
         instance = render(component)
     })
 
@@ -30,15 +36,29 @@ describe('<CustomTabBarItem>', () => {
         expect(instance).toBeDefined()
     })
 
-    test('Should render component', () => {
-        expect(render(<CustomTabBarItem tabName='كتابي' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined()
+    test('Should render component in tab', () => {
+        DeviceTypeUtilsMock.isTab = true;
+        expect(instance).toBeDefined()
+    })
+
+    test('Should render component in Android', () => {
+        DeviceTypeUtilsMock.isAndroid = true;
+        expect(instance).toBeDefined()
     })
 
     test('Should render component', () => {
+        const spyon = jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('كتابي' );
+        expect(render(<CustomTabBarItem tabName='كتابي' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined();
+        spyon.mockClear();
+    })
+
+    test('Should render component', () => {
+        jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('ميديا');
         expect(render(<CustomTabBarItem tabName='ميديا' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined()
     })
 
     test('Should render component', () => {
+        jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('مواضيعي');
         expect(render(<CustomTabBarItem tabName='مواضيعي' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined()
     })
 
@@ -55,7 +75,7 @@ describe('<CustomTabBarItem>', () => {
         })
 
         test('Should check bar getting render when select', () => {
-            const element = instance.getByTestId(moleculesTestID.tabItemBtn)
+            const element = instance.getByTestId(constant.moleculesTestID.tabItemBtn)
             fireEvent.press(element, 'onPress')
             expect(instance).toBeDefined()
         })

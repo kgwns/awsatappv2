@@ -6,15 +6,14 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {isIOS, normalize} from 'src/shared/utils';
-import { useTranslation } from 'react-i18next';
 import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { convertSecondsToHMS, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { useAppPlayer } from 'src/hooks';
+import { TranslateConstants, TranslateKey } from '../../constants/Constants'
 
 export const ListenToArticleCard = (data: any) => {
   const style = useThemeAwareObject(customStyle);
-  const [t] = useTranslation();
   const playbackState = usePlaybackState();
   const mediaData = data.data && isObjectNonEmpty(data.data) ? data.data : {}
   const playList = isObjectNonEmpty(mediaData) && isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
@@ -23,6 +22,7 @@ export const ListenToArticleCard = (data: any) => {
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
+  const CONST_LISTEN_TO_ARTICLE = TranslateConstants({key:TranslateKey.LISTEN_TO_ARTICLE});
 
   // Older Opinion Implementation for reference
   // const onPressPlay = () => {
@@ -32,7 +32,7 @@ export const ListenToArticleCard = (data: any) => {
   // }
 
   useEffect(() => {
-    if (trackData && trackData.id == (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
@@ -40,11 +40,11 @@ export const ListenToArticleCard = (data: any) => {
     setPrevPlayBackState(playbackState);
   }, [playbackState])
 
-  const onPlayPausePress = async (playbackState: any) => {
+  const onPlayPausePress = async () => {
     const state = await TrackPlayer.getState()
 
     if(trackData != null){
-        if(state == State.Paused){
+        if(state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -55,46 +55,48 @@ export const ListenToArticleCard = (data: any) => {
 const onPressPlay = () => {
   console.log('onPressPlay');
   if (data.nid && isObjectNonEmpty(mediaData)) {
-    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
+    const playListData = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
 
-    if (!isObjectNonEmpty(playList)) {
+    if (!isObjectNonEmpty(playListData)) {
       return
     }
 
     const trackPlayerData = {
       id: data.nid + 'opinion',
-      url: playList.sources[0]?.file ? playList.sources[0]?.file : '',
+      url: playListData.sources[0]?.file ? playListData.sources[0]?.file : '',
       title: data.title,
-      duration: playList.duration? convertSecondsToHMS(playList.duration) : 0,
+      duration: playListData.duration? convertSecondsToHMS(playListData.duration) : 0,
       artist: mediaData.title ? mediaData.title : '',
       artwork: data.authorImage
     }
 
-    if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+    if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
       setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);
     }else{
-      showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+      showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
       
     }
     
   }
 }
 
-  return (
+return (
     <View style={style.container}>
       <TouchableOpacity testID='ListenToArticleCardTO1' onPress={onPressPlay} style={style.listenButton}>
-        <ButtonImage
+       <ButtonImage
           hitSlop={{}}
           icon={() =>
-            trackData && trackData.id == (data.nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-              getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
+            trackData && trackData.id === (data.nid+'opinion') && 
+            playbackState === State.Playing || isBuffering ? 
+            getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+            getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
           }
           testId='ListenToArticleCardBI1'
           onPress={onPressPlay}
           style={style.icon}
         />
-        <Label style={style.title}> {t('opinionArticleDetail.listenToArticle')}</Label>
+        <Label style={style.title}> {CONST_LISTEN_TO_ARTICLE}</Label>
       </TouchableOpacity>
       <Label style={style.duration}>{convertSecondsToHMS(duration)}</Label>
     </View>

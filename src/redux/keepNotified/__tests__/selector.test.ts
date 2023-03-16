@@ -1,4 +1,4 @@
-import { storeInfo } from "src/constants/SampleData"
+import { storeInfo } from "src/constants/Constants"
 import { getAllNotificationSuccessInfo, getIsMyNotificationLoading, getAllNotificationError, getIsLoading, getSelectedNotificationSuccessInfo, sendSelectedNotificationErrorInfo, sendSelectedNotificationSuccessInfo } from "../selectors"
 import { GetListOfNotificationSuccessPayload, GetSelectedNotificationSuccessPayload, SendSelectedNotificationSuccessPayload } from "../types"
 

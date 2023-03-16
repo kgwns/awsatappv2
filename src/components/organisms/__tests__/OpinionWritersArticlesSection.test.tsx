@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {
   opinionWritersArticlesData,
   storeSampleData,
-} from '../../../constants/SampleData';
+} from '../../../constants/Constants';
 import {OpinionWritersArticlesSection} from '..';
 import { FlatList, Platform } from 'react-native';
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');

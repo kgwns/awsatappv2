@@ -1,15 +1,14 @@
 import React, {useEffect, useState} from 'react';
 import {isNonEmptyArray, isTab, screenWidth} from 'src/shared/utils';
-import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
+import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native';
 import {useBookmark, useLogin} from 'src/hooks';
 import {useNavigation} from '@react-navigation/native';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {PopUp} from 'src/components/organisms';
 import {PopUpType} from 'src/components/organisms/popUp/PopUp';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {PhotoGalleryItem} from 'src/components/molecules';
+import {PhotoGalleryItem, PopulateWidgetType} from 'src/components/molecules';
 import {Label, LabelTypeProp, LoadingState} from 'src/components/atoms';
-import {PHOTO_GALLERY} from 'src/constants/SharedConstants';
 import {Styles} from 'src/shared/styles';
 import {fonts} from 'src/shared/styles/fonts';
 import {
@@ -18,14 +17,16 @@ import {
 } from 'src/redux/photoGallery/types';
 import {fetchAlbumListApi} from 'src/services/photoGalleryService';
 import {AxiosError} from 'axios';
-import {PopulateWidgetType} from 'src/components/molecules';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
 export const PhotoGalleryScreen = React.memo(
-  ({tabIndex, currentIndex}: {tabIndex?: number; currentIndex?: number}) => {
+  ({tabIndex, currentIndex, scrollY}: {tabIndex?: number; currentIndex?: number, scrollY?: any}) => {
     const ref = React.useRef(null);
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
     const styles = useThemeAwareObject(customStyle);
 
     const {sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo} =
@@ -38,12 +39,14 @@ export const PhotoGalleryScreen = React.memo(
     const [albumData, setAlbumData] = useState<AlbumListItemType[]>([]);
     const [albumDataInfo, setAlbumDataInfo] = useState<AlbumListItemType[]>([]);
 
+    const CONST_PHOTO_GALLERY = TranslateConstants({key:TranslateKey.PHOTO_GALLERY_TITLE})
+
     useEffect(() => {
       fetchPhotoList(page);
     }, []);
 
     useEffect(() => {
-      if (page != 0) {
+      if (page !== 0) {
         fetchPhotoList(page);
       }
     }, [page]);
@@ -78,17 +81,17 @@ export const PhotoGalleryScreen = React.memo(
         : false;
     };
 
-    const fetchPhotoList = async (page: number) => {
+    const fetchPhotoList = async (pageProps: number) => {
       setIsLoading(true);
       const albumBody: AlbumListBodyGet = {
-        page: page,
+        page: pageProps,
         items_per_page: isTab ? 12 : 10,
       };
       try {
         const albumList = await fetchAlbumListApi(albumBody);
         const albumListData = albumList.rows ?? [];
         setIsLoading(false);
-        if (albumData != albumListData) {
+        if (albumData !== albumListData) {
           setAlbumData((data: AlbumListItemType[]) => [
             ...data,
             ...albumListData,
@@ -144,7 +147,7 @@ export const PhotoGalleryScreen = React.memo(
     const renderHeader = () => (
       <View style={styles.headerStyle}>
         <Label
-          children={PHOTO_GALLERY}
+          children={CONST_PHOTO_GALLERY}
           labelType={LabelTypeProp.h2}
           color={Styles.color.greenishBlue}
         />
@@ -181,10 +184,15 @@ export const PhotoGalleryScreen = React.memo(
     return (
       <View style={styles.container}>
         {isNonEmptyArray(albumDataInfo) && (
-          <FlatList
+          <AnimatedFlatList
             ref={ref}
             testID="photo_gallery_list"
             onScrollBeginDrag={() => (global.refFlatList = ref)}
+            onScroll={Animated.event(
+              [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
+              {useNativeDriver: false}
+            )}
+            scrollEventThrottle={16}
             data={albumDataInfo}
             keyExtractor={(_, index) => index.toString()}
             renderItem={renderItem}

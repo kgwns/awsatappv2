@@ -2,10 +2,9 @@ import { render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { Provider } from 'react-redux';
 import { ThemeProvider } from 'src/shared/styles/ThemeProvider';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { DEFAULT_LIGHT_THEME } from '../colors';
-import { NativeModules } from 'react-native';
-
+import { useAppCommon } from 'src/hooks';
 jest.mock('react', () => {
   const ActualReact = jest.requireActual('react')
   return {
@@ -14,37 +13,29 @@ jest.mock('react', () => {
   }
 })
 
-jest.mock("src/hooks/useAppCommon", () => ({
-  useAppCommon: () => {
-    return {
-      theme: {
-        LIGHT: 'light',
-        DARK: 'dark'
-      },
-      isFirstSession: false,
-      serverEnvironment: {},
-      storeServerEnvironmentInfo: () => [],
-      articleFontSize: 2,
-      storeArticleFontSizeInfo: () => [],
-      resetFontSizeInfo: () => [],
-    }
-  },
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isAndroid: false
 }));
 
-// jest.mock('react', () => ({
-//   ...jest.requireActual('react'),
-//   useState: jest.fn(),
-// }));
+jest.mock("src/hooks/useAppCommon", () => ({
+  useAppCommon: jest.fn()
+}));
 
-describe('<ThemeProvider>', () => {
+describe('<ThemeProvider> with dark theme ', () => {
   let instance: RenderAPI;
-  const setTheme = jest.fn()
-  const { ThemeManager } = NativeModules;
   
   beforeEach(() => {
-    // (React.useState as jest.Mock).mockImplementation(() => ['dark', ThemeManager.setTheme]);
-    // (useState as jest.Mock).mockImplementation(() => [DEFAULT_LIGHT_THEME, ThemeManager.setTheme]);
-    // (useState as jest.Mock).mockImplementation(() => ['dark',setTheme])
+    (useAppCommon as jest.Mock).mockReturnValue({
+        theme: 'dark',
+        isFirstSession: false,
+        serverEnvironment: {},
+        storeServerEnvironmentInfo: () => [],
+        articleFontSize: 2,
+        storeArticleFontSizeInfo: () => [],
+        resetFontSizeInfo: () => [],
+      });
     const component = (
       <Provider store={storeSampleData}>
         <ThemeProvider initial={DEFAULT_LIGHT_THEME}/>
@@ -60,16 +51,40 @@ describe('<ThemeProvider>', () => {
 
   it('Should render LatestNewsSummarySection component', () => {
     expect(instance).toBeDefined();
-    // expect(ThemeManager.setTheme()).toBeCalled();
+  });
+
+  it('Should render LatestNewsSummarySection component in Android', () => {
+    DeviceTypeUtilsMock.isAndroid = true;
   });
 });
 
-// describe('<ThemeProvider>', () => {
-//   const { ThemeManager } = NativeModules;
-//   test('Should render ThemeManager', () => {
-//     jest.spyOn(React, 'useEffect').mockImplementation();
-//     // jest.spyOn(ThemeManager, 'setTheme');
-//     render(<ThemeProvider initial={DEFAULT_LIGHT_THEME}/>)
-//     expect(ThemeManager.setTheme()).toBeCalled();
-//   });
-// });
+describe('<ThemeProvider> with light theme', () => {
+  let instance: RenderAPI;
+  
+  beforeEach(() => {
+    (useAppCommon as jest.Mock).mockReturnValue({
+        theme: 'light',
+        isFirstSession: false,
+        serverEnvironment: {},
+        storeServerEnvironmentInfo: () => [],
+        articleFontSize: 2,
+        storeArticleFontSizeInfo: () => [],
+        resetFontSizeInfo: () => [],
+      });
+    const component = (
+      <Provider store={storeSampleData}>
+        <ThemeProvider initial={DEFAULT_LIGHT_THEME}/>
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('Should render LatestNewsSummarySection component', () => {
+    expect(instance).toBeDefined();
+  });
+});

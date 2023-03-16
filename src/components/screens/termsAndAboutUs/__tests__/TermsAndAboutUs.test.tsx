@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
-import { storeSampleData } from '../../../../constants/SampleData'
+import { storeSampleData } from '../../../../constants/Constants'
 import { TermsAndAboutUs } from '../TermsAndAboutUs'
 import { ButtonIconWithLabel } from 'src/components/atoms'
 import {useNavigation} from '@react-navigation/native';

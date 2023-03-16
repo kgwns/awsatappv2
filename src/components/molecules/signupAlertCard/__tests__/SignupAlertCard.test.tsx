@@ -1,6 +1,6 @@
 import {render, RenderAPI} from '@testing-library/react-native'
 import React from 'react'
-import {SignupAlertCard} from '../SignupAlertCard'
+import {SignupAlertCard} from 'src/components/molecules/signupAlertCard/SignupAlertCard'
 
 describe('<SignupAlertCard />', () => {
   let instance: RenderAPI

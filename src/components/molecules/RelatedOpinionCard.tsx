@@ -6,12 +6,11 @@ import {isNonEmptyArray, isTab, normalize, isNotEmpty} from 'src/shared/utils';
 import { ImagesName } from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ButtonImage, Image, Label} from '../atoms';
-import {useTranslation} from 'react-i18next';
 import {ImageResize} from 'src/shared/styles/text-styles';
 import { getImageUrl, isObjectNonEmpty, convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
@@ -21,7 +20,6 @@ import { useAppPlayer } from 'src/hooks';
 
 export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayback, selectedTrack, jwPlayerID}:any) => {
   const style = useThemeAwareObject(customStyle);
-  const [t] = useTranslation();
   const navigation = useNavigation<StackNavigationProp<any>>()
   const playbackState = usePlaybackState();
   const[mediaData, setMediaData] = useState<any>({});
@@ -31,8 +29,10 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
 
+  const CONST_LISTEN_TO_ARTICLE = TranslateConstants({key:TranslateKey.LISTEN_TO_ARTICLE});
+
   useEffect(() => {
-    if (trackData && trackData.id == (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
@@ -40,10 +40,10 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
     setPrevPlayBackState(playbackState);
   }, [playbackState])
 
-  const renderTitle = (item: any) => {
+  const renderTitle = (itemProps: any) => {
     return (
       <View >
-        <Text children={item.title} style={style.contentTitle} />
+        <Text children={itemProps.title} style={style.contentTitle} />
       </View>
     )
   }
@@ -69,22 +69,23 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
         const errorResponse: AxiosError = error as AxiosError;
         if (errorResponse.response) {
           const errorMessage: { message: string } = errorResponse.response.data;
+          console.log(errorMessage,'errorMessage');
         }
       }
   }
 
-  const onPressWriter = (item: any) => {
-    const tid = isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].id
+  const onPressWriter = (itemProps: any) => {
+    const tid = isNonEmptyArray(itemProps.field_opinion_writer_node_export) && itemProps.field_opinion_writer_node_export[0].id
     if (isNotEmpty(tid)) {
       navigation.push(ScreensConstants.WRITERS_DETAIL_SCREEN, { tid })
     }
   }
 
-  const onPlayPausePress = async (playbackState: any) => {
+  const onPlayPausePress = async () => {
     const state = await TrackPlayer.getState()
 
     if(trackData != null){
-        if(state == State.Paused){
+        if(state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -106,14 +107,16 @@ const onPressPlay = () => {
       title: isNotEmpty(item.title) ? item.title : '',
       duration: playList.duration? convertSecondsToHMS(playList.duration) : 0,
       artist: mediaData.title ? mediaData.title : '',
-      artwork: isNonEmptyArray(item.field_opinion_writer_node_export) ? getImageUrl(item.field_opinion_writer_node_export[0].opinion_writer_photo) : getImageUrl(item.field_opinion_writer_node_export.opinion_writer_photo)
+      artwork: isNonEmptyArray(item.field_opinion_writer_node_export) ? 
+        getImageUrl(item.field_opinion_writer_node_export[0].opinion_writer_photo) : 
+        getImageUrl(item.field_opinion_writer_node_export.opinion_writer_photo)
     }
 
-    if((trackData && trackData.id != trackPlayerData.id) || trackData == null ){
+    if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ){
       setPlayerTrack(trackPlayerData);
       !showMiniPlayer && setShowMiniPlayer(true);
     }else{
-      showMiniPlayer ? onPlayPausePress(playbackState) : setShowMiniPlayer(true);
+      showMiniPlayer ? onPlayPausePress() : setShowMiniPlayer(true);
       
     }
     
@@ -153,13 +156,15 @@ const onPressPlay = () => {
           <TouchableOpacity testID='RelatedOpinionCardTO2' onPress={onPressPlay} style={style.footer}>
             <ButtonImage
               icon={() =>
-                trackData && trackData.id == (item.nid+'opinion') && playbackState === State.Playing || isBuffering ? getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
+                trackData && trackData.id === (item.nid+'opinion') && 
+                playbackState === State.Playing || isBuffering ? 
+                getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                 getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
               }
               onPress={onPressPlay}
             />
             <Label
-              children={t('opinionArticleDetail.listenToArticle')}
+              children={CONST_LISTEN_TO_ARTICLE}
               style={style.audioLabel}
             />
           </TouchableOpacity>

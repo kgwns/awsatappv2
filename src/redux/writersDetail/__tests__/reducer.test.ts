@@ -1,7 +1,7 @@
 import { EMPTY_WRITER_DETAIL, FETCH_WRITER_DETAIL } from '../actionTypes';
 import { emptyWriterDataAction, writerDetailActions } from '../action'
 import writerReducer from '../reducer';
-import { WriterDetailState } from '../types';
+import { WriterDetailState, WriterDetailActions } from '../types';
 
 describe('Writer Detail reducer', () => {
   let initialState: WriterDetailState;
@@ -55,4 +55,12 @@ describe('Writer Detail reducer', () => {
     )
     expect(nextState.isLoading).toBe(true)
   })
+
+  test('Default State', () => {
+    const nextState = writerReducer(
+      initialState, { type:'' }
+    )
+    expect(nextState.isLoading).toBe(true)
+  })
+
 });

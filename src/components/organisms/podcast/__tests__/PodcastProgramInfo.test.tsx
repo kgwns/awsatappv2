@@ -1,9 +1,9 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import { PodcastProgramInfo } from '../PodcastProgramInfo';
-import { PodcastListItemType } from 'src/redux/podcast/types'
 import { Linking } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
+import { PodcastVerticalListProps } from 'src/components/molecules/podcast/PodcastVerticalList';
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({

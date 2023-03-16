@@ -1,16 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react'
-import { View, StyleSheet, ViewStyle, AppState } from 'react-native'
+import React, { useState } from 'react'
+import { View, StyleSheet, ViewStyle } from 'react-native'
 import { Styles } from 'src/shared/styles'
-import { BannerImageWithOverlay, Label, LabelTypeProp, BannerImageWithOverlayProps, LiveBlogTag } from 'src/components/atoms'
+import { BannerImageWithOverlay, BannerImageWithOverlayProps} from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { ArticleOverlayContent } from '../articleOverlayContent/ArticleOverlayContent'
-import { colors, CustomThemeType } from 'src/shared/styles/colors'
+import { ArticleOverlayContent } from 'src/components/molecules/articleOverlayContent/ArticleOverlayContent'
+import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import ArticleDetailVideo from 'src/components/molecules/articleDetailVideo/ArticleDetailVideo'
 import { decode } from 'html-entities'
-import { displayTypes } from 'src/constants/SharedConstants'
-import LiveArticleDetailHeader from '../liveArticleDetailHeader/LiveArticleDetailHeader'
+import LiveArticleDetailHeader from 'src/components/molecules/liveArticleDetailHeader/LiveArticleDetailHeader'
+import { DisplayTypes } from 'src/constants/Constants'
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
     category?: string,
@@ -53,7 +54,7 @@ const ArticleDetailImage = ({
 
     const [imageLoaded, setImageLoaded] = useState<boolean>(false)
 
-    const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
+    const isLive = isNotEmpty(displayType) && displayType === DisplayTypes.liveCoverage;
 
     const onImageLoaded = () => {
         setImageLoaded(true)
@@ -68,19 +69,16 @@ const ArticleDetailImage = ({
             <View style={imageArticleStyle.captionView}>
                 <Label children={decode(caption)} labelType={LabelTypeProp.p5}
                     color={Styles.color.lightGray}
-                    style={{
-                        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
-                        fontFamily: fonts.AwsatDigital_Regular,
-                        fontSize: 12,
-                        lineHeight: 20,
-                    }}
+                    style={imageArticleStyle.labelStyle}
                 />
             </View>
         )
     }
 
     const renderTagName = () => {
-        if (!isNotEmpty(category) || isLive) return null
+        if (!isNotEmpty(category) || isLive) {
+            return null
+        }
 
         return (
             <View style={imageArticleStyle.tagNameViewStyle}>
@@ -90,7 +88,6 @@ const ArticleDetailImage = ({
             </View>
         )
     }
-
     return (
         <View>
 
@@ -150,4 +147,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontFamily: fonts.AwsatDigital_Regular,
         lineHeight: isTab ? 25 : 18
     },
+    labelStyle: {
+        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+        fontFamily: fonts.AwsatDigital_Regular,
+        fontSize: 12,
+        lineHeight: 20,
+    }
 })

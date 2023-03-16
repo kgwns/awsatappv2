@@ -1,41 +1,45 @@
 import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { useTranslation } from 'react-i18next'
 import { FilterComponent, FilterDataType, PopulateWidgetType } from 'src/components/molecules'
 import { isArray, isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
-import { TranslateConstants, TranslateKey } from 'src/constants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 
 export const Archives = () => {
-    const [t] = useTranslation()
     const isFocused = useIsFocused()
+    const FAVORITE_FILTERS_EVERYONE = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_EVERYONE})
+    const FAVORITE_FILTERS_ARTICLES = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_ARTICLES})
+    const FAVORITE_FILTERS_VIDEO = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_VIDEO})
+    const FAVORITE_FILTERS_OPINION = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_OPINION})
+    const FAVORITE_FILTERS_PODCAST = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_PODCAST})
+    const FAVORITE_FILTERS_ALBUM = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_ALBUM})
 
     const filterData: FilterDataType[] = [
         {
-            name: t('favorite.filters.everyone'),
+            name: FAVORITE_FILTERS_EVERYONE,
             isSelected: true
         },
         {
-            name: t('favorite.filters.articles'),
+            name: FAVORITE_FILTERS_ARTICLES,
             isSelected: false
         },
         {
-            name: t('favorite.filters.video'),
+            name: FAVORITE_FILTERS_VIDEO,
             isSelected: false
         },
         {
-            name: t('favorite.filters.opinion'),
+            name: FAVORITE_FILTERS_OPINION,
             isSelected: false
         },
         {
-            name: t('favorite.filters.podcast'),
+            name: FAVORITE_FILTERS_PODCAST,
             isSelected: false
         },
         {
-            name: t('favorite.filters.album'),
+            name: FAVORITE_FILTERS_ALBUM,
             isSelected: false
         }
     ]
@@ -68,7 +72,7 @@ export const Archives = () => {
     const [initialLoading, setInitialLoading] = useState(true)
 
     useEffect(() => {
-        const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length == bookmarkDetail.length
+        const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length === bookmarkDetail.length
         if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
             updateFilterComponent(0) //We switch to all tab when bookmark add newly
             getBookmarkedId()
@@ -88,7 +92,7 @@ export const Archives = () => {
             selectedDataRef.current = false;
         } else {
             const dataSelected = returnItems(bookmarkDetail.data)
-            if( JSON.stringify(dataSelected) != JSON.stringify(filteredData)){
+            if( JSON.stringify(dataSelected) !== JSON.stringify(filteredData)){
                 if (!isNonEmptyArray(bookmarkDetail.data)) {
                     setInitialLoading(false)
                 }             
@@ -103,7 +107,7 @@ export const Archives = () => {
     }, [filterBookmarkDetailInfo])
 
     const updatedBundleFilterBookmarkDetail = () => {
-        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex != 0 && !isAllBookmarkFetched) {
+        if (!bookmarkLoading && isArray(filterBookmarkDetailInfo) && tabSelectedIndex !== 0 && !isAllBookmarkFetched) {
             setFilteredData(filterBookmarkDetailInfo)
             setInitialLoading(false)
         }
@@ -152,7 +156,7 @@ export const Archives = () => {
 
     const removeBookmarkItem = (removeItem: any) => {
         const data = (tabSelectedIndex === 0 || isAllBookmarkFetched) ? [...bookmarkDetail] : [...filterBookmarkDetailInfo]
-        const removeIndex = data.findIndex((item) => item.nid == removeItem.nid)
+        const removeIndex = data.findIndex((item) => item.nid === removeItem.nid)
         if (removeIndex >= 0) {
             removeBookmarkedInfo({ nid: removeItem.nid })
         }
@@ -168,15 +172,15 @@ export const Archives = () => {
             case 0:
                 return data
             case 1:
-                return data.filter((item: any) => item.type == PopulateWidgetType.ARTICLE)
+                return data.filter((item: any) => item.type === PopulateWidgetType.ARTICLE)
             case 2:
-                return data.filter((item: any) => item.type == PopulateWidgetType.VIDEO)
+                return data.filter((item: any) => item.type === PopulateWidgetType.VIDEO)
             case 3:
-                return data.filter((item: any) => item.type == PopulateWidgetType.OPINION)
+                return data.filter((item: any) => item.type === PopulateWidgetType.OPINION)
             case 4:
-                return data.filter((item: any) => item.type == PopulateWidgetType.PODCAST)
+                return data.filter((item: any) => item.type === PopulateWidgetType.PODCAST)
             case 5:
-                return data.filter((item: any) => item.type == PopulateWidgetType.ALBUM)
+                return data.filter((item: any) => item.type === PopulateWidgetType.ALBUM)
             default: return null
         }
     }

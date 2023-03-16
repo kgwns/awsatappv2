@@ -1,5 +1,5 @@
 import { PermissionsAndroid } from 'react-native'
-import { REQUEST_CAMERA_ACCESS_MESSAGE, REQUIRE_ACCESS } from 'src/constants/SharedConstants';
+import { PERMISSION_REQUEST_CAMERA_ACCESS_MESSAGE, PERMISSION_REQUIRE_ACCESS } from 'src/constants/Constants';
 
 
 export const SystemPermissions = {
@@ -11,8 +11,8 @@ export const SystemPermissions = {
         try {
             const granted = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.CAMERA,
                 {
-                    title: REQUIRE_ACCESS,
-                    message: REQUEST_CAMERA_ACCESS_MESSAGE,
+                    title: PERMISSION_REQUIRE_ACCESS,
+                    message: PERMISSION_REQUEST_CAMERA_ACCESS_MESSAGE,
                     buttonPositive: 'Grant'
                 });
             return granted === PermissionsAndroid.RESULTS.GRANTED ? true : false

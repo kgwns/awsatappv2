@@ -1,11 +1,9 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleProp, ViewStyle, StyleSheet, Alert, Platform } from 'react-native';
-import { SocialLoginButton } from '../../atoms';
+import { SocialLoginButton } from '../../atoms/social-login-button/SocialLoginButton';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
 import DeviceInfo from 'react-native-device-info';
-
-import {useTranslation} from 'react-i18next';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
@@ -18,7 +16,7 @@ import { useDispatch } from 'react-redux';
 import { fetchLoginSuccess } from 'src/redux/login/action';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
@@ -33,7 +31,6 @@ interface SocialButtonSectionProps {
 
 export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =({ onButtonPress, style, showAlertNoInternet, socialButtonBoldStyle }) => {
 
-  const [t] = useTranslation();
   const {themeData} = useTheme();
   const [deviceName, setDeviceName] = useState('');
   const {createUserRequest, registerUserInfo} = useRegister();
@@ -42,7 +39,10 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   const { loginData } = useLogin();
   const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
   
-  const OK = t('common.ok');
+  const OK = TranslateConstants({key:TranslateKey.COMMON_OK});
+  const SIGNIN_LOGIN_FACEBOOK = TranslateConstants({key:TranslateKey.SIGNIN_LOGIN_FACEBOOK})
+  const SIGNIN_LOGIN_GOOGLE = TranslateConstants({key:TranslateKey.SIGNIN_LOGIN_GOOGLE})
+  const SIGNIN_LOGIN_APPLE = TranslateConstants({key:TranslateKey.SIGNIN_LOGIN_APPLE})
 
   const { emptySearchHistory } = useSearch();
 
@@ -71,12 +71,11 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       onSuccessSocialLogin(userInfo,provider)
     }else{
       socialLoginEnded();
-      if(message){
-        if(message === 'ErrorOccured'){
-          //show Alert
-          showAlertNoInternet && showAlertNoInternet()
-        }
+      if(message && message === 'ErrorOccured'){
+        //show Alert
+        showAlertNoInternet && showAlertNoInternet()
       }
+      
     }
   }
 
@@ -106,8 +105,8 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
   //--AppleSignin---------
 
   const getDeviceName = async () => {
-    const deviceName = await DeviceInfo.getDeviceName();
-    setDeviceName(deviceName);
+    const deviceNameInfo = await DeviceInfo.getDeviceName();
+    setDeviceName(deviceNameInfo);
   };
 
   const dispatch = useDispatch();
@@ -132,9 +131,6 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     const {
       user,
       email,
-      nonce,
-      identityToken,
-      realUserStatus,
       fullName,
     } = response;
     const payload: RegisterBodyType = {
@@ -157,6 +153,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         const googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);
         googleSignIn?.login();
         onPressButton(type);
+        break;
       case NavigateTypes.apple:
         onPressButton(type);
         return;
@@ -164,6 +161,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         const facebookSignIn = LoginFactory.getInstance(Connection.Facebook,onResult);
         facebookSignIn?.login();
         onPressButton(type);
+        break;
     }
   };
   const socialButtonLabelStyle = socialButtonBoldStyle ? styles.socialLoginButtonBoldLabel : styles.socialLoginButtonLabel
@@ -171,7 +169,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
         <View {...style}>
           <SocialLoginButton testID="signin_facebook"
             onPress={() => {buttonPressAction('FACEBOOK')}}
-            label={t('signIn.loginFacebook')}
+            label={SIGNIN_LOGIN_FACEBOOK}
             labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
             labelContainer={styles.textContainer}
@@ -179,7 +177,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
           />
           <SocialLoginButton testID="signin_google"
             onPress={() => {buttonPressAction('GOOGLE')}}
-            label={t('signIn.loginGoogle')}
+            label={SIGNIN_LOGIN_GOOGLE}
             labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
             labelContainer={styles.textContainer}
@@ -194,7 +192,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
             }}
             labelStyle={socialButtonLabelStyle}
             style={styles.labelContainer}
-            label={t('signIn.loginApple')}
+            label={SIGNIN_LOGIN_APPLE}
             labelContainer={styles.textContainer}
             icon={() => <View style={styles.container}><AppleIcon fill={themeData.primaryBlack} /></View>}
           /> }

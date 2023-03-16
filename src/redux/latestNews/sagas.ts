@@ -67,7 +67,7 @@ import {
   requestInfoGraphicBlockSuccess, requestInfoGraphicBlockFailed, requestArchivedArticleSectionSuccess, requestArchivedArticleSectionFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
-import { getImageUrl, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
 import {
   requestLatestArticle,
   requestSectionCombo,
@@ -84,6 +84,10 @@ import {
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
+const getDisplayName = (text: string) => {
+  return isNotEmpty(text) ? text.toLowerCase() : undefined;
+};
+
 const getArticleImage = (fieldImage: any, newPhoto: any) : String => {
   let image = fieldImage ?? ''
 
@@ -96,16 +100,15 @@ const getArticleImage = (fieldImage: any, newPhoto: any) : String => {
 
 const formatMainSectionBlockData = (response: any) => {
   let formattedData: MainSectionBlockType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
-        type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed }: any) => ({
+        type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed, field_album_image }: any) => ({
           body,
-          title,
+          title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
           nid,
-          image: getArticleImage(field_image, field_new_photo),
+          image: isTypeAlbum(type) ? field_album_image : getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories) ? field_news_categories[0] : field_news_categories,
           author: field_new_resource,
           created: changed,
@@ -113,11 +116,10 @@ const formatMainSectionBlockData = (response: any) => {
           type,
           blockName: blockname,
           position: entityqueue_relationship_position,
-          displayType: field_display_export
+          displayType: getDisplayName(field_display_export),
         })
       );
     }
-  }
   return formattedData
 }
 
@@ -126,8 +128,7 @@ const parseCoverageDataSuccess = (response: any) => {
   const responseData: RequestCoverageBlockSuccessPayloadType = {
     coverageInfo: []
   }
-   
-  const allCoverageInfo = formattedData.filter((item) => item.blockName == MainSectionBlockName.COVERAGE)
+  const allCoverageInfo = formattedData.filter((item) => item.blockName === MainSectionBlockName.COVERAGE)
   const sortedCoverageInfo = allCoverageInfo.sort((a, b) => parseInt(a.position) - parseInt(b.position))
   const coverageInfo = sortedCoverageInfo.splice(0, 4)
 
@@ -162,7 +163,7 @@ const parseFeaturedArticleSuccess = (response: any) => {
     featureArticle: [],
   }
    
-  const allFeaturedArticleData = formattedData.filter((item) => item.blockName == MainSectionBlockName.FEATURED_ARTICLE)
+  const allFeaturedArticleData = formattedData.filter((item) => item.blockName === MainSectionBlockName.FEATURED_ARTICLE)
   const sortedFeaturedArticleData = allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
   const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 15)
 
@@ -177,7 +178,7 @@ const parseHorizontalArticleSuccess = (response: any) => {
     horizontalArticle: []
   }
    
-  const allHorizontalArticleData = formattedData.filter((item) => item.blockName == MainSectionBlockName.HORIZONTAL_ARTICLE)
+  const allHorizontalArticleData = formattedData.filter((item) => item.blockName === MainSectionBlockName.HORIZONTAL_ARTICLE)
   const sortedHorizontalArticleData = allHorizontalArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
   const horizontalArticleData = sortedHorizontalArticleData.splice(0, 5)
 
@@ -189,8 +190,7 @@ const parseHorizontalArticleSuccess = (response: any) => {
 
 const formatLatestArticle = (response: any): LatestArticleDataType[] => {
   let formattedData: LatestArticleDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export,
@@ -204,19 +204,17 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
           author: '', //Need to hide author name in UI
           created: changed,
           isBookmarked: false,
-          displayType: field_display_export,
+          displayType: getDisplayName(field_display_export),
           type,
         })
       );
     }
-  }
   return formattedData
 }
 
 const formatOpinion = (response: any): LatestOpinionDataType[] => {
   let formattedOpinionData: LatestOpinionDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedOpinionData = rows.map(
         ({ title, body, nid, field_opinion_writer_node_export, jwplayer, jwplayer_info }: any) => ({
@@ -228,18 +226,19 @@ const formatOpinion = (response: any): LatestOpinionDataType[] => {
           jwplayer_info: jwplayer_info
         })
       );
-    }
   }
   return formattedOpinionData
 }
 
 const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
   let formattedPodcastHomeData: LatestPodcastDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedPodcastHomeData = rows.map(
-        ({ nid, field_podcast_sect_export, title, body_export, field_total_duration_export, created_export, field_spreaker_episode_export, field_announcer_name_export, field_podcast_image_export }: any) => ({
+        ({ nid, field_podcast_sect_export, 
+          title, body_export, field_total_duration_export, 
+          created_export, field_spreaker_episode_export, 
+          field_announcer_name_export, field_podcast_image_export }: any) => ({
           nid,
           field_podcast_sect_export,
           title: isNotEmpty(title) ? decode(title) : '',
@@ -251,22 +250,20 @@ const formatPodcastHome = (response: any): LatestPodcastDataType[] => {
           field_podcast_image_export
         })
       );
-    }
   }
   return formattedPodcastHomeData;
 }
 
 const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
   let formattedEditorsChoiceData: EditorsChoiceDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedEditorsChoiceData = rows.map(
         ({ title, body, nid, field_image, field_news_categories_export, field_news_categories, field_publication_date,type, blockname, entityqueue_relationship_position,
           field_new_photo, field_display_export, changed,
         }: any) => ({
           body,
-          title,
+          title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
           nid,
           image: getArticleImage(field_image, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
@@ -278,27 +275,24 @@ const formatEditorsChoice = (response: any): EditorsChoiceDataType[] => {
           type: type,
           blockname: blockname,
           entityqueue_relationship_position: entityqueue_relationship_position,
-          displayType: field_display_export,
+          displayType: getDisplayName(field_display_export),
         })
       );
-    }
   }
   return formattedEditorsChoiceData;
 }
 
 const formatSpotlight = (response: any): SpotlightDataType[] => {
   let formattedSpotlightData: SpotlightDataType[] = []
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedSpotlightData = rows.map(
         ({ title, field_tag_spotlight_export, field_image }: any) => ({
-          title,
+          title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
           field_tag_spotlight_export: field_tag_spotlight_export,
           field_image: getImageUrl(field_image),
         })
       );
-    }
   }
   return formattedSpotlightData;
 }
@@ -320,8 +314,12 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
   let formattedArchivedArticleSectionData: ArchivedArticleDataType[] = []
   if (response && isNonEmptyArray(response)) {
     formattedArchivedArticleSectionData = response.map(
-      ({ title, type, nid, body_export, field_image_export, field_new_photo, field_new_resource_export, field_publication_date_export, field_news_categories_export, field_display_export, changed}: any) => ({
-        title,
+      ({ title, type, nid, body_export, 
+        field_image_export, field_new_photo, field_new_resource_export, 
+        field_publication_date_export, field_news_categories_export, 
+        field_display_export, changed
+      }: any) => ({
+        title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
         type,
         nid,
         body: body_export,
@@ -330,7 +328,7 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
         author: field_new_resource_export,
         publication_date: field_publication_date_export,
         news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
-        displayType:field_display_export,
+        displayType: getDisplayName(field_display_export),
       })
     );
   }
@@ -477,8 +475,7 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
   const responseData: EditorsChoiceSuccessPayload = {
     editorsChoice: []
   }
-
-  const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname == MainSectionBlockName.EDITORS_CHOICE)
+  const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname === MainSectionBlockName.EDITORS_CHOICE)
   const sortedEditorsChoiceInfo = allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
   const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 6)
 
@@ -513,7 +510,7 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             created: changed,
             author: author_resource,
-            displayType: field_display_export,
+            displayType: getDisplayName(field_display_export),
           })
       );
       responseData.spotlightArticleSectionData = responseData.spotlightArticleSectionData.splice(0, 4)
@@ -582,28 +579,28 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
       requestSectionCombo,
       action.payload
     );
-    if (action.type == REQUEST_SECTION_COMBO_ONE) {
+    if (action.type === REQUEST_SECTION_COMBO_ONE) {
       const response = parseSectionComboOne(payload)
       yield put(requestSectionComboOneSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_TWO) {
+    } else if (action.type === REQUEST_SECTION_COMBO_TWO) {
       const response = parseSectionComboTwo(payload)
       yield put(requestSectionComboTwoSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_THREE) {
+    } else if (action.type === REQUEST_SECTION_COMBO_THREE) {
       const response = parseSectionComboThree(payload)
       yield put(requestSectionComboThreeSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_FOUR) {
+    } else if (action.type === REQUEST_SECTION_COMBO_FOUR) {
       const response = parseSectionComboFour(payload)
       yield put(requestSectionComboFourSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_FIVE) {
+    } else if (action.type === REQUEST_SECTION_COMBO_FIVE) {
       const response = parseSectionComboFive(payload)
       yield put(requestSectionComboFiveSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_SIX) {
+    } else if (action.type === REQUEST_SECTION_COMBO_SIX) {
       const response = parseSectionComboSix(payload)
       yield put(requestSectionComboSixSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
+    } else if (action.type === REQUEST_SECTION_COMBO_SEVEN) {
       const response = parseSectionComboSeven(payload)
       yield put(requestSectionComboSevenSuccess(response));
-    } else if (action.type == REQUEST_SECTION_COMBO_EIGHT) {
+    } else if (action.type === REQUEST_SECTION_COMBO_EIGHT) {
       const response = parseSectionComboEight(payload)
       yield put(requestSectionComboEightSuccess(response));
     }
@@ -611,21 +608,21 @@ export function* fetchSectionCombo(action: RequestSectionComboType) {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {
       const errorMessage: { message: string } = errorResponse.response.data;
-      if (action.type == REQUEST_SECTION_COMBO_ONE) {
+      if (action.type === REQUEST_SECTION_COMBO_ONE) {
         yield put(requestSectionComboOneFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_TWO) {
+      } else if (action.type === REQUEST_SECTION_COMBO_TWO) {
         yield put(requestSectionComboTwoFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_THREE) {
+      } else if (action.type === REQUEST_SECTION_COMBO_THREE) {
         yield put(requestSectionComboThreeFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_FOUR) {
+      } else if (action.type === REQUEST_SECTION_COMBO_FOUR) {
         yield put(requestSectionComboFourFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_FIVE) {
+      } else if (action.type === REQUEST_SECTION_COMBO_FIVE) {
         yield put(requestSectionComboFiveFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_SIX) {
+      } else if (action.type === REQUEST_SECTION_COMBO_SIX) {
         yield put(requestSectionComboSixFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_SEVEN) {
+      } else if (action.type === REQUEST_SECTION_COMBO_SEVEN) {
         yield put(requestSectionComboSevenFailed({ error: errorMessage.message }));
-      } else if (action.type == REQUEST_SECTION_COMBO_EIGHT) {
+      } else if (action.type === REQUEST_SECTION_COMBO_EIGHT) {
         yield put(requestSectionComboEightFailed({ error: errorMessage.message }));
       }
     }

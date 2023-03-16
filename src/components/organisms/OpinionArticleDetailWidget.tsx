@@ -70,6 +70,7 @@ export const OpinionArticleDetailWidget = ({
       const errorResponse: AxiosError = error as AxiosError;
       if (errorResponse.response) {
         const errorMessage: { message: string } = errorResponse.response.data;
+        console.log(errorMessage,'errorMessage');
       }
     }
   }
@@ -93,7 +94,7 @@ export const OpinionArticleDetailWidget = ({
   );
 
   const onPressReturn = async() => {
-    if (!isRelatedArticle) {
+    if (!isRelatedArticle && isTab) {
       Orientation.unlockAllOrientations();
       Orientation.lockToPortrait();
     }
@@ -133,8 +134,16 @@ export const OpinionArticleDetailWidget = ({
       />
       <View style={style.contentContainer}>
         {/* <AuthorCard title={data.writer[0].name} /> */}
-        {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && <View style={style.listenToArticleCard}>
-          <ListenToArticleCard data={mediaData} togglePlayback={togglePlayback} selectedTrack={selectedTrack} nid={nid} authorImage={data.writer[0]?.opinion_writer_photo} title={ isNotEmpty(data.title) ? data.title : '' } />
+        {isNotEmpty(data.jwplayer) && isObjectNonEmpty(mediaData) && 
+        <View style={style.listenToArticleCard}>
+          <ListenToArticleCard 
+            data={mediaData} 
+            togglePlayback={togglePlayback} 
+            selectedTrack={selectedTrack} 
+            nid={nid} 
+            authorImage={data.writer[0]?.opinion_writer_photo} 
+            title={ isNotEmpty(data.title) ? data.title : '' } 
+          />
         </View>}
         <Label style={style.title} children={decodeHTMLTags(data.title)} />
         <ArticleFooter

@@ -18,7 +18,28 @@ jest.mock('react', () => ({
 
 //   usePlaybackState: jest.fn()
 // }))
-
+const data =   {
+  nid: '1',
+  title: 'عادل درويش',
+  authorImage: 'https://picsum.photos/200/300',
+  data: {
+    body: 'الصحافة بين الخصوصية والصالح العام',
+    duration: '3:22',
+    playlist: [
+      {
+        name: 'abc',
+        id: '12',
+        duration: 200,
+      },
+      {
+        name: 'abc',
+        id: '13',
+        duration: 200,
+      },
+    ],
+    title: 'abc'
+  }
+};
 
 
 describe('<ListenToArticleCard>', () => {
@@ -32,34 +53,14 @@ describe('<ListenToArticleCard>', () => {
   const setPlayMock = jest.fn();
   const setPlayerTrackMock = jest.fn();
 
-  const data =   {
-      nid: '1',
-      title: 'عادل درويش',
-      authorImage: 'https://picsum.photos/200/300',
-      data: {
-        body: 'الصحافة بين الخصوصية والصالح العام',
-        duration: '3:22',
-        playlist: [
-          {
-            name: 'abc',
-            id: '12',
-            duration: 200,
-          },
-          {
-            name: 'abc',
-            id: '13',
-            duration: 200,
-          },
-        ],
-        title: 'abc'
-      }
-  };
 
-  const mediaData = jest.fn();
+
+  const prevPlayBackState = jest.fn();
 
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
+    (useState as jest.Mock).mockImplementation(() => [null, prevPlayBackState]);
     (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
-    (useState as jest.Mock).mockImplementation(() => [data.data, mediaData]);
     useAppPlayerMock.mockReturnValue({
       showMiniPlayer: true,
       isPlaying: false,
@@ -85,13 +86,13 @@ describe('<ListenToArticleCard>', () => {
 
   it('When ListenToArticleCardTO1 is pressed', () => {
     const testItemId = instance.getByTestId('ListenToArticleCardTO1');
-    fireEvent(testItemId, 'onPress', {nid:'0'});
+    fireEvent(testItemId, 'onPress');
     expect(mockFunction).toBeTruthy();
   });
 
   it('When ListenToArticleCardBI1 is pressed', () => {
     const testItemId = instance.getByTestId('ListenToArticleCardBI1');
-    fireEvent(testItemId, 'onPress', {nid:'0'});
+    fireEvent(testItemId, 'onPress');
     expect(mockFunction).toBeTruthy();
   });
 
@@ -113,11 +114,11 @@ describe('<ListenToArticleCard>', () => {
   const setPlayMock = jest.fn();
   const setPlayerTrackMock = jest.fn();
 
-  const mediaData = jest.fn();
+  const prevPlayBackState = jest.fn();
 
   beforeEach(() => {
     (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
-    (useState as jest.Mock).mockImplementation(() => [{}, mediaData]);
+    (useState as jest.Mock).mockImplementation(() => [null, prevPlayBackState]);
     useAppPlayerMock.mockReturnValue({
       showMiniPlayer: true,
       isPlaying: false,
@@ -149,7 +150,7 @@ describe('<ListenToArticleCard>', () => {
 
   it('When ListenToArticleCardBI1 is pressed', () => {
     const testItemId = instance.getByTestId('ListenToArticleCardBI1');
-    fireEvent(testItemId, 'onPress', {nid:'0'});
+    fireEvent(testItemId, 'onPress');
     expect(mockFunction).toBeTruthy();
   });
 

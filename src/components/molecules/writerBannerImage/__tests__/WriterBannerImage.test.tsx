@@ -1,9 +1,9 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
 import React from 'react'
 import { Linking, TouchableOpacity } from 'react-native'
-import { ButtonImage } from 'src/components/atoms'
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage'
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
-import  {WriterBannerImage} from '../WriterBannerImage'
+import  {WriterBannerImage} from 'src/components/molecules/writerBannerImage/WriterBannerImage'
 
 jest.mock("react-native/Libraries/Linking/Linking", () => ({
 	openURL: jest.fn(() => Promise.resolve("mockResolve")),

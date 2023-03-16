@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle } from 'react-native'
 import { normalize } from 'src/shared/utils/dimensions'
-import { moleculesTestID } from 'src/constants'
+import { moleculesTestID } from 'src/constants/Constants'
 import { Styles } from 'src/shared/styles'
 import { ImagesName } from 'src/shared/styles/images'
 import { CaptionWithImage } from 'src/components/atoms'
@@ -64,7 +64,7 @@ const ArticleFooter = ({
         })
   }
   
-  if(bookMarkColorType == BookMarkColorType.WHITE) {
+  if(bookMarkColorType === BookMarkColorType.WHITE) {
     storySaveIcon = () => {
       return getSvgImages({
         name: isBookmarked ? ImagesName.bookMarkWhiteActive : ImagesName.bookMarkWhite,
@@ -97,7 +97,7 @@ const ArticleFooter = ({
           color={isDetail ? themeData.primaryBlack : rightTitleColor}
           numberOfLine={2}
           labelStyle={StyleSheet.flatten([rightTitleStyle, isDetail && articleFooterStyle.authorTopMargin])}
-          labelContainerStyle={{ maxWidth: '100%' }}
+          labelContainerStyle={articleFooterStyle.labelContainerStyle}
         />
         }
       </View>
@@ -153,5 +153,9 @@ const articleFooterStyle = StyleSheet.create({
   articleDetailUi: {
     flexDirection:'column',
     alignItems: 'flex-start'
+  },
+  labelContainerStyle: {
+    maxWidth: '100%' 
   }
+  
 })

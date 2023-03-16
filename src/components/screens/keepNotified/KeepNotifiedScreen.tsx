@@ -4,8 +4,7 @@ import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
 import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
-import { useTranslation } from 'react-i18next';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreenContainer } from '..';
 import { useKeepNotified } from 'src/hooks';
@@ -15,7 +14,10 @@ import { fonts } from 'src/shared/styles/fonts';
 
 
 export const KeepNotifiedScreen = ({ navigation, route }: any) => {
-  const [t] = useTranslation();
+  const ONBOARD_KEEP_NOTIFIED_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_KEEP_NOTIFIED_TITLE})
+  const ONBOARD_KEEP_NOTIFIED_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_KEEP_NOTIFIED_DESCRIPTION})
+  const ONBOARD_COMMON_COMPLETED = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_COMPLETED})
+
   const style = useThemeAwareObject(customStyle);
 
   const { params } = route
@@ -126,8 +128,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const onPressNext = () => {
     const selectedData = getSelectedData()
     if (isNonEmptyArray(selectedData)) {
-      const selectedData = getSelectedData()
-      sendSelectedInfoRequest({ nid: joinArray(selectedData) })
+      const selectedDataArray = getSelectedData()
+      sendSelectedInfoRequest({ nid: joinArray(selectedDataArray) })
     }
   }
 
@@ -147,7 +149,6 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     }
     if (canGoBack) {
       const selectedList = getSelectedData();
-      console.log('getselecteddata', getSelectedData())
       sendSelectedInfoRequest({ nid: joinArray(selectedList) })
     } else {
       updateNextButtonActive()
@@ -156,8 +157,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   const updateNextButtonActive = () => {
     const selectedNotificationData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedNotificationData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedNotificationData) ? false : true
+    setDisableNext(disableNextBtn)
   }
 
   const getSelectedData = () => {
@@ -173,8 +174,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
       {!canGoBack && <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' },]}>
-          <Label style={style.titleStyle} children={t('onBoard.keepNotified.title')} />
-          <Label style={style.descStyle} children={t('onBoard.keepNotified.description')} />
+          <Label style={style.titleStyle} children={ONBOARD_KEEP_NOTIFIED_TITLE} />
+          <Label style={style.descStyle} children={ONBOARD_KEEP_NOTIFIED_DESCRIPTION} />
         </View>}
         <View style={style.contentStyle}>
           <KeepNotifiedWidget data={notificationDate} onPress={changeSelectedStatus} />
@@ -182,7 +183,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
         <View style={style.nextButtonView}>
           <NextButton
             testID="nextButtonTestId"
-            title={t('onBoard.common.completed')}
+            title={ONBOARD_COMMON_COMPLETED}
             icon={false}
             disabled={disableNext}
             onPress={onPressNext}

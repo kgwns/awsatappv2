@@ -1,5 +1,10 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getIsLoading, getJournalistArticleSuccessInfo, getJournalistArticleError, getIsDetailLoading, getJournalistDetailError, getJournalistDetailSuccessInfo } from 'src/redux/journalist/selectors'
+import { getIsLoading, 
+    getJournalistArticleSuccessInfo, 
+    getJournalistArticleError, 
+    getIsDetailLoading, 
+    getJournalistDetailError, 
+    getJournalistDetailSuccessInfo } from 'src/redux/journalist/selectors'
 import { getJournalistInfoDetail, fetchJournalistDetail, emptyJournalistArticle } from "src/redux/journalist/action";
 import { GetJournalistInfoPayload, JournalistArticleData, JournalistDetailBodyGet, JournalistDetailDataType } from "src/redux/journalist/types";
 

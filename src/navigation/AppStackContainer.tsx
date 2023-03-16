@@ -1,18 +1,18 @@
 import React, {useEffect, useState} from 'react';
 
-import {NavigationContainer, NavigationContainerProps, NavigationContainerRef} from '@react-navigation/native';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   CardStyleInterpolators,
   createStackNavigator,
   StackNavigationOptions,
 } from '@react-navigation/stack';
-import analytics from '@react-native-firebase/analytics';
+
 import {ScreenList, Routes} from 'src/navigation';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { useAppPlayer, useLogin } from 'src/hooks';
 import { isNotEmpty, isObjectNonEmpty, recordCurrentScreen } from 'src/shared/utils';
 import TrackPlayer from 'react-native-track-player';
-
+import { navigationReference } from './NavigationUtils';
 const Stack = createStackNavigator<ScreenList>();
 
 const defaultScreenOptions: StackNavigationOptions = {
@@ -28,10 +28,9 @@ const AppStackContainer = () => {
   const [previousTrack, setPreviousTrack] = useState<any>(null)
 
   const routeNameRef = React.useRef();
-  const navigationRef = React.useRef<NavigationContainerRef<any>>();
 
   useEffect(() => {
-    if(showMiniPlayer &&  isNotEmpty(selectedTrack) && selectedTrack != previousTrack){
+    if(showMiniPlayer &&  isNotEmpty(selectedTrack) && selectedTrack !== previousTrack){
         setPreviousTrack(selectedTrack);
         resetAndPlay();
     }
@@ -45,7 +44,7 @@ const AppStackContainer = () => {
   }, []);
 
   useEffect(() => {
-    if(showMiniPlayer && selectedTrack != previousTrack){
+    if(showMiniPlayer && selectedTrack !== previousTrack){
       setPreviousTrack(selectedTrack);
       resetAndPlay();
     }
@@ -59,16 +58,17 @@ const AppStackContainer = () => {
           await TrackPlayer.play();
       }
   };
-
+  
   return (
     <NavigationContainer
-    ref={navigationRef}
+    ref={navigationReference}
+
     onReady={() => {
-      routeNameRef.current = navigationRef.current.getCurrentRoute().name;
+      routeNameRef.current = navigationReference.current.getCurrentRoute().name;
     }}
     onStateChange={async () => {
       const previousRouteName = routeNameRef.current;
-      const currentRouteName = navigationRef.current.getCurrentRoute().name;
+      const currentRouteName = navigationReference.current.getCurrentRoute().name;
 
       if (previousRouteName !== currentRouteName) {
         recordCurrentScreen(currentRouteName);
@@ -78,7 +78,11 @@ const AppStackContainer = () => {
     >
       <Stack.Navigator
         screenOptions={defaultScreenOptions}
-        initialRouteName={isLoggedIn ? (loginData.message.newUser === 1 ? ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator) : (isSkipped ? ScreensConstants.AppNavigator : ScreensConstants.AuthNavigator)}>
+        initialRouteName={isLoggedIn ? 
+          (loginData.message.newUser === 1 ? 
+          ScreensConstants.OnBoardNavigator : ScreensConstants.AppNavigator) : 
+          (isSkipped ? ScreensConstants.AppNavigator : ScreensConstants.AuthNavigator)}
+      >
         <Stack.Screen
           name={ScreensConstants.AuthNavigator}
           component={Routes.AuthNavigator}

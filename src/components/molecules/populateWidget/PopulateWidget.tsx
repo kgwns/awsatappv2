@@ -8,7 +8,7 @@ import { PodcastVerticalListProps } from '../podcast/PodcastVerticalList'
 import { VideoItemProps } from '../video-item/VideoItem'
 import { ArticlePodCastWidget } from 'src/components/organisms'
 import { useNavigation } from '@react-navigation/native'
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { Modal, StyleSheet, View } from 'react-native'
@@ -74,7 +74,7 @@ export const PopulateWidget = ({
       };
 
     const episodeModal = () => (
-        <Modal visible={true} animationType={'slide'}>
+        <Modal visible={true} animationType={'slide'} onRequestClose = {() => setShowModal(false)}>
             <View style={{ height: screenHeight - insets.top }}>
                 <PodcastEpisodeModal
                     route={{ params: { data: { ...props } } }}
@@ -111,8 +111,12 @@ export const PopulateWidget = ({
             </View>
         case PopulateWidgetType.OPINION:
             return <View>
-                <OpinionWritersCardView {...props} mediaVisibility={props.field_jwplayer_id_opinion_export ? isNotEmpty(props.field_jwplayer_id_opinion_export) : isNotEmpty(props.jwplayer)}
-                    jwPlayerID={isNotEmpty(props.field_jwplayer_id_opinion_export) ? props.field_jwplayer_id_opinion_export : (isNotEmpty(props.jwplayer) ? props.jwplayer : null)}
+                <OpinionWritersCardView {...props} 
+                    mediaVisibility={props.field_jwplayer_id_opinion_export ? 
+                        isNotEmpty(props.field_jwplayer_id_opinion_export) : 
+                        isNotEmpty(props.jwplayer)}
+                    jwPlayerID={isNotEmpty(props.field_jwplayer_id_opinion_export) ? 
+                        props.field_jwplayer_id_opinion_export : (isNotEmpty(props.jwplayer) ? props.jwplayer : null)}
                     onPressBookmark={onPressBookmark}
                     togglePlayback={props?.togglePlayback}
                     selectedTrack={props?.selectedTrack}

@@ -1,19 +1,17 @@
+import { AlertModal } from 'src/components/organisms/AlertModal/AlertModal';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
-import { AlertModal } from 'src/components/organisms/AlertModal/AlertModal'
-
 describe('<AlertModal>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
-
     beforeEach(() => {
-        const component = <AlertModal 
-        title= {'title'}
-        message= {'message'}
-        isVisible= {true}
-        buttonText= {'Button'}
-        onClose = {()=>{}}
-        onPressSuccess={mockFunction}
+        const component = <AlertModal
+            title={'title'}
+            message={'message'}
+            isVisible={true}
+            buttonText={'Button'}
+            onClose={() => { }}
+            onPressSuccess={mockFunction}
         />
         instance = render(component)
     })
@@ -38,5 +36,5 @@ describe('<AlertModal>', () => {
         fireEvent(testItemId, 'onPress');
         expect(mockFunction).toBeTruthy();
     });
-      
+
 })

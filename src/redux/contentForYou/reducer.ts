@@ -33,7 +33,7 @@ export default (state = initialState, action: FavouriteActions) => {
   };
   switch (action.type) {
     case FETCH_FAVOURITE_OPINIONS_SUCCESS:
-      return state.favouriteOpinionData.rows.length == 0
+      return state.favouriteOpinionData.rows.length === 0
         ? {
             ...state,
             isLoading: false,
@@ -51,7 +51,7 @@ export default (state = initialState, action: FavouriteActions) => {
     case FETCH_FAVOURITE_OPINIONS:
       return {...state, isLoading: true, error: ''};
     case FETCH_FAVOURITE_ARTICLES_SUCCESS:
-      return state.favouriteArticlesData.rows.length == 0
+      return state.favouriteArticlesData.rows.length === 0
         ? {
             ...state,
             isArticleLoading: false,

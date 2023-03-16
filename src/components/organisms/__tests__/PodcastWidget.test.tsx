@@ -2,8 +2,9 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { PodcastWidget } from 'src/components/organisms';
 import { ButtonImage, ButtonOutline } from 'src/components/atoms';
-import * as serviceApi from 'src/services/podcastService';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
+
+jest.mock('src/services/podcastService');
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn()
@@ -47,7 +48,10 @@ describe('<PodcastWidget>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
   const setEpisodeData = jest.fn();
+  const fetchSingleEpisodeSpreakerApiMock = jest.fn();
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
+    (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
     DeviceTypeUtilsMock.isTab = true;
     DeviceTypeUtilsMock.isIOS = false;
     (useState as jest.Mock).mockImplementation(() => [sampleData, setEpisodeData]);
@@ -75,10 +79,10 @@ describe('<PodcastWidget>', () => {
     fireEvent(element, 'onPress')
     expect(mockFunction).toHaveBeenCalled()
   })
-  it("test fetchSingleEpisodeSpreakerApi then block", () => {
-    jest.spyOn(serviceApi, 'fetchSingleEpisodeSpreakerApi').mockReturnValue(Promise.resolve({ response: { episode: { data: "data" } } }))
-    const response = fetchSingleEpisodeSpreakerApi({ episodeId: sampleData[0].field_spreaker_episode_export });
-    expect(response).toBeInstanceOf(Object)
+  it("test fetchSingleEpisodeSpreakerApi to return response",async() => {
+    (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({response:{episode:{result:true}}});
+    const response = await fetchSingleEpisodeSpreakerApi({episodeId:'2'});
+    expect(response).toEqual({response:{episode:{result:true}}});
   });
 
 });

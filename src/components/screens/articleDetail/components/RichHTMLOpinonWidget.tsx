@@ -11,7 +11,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useNavigation } from '@react-navigation/native'
-import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants'
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 
 type RichHTMLOpinonWidgetProps = {
     data: RichHTMLOpinionDataType

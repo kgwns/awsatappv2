@@ -2,10 +2,25 @@ import React, { useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { SectionStoryScreen } from '../SectionStoryScreen'
 import { Provider } from 'react-redux'
-import { storeSampleData } from 'src/constants/SampleData'
+import { storeSampleData } from 'src/constants/Constants'
 import { PopUp } from 'src/components/organisms'
 import {useNavigation} from '@react-navigation/native';
 import { FlatList } from 'react-native'
+import { FilterComponent } from 'src/components/molecules'
+import { fetchSubArticleSectionApi } from 'src/services/newsViewService'
+import { NewsViewBodyGet } from 'src/redux/newsView/types'
+import { AxiosError } from 'axios'
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+    ...jest.requireActual('src/shared/utils/dimensions'),
+    isTab: false,
+}));
+
+jest.mock('src/services/newsViewService',() => ({
+    fetchSubArticleSectionApi: jest.fn(),
+    fetchNewsViewApi: jest.fn()
+}))
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -43,6 +58,33 @@ jest.mock("src/hooks/useLogin", () => ({
       }
     },
 }));
+const payload: NewsViewBodyGet = {
+    items_per_page: 1,
+    page: 0,
+    offset: 0,
+    sectionId: 1,
+  };
+const childInfoData = [
+    {
+        tabName: 'tabName',
+        isSelected: false,
+        child:[
+            {
+                isSelected:true
+            }
+        ]  
+    },
+    {
+        tabName: 'tabName',
+        isSelected: true,
+        child:[
+            {
+                isSelected:false
+            }
+        ]
+    },
+
+]
 
 describe('<SectionStoryScreen>', () => {
     let instance: RenderAPI
@@ -64,6 +106,7 @@ describe('<SectionStoryScreen>', () => {
     }
     
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
@@ -87,6 +130,11 @@ describe('<SectionStoryScreen>', () => {
     })
 
     it('Should render SectionStoryScreen', () => {
+        expect(instance).toBeDefined()
+    })
+
+    it('Should render SectionStoryScreen in Tab', () => {
+        DeviceTypeUtilsMock.isTab = true;
         expect(instance).toBeDefined()
     })
 
@@ -122,3 +170,232 @@ describe('<SectionStoryScreen>', () => {
     });
 
 })
+
+
+
+describe('<SectionStoryScreen> with childInfo data props', () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn()
+    const setHeroListDataInfo = mockFunction;
+    const setBottomListDataInfo = mockFunction;
+    const setTopListDataInfo = mockFunction;
+    const setVideoListData = mockFunction;
+    const setShowPopUp = mockFunction;
+    const setIsBottomListLoading = mockFunction;
+    const setCurrentSectionId = mockFunction;
+    const setChildSection = mockFunction;
+    const initialLoading = mockFunction;
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+    }
+    
+    beforeEach(() => {
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
+        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [true, initialLoading]);
+        (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
+        (useState as jest.Mock).mockImplementation(() => ['1', setCurrentSectionId]);
+        (useState as jest.Mock).mockImplementation(() => [childInfoData, setChildSection]);
+        
+        const component = <Provider store={storeSampleData}>
+            <SectionStoryScreen sectionId={'1'} childInfo={childInfoData} onUpdateChildSection={mockFunction} />
+        </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render SectionStoryScreen', () => {
+        expect(instance).toBeDefined()
+    })
+
+})
+
+describe('should render FilterComponent', () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn()
+    const setHeroListDataInfo = mockFunction;
+    const setBottomListDataInfo = mockFunction;
+    const setTopListDataInfo = mockFunction;
+    const setVideoListData = mockFunction;
+    const setShowPopUp = mockFunction;
+    const setIsBottomListLoading = mockFunction;
+    const setCurrentSectionId = mockFunction;
+    const setChildSection = mockFunction;
+    const initialLoading = mockFunction;
+    
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+    }
+    
+    beforeEach(() => {
+        jest.useFakeTimers('legacy');
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
+        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [false, initialLoading]);
+        (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
+        (useState as jest.Mock).mockImplementation(() => ['1', setCurrentSectionId]);
+        (useState as jest.Mock).mockImplementation(() => [childInfoData, setChildSection]);
+        
+        const component = <Provider store={storeSampleData}>
+            <SectionStoryScreen sectionId={'1'} childInfo={childInfoData} onUpdateChildSection={mockFunction} />
+        </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render SectionStoryScreen', () => {
+        expect(instance).toBeDefined()
+    })
+
+    it('should call FilterComponent onPress',() => {
+        const element = instance.container.findByType(FilterComponent);
+        fireEvent(element,'onPress',1);
+        expect(mockFunction).toBeTruthy();
+    })
+
+    it('should call FilterComponent onPressSubChild',() => {
+        const element = instance.container.findByType(FilterComponent);
+        fireEvent(element,'onPressSubChild',1,0);
+        expect(mockFunction).toBeTruthy();
+    })
+
+    it('should call FilterComponent onPressSubChild',() => {
+        const element = instance.container.findByType(FilterComponent);
+        fireEvent(element,'onPressSubChild',0,0);
+        expect(mockFunction).toBeTruthy();
+    })
+
+})
+
+
+
+describe('<SectionStoryScreen> should call fetchSubArticleSectionApi', () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn()
+    const setHeroListDataInfo = mockFunction;
+    const setBottomListDataInfo = mockFunction;
+    const setTopListDataInfo = mockFunction;
+    const setVideoListData = mockFunction;
+    const setShowPopUp = mockFunction;
+    const setIsBottomListLoading = mockFunction;
+    const setCurrentSectionId = mockFunction;
+    const setChildSection = mockFunction;
+    const initialLoading = mockFunction;
+    const fetchSubArticleSectionApiMock = mockFunction;
+
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+    }
+    
+    beforeEach(() => {
+        jest.useFakeTimers('legacy');
+        (fetchSubArticleSectionApi as jest.Mock).mockImplementation(fetchSubArticleSectionApiMock);
+
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
+        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [false, initialLoading]);
+        (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
+        (useState as jest.Mock).mockImplementation(() => ['12', setCurrentSectionId]);
+        (useState as jest.Mock).mockImplementation(() => [[], setChildSection]);
+        
+        const component = <Provider store={storeSampleData}>
+            <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
+        </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it("should fetchSubArticleSectionApi return response", async() => {
+        fetchSubArticleSectionApiMock.mockReturnValue({rows:[{result:true}]});
+        const response = await fetchSubArticleSectionApi(payload);
+        expect(response).toEqual({rows:[{result:true}]});
+    })
+
+});
+
+describe('<SectionStoryScreen> should call fetchSubArticleSectionApi', () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn()
+    const setHeroListDataInfo = mockFunction;
+    const setBottomListDataInfo = mockFunction;
+    const setTopListDataInfo = mockFunction;
+    const setVideoListData = mockFunction;
+    const setShowPopUp = mockFunction;
+    const setIsBottomListLoading = mockFunction;
+    const setCurrentSectionId = mockFunction;
+    const setChildSection = mockFunction;
+    const initialLoading = mockFunction;
+    const fetchSubArticleSectionApiMock = mockFunction;
+
+    const navigation = {
+        reset: jest.fn(),
+        navigate: jest.fn(),
+    }
+    
+    beforeEach(() => {
+        jest.useFakeTimers('legacy');
+        (fetchSubArticleSectionApi as jest.Mock).mockImplementation(fetchSubArticleSectionApiMock);
+        fetchSubArticleSectionApiMock.mockImplementation(() => Promise.reject({response:{data:"error"}}));
+        (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setTopListDataInfo]);
+        (useState as jest.Mock).mockImplementation(() => [[], setVideoListData]);
+        (useState as jest.Mock).mockImplementation(() => [false, setShowPopUp]);
+        (useState as jest.Mock).mockImplementation(() => [false, initialLoading]);
+        (useState as jest.Mock).mockImplementation(() => [false, setIsBottomListLoading]);
+        (useState as jest.Mock).mockImplementation(() => ['12', setCurrentSectionId]);
+        (useState as jest.Mock).mockImplementation(() => [[], setChildSection]);
+        
+        const component = <Provider store={storeSampleData}>
+            <SectionStoryScreen sectionId={'12'} childInfo={[]} onUpdateChildSection={mockFunction} />
+        </Provider>
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it("should throw error",async() => {
+        try{
+            await fetchSubArticleSectionApi(payload);
+        }
+        catch(error) {
+            const errorResponse = error as AxiosError;
+            expect(errorResponse?.response?.data).toBeDefined();
+        }
+    });
+});

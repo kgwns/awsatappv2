@@ -2,7 +2,7 @@ import {render, RenderAPI, fireEvent} from '@testing-library/react-native';
 import React, {useState} from 'react';
 import { PodcastEpisode  } from '../PodcastEpisode';
 import { Provider } from 'react-redux'
-import { storeSampleData, PodcastEpisodeData, PodcastListData } from 'src/constants/SampleData';
+import { storeSampleData, PodcastEpisodeData, PodcastListData } from 'src/constants/Constants';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {PodcastProgramHeader} from 'src/components/molecules';
 import {PodcastEpisodeContent, PodcastEpisodeInfo} from 'src/components/organisms';
@@ -10,11 +10,17 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { PodcastEpisodeItemType, PodcastListItemType } from 'src/redux/podcast/types';
 import { useLogin } from 'src/hooks';
-
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
   useIsFocused: jest.fn(),
+}));
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isIOS: false
 }));
 
 jest.mock('react', () => ({
@@ -53,7 +59,23 @@ const podCastData: PodcastListItemType[] = [
       img_podcast_desktop: 'example',
       img_podcast_mobile: 'example',
       name: 'example',
-      image: 'example'
+      image: 'example',
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -92,7 +114,23 @@ const podCastData: PodcastListItemType[] = [
       img_podcast_desktop: 'example',
       img_podcast_mobile: 'example',
       name: 'example',
-      image: 'example'
+      image: 'example',
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -135,7 +173,23 @@ const podcastEpisodeData: PodcastEpisodeItemType[] =[
       img_podcast_desktop: "abc",
       img_podcast_mobile: "abc",
       name: "abc",
-      image: "abc"
+      image: "abc",
+      "anghami": {
+        "url": "string",
+        "text": "string"
+      },
+      "apple_podcasts": {
+        "url": "string",
+        "text": "https://apple.com"
+      },
+      "google_podcast": {
+        "url": "string",
+        "text": "string"
+      },
+      spotify: {
+        url: "string",
+        text: "string"
+      },
     },
     field_spotify_export: {
       url: "string",
@@ -210,6 +264,7 @@ describe('<PodcastEpisode >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => ["29", nid]);
@@ -234,6 +289,14 @@ describe('<PodcastEpisode >', () => {
       instance.unmount();
     });
     it('Should render PodcastEpisode ', () => {
+      expect(instance).toBeDefined();
+    });
+    it('Should render PodcastEpisode in Tab', () => {
+      DeviceTypeUtilsMock.isTab = true;
+      expect(instance).toBeDefined();
+    });
+    it('Should render PodcastEpisode in iOS', () => {
+      DeviceTypeUtilsMock.isIOS = true;
       expect(instance).toBeDefined();
     });
     it('when onPressSave is pressed from PodcastHeader', () => {

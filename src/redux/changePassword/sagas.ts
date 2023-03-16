@@ -27,13 +27,9 @@ export function* postNewPassword(action: SendChangePasswordType) {
   }
 }
 
-export function* emptyPasswordResponse() {
-  emptyPasswordResponse();
-}
 
 function* newPasswordSaga() {
   yield all([takeLatest(CHANGE_PASSWORD, postNewPassword)]);
-  yield all([takeLatest(EMPTY_PASSWORD_RESPONSE_INFO, emptyPasswordResponse)]);
 }
 
 export default newPasswordSaga;

@@ -2,7 +2,7 @@ import { View, StyleSheet, ScrollView, FlatList, Platform } from 'react-native';
 import React from 'react';
 import { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
 import { isAndroid, isTab, normalize, screenWidth } from 'src/shared/utils';
-import { flatListUniqueKey } from 'src/constants';
+import { flatListUniqueKey } from 'src/constants/Constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { decode } from 'html-entities';
@@ -42,7 +42,7 @@ const InterestedTopics = (props:any) => {
       previousIndex = i
       lengthOfElementsInRow = 0
     }
-    else if (i == arrayOfLengths.length - 1) {
+    else if (i === arrayOfLengths.length - 1) {
       for (let j = previousIndex; j <= i; j++) {
         individualSpliceArray.push(data[j])
       }
@@ -74,7 +74,7 @@ const InterestedTopics = (props:any) => {
           inverted={Platform.OS==='android'}
           scrollEnabled={false}
           horizontal
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(_, mobIndex) => mobIndex.toString()}
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={ isAndroid ? item.reverse() : item}
           showsHorizontalScrollIndicator={false}
@@ -90,7 +90,7 @@ const InterestedTopics = (props:any) => {
         <FlatList
           scrollEnabled={false}
           numColumns={6}
-          keyExtractor={(_, index) => index.toString()}
+          keyExtractor={(_, tabIndex) => tabIndex.toString()}
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={props.allSiteCategoriesData }
           showsHorizontalScrollIndicator={false}

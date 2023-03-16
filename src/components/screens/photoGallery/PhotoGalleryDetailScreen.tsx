@@ -52,7 +52,7 @@ export const PhotoGalleryDetailScreen = ({
   const currentNId = route.params.nid;
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && isTab) {
       Orientation.unlockAllOrientations();
       Orientation.getDeviceOrientation(updateScreenEdge);
       Orientation.addDeviceOrientationListener(updateScreenEdge);
@@ -77,7 +77,7 @@ export const PhotoGalleryDetailScreen = ({
   }, [albumDetailData]);
 
   useEffect(() => {
-    if (fontSize != articleFontSize) {
+    if (fontSize !== articleFontSize) {
       setFontSize(articleFontSize);
     }
   }, [articleFontSize]);
@@ -85,15 +85,15 @@ export const PhotoGalleryDetailScreen = ({
   useEffect(() => {
     if (isNonEmptyArray(albumData)) {
       if (route.params && route.params.nid && isFocused) {
-        const isBookmarked = validateBookmark(albumData[0].nid);
-        setIsBookmarked(isBookmarked);
+        const isBookmark = validateBookmark(albumData[0].nid);
+        setIsBookmarked(isBookmark);
       }
     }
   }, [albumData]);
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
-    const edge = getScreenEdge(deviceOrientation);
-    isNonEmptyArray(edge) && setEdge(edge);
+    const screenEdge = getScreenEdge(deviceOrientation);
+    isNonEmptyArray(screenEdge) && setEdge(screenEdge);
   };
 
   const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {

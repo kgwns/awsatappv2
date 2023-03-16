@@ -21,7 +21,6 @@ import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {useTranslation} from 'react-i18next';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles/images';
 import {TextInputField, Label, ButtonOutline} from '../../atoms';
@@ -46,17 +45,14 @@ import {
 import {useUserProfileData} from 'src/hooks/useUserProfileData';
 import ImagePicker from 'react-native-image-crop-picker';
 import {UpdateUserImageBodyType} from 'src/redux/profileUserDetail/types';
-import {isDarkTheme} from 'src/shared/utils';
+import {isDarkTheme,SystemPermissions} from 'src/shared/utils';
 import {useAppCommon, useLogin} from 'src/hooks';
-import {SystemPermissions} from 'src/shared/utils';
 import {
-  REQUEST_CAMERA_ACCESS_MESSAGE,
-  REQUIRE_ACCESS,
   DEFAULT_MINIMUM_DATE,
-  CONST_PLEASE_ENTER_THE_NAME,
   DEFAULT_ALERT_TITLE,
-  CONST_OK,
-} from 'src/constants/SharedConstants';
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/Constants';
 import {useNewPassword} from 'src/hooks/useNewPassword';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import { AlertModal } from 'src/components/organisms';
@@ -65,22 +61,36 @@ import { AvoidSoftInput } from "react-native-avoid-softinput";
 import { fonts } from 'src/shared/styles/fonts'
 
 export const UserDetailScreen: FunctionComponent = () => {
-  const [t] = useTranslation();
 
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
   const {themeData} = useTheme();
 
-  const CONST_NAME_PLACE_HOLDER = t('profile.userDetail.nameTitle');
-  const passwordChangedSuccessfully = t('profile.userDetail.passwordChangedSuccessfully');
-  const tryAgain = t('profile.userDetail.tryAgain');
-  const oldPasswordDoesNotMatch = t('profile.userDetail.oldPasswordDoesNotMatch');
-  const OPEN_CAMERA_OPTION = t('profile.userDetail.openCameraOption');
-  const OPEN_GALLERY_OPTION = t('profile.userDetail.chooseFromGallery');
-  const CANCEL = t('profile.userDetail.cancelText');
-  const ok = t('common.ok');
-  const success = t('profile.userDetail.success');
-
+  const CONST_NAME_PLACE_HOLDER = TranslateConstants({key:TranslateKey.NAME_PLACE_HOLDER});
+  const passwordChangedSuccessfully = TranslateConstants({key:TranslateKey.PASSWORD_CHANGED_SUCCESSFULLY});
+  const tryAgain = TranslateConstants({key:TranslateKey.TRY_AGAIN});
+  const oldPasswordDoesNotMatch = TranslateConstants({key:TranslateKey.OLD_PASSWORD_DOES_NOT_MATCH});
+  const OPEN_CAMERA_OPTION = TranslateConstants({key:TranslateKey.OPEN_CAMERA_OPTION});
+  const OPEN_GALLERY_OPTION = TranslateConstants({key:TranslateKey.OPEN_GALLERY_OPTION});
+  const CANCEL = TranslateConstants({key:TranslateKey.CANCEL});
+  const ok = TranslateConstants({key:TranslateKey.COMMON_OK});
+  const success = TranslateConstants({key:TranslateKey.SUCCESS});
+  const CONST_PLEASE_ENTER_THE_NAME = TranslateConstants({key:TranslateKey.PLEASE_ENTER_THE_NAME});
+  const CONST_OK =TranslateConstants({key:TranslateKey.OK_TEXT});
+  const USER_DETAIL_SELECT_BIRTHDAY_TEXT =TranslateConstants({key:TranslateKey.USER_DETAIL_SELECT_BIRTHDAY_TEXT});
+  const USER_DETAIL_YOUR_DETAILS =TranslateConstants({key:TranslateKey.USER_DETAIL_YOUR_DETAILS});
+  const USER_DETAIL_PASSWORD_TITLE =TranslateConstants({key:TranslateKey.USER_DETAIL_PASSWORD_TITLE});
+  const USER_DETAIL_USER_NAME_TITLE =TranslateConstants({key:TranslateKey.USER_DETAIL_USER_NAME_TITLE});
+  const USER_DETAIL_BIRTHDAY_TITLE =TranslateConstants({key:TranslateKey.USER_DETAIL_BIRTHDAY_TITLE});
+  const CONFIRM =TranslateConstants({key:TranslateKey.CONFIRM});
+  const USER_DETAIL_SELECT_THE_DATE =TranslateConstants({key:TranslateKey.USER_DETAIL_SELECT_THE_DATE});
+  const USER_DETAIL_OCCUPATION_TITLE =TranslateConstants({key:TranslateKey.USER_DETAIL_OCCUPATION_TITLE});
+  const USER_DETAIL_OCCUPATION_PLACEHOLDER =TranslateConstants({key:TranslateKey.USER_DETAIL_OCCUPATION_PLACEHOLDER});
+  const USER_DETAIL_UPDATE_BUTTON_TEXT =TranslateConstants({key:TranslateKey.USER_DETAIL_UPDATE_BUTTON_TEXT});
+  const USER_DETAIL_OLD_PASSWORD =TranslateConstants({key:TranslateKey.USER_DETAIL_OLD_PASSWORD});
+  const USER_DETAIL_NEW_PASSWORD =TranslateConstants({key:TranslateKey.USER_DETAIL_NEW_PASSWORD});
+  const USER_DETAIL_CONFIRM_NEW_PASSWORD =TranslateConstants({key:TranslateKey.USER_DETAIL_CONFIRM_NEW_PASSWORD});
+  const USER_DETAIL_MOVE_AND_SCALE =TranslateConstants({key:TranslateKey.USER_DETAIL_MOVE_AND_SCALE});
 
   const {
     isLoading,
@@ -102,7 +112,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const [date, setDate] = useState(new Date(DEFAULT_MINIMUM_DATE));
   const [open, setOpen] = useState(false);
   const [selectedDate, setSelectedDate] = useState(
-    t('profile.userDetail.selectBirthdayText'),
+    USER_DETAIL_SELECT_BIRTHDAY_TEXT,
   );
   const [userName, setUserName] = useState('');
   const [oldPassword, setOldPassword] = useState('');
@@ -125,13 +135,15 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   const maxDate = currentDate.setFullYear(currentDate.getFullYear() - 15);
 
+  const REQUIRE_ACCESS = TranslateConstants({key:TranslateKey.REQUIRE_ACCESS});
+  const REQUEST_CAMERA_ACCESS_MESSAGE = TranslateConstants({key:TranslateKey.REQUEST_CAMERA_ACCESS_MESSAGE})
+
   const onFocusEffect = useCallback(() => {
     AvoidSoftInput.setAdjustResize();
     return () => {
       AvoidSoftInput.setDefaultAppSoftInputMode();
     };
   }, []);
-  
   useFocusEffect(onFocusEffect);
 
   useEffect(() => {
@@ -192,13 +204,13 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   useEffect(()=>{
     if(isNotEmpty(name)){
-      setDisableName(!(userProfileData.user?.display_name == name))
+      setDisableName(!(userProfileData.user?.display_name === name))
     }
     else{
       setDisableName(false)
     }
     if(isNotEmpty(occupation)){
-      setDisableOccupation(!(userProfileData.user?.occupation == occupation))
+      setDisableOccupation(!(userProfileData.user?.occupation === occupation))
     }
     else{
       setDisableOccupation(false)
@@ -258,11 +270,11 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   const tabItemData: TabBarDataProps[] = [
     {
-      tabName: t('profile.userDetail.yourDetails'),
+      tabName: USER_DETAIL_YOUR_DETAILS,
       isSelected: true,
     },
     {
-      tabName: t('profile.userDetail.passwordTitle'),
+      tabName: USER_DETAIL_PASSWORD_TITLE,
       isSelected: false,
     },
   ];
@@ -344,7 +356,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       display_name: name ?? '',
       first_name: name ?? '',
       birthday:
-        selectedDate.toString() != t('profile.userDetail.selectBirthdayText')
+        selectedDate.toString() !== USER_DETAIL_SELECT_BIRTHDAY_TEXT
           ? getFormattedDate(date)
           : userProfileData.user?.birthday
           ? getFormattedDate(userProfileData.user?.birthday)
@@ -378,7 +390,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               style={styles.emailTitle}
               color={colors.greenishBlue}
               children={
-                userName ? userName : t('profile.userDetail.userNameTitle')
+                userName ? userName : USER_DETAIL_USER_NAME_TITLE
               }
             />
             <Label style={styles.email} children={email} />
@@ -389,7 +401,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <Label
               style={styles.nameTitle}
               color={colors.greenishBlue}
-              children={t('profile.userDetail.nameTitle')}
+              children={CONST_NAME_PLACE_HOLDER}
             />
             <TextInputField
               placeholder={CONST_NAME_PLACE_HOLDER}
@@ -406,30 +418,30 @@ export const UserDetailScreen: FunctionComponent = () => {
             <Label
               style={styles.birthdayTitle}
               color={colors.greenishBlue}
-              children={t('profile.userDetail.birthdayTitle')}
+              children={USER_DETAIL_BIRTHDAY_TITLE}
             />
             <DatePicker
               locale="ar_AE"
               testID='date_Picker'
               minimumDate={new Date(DEFAULT_MINIMUM_DATE)}
               maximumDate={new Date(maxDate)}
-              cancelText={t('profile.userDetail.cancelText')}
-              confirmText={t('profile.userDetail.confirmText')}
+              cancelText={CANCEL}
+              confirmText={CONFIRM}
               modal
               open={open}
               date={date}
-              onConfirm={date => {
+              onConfirm={pickerDate => {
                 setOpen(false);
-                setDate(date);
+                setDate(pickerDate);
                 setDisableDate(true);
-                setSelectedDate(getFullDate(date));
+                setSelectedDate(getFullDate(pickerDate));
                 setBirthday('');
               }}
               onCancel={() => {
                 setOpen(false);
               }}
               mode={'date'}
-              title={t('profile.userDetail.selectTheDate')}
+              title={USER_DETAIL_SELECT_THE_DATE}
               theme={isDarkMode ? 'dark' : 'light'}
               textColor={isIOS ? themeData.textInputColor : colors.black}
             />
@@ -438,12 +450,12 @@ export const UserDetailScreen: FunctionComponent = () => {
                 <View>
                   <Label
                     children={
-                      birthday != '' ? birthday : selectedDate.toString()
+                      birthday !== '' ? birthday : selectedDate.toString()
                     }
                     style={[
                       styles.dropDownLabel,
-                      selectedDate.toString() ==
-                        t('profile.userDetail.selectBirthdayText') &&
+                      selectedDate.toString() ===
+                       USER_DETAIL_SELECT_BIRTHDAY_TEXT &&
                         styles.dropDownLabelPlaceholder,
                     ]}
                   />
@@ -456,10 +468,10 @@ export const UserDetailScreen: FunctionComponent = () => {
             <Label
               style={styles.occupationTitle}
               color={colors.greenishBlue}
-              children={t('profile.userDetail.occupationTitle')}
+              children={USER_DETAIL_OCCUPATION_TITLE}
             />
             <TextInputField
-              placeholder={t('profile.userDetail.occupationPlaceholder')}
+              placeholder={USER_DETAIL_OCCUPATION_PLACEHOLDER}
               testID={'profile_occupation'}
               onChangeText={setOccupation}
               maxLength={20}
@@ -472,7 +484,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           isDisable={!(isDisableName || isDisableDate || isDisableOccupation)}
           style={styles.updateButton}
           labelStyle={styles.updateButtonLabel}
-          title={t('profile.userDetail.updateButtonText')}
+          title={USER_DETAIL_UPDATE_BUTTON_TEXT}
           onPress={onPressConfirm}
         />
       </View>
@@ -481,7 +493,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const renderPassword = () => (
     <View style={styles.container}>
       <TextInputField
-        placeholder={t('profile.userDetail.oldPassword')}
+        placeholder={USER_DETAIL_OLD_PASSWORD}
         testID={'old_password'}
         rightIconTestID={'old_password_icon'}
         onChangeText={setOldPassword}
@@ -493,7 +505,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         isMandatory
       />
       <TextInputField
-        placeholder={t('profile.userDetail.newPassword')}
+        placeholder={USER_DETAIL_NEW_PASSWORD}
         testID={'new_password'}
         rightIconTestID={'new_password_icon'}
         onChangeText={setNewPassword}
@@ -505,7 +517,7 @@ export const UserDetailScreen: FunctionComponent = () => {
         isMandatory
       />
       <TextInputField
-        placeholder={t('profile.userDetail.confirmNewPassword')}
+        placeholder={USER_DETAIL_CONFIRM_NEW_PASSWORD}
         testID={'new_confirm_password'}
         rightIconTestID={'new_confirm_password_icon'}
         onChangeText={setConfirmNewPassword}
@@ -521,7 +533,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           isDisable={!(isNotEmpty(oldPassword) && isNotEmpty(newPassword) && isNotEmpty(confirmNewPassword))}
           style={styles.updateButton}
           labelStyle={styles.updateButtonLabel}
-          title={t('profile.userDetail.updateButtonText')}
+          title={USER_DETAIL_UPDATE_BUTTON_TEXT}
           onPress={onChangePasswordUpdate}
         />
       </View>
@@ -563,9 +575,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           openCamera()
         } else if (buttonIndex === 1) {
           openGallery()
-        } else if (buttonIndex === 2) {
-          
-        }
+        } 
       }
     );
   }
@@ -585,7 +595,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               <View style={styles.optionStyle}>
                 <Label
                   style={styles.optionTextStyle}
-                  children={t('profile.userDetail.openCameraOption')}
+                  children={OPEN_CAMERA_OPTION}
                 />
               </View>
             </TouchableOpacity>
@@ -597,7 +607,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               <View style={styles.optionStyle}>
                 <Label
                   style={styles.optionTextStyle}
-                  children={t('profile.userDetail.chooseFromGallery')}
+                  children={OPEN_GALLERY_OPTION}
                 />
               </View>
             </TouchableOpacity>
@@ -607,7 +617,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               <View style={styles.cancelStyle}>
                 <Label
                   style={styles.cancelTextStyle}
-                  children={t('profile.userDetail.cancelText')}
+                  children={CANCEL}
                 />
               </View>
             </TouchableOpacity>
@@ -625,7 +635,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       cropping: true,
       cropperCircleOverlay: true,
       compressImageQuality: 0.6,
-      cropperToolbarTitle: t('profile.userDetail.moveAndScale'),
+      cropperToolbarTitle: USER_DETAIL_MOVE_AND_SCALE,
     }).then(image => {
       uploadImage(image);
     });
@@ -639,7 +649,7 @@ export const UserDetailScreen: FunctionComponent = () => {
       cropping: true,
       cropperCircleOverlay: true,
       compressImageQuality: 0.6,
-      cropperToolbarTitle: t('profile.userDetail.moveAndScale'),
+      cropperToolbarTitle: USER_DETAIL_MOVE_AND_SCALE,
     }).then(image => {
       uploadImage(image);
     });
@@ -693,7 +703,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           onClose={onCloseSignUpAlert}
         />}
         {renderOptionModal()}
-        {renderTabBarComponent()}
+        {renderTabBarComponent()} 
         <KeyboardAwareScrollView
         bounces={false}
         extraHeight={230}

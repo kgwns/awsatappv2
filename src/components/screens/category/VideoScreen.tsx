@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {View, StyleSheet, FlatList, ListRenderItem} from 'react-native';
+import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native';
 
 import {VideoItem, VideoItemProps} from 'src/components/molecules';
 import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
-// import {videoTabData} from 'src/constants/SampleData';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import {  ScreensConstants } from 'src/constants';
-import {useTranslation} from 'react-i18next';
+import {  ScreensConstants } from 'src/constants/Constants';
 import { useBookmark, useLogin, useVideoList, useDocumentaryVideo, useAppPlayer } from 'src/hooks';
 import {VideoItemType} from 'src/redux/videoList/types';
 import { ScreenContainer } from '..';
@@ -16,15 +14,17 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
   items_per_page: 1,
   page: 1,
 }
 
-export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:number; currentIndex?:number;}) => {
+export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any}) => {
 
   const styles = useThemeAwareObject(customStyle);
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
   const {isLoading,videoData,fetchVideoRequest} = useVideoList();
   const {isVideoLoading, videoDocumentaryData, fetchDocumentaryVideoRequest} = useDocumentaryVideo();
   const [showupUp,setShowPopUp] = useState(false)
@@ -111,13 +111,12 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
     }
     
     const updatedData = updatedChangeBookmark(data, index)
-    if(data == videoDataInfo){
+    if(data === videoDataInfo){
       setVideoDataInfo(updatedData)
     }else{
       setVideoDocumentaryInfo(updatedData);
     }
   }
-  
   useEffect(() => { 
     fetchDocumentaryVideoRequest(documentaryVideoPayload);
     fetchVideoRequest();
@@ -126,7 +125,6 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
   const onPressItem = (item:VideoItemType, isDocumentary:boolean)=>{
     navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isDocumentary})
   }
-  const [t] = useTranslation();
 
   const [videoDataInfo, setVideoDataInfo] = useState(videoData)
   const [videoDocumentaryInfo, setVideoDocumentaryInfo] = useState(videoDocumentaryData)
@@ -197,10 +195,15 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex}: {tabIndex?:numb
       onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
       backgroundColor={styles.screenBackgroundColor?.backgroundColor} >
       <View style={styles.container}>
-        <FlatList
+        <AnimatedFlatList
            ref={ref}
            testID='main_FlatList1'
            onScrollBeginDrag={() => global.refFlatList = ref}
+           onScroll={Animated.event(
+            [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
+            {useNativeDriver: false}
+          )}
+          scrollEventThrottle={16}
           data={[{}]}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderItem}

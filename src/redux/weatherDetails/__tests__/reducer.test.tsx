@@ -100,4 +100,10 @@ describe('WeatherDetail reducer', () => {
     expect(nextState.isLoading).toBe(true);
   });
   
+  test('Default State', () => {
+    const nextState = weatherDetails(
+      initialState, { type:'' }
+    )
+    expect(nextState.isLoading).toBe(false)
+  })
 });

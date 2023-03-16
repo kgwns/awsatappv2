@@ -27,7 +27,7 @@ export const FavoriteVideo = ({
     };
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={styles.mainContainer}>
             <FlatList
                 style={styles.container}
                 data={data}
@@ -42,4 +42,7 @@ const styles = StyleSheet.create({
     container: {
         top: normalize(10)
     },
+    mainContainer: {
+        flex: 1
+    }
 });

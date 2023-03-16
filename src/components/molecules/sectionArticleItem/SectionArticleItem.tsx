@@ -5,9 +5,11 @@ import {
   ImageStyle,
 } from 'react-native';
 import React from 'react';
-import {ButtonImage, ImageWithLabel, Label, LabelTypeProp} from 'src/components/atoms';
+import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
+import { ImageWithLabel} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
+import { Label, LabelTypeProp} from 'src/components/atoms/label/Label';
 import {isNotEmpty, isTab, normalize} from 'src/shared/utils';
-import {moleculesTestID, ScreensConstants} from '../../../constants';
+import {moleculesTestID, ScreensConstants} from '../../../constants/Constants';
 import {Styles} from '../../../shared/styles';
 import {ImagesName} from '../../../shared/styles/images';
 import {BookMarkColorType} from '../articleFooter/ArticleFooter';
@@ -39,6 +41,7 @@ export interface SectionArticleItemProps {
   isBookmarked: boolean
   onPressBookmark: () => void
   showDivider?: boolean
+  displayType?: string;
 }
 const SectionArticleItem = ({
     headerTitle,
@@ -57,7 +60,8 @@ const SectionArticleItem = ({
     nid,
     isBookmarked,
     onPressBookmark,
-    showDivider = true
+    showDivider = true,
+    displayType,
 }: SectionArticleItemProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
@@ -71,7 +75,7 @@ const SectionArticleItem = ({
   return (
     <View style={style.sectionArticleItem}>
       <TouchableWithoutFeedback testID={'onPressTestID'} onPress={onPress}>
-        {image && <ImageWithLabel url={image} imageStyle={imageStyle} />}
+        {image && <ImageWithLabel url={image} imageStyle={imageStyle} displayType={displayType}/>}
         <View style={style.sectionContent}>
           <Label
             labelType={LabelTypeProp.h2}
@@ -93,7 +97,7 @@ const SectionArticleItem = ({
             : style.hideFooterContainer
         }>
         {!hideFooter && (
-          <View style={{ flexDirection: 'row' }}>
+          <View style={style.footerContainer}>
             {(leftIcon || isNotEmpty(leftTitle)) &&
               <CaptionWithImage
                 title={leftTitle}
@@ -171,5 +175,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   rightTitle: {
     alignSelf: 'center',
+  },
+  footerContainer: {
+     flexDirection: 'row' 
   }
 });

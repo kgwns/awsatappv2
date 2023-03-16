@@ -1,6 +1,6 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
 import React from 'react'
-import  {TopHeadLineNews} from '../TopHeadLineNews'
+import  {TopHeadLineNews} from 'src/components/molecules/topHeadLineNews/TopHeadLineNews'
 import {useNavigation} from '@react-navigation/native';
 import { FlatList } from 'react-native';
 import { HomePageArticleType, MainSectionBlockType } from 'src/redux/latestNews/types';

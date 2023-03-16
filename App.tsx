@@ -12,19 +12,20 @@ import { GetFCMToken } from 'src/firebase/notification/notification';
 import TrackPlayer from 'react-native-track-player';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
 import { isIOS } from 'src/shared/utils';
+import { FetchArabicData } from 'src/firebase/RemoteConfig/RemoteConfig';
 
 const App = () => {
 
-  const permissionDelay = isIOS ? 1500 : 5500;
+  const permissionDelay = isIOS ? 4000 : 5500;
   
   useEffect(() => {
     Orientation.lockToPortrait()
   }, [])
 
   useEffect(() => {
-    // setTimeout(() => {
+    setTimeout(() => {
       checkPermission()
-    // }, permissionDelay)
+    }, permissionDelay)
   }, [])
 
   useEffect(() => {
@@ -37,6 +38,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <GetFCMToken/>
+      <FetchArabicData/>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider initial={DEFAULT_LIGHT_THEME} >
           <SplashNavigation />

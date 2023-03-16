@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler/jestSetup';
-import { LoginManager } from 'react-native-fbsdk-next';
+import {LoginManager} from 'react-native-fbsdk-next';
 import mockRNDeviceInfo from 'react-native-device-info/jest/react-native-device-info-mock';
 
 jest.mock('@react-native-async-storage/async-storage', () =>
@@ -13,7 +13,9 @@ jest.mock('react-native-reanimated', () => {
   Reanimated.default.call = () => {};
   return Reanimated;
 });
-
+jest.mock('@notifee/react-native', () =>
+  require('@notifee/react-native/jest-mock'),
+);
 jest.mock('react-native/Libraries/Animated/NativeAnimatedHelper');
 jest.mock('react-native/Libraries/LogBox/LogBox');
 jest.spyOn(global.console, 'warn').mockImplementation(() => jest.fn());
@@ -30,20 +32,20 @@ jest.mock('@react-navigation/native', () => {
       addListener: jest.fn(),
     }),
     useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
-    useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
+    useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn()),
   };
 });
 
 jest.mock('react-redux', () => {
   const ActualReactRedux = jest.requireActual('react-redux');
   return {
-      ...ActualReactRedux,
-      useDispatch: jest.fn().mockImplementation(() => {
-        return jest.fn()
-      }),
-      useSelector: jest.fn().mockImplementation(() => {
-          return jest.fn();
-      }),
+    ...ActualReactRedux,
+    useDispatch: jest.fn().mockImplementation(() => {
+      return jest.fn();
+    }),
+    useSelector: jest.fn().mockImplementation(() => {
+      return jest.fn();
+    }),
   };
 });
 
@@ -51,51 +53,52 @@ jest.mock('react-native-device-info', () => mockRNDeviceInfo);
 
 jest.mock('react-native-share', () => {
   return {
-    open: jest.fn().mockImplementation(() => jest.fn())
-  }
-})
+    open: jest.fn().mockImplementation(() => jest.fn()),
+  };
+});
 
 jest.mock('react-native-color-matrix-image-filters', () => {
   return {
-    Grayscale: jest.fn().mockImplementation(() => jest.fn())
-  }
-})
-
+    Grayscale: jest.fn().mockImplementation(() => jest.fn()),
+  };
+});
 
 jest.mock('keyboard-aware-view', () => {
   return {
-    KeyboardAwareView: jest.fn().mockImplementation(() => jest.fn())
-  }
-})
+    KeyboardAwareView: jest.fn().mockImplementation(() => jest.fn()),
+  };
+});
 
 jest.mock('react-native-keyboard-aware-scroll-view', () => {
-  const KeyboardAwareScrollView = ({ children }) => children;
-  return { KeyboardAwareScrollView };
+  const KeyboardAwareScrollView = ({children}) => children;
+  return {KeyboardAwareScrollView};
 });
 
 jest.mock('@react-native-google-signin/google-signin', () => {});
 
 jest.mock('react-native-image-crop-picker', () => {
   return {
-    ImagePicker: jest.fn().mockImplementation(() => jest.fn())
-  }
-})
+    ImagePicker: jest.fn().mockImplementation(() => jest.fn()),
+  };
+});
 
-jest.spyOn(LoginManager, 'logInWithPermissions').mockImplementation(() => Promise.resolve({ isCancelled: false }))
+jest
+  .spyOn(LoginManager, 'logInWithPermissions')
+  .mockImplementation(() => Promise.resolve({isCancelled: false}));
 
-jest.mock("react-native-video", () => "Video");
+jest.mock('react-native-video', () => 'Video');
 
-jest.mock("react-native-track-player", () => "TrackPlayer");
+jest.mock('react-native-track-player', () => 'TrackPlayer');
 
-jest.mock("react-native-track-player", () => {
+jest.mock('react-native-track-player', () => {
   return {
     usePlaybackState: jest.fn().mockImplementation(() => jest.fn()),
     State: jest.fn().mockImplementation(() => jest.fn()),
     useProgress: jest.fn().mockImplementation(() => jest.fn()),
     useTrackPlayerEvents: jest.fn().mockImplementation(() => jest.fn()),
     Event: jest.fn().mockImplementation(() => jest.fn()),
-  }
-})
+  };
+});
 jest.mock('react-native-adjust', () => {
   const actualNav = jest.requireActual('react-native-adjust');
   return {
@@ -111,7 +114,7 @@ jest.mock('react-native-adjust', () => {
       setSessionTrackingSucceededCallbackListener: jest.fn(),
       setSessionTrackingFailedCallbackListener: jest.fn(),
     }),
-    Adjust: ({
+    Adjust: {
       getSdkVersion: jest.fn().mockReturnValue(() => {}),
       requestTrackingAuthorizationWithCompletionHandler: jest.fn(),
       create: jest.fn(),
@@ -122,8 +125,8 @@ jest.mock('react-native-adjust', () => {
       getIdfa: jest.fn(),
       getGoogleAdId: jest.fn(),
       getAmazonAdId: jest.fn(),
-      getAttribution: jest.fn()
-    }),
+      getAttribution: jest.fn(),
+    },
   };
 });
 
@@ -131,29 +134,36 @@ jest.mock('react-native-adjust-oaid', () => {
   const actualNav = jest.requireActual('react-native-adjust-oaid');
   return {
     ...actualNav,
-    AdjustOaid: jest.fn().mockImplementation(() => jest.fn())
+    AdjustOaid: jest.fn().mockImplementation(() => jest.fn()),
   };
 });
 
 jest.mock('react-native-restart', () => {
   return {
-    Restart: jest.fn().mockImplementation(() => jest.fn())
-  }
-})
+    Restart: jest.fn().mockImplementation(() => jest.fn()),
+  };
+});
 
 jest.mock('src/redux/store.ts', () => {
   return {
     store: {
-      getState: jest.fn().mockReturnValue({}),
-      subscribe: jest.fn().mockReturnValue(() => jest.fn())
+      getState: jest.fn().mockReturnValue({appCommon:{
+        baseUrlConfig:{
+          baseUrl: 'https://aawsat.srpcdigital.com/',
+          umsUrl:  "https://awsatapi.srpcdigital.com/",
+          imageUrl: 'https://static.srpcdigital.com/',
+          profileImageUrl: "https://awsatapi.srpcdigital.com/storage/",
+          liveBlogUrl: "https://aawsat.srpcdigital.com/livenews/",
+        }
+      }}),
+      subscribe: jest.fn().mockReturnValue(() => jest.fn()),
     },
     persistor: {
       getState: jest.fn().mockReturnValue({}),
-      subscribe: jest.fn().mockReturnValue(() => jest.fn())
-    }
-    
-  }
-})
+      subscribe: jest.fn().mockReturnValue(() => jest.fn()),
+    },
+  };
+});
 
 jest.mock('redux-persist', () => {
   const real = jest.requireActual('redux-persist');
@@ -164,14 +174,11 @@ jest.mock('redux-persist', () => {
       .mockImplementation((config, reducers) => reducers),
   };
 });
-
 jest.mock('redux-saga', () => {
   const real = jest.requireActual('redux-saga');
   return {
     ...real,
-    createSagaMiddleware: jest
-      .fn()
-      .mockImplementation(() => jest.fn()),
+    createSagaMiddleware: jest.fn().mockImplementation(() => jest.fn()),
   };
 });
 
@@ -179,20 +186,22 @@ jest.mock('@react-native-firebase/messaging', () => {
   return jest.fn().mockReturnValue({
     getToken: jest.fn().mockResolvedValue(''),
     requestPermission: jest.fn().mockResolvedValue(true),
-    registerDeviceForRemoteMessages: jest.fn().mockResolvedValue(),
-    AuthorizationStatus: jest.fn().mockResolvedValue(),
+    registerDeviceForRemoteMessages: jest.fn(),
+    AuthorizationStatus: jest.fn(),
+    setBackgroundMessageHandler: jest.fn(),
+    getInitialNotification: jest.fn().mockResolvedValue(''),
+    onNotificationOpenedApp: jest.fn(),
   });
 });
 
 jest.mock('@react-native-firebase/app', () => {
   const actualNav = jest.requireActual('@react-native-firebase/app');
   return {
-    ...actualNav, 
-    messaging: ({ onMessage: jest.fn()})} 
+    ...actualNav,
+    messaging: {onMessage: jest.fn()},
+  };
 });
 
 jest.mock('react-native-permissions', () =>
   require('react-native-permissions/mock'),
 );
-
-

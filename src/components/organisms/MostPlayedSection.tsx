@@ -3,7 +3,7 @@ import {StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import {Divider} from '../atoms';
 import {ArticleRectangleCard} from '../molecules';
 import {SectionHeader} from '../molecules/podcast/SectionHeader';
@@ -15,6 +15,8 @@ interface mostPlayedSectionProps {
 
 const MostPlayedSection = ({data}: mostPlayedSectionProps) => {
   const style = useThemeAwareObject(customStyle);
+  const SECTION_HEADER_LEFT = TranslateConstants({key:TranslateKey.SECTION_HEADER_LEFT});
+  const SECTION_HEAER_RIGHT = TranslateConstants({key:TranslateKey.SECTION_HEAER_RIGHT});
 
   const renderItem = (item: ArticleRectangleCardProps, index: number) => {
     return (
@@ -48,8 +50,8 @@ const MostPlayedSection = ({data}: mostPlayedSectionProps) => {
   return (
     <View style={style.container}>
       <SectionHeader
-        headerLeft={'المزيد'}
-        headerRight={'اكثر الحلقات التي تم تشغيلها'}
+        headerLeft={SECTION_HEADER_LEFT}
+        headerRight={SECTION_HEAER_RIGHT}
       />
       <FlatList
         horizontal

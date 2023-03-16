@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { RichHTMLOpinonWidget} from 'src/components/screens/articleDetail/components/RichHTMLOpinonWidget';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 
 
 describe('<RichHTMLOpinonWidget>', () => {

@@ -1,4 +1,4 @@
-import {storeInfo} from 'src/constants/SampleData';
+import {storeInfo} from 'src/constants/Constants';
 import {getThemeState, getIsFirstSession, getServerEnvironment, getArticleFontSize} from '../selectors';
 import {ServerEnvironment, Theme} from '../types';
 

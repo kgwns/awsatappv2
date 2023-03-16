@@ -9,7 +9,7 @@ import { CustomThemeType, DARK_THEME_ID } from 'src/shared/styles/colors'
 import { CROSS_WORD_GAME_BASE_ID_URL, SUDOKU_GAME_BASE_ID_URL } from 'src/services/apiUrls'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 
 
 export interface DynamicGameScreenProps {
@@ -32,7 +32,7 @@ export const DynamicGameScreen = ({
     const onShouldStartLoadWithRequest = (request: any) => {
         const { url } = request
 
-        if (url && (url.includes(SUDOKU_GAME_BASE_ID_URL) || url.includes(CROSS_WORD_GAME_BASE_ID_URL)) && currentUrl != url) {
+        if (url && (url.includes(SUDOKU_GAME_BASE_ID_URL) || url.includes(CROSS_WORD_GAME_BASE_ID_URL)) && currentUrl !== url) {
             navigation.push(ScreensConstants.DYNAMIC_GAME_SCREEN, { gameData: { url: url }, showIntro: false })
             webviewRef?.stopLoading()
             return false

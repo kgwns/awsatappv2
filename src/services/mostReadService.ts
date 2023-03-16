@@ -8,7 +8,7 @@ export const fetchMostReadApi = async () => {
     const response: FetchMostReadSuccessPayloadType = await getCacheApiRequest(
       `${BASE_URL}${MOST_READ_ENDPOINT}`,
     );
-    //console.log( `MostReadService url: ${BASE_URL}${MOST_READ_ENDPOINT} response: ${JSON.stringify(response)}`, );
+
     return response;
   } catch (error) {
     throw error;

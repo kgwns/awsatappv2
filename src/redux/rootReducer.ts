@@ -34,6 +34,7 @@ import weatherDetails from 'src/redux/weatherDetails/reducer';
 import contactUsInfo from 'src/redux/contactUs/reducer';
 import albumList from 'src/redux/photoGallery/reducer';
 import journalist from 'src/redux/journalist/reducer';
+import arabicWords from 'src/redux/arabicWords/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -73,6 +74,7 @@ const rootReducer = combineReducers({
   contactUsInfo: contactUsInfo,
   albumList: albumList,
   journalist: journalist,
+  arabicWords:arabicWords,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

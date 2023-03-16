@@ -1,15 +1,29 @@
 import React, { useState } from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../../constants/SampleData';
+import {storeSampleData} from '../../../../constants/Constants';
 import {SelectTopicsScreen} from '../SelectTopicsScreen';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { InterestedTopics } from 'src/components/organisms';
 import { useAllSiteCategories } from 'src/hooks';
+import { useNavigation } from '@react-navigation/native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
+}));
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+  isIOS: false
+}));
+
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
 jest.mock("src/hooks/useUserProfileData", () => ({
@@ -58,11 +72,15 @@ describe('<SelectTopicsScreen>', () => {
   const categoriesInfo = mockFunction;
   const updatedTopics = mockFunction;
   const useAllSiteCategoriesMock = jest.fn();
+  const navigation = {
+    navigate:jest.fn()
+  }
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [sampleData, categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [sampleData, updatedTopics]);
+    (useNavigation as jest.Mock).mockReturnValue(navigation);
     (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
     useAllSiteCategoriesMock.mockReturnValue({
       isLoading: false,
@@ -95,7 +113,7 @@ describe('<SelectTopicsScreen>', () => {
         },
       ],
       sentTopicsData: {
-        code: 400,
+        code: 500,
         message: "example"
       },
       sendSelectedTopicInfo: () => { return [] },
@@ -121,6 +139,16 @@ describe('<SelectTopicsScreen>', () => {
     expect(instance).toBeDefined();
   });
 
+  test('Should render SelectTopicScreen in tab', () => {
+    DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+
+  test('Should render SelectTopicScreen in iOS', () => {
+    DeviceTypeUtilsMock.isIOS = true;
+    expect(instance).toBeDefined();
+  });
+
   test('Should call InterestedTopics onTopicsChanged', () => {
     const element = instance.container.findByType(InterestedTopics)
     fireEvent(element, 'onTopicsChanged', sampleData[0], true);
@@ -137,11 +165,15 @@ describe('<SelectTopicsScreen>', () => {
   const categoriesInfo = mockFunction;
   const updatedTopics = mockFunction;
   const useAllSiteCategoriesMock = jest.fn();
+  const navigation = {
+    navigate:jest.fn()
+  }
 
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [sampleData1, categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [sampleData1, updatedTopics]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
     useAllSiteCategoriesMock.mockReturnValue({
       isLoading: false,
@@ -188,8 +220,12 @@ describe('<SelectTopicsScreen>', () => {
   const categoriesInfo = mockFunction;
   const updatedTopics = mockFunction;
   const useAllSiteCategoriesMock = jest.fn();
+  const navigation = {
+    navigate:jest.fn()
+  }
 
   beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [true, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [[], categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [[], updatedTopics]);
@@ -222,3 +258,4 @@ describe('<SelectTopicsScreen>', () => {
   });
 
 });
+

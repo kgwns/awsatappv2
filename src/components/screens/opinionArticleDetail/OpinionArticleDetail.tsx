@@ -12,10 +12,9 @@ import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useAppPlayer, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
-import TrackPlayer, { RepeatMode, State, usePlaybackState } from 'react-native-track-player';
 import { useFocusEffect, useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants } from 'src/constants/Constants';
 import { sendUserEventTracking } from 'src/services'
 import { TrackingEventType } from 'src/services/eventTrackService'
 import { ArticleFontSize } from 'src/redux/appCommon/types';
@@ -45,10 +44,10 @@ export const OpinionArticleDetail = ({
   const [fontSize,setFontSize] = useState<ArticleFontSize>(articleFontSize)
   const { isLoading, opinionArticleDetailData, fetchOpinionArticleDetail,
     fetchRelatedOpinionData, relatedOpinionListData,
-    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData,fetchNarratedOpinionData } =
+    isLoadingRelatedOpinion, emptyRelatedOpinionData,emptyOpinionArticleData } =
     useOpinionArticleDetail();
     const { writerDetailData,
-      getWriterDetailData, emptyWriterDetailData
+      getWriterDetailData
   } = useWriterDetail();
 
   const { showMiniPlayer } = useAppPlayer()
@@ -73,56 +72,15 @@ export const OpinionArticleDetail = ({
   const [scrollY, setScrollY] = useState(new Animated.Value(0))
 
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
-  const playbackState = usePlaybackState();
   const relatedOpinionRef = useRef(true);
   const pageLoadingRef = useRef(false);
 
-  const detailRoutes = useMemo(() => routes.filter((routes) =>
-    routes.name == ScreensConstants.ARTICLE_DETAIL_SCREEN ||
-    routes.name == ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-    routes.name == ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+  const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
+    detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
+    detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
+    detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
   const noOfDetailRoutes = detailRoutes.length
 
-  const togglePlayback = async (nid: string, mediaData: any) => {
-    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
-
-    if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
-      return
-    }
-
-    const id = nid
-    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
-    const title = mediaData.title ? mediaData.title : '';
-
-
-    const setupPlayer = async () => {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: id,
-        url: media,
-        title: title,
-        artist: title,
-      });
-      await TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-    if(selectedTrack == nid){
-      if (playbackState === State.Playing) {
-        await TrackPlayer.pause();
-      }
-      else if (playbackState === State.Paused) {
-        await TrackPlayer.play();
-      }
-      else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-        setupPlayer()
-      }
-    }else{
-        await TrackPlayer.reset();
-        setupPlayer()
-    }
-    setSelectedTrack(nid)
-  }
 
   const sendEventToServer = () => {
     sendUserEventTracking({
@@ -138,9 +96,11 @@ export const OpinionArticleDetail = ({
 
     getSelectedAuthorsData()
     emptyRelatedOpinionData()
-    Orientation.unlockAllOrientations();
-    Orientation.getDeviceOrientation(updateScreenEdge);
-    Orientation.addDeviceOrientationListener(updateScreenEdge);
+    if (isTab) {
+      Orientation.unlockAllOrientations();
+      Orientation.getDeviceOrientation(updateScreenEdge);
+      Orientation.addDeviceOrientationListener(updateScreenEdge);
+    }
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
@@ -156,7 +116,7 @@ export const OpinionArticleDetail = ({
   }, []);
 
   useEffect(() => {
-    isFocused && Orientation.unlockAllOrientations();
+    isFocused && isTab && Orientation.unlockAllOrientations();
     setScrollY(new Animated.Value(0))
   }, [isFocused])
 
@@ -169,14 +129,16 @@ export const OpinionArticleDetail = ({
   useEffect(() => {
     pageLoadingRef.current = false;
     if (isNonEmptyArray(relatedOpinionListData) && isFocused) {
-      const relatedOpinionData = relatedOpinionListData.filter((data) => { return data.nid != currentNId})
+      const relatedOpinionData = relatedOpinionListData.filter((data) => { 
+        return data.nid !== currentNId
+      })
       setrelatedOpinioninfo(relatedOpinionData)
     }
   }, [relatedOpinionListData])
 
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
-    const edge = getScreenEdge(deviceOrientation)
-    setEdge(edge)
+    const screenEdge = getScreenEdge(deviceOrientation)
+    setEdge(screenEdge)
   }
 
   const getScreenEdge = (deviceOrientation: OrientationType): Edge[] => {
@@ -192,8 +154,8 @@ export const OpinionArticleDetail = ({
     if (isNonEmptyArray(opinionArticleDetailData)) {
       if(route.params && route.params.nid && isFocused){
         setOpinionArticle(opinionArticleDetailData)
-        const isBookmarked = validateBookmark(opinionArticleDetailData[0].nid_export)
-        setIsBookmarked(isBookmarked)
+        const isBookmark = validateBookmark(opinionArticleDetailData[0].nid_export)
+        setIsBookmarked(isBookmark)
       }
 
       if (isNonEmptyArray(opinionArticleDetailData[0].writer) && isNotEmpty(opinionArticleDetailData[0].writer[0]?.id)) {
@@ -217,26 +179,24 @@ export const OpinionArticleDetail = ({
   }, [isFocused, opinionArticle])
 
   useEffect(() => {
-      if(page != 0 && !pageLoadingRef.current){
+      if(page !== 0 && !pageLoadingRef.current){
         pageLoadingRef.current = true;
         fetchRelatedOpinionData(relatedOpinionPayload);
       }
   }, [page]);
 
   useEffect(() => {
-    if (fontSize != articleFontSize) {
+    if (fontSize !== articleFontSize) {
       setFontSize(articleFontSize)
     }
   }, [articleFontSize])
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData) && isNonEmptyArray(opinionArticle) && isObjectNonEmpty(selectedAuthorsData) && isFocused) {
-      const isFollowed = isNonEmptyArray(opinionArticle[0].writer) && validateFollow(opinionArticle[0].writer[0].id)
-      // console.log('useeffect validate follow', opinionArticle[0].writer[0].id)
-      setIsFollowed(isFollowed)
+      const isFollow = isNonEmptyArray(opinionArticle[0].writer) && validateFollow(opinionArticle[0].writer[0].id)
+      setIsFollowed(isFollow)
     }
   }, [isFocused, opinionArticle, selectedAuthorsData])
-
 
 
   const validateBookmark = (nid: string): boolean => {
@@ -292,7 +252,7 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressRelatedOpinion = (nid: string) => {
-    if (nid && nid!=currentNId) {
+    if (nid && nid!==currentNId) {
       emptyRelatedOpinionData()
       navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
     }
@@ -319,7 +279,7 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressBack = async () => {
-    if (!route.params.isRelatedArticle) {
+    if (!route.params.isRelatedArticle && isTab) {
       Orientation.unlockAllOrientations()
       Orientation.lockToPortrait()
     }
@@ -335,7 +295,6 @@ export const OpinionArticleDetail = ({
       <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
     </View>
   )
-
   const renderItem = () => {
     const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
 
@@ -347,7 +306,6 @@ export const OpinionArticleDetail = ({
             isFollowed={isFollowed} onPressFollow={() => onPressFollow(opinionArticle[0].writer[0].id)}
             onPressWriter={onPressWriter}
             isRelatedArticle={route.params.isRelatedArticle} writerData={writerDetailInfo[0]}
-            togglePlayback={togglePlayback}
             selectedTrack={selectedTrack}
             hideBackArrow={hideBackArrow}
             visibleHome={noOfDetailRoutes > 1}
@@ -359,7 +317,6 @@ export const OpinionArticleDetail = ({
             onPress={onPressRelatedOpinion}
             onScroll={() => gotoNextPage()}
             isLoading={isLoadingRelatedOpinion}
-            togglePlayback={togglePlayback}
             selectedTrack={selectedTrack}
           />
         )}

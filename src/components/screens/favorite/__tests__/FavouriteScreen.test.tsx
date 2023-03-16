@@ -1,7 +1,7 @@
 import React from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
-import { storeSampleData } from 'src/constants/SampleData'
+import { storeSampleData } from 'src/constants/Constants'
 import { FavoriteScreen } from '../FavoriteScreen'
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { SignupAlertCard } from 'src/components/molecules'
@@ -14,6 +14,11 @@ jest.mock('@react-navigation/native', () => ({
     useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
 }));
 
+jest.mock('react',() => ({
+    ...jest.requireActual('react'),
+    useCallBack:jest.fn()
+}))
+
 describe('<FavoriteScreen>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
@@ -22,16 +27,16 @@ describe('<FavoriteScreen>', () => {
         navigate: jest.fn(),
     }
 
-    jest.mock("src/hooks/useLogin", () => ({
-        useLogin: () => {
-          return {
-            isLoggedIn: true,
-          }
-        },
-    }));
-
+    
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+        jest.mock("src/hooks/useLogin", () => ({
+            useLogin: () => {
+              return {
+                isLoggedIn: true,
+              }
+            },
+        }));
         const component =
             <Provider store={storeSampleData}>
                 <FavoriteScreen />

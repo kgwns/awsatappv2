@@ -2,7 +2,7 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useRef, useState } from 'react';
 import { Archives } from 'src/components/organisms'
 import { FilterComponent, FilterDataType } from 'src/components/molecules';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { Provider } from 'react-redux';
 import { useBookmark } from 'src/hooks';
 

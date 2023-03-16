@@ -2,10 +2,9 @@ import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
 import { isTab, normalize, screenWidth} from '../../shared/utils';
-import { Styles} from '../../shared/styles';
-import {TextWithFlag, Divider, Label, LabelTypeProp, LiveBlogTag} from '../atoms';
+import { Divider, Label, LabelTypeProp } from '../atoms';
 import {ImageResize} from '../../shared/styles/text-styles';
-import {flatListUniqueKey, ScreensConstants} from '../../constants';
+import {flatListUniqueKey, ScreensConstants} from '../../constants/Constants';
 import {SectionVideoFooter} from '../molecules';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {NewsViewListItemType} from 'src/redux/newsView/types';
@@ -18,13 +17,13 @@ import {
 } from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppPlayer } from 'src/hooks';
-import { displayTypes } from 'src/constants/SharedConstants';
+import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 
 export interface NewsFeedProps {
   title: string;
@@ -81,7 +80,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     const timeFormat = dateTimeAgo(item.changed)
 
     return (
-      <View style={{marginTop: 10}}>
+      <View style={style.videoFooterContainer}>
         <SectionVideoFooter  
           // rightTitle={isAndroid ?  ',' + calculateYear(item.created_export) : calculateYear(item.created_export) + ','} for older reference
           leftTitleColor={style.footerTitleColor.color}
@@ -128,7 +127,6 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   )
 
   const renderItem = (item: NewsViewListItemType, index: number) => {
-    const isLive = isNotEmpty(item.displayType) && item.displayType == displayTypes.liveCoverage;
     return (
       <View key={flatListUniqueKey.NEWS_FEED + index}>
         <FixedTouchable activeOpacity={0.8} onPress={() => onPress(item.nid)}>
@@ -136,7 +134,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
             isTab ?
               <View style={style.tabSplitter}>
                 <View style={style.tabLeftContainer}>
-                  {isLive && <LiveBlogTag enableTopMargin />}
+                  <ArticleLabel displayType={item.field_display_export} enableTopMargin />
                   {renderTitle(item.title)}
                   {renderDescription(item.body)}
                   {renderArticleFooter(item, index)}
@@ -145,9 +143,9 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
               </View>
               :
               <>
-                <View style={{ flexDirection: 'row' }}>
+                <View style={style.blogContainer}>
                   <View style={style.titleContainer}>
-                    {isLive && <LiveBlogTag enableTopMargin />}
+                    <ArticleLabel displayType={item.field_display_export} enableTopMargin />
                     {renderTitle(item.title)}
                   </View>
                   <View>
@@ -159,8 +157,8 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           }
         </FixedTouchable>
         <Divider style={style.divider}/>
-        {isLoading && data.length - 1 == index && (
-          <View style={{margin: normalize(28)}}>
+        {isLoading && data.length - 1 === index && (
+          <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
           </View>
         )}
@@ -181,10 +179,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
         onEndReachedThreshold={0.5}
       />
       {showMiniPlayer && <View
-        style={{
-          height: normalize(60),
-          paddingHorizontal: normalize(20),
-        }}></View>}
+        style={style.miniPlayerContainer}></View>}
     </View>
   );
 };
@@ -259,4 +254,17 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   footerTitleColor: {
     color: theme.footerTextColor
   },
+  videoFooterContainer: {
+    marginTop: 10
+  },
+  blogContainer: {
+    flexDirection: 'row' 
+  },
+  loaderStyle: {
+    margin: normalize(28)
+  },
+  miniPlayerContainer: {
+    height: normalize(60),
+    paddingHorizontal: normalize(20),
+  }
 });

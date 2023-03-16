@@ -1,7 +1,7 @@
 import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native'
 import React from 'react'
-import { LabelTypeProp } from '..'
-import { WidgetHeaderElement } from '../index'
+import { LabelTypeProp } from 'src/components/atoms/label/Label'
+import { WidgetHeaderElement } from 'src/components/atoms/widgetHeader/WidgetHeaderElement'
 import { fonts } from 'src/shared/styles/fonts'
 
 export interface HeaderElementProps {
@@ -31,10 +31,10 @@ export const WidgetHeader = ({
     return (
         <View style={StyleSheet.flatten([styles.container,widgetHeaderStyle])}>
             {headerLeft && <WidgetHeaderElement {...headerLeft}
-                textStyle={[{ fontFamily: fonts.AwsatDigital_Bold }, headerLeft.textStyle]}
+                textStyle={[styles.headerLeftTextStyle , headerLeft.textStyle]}
             />}
             {headerRight && <WidgetHeaderElement {...headerRight} onPress={onPress}
-                textStyle={[{ fontFamily: fonts.Effra_Regular }, headerRight.textStyle]}
+                textStyle={[styles.headerRightTextStyle, headerRight.textStyle]}
             />}
         </View>
     )
@@ -44,5 +44,11 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
+    headerLeftTextStyle: { 
+        fontFamily: fonts.AwsatDigital_Bold
+    },
+    headerRightTextStyle: {
+        fontFamily: fonts.Effra_Regular
     }
 })

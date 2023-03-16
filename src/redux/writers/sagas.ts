@@ -9,7 +9,6 @@ import {FETCH_OPINION_WRITER} from './actionTypes';
 import {fetchOpinionWriterApi} from 'src/services/opinionWriterService';
 
 export function* fetchOpinionWriter(action: FetchOpinionWrtiterType) {
-  // console.log("saga fetchOpinionWriter");
 
   try {
     const payload: FetchOpinionWriterListSuccessPayloadType = yield call(

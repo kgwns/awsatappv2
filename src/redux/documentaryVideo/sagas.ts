@@ -15,8 +15,7 @@ import {isNonEmptyArray} from 'src/shared/utils';
 
 export const formatDocumentaryVideo = (response: any): VideoItemType[] => {
   let formattedData: VideoItemType[] = [];
-  if (response) {
-    if (isNonEmptyArray(response.rows)) {
+    if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows;
       formattedData = rows.map(
         ({
@@ -42,7 +41,6 @@ export const formatDocumentaryVideo = (response: any): VideoItemType[] => {
         }),
       );
     }
-  }
   return formattedData;
 };
 

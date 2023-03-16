@@ -50,7 +50,7 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
   // TODO: Need to remove those sample value when the API is available
   if (isNonEmptyArray(response)) {
     responseData.bookmarkedDetailInfo = response.reduce((prevValue: any[], item: any) => {
-      if (item.type == PopulateWidgetType.ARTICLE) {
+      if (item.type === PopulateWidgetType.ARTICLE) {
         const data = {
           type: item.type,
           body: item.body_export,
@@ -66,7 +66,7 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
           displayType: item.field_display_export,
         }
         return prevValue.concat(data)
-      } else if (item.type == PopulateWidgetType.OPINION) {
+      } else if (item.type === PopulateWidgetType.OPINION) {
         const opinionData = {
           type: item.type,
           imageUrl: getOpinionImage(item),
@@ -82,7 +82,7 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
         }
         return prevValue.concat(opinionData)
       }
-      else if (item.type == PopulateWidgetType.VIDEO) {
+      else if (item.type === PopulateWidgetType.VIDEO) {
         const videoData = {
           ...item,
           imageUrl:item.field_thumbnil_multimedia_export,
@@ -104,7 +104,7 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
           spreakerEpisode: item?.field_spreaker_episode_export
         }
         return prevValue.concat(podcastData)
-      } else if (item.type == PopulateWidgetType.ALBUM) {
+      } else if (item.type === PopulateWidgetType.ALBUM) {
         const albumData = {
           ...item,
           imageUrl: item.field_album_img_export,

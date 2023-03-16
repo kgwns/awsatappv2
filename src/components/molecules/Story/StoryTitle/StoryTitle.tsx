@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react';
 import { StyleSheet } from 'react-native';
-import { Label } from '../../../atoms';
+import { Label } from 'src/components/atoms/label/Label';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 

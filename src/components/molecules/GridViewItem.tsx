@@ -1,11 +1,14 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import { isTab, normalize, screenWidth } from 'src/shared/utils';
-import { Label, Image, LabelTypeProp, LiveBlogTag, RenderPhotoIcon } from 'src/components/atoms';
+import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
+import {  Image} from 'src/components/atoms/image/Image';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
+import { RenderPhotoIcon } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { fonts } from 'src/shared/styles/fonts';
+import { ArticleLabel } from './articleLabel/ArticleLabel';
 
 export interface GridViewItemProps {
     imageUrl?: string;
@@ -13,8 +16,8 @@ export interface GridViewItemProps {
     title?: string;
     showHighlightTitle?: boolean;
     index: number;
-    isLive?: boolean;
     isAlbum: boolean;
+    displayType: string;
 }
 
 export const GridViewItem = ({
@@ -23,8 +26,8 @@ export const GridViewItem = ({
     title,
     showHighlightTitle = true,
     index,
-    isLive = false,
     isAlbum = false,
+    displayType,
 }: GridViewItemProps) => {
     const style = useThemeAwareObject(customStyle);
     const isOdd = (index + 1) % 2 === 0;
@@ -40,8 +43,8 @@ export const GridViewItem = ({
                     {isAlbum && <RenderPhotoIcon />}
                 </View>
             }
-            {showHighlightTitle && !isLive && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
-            {isLive && <LiveBlogTag enableTopMargin/>}
+            {showHighlightTitle && !isNotEmpty(displayType) && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
+            <ArticleLabel displayType={displayType} enableTopMargin/>
             {title &&
                 <Label style={style.title} children={title} numberOfLines={3} />
             }

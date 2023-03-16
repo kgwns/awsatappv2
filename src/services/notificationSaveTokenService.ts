@@ -1,7 +1,10 @@
 import { UMS_BASE_URL } from 'src/services/apiUrls';
 import { postApiRequest } from 'src/services/api';
 import { SAVE_FCM_TOKEN_ENDPOINT } from './apiEndPoints';
-import { SaveTokenAfterRegistraionBodyType, SaveTokenAfterRegistraionSuccessPayloadType, SaveTokenBodyType, SaveTokenSuccessPayloadType } from 'src/redux/notificationSaveToken/types';
+import { SaveTokenAfterRegistraionBodyType, 
+  SaveTokenAfterRegistraionSuccessPayloadType, 
+  SaveTokenBodyType, 
+  SaveTokenSuccessPayloadType } from 'src/redux/notificationSaveToken/types';
 
 export const notificationSaveTokenReuqest = async (body: SaveTokenBodyType) => {
   try {

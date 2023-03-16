@@ -4,7 +4,7 @@ import { normalize } from 'src/shared/utils/dimensions';
 import { Styles } from 'src/shared/styles';
 import EyeIcon from 'src/assets/images/icons/eye_icon.svg';
 import LockIcon from 'src/assets/images/icons/lock_icon.svg';
-import { Label } from 'src/components/atoms';
+import { Label } from 'src/components/atoms/label/Label';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
@@ -87,7 +87,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   placeholder,
   value = '',
   onChangeText,
-  onSubmitEditing = () => {},
+  onSubmitEditing = () => ({}),
   keyboardType = 'default',
   error = '',
   isPassword = false,
@@ -155,7 +155,13 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
               {...props}
             />
           </View>
-          {isPassword && <TouchableOpacity testID={rightIconTestID} accessibilityLabel={rightIconTestID} onPress={() => setIsPasswordVisible(!isPasswordVisible)} style={[styles.iconContainerStyle]}>
+          {isPassword && 
+          <TouchableOpacity 
+            testID={rightIconTestID} 
+            accessibilityLabel={rightIconTestID} 
+            onPress={() => setIsPasswordVisible(!isPasswordVisible)} 
+            style={[styles.iconContainerStyle]}
+          >
             <View style={[styles.iconContainerStyle]}>
               {isPassword && !disableEyeIcon && <EyeIcon fill={isPasswordVisible ? themeData.textColor : themeData.primary} />}
               {rightIcon && rightIcon()}

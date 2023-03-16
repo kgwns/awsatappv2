@@ -1,12 +1,12 @@
 import { StyleSheet, TouchableOpacity, ScrollView, View } from 'react-native'
 import React from 'react'
-import { Label } from 'src/components/atoms'
+import { Label } from 'src/components/atoms/label/Label'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { isIOS, isNonEmptyArray, normalize, normalizeBy320 } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { moleculesTestID } from 'src/constants'
+import { moleculesTestID } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
 
 export type FilterDataType = {
@@ -26,7 +26,6 @@ export const FilterComponent = ({
 }: FilterComponentType) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle)
-
     const renderSubChild = (childIndex: number, childItem: FilterDataType[]) => {
         return (
             <>

@@ -3,7 +3,7 @@ import {
     View,
     StyleSheet
 } from 'react-native';
-import { Label } from '../../../atoms';
+import { Label } from 'src/components/atoms/label/Label';
 import { colors } from '../../../../shared/styles/colors';
 import { normalize } from '../../../../shared/utils';
 

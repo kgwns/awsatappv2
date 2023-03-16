@@ -5,21 +5,24 @@ import { Label, NextButton } from 'src/components/atoms';
 import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent, screenWidth, isIOS } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 import { fonts } from 'src/shared/styles/fonts';
+import  {TranslateConstants,TranslateKey} from '../../../constants/Constants'
 
 export const ManageMyFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
-  const [t] = useTranslation();
+  const ONBOARD_COMMON_DONE = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_DONE})
+  const ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE})
+  const ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION})
+
   const style = useThemeAwareObject(customStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [authorsData,setAuthorsData] = useState<AllWritersItemType[]>([])
   const [selectedCheck,setselectedCheck] = useState<boolean>(false)
-  const OK = t('common.ok');
+  const OK = TranslateConstants({key:TranslateKey.COMMON_OK});
 
   const allWritersPayload: AllWritersBodyGet = {
     items_per_page: 50,
@@ -45,7 +48,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
       setAllAuthorsData();
       checkSelectedAuthorCondition();
     }
-    else{
+    else if (isNonEmptyArray(allWritersData)) {
       setAuthorsData(allWritersData)
       checkSelectedAuthorCondition();
     }
@@ -110,7 +113,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const changeSelectedStatus = (item: any, selected: boolean) => {
     const data = [...authorsData]
     for (let i = 0; i < data.length; i++) {
-      if (item.tid == data[i].tid) {
+      if (item.tid === data[i].tid) {
         authorsData[i].isSelected = !authorsData[i].isSelected
       }
     }
@@ -120,8 +123,8 @@ export const ManageMyFavoriteAuthorScreen = () => {
 
   const updateNextButton = () => {
     const selectedTIDData = getSelectedData()
-    const disableNext = isNonEmptyArray(selectedTIDData) ? false : true
-    setDisableNext(disableNext)
+    const disableNextBtn = isNonEmptyArray(selectedTIDData) ? false : true
+    setDisableNext(disableNextBtn)
   }
 
   const onPressNext = () => {
@@ -161,10 +164,10 @@ export const ManageMyFavoriteAuthorScreen = () => {
             { justifyContent: isTab ? 'center' : 'flex-end' },
           ]}>
           <Label style={style.titleStyle}>
-            {t('onBoard.followFavoriteAuthor.title')}
+            {ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE}
           </Label>
           <Label style={style.descStyle}>
-            {t('onBoard.followFavoriteAuthor.description')}
+            {ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION}
           </Label>
         </View>
         <View style={style.contentStyle}>
@@ -177,7 +180,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
         <View style={style.nextButtonView}>
           <NextButton
             testID="nextButtonTestId"
-            title={t('onBoard.common.done')}
+            title={ONBOARD_COMMON_DONE}
             onPress={onPressNext}
             style={style}
             icon={false}

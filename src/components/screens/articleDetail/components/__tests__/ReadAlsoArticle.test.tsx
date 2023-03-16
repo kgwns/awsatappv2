@@ -2,7 +2,7 @@ import React from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { ReadAlsoArticle, ReadAlsoDataType} from 'src/components/screens/articleDetail/components/ReadAlsoArticle';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { TouchableOpacity } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 

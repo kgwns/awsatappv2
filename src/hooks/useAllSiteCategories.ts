@@ -6,9 +6,13 @@ import {
     getTopicsData,
     getSelectedTopicsDataList
 } from 'src/redux/allSiteCategories/selectors';
-import { fetchAllSiteCategories, sendSelectedTopic,getSelectedTopics,emptySelectedTopicsInfo, emptySendTopicsInfo, deselectAllTopicsInfo } from 'src/redux/allSiteCategories/action';
-import { AllSiteCategoriesItemType, AllSiteCategoriesBodyGet,SelectedTopicsDataType } from 'src/redux/allSiteCategories/types';
-import { ResponseMessage, SendSelectedTopicBody } from 'src/redux/allSiteCategories/types';
+import { fetchAllSiteCategories, 
+    sendSelectedTopic,
+    getSelectedTopics,
+    emptySelectedTopicsInfo, 
+    emptySendTopicsInfo, 
+    deselectAllTopicsInfo } from 'src/redux/allSiteCategories/action';
+import { AllSiteCategoriesItemType, AllSiteCategoriesBodyGet,SelectedTopicsDataType,ResponseMessage, SendSelectedTopicBody } from 'src/redux/allSiteCategories/types';
 
 export interface UseAllSiteCategoriesReturn {
     isLoading: boolean;

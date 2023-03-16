@@ -1,6 +1,6 @@
 import React from 'react';
 import { ScreenContainer } from '..';
-import { storyWidgetData  } from 'src/constants/SampleData';
+import { storyWidgetData  } from 'src/constants/Constants';
 import { StoryListView } from 'src/components/organisms';
 
 export interface StoryPageRouteProps {

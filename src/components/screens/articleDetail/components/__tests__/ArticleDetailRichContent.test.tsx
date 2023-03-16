@@ -2,10 +2,16 @@ import React from 'react';
 import { render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { RenderQuoteElement, RenderContentElement, RenderDescriptionElement, RenderOpinionElement, RenderReadAlsoElement, RenderNumberElement, generateAssetFontCss, RenderRichHTMLContent } from 'src/components/screens/articleDetail/components/ArticleDetailRichContent';
-import { storeSampleData } from 'src/constants/SampleData';
+import { storeSampleData } from 'src/constants/Constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailDataType, RichHTMLType } from 'src/redux/articleDetail/types';
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false,
+  isTab: false
+}));
 const data: ArticleDetailDataType = {
     title: 'as',
     body: 'as',
@@ -313,6 +319,40 @@ const data7: ArticleDetailDataType = {
     created: 'asd',
     richHTML: [
         {
+            type:  'default',
+            data: {}
+        },
+    ],
+}
+
+const data8: ArticleDetailDataType = {
+    title: 'as',
+    body: 'as',
+    nid: '1',
+    image: 'asxdc',
+    view_node: 'asdx',
+    news_categories: {
+        id: '2',
+        title: 'as',
+        url: 'asd',
+        bundle: 'asd',
+        name: 'asd'
+    },
+    tag_topics: {
+        id: '2',
+        title: 'asd',
+        url: 'asd',
+        bundle: 'asd',
+        name: 'azsxd'
+    },
+    author: 'azsxd',
+    isBookmarked: false,
+    caption: 'azsxd',
+    subtitle: 'asd',
+    jwplayerId: 'asdx',
+    created: 'asd',
+    richHTML: [
+        {
             type:  null,
             data: {}
         },
@@ -364,6 +404,10 @@ describe('<RenderRichHTMLContent>', () => {
 
     it('Should render component', () => {
         expect(render( <RenderRichHTMLContent articleItem={data7} articleFontSize={16} />)).toBeDefined()
+    })
+
+    it('Should render component without data', () => {
+        expect(render( <RenderRichHTMLContent articleItem={data8} articleFontSize={16} />)).toBeDefined()
     })
 })
 
@@ -714,5 +758,49 @@ describe('<generateAssetFontCss>', () => {
             fontFileName: 'Effra-Regular',
             extension: 'ttf',
           })).toEqual(result)
+    })
+})
+
+describe('<RenderRichHTMLContent> in IOS', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        DeviceTypeUtilsMock.isTab = false;
+        DeviceTypeUtilsMock.isIOS = true;
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderRichHTMLContent articleItem={data2} articleFontSize={16} />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component in IOS ', () => {
+        expect(instance).toBeDefined()
+    })
+})
+
+describe('<RenderRichHTMLContent> in Tab ', () => {
+    let instance: RenderAPI;
+    beforeEach(() => {
+        DeviceTypeUtilsMock.isTab = true;
+        DeviceTypeUtilsMock.isIOS = false;
+        const component = 
+            <Provider store={storeSampleData}>
+                <RenderRichHTMLContent articleItem={data2} articleFontSize={16} />
+            </Provider> 
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it('Should render component in Tab ', () => {
+        expect(instance).toBeDefined()
     })
 })

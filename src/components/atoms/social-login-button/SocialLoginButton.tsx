@@ -1,7 +1,6 @@
 import React, {FunctionComponent} from 'react';
 import {StyleProp, ViewStyle, TouchableOpacity, TextStyle, StyleSheet, View} from 'react-native';
-import { Label} from 'src/components/atoms';
-import {LabelType} from 'src/components/atoms/label/Label';
+import { Label,LabelType } from 'src/components/atoms/label/Label';
 import {normalize} from 'src/shared/utils/dimensions';
 import { Styles } from 'src/shared/styles';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';

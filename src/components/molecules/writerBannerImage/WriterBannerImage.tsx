@@ -2,17 +2,19 @@ import { View, StyleSheet, TouchableOpacity, Dimensions, Linking } from 'react-n
 import React, { useEffect, useState } from 'react'
 import { decodeHTMLTags, getImageUrl, isNotEmpty } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { ButtonImage, HomeButton, Image, Label } from 'src/components/atoms'
+import { ButtonImage} from 'src/components/atoms/button-image/ButtonImage'
+import {HomeButton} from 'src/components/atoms/homeButton/HomeButton'
+import {Image} from 'src/components/atoms/image/Image'
+import {Label } from 'src/components/atoms/label/Label'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { isAndroid, isIOS, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { useTranslation } from 'react-i18next'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { ImageResize } from 'src/shared/styles/text-styles'
 import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
-import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TWITTER_APP_URL } from 'src/constants/SharedConstants'
+import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TranslateConstants, TranslateKey, TWITTER_APP_URL } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
 import { decode } from 'html-entities'
 
@@ -52,12 +54,10 @@ export const WriterBannerImage = ({
   isWriter = false,
   showIsFollowed = true
 }: WriterBannerImageProps) => {
-  const [t] = useTranslation()
-
   const style = useThemeAwareObject(customStyle)
-
-  const FOLLOW = 'تابع';
-  const FOLLOWER = 'متابع';
+  
+  const FOLLOW = TranslateConstants({key:TranslateKey.FOLLOW})
+  const FOLLOWER = TranslateConstants({key:TranslateKey.FOLLOWER})
 
 
   const isPortrait = () => {
@@ -82,41 +82,18 @@ export const WriterBannerImage = ({
     return () => subscription?.remove();
   }, []);
 
-  const ReturnButton = () => {
-    if(hideBackArrow) {
-      return null
-    }
-    return (
-      <View>
-        <TouchableOpacity
-          style={{ flexDirection: 'row', alignItems: 'center' }}
-          onPress={onPressReturn}>
-          {getSvgImages({
-            name: ImagesName.returnSvg,
-            width: normalize(12),
-            height: normalize(8.8), 
-            style: style.prevIconStyle
-          })}
-          <Label style={style.returnLabel}>
-            {t('opinionArticleDetail.return')}
-          </Label>
-        </TouchableOpacity>
-      </View>
-    )
-  }
-
-  const SubscribeButton = ({ isFollowed }: { isFollowed: boolean }) => (
+  const SubscribeButton = ({ isFollow }: { isFollow: boolean }) => (
     <TouchableWithoutFeedback testID={'subscribeButton'} style={[style.followContainer,
-      { backgroundColor: isFollowed ? Styles.color.greenishBlue : Styles.color.aquaHaze, }]}
+      { backgroundColor: isFollow ? Styles.color.greenishBlue : Styles.color.aquaHaze, }]}
       onPress={onPressFollow}>
       {
         getSvgImages({
-          name: isFollowed ? ImagesName.tickIcon : ImagesName.plusGreen,
-          size: isFollowed ? 16 : 10
+          name: isFollow ? ImagesName.tickIcon : ImagesName.plusGreen,
+          size: isFollow ? 16 : 10
         })
       }
-      <Label style={[style.followLabel, { color: isFollowed ? Styles.color.white : Styles.color.greenishBlue, }]}>
-        {isFollowed ? FOLLOWER : FOLLOW}</Label>
+      <Label style={[style.followLabel, { color: isFollow ? Styles.color.white : Styles.color.greenishBlue, }]}>
+        {isFollow ? FOLLOWER : FOLLOW}</Label>
     </TouchableWithoutFeedback>
   );
 
@@ -145,12 +122,12 @@ export const WriterBannerImage = ({
   return (
     <View style={style.container}>
       {/* For Navigation Reference
-      <View style={style.headerContainer}>
+      <View style={style.rowContainer}>
         {visibleHome && <HomeButton containerStyle={style.homeIconContainer} onPress={onPressHome} />}
         <ReturnButton />
       </View> */}
       <View style={style.contentContainer}>
-        <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation == 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation == 'PORTRAIT' ? 0.33 : 0.15 }}>
+        <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation === 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation === 'PORTRAIT' ? 0.33 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
             <View style={style.imageContainer}>
               <Image url={getImageUrl(data.authorImage)}
@@ -163,7 +140,10 @@ export const WriterBannerImage = ({
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <View style={{ flex: isTab ? isWriter ? 0.85 : currentOrientation == 'PORTRAIT' ? 0.85 : 0.90 : isWriter ? 0.67 :currentOrientation == 'PORTRAIT' ? 0.67 : 0.85, paddingStart: normalize(10) }}>
+        <View style={{ 
+          flex: isTab ? 
+          isWriter ? 0.85 : currentOrientation === 'PORTRAIT' ? 0.85 : 0.90 : 
+          isWriter ? 0.67 :currentOrientation === 'PORTRAIT' ? 0.67 : 0.85, paddingStart: normalize(10) }}>
           <View style={style.authorSubscribeView}>
               <View style={style.authorNameView}>
                 <TouchableWithoutFeedback testID={'touchableLabel'} onPress={onPressWriter}>
@@ -173,18 +153,18 @@ export const WriterBannerImage = ({
             
 
             {showIsFollowed && <View style={style.subscribeView}>
-              <SubscribeButton isFollowed={isFollowed} />
+              <SubscribeButton isFollow={isFollowed} />
             </View>}
           </View>
           <Label style={style.authorDescription}>{decode(decodeHTMLTags(data.authorDescription))}</Label>
-          <View style={{ flexDirection: 'row' }}>
+          <View style={style.rowContainer}>
             {isNotEmpty(data.instagram_url) && <ButtonImage
               icon={() => getSvgImages({
                 name: ImagesName.instagramGray,
                 size: normalize(13),
               })}
               onPress={() => openSocialMedia(SocialMediaType.instagram, data.instagram_url)}
-              style={{ marginEnd: normalize(30) }}
+              style={style.buttonImageStyle}
             />}
             {isNotEmpty(data.twitter_url) && <ButtonImage
               icon={() => getSvgImages({
@@ -289,8 +269,15 @@ const customStyle = (theme: CustomThemeType) => {
       top: isAndroid ? 5 : 0,
       right: 5,
     },
-    headerContainer: {
+    rowContainer: {
       flexDirection: 'row' 
+    },
+    buttonImageStyle: {
+      marginEnd: normalize(30) 
+    },
+    image: {
+       flexDirection: 'row', 
+       alignItems: 'center' 
     }
   })
 } 

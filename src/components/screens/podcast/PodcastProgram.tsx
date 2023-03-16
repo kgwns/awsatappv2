@@ -1,19 +1,20 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FlatList, Modal, StyleSheet, View } from 'react-native';
+import { Animated, FlatList, Modal, StyleSheet, View } from 'react-native';
 import { PodcastEpisodeModal, ScreenContainer } from '..';
-import { PodcastProgramInfo } from 'src/components/organisms';
+import { PodcastProgramInfo, PodcastEpisodeList } from 'src/components/organisms';
 import { horizontalEdge, isIOS, isNonEmptyArray, screenHeight } from 'src/shared/utils';
-import { useBookmark, usePodcast, useAppPlayer } from 'src/hooks';
+import { useBookmark, usePodcast, useAppPlayer, useLogin } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
-import { PodcastEpisodeList } from 'src/components/organisms';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useLogin } from 'src/hooks';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-export const PodcastProgram = React.memo(({ tabIndex, currentIndex }: { tabIndex?: number; currentIndex?: number; }) => {
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+
+export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: { tabIndex?: number; currentIndex?: number; scrollY?: any }) => {
   const insets = useSafeAreaInsets();
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
 
   const styles = useThemeAwareObject(createStyles);
 
@@ -146,9 +147,14 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex }: { tabIndex
       backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
       {showModal && episodeModal()}
       {isNonEmptyArray(podcastListData) &&
-        <FlatList
+        <AnimatedFlatList
           ref={ref}
           onScrollBeginDrag={() => global.refFlatList = ref}
+          onScroll={Animated.event(
+            [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
+            {useNativeDriver: false}
+          )}
+          scrollEventThrottle={16}
           style={[styles.containerStyle, showMiniPlayer && styles.enhanceMarginForPlayer]}
           data={[{}]}
           keyExtractor={(_, index) => index.toString()}

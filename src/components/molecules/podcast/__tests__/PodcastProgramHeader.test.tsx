@@ -1,6 +1,6 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import { PodcastProgramHeader } from '../PodcastProgramHeader';
+import { PodcastProgramHeader } from 'src/components/molecules/podcast/PodcastProgramHeader';
 
 describe('<PodcastProgramHeader>', () => {
   let instance: RenderAPI;

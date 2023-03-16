@@ -1,16 +1,18 @@
 import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import {Image, Label, ButtonImage, LabelTypeProp} from 'src/components/atoms';
+import {Image} from 'src/components/atoms';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import ShareIcon from 'src/assets/images/icons/share_dark.svg';
 import {ImagesName} from 'src/shared/styles/images';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
-import {useTranslation} from 'react-i18next';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { fonts } from 'src/shared/styles/fonts';
+import { TranslateConstants,TranslateKey } from 'src/constants/Constants';
 
 export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;
@@ -35,7 +37,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
   showLogo=false,
   isCloseIcon=false,
 }) => {
-  const [t] = useTranslation();
+  const CONST_PODCAST_PROGRAM_RETURN = TranslateConstants({key:TranslateKey.PODCAST_PROGRAM_RETURN})
   const styles = useThemeAwareObject(createStyles);
 
   const renderLeftComponent = () => {
@@ -46,7 +48,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
             <CloseIcon height={13} width={13} fill={colors.white} /> :
             <View style={styles.itemContainer}>
               <BackIcon fill={colors.white} width={normalize(13)} height={normalize(11)} />
-              <Label style={styles.labelStyle} children={t('podcastProgram.return')} labelType={LabelTypeProp.h4} />
+              <Label style={styles.labelStyle} children={CONST_PODCAST_PROGRAM_RETURN} labelType={LabelTypeProp.h4} />
             </View>
           }
         </View>

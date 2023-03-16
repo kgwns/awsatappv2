@@ -1,6 +1,5 @@
 import { View, StyleSheet, ImageStyle, Image } from 'react-native'
 import React from 'react'
-// import { Image } from '../image/Image'
 import { ImageName } from '..'
 import { Styles} from 'src/shared/styles';
 import { ImageResize } from 'src/shared/styles/text-styles'

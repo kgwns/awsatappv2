@@ -1,7 +1,14 @@
 import { View, StyleSheet, ScrollView, Platform } from 'react-native'
 import React, { useEffect } from 'react'
 import { decodeHTMLTags, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, screenWidth } from 'src/shared/utils'
-import { ArticleContentDataType, ArticleDescriptionDataType, ArticleDetailDataType, ArticleNumberDataType, ArticleOpinionDataType, ArticleQuoteDataType, ArticleReadAlsoDataType, RichHTMLType } from 'src/redux/articleDetail/types'
+import { ArticleContentDataType, 
+    ArticleDescriptionDataType, 
+    ArticleDetailDataType, 
+    ArticleNumberDataType, 
+    ArticleOpinionDataType, 
+    ArticleQuoteDataType, 
+    ArticleReadAlsoDataType, 
+    RichHTMLType } from 'src/redux/articleDetail/types'
 import { Styles } from 'src/shared/styles'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { Label, TitleWithUnderLine } from 'src/components/atoms'
@@ -9,7 +16,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType, DARK_THEME_ID } from 'src/shared/styles/colors'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { ReadAlsoArticle } from './ReadAlsoArticle'
 import { ContentBundleWidget } from './ContentBundleWidget'
 import { decode } from 'html-entities'
@@ -28,9 +35,10 @@ export const RenderRichHTMLContent = ({
         return null
     }
 
+    const style = useThemeAwareObject(customStyle)
     const updatedFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
     return (
-        <View style={{ padding: 0.04 * screenWidth }}>
+        <View style={style.itemContainer}>
             {
                 htmlContent?.map((item, index) => {
                     if (!item || !item.type) {
@@ -87,7 +95,7 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
         <View style={style.quoteContainer}>
             <Label style={style.upperArrow} children={`${'"'}`} />
             {isNotEmpty(paragraphInfo.description) &&
-                <View style={{ paddingHorizontal: 40 }}>
+                <View style={style.descriptionStyle}>
                     {RenderWebView(richContentTagStyle({ body: paragraphInfo.description }) || '', injectedStyle)}
                 </View>
             }
@@ -102,13 +110,14 @@ export const RenderQuoteElement = ({ paragraphInfo }: { paragraphInfo: ArticleQu
 export const RenderContentElement = ({ paragraphInfo }: { paragraphInfo: ArticleContentDataType }) => {
     
     const CONTENT_BUNDLE_TITLE = TranslateConstants({key: TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE})
+    const style = useThemeAwareObject(customStyle)
     
     if (!paragraphInfo || !isObjectNonEmpty(paragraphInfo.contentData)) {
         return null
     }
 
     return (
-        <View style={{ paddingBottom: 20 }}>
+        <View style={style.contentContainer}>
             <ContentBundleWidget title={CONTENT_BUNDLE_TITLE} data={paragraphInfo.contentData} />
         </View>
     )
@@ -124,7 +133,7 @@ export const RenderDescriptionElement = ({ paragraphInfo, fontSize }: { paragrap
     const { themeData } = useTheme()
     const webviewRef = React.useRef<AutoHeightWebView>()
 
-    var injectedStyle = `
+    const injectedStyle = `
     setTimeout(function() {   
         //Description Element
         var descriptionText = document.getElementsByTagName("p");
@@ -179,10 +188,11 @@ export const RenderReadAlsoElement = ({ paragraphInfo }: { paragraphInfo: Articl
     if (!isNonEmptyArray(paragraphInfo.readAlsoData)) {
         return null
     }
+    const READ_ALSO_BUNDLE_TITLE = TranslateConstants({key: TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE})
 
     return (
         <View>
-            <ReadAlsoArticle title={paragraphInfo.title} data={paragraphInfo.readAlsoData} />
+            <ReadAlsoArticle title={READ_ALSO_BUNDLE_TITLE} data={paragraphInfo.readAlsoData} />
         </View>
     )
 }
@@ -198,7 +208,7 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
 
     const { themeData } = useTheme()
 
-    var injectedStyle = `
+    const injectedStyle = `
     setTimeout(function() {   
         //Description Element
         var descriptionText = document.getElementsByTagName("p");
@@ -245,10 +255,19 @@ export const RenderNumberElement = ({ paragraphInfo, fontSize }: { paragraphInfo
 export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewRef?: React.MutableRefObject<AutoHeightWebView | undefined | null>) => {
     const style = useThemeAwareObject(customStyle)
 
-    const updateWebViewRef = (ref: any) => webViewRef ? webViewRef.current = ref : ref;
+    const updateWebViewRef = (ref: any) => {
+        if(webViewRef){
+            webViewRef.current = ref
+            return webViewRef.current;
+        }
+        else{
+            return ref
+        }
+         
+    }
 
     return (
-        <ScrollView scrollEnabled={false} style={{ overflow: 'hidden' }}>
+        <ScrollView scrollEnabled={false} style={style.webViewContainer}>
             <AutoHeightWebView
                 style={style.webview}
                 ref={(ref) => { updateWebViewRef(ref) }}
@@ -429,5 +448,17 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: 'transparent',
         opacity: 0.99,
         flex: 1,
+    },
+    itemContainer: {
+        padding: 0.04 * screenWidth 
+    },
+    descriptionStyle: {
+        paddingHorizontal: 40 
+    },
+    contentContainer: {
+        paddingBottom: 20 
+    },
+    webViewContainer: {
+        overflow: 'hidden' 
     }
 })

@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {View, StyleSheet, ViewStyle} from 'react-native';
+import {View, StyleSheet, ViewStyle, Animated,StyleProp} from 'react-native';
 import { ShortArticle, NewsFeed } from '../../organisms';
 import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
@@ -17,7 +17,7 @@ import {
   TimeIcon,
   getArticleImage,
 } from 'src/shared/utils/utilities';
-import {ScreensConstants} from 'src/constants';
+import {ScreensConstants} from 'src/constants/Constants';
 import { useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
@@ -26,15 +26,13 @@ import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { fetchNewsViewApi, fetchSubArticleSectionApi } from 'src/services/newsViewService';
 import { AxiosError } from 'axios';
 import { formatTopListToLatestArticleType } from 'src/redux/newsView/sagas';
-// import { fetchVideoListApi } from 'src/services/videoListService';
-// import { formatVideoData } from 'src/redux/videoList/sagas';
-// import { VideoItemType } from 'src/redux/videoList/types';
 import PopUp, { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { TopMenuItemType } from 'src/redux/topMenu/types';
-import { StyleProp } from 'react-native';
+
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export type SectionStoryScreenProps = {
   sectionId: any;
@@ -42,6 +40,7 @@ export type SectionStoryScreenProps = {
   currentIndex?: number;
   childInfo: TopMenuItemType[];
   onUpdateChildSection?: (data: TopMenuItemType[]) => void;
+  scrollY?: any;
 }
 
 export const SectionStoryScreen = React.memo(({
@@ -50,9 +49,11 @@ export const SectionStoryScreen = React.memo(({
   currentIndex,
   childInfo,
   onUpdateChildSection,
+  scrollY
 }: SectionStoryScreenProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
-  
+  const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
+
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
   
@@ -108,7 +109,6 @@ export const SectionStoryScreen = React.memo(({
   }, [sectionId, currentSectionId])
 
   useEffect(() => {
-    // makeInitialDataEmpty();
     getSectionDetail()
   }, [currentSectionId]);
 
@@ -135,7 +135,7 @@ export const SectionStoryScreen = React.memo(({
     }
     setCurrentSectionId(activeSectionId)
     setChildSection(childInfo)
-    if(activeSectionId != currentSectionId) {
+    if(activeSectionId !== currentSectionId) {
       clearData()
     }
   }
@@ -145,15 +145,15 @@ export const SectionStoryScreen = React.memo(({
 
     getHeroListData();
     getTopListData();
-    // getVideoListData();
+     // getVideoListData(); 
   }
 
   const getHeroListData = async() => {
     try {
       const heroDataInfo = isParentSection ? await fetchNewsViewApi(heroListPayload)
         : await fetchSubArticleSectionApi(heroListPayload)
-      const heroData = heroDataInfo.rows ?? []
-      setHeroData(heroData)
+      const heroDataInfoRows = heroDataInfo.rows ?? []
+      setHeroData(heroDataInfoRows)
     } catch (error) {
       const errorResponse: AxiosError = error as AxiosError;
       if (errorResponse.response) {
@@ -211,16 +211,16 @@ export const SectionStoryScreen = React.memo(({
   } */
 
   const formatFilterChildData = (childItem: TopMenuItemType[] | undefined): FilterDataType[] => {
-    let childInfo: FilterDataType[] = [];
+    let childInfoData: FilterDataType[] = [];
     if (isNonEmptyArray(childItem)) {
-      childInfo = childItem!.map((item) => {
+      childInfoData = childItem!.map((item) => {
         return {
           name: item.tabName,
           isSelected: item.isSelected,
         }
       })
     }
-    return childInfo
+    return childInfoData
   }
 
   const childFilterData: FilterDataType[] = React.useMemo(() => childSection.map((item) => {
@@ -294,6 +294,7 @@ export const SectionStoryScreen = React.memo(({
       {
         ...item,
         isBookmarked: validateBookmark(item.nid),
+        displayType: item.displayType,
         author: '' //Need to hide author name in UI
       }
     ))
@@ -304,6 +305,7 @@ export const SectionStoryScreen = React.memo(({
       {
         ...item,
         isBookmarked: validateBookmark(item.nid),
+        field_display_export: item.field_display_export,
         author_resource: '' //Need to hide author name in UI
       }
     ))
@@ -370,11 +372,12 @@ export const SectionStoryScreen = React.memo(({
   //     { mediaID: item.mediaId, nid: item.nid })
   // }
 
+
   const onClickChildSection = (clickItemIndex: number) => {
-    let oldChildSection = [...childSection]
-    const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected == true);
+    const oldChildSection = [...childSection]
+    const lastSelectedIndex = oldChildSection.findIndex((item) => item.isSelected === true);
     if (lastSelectedIndex > -1 && isNonEmptyArray(oldChildSection[lastSelectedIndex].child)) {
-      let updatedLatestChild = oldChildSection[lastSelectedIndex]
+      const updatedLatestChild = oldChildSection[lastSelectedIndex]
       const updatedLatestSubChild = updatedLatestChild.child?.map((childItem) => ({ ...childItem, isSelected: false }));
       updatedLatestChild.child = updatedLatestSubChild
       oldChildSection[lastSelectedIndex] = updatedLatestChild;
@@ -383,7 +386,7 @@ export const SectionStoryScreen = React.memo(({
     const updatedChildSection = oldChildSection.map((item,index) => {
       return {
         ...item,
-        isSelected: clickItemIndex != index ? false : !oldChildSection[index].isSelected
+        isSelected: clickItemIndex !== index ? false : !oldChildSection[index].isSelected
       }
     })
 
@@ -395,14 +398,14 @@ export const SectionStoryScreen = React.memo(({
     const spreadChildSection = [...childSection]
     const currentChild = spreadChildSection[childIndex];
 
-    let updatedChildSection = [...spreadChildSection];
+    const updatedChildSection = [...spreadChildSection];
     let updatedSubChildSection: TopMenuItemType[] = [];
 
     if(isNonEmptyArray(currentChild.child)) {
       updatedSubChildSection = currentChild.child!.map((item,index) => {
         return {
           ...item,
-          isSelected: subChildIndex != index ? false : item.isSelected && item.isSelected == true ? false : true
+          isSelected: subChildIndex !== index ? false : item.isSelected && item.isSelected === true ? false : true
         }
       })
     }
@@ -451,7 +454,7 @@ export const SectionStoryScreen = React.memo(({
             textStyles={style.textStyle}
             contentStyle={style.imageArticleContentStyle}
             titleStyle={style.titleStyle}
-            displayType={bannerData.displayType}
+            displayType={bannerData.field_display_export}
           />
         )}
       </>
@@ -481,6 +484,7 @@ export const SectionStoryScreen = React.memo(({
           leftTitleColor={themeData.primary}
           rightIcon={() => TimeIcon(timeFormat.icon)}
           rightTitleColor={themeData.footerTextColor}
+          displayType={articleData.field_display_export}
         />
       </View>
     )
@@ -559,9 +563,14 @@ export const SectionStoryScreen = React.memo(({
   return (
     <View style={style.contentContainer}>
       {(initialLoading && sectionId === currentSectionId)  ? loadingView() :
-       <FlatList
+       <AnimatedFlatList
        ref={ref}
        onScrollBeginDrag={() => global.refFlatList = ref}
+       onScroll={Animated.event(
+        [{nativeEvent: { contentOffset: {y: scrollYValue}}}],
+        {useNativeDriver: false}
+      )}
+      scrollEventThrottle={16}
       data={[{}]}
       keyExtractor={(_, index) => index.toString()}
       renderItem={renderItem}
@@ -649,7 +658,7 @@ const customStyle = (theme: CustomThemeType) => {
     titleStyle:{
       textAlign:'center',
       fontSize: isTab ? 33 : 24,
-      lineHeight: isTab ? 46 :42,
+      lineHeight: isTab ? 46 : 40,
       fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{

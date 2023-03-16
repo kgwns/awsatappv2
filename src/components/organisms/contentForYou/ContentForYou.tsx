@@ -2,20 +2,18 @@ import { View, FlatList, StyleSheet } from 'react-native'
 import React, {useState, useEffect, useRef} from 'react'
 import { AuthorWidget, ShortArticle, ArticleSection } from 'src/components/organisms';
 import { WidgetHeader, LabelTypeProp,WidgetHeaderProps, LoadingState, Label, Divider } from 'src/components/atoms';
-import { shortArticleWithTagProperties } from 'src/constants/SampleData';
-import { useTranslation } from 'react-i18next';
+import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useAllSiteCategories, useAllWriters, useContentForYou, useBookmark } from 'src/hooks';
 import {FavouriteOpinionsBodyGet, FavouriteArticlesBodyGet} from 'src/redux/contentForYou/types';
-import { getArticleImage, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants';
+import { getArticleImage, isNonEmptyArray } from 'src/shared/utils/utilities';
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { NewsCategoriesType } from 'src/redux/latestNews/types';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
 export interface AllContentData {
@@ -26,7 +24,9 @@ export interface AllContentData {
 
 export const ContentForYou = () => {
     const { themeData } = useTheme()
-    const [t] = useTranslation()
+    const FAVORITE_ARTICLES_THAT_INTEREST_YOU = TranslateConstants({key:TranslateKey.FAVORITE_ARTICLES_THAT_INTEREST_YOU})
+    const FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS = TranslateConstants({key:TranslateKey.FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS})
+    const EMPTY_DATA_LABEL = TranslateConstants({key:TranslateKey.CONTENT_FOR_YOU_EMPTY_DATA_LABEL})
     const {selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
     const {selectedAuthorsData, getSelectedAuthorsData} = useAllWriters();
     const {
@@ -52,7 +52,7 @@ export const ContentForYou = () => {
 
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
-            title: t('favorite.articles_that_interest_you'),
+            title: FAVORITE_ARTICLES_THAT_INTEREST_YOU,
             color: themeData.primary,
             labelType: LabelTypeProp.h2,
             elementContainerStyle: {paddingHorizontal: 0},
@@ -66,49 +66,6 @@ export const ContentForYou = () => {
     const selectedLoaderRef = useRef(true);
 
     const [selectedTrack, setSelectedTrack] = useState<any>(null);
-    const playbackState = usePlaybackState();
-
-    const togglePlayback = async (nid: string, mediaData: any) => {
-        const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
-
-        if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
-        return
-        }
-
-        const id = nid
-        const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
-        const title = mediaData.title ? mediaData.title : '';
-
-        const setupPlayer = async () => {
-        await TrackPlayer.setupPlayer();
-        await TrackPlayer.updateOptions({ stopWithApp: true });
-        await TrackPlayer.add({
-            id: id,
-            url: media,
-            title: title,
-            artist: title,
-        });
-        await TrackPlayer.setRepeatMode(RepeatMode.Off);
-        await TrackPlayer.play();
-        }
-
-        if(selectedTrack == nid){
-        if (playbackState === State.Playing) {
-            await TrackPlayer.pause();
-        }
-        else if (playbackState === State.Paused) {
-            await TrackPlayer.play();
-        }
-        else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-            setupPlayer()
-        }
-        }else{
-            await TrackPlayer.reset();
-            setupPlayer()
-        }
-        setSelectedTrack(nid) 
-    }
-  
 
 
     useEffect(() => {
@@ -121,7 +78,7 @@ export const ContentForYou = () => {
             selectedTopicsRef.current = false;
         } else {
             const topicsSelected = returnItems(selectedTopicsData.data)
-            if( JSON.stringify(topicsSelected) != JSON.stringify(selectedTopics)){
+            if( JSON.stringify(topicsSelected) !== JSON.stringify(selectedTopics)){
                 if (isNonEmptyArray(selectedTopicsData.data)) {
                     setIsAllLoading(true);
                     setPage(0);
@@ -146,7 +103,7 @@ export const ContentForYou = () => {
             selectedAuthorsRef.current = false;
         } else {
             const authorsSelected = returnItems(selectedAuthorsData.data)
-            if(JSON.stringify(authorsSelected) != JSON.stringify(selectedAuthors)){
+            if(JSON.stringify(authorsSelected) !== JSON.stringify(selectedAuthors)){
                 if (isNonEmptyArray(selectedAuthorsData.data)) {
                     setIsAllLoading(true);
                     setPage(0);
@@ -214,13 +171,13 @@ export const ContentForYou = () => {
     }, [bookmarkIdInfo]);
 
     useEffect(() => {
-        if(!isAllLoading && page == 0 && !isNonEmptyArray(selectedTopicsData.data)){
+        if(!isAllLoading && page === 0 && !isNonEmptyArray(selectedTopicsData.data)){
             loadMoreData();
         }
         if(selectedLoaderRef.current) {
             selectedLoaderRef.current = false;
         } else {
-            if(!isAllLoading && page == 0 ){              
+            if(!isAllLoading && page === 0 ){              
                 if(isNonEmptyArray(selectedTopicsData.data) && !isNonEmptyArray(pageAllData[0]?.articleSectionData.data)){
                     fetchSelectedDataFromAllTopics();
                 }
@@ -244,7 +201,7 @@ export const ContentForYou = () => {
 
     const formatOpinionsData = () => {
         const updatedPageData = [...pageAllData];
-        if(updatedPageData[page]!=undefined){
+        if(updatedPageData[page]!==undefined){
             updatedPageData[page].opinionsData  = {data:favouriteOpinionsData, loaded: true} ;
             setPageAllData(updatedPageData);
             checkLoadData()
@@ -261,7 +218,7 @@ export const ContentForYou = () => {
     }
 
     const formatArticleSectionData = () => {
-        const formatArticleSectionData = []
+        const formatArticleSectionDataArray = []
         const formatShortArticleData = []
         for(let i = 0; i < favouriteArticlesData.length; i++){
             const item = favouriteArticlesData[i]
@@ -281,17 +238,18 @@ export const ContentForYou = () => {
                 flag: newsCategory?.title
             }
             if(i<2){
-                formatArticleSectionData.push(formattedData)
+                formatArticleSectionDataArray.push(formattedData)
             }else{
-                const newsCategory = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
+                const newsCategoryData = isNonEmptyArray(favouriteArticlesData[i].field_news_categories_export) ? 
+                    favouriteArticlesData[i].field_news_categories_export[0] : {} as NewsCategoriesType
                 formattedData.image = getArticleImage(favouriteArticlesData[i].field_image, favouriteArticlesData[i].field_new_photo);
-                formattedData.tagName= newsCategory?.title;
+                formattedData.tagName= newsCategoryData?.title;
                 formatShortArticleData.push(formattedData)
             }
         }
         const pageDataUpdate = [...pageAllData];
-        if(pageDataUpdate[page]!=undefined){
-            pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionData, loaded: true} ;
+        if(pageDataUpdate[page]!==undefined){
+            pageDataUpdate[page].articleSectionData  = {data:formatArticleSectionDataArray, loaded: true} ;
             pageDataUpdate[page].shortArticleData  = {data:formatShortArticleData, loaded:true} ;
             setPageAllData(pageDataUpdate);
             checkLoadData()
@@ -300,11 +258,11 @@ export const ContentForYou = () => {
 
     const fetchSelectedDataFromAllAuthors = () => {
         if (isNonEmptyArray(selectedAuthorsData.data)) {
-            const selectedAuthors = selectedAuthorsData.data.map((item:any)=>{
+            const selectedAuthorsTid = selectedAuthorsData.data.map((item:any)=>{
                 return item.tid
             });
-            setSelectedAuthors(selectedAuthors);
-            fetchOpinionData(selectedAuthors,0);
+            setSelectedAuthors(selectedAuthorsTid);
+            fetchOpinionData(selectedAuthorsTid,0);
         }else{
             setSelectedAuthors([]);
         }
@@ -312,11 +270,11 @@ export const ContentForYou = () => {
 
     const fetchSelectedDataFromAllTopics = () => {
         if (isNonEmptyArray(selectedTopicsData.data)) {
-            const selectedTopics = selectedTopicsData.data.map((item:any)=>{
+            const selectedTopicsTid = selectedTopicsData.data.map((item:any)=>{
                 return item.tid
             });
-            setSelectedTopics(selectedTopics);
-            fetchArticleData(selectedTopics,0);
+            setSelectedTopics(selectedTopicsTid);
+            fetchArticleData(selectedTopicsTid,0);
         }else{
             setSelectedTopics([]);
         }
@@ -380,19 +338,18 @@ export const ContentForYou = () => {
         <View key={flatListUniqueKey.CONTENT_FOR_YOU + index} style={styles.spaceStyle}>
             {/* <PodcastForYou title={podcastForYouTitle} data={Array(5).fill(podcastForYouData)} /> */}
             {isNonEmptyArray(item.opinionsData.data) && <AuthorWidget
-                widgetHeader={t('favorite.articles_from_your_favorite_writers')}
+                widgetHeader={FAVORITE_ARTICLE_FROM_YOUR_FAVORITE_WRITERS}
                 listKey={flatListUniqueKey.CONTENT_FOR_YOU + 'authorWidget' + index}
                 data={item.opinionsData.data}
-                containerStyle={[{ paddingTop: 0 }, !isNonEmptyArray(selectedTopics) && {paddingVertical: 0}]}
+                containerStyle={[styles.itemContainer, !isNonEmptyArray(selectedTopics) && {paddingVertical: 0}]}
                 widgetHeaderContainerStyle={styles.authorWidgetContainer}
                 widgetHeaderStyle={styles.authorWidgetHeader}
-                togglePlayback={togglePlayback}
                 selectedTrack={selectedTrack}
                 lastIndexDivider={ !isNonEmptyArray(selectedTopics)}
-                showHeader={!isNonEmptyArray(selectedTopics) && index != 0 ? false : true}
+                showHeader={!isNonEmptyArray(selectedTopics) && index !== 0 ? false : true}
             />}
             
-            { (!isNonEmptyArray(selectedAuthors) && index != 0 && isNonEmptyArray(item.articleSectionData.data)) ? <View style={styles.articleContainer}> 
+            { (!isNonEmptyArray(selectedAuthors) && index !== 0 && isNonEmptyArray(item.articleSectionData.data)) ? <View style={styles.articleContainer}> 
                 <Divider style={styles.divider} /> 
                 </View>
             : 
@@ -417,7 +374,7 @@ export const ContentForYou = () => {
                 data={item.shortArticleData.data}
                 onPress={onPressArticle}
                 onUpdateBookmark={updateBookmarkInfo}
-                showSignUpPopUp={() => {}}
+                showSignUpPopUp={() => ({})}
                 addStyle={styles.topArticleContainer}
                 showBody={isTab ? true : false}
                 leftContainerStyle={isTab ? {flex: 1} : {}}
@@ -447,7 +404,7 @@ export const ContentForYou = () => {
 
     const showEmptyData = () => {
         return <View style={styles.container}>
-            <Label children={'لم يتم حفظ أي شيء حتى الآن'} labelType={LabelTypeProp.h1} />
+            <Label children={EMPTY_DATA_LABEL} labelType={LabelTypeProp.h1} />
         </View>
     }
 
@@ -523,4 +480,7 @@ const customStyles = (theme: CustomThemeType) => StyleSheet.create({
         height: 1,
         backgroundColor: theme.dividerColor
     },
+    itemContainer:{
+         paddingTop: 0 
+    }
 })

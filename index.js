@@ -10,3 +10,4 @@ import TrackPlayer from 'react-native-track-player';
 AppRegistry.registerComponent(appName, () => App);
 // TrackPlayer.setupPlayer({}).then(async () => {})
 TrackPlayer.registerPlaybackService(() => require('src/shared/utils/playbackService'));
+AppRegistry.registerHeadlessTask('RNFirebaseBackgroundMessage', () => firebaseBackgroundMessage);

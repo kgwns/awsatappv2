@@ -1,12 +1,12 @@
-import { View, StyleSheet, AppState } from 'react-native'
-import React, { useEffect, useRef, useState } from 'react'
+import { View, StyleSheet } from 'react-native'
+import React from 'react'
 import { Label } from '..'
-import { ImagesName, Styles } from 'src/shared/styles'
+import { Styles } from 'src/shared/styles'
 import { fonts } from 'src/shared/styles/fonts'
-import { getSvgImages } from 'src/shared/styles/svgImages'
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants'
-import LottieView from 'lottie-react-native';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import LiveAnimation from '../../../assets/lottie-animation/live-icon.json';
+import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation';
+import { isTab } from 'src/shared/utils'
 
 interface LiveBlogTagProps {
     isImageTag?: boolean;
@@ -17,40 +17,14 @@ interface LiveBlogTagProps {
 
 export const LiveBlogTag = ({ isImageTag = false, enableTopMargin = false, isTextTag = false, enableBottomMargin = false }: LiveBlogTagProps) => {
 
-    const [animationRef, setAnimationRef] = useState<LottieView>()
-    const appState = useRef(AppState.currentState);
-
-    useEffect(() => {
-        const subscription = AppState.addEventListener("change", nextAppState => {
-            if (appState?.current?.match(/inactive|background/) && nextAppState === "active") {
-                if (animationRef) {
-                    animationRef?.resume();
-                }
-            }
-            appState.current = nextAppState;
-        });
-        return () => { subscription.remove(); };
-    }, [animationRef]);
-
-    const renderLiveIcon = () => {
-        return getSvgImages({
-            name: ImagesName.liveIcon,
-            width: 17,
-            height: 13,
-        });
-    }
-
     return (
         <View style={[isImageTag ? liveBlogTagStyle.imageLiveTagContainer : liveBlogTagStyle.liveTagContainer,
         enableTopMargin && liveBlogTagStyle.topMargin,
         enableBottomMargin && liveBlogTagStyle.bottomMargin,]}>
             <View style={liveBlogTagStyle.liveTagRowContainer}>
-                < LottieView
-                    source={LiveAnimation}
-                    autoPlay
-                    style={{ width: 17, height: 13, marginRight: 3 }}
-                    ref={ref => setAnimationRef(ref)}
-                />
+                <LottieViewAnimation 
+                    source={LiveAnimation} 
+                    style = {liveBlogTagStyle.lottieViewStyle} />
                 <Label children={TranslateConstants({ key: TranslateKey.LIVE_TAG_TITLE })}
                     style={liveBlogTagStyle.liveTagText}
                 />
@@ -86,9 +60,14 @@ const liveBlogTagStyle = StyleSheet.create({
         alignItems: 'center'
     },
     topMargin: {
-        marginTop: 10
+        marginTop: isTab ? 0 : 10
     },
     bottomMargin: {
         marginBottom: 10
+    },
+    lottieViewStyle: {
+        width: 17,
+        height: 13, 
+        marginRight: 3
     }
 })

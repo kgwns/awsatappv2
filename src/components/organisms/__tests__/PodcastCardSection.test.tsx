@@ -4,7 +4,7 @@ import {Provider} from 'react-redux';
 import {
   podcastCardSectionData,
   storeSampleData,
-} from '../../../constants/SampleData';
+} from '../../../constants/Constants';
 import {PodcastCardSection} from '..';
 import { PodcastCardWithLabel } from 'src/components/molecules';
 

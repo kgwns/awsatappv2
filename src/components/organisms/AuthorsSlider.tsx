@@ -5,17 +5,15 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {AuthorItem} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
-import { getImageUrl, isNonEmptyArray, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { getImageUrl, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
 import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { t } from 'i18next';
 import { ImagesName } from 'src/shared/styles';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
-import { ScreensConstants } from 'src/constants';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
-import { TranslateConstants, TranslateKey } from 'src/constants/TranslateConstants';
+import { ScreensConstants } from 'src/constants/Constants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 const AuthorSlider = ({
     data,
@@ -39,6 +37,8 @@ const AuthorSlider = ({
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const CONST_OPINION_COMBO_TITLE = TranslateConstants({key: TranslateKey.OPINION_SLIDER_TITLE})
+  const SECTION_COMBO_ONE_HEADER_RIGHT = TranslateConstants({key: TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT})
+
 
   const { themeData } = useTheme()
   const style = useThemeAwareObject(customStyle);
@@ -47,57 +47,6 @@ const AuthorSlider = ({
 
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState<any>(isIOS ? 0 : data.length - 1);
-  const playbackState = usePlaybackState();
-
-  const togglePlayback = async (nid: string, mediaData: any) => {
-    const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
-
-    if (!isObjectNonEmpty(playList) || !isObjectNonEmpty(mediaData)) {
-      return
-    }
-
-    const id = nid
-    const media = playList.sources[0]?.file ? playList.sources[0]?.file : '';
-    const title = mediaData.title ? mediaData.title : '';
-
-    const setupPlayer = async () => {
-      await TrackPlayer.setupPlayer();
-      await TrackPlayer.updateOptions({ stopWithApp: true });
-      await TrackPlayer.add({
-        id: id,
-        url: media,
-        title: title,
-        artist: title,
-      });
-      await TrackPlayer.setRepeatMode(RepeatMode.Off);
-      await TrackPlayer.play();
-    }
-
-    if(selectedType == 'PODCAST' && onClose){
-      onClose();
-      await TrackPlayer.reset();
-      setupPlayer();
-    }else{
-      if(selectedTrack == nid){
-        if (playbackState === State.Playing) {
-          await TrackPlayer.pause();
-        }
-        else if (playbackState === State.Paused) {
-          await TrackPlayer.play();
-        }
-        else if ( playbackState === State.Paused ||  playbackState == State.None || playbackState == State.Stopped) {
-          setupPlayer()
-        }
-      }else{
-          await TrackPlayer.reset();
-          setupPlayer()
-      }
-    }
-    setSelectedTrack(nid)
-    if(getSelectedTrack) {
-      getSelectedTrack(nid, 'OPINION');
-    }
-  }
 
   const renderItem = (item: any, index: number) => {
     return (
@@ -115,11 +64,10 @@ const AuthorSlider = ({
 
   const renderAuthorList = (item: any, index: number) => {
     return (
-        <View style={{}}>
+        <View>
             <AuthorItem body={item.title}  
             mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} 
             jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : null}
-            togglePlayback={togglePlayback}
             selectedTrack={selectedTrack}
             selectedType={selectedType}
             author={
@@ -163,7 +111,7 @@ const AuthorSlider = ({
         elementContainerStyle: style.headerLeftContainer
     },
     headerRight: {
-        title: t('latestNewsTab.sectionComboOne.headerRight'),
+        title: SECTION_COMBO_ONE_HEADER_RIGHT,
       icon: () => {
         return getSvgImages({
           name: ImagesName.arrowLeftFaced,
@@ -182,7 +130,9 @@ const AuthorSlider = ({
   }
 
   const onMomentumScrollEnd = ( event: any) => {
-    if (!event) return
+    if (!event) {
+      return
+    }
 
     const xOffset = event.nativeEvent.contentOffset.x + 10;
     const currentIndex = Math.floor(xOffset / screenWidth);
@@ -190,26 +140,25 @@ const AuthorSlider = ({
   }
 
   const renderIndicator = () => {
-    const renderItem = (index: number) => {
+    const renderItemIndicator = (index: number) => {
       return (
-        <View key={`indicator-${index}`} style={[style.indicatorStyle, activeIndex == index && style.activeIndicatorStyle]} >
+        <View key={`indicator-${index}`} style={[style.indicatorStyle, activeIndex === index && style.activeIndicatorStyle]} >
         </View>
       )
     }
 
     return (
-      <View style={{ flexDirection: 'row' }}>
+      <View style={style.containerStyle}>
         {isIOS ? data.map((_: any, index: number) => {
-          return renderItem(index);
+          return renderItemIndicator(index);
         }) :
           data.map((_: any, index: number) => {
-            return renderItem(index);
+            return renderItemIndicator(index);
           }).reverse()
         }
       </View>
     )
   }
-
   return (
     <View style={StyleSheet.flatten([style.container,containerStyle])}>
         <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
@@ -294,6 +243,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     activeIndicatorStyle: {
       backgroundColor: colors.greenishBlue,
+    },
+    containerStyle: {
+      flexDirection: 'row' 
     }
   });
   return AuthorSliderStyle;

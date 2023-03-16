@@ -4,14 +4,12 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
-  Text,
   NativeModules
 } from 'react-native';
 import React, { useState } from 'react';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useTranslation } from 'react-i18next';
 import { ImagesName, Styles } from 'src/shared/styles';
-import { ScreensConstants } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { horizontalEdge, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { ButtonImage, ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
@@ -38,7 +36,6 @@ export type SettingDataType = {
 
 const { ReactTheme } = NativeModules;
 export const ProfileSettings = () => {
-  const [t] = useTranslation()
   const dispatch = useDispatch()
   const navigation = useNavigation<StackNavigationProp<any>>();
 
@@ -53,24 +50,29 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const [isDarkMode, setIsDarkMode] = useState<boolean>(isDark);
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
 
-  const CONST_MANAGE_NOTIFICATION = t('profileSetting.manageMyNotification');
-  const CONST_MANAGE_NEWS = t('profileSetting.manageMyNews');
-  const CONST_MY_NEWS_LETTER = t('profileSetting.myNewsLetter');
-  const CONST_MY_ACCOUNT_DETAILS = t('profileSetting.myAccountDetails');
-  const CONST_APP_APPEARANCE = t('profileSetting.appAppearance');
-  const CONST_EXIT = t('profileSetting.exit');
-  const CONST_DARK_MODE = t('profileSetting.darkMode');
-  const CONST_LIGHT_MODE = t('profileSetting.lightMode');
-  const CONST_WELCOME = t('profileSetting.welcome');
-  const CONST_CHANGE_ENVIRONMENT = t('profileSetting.changeEnvironment');
-  const CONST_NOT_SUBSCRIBE = t('profileSetting.notSubscribed');
-  const CONST_LOGIN_FEATURE = t('profileSetting.loginFeature');
-  const CONST_SIGN_UP = t('profileSetting.signUp');
+  const CONST_MANAGE_NOTIFICATION = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION});
+  const CONST_MANAGE_NEWS =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NEWS});
+  const CONST_MY_NEWS_LETTER =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_MY_NEWS_LETTER});
+  const CONST_MY_ACCOUNT_DETAILS =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_MY_ACCOUNT_DETAILS});
+  const CONST_APP_APPEARANCE =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_APP_APPEARANCE});
+  const CONST_EXIT =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_EXIT});
+  const CONST_DARK_MODE =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_DARK_MODE});
+  const CONST_LIGHT_MODE =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_LIGHT_MODE});
+  const CONST_WELCOME =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_WELCOME});
+  const CONST_CHANGE_ENVIRONMENT =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_CHANGE_ENVIRONMENT});
+  const CONST_NOT_SUBSCRIBE =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_NOT_SUBSCRIBED});
+  const CONST_LOGIN_FEATURE =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_LOGIN_FEATURE});
+  const CONST_SIGN_UP =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_SIGN_UP});
+  const PROFILE_SETTING_ALERT =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_ALERT});
+  const PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE});
+  const PROFILE_SETTING_DEBUG =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_DEBUG});
+  const PROFILE_SETTING_PRODUCTION =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_PRODUCTION});
+
 
   const signOutAlertPayload : AlertPayloadType = {
-    title : t('profileSetting.alert'),
-    message: t('profileSetting.logoutAlertMessage'),
-    buttonTitle: t('profileSetting.exit')
+    title : PROFILE_SETTING_ALERT,
+    message: PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE,
+    buttonTitle: CONST_EXIT
   }
 
   const nonRegisteredData: SettingDataType[] = [
@@ -138,7 +140,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   };
 
     const onPressToggleServer = () => {
-        const newServerType = serverEnvironment == ServerEnvironment.DEBUG ? ServerEnvironment.PRODUCTION : ServerEnvironment.DEBUG
+        const newServerType = serverEnvironment === ServerEnvironment.DEBUG ? ServerEnvironment.PRODUCTION : ServerEnvironment.DEBUG
         storeServerEnvironmentInfo(newServerType)
         setTimeout(() => {
             RNRestart.Restart()
@@ -166,7 +168,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
     
   const logoutFromfacebook = () => {
     try {
-      if (userProfileData?.user?.provider == 'facebook') {
+      if (userProfileData?.user?.provider === 'facebook') {
         LoginManager.logOut();
       }
     } catch {
@@ -214,7 +216,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const itemSeparator = () => <Divider style={style.divider} />;
 
   const renderRightElement = (item: SettingDataType) => {
-      if (item.title == CONST_APP_APPEARANCE) {
+      if (item.title === CONST_APP_APPEARANCE) {
           return (
               <ToggleWithLabel
                   title={isDarkMode ? CONST_DARK_MODE : CONST_LIGHT_MODE}
@@ -222,15 +224,15 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
                   onPress={onPressToggle}
               />
           );
-      } else if (item.title == CONST_CHANGE_ENVIRONMENT) {
+      } else if (item.title === CONST_CHANGE_ENVIRONMENT) {
           return (
               <ToggleWithLabel
-                  title={serverEnvironment == ServerEnvironment.DEBUG ? t('profileSetting.debug') : t('profileSetting.production')}
-                  isActive={serverEnvironment == ServerEnvironment.DEBUG ? true : false}
+                  title={serverEnvironment === ServerEnvironment.DEBUG ? PROFILE_SETTING_DEBUG: PROFILE_SETTING_PRODUCTION}
+                  isActive={serverEnvironment === ServerEnvironment.DEBUG ? true : false}
                   onPress={onPressToggleServer}
               />
           );
-      } else if (item.title == CONST_EXIT) {
+      } else if (item.title === CONST_EXIT) {
           return null;
       }
 

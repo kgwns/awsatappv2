@@ -33,7 +33,7 @@ export interface NewsViewListItemType {
   author_resource: string;
   isBookmarked: boolean;
   field_new_photo: string;
-  displayType?: string;
+  field_display_export?: string;
 }
 
 export interface Pager {

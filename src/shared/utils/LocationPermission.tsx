@@ -39,5 +39,3 @@ export const checkPermission = () =>
         return false
       }
 });
-
- 

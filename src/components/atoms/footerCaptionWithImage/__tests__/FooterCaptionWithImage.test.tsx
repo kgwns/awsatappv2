@@ -1,6 +1,6 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import {FooterCaptionWithImage} from 'src/components/atoms'
+import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage'
 
 describe('<FooterCaptionWithImage />', () => {
   let instance: RenderAPI;

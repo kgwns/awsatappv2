@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import {FlatList, StyleSheet} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {flatListUniqueKey} from 'src/constants';
+import {flatListUniqueKey} from 'src/constants/Constants';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {FollowFavoriteAuthor} from 'src/components/molecules';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';

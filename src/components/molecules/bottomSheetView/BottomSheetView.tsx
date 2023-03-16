@@ -40,10 +40,16 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
                 {description}
             </Label>
             <View style={style.buttonContainer}>
-                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.black }])} onPress={onPressSignUp} >
+                <TouchableOpacity
+                    style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.black }])}
+                    onPress={onPressSignUp}
+                >
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.white }])}>{signUpLabel}</Label>
                 </TouchableOpacity>
-                <TouchableOpacity style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.alabaster }])} onPress={onPressSignUp} >
+                <TouchableOpacity
+                    style={StyleSheet.flatten([isPortrait() ? style.buttonView : style.buttonViewLandscape, { backgroundColor: colors.alabaster }])}
+                    onPress={onPressSignUp}
+                >
                     <Label style={StyleSheet.flatten([isPortrait() ? style.buttonLabel : style.buttonLabelLandscape, { color: colors.black }])}>{logInLabel}</Label>
                 </TouchableOpacity>
             </View>
@@ -170,14 +176,11 @@ const customStyle = (theme: CustomThemeType) => {
         },
         logo: {
             width: normalize(250),
-            height: 0.055 * screenHeight
+            height: 0.055 * screenHeight,
         },
         logoLandscape: {
             width: normalize(200),
             height: normalize(35),
-        },
-        popupImageWrapper: {
-            flex: 0.95
         },
         popupImageContainer: {
             alignSelf: 'center',
@@ -193,7 +196,10 @@ const customStyle = (theme: CustomThemeType) => {
         popupImage: {
             width: '100%',
             height: '100%'
-        }
+        },
+        popupImageWrapper: {
+            flex: 0.95
+        },
     })
     return bottomSheetViewStyle
 }

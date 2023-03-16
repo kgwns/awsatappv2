@@ -1,17 +1,23 @@
 import React, {useState, FunctionComponent} from 'react';
 import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView, Text} from 'react-native';
-import { ButtonList, Label, LoadingState, SocialLoginButton, Image, Divider, FooterCaptionWithImage } from 'src/components/atoms/';
+import { Label } from 'src/components/atoms/label/Label';
+import { ButtonList } from 'src/components/atoms/button-list/ButtonList';
+import { LoadingState } from 'src/components/atoms/loading/LoadingState';
+import { SocialLoginButton } from 'src/components/atoms/social-login-button/SocialLoginButton';
+import { Image } from 'src/components/atoms/image/Image';
+import { Divider } from 'src/components/atoms/divider/Divider';
+import FooterCaptionWithImage from 'src/components/atoms/footerCaptionWithImage/FooterCaptionWithImage';
 import { SearchBar } from 'src/components/molecules/';
 import { isIOS, isTab, normalize, recordLogEvent } from 'src/shared/utils';
 import { SearchItemType } from 'src/redux/search/types';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import { useTranslation } from 'react-i18next';
 import { useSearch } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
 import { decodeHTMLTags, isNonEmptyArray, dateTimeAgo, TimeIcon, getArticleImage } from 'src/shared/utils/utilities';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { decode } from 'html-entities';
+import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 
 export interface SearchResultsProps {
   id: string;
@@ -43,7 +49,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
 }) => {
   const [searchText, setSearchText] = useState('');
   const styles = useThemeAwareObject(createStyles);
-  const [t] = useTranslation();
+  const SEARCH_NOT_FOUND = TranslateConstants({key:TranslateKey.SEARCH_NOT_FOUND})
+  const CLEAR_SEARCH_HISTORY = TranslateConstants({key:TranslateKey.CLEAR_SEARCH_HISTORY})
   const { emptySearchHistory } = useSearch();
 
   const handleOnItemPressAction = (item: SearchItemType) => {
@@ -101,7 +108,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     return (
       <View style={styles.emptyListShowStyle}>
         <Label labelType='h1' style={styles.emptyText} numberOfLines={2}>
-          {t('searchScreen.notFound')}
+          {SEARCH_NOT_FOUND}
         </Label>
       </View>
     );
@@ -138,7 +145,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     return(
 
         <ScrollView bounces={false} showsVerticalScrollIndicator={false}>
-          <View style={{alignItems: 'flex-start'}}>
+          <View style={styles.searchHistoryContainer}>
           {searchHistory?.length > 0 && searchHistory.map((item, index) => {
             return(
               <View key={index}>
@@ -156,7 +163,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
           <SocialLoginButton
             testID="clear_search_history"
             onPress={() => emptySearchHistory()}
-            label={t('searchScreen.clearSearchHistory')}
+            label={CLEAR_SEARCH_HISTORY}
             style={styles.clearButtonStyle}   
             labelStyle={styles.clearButtonLabel}
           />
@@ -169,7 +176,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   }
 
   return (
-    <View style={{flex:1}}>
+    <View style={styles.searchBarContainer}>
       <SearchBar
         testID={testID}
         searchText={searchText}
@@ -291,5 +298,11 @@ StyleSheet.create({
   },
   dateContainer: {
     marginTop: 5
+  }, 
+  searchBarContainer: {
+    flex: 1
+  },
+  searchHistoryContainer: {
+    alignItems: 'flex-start'
   }
 });

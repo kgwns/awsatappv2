@@ -1,6 +1,6 @@
 import { View, StyleSheet } from 'react-native';
 import React from 'react';
-import { ButtonImage } from 'src/components/atoms';
+import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
 import { isIOS, normalize, recordLogEvent } from 'src/shared/utils';
@@ -25,18 +25,12 @@ export const ArticleDetailFooter = ({
 }) => {
     const articleSaveIcon = isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark
 
-    // const onPressThemeChange = () => {
-    //     const isDark = isDarkTheme(theme)
-    //     const updateTheme = isDark ? Theme.LIGHT : Theme.DARK
-    //     dispatch(storeAppTheme(updateTheme))
-    // }
-
     const onPressShare = async () => {
-        const { title, view_node, shortUrl, nid } = articleDetailData
+        const { title, link_node, shortUrl, nid } = articleDetailData
         recordLogEvent('Share_Article', {articleId: nid});
         await Share.open({
             title,
-            url: getShareUrl(shortUrl,view_node),
+            url: getShareUrl(shortUrl,link_node),
             failOnCancel: true,
             subject: title
         }).then(response => {

@@ -28,7 +28,11 @@ import {
     getSectionComboThreeLoading,
     getInfoGraphicBlockDataLoading,
 } from 'src/redux/latestNews/selectors';
-import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType, LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet, EditorsChoiceDataType, SpotlightDataType, SpotlightArticleSectionBodyGet, InfoGraphicBlockType, ArchivedArticleDataType } from 'src/redux/latestNews/types';
+import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType,
+    LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet,
+    EditorsChoiceDataType, SpotlightDataType, SpotlightArticleSectionBodyGet,
+    InfoGraphicBlockType, ArchivedArticleDataType,
+} from 'src/redux/latestNews/types';
 import { requestHeroListTopList, requestSectionComboFour, 
     requestSectionComboOne, requestSectionComboThree, 
     requestSectionComboTwo, requestTickerAndHero, requestOpinionList,

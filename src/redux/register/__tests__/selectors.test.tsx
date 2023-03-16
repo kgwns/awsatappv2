@@ -1,6 +1,6 @@
 import { getRegisterUserInfo, getIsLoading, getRegisterError, getSocialLoginInProgress } from "../selectors";
 import { RegisterSuccessPayloadType } from "../types";
-import { storeInfo } from "src/constants/SampleData";
+import { storeInfo } from "src/constants/Constants";
 
 describe('Register Selector', () => {
     const registerData = storeInfo[0]

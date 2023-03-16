@@ -1,18 +1,22 @@
 import React from 'react'
 import { View, StyleSheet, ViewStyle, StyleProp, TextStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { ArchiveImage, Divider, Label, LabelTypeProp, BannerImageWithOverlayProps } from '../atoms'
-import ArticleFooter, { articleFooterProps, BookMarkColorType } from './articleFooter/ArticleFooter'
+import { ArchiveImage} from 'src/components/atoms/archiveImage/ArchiveImage'
+import { Divider } from 'src/components/atoms/divider/Divider'
+import { BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
+import ArticleFooter, { articleFooterProps, BookMarkColorType } from 'src/components/molecules/articleFooter/ArticleFooter'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
+import { ArticleLabel } from './articleLabel/ArticleLabel'
 
 const archiveFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -58,6 +62,7 @@ const ArchiveArticle = ({
   showDivider = false,
   contentStyle,
   isAlbum,
+  displayType,
 }: ArchiveArticleProps) => {
 
   const navigation = useNavigation<StackNavigationProp<any>>()
@@ -79,6 +84,7 @@ const ArchiveArticle = ({
           <ArchiveImage image={image} isAlbum={isAlbum} />
         </View>
         <View style={isTab ? [ArchiveArticleStyle.tabArticleContent, contentStyle] : ArchiveArticleStyle.articleContent}>
+          <ArticleLabel displayType={displayType} enableBottomMargin />
           {isNotEmpty(title) &&
             <View style={ArchiveArticleStyle.titleContainer}>
               <Label labelType={LabelTypeProp.title1}

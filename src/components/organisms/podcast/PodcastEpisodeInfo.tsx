@@ -1,6 +1,8 @@
 import React, {FunctionComponent, useEffect, useState} from 'react';
 import {View, StyleSheet, Linking } from 'react-native';
-import { Label, Image, ButtonOutline, LabelTypeProp} from 'src/components/atoms/';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
+import { Image } from 'src/components/atoms/image/Image'
+import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
 import { PodcastVerticalListProps } from 'src/components/molecules/';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -11,13 +13,12 @@ import SpotifyDarkIcon from 'src/assets/images/icons/spotify_dark_icon.svg';
 import AnghamiPodcastDarkIcon from 'src/assets/images/icons/anghamiPodcastDarkIcon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import PauseIcon from 'src/assets/images/icons/pauseIconBlack.svg';
-import {useTranslation} from 'react-i18next';
 import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import { podcastServices } from 'src/constants/SharedConstants';
+import { podcastServices, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import { ImageResize } from 'src/shared/styles/text-styles';
@@ -32,7 +33,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
   onListenPress
 }) => {
   const styles = useThemeAwareObject(createStyles);
-  const [t] = useTranslation();
+  const PODCAST_EPISODE_LISTEN_TO_EPISODE = TranslateConstants({key:TranslateKey.PODCAST_EPISODE_LISTEN_TO_EPISODE})
   const playbackState = usePlaybackState();
   const { selectedTrack } = useAppPlayer();
 
@@ -59,7 +60,6 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
       }
     }
   }
-
   const onPodcastServicePress = (podcastService: string) => {
     switch (podcastService) {
       case podcastServices.anghami:
@@ -81,7 +81,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
 
   const playPauseIcon = () => (
     <View style={styles.rightIconStyle}>
-      {selectedTrack && selectedTrack.id == fieldData.nid && playbackState === State.Playing ?
+      {selectedTrack && selectedTrack.id === fieldData.nid && playbackState === State.Playing ?
         <PauseIcon fill={colors.black} width={13} height={13} />:
         <PlayIcon fill={colors.black}/>
       }
@@ -96,12 +96,12 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
             <Label style={styles.titleTextStyle} children={fieldData.title} />
             <View style={styles.imageStyle}>
               <Image fallback url={fieldData?.field_podcast_sect_export?.image}
-                style={{ width: '100%', height: '100%' }}
+                style={styles.image}
                 resizeMode={ImageResize.COVER}
               />
             </View>
             {hasNewSubTitle &&
-              <View style={[styles.containerSpace, {paddingTop: normalize(15)}]} >
+              <View style={styles.containerSpace} >
                 <Label style={styles.textStyle} children={fieldData.field_new_sub_title_export} />
               </View>
             }
@@ -110,7 +110,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
                 <Label style={styles.announcerTextStyle} children={fieldData.field_announcer_name_export} />
               </View>
             }   
-            <ButtonOutline title={t('podcastEpisode.listenToEpisode')}
+            <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
              style={styles.buttonStyle}
              labelStyle={styles.buttonLabel}
              titleType={LabelTypeProp.h1}
@@ -161,7 +161,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)} testID = "appleUrl">
                   <ApplePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
                 </TouchableOpacity>
-                <View style={{ width: '10%' }} />
+                <View style={styles.tabStyle} />
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)} testID = "googleUrl">
                   <GooglePodcastDarkIcon width={normalize(110)} height={normalize(50)} />
                 </TouchableOpacity>
@@ -172,7 +172,7 @@ export const PodcastEpisodeInfo: FunctionComponent<any> = ({
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)} testID = "spotifyUrl">
                   <SpotifyDarkIcon width={normalize(70)} height={normalize(50)} />
                 </TouchableOpacity>
-                <View style={{ width: '14%' }} />
+                <View style={styles.tabContainer} />
                 <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)} testID = "anghamiUrl">
                   <AnghamiPodcastDarkIcon width={normalize(80)} height={normalize(50)} />
                 </TouchableOpacity>
@@ -238,7 +238,8 @@ StyleSheet.create({
     paddingBottom: normalize(10),
   },
   containerSpace: {
-    paddingVertical: normalize(8)
+    paddingVertical: normalize(8),
+    paddingTop: normalize(15)
   },
   rowStyle: {
     flexDirection: 'row',
@@ -294,4 +295,14 @@ StyleSheet.create({
     fontSize: 14,
     lineHeight: 26
   },
+  image: { 
+    width: '100%', 
+    height: '100%' 
+  },
+  tabStyle: {
+     width: '10%' 
+  },
+  tabContainer: {
+     width: '14%' 
+  }
 });

@@ -1,6 +1,8 @@
 import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import React from 'react'
-import { Image, Label, LabelTypeProp, TitleWithUnderLine } from 'src/components/atoms';
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
+import { TitleWithUnderLine } from 'src/components/atoms/titleWithUnderLine/TitleWithUnderLine';
+import { Image } from 'src/components/atoms/image/Image';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { decodeHTMLTags, isObjectNonEmpty, normalize, screenWidth } from 'src/shared/utils';
@@ -10,7 +12,7 @@ import { ImageResize } from 'src/shared/styles/text-styles';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName, Styles } from 'src/shared/styles';
-import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useArticleDetail } from 'src/hooks/useArticleDetail';

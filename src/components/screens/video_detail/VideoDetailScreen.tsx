@@ -4,15 +4,14 @@ import { ScreenContainer } from '..';
 import {PodcastProgramHeader} from 'src/components/molecules';
 import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
-import {CustomThemeType} from 'src/shared/styles/colors';
+import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty, isNotEmpty } from 'src/shared/utils';
-import { colors } from 'src/shared/styles/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { RequestVideoUrlSuccessResponse, VideoItemType } from 'src/redux/videoList/types';
 import {useNavigation} from '@react-navigation/native';
-import {ScreensConstants} from 'src/constants/ScreenConstants';
+import {ScreensConstants} from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Styles } from 'src/shared/styles';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';
@@ -87,11 +86,11 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const formatVideoListData = () => {
     const selectedVideoId = route.params.data.nid
     const selectedVideoIndex = videoData.findIndex((item: any) => item.nid === selectedVideoId);
-    const videoInfo = videoData && selectedVideoIndex != -1 ? videoData[selectedVideoIndex] : selectedVideo
-    const otherVideosList = videoData.filter((item: any) => item.nid != selectedVideoId);
+    const videoInfo = videoData && selectedVideoIndex !== -1 ? videoData[selectedVideoIndex] : selectedVideo
+    const otherVideosList = videoData.filter((item: any) => item.nid !== selectedVideoId);
     if (isNonEmptyArray(videoData)) {
-      const isBookmarked = validateBookmark(videoInfo.nid)
-      setIsBookmarked(isBookmarked)
+      const isBookmark = validateBookmark(videoInfo.nid)
+      setIsBookmarked(isBookmark)
     }
     setSelectedVideo(videoInfo)
     setVideolistData(otherVideosList)
@@ -125,14 +124,14 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   }
 
   const onPressShare = async () => {
-    if(!isNonEmptyArray(detailData) && !isObjectNonEmpty(detailData[0]) && (!isNotEmpty(detailData[0].field_shorturl_export) && !isNotEmpty(detailData[0].view_node))) {
+    if(!isNonEmptyArray(detailData) && !isObjectNonEmpty(detailData[0]) && (!isNotEmpty(detailData[0].field_shorturl_export) && !isNotEmpty(detailData[0].link_node))) {
       return;
     }
     const videoDetailData = detailData[0];
-    const { title, field_shorturl_export, view_node } = videoDetailData
+    const { title, field_shorturl_export, link_node } = videoDetailData
     await Share.open({
         title,
-        url: getShareUrl(field_shorturl_export!, view_node!),
+        url: getShareUrl(field_shorturl_export!, link_node!),
         failOnCancel: true,
         subject: title
     }).then(response => {
@@ -165,7 +164,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
           isSaved={isBookmarked}
           isCloseIcon
         />
-        {selectedVideo!=undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}} isDocumentary={isDocumentary} />}
+        {selectedVideo!==undefined && <VideoInfo data={selectedVideo} onPress={(item:VideoItemType)=>{goToPlayer(item)}} isDocumentary={isDocumentary} />}
       </View>
       <View style={styles.container}>
         <VideosList data={videolistData} onItemActionPress={(item:VideoItemType)=>goToPlayer(item)} />
@@ -179,7 +178,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
       onCloseSignUpAlert={onCloseSignUpAlert}>
       <View style={{height:insets.top,backgroundColor: colors.black}} />
       <FlatList
-        style={{ flex: 1, height: '100%' }}
+        style={styles.contentContainerStyle}
         data={[{}]}
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
@@ -202,5 +201,8 @@ StyleSheet.create({
   },
   contentContainer: {
     paddingBottom: normalize(80)
+  },
+  contentContainerStyle: {
+    flex: 1, height: '100%' 
   }
 })

@@ -1,20 +1,20 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, StyleProp, TextStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
-import { ArticleFooter } from '../molecules'
-import { BannerImageWithOverlay, Divider, Label, LabelTypeProp, BannerImageWithOverlayProps } from '../atoms'
-import { articleFooterProps, BookMarkColorType } from '../molecules/articleFooter/ArticleFooter'
+import  ArticleFooter,{ articleFooterProps, BookMarkColorType }  from 'src/components/molecules/articleFooter/ArticleFooter'
+import { BannerImageWithOverlay, BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
+import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
+import { Divider } from 'src/components/atoms/divider/Divider'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
-import { ScreensConstants } from 'src/constants'
+import { ScreensConstants } from 'src/constants/Constants'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
-import { displayTypes } from 'src/constants/SharedConstants'
 
 const carouselFooterSample: articleFooterProps = {
   leftTitleColor: Styles.color.white,
@@ -77,8 +77,6 @@ const ImageArticle = ({
   const [isImageLoaded, setImageLoaded] = useState(false)
   const { themeData } = useTheme();
   const isDark = themeData?.id === DARK_THEME_ID
-  const isLive = isNotEmpty(displayType) && displayType == displayTypes.liveCoverage;
-
 
   const onImageLoadEnd = (isSuccess: boolean) => {
     setImageLoaded(isSuccess)
@@ -98,7 +96,7 @@ const ImageArticle = ({
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
           <BannerImageWithOverlay image={image}
             onImageLoadEnd={onImageLoadEnd}
-            isLive={isLive}
+            displayType={displayType}
             isImageLoaded={isImageLoaded}
             isAlbum={isAlbum}
           />
@@ -114,7 +112,7 @@ const ImageArticle = ({
           }
           {isNotEmpty(body) && showBody &&
             <Label children={decodeHTMLTags(body)}
-            numberOfLines={3} ellipsizeMode={'clip'} style={[{color: Styles.color.davyGrey}, textStyles]}/>
+            numberOfLines={3} ellipsizeMode={'clip'} style={[imageArticleStyle.labelStyle, textStyles]}/>
           }
           <View style={imageArticleStyle.tabFooterContainer}>
             <ArticleFooter {...carouselFooterSample}
@@ -184,5 +182,8 @@ const imageArticleStyle = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: normalize(15),
+  },
+  labelStyle: {
+    color: Styles.color.davyGrey
   }
 });

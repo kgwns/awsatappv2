@@ -8,8 +8,25 @@ import {
   getSelectedAllWritersDetailsData,
   getSelectedAuthorLoading
 } from 'src/redux/allWriters/selectors';
-import { fetchAllWriters, sendSelectedAuthor, getSelectedAuthors, emptySelectedAuthorsInfo, removeAuthor, getSelectedAuthorsSuccess, fetchAllSelectedWritersDetails, emptySendAuthorInfo, deselectAllWriters, setSelectedDataFromOnboard, emptySelectedWritersDataFromOnboard } from 'src/redux/allWriters/action';
-import { AllWritersItemType, AllWritersBodyGet, SendSelectedAuthorBody, ResponseMessage, SelectedAuthorDataType, RemoveAuthorBody,AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
+import { fetchAllWriters, 
+  sendSelectedAuthor, 
+  getSelectedAuthors, 
+  emptySelectedAuthorsInfo, 
+  removeAuthor, 
+  getSelectedAuthorsSuccess, 
+  fetchAllSelectedWritersDetails, 
+  emptySendAuthorInfo, 
+  deselectAllWriters, 
+  setSelectedDataFromOnboard, 
+  emptySelectedWritersDataFromOnboard, 
+  emptySelectedAuthors} from 'src/redux/allWriters/action';
+import { AllWritersItemType, 
+  AllWritersBodyGet, 
+  SendSelectedAuthorBody, 
+  ResponseMessage, 
+  SelectedAuthorDataType, 
+  RemoveAuthorBody,
+  AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
 import { isNonEmptyArray } from 'src/shared/utils';
 
 export interface UseAllWritersReturn {
@@ -22,6 +39,7 @@ export interface UseAllWritersReturn {
   sendSelectedWriterInfo(payload: SendSelectedAuthorBody): void
   getSelectedAuthorsData(): void;
   emptySelectedAuthorsInfoData(): void;
+  emptySelectedAuthorsData(): void;
   removeAuthorRequest(payload: RemoveAuthorBody): void;
   requestAllSelectedWritersDetailsData(payload: AllSelectedWritersDetailsBodyGet) : void;
   allSelectedWritersDetailList : AllWritersItemType[];
@@ -55,6 +73,10 @@ export const useAllWriters = (): UseAllWritersReturn => {
 
   const emptySelectedAuthorsInfoData = () => {
     dispatch(emptySelectedAuthorsInfo())
+  };
+
+  const emptySelectedAuthorsData = () => {
+    dispatch(emptySelectedAuthors())
   };
 
   const emptySendAuthorInfoData = () => {
@@ -107,5 +129,6 @@ export const useAllWriters = (): UseAllWritersReturn => {
     updateAllWritersData,
     sendSelectedFromOnboard,
     emptySelectedWritersDataOnboard,
+    emptySelectedAuthorsData
   };
 };

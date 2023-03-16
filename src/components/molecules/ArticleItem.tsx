@@ -1,6 +1,6 @@
 import { StyleSheet, View, ViewStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants'
+import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants'
 import { ImageWithLabel } from '../atoms'
 import { articleProps } from '../organisms'
 import { ArticleWithOutImage } from '../molecules'
@@ -43,13 +43,14 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     }
 
     return (
-        <FixedTouchable onPress={onPress} style={{flex:1}}>
+        <FixedTouchable onPress={onPress} style={style.mainContainer}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
                 style={StyleSheet.flatten([style.container, articleItemStyle])}>
                 {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                         onPressBookmark={onPressBookmark} titleStyle={props.titleStyle} bodyStyle={props.bodyStyle}
+                        displayType={undefined} //DisplayType with display in ImageWithLabel itself
                     />
                 </View>
             </View>
@@ -67,5 +68,8 @@ const style = StyleSheet.create({
         paddingBottom: normalize(25),
         flex: 1,
         overflow: 'hidden',
+    },
+    mainContainer: {
+        flex: 1
     }
 })

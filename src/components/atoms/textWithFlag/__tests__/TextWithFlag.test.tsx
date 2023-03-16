@@ -2,7 +2,7 @@ import { render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 
 import { TextWithFlag } from 'src/components/atoms/textWithFlag/TextWithFlag'
-import { sampleTextWithFlag } from '../../../../constants/SampleData'
+import { sampleTextWithFlag } from '../../../../constants/Constants'
 
 describe('<TextWithFlag>', () => {
   let instance: RenderAPI

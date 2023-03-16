@@ -6,7 +6,7 @@ import { ArticleDetailImage } from 'src/components/molecules'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types'
 import { SCRIBBLE_LIVE_EVENT_URL, SCRIBBLE_LIVE_JSON_PARAM, SCRIBBLE_LIVE_TOKEN_PARAM, SCRIBBLE_TOKEN } from 'src/services/apiUrls';
 import { isNotEmpty, isObjectNonEmpty } from 'src/shared/utils';
-import { displayTypes } from 'src/constants/SharedConstants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 interface ArticleDetailWidgetProps {
     articleData: ArticleDetailDataType,
@@ -28,10 +28,11 @@ interface ArticleDetailWidgetProps {
 const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
     articleData, isRelatedArticle = false, isFirstItem, showReplay = false, displayType, ...props
 }) => {
-
+    const UPDATED =  TranslateConstants({key:TranslateKey.ARTICLE_DETAIL_WIDGET_UPDATED})
     const [scribbleLiveData, setScribbleLiveData] = useState<any>({})
     moment.locale('ar')
-    const timeAgo = isObjectNonEmpty(scribbleLiveData) ? `محدث  ${moment(scribbleLiveData.LastModified).fromNow()}` : '';
+    const timeAgo = isObjectNonEmpty(scribbleLiveData) ? `${UPDATED}  ${moment(scribbleLiveData.LastModified).fromNow()}` : '';
+
 
     useEffect(() => {
         isObjectNonEmpty(articleData) && isNotEmpty(articleData.scribbleLiveId) && fetchScribbleLive(articleData.scribbleLiveId)

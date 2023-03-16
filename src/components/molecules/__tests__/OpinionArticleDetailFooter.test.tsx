@@ -1,8 +1,15 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
-import {ButtonImage} from 'src/components/atoms';
+import Share from 'react-native-share';
+import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
 import { OpinionArticleDetailItemType } from 'src/redux/opinionArticleDetail/types';
 import {OpinionArticleDetailFooter} from '../OpinionArticleDetailFooter';
+
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: false
+}));
 
 describe('<OpinionArticleDetailFooter>', () => {
   let instance: RenderAPI;
@@ -21,10 +28,13 @@ describe('<OpinionArticleDetailFooter>', () => {
     writer: [],
     isBookmarked: false,
     isFollowed: false,
-    field_shorturl: ''
+    field_shorturl: '',
+    link_node: 'https://aawsat.srpcdigital.com/node/2982206'
   };
 
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
+    jest.spyOn(Share,'open').mockResolvedValue({response:true} as any);
     const component = (
       <OpinionArticleDetailFooter opinionArticleDetailData={data} isBookmarked={false} onPressSave={mockFunction} onPressFontSizeChange={mockFunction}/>
     );
@@ -40,6 +50,11 @@ describe('<OpinionArticleDetailFooter>', () => {
     expect(instance).toBeDefined();
   });
 
+  it('should render OpinionArticleDetailFooter component in iOS', () => {
+    DeviceTypeUtilsMock.isIOS = true;
+    expect(instance).toBeDefined();
+  });
+
   it('Should call font increase button', () => {
     const element = instance.container.findAllByType(ButtonImage)[0];
     fireEvent(element, 'onPress');
@@ -52,11 +67,12 @@ describe('<OpinionArticleDetailFooter>', () => {
     expect(element).toBeTruthy();
   });
 
-  it('Should call share button', () => {
+  it('Should call share button and return response', () => {
     const element = instance.container.findAllByType(ButtonImage)[2];
     fireEvent(element, 'onPress');
     expect(element).toBeTruthy();
   });
+
 });
 
 
@@ -77,10 +93,13 @@ describe('<OpinionArticleDetailFooter>', () => {
     writer: [],
     isBookmarked: false,
     isFollowed: false,
-    field_shorturl: ''
+    field_shorturl: '',
+    link_node: 'https://aawsat.srpcdigital.com/node/2982206'
   };
 
   beforeEach(() => {
+    jest.useFakeTimers('legacy');
+    jest.spyOn(Share,'open').mockRejectedValue('error');
     const component = (
       <OpinionArticleDetailFooter opinionArticleDetailData={data} isBookmarked={true} onPressSave={mockFunction} onPressFontSizeChange={mockFunction}/>
     );
@@ -113,4 +132,10 @@ describe('<OpinionArticleDetailFooter>', () => {
     fireEvent(element, 'onPress');
     expect(element).toBeTruthy(); 
   });
+
+  it('Should call share button and throws error',() => {
+    const element = instance.container.findAllByType(ButtonImage)[2];
+    fireEvent(element, 'onPress');
+    expect(element).toBeTruthy();
+  })
 });
