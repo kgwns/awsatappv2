@@ -15,6 +15,15 @@ jest.mock('@react-navigation/native', () => ({
     useNavigation: jest.fn(),
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: true,
+  isIOS: true,
+  isAndroid: true,
+}));
+
+
 jest.mock("src/hooks/useAppCommon", () => ({
     useAppCommon: () => {
         return {
@@ -51,6 +60,7 @@ describe('<Screen Container>', () => {
     }
 
     beforeEach(() => {
+        jest.useFakeTimers('legacy');
         (useNavigation as jest.Mock).mockReturnValue(navigation);
         useAppPlayerMock.mockReturnValue({
             showMiniPlayer: true,
@@ -65,7 +75,7 @@ describe('<Screen Container>', () => {
         (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
         const component =
             <Provider store={storeSampleData}>
-                <ScreenContainer children={screenComponent} edge={['right', 'top']} headerTitle={'Example'} isLoading={false} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} barStyle={'default'} backgroundColor={colors.aquaHaze}/>
+                <ScreenContainer children={screenComponent} setIsAlertVisible = {mockFunction} edge={['right', 'top']} headerTitle={'Example'} isLoading={false} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} barStyle={'default'} backgroundColor={colors.aquaHaze} headerLeft = {mockFunction}/>
             </Provider>
         instance = render(component)
     })
@@ -77,15 +87,18 @@ describe('<Screen Container>', () => {
 
 
     test('Should render component', () => {
+        DeviceTypeUtilsMock.isTab = false;
         expect(instance).toBeDefined()
     })
 
-    test('Should render component', () => {
+    test('Should render component in Tab', () => {
+        DeviceTypeUtilsMock.isTab = true;
         expect(render(<ScreenContainer children={screenComponent} isAlertVisible={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} />)).toBeDefined()
     })
 
     test('Should render component', () => {
-        expect(render(<ScreenContainer children={screenComponent} edge={['right', 'top']} alertPayload={payloadAlert} headerTitle={'Example'} isLoading={true} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} barStyle={'default'} />)).toBeDefined()
+        DeviceTypeUtilsMock.isIOS = false;
+        expect(render(<ScreenContainer children={screenComponent} edge={['right', 'top']} alertPayload={payloadAlert} headerTitle={'It is header title and must not be empty, This is a props of header title and its length must be greater than 60'} isLoading={true} showPlayer={true} isSignUpAlertVisible={true} isAlertVisible={true} isOverlayLoading={true} showHeader={true} onCloseSignUpAlert={mockFunction} alertOnPress={mockFunction} barStyle={'default'} />)).toBeDefined()
     })
 
     it('when AlertModal only When onPressSuccess', () => {
@@ -95,6 +108,7 @@ describe('<Screen Container>', () => {
     });
 
     it('when AlertModal only When onClose', () => {
+        DeviceTypeUtilsMock.isAndroid = false;
         const testID = instance.container.findAllByType(AlertModal)[0];
         fireEvent(testID, 'onClose');
         expect(mockFunction).toBeTruthy();
