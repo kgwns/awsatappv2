@@ -1,6 +1,6 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch, useSelector} from 'react-redux';
-import { RESET_ARTICLE_FONT_SIZE, STORE_FONT_SIZE } from 'src/redux/appCommon/actionType';
+import { RESET_ARTICLE_FONT_SIZE, STORE_BASE_URL_CONFIG, STORE_FONT_SIZE } from 'src/redux/appCommon/actionType';
 import { ServerEnvironment } from 'src/redux/appCommon/types';
 import {
   useAppCommon,
@@ -131,6 +131,36 @@ describe('#useAppCommon', () => {
       expect(dispatchMock).toHaveBeenCalledWith({
         type: STORE_FONT_SIZE,
         payload: { fontSize: 18 }
+      });
+    });
+  });
+
+  describe('#storeBaseUrlConfigInfo', () => {
+    let payload =  {
+      baseUrlConfig:{
+      baseUrl: 'https://aawsat.srpcdigital.com/',
+      umsUrl:  "https://awsatapi.srpcdigital.com/",
+      imageUrl: 'https://static.srpcdigital.com/',
+      profileImageUrl: "https://awsatapi.srpcdigital.com/storage/",
+      liveBlogUrl: "https://aawsat.srpcdigital.com/livenews/",
+    }}
+    it('should call dispatch with base config', () => {
+      const {
+        result: {
+          current: {storeBaseUrlConfigInfo},
+        },
+      } = result;
+
+      act(() => {
+        storeBaseUrlConfigInfo(payload.baseUrlConfig);
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: STORE_BASE_URL_CONFIG,
+        payload: {
+          baseUrlConfig: payload.baseUrlConfig
+        }
       });
     });
   });
