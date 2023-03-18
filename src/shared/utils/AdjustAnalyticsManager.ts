@@ -29,12 +29,18 @@ class AdjustAnalyticsManager {
 
         const environment = __DEV__ ? AdjustConfig.EnvironmentSandbox : AdjustConfig.EnvironmentProduction
         const adjustConfig = new AdjustConfig(APP_TOKEN, environment);
-        adjustConfig.setLogLevel(AdjustConfig.LogLevelVerbose);
         adjustConfig.setDelayStart(0);
-        adjustConfig.setNeedsCost(true);
+        adjustConfig.setNeedsCost(false);
+        adjustConfig.deactivateSKAdNetworkHandling();
+        adjustConfig.setDeviceKnown(false);
+        adjustConfig.setPreinstallTrackingEnabled(false);
+        adjustConfig.setAllowIdfaReading(false)
+        adjustConfig.setAllowiAdInfoReading(false)
+        adjustConfig.setAllowAdServicesInfoReading(false)
+        adjustConfig.setShouldLaunchDeeplink(false)
 
         if (Platform.OS === "android") {
-            AdjustOaid.readOaid();
+            AdjustOaid.doNotReadOaid();
         }
         Adjust.create(adjustConfig);
     }
@@ -43,33 +49,9 @@ class AdjustAnalyticsManager {
     trackEvent = (eventId: AdjustEventID) => {
         const adjustEvent = new AdjustEvent(eventId);
         Adjust.trackEvent(adjustEvent);
-        Adjust.updateConversionValue(6);
-        Adjust.getAppTrackingAuthorizationStatus(function (status) {
-            console.log("Authorization status = " + status);
-        });
+        Adjust.sendFirstPackages()
     }
 
-    _onPress_getIds() {
-        Adjust.getAdid((adid) => {
-            console.log("Adid = " + adid);
-        });
-
-        Adjust.getIdfa((idfa) => {
-            console.log("IDFA = " + idfa);
-        });
-
-        Adjust.getGoogleAdId((googleAdId) => {
-            console.log("Google Ad Id = " + googleAdId);
-        });
-
-        Adjust.getAmazonAdId((amazonAdId) => {
-            console.log("Amazon Ad Id = " + amazonAdId);
-        });
-
-        Adjust.getAttribution((attribution) => {
-            console.log("Attribution ::::::::",attribution);
-        });
-    }
 };
 
 export default new AdjustAnalyticsManager()
