@@ -87,11 +87,15 @@ describe('<VideoPlayer>', () => {
       expect(element).toBeTruthy();
     });
 
-    it('Should call onEnd', () => {
-      const element = instance.container.findAllByType(Video)[0];
-      fireEvent(element, 'onEnd');
-      expect(element).toBeTruthy();
-    });
+  it('Should call onEnd', () => {
+    const element = instance.container.findAllByType(Video)[0];
+    fireEvent(element, 'onEnd');
+    const spyon = jest.spyOn(global, 'setTimeout');
+    expect(spyon).toHaveBeenCalled();
+    jest.runAllTimers();
+    expect(mockFunction).toHaveBeenCalled();
+    expect(element).toBeTruthy();
+  });
 
     it('Should call onLoad', () => {
       const element = instance.container.findAllByType(Video)[0];
@@ -121,16 +125,23 @@ describe('<VideoPlayer>', () => {
       expect(setTimeout).toBeTruthy();
     }); 
 
-    it('test AppState addEventListener', async () => {
-      const appStateSpy = jest.spyOn(AppState, 'addEventListener');
-      AppState.currentState = 'inactive';
-      await appStateSpy.mock.calls[0][1]('active');
-      expect(setPaused).toHaveBeenCalled();
-      expect(setPaused).toHaveBeenCalledWith(true);
-   });
+  it('test AppState addEventListener', async () => {
+    const appStateSpy = jest.spyOn(AppState, 'addEventListener');
+    AppState.currentState = 'inactive';
+    await appStateSpy.mock.calls[0][1]('active');
+    expect(setPaused).toHaveBeenCalled();
+    expect(setPaused).toHaveBeenCalledWith(true);
+  });
+
+  it('test AppState addEventListener with current state as active', async () => {
+    const appStateSpy = jest.spyOn(AppState, 'addEventListener');
+    AppState.currentState = 'active';
+    await appStateSpy.mock.calls[0][1]('inactive');
+    expect(setPaused).toHaveBeenCalled();
+  });
 })
 
-describe("test videoPlayerFullScreen onProgress",() => {
+describe("test videoPlayerFullScreen onProgress", () => {
   const mockFunction = jest.fn();
   const setState = mockFunction;
   beforeEach(() => {
@@ -141,7 +152,7 @@ describe("test videoPlayerFullScreen onProgress",() => {
   })
   it("test the Video onProgress function when the loading state is false",() => {
     const instance = render(
-      <VideoPlayerFullScreen url={'url'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+      <VideoPlayerFullScreen url={'url'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
     );
     const element = instance.container.findByType(Video);
     fireEvent(element,'onProgress',{currentTime:'15:30'});
@@ -149,3 +160,33 @@ describe("test videoPlayerFullScreen onProgress",() => {
     expect(setState).toHaveBeenCalledWith('15:30');
   })
 })
+
+describe('<VideoPlayer>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4';
+  const tapActionTimeout = mockFunction;
+
+  beforeEach(() => {
+    jest.useFakeTimers('legacy');
+    (useState as jest.Mock).mockImplementationOnce(() => [false, tapActionTimeout]);
+    const component = <VideoPlayerFullScreen url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+    instance = render(component)
+  })
+
+  afterEach(() => {
+    jest.clearAllMocks()
+    instance.unmount()
+  })
+
+  it('Should call onLoad and setTimeout', () => {
+    const element = instance.container.findAllByType(Video)[0];
+    fireEvent(element, 'onLoad', { data: { duration: 0 } });
+    expect(element).toBeTruthy();
+    const spyon = jest.spyOn(global, 'setTimeout');
+    expect(spyon).toHaveBeenCalled();
+    jest.runAllTimers();
+    expect(tapActionTimeout).not.toHaveBeenCalled();
+  });
+});
+

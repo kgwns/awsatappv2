@@ -321,6 +321,7 @@ describe('Test returnItems', () => {
     }
 
     beforeEach(() => {
+        DeviceTypeUtilsMock.isTab = true;
         (useState as jest.Mock).mockImplementation(() => [true, setInitialLoading]);
         (useState as jest.Mock).mockImplementation(() => [0, tabSelectedIndex]);
         (useState as jest.Mock).mockImplementation(() => [filterData, filterItemData]);
@@ -345,9 +346,35 @@ describe('Test returnItems', () => {
     })
 
     it('should render component', () => {
-        DeviceTypeUtilsMock.isTab = false;
         expect(instance).toBeDefined()
     })
 
+
+})
+
+
+describe("should call Dynamic Widget",() => {
+    let instance: RenderAPI;
+    const mockFunction = jest.fn();
+    const useRefMock = jest.fn();
+    beforeEach(() => {
+        DeviceTypeUtilsMock.isTab = false;
+        (useRef as jest.Mock).mockImplementation(useRefMock);
+        useRefMock.mockReturnValueOnce({
+            current: false
+        });
+        const component =
+        <Provider store={storeSampleData}>
+            <Archives />
+        </Provider>
+        instance = render(component)
+    })
+    afterEach(() => {
+        jest.clearAllMocks();
+    })
+    it("should render component",() => {
+        (useState as jest.Mock).mockImplementationOnce(() => [filteredData,mockFunction]).mockImplementationOnce(() => [false,mockFunction]);
+        expect(instance).toBeDefined();
+    })
 
 })

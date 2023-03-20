@@ -1,5 +1,5 @@
-import { resetArticleFontSize, storeAppFirstSession, storeAppTheme, storeArticleFontSize, storeServerEnvironment } from "../action"
-import { IS_APP_FIRST_SESSION, RESET_ARTICLE_FONT_SIZE, STORE_APP_THEME, STORE_FONT_SIZE, STORE_SERVER_ENVIRONMENT } from "../actionType"
+import { resetArticleFontSize, storeAppFirstSession, storeAppTheme, storeArticleFontSize, storeBaseUrlConfig, storeServerEnvironment } from "../action"
+import { IS_APP_FIRST_SESSION, RESET_ARTICLE_FONT_SIZE, STORE_APP_THEME, STORE_BASE_URL_CONFIG, STORE_FONT_SIZE, STORE_SERVER_ENVIRONMENT } from "../actionType"
 import { ArticleFontSize, ServerEnvironment, Theme } from "../types"
 
 describe('<App Common Action>', () => {
@@ -41,6 +41,22 @@ describe('<App Common Action>', () => {
         const nextState = resetArticleFontSize()
         expect(nextState).toStrictEqual({
             type: RESET_ARTICLE_FONT_SIZE,
+        })
+    })
+
+    test('Check storeBaseUrlConfig return', () => {
+        const payload = {
+            baseUrlConfig:{
+            baseUrl: 'https://aawsat.srpcdigital.com/',
+            umsUrl:  "https://awsatapi.srpcdigital.com/",
+            imageUrl: 'https://static.srpcdigital.com/',
+            profileImageUrl: "https://awsatapi.srpcdigital.com/storage/",
+            liveBlogUrl: "https://aawsat.srpcdigital.com/livenews/",
+          }}
+        const nextState = storeBaseUrlConfig(payload)
+        expect(nextState).toStrictEqual({
+            type: STORE_BASE_URL_CONFIG,
+            payload
         })
     })
 

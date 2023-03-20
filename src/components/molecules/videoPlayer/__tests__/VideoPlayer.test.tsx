@@ -4,6 +4,7 @@ import { VideoPlayerComponent } from '../VideoPlayer';
 import { useNavigation } from '@react-navigation/native';
 import VideoPlayerFullScreen from '../VideoPlayerFullScreen';
 import { ImagesName } from 'src/shared/styles';
+import Orientation from 'react-native-orientation-locker';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -60,6 +61,15 @@ describe('<VideoPlayer>', () => {
         expect(instance).toBeDefined()
     })
 
+    it("should render with goBack as empty",() => {
+      const component = <VideoPlayerComponent url={url} goBack={''} testID={'ID'} />
+      instance = render(component)
+      const element = instance.container.findByType(VideoPlayerFullScreen)
+      fireEvent(element, 'onClose');
+      expect(mockFunction).toHaveBeenCalled();
+      expect(mockFunction).toHaveBeenCalledTimes(2);
+    })
+
     test('Should call onLoadStart', () => {
       const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'onLoadStart');
@@ -114,4 +124,74 @@ describe('<VideoPlayer>', () => {
       expect(element).toBeTruthy()
     });
     
+})
+
+
+describe('<VideoPlayer>', () => {
+  let instance: RenderAPI
+  const mockFunction = jest.fn();
+  const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4'
+  const setFullScreen = mockFunction;
+
+  const navigation = {
+      navigate: mockFunction,
+    }
+
+  beforeEach(() => {
+  DeviceTypeUtilsMock.isAndroid = true;
+  (useState as jest.Mock).mockImplementation(() => [false, setFullScreen]);
+
+  (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    const component = <VideoPlayerComponent url={url} goBack={mockFunction} testID={'ID'} />
+    instance = render(component)
+    jest.useFakeTimers();
+  })
+
+  afterEach(() => {
+      jest.clearAllMocks()
+      instance.unmount()
+  })
+
+  it('Should call onClose with fullscreen as false', () => {
+    const element = instance.container.findByType(VideoPlayerFullScreen)
+    fireEvent(element, 'onClose');
+    expect(mockFunction).toHaveBeenCalled();
+  })
+
+  test('Should call onChangeFullScreen with fullscreen as false', () => {
+    const element = instance.container.findByType(VideoPlayerFullScreen)
+    fireEvent(element, 'onChangeFullScreen');
+    expect(element).toBeTruthy()
+    expect(Orientation.lockToLandscape).toHaveBeenCalled();
+  });
+  
+})
+
+describe('<VideoPlayer>', () => {
+  let instance: RenderAPI
+  const mockFunction = jest.fn();
+  const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4'
+  const setvideoUrl = mockFunction;
+
+  const navigation = {
+      navigate: mockFunction,
+    }
+
+  beforeEach(() => {
+  (useState as jest.Mock).mockImplementation(() => ['setVideoUrl', setvideoUrl]);
+
+  (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    const component = <VideoPlayerComponent url={url} goBack={mockFunction} testID={'ID'} />
+    instance = render(component)
+    jest.useFakeTimers();
+  })
+
+  afterEach(() => {
+      jest.clearAllMocks()
+      instance.unmount()
+  })
+
+  it('Should set State', () => {
+    expect(setvideoUrl).toHaveBeenCalled();
+  })
 })

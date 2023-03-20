@@ -23,6 +23,13 @@ jest.mock('@react-native-firebase/remote-config', () => ({
   },
 }));
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isIOS: true
+}));
+
+
 jest.mock('@react-native-firebase/messaging', () => {
   return jest.fn().mockReturnValue({
     getToken: jest.fn().mockResolvedValue(''),
@@ -55,6 +62,11 @@ describe('<App>', () => {
       instance.unmount();
     });
     it('Should render App', () => {
+      DeviceTypeUtilsMock.isIOS = false;
+      expect(instance).toBeDefined();
+    });
+    it('Should render App in iOS', () => {
+      DeviceTypeUtilsMock.isIOS = true;
       expect(instance).toBeDefined();
     });
   });
