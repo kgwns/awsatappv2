@@ -2,6 +2,11 @@ import { render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ArticleOverlayContent } from '../ArticleOverlayContent';
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false
+}));
 
 describe('<ArticleOverlayContent>', () => {
     let instance: RenderAPI;
@@ -18,7 +23,8 @@ describe('<ArticleOverlayContent>', () => {
             instance.unmount()
         })
 
-        it('should render component', () => {
+        it('should render component in tab', () => {
+            DeviceTypeUtilsMock.isTab = true;
             expect(instance).toBeDefined()
         })
 

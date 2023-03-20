@@ -16,6 +16,14 @@ jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
   isIOS: false
 }));
+jest.mock('react-native-safe-area-context', () => ({
+    ...jest.requireActual('react-native-safe-area-context'),
+    useSafeAreaInsets: () => ({
+      top: 10,
+      bottom: 10
+    })
+}));
+
 jest.mock("react-native-tab-view", () => {
     const real = jest.requireActual("react-native-tab-view");
     return {
@@ -24,6 +32,18 @@ jest.mock("react-native-tab-view", () => {
         <>
           {renderTabBar({
             navigationState,
+          })}
+
+          {renderScene({
+            route:{key:{match:jest.fn()},keyName:'video',child:{isSelected:false,findIndex:jest.fn()}},
+          })}
+
+          {renderScene({
+            route:{key:{match:jest.fn()},keyName:'games',child:{isSelected:false,findIndex:jest.fn()}},
+          })}
+
+          {renderScene({
+            route:{key:{match:jest.fn()},keyName:'photos',child:{isSelected:false,findIndex:jest.fn()}},
           })}
 
           {renderScene({
