@@ -158,6 +158,25 @@ describe('#useAllWriters', () => {
         type: EMPTY_SEND_AUTHOR_INFO,
       });
     });
+  }); 
+  
+  describe('#emptySendAuthorData', () => {
+    it('should call dispatch', () => {
+      const {
+        result: {
+          current: {emptySelectedAuthorsData},
+        },
+      } = result;
+
+      act(() => {
+        emptySelectedAuthorsData();
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+      expect(dispatchMock).toHaveBeenCalledWith({
+        type: EMPTY_SELECTED_AUTHORS,
+      });
+    });
   });
 
   describe('#emptySelectedWritersDataOnboard', () => {

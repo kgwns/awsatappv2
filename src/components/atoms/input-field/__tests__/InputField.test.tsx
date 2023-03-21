@@ -1,7 +1,12 @@
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import {InputField} from 'src/components/atoms/input-field/InputField';
-
+jest.mock("react",() => {
+  return {
+    ...jest.requireActual('react'),
+    useState: jest.fn().mockImplementation(() => [false, () => null])
+  }
+})
 describe('<InputField />', () => {
   let instance: RenderAPI;
   beforeEach(() => {
@@ -107,5 +112,41 @@ describe('should pass isPassword as true and value', () => {
 
   it('should render component', () => {
     expect(instance).toBeDefined();
+  });
+})
+
+describe('InputField', () => {
+  const mockFunction = jest.fn();
+  const isFocused = jest.fn();
+  let instance: RenderAPI;
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [true,isFocused]);
+    const component = (
+      <InputField
+        label="firstname"
+        isPassword={true}
+        onSubmitEditing={() => {}}
+        error={'Error'}
+        onChangeText={mockFunction}
+        testID = {'inputFieldTestID'}
+        value = 'value'
+      />
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    instance.unmount();
+  });
+
+  it('should call onFocus', () => {
+    const testId = instance.getByTestId('inputFieldTestID');
+    fireEvent(testId,'onFocus');
+    expect(isFocused).not.toHaveBeenCalled();
+  });
+  it('should call onBlur', () => {
+    const testId = instance.getByTestId('inputFieldTestID');
+    fireEvent(testId,'onBlur');
+    expect(isFocused).not.toHaveBeenCalled();
   });
 })

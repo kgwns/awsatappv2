@@ -2,6 +2,7 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState, useRef } from 'react';
 import VideoPlayerControl from '../VideoPlayerControl';
 import Video from 'react-native-video';
+import { AppState } from 'react-native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -296,7 +297,7 @@ describe("test videoPlayerControl onLoad",() => {
   const mockFunction = jest.fn();
   const setState = mockFunction;
   beforeEach(() => {
-    (useRef as jest.Mock).mockImplementation(() => ({current:true}));
+    jest.useFakeTimers('legacy');
     (useState as jest.Mock).mockImplementation(() => [false,setState]);
   })
   afterEach(() => {
@@ -334,6 +335,65 @@ describe("test videoPlayerControl renderPlaypauseID onPaused function",() => {
     fireEvent(element,'onEnd');
     expect(instance.container.props.setReset).toHaveBeenCalled();
     expect(instance.container.props.setReset).toHaveBeenCalledWith(true);
+  })
+
+  it("should call setTimeout",() => {
+    const setPaused = jest.fn();
+    jest.useFakeTimers('legacy');
+    (useState as jest.Mock).mockImplementation(() => [false, setPaused]);
+    (useRef as jest.Mock).mockImplementation(() => ({current:{seek: jest.fn()}}));
+    render(
+      <VideoPlayerControl
+      url={'url'} paused={false}
+      isMiniPlayer = {false}
+      playerVisible={true} videoRefs={sampleData}
+      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+      onChangeFullScreen={mockFunction} setReset = {mockFunction}
+    />
+    );
+    const spyon = jest.spyOn(global,'setTimeout');
+    expect(spyon).toHaveBeenCalled();
+    jest.runAllTimers();
+    expect(setPaused).toHaveBeenCalled();
+  })
+
+})
+
+describe("VideoPlayerControl",() => {
+  const mockFunction = jest.fn();
+  const setState = jest.fn();
+  let instance: RenderAPI;
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [false, setState]);
+    instance = render(
+      <VideoPlayerControl
+      url={'url'} paused={false}
+      isMiniPlayer = {false}
+      playerVisible={true} videoRefs={sampleData}
+      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+      onChangeFullScreen={mockFunction} setReset = {mockFunction}
+    />
+    );
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+  })
+  it("Should call AppState listener with inactive state",() => {
+    const spyon = jest.spyOn(AppState,'addEventListener');
+    expect(instance).toBeDefined();
+    expect(spyon).toHaveBeenCalled();
+    AppState.currentState = 'inactive';
+    spyon.mock.calls[0][1]('inactive');
+    expect(setState).toHaveBeenCalled();
+  })
+
+  it("Should call AppState listener with active state",() => {
+    const spyon = jest.spyOn(AppState,'addEventListener');
+    expect(instance).toBeDefined();
+    expect(spyon).toHaveBeenCalled();
+    AppState.currentState = 'active';
+    spyon.mock.calls[0][1]('active');
+    expect(setState).toHaveBeenCalled();
   })
 
 })
