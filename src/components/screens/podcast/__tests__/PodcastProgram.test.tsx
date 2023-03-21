@@ -169,3 +169,37 @@ describe('<<< PodcastProgram >>>', () => {
 });
 
 
+describe('<<< PodcastProgram >>>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const usePodcastMock = mockFunction;
+  const podcastEpisodeListInfo = mockFunction;
+  const showModal = mockFunction;
+  const selectedItem = mockFunction;
+
+  const navigation = {
+    navigate: mockFunction,
+  }
+
+  beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (usePodcast as jest.Mock).mockImplementation(usePodcastMock);
+    (useState as jest.Mock).mockImplementation(() => [mockData, podcastEpisodeListInfo]);
+    (useState as jest.Mock).mockImplementation(() => [false, showModal]);
+    (useRef as jest.Mock).mockImplementation(() => [selectedItemData, selectedItem]);
+    usePodcastMock.mockReturnValue({
+      isLoading: false,
+      podcastListData: [],
+      fetchPodcastListRequest: () => {
+        return []
+      },
+    });
+    const element = <PodcastProgram tabIndex={0} currentIndex={0} />;
+    instance = render(element);
+  });
+
+  it('### Check Render Method of PodcastProgram', () => {
+    expect(instance).toBeDefined();
+  });
+
+});
