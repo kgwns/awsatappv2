@@ -812,7 +812,14 @@ const storeInfo = [
             theme: Theme?.LIGHT,
             isAppFirstSession: true,
             articleFontSize: ArticleFontSize?.normal,
-            serverEnvironment: ServerEnvironment?.PRODUCTION
+            serverEnvironment: ServerEnvironment?.PRODUCTION,
+            baseUrlConfig: {
+                baseUrl: 'https://aawsat.srpcdigital.com/',
+                umsUrl:  "https://awsatapi.srpcdigital.com/",
+                imageUrl: 'https://static.srpcdigital.com/',
+                profileImageUrl: "https://awsatapi.srpcdigital.com/storage/",
+                liveBlogUrl: "https://aawsat.srpcdigital.com/livenews/",
+            }
         },
         home: {
             isLoading: false,
