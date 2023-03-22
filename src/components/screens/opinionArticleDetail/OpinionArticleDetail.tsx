@@ -290,7 +290,7 @@ export const OpinionArticleDetail = ({
   }
 
   const renderHeader = () => (
-    <View style={style.backContainer}>
+    <View style={style.backContainer} testID = "headerViewId">
       <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
     </View>
   )

@@ -11,6 +11,7 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { VideoItemType } from 'src/redux/videoList/types';
 import Share from 'react-native-share';
 import { getVideoDetail } from 'src/services/videoDetailService';
+import { useLogin } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -83,11 +84,7 @@ jest.mock("src/hooks/useVideoList", () => ({
 }));
 
 jest.mock("src/hooks/useLogin", () => ({
-  useLogin: () => {
-    return {
-      isLoggedIn: true,
-    }
-  },
+  useLogin: jest.fn()
 }));
 
 jest.mock("src/hooks/useBookmark", () => ({
@@ -146,7 +143,9 @@ describe('<VideoDetailScreen >', () => {
       (useState as jest.Mock).mockImplementation(() => [false, isBookmarked]);
       (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
       (useState as jest.Mock).mockImplementation(() => ['abc.com', videoUrl]);
-
+      (useLogin as jest.Mock).mockReturnValue({
+        isLoggedIn: true,
+    });
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>

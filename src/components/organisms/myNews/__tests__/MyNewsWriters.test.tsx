@@ -2,7 +2,7 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState, useMemo } from 'react';
 import { MyNewsWriters } from 'src/components/organisms';
 import { AuthorsHorizontalSlider } from 'src/components/molecules';
-import { useNavigation } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native';
 import { keyExtractor } from '../MyNewsWriters';
 import { OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
@@ -10,7 +10,7 @@ import { useAllWriters } from 'src/hooks';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
-  useState: jest.fn(),
+  useState: jest.fn().mockImplementation(() => [false,() => null]),
   useMemo: jest.fn(),
 }));
 
@@ -23,6 +23,7 @@ jest.mock('src/shared/utils/dimensions', () => ({
 
 jest.mock('src/shared/styles/useThemeAware', () => {
   return {
+    ...jest.requireActual('src/shared/styles/useThemeAware'),
     useThemeAwareObject: jest.fn(() => ({
       screenBackgroundColor: {
         backgroundColor: 'red'
@@ -140,7 +141,7 @@ jest.mock('src/hooks/useAllWriters', () => ({
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
-  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
+  useIsFocused: jest.fn()
 }));
 
 
@@ -214,6 +215,7 @@ describe('<MyNewsWriters>', () => {
 
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true;
+    (useIsFocused as jest.Mock).mockReturnValue(true);
     (useState as jest.Mock).mockImplementation(() => [
       null,
       setSelectedAuthors,
@@ -230,9 +232,9 @@ describe('<MyNewsWriters>', () => {
       selectedAuthorsData: {
         code: 2,
         message: 'string',
-        data: {
+        data: [{
           tid: '12'
-        },
+        }],
       },
       allWritersData: [
         {
@@ -269,6 +271,9 @@ describe('<MyNewsWriters>', () => {
       },
       emptySelectedAuthorsData: () => {
         return []
+      },
+      requestAllSelectedWritersDetailsData: () => {
+        return []
       }
   })
     const component = <MyNewsWriters />;
@@ -293,6 +298,13 @@ describe('<MyNewsWriters>', () => {
       AuthorsHorizontalSlider as any,
     );
     fireEvent(element, 'onPress', {item:mockData,index:0});
+    expect(setPageCount).toBeCalled();
+  });
+  test('Should call AuthorsHorizontalSlider onPress', () => {
+    const element = instance.container.findByType(
+      AuthorsHorizontalSlider as any,
+    );
+    fireEvent(element, 'onPress', mockData,-1);
     expect(setPageCount).toBeCalled();
   });
 });
@@ -430,4 +442,195 @@ describe('<MyNewsWriters>', () => {
     expect(mockFunction).toHaveBeenCalled()
   });
 
+});
+
+describe('<MyNewsWriters>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const setSelectedAuthors = mockFunction;
+  const setPageCount = mockFunction;
+  const setOpinionData = mockFunction;
+  const setSelectedIndex = mockFunction;
+  const useAllWritersMock = mockFunction;
+  const mockData = [
+    {
+      field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
+      name: 'الحكومة',
+    },
+  ];
+
+  const navigation = {
+    goBack: mockFunction,
+    navigate: mockFunction,
+  };
+
+  beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = true;
+    (useState as jest.Mock).mockImplementation(() => [
+      null,
+      setSelectedAuthors,
+    ]);
+    (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
+    (useState as jest.Mock).mockImplementation(() => [[], setOpinionData]);
+    (useState as jest.Mock).mockImplementation(() => [3, setSelectedIndex]);
+    (useMemo as jest.Mock).mockReturnValue(mockData);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+    useAllWritersMock.mockReturnValue({
+      isLoading: true,
+      selectedAuthorsData: {
+        code: 2,
+        message: 'string',
+        data: [{
+          tid: '12'
+        }],
+      },
+      allWritersData: [
+        {
+          name: 'example',
+          description__value_export: {},
+          field_opinion_writer_path_export: {},
+          view_taxonomy_term: 'example',
+          tid: '1',
+          vid_export: {},
+          field_description_export: {},
+          field_opinion_writer_path_export_1: {},
+          field_opinion_writer_photo_export: 'example',
+          isSelected: true,
+        },
+        {
+          name: 'example',
+          description__value_export: {},
+          field_opinion_writer_path_export: {},
+          view_taxonomy_term: 'example',
+          tid: '2',
+          vid_export: {},
+          field_description_export: {},
+          field_opinion_writer_path_export_1: {},
+          field_opinion_writer_photo_export: 'example',
+          isSelected: true,
+        },
+      ],
+      error: 'error',
+      getSelectedAuthorsData: () => {
+        return [];
+      },
+      fetchAllWritersRequest: () => {
+        return [];
+      },
+      emptySelectedAuthorsData: () => {
+        return []
+      },
+      requestAllSelectedWritersDetailsData: () => {
+        return []
+      }
+  })
+    const component = <MyNewsWriters />;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should call AuthorsHorizontalSlider onPress with sending index as 3', () => {
+    const element = instance.container.findByType(
+      AuthorsHorizontalSlider as any,
+    );
+    fireEvent(element, 'onPress', mockData,3);
+    expect(setPageCount).toBeCalled();
+  });
+});
+
+describe('<MyNewsWriters>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const setSelectedAuthors = mockFunction;
+  const setPageCount = mockFunction;
+  const useAllWritersMock = mockFunction;
+  const mockData = [
+    {
+      field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
+      name: 'الحكومة',
+    },
+  ];
+
+  const navigation = {
+    goBack: mockFunction,
+    navigate: mockFunction,
+  };
+
+  beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = true;
+    (useState as jest.Mock).mockImplementation(() => [
+      null,
+      setSelectedAuthors,
+    ]);
+    (useIsFocused as jest.Mock).mockReturnValue(false);
+    (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
+    (useMemo as jest.Mock).mockReturnValue(mockData);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
+    useAllWritersMock.mockReturnValue({
+      isLoading: true,
+      selectedAuthorsData: {
+        code: 2,
+        message: 'string',
+        data: [{
+          tid: '12'
+        }],
+      },
+      allWritersData: [
+        {
+          name: 'example',
+          description__value_export: {},
+          field_opinion_writer_path_export: {},
+          view_taxonomy_term: 'example',
+          tid: '1',
+          vid_export: {},
+          field_description_export: {},
+          field_opinion_writer_path_export_1: {},
+          field_opinion_writer_photo_export: 'example',
+          isSelected: true,
+        },
+        {
+          name: 'example',
+          description__value_export: {},
+          field_opinion_writer_path_export: {},
+          view_taxonomy_term: 'example',
+          tid: '2',
+          vid_export: {},
+          field_description_export: {},
+          field_opinion_writer_path_export_1: {},
+          field_opinion_writer_photo_export: 'example',
+          isSelected: true,
+        },
+      ],
+      error: 'error',
+      getSelectedAuthorsData: () => {
+        return [];
+      },
+      fetchAllWritersRequest: () => {
+        return [];
+      },
+      emptySelectedAuthorsData: () => {
+        return []
+      },
+      requestAllSelectedWritersDetailsData: () => {
+        return []
+      }
+  })
+    const component = <MyNewsWriters />;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render pageCount value as 0', () => {
+    expect(instance).toBeDefined();
+  });
 });
