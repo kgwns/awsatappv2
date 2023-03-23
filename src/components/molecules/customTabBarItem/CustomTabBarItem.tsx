@@ -6,7 +6,6 @@ import { Styles } from 'src/shared/styles'
 import { moleculesTestID, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
 import { TabBarItemProps } from 'src/components/molecules/tabWithBarItem/TabWithBarItem'
-import { useOrientation } from 'src/hooks'
 
 export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
   tabName,
@@ -21,7 +20,6 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
   const CONST_MY_NEWS_TAB_WRITERS = TranslateConstants({key:TranslateKey.MY_NEWS_TAB_WRITERS})
   const CONST_MY_NEWS_TAB_MEDIA = TranslateConstants({key:TranslateKey.MY_NEWS_TAB_MEDIA})
   const CONST_MY_NEWs_TAB_TOPICS= TranslateConstants({key:TranslateKey.MY_NEWS_TAB_TOPICS})
-  const { isPortrait } = useOrientation(); 
 
   const renderStyle = (tabNameProps: String) => {
     switch (tabNameProps) {
@@ -40,7 +38,7 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
       key={index}
       {...testProps(moleculesTestID.tabItemBtn)}
       onPress={() => onPress(index)}>
-      <View style={[ isPortrait ? customStyle.newStyle : customStyle.newStyleLandscape, renderStyle(tabName)]}>
+      <View style={[renderStyle(tabName)]}>
         <View>
           <Label
             children={tabName}

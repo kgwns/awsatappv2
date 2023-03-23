@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ScreenContainer } from '..'
-import { horizontalEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { Label } from 'src/components/atoms';
 import { Dimensions, View, StyleSheet, StatusBar } from 'react-native';
 import { Styles } from 'src/shared/styles';
@@ -33,9 +33,16 @@ export const MyNewsScreen = () => {
   const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
   const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
   const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
+  const [deviceOrientation, setDeviceOrientation] = useState('PORTRAIT')
 
   useEffect(() => {
     configData()
+  }, [])
+
+  useEffect(() => {
+    Dimensions.addEventListener('change', () => {
+      setDeviceOrientation(isPortrait() ? 'PORTRAIT' : 'LANDSCAPE')
+    })
   }, [])
 
   const configData = () => {
@@ -119,7 +126,7 @@ export const MyNewsScreen = () => {
           const number = item.key.match(/\d+/g) || '0';
           const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
 
-          return <View>
+          return <View style={{ width: deviceOrientation === 'PORTRAIT' ? screenWidth / 2 : screenHeight / 2 }}>
             <CustomTabBarItem index={tabIndex}
               key={tabIndex}
               onPress={setIndex}
@@ -162,6 +169,7 @@ const orientationStyleWidth = Math.min(orientationHeight, orientationWidth);
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     marginTop: isIOS ? StatusBar.currentHeight : 0,
+    width: '100%'
   },
   scene: {
     flex: 1,

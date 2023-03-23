@@ -238,21 +238,21 @@ export const ArticleDetailScreen = ({
       console.log("🚀 handleAxiosError ~ errorMessage", errorMessage)
     }
   }
-  
-  useEffect(() => {
-    if (isFocused && isTab ) {
-      Orientation.unlockAllOrientations();
-      Orientation.getDeviceOrientation(updateScreenEdge);
-      Orientation.addDeviceOrientationListener(updateScreenEdge);
-    }
-    return () => {
-      if (!route.params.isRelatedArticle) {
-        Orientation.lockToPortrait();
-        Orientation.removeDeviceOrientationListener(updateScreenEdge);
-        Orientation.removeAllListeners()
-      }
-    };
-  }, [])
+  //Disabled for iPad orientation
+  // useEffect(() => {
+  //   if (isFocused && isTab ) {
+  //     Orientation.unlockAllOrientations();
+  //     Orientation.getDeviceOrientation(updateScreenEdge);
+  //     Orientation.addDeviceOrientationListener(updateScreenEdge);
+  //   }
+  //   return () => {
+  //     if (!route.params.isRelatedArticle) {
+  //       // Orientation.lockToPortrait();
+  //       Orientation.removeDeviceOrientationListener(updateScreenEdge);
+  //       Orientation.removeAllListeners()
+  //     }
+  //   };
+  // }, [])
 
   useEffect(() => {
     if (isFocused && isArticleSectionLoaded) {
@@ -419,8 +419,11 @@ export const ArticleDetailScreen = ({
     }else{
       StatusBar.setHidden(false)
       SystemNavigationBar.navigationShow();
-      Orientation.lockToPortrait();
-      isTab && Orientation.unlockAllOrientations();
+      if (isTab) {
+        Orientation.unlockAllOrientations();
+      } else {
+        Orientation.lockToPortrait();
+      }
     }
     setIsFullScreen(isFullscreen)
   }
@@ -451,11 +454,13 @@ export const ArticleDetailScreen = ({
 
   const onPressBack = () => {
     requestAnimationFrame(() => {
-      stopVideoPlayer()
-      if (!route.params.isRelatedArticle && isTab) {
-        Orientation.unlockAllOrientations()
-        Orientation.lockToPortrait()
-      }
+      stopVideoPlayer();
+      //Disabled for iPad orientation
+      // if (!route.params.isRelatedArticle && isTab) {
+      //   Orientation.unlockAllOrientations()
+      //   Orientation.lockToPortrait()
+      // }
+
       (isTab && isIOS) ? setTimeout(() => {
         navigation.goBack()
       }, 50) : navigation.goBack()

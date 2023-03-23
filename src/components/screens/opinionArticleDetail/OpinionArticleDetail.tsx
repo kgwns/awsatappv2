@@ -96,11 +96,12 @@ export const OpinionArticleDetail = ({
 
     getSelectedAuthorsData()
     emptyRelatedOpinionData()
-    if (isTab) {
-      Orientation.unlockAllOrientations();
-      Orientation.getDeviceOrientation(updateScreenEdge);
-      Orientation.addDeviceOrientationListener(updateScreenEdge);
-    }
+    //Disabled for iPad orientation
+    // if (isTab) {
+    //   Orientation.unlockAllOrientations();
+    //   Orientation.getDeviceOrientation(updateScreenEdge);
+    //   Orientation.addDeviceOrientationListener(updateScreenEdge);
+    // }
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
@@ -108,10 +109,11 @@ export const OpinionArticleDetail = ({
       setrelatedOpinioninfo([]);
       emptyRelatedOpinionData();
       emptyOpinionArticleData();
-      if (!route.params.isRelatedArticle) {
-        Orientation.lockToPortrait();
-        Orientation.removeOrientationListener(updateScreenEdge);
-      }
+      //Disabled for iPad orientation
+      // if (!route.params.isRelatedArticle) {
+      //   Orientation.lockToPortrait();
+      //   Orientation.removeOrientationListener(updateScreenEdge);
+      // }
     };
   }, []);
 
@@ -279,10 +281,11 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressBack = async () => {
-    if (!route.params.isRelatedArticle && isTab) {
-      Orientation.unlockAllOrientations()
-      Orientation.lockToPortrait()
-    }
+    //Disabled for iPad orientation
+    // if (!route.params.isRelatedArticle && isTab) {
+    //   Orientation.unlockAllOrientations()
+    //   Orientation.lockToPortrait()
+    // }
     navigation.goBack()
   }
 
