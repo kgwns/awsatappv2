@@ -147,7 +147,6 @@ export const ScreenContainer = ({
   return (
       <SafeAreaView
         style={[style.container,
-          !isLandscape && {width: screenWidth, height: screenHeight},
           isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor}
         ]} // Intensively added inline style to update screen size when rotate
         edges={edge ? edge : ['left', 'right', 'top']}>
