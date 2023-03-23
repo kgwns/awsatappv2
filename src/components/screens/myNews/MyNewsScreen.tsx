@@ -140,7 +140,7 @@ export const MyNewsScreen = () => {
       isSignUpAlertVisible={showPopUp.current}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       {isLoggedIn ? (
-        <View style={(isPortrait() && isIOS) ? styles.orientationStyle : styles.scene} testID={'tabContent'}>
+        <View style={ styles.scene} testID={'tabContent'}>
           {routes.length > 0 && tabsView()}
         </View>
       ) : (
@@ -169,7 +169,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   tabBar: {
     backgroundColor: theme.backgroundColor,
     paddingTop: 10,
-    width: screenWidth,
+    width: '100%',
   },
   indicator: {
     backgroundColor: Styles.color.greenishBlue,

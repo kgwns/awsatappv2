@@ -70,7 +70,7 @@ const style = StyleSheet.create({
         lineHeight: isIOS ? 18 : 22,
     },
     topMargin: {
-        marginTop: isTab ? 0 : 10
+        marginTop: 10
     },
     bottomMargin: {
         marginBottom: 10

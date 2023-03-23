@@ -104,7 +104,7 @@ export const MyTopicsHorizontalSlider = ({
 const customStyle = (theme: CustomThemeType) =>
     StyleSheet.create({
         container: {
-            width: screenWidth,
+            width: '100%',
             marginTop: normalize(10),
             paddingVertical: isTab ? 20 : 10,
         },
