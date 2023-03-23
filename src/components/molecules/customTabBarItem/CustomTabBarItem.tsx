@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import React, { FunctionComponent } from 'react'
 import { Label } from 'src/components/atoms/label/Label'
-import { isAndroid, isTab, normalize, normalizeBy320, screenWidth, testProps } from 'src/shared/utils'
+import { isAndroid, isTab, normalize, normalizeBy320, screenHeight, screenWidth, testProps } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { moleculesTestID, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
@@ -35,13 +35,12 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
         return null
     }
   }
-
   return (
     <TouchableOpacity
       key={index}
       {...testProps(moleculesTestID.tabItemBtn)}
       onPress={() => onPress(index)}>
-      <View style={[(isTab && isPortrait) ? customStyle.newStyle : customStyle.newStyleLandscape, renderStyle(tabName)]}>
+      <View style={[ isPortrait ? customStyle.newStyle : customStyle.newStyleLandscape, renderStyle(tabName)]}>
         <View>
           <Label
             children={tabName}
@@ -76,7 +75,7 @@ const customStyle = StyleSheet.create({
     width: 0.5 * screenWidth,
   },
   newStyleLandscape: {
-    width: 0.5 * Dimensions.get('window').width,
+    width: 0.5 * screenHeight,
   },
   containerTopics: {
     alignItems: 'center',

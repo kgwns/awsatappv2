@@ -2,8 +2,8 @@ import { Dimensions, Platform, PixelRatio } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
 const { width, height } = Dimensions.get('window');
-const screenWidth = Math.min(width, height);
-const screenHeight = Math.max(width, height);
+const screenWidth = width
+const screenHeight = height
 
 const isIOS = Platform.OS === 'ios';
 const isAndroid = Platform.OS === 'android'
