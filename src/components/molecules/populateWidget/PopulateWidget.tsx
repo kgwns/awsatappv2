@@ -18,6 +18,7 @@ import { Styles } from 'src/shared/styles'
 import { fonts } from 'src/shared/styles/fonts'
 import { PodcastEpisodeModal } from 'src/components/screens'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useOrientation } from 'src/hooks'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -65,6 +66,8 @@ export const PopulateWidget = ({
     const timeFormat = dateTimeAgo(props.created)
 
     const [showModal, setShowModal] = useState(false);
+    const {isPortrait} = useOrientation();
+    const videoThumbnailStyle = isTab ? isPortrait ? style.videoThumbnailPortrait : style.videoThumbnailLandscape : {}
     
     const onPressAlbum = (nid: string) => {
         nid &&
@@ -90,7 +93,7 @@ export const PopulateWidget = ({
                 <ArticleItem
                     index={0}
                     {...props}
-                    imageStyle={style.imageStyle}
+                    imageStyle={isTab ? style.tabletImageStyle : style.imageStyle}
                     flag={isObjectNonEmpty(props.news_categories) ? props.news_categories?.title : ''}
                     barColor={Styles.color.greenishBlue}
                     flagColor={Styles.color.greenishBlue}
@@ -134,6 +137,7 @@ export const PopulateWidget = ({
                                 { data: props })
                         }}
                         onPressBookmark={onPressBookmark}
+                        videoThumbnailStyle={videoThumbnailStyle}
                     />
                 </View>
             );
@@ -199,4 +203,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: isTab ? 0.65 * screenWidth : normalize(230),
         aspectRatio: 1.5
     },
+    tabletImageStyle: {
+        width: '100%',
+        height: 'auto'
+    },
+    videoThumbnailPortrait: {
+        height: 350,
+    },
+    videoThumbnailLandscape: {
+        height: 450,
+    }
 })

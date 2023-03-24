@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useDeviceOrientationChange } from 'react-native-orientation-locker';
 
 export const useOrientation = () => {
-    const [orientation, setOrientation] = useState('PORTRAIT');
+    const [orientation, setOrientation] = useState('');
 
     useDeviceOrientationChange((deviceOrientation) => {
         setOrientation(deviceOrientation);
@@ -10,7 +10,7 @@ export const useOrientation = () => {
 
     return {
         orientation,
-        isPortrait: (orientation === 'PORTRAIT' || orientation === 'PORTRAIT-UPSIDEDOWN'),
+        isPortrait: orientation === 'PORTRAIT',
         isLandscape: (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT')
     };
 }

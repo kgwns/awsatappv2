@@ -471,7 +471,7 @@ export const SectionStoryScreen = React.memo(({
     return (
       <View style={style.sectionStoryContainer}>
         <SectionArticleItem
-          headerTitle={articleData.title}
+          headerTitle={decodeHTMLTags(articleData.title)}
           body={decodeHTMLTags(articleData.body)}
           image={getArticleImage(articleData.field_image, articleData.field_new_photo)}
           imageStyle={style.storyImageStyle}

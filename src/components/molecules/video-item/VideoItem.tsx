@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ImageStyle } from 'react-native';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -14,7 +14,7 @@ import {
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import {isTab, normalize, screenWidth} from 'src/shared/utils';
-import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, timeAgo} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, timeAgo, isObjectNonEmpty} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
@@ -41,6 +41,7 @@ export interface VideoItemProps {
   video?: string;
   isBookmarked:boolean;
   onPressBookmark:()=>void;
+  videoThumbnailStyle?: ImageStyle;
 }
 
 export const VideoItem = ({
@@ -57,7 +58,8 @@ export const VideoItem = ({
   testID,
   toWatchTitle,
   isBookmarked,
-  onPressBookmark
+  onPressBookmark,
+  videoThumbnailStyle,
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
@@ -101,7 +103,7 @@ export const VideoItem = ({
         ) : (
             <View style={[styles.videoContainer,styles.spaceContainer, !isDocumentary && { marginTop: 0}]}>
               <View>
-              <Image fallback resizeMode={'cover'} url={imageLink} style={styles.image} />
+              <Image fallback resizeMode={'cover'} url={imageLink} style={[styles.image, videoThumbnailStyle]} />
               <PlayIcon fill={colors.white} style={styles.playIcon} />
               {duration && (<Label style={styles.time} color={colors.white}>
                 {duration}
