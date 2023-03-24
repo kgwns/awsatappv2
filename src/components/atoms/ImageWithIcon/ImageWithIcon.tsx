@@ -6,8 +6,9 @@ import { ImageResize } from '../../../shared/styles/text-styles'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import {ImageWithIconStyle } from 'src/components/atoms/ImageWithIcon/ImageWithIcon.style'
 import  WhitePlayIcon from 'src/assets/images/icons/whitePlayIcon.svg'
+import { useOrientation } from 'src/hooks'
 
-const { articleImage, tagText, bottomTagContainer, playIconPosition, iconStyle} = ImageWithIconStyle;
+const { articleImage, tagText, bottomTagContainer, playIconPosition, iconStyle, articleImageLandscape} = ImageWithIconStyle;
 export interface ImageIconProps {
     name?: ImageName,
     url?: string,
@@ -17,9 +18,10 @@ export interface ImageIconProps {
 }
 
 export const ImageWithIcon = ({ name, url, bottomTag,onPress, fallback= false}: ImageIconProps) => {
+    const { isPortrait } = useOrientation();
     return (
         <View>
-            <Image fallback={fallback} name={name} url={url} style={articleImage} resizeMode={ImageResize.COVER}/>
+            <Image fallback={fallback} name={name} url={url} style={ isPortrait ? articleImage : articleImageLandscape} resizeMode={ImageResize.COVER}/>
             {bottomTag &&
             <View style={bottomTagContainer}>
                 <Text children={bottomTag}

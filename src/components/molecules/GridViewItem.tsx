@@ -9,6 +9,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { fonts } from 'src/shared/styles/fonts';
 import { ArticleLabel } from './articleLabel/ArticleLabel';
+import { useOrientation } from 'src/hooks';
 
 export interface GridViewItemProps {
     imageUrl?: string;
@@ -31,9 +32,10 @@ export const GridViewItem = ({
 }: GridViewItemProps) => {
     const style = useThemeAwareObject(customStyle);
     const isOdd = (index + 1) % 2 === 0;
+    const { isPortrait } = useOrientation();
 
     return (
-        <View style={[style.container, !isOdd && style.borderStyle]}>
+        <View style={[ isPortrait ? style.container : style.containerTabStyle, !isOdd && style.borderStyle]}>
             {imageUrl &&
                 <View style={isTab ? style.tabImageStyle : style.imageContainerStyle} >
                     <Image url={imageUrl} style={style.image}
@@ -60,6 +62,12 @@ const customStyle = (theme: CustomThemeType) => {
             alignItems: 'flex-start',
             paddingHorizontal: 0.04 * screenWidth,
             marginTop: 30
+        },
+        containerTabStyle: {
+            width: '100%',
+            alignItems: 'flex-start',
+            paddingHorizontal: 0.04 * screenWidth,
+            marginTop: 30,
         },
         image: {
             width: '100%',
