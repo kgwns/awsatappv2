@@ -9,6 +9,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
+import { useOrientation } from 'src/hooks';
 
 export interface FollowFavoriteAuthorProps {
   authorName: string;
@@ -49,10 +50,11 @@ const FollowFavoriteAuthor = ({
   const changeStatus = () => {
     onPress((isSelected === false || isSelected === true)  ? !isSelected : true)
   };
+  const {isPortrait} = useOrientation();
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const size = imageSize;
-  const tabSize = 0.11 * screenHeight;
+  const tabSize = isPortrait ? 0.11 * screenHeight : 0.07 * screenHeight;
   return (
     <TouchableWithoutFeedback
       onPress={changeStatus}

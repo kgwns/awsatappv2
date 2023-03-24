@@ -155,8 +155,8 @@ const customStyle = (theme: CustomThemeType) => {
       marginRight: 10
     },
     buttonLabel: {
-      fontSize:14,
-      lineHeight:16,
+      fontSize:16,
+      lineHeight:18,
       fontFamily: fonts.AwsatDigitalV2_Bold,
     },
     logoContainer: {

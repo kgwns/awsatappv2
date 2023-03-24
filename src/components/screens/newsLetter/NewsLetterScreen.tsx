@@ -298,7 +298,7 @@ const customStyle = (theme: CustomThemeType) => {
       bottom: 0,
       opacity: 0.65,
       backgroundColor: colors.aquaHaze,
-      width: screenWidth,
+      width: '100%',
       height: isTab ? 120 :80,
       justifyContent: 'flex-end',
       paddingBottom: normalize(0.03 * screenHeight),
@@ -306,7 +306,7 @@ const customStyle = (theme: CustomThemeType) => {
     nextButtonView: {
       position: 'absolute',
       bottom: 0,
-      width: screenWidth,
+      width: '100%',
       backgroundColor: colors.transparent,
       zIndex: 4,
       justifyContent: 'flex-end',

@@ -347,7 +347,7 @@ const customStyle = (theme: CustomThemeType) =>
       },
       titleDivider: {
           backgroundColor: Styles.color.greenishBlue,
-          width: screenWidth,
+          width: '100%',
           height: 1,
           marginStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       },

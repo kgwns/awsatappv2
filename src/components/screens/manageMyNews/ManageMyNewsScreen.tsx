@@ -9,7 +9,7 @@ import { FollowFavoriteAuthor } from 'src/components/molecules';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
 import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
-import { useAllSiteCategories, useAllWriters } from 'src/hooks';
+import { useAllSiteCategories, useAllWriters, useOrientation } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType, } from 'src/redux/allSiteCategories/types';
 import { decode } from 'html-entities';
@@ -40,6 +40,7 @@ const MyFavoriteBooks = (props: any) => {
   const scrollRef = useRef<any>(null);
   const MANAGE_MY_NEWS_MY_FAVORITE_BOOKS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_BOOKS })
   const MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS })
+  const addAuthorButtonStyle = (isTab && !props.isPortrait) ? style.booksContinueLandscape : style.booksContinue
 
   const scrollToStart = () => {
     if (isIOS) {
@@ -75,7 +76,7 @@ const MyFavoriteBooks = (props: any) => {
             />)
         }
       </ScrollView>}
-      <View style={style.booksContinue}>
+      <View style={addAuthorButtonStyle}>
         <ContinueLabel 
           label={MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS} 
           goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} 
@@ -163,6 +164,7 @@ export const ManageMyNewsScreen = () => {
   const navigation = useNavigation();
   const style = useThemeAwareObject(customStyle);
   const isFocused = useIsFocused();
+  const {isPortrait} = useOrientation();
 
   const MANAGE_MY_NEWS_ALERT = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_ALERT })
   const MANAGE_MY_NEWS_REMOVE_AUTHOR = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_REMOVE_AUTHOR })
@@ -364,12 +366,12 @@ export const ManageMyNewsScreen = () => {
       backgroundColor={style.screenBackgroundColor.backgroundColor}
     >
       <View style={style.container}>
-        <View style={style.favBooks}>
-          <MyFavoriteBooks data={selectedWriters} favAuthorOnPress={favAuthorOnPress} onPressContinue={onPressContinue} />
+        <View style={[ (isTab && !isPortrait) ? style.favBooksLandscape : style.favBooks]}>
+          <MyFavoriteBooks data={selectedWriters} isPortrait={isPortrait}  favAuthorOnPress={favAuthorOnPress} onPressContinue={onPressContinue} />
         </View>
         <Divider style={style.divider} />
-        <View style={style.favTopics}>
-          <MyFavoriteTopics data={selectedInterested} onPressTopicItem={onPressTopicItem} onPressContinue={onPressContinue} />
+        <View style={[ (isTab && !isPortrait) ? style.favTopicsLandscape : style.favTopics]}>
+          <MyFavoriteTopics data={selectedInterested} isPortrait={isPortrait} onPressTopicItem={onPressTopicItem} onPressContinue={onPressContinue} />
         </View>
       </View>
     </ScreenContainer>
@@ -386,9 +388,16 @@ const customStyle = (theme: CustomThemeType) => {
       flex: isTab ? 0.55 : isIOS ? !isNotchDevice ? 0.57 : 0.47 : 0.50,
       paddingTop: 0.05 * screenHeight,
     },
+    favBooksLandscape: {
+      flex:  0.55,
+    },
     favTopics: {
       flex: 0.5,
       paddingVertical: 0.04 * screenHeight,
+    },
+    favTopicsLandscape: {
+      flex: 0.60,
+      paddingVertical: 0.01 * screenHeight,
     },
     favBooksView: {
       paddingTop: 0.05 * screenWidth,
@@ -411,6 +420,10 @@ const customStyle = (theme: CustomThemeType) => {
     },
     booksContinue: {
       paddingVertical: 0.05 * screenWidth,
+      paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+    },
+    booksContinueLandscape: {
+      paddingVertical: 0.02 * screenWidth,
       paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     topicsContinue: {
