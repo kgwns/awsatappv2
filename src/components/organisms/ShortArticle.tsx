@@ -13,7 +13,7 @@ import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
-import { useLogin } from 'src/hooks';
+import { useLogin, useOrientation } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
@@ -80,7 +80,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
   const { isLoggedIn } = useLogin()
   const style = useThemeAwareObject(customStyle);
   const [articleData, setArticleData] = useState(data)
-
+  const { isPortrait } = useOrientation();
   useEffect(() => {
     updateData()
   }, [data])
@@ -114,12 +114,13 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
     const isAlbum = isTypeAlbum(item.type);
+    const labelContainerStyle = isPortrait ? style.footerStyle : style.footerLandscapeStyle;
 
     return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid, isAlbum)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
         <View style={style.containerStyle}>
-          <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
+          <View style={[ labelContainerStyle, leftContainerStyle, hideImage && style.hideImage]}>
             <ArticleLabel displayType={item.displayType} enableBottomMargin />
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
               <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
@@ -208,7 +209,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   footerStyle: {
     width: footerWidth,
-    paddingRight: normalize(12)
+    paddingRight: normalize(12),
+  },
+  footerLandscapeStyle: {
+    width: '75%',
+    flexWrap:'wrap',
+    paddingRight: normalize(12),
   },
   cardContainer: {
     paddingBottom: normalize(20),
@@ -239,7 +245,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     color: theme.footerTextColor
   },
   containerStyle: {
-    flexDirection: 'row' 
+    flexDirection: 'row' ,
+    justifyContent:'space-around',
   },
   articleFooterStyle: {
     flex: 1 

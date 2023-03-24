@@ -30,6 +30,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
 import { SECTION_COMBO_SIX } from 'src/services/apiEndPoints';
+import { useOrientation } from 'src/hooks/useOrientation';
 
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
@@ -175,8 +176,8 @@ export const MainSectionScreen = React.memo((
 
     }, [])
   );
+  const { isPortrait } = useOrientation();
 
-  
   const updateBookmark = (data: any[]): any => {
     return data.map((item: LatestArticleDataType) => (
       {
@@ -792,7 +793,9 @@ export const MainSectionScreen = React.memo((
           />
         </View> */}
       </View>
-      {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
+      <View style = {mainSectionStyle.articleContainerStyle}>
+        {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
+        </View>
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
       {/* AMAR-1097 - Hide Infographic for iPad and Tablet */}
@@ -810,7 +813,7 @@ export const MainSectionScreen = React.memo((
       {isNonEmptyArray(podcastHome) &&
         <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast} />
       }
-      <View style={mainSectionStyle.tabSplitter}>
+      <View style={ isPortrait ? mainSectionStyle.tabSplitter : mainSectionStyle.tabSplitterLandscape}>
         {/* <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
             title={CONST_EDITOR_CHOICE_HEADER_TITLE}
@@ -819,7 +822,7 @@ export const MainSectionScreen = React.memo((
             hideMore={true}
           />
         </View> */}
-        <View style={[mainSectionStyle.tabWidgetContainer, { alignItems: 'center', backgroundColor: themeData.secondaryWhite }]}>
+        <View style={[ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape , { alignItems: 'center', backgroundColor: themeData.secondaryWhite }]}>
           {isNonEmptyArray(videoData) && (
             <VideoContent data={[...videoData].splice(0, 3)}
               onPress={onVideoItemPress}
@@ -827,27 +830,29 @@ export const MainSectionScreen = React.memo((
             />
           )}
         </View>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+        <View style={ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           <BannerArticleSection
             data={sectionComboOneInfo}
             title={_sectionComboOneTitle}
             sectionId={'10'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboOneBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
           />
         </View>
       </View>
-      <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+      <View style={isPortrait ? mainSectionStyle.tabSplitter : mainSectionStyle.tabSplitterLandscape}>
+        <View style={ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           <BannerArticleSection
             data={sectionComboTwoInfo}
             title={_sectionComboTwoTitle}
             sectionId={'11'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboTwoBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
           />
         </View>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+        <View style={isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           <BannerArticleSection
             data={sectionComboThreeInfo}
             title={_sectionComboThreeTitle}
@@ -857,36 +862,42 @@ export const MainSectionScreen = React.memo((
             containerStyle={mainSectionStyle.containerStyle}
           />
         </View>
-      </View>
-      {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection
+      </View> 
+      {isNonEmptyArray(archivedArticleSection) &&
+      <View style = {mainSectionStyle.articleContainerStyle}>
+       <ArchiveArticleSection
         data={archivedArticleSection}
         title={_archivedArticleTitle}
         onPress={onPressArticle}
         isDivider
-      />}
-      <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+      />
+      </View>
+      }
+      <View style={ isPortrait ? mainSectionStyle.tabSplitter : mainSectionStyle.tabSplitterLandscape}>
+        <View style={ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           <BannerArticleSection
             data={sectionComboFourInfo}
             title={_sectionComboFourTitle}
             sectionId={'871'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboFourBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
           />
         </View>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+        <View style={ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           <BannerArticleSection
-            data={sectionComboFive}
+            data={sectionComboFiveInfo}
             title={_sectionComboFiveTitle}
             sectionId={'18'}
             onPress={onPressArticle}
-            onUpdateBookmark={updatedSectionComboFourBookmark}
+            onUpdateBookmark={updatedSectionComboFiveBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
           />
         </View>
 
-      </View>
-      <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+      </View> 
+      <View style={isPortrait ? mainSectionStyle.tabSplitter : mainSectionStyle.tabSplitterLandscape}>
+        <View style={ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           {/* Enable below code when top list required */}
           {/* {isNonEmptyArray(topListData) && (
             <View style={mainSectionStyle.articleContainer}>
@@ -907,7 +918,7 @@ export const MainSectionScreen = React.memo((
             </View>
           )} */}
           {isNonEmptyArray(spotlight) && isNonEmptyArray(spotlightArticleSection) && (
-            <View style={mainSectionStyle.articleContainer}>
+              <View style = {mainSectionStyle.articleContainer}>
               <View style={mainSectionStyle.articleTitleContainer}>
                 <Label
                   children={spotlight[0].title}
@@ -927,35 +938,38 @@ export const MainSectionScreen = React.memo((
             </View>
           )}
         </View>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+        <View style={ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           <BannerArticleSection
             data={sectionComboSixInfo}
             title={_sectionComboSixTitle}
             sectionId={'29'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboSixBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
             isDivider
           />
         </View>
       </View>
-      <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+      <View style={isPortrait ? mainSectionStyle.tabSplitter : mainSectionStyle.tabSplitterLandscape}>
+        <View style={ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           <BannerArticleSection
             data={sectionComboSevenInfo}
             title={_sectionComboSevenTitle}
             sectionId={'36'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboSevenBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
             isDivider
           />
         </View>
-        <View style={mainSectionStyle.tabWidgetContainer}>
+        <View style={ isPortrait ? mainSectionStyle.tabWidgetContainer : mainSectionStyle.tabWidgetLandscape }>
           <BannerArticleSection
             data={sectionComboEightInfo}
             title={_sectionComboEightTitle}
             sectionId={'66'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboEightBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
             isDivider
           />
         </View>
@@ -1028,6 +1042,15 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'space-between',
       marginHorizontal: isTab ? 0.04 * screenWidth : 0,
     },
+    tabSplitterLandscape: {
+      flex: 1,
+      flexDirection: 'row',
+      width: '100%',
+      paddingTop: normalize(30),
+      paddingLeft: normalize(30),
+      paddingRight: normalize(30),
+      justifyContent: 'space-evenly',
+    },
     sectionWidgetContainer: {
       flex: 1,
       overflow: 'hidden',
@@ -1035,6 +1058,11 @@ const customStyle = (theme: CustomThemeType) => {
     tabWidgetContainer: {
       width: screenWidth * 0.435,
       overflow: 'hidden',
+    },
+    tabWidgetLandscape: {
+      width: '50%',
+      overflow: 'hidden',
+      padding:normalize(20),
     },
     dividerTop: {
       borderBottomWidth: 1,
@@ -1121,6 +1149,10 @@ const customStyle = (theme: CustomThemeType) => {
     },
     loaderSyle: {
       margin: normalize(28) 
-    }
+    },
+    articleContainerStyle: {
+      flex: 1,
+      alignItems: 'center',
+    },
   })
 }

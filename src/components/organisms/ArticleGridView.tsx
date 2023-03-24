@@ -10,6 +10,7 @@ import { Divider } from '../atoms';
 import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { useOrientation } from 'src/hooks';
 
 interface ArticleGridViewProps {
     data: MainSectionBlockType[];
@@ -22,7 +23,7 @@ export const ArticleGridView = ({
 }: ArticleGridViewProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
-
+    const { isPortrait } = useOrientation();
     const onPress = (nid: string, isAlbum: boolean) => {
         if (isNotEmpty(nid)) {
             const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
@@ -35,6 +36,7 @@ export const ArticleGridView = ({
         const isAlbum = isTypeAlbum(item.type);
 
         return (
+            <View style = { isPortrait ? style.gridContainer : style.gridContainerTab}>
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_GRID_VIEW + index}
                 onPress={() => onPress(item.nid, isAlbum)} testID = "gridViewClick">
                 <GridViewItem
@@ -47,6 +49,7 @@ export const ArticleGridView = ({
                     isAlbum={isTypeAlbum(item.type)}
                 />
             </TouchableOpacity>
+            </View>
         );
     };
 
@@ -105,5 +108,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     spaceStyle: {
         marginTop: 5
+    },
+    gridContainer: {
+        width: 0.5*screenWidth
+    },
+    gridContainerTab: {
+        width:'50%',
     }
 });
