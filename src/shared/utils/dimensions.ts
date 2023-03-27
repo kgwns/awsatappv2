@@ -32,8 +32,7 @@ const isPortrait = () => {
   return dim.height >= dim.width;
 };
 
-const deviceScreenWidth = width;
-
-const deviceScreenHeight = height;
+const deviceScreenWidth =  Dimensions.get('screen').width;
+const deviceScreenHeight =  Dimensions.get('screen').height;
   
 export { screenWidth, screenHeight, isIOS, isAndroid, isNotchDevice, normalize, normalizeBy320, deviceScreenWidth, deviceScreenHeight, isPortrait  };

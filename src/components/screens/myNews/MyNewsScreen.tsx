@@ -12,7 +12,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics';
 import { myNewsTopTabData, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { MyNewsWriters } from 'src/components/organisms';
-import { useLogin } from 'src/hooks';
+import { useLogin, useOrientation } from 'src/hooks';
 
 import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
@@ -33,16 +33,10 @@ export const MyNewsScreen = () => {
   const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
   const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
   const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
-  const [deviceOrientation, setDeviceOrientation] = useState('PORTRAIT')
+  const {isPortrait} = useOrientation()
 
   useEffect(() => {
     configData()
-  }, [])
-
-  useEffect(() => {
-    Dimensions.addEventListener('change', () => {
-      setDeviceOrientation(isPortrait() ? 'PORTRAIT' : 'LANDSCAPE')
-    })
   }, [])
 
   const configData = () => {
@@ -105,11 +99,6 @@ export const MyNewsScreen = () => {
     );
   };
 
-  const isPortrait = () => {
-    const dim = Dimensions.get('screen');
-    return dim.height >= dim.width;
-  };
-
   const _renderTabBar = (props: any) => {
     return (
       <TabBar
@@ -126,7 +115,7 @@ export const MyNewsScreen = () => {
           const number = item.key.match(/\d+/g) || '0';
           const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
 
-          return <View style={{ width: deviceOrientation === 'PORTRAIT' ? screenWidth / 2 : screenHeight / 2 }}>
+          return <View style={{ width: isPortrait ? screenHeight / 2 : screenWidth / 2 }}>
             <CustomTabBarItem index={tabIndex}
               key={tabIndex}
               onPress={setIndex}
