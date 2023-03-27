@@ -86,7 +86,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const listHeaderSection = () => (
-            <View style={isTab && style.listHeaderstyle}>
+            <View>
                 {bannerData.map((item: LatestArticleDataType, index: number) => {
                     if (index === 0) {
                         return <ImageArticle key={index} {...item}
@@ -188,9 +188,6 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         fontSize:16,
         lineHeight:26,
         textAlign: 'left' 
-    },
-    listHeaderstyle: { 
-        flex: 1 
     },
     footerTitleColor: {
         color: theme.footerTextColor
