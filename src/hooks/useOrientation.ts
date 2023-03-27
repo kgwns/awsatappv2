@@ -1,16 +1,36 @@
-import { useState } from 'react';
-import { useDeviceOrientationChange } from 'react-native-orientation-locker';
+import { useIsFocused } from '@react-navigation/native';
+import { useEffect, useState } from 'react';
+import { Dimensions } from 'react-native';
 
 export const useOrientation = () => {
-    const [orientation, setOrientation] = useState('');
+  
+  const PORTRAIT = 'PORTRAIT';
+  const LANDSCAPE = 'LANDSCAPE';
 
-    useDeviceOrientationChange((deviceOrientation) => {
-        setOrientation(deviceOrientation);
-    });
+  const isPortrait = () => {
+    const dim = Dimensions.get('screen');
+    return dim.height >= dim.width;
+  };
 
-    return {
-        orientation,
-        isPortrait: orientation === 'PORTRAIT',
-        isLandscape: (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT')
+  const [currentOrientation, setOrientation] = useState<'PORTRAIT' | 'LANDSCAPE'>(
+    isPortrait() ? PORTRAIT : LANDSCAPE,
+  );
+
+  const isFocused = useIsFocused();
+  useEffect(() => {
+    setOrientation(isPortrait() ? PORTRAIT : LANDSCAPE)
+  }, [isFocused])
+
+  useEffect(() => {
+    const callback = () => {
+      setOrientation(isPortrait() ? PORTRAIT : LANDSCAPE)
     };
+    const subscription =  Dimensions.addEventListener('change', callback);
+    return () => subscription?.remove();
+  }, []);
+
+  return {
+    isPortrait: currentOrientation === PORTRAIT,
+    isLandscape: currentOrientation === LANDSCAPE
+  };
 }
