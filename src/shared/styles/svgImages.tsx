@@ -110,6 +110,7 @@ import PlusGreen from 'src/assets/images/icons/plusGreen.svg'
 import TickIcon from 'src/assets/images/icons/tickIcon.svg'
 import GreenArrowLeft from 'src/assets/images/icons/green_arrow_left.svg'
 import ReturnArrowWhite from 'src/assets/images/icons/returnArrow.svg'
+import PlayWithBg from 'src/assets/images/icons/play_with_bg.svg';
 
 import ArrowLeftFacedBlack from 'src/assets/images/icons/arrowLeftFacedBlack.svg'
 import ArrowLeftFacedWhite from 'src/assets/images/icons/arrowLeftFacedWhite.svg'
@@ -432,6 +433,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ResetIcon {...props} />
         case ImagesName.liveIcon:
             return <LiveIcon {...props} />
+        case ImagesName.playWithBg:
+            return <PlayWithBg {...props} />
         default: return null
     }
 }
