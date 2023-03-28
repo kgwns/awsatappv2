@@ -265,6 +265,8 @@ enum TranslateKey {
   CONTENT_FOR_YOU_EMPTY_DATA_LABEL,
   PODCAST_OPINION_ARTICLE_HEADER_LEFT,
   PODCAST_OPINION_ARTICLE_HEADER_RIGHT,
+  TABLET_NOT_SUBSCRIBED_POP_UP,
+  TABLET_CREATE_ACCOUNT_DESCRIPTION,
   default
 }
 
@@ -749,6 +751,10 @@ const TranslateConstants = ({
             return arabic?.podcastOpinionArticle?.sectionHeader?.headerLeft;
         case TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_RIGHT:
             return arabic?.podcastOpinionArticle?.sectionHeader?.headerRight;
+        case TranslateKey.TABLET_NOT_SUBSCRIBED_POP_UP: 
+            return arabic?.tabletPopUp?.notSubscribedTitle;
+        case TranslateKey.TABLET_CREATE_ACCOUNT_DESCRIPTION: 
+            return arabic?.tabletPopUp?.createAccountDescription;
         default: return ''
     }
 }

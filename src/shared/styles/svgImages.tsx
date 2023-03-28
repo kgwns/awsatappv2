@@ -28,6 +28,7 @@ import HeaderLogo from 'src/assets/images/headerIcons/aaaNewLogo.svg'
 import HeaderLogoDark from 'src/assets/images/headerIcons/aaaNewLogoDark.svg'
 import LogoBlack from 'src/assets/images/logoBlack.svg'
 import PopupLogo from 'src/assets/images/popupNewLogo.svg'
+import TabPopupLogo from 'src/assets/images/tabPopupLogo.svg'
 
 //Tab Icons
 import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'
@@ -432,6 +433,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ResetIcon {...props} />
         case ImagesName.liveIcon:
             return <LiveIcon {...props} />
+        case ImagesName.tabPopupLogo:
+            return <TabPopupLogo {...props} />
         default: return null
     }
 }
