@@ -34,7 +34,6 @@ export interface OpinionWritersCardViewProps {
   togglePlayback?: (nid: string, mediaData: any)=> void,
   selectedTrack?: string,
   authorId:string
-  playIcon?: JSX.Element;
 }
 
 const OpinionWritersCardView = ({
@@ -50,7 +49,6 @@ const OpinionWritersCardView = ({
   hideImageView = false,
   jwPlayerID = null,
   authorId,
-  playIcon,
 }: OpinionWritersCardViewProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const routes = useNavigationState(state => state.routes)
@@ -162,7 +160,8 @@ const onPressPlay = () => {
   // }
 }
   const playIconMobile = getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) });
-  const playIconWidget = playIcon ?? playIconMobile;
+  const playIconTab = getSvgImages({ name: ImagesName.playWithBg, width: normalize(35), height: normalize(35) });
+  const playIconWidget = isTab ? playIconTab : playIconMobile;
   return (
     <FixedTouchable style={style.container} onPress={()=>onPress()}>
       {!hideImageView && <View style={style.topImageWithLabelContainer}>
