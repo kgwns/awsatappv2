@@ -4,7 +4,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, isIOS} from 'src/shared/utils';
-import {ImagesName, Styles} from 'src/shared/styles';
+import {ImagesName} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
@@ -34,6 +34,7 @@ export interface OpinionWritersCardViewProps {
   togglePlayback?: (nid: string, mediaData: any)=> void,
   selectedTrack?: string,
   authorId:string
+  playIcon?: JSX.Element;
 }
 
 const OpinionWritersCardView = ({
@@ -42,16 +43,14 @@ const OpinionWritersCardView = ({
   headLine,
   subHeadLine,
   audioLabel,
-  duration,
   nid,
   isBookmarked,
   mediaVisibility,
   onPressBookmark,
   hideImageView = false,
   jwPlayerID = null,
-  togglePlayback,
-  selectedTrack,
-  authorId
+  authorId,
+  playIcon,
 }: OpinionWritersCardViewProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const routes = useNavigationState(state => state.routes)
@@ -162,7 +161,8 @@ const onPressPlay = () => {
   //   togglePlayback(nid, mediaData)
   // }
 }
-
+  const playIconMobile = getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) });
+  const playIconWidget = playIcon ?? playIconMobile;
   return (
     <FixedTouchable style={style.container} onPress={()=>onPress()}>
       {!hideImageView && <View style={style.topImageWithLabelContainer}>
@@ -195,9 +195,8 @@ const onPressPlay = () => {
                   trackData && trackData.id === (nid+'opinion') && 
                   playbackState === State.Playing || isBuffering   ? 
                   getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-                  getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+                  playIconWidget
                 }
-                style={style.playIcon}
                 onPress={() => onPressPlay()}
                 testId={'playIconTestId'}
               />
@@ -281,10 +280,6 @@ const customStyle = (theme: CustomThemeType) => {
     listenArticleContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-    },
-    playIcon: {
-      width: normalize(13),
-      height: normalize(13),
     },
     footerLabel: {
       fontSize: 12,

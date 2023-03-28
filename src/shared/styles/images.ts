@@ -179,6 +179,7 @@ export enum ImagesName {
   anghamiPodcast = 'anghamiPodcast',
   resetIcon = 'resetIcon',
   liveIcon = 'liveIcon',
+  playWithBg = 'playWithBg',
 }
 
 export const images = {
