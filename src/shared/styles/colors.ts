@@ -98,6 +98,8 @@ export const colors = {
   darkWineRed: '#BD3C2F',
   seaTurtleGreen: '#2c8a82',
   richBlack: '#0e4540',
+  lightAlterGray: '#D1DEDD',
+  blackOpacity60: '#00000099',
 };
 
 export interface CustomThemeType {

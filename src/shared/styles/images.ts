@@ -180,6 +180,7 @@ export enum ImagesName {
   resetIcon = 'resetIcon',
   liveIcon = 'liveIcon',
   playWithBg = 'playWithBg',
+  tabPopupLogo = 'tabPopupLogo',
 }
 
 export const images = {
