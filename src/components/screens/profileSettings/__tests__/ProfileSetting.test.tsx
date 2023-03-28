@@ -126,6 +126,11 @@ jest.mock('react', () => ({
   useState: jest.fn(),
 }));
 
+jest.mock("src/shared/utils/utilities", () => ({
+  ...jest.requireActual('src/shared/utils/utilities'),
+      isDarkTheme:jest.fn(),
+}));
+
 describe('<ProfileSettings>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
@@ -245,7 +250,7 @@ describe('<ProfileSettings>', () => {
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
-    (useState as jest.Mock).mockImplementation(() => [true, isDarkMode]);
+    (useState as jest.Mock).mockImplementation(() => [false, isDarkMode]);
     (useState as jest.Mock).mockImplementation(() => [true, isAlertVisible]);
     useLoginMock.mockReturnValue({
       isLoggedIn: false,
