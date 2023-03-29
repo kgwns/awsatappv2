@@ -310,9 +310,9 @@ export const convertSecondsToHMS = (seconds: number | string) => {
   return `${hrs}${mins}${scnds}`;
 };
 
-export const TimeIcon = (type: DateIcon) => (
+export const TimeIcon = (type: DateIcon, icon = ImagesName.calendarIcon) => (
   getSvgImages({
-    name: type === DateIcon.CALENDAR ? ImagesName.calendarIcon : ImagesName.clock,
+    name: type === DateIcon.CALENDAR ? icon : ImagesName.clock,
     width: 12,
     height: 12,
     style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }

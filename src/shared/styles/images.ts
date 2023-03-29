@@ -158,6 +158,7 @@ export enum ImagesName {
   popupImage = 'popupImage',
   calendarIcon = 'calendarIcon',
   calendarIconLight = 'calendarIconLight',
+  calendarLightIcon = 'calendarLightIcon',
   videoCloseIcon = 'videoCloseIcon',
   authorDefault = 'authorDefault',
   myNewsIcon = 'myNewsIcon',
