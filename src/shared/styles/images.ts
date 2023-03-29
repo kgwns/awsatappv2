@@ -180,6 +180,8 @@ export enum ImagesName {
   anghamiPodcast = 'anghamiPodcast',
   resetIcon = 'resetIcon',
   liveIcon = 'liveIcon',
+  playWithBg = 'playWithBg',
+  tabPopupLogo = 'tabPopupLogo',
 }
 
 export const images = {
