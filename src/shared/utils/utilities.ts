@@ -9,7 +9,7 @@ import 'moment/locale/ar';
 import { getSvgImages } from "../styles/svgImages";
 import { normalize } from 'src/shared/utils';
 import { ImagesName } from "../styles";
-import { isIOS } from "./dimensions";
+import { isIOS, isTab } from "./dimensions";
 import { decode } from "html-entities";
 import DeviceInfo from 'react-native-device-info';
 import countries from "i18n-iso-countries";
@@ -313,8 +313,8 @@ export const convertSecondsToHMS = (seconds: number | string) => {
 export const TimeIcon = (type: DateIcon, icon = ImagesName.calendarIcon) => (
   getSvgImages({
     name: type === DateIcon.CALENDAR ? icon : ImagesName.clock,
-    width: 12,
-    height: 12,
+    width: isTab ? 20 : 12,
+    height: isTab ? 20 : 12,
     style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
   })
 )
