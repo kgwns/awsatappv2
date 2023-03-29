@@ -28,6 +28,7 @@ import HeaderLogo from 'src/assets/images/headerIcons/aaaNewLogo.svg'
 import HeaderLogoDark from 'src/assets/images/headerIcons/aaaNewLogoDark.svg'
 import LogoBlack from 'src/assets/images/logoBlack.svg'
 import PopupLogo from 'src/assets/images/popupNewLogo.svg'
+import TabPopupLogo from 'src/assets/images/tabPopupLogo.svg'
 
 //Tab Icons
 import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'
@@ -110,6 +111,7 @@ import PlusGreen from 'src/assets/images/icons/plusGreen.svg'
 import TickIcon from 'src/assets/images/icons/tickIcon.svg'
 import GreenArrowLeft from 'src/assets/images/icons/green_arrow_left.svg'
 import ReturnArrowWhite from 'src/assets/images/icons/returnArrow.svg'
+import PlayWithBg from 'src/assets/images/icons/play_with_bg.svg';
 
 import ArrowLeftFacedBlack from 'src/assets/images/icons/arrowLeftFacedBlack.svg'
 import ArrowLeftFacedWhite from 'src/assets/images/icons/arrowLeftFacedWhite.svg'
@@ -432,6 +434,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ResetIcon {...props} />
         case ImagesName.liveIcon:
             return <LiveIcon {...props} />
+        case ImagesName.playWithBg:
+            return <PlayWithBg {...props} />
+        case ImagesName.tabPopupLogo:
+            return <TabPopupLogo {...props} />
         default: return null
     }
 }
