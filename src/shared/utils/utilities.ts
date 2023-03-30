@@ -310,14 +310,16 @@ export const convertSecondsToHMS = (seconds: number | string) => {
   return `${hrs}${mins}${scnds}`;
 };
 
-export const TimeIcon = (type: DateIcon, icon = ImagesName.calendarIcon) => (
-  getSvgImages({
-    name: type === DateIcon.CALENDAR ? icon : ImagesName.clock,
-    width: isTab ? 20 : 12,
-    height: isTab ? 20 : 12,
-    style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
-  })
-)
+export const TimeIcon = (type: DateIcon) => {
+  const calendarIcon = isTab ? ImagesName.calendarLightIcon : ImagesName.calendarIcon;
+  return(
+    getSvgImages({
+      name: type === DateIcon.CALENDAR ? calendarIcon : ImagesName.clock,
+      width: isTab ? 20 : 12,
+      height: isTab ? 20 : 12,
+      style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
+    })
+)}
 
 export const removeWhiteSpace = ( value: string) : string | any => {
   return typeof value === 'string' ? value.trim() : value;

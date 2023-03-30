@@ -142,6 +142,7 @@ import PopupImage from 'src/assets/images/popupImage.svg'
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
 import CalendarIconLight from 'src/assets/images/icons/calendarIconLight.svg';
 import CalendarLightIcon from 'src/assets/images/icons/calendarLightIcon.svg';
+import CalendarDarkLightIcon from 'src/assets/images/icons/calendarDarkLightIcon.svg';
 
 
 //Contact Us
@@ -408,7 +409,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.calendarIcon:
             return isDark ? <CalendarIcon {...props} /> : <CalendarIconLight {...props} />
         case ImagesName.calendarLightIcon:
-            return isDark ? <CalendarIcon {...props} /> : <CalendarLightIcon {...props} fill={colors.transparent} />
+            return isDark ? <CalendarLightIcon {...props} /> : <CalendarDarkLightIcon {...props} />
         case ImagesName.videoCloseIcon:
             return <MenuCloseIconDark {...props} />
         case ImagesName.myNewsIcon:

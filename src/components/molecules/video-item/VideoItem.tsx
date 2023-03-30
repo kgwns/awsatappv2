@@ -86,7 +86,7 @@ export const VideoItem = ({
   };
   const renderFooterContainer = () => {
     const width = Dimensions.get('window').width;
-    const renderTimeIcon = () => isTab ? TimeIcon(timeFormat.icon, ImagesName.calendarLightIcon) : TimeIcon(timeFormat.icon);
+    const renderTimeIcon = () => TimeIcon(timeFormat.icon);
     const listContainerStyle = isTab ? (isDocumentary ? {marginHorizontal: 0.02 * width} : {marginStart: 0.02 * width}) : {marginHorizontal: 0.04 * width};
     const lastIndex = (index + 1) % 3 == 0; 
     return (
