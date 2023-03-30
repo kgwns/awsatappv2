@@ -25,6 +25,8 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 import LinearGradient from 'react-native-linear-gradient';
 
+const width = Dimensions.get('window').width;
+
 export interface VideoItemProps {
   imageUrl: string;
   index?: number;
@@ -85,12 +87,11 @@ export const VideoItem = ({
     },
   };
   const renderFooterContainer = () => {
-    const width = Dimensions.get('window').width;
     const renderTimeIcon = () => TimeIcon(timeFormat.icon);
-    const listContainerStyle = isTab ? (isDocumentary ? {marginHorizontal: 0.02 * width} : {marginStart: 0.02 * width}) : {marginHorizontal: 0.04 * width};
+    const listContainerStyle = isTab ? (isDocumentary ? styles.marginHorizontalStyle : styles.marginStartStyle) : styles.marginHorizontalStyle;
     const lastIndex = (index + 1) % 3 == 0; 
     return (
-      <View style={[styles.footerContainer, listContainerStyle, (isTab && lastIndex) && {marginEnd: 0.02 * width}]}>
+      <View style={[styles.footerContainer, listContainerStyle, (isTab && lastIndex) && styles.marginEndStyle]}>
         <View style={styles.footerRight}>
           {(views || toWatchTitle) && (<ViewIcon
             fill={colors.silverChalice}
@@ -150,9 +151,8 @@ export const VideoItem = ({
     )
   }
   const renderListContainer = () => {
-    const width = Dimensions.get('window').width;
     const timeStyle = isTab ? styles.tabTime : styles.time;
-    const listContainerStyle = isTab ? {paddingStart: 0.02 * width} : {paddingHorizontal: 0.04 * width};
+    const listContainerStyle = isTab ? styles.paddingStartStyle : styles.paddingHorizontalStyle;
     const lastIndex = (index + 1) % 3 == 0; 
     
     return (
@@ -169,11 +169,10 @@ export const VideoItem = ({
     )
   }
   const renderDescription = () => {
-    const width = Dimensions.get('window').width;
-    const spaceContainerStyle = isTab ? (isDocumentary ? {paddingHorizontal: 0.02 * width} : {paddingStart: 0.02 * width}) : {paddingHorizontal: 0.04 * width};
+    const spaceContainerStyle = isTab ? (isDocumentary ? styles.paddingHorizontalStyle : styles.paddingStartStyle) : styles.paddingHorizontalStyle;
     const lastIndex = (index + 1) % 3 == 0; 
     return (
-      <View style={[spaceContainerStyle, (isTab && lastIndex) && {paddingEnd: 0.02 * width}]}>
+      <View style={[spaceContainerStyle, (isTab && lastIndex) && styles.paddingEndStyle]}>
         {!isDocumentary && <Label style={styles.titleLabelStyle}>{decode(title)}</Label>}
         {(isDocumentary && des) && (<View>
           <HtmlRenderer source={des} tagsStyles={htmlTagStyle} />
@@ -386,5 +385,23 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: 35,
       fontFamily: fonts.Effra_Arbc_Regular,
       textAlign: 'center'
-    }
+    },
+    marginHorizontalStyle: {
+      marginHorizontal: isTab ? 0.02 * width : 0.04 * width,
+    },
+    marginStartStyle: {
+      marginStart: 0.02 * width,
+    },
+    marginEndStyle: {
+      marginEnd: 0.02 * width, 
+    },
+    paddingStartStyle: {
+      paddingStart: 0.02 * width,
+    },
+    paddingHorizontalStyle: {
+      paddingHorizontal: isTab ? 0.02 * width : 0.04 * width,
+    },
+    paddingEndStyle: {
+      marginEnd: 0.02 * width, 
+    },
   });
