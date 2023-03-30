@@ -26,11 +26,13 @@ export interface videoProps {
 export const VideoContent = ({ 
     data, 
     onPress,
-    isTabDesign = false
+    isTabDesign = false,
+    isVideoList = false
 }: { 
     data: VideoItemType[], 
     onPress?: (item: VideoItemType) => void,
-    isTabDesign?: boolean
+    isTabDesign?: boolean,
+    isVideoList?: boolean
 }) => {
     const CATEGORY_PAGE_VIDEO_CONTENT = TranslateConstants({key:TranslateKey.CATEGORY_PAGE_VIDEO_CONTENT})
     const theme = useTheme();
@@ -58,14 +60,14 @@ export const VideoContent = ({
         const date = timeFormat.time
         const time = item.field_jwplayerinfo_export ? convertSecondsToHMS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
-        const itemStyle = !isTab && index === data.length - 1 && { marginRight: 0.04 * screenWidth }
+        const itemStyle = !isVideoList && index === data.length - 1 && { marginRight: 0.04 * screenWidth }
 
         const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)} testID = "videoContentPressId">
-                <View style={[ isTab ? style.tabVideoCardContainer : style.videoCardContainer, itemStyle]}>
-                    {isTab ? <View style = {style.tabVideoContainer}>
-                        <View style = {style.tabVideoLabelContainer}>
+                <View style={[ isVideoList ? style.tabVideoCardContainer : style.videoCardContainer, itemStyle]}>
+                    {isVideoList ? <View style = {style.tabVideoContainer}>
+                    <View style = {style.tabVideoLabelContainer}>
                         <Label
                             numberOfLines={3}
                             onTextLayout={onTextLayout}
@@ -73,29 +75,28 @@ export const VideoContent = ({
                             labelType={LabelTypeProp.h3}>
                             {decode(item.title)}
                         </Label>
-                        </View>
-                        <View>
-                            <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
-                        </View>
+                    </View>
+                        <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)} isVideoList = {isVideoList}  />
                         <Divider style={style.divider} />
                     </View> :
                     <>
-                        <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
-                        <Label
-                            numberOfLines={2}
-                            onTextLayout={onTextLayout}
-                            style={[style.textStyle, !isTab && moreStyle]}
-                            labelType={LabelTypeProp.h3}>
-                            {decode(item.title)}
-                        </Label>
-                        <SectionVideoFooter
+                    <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)} />
+                    <Label
+                        numberOfLines={isTab ? 3 : 2}
+                        onTextLayout={onTextLayout}
+                        style={[style.textStyle,moreStyle]}
+                        labelType={LabelTypeProp.h3}>
+                        {decode(item.title)}
+                    </Label>
+                    
+                   <SectionVideoFooter
                         leftTitleColor={style.footerTitleColor.color}
                         rightIcon={() => TimeIcon(timeFormat.icon)}
                         rightDate={date}
                         rightDateColor={style.footerTitleColor.color}
                         rightTitleColor={style.footerTitleColor.color}
                         leftViewsColor={theme.themeData.primary}
-                        />
+                    />
                     </>
                     }
 
@@ -104,21 +105,21 @@ export const VideoContent = ({
         )
     }
     return (
-        <View style={ isTab ? style.tabContainer : style.container}>
-            { isTab ? 
-                <Divider style={style.divider} /> : 
+        <View style={ isVideoList ? style.tabContainer : style.container}>
+
+            {
+                isVideoList ? <Divider style={style.divider} /> :
                 <Label style={style.titleTextStyle} 
                     labelType={LabelTypeProp.title3} 
-                    children={CATEGORY_PAGE_VIDEO_CONTENT} 
+                    children={CATEGORY_PAGE_VIDEO_CONTENT}
                     numberOfLines={2} 
                 />
             }
-            
             <FlatList
                 horizontal={!isTabDesign}
                 keyExtractor={(_, index) => index.toString()}
                 listKey={flatListUniqueKey.VIDEO_CONTENT}
-                style={ !isTab && style.listContainer}
+                style={ !isVideoList && style.listContainer}
                 data={data}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}

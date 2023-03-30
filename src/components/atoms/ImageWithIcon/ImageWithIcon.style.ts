@@ -14,6 +14,11 @@ export const ImageWithIconStyle = StyleSheet.create({
         height: 100,
         resizeMode: 'cover',
     },
+    articleImageLandscape: {
+        width: normalize(300),
+        height: normalize(200),
+        resizeMode: 'cover',
+    },
     tagText: {
         paddingVertical: normalize(3),
         paddingHorizontal: normalize(7),
@@ -25,7 +30,7 @@ export const ImageWithIconStyle = StyleSheet.create({
         position: 'absolute',
         right: 0,
         flexWrap: 'wrap',
-        bottom: 5,
+        bottom: isTab ? 0 : 5,
         opacity: 0.9,
         backgroundColor: Styles.color.darkGreenishBlue,
     },

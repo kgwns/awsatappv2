@@ -782,6 +782,7 @@ export const MainSectionScreen = React.memo((
               <VideoContent data={[...videoData].splice(0, 3)}
                 onPress={onVideoItemPress}
                 isTabDesign={true}
+                isVideoList = {true}
               />
             )}
            </View>
