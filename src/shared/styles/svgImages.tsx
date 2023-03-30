@@ -55,6 +55,7 @@ import NotificationActiveIcon from 'src/assets/images/notifications/notification
 import NotificationIcon from 'src/assets/images/notifications/notificationIcon.svg'
 import NotificationActiveIconDark from 'src/assets/images/notifications/notificationActiveIconDark.svg'
 import NotificationIconDark from 'src/assets/images/notifications/notificationIconDark.svg'
+import AddAuthorIcon from 'src/assets/images/icons/addAuthorIcon.svg'
 
 //Social login
 import MailIcon from 'src/assets/images/socialButton/mailIcon.svg'
@@ -445,6 +446,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <TabPopupLogo {...props} />
         case ImagesName.shareIcon:
             return <ShareIcon {...props} />
+        case ImagesName.tabletAuthorItem:
+            return <AddAuthorIcon {...props} />
         default: return null
     }
 }

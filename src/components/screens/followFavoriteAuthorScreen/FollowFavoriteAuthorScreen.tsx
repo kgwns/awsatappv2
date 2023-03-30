@@ -117,7 +117,7 @@ export const FollowFavoriteAuthorScreen = () => {
             {ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION}
           </Label>
         </View>
-        <View style={style.contentStyle}>
+        <View style={isTab ? style.tabletContentStyle : style.contentStyle}>
           {isNonEmptyArray(writersData) &&
           <View>
             <FollowFavoriteAuthorWidget writersData={writersData} changeSelectedStatus={changeSelectedStatus} />
@@ -172,6 +172,11 @@ const customStyle = (theme: CustomThemeType) => {
     contentStyle: {
       flex: 0.85,
       justifyContent: 'center',
+    },
+    tabletContentStyle: {
+      flex: 0.85,
+      justifyContent: 'center',
+      alignSelf: 'center'
     },
     nextButtonView: {
       flex: 0.1,
