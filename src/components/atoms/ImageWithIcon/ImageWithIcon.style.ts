@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Styles} from 'src/shared/styles';
-import {normalize} from 'src/shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import { fonts } from 'src/shared/styles/fonts';
 
 export const ImageWithIconStyle = StyleSheet.create({
@@ -17,7 +17,7 @@ export const ImageWithIconStyle = StyleSheet.create({
     tagText: {
         paddingVertical: normalize(3),
         paddingHorizontal: normalize(7),
-        fontSize: normalize(12),
+        fontSize: isTab ? 14 : normalize(12),
         color: Styles.color.white,
         fontFamily: fonts.AwsatDigital_Bold,
     },

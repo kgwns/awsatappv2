@@ -288,7 +288,7 @@ const createStyles = (theme: CustomThemeType) => {
       textAlign: 'center',
       fontSize: isTab ? 25 : 27,
       lineHeight: 36,
-      fontFamily: fonts.AwsatDigital_Bold,
+      fontFamily: isTab ? fonts.AwsatDigital_Black : fonts.AwsatDigital_Bold,
     },
     body: {
       textAlign: 'left',
@@ -300,7 +300,7 @@ const createStyles = (theme: CustomThemeType) => {
       textAlign: 'center',
       fontSize: isTab ? 16 : 14,
       lineHeight: isTab ? 24 : isIOS ? 20 : 24,
-      fontFamily: fonts.Effra_Regular,
+      fontFamily: isTab ? fonts.Effra_Arbc_Regular : fonts.Effra_Regular,
     },
     image: {
       width: '100%',

@@ -22,7 +22,6 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { HomePageArticleType } from 'src/redux/latestNews/types';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 import { decode } from 'html-entities';
-import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -119,7 +118,7 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
     const isAlbum = isTypeAlbum(item.type);
     const labelContainerStyle = isPortrait ? style.footerStyle : style.footerLandscapeStyle;
 
-    return <FixedTouchable key={flatListUniqueKey.EDITORS_PICK_WIDGET + index} onPress={() => onPress(item.nid, isAlbum)} style={index === 0 && isTab && { marginStart: 0.02 * screenWidth }}>
+    return <FixedTouchable key={flatListUniqueKey.SHORT_ARTICLE + index} onPress={() => onPress(item.nid, isAlbum)} style={index === 0 && isTab && { marginStart: 0.02 * screenWidth }}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={StyleSheet.flatten([style.container, containerStyle])}>
 
         {/* <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
@@ -183,7 +182,7 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
         style={style.listStyle}
         keyExtractor={(_, index) => index.toString()}
         listKey={
-          flatListUniqueKey.EDITORS_PICK_WIDGET +
+          flatListUniqueKey.SHORT_ARTICLE +
           new Date().getTime().toString()
         }
         showsHorizontalScrollIndicator={false}
