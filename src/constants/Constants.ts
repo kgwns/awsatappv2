@@ -267,6 +267,7 @@ enum TranslateKey {
   PODCAST_OPINION_ARTICLE_HEADER_RIGHT,
   TABLET_NOT_SUBSCRIBED_POP_UP,
   TABLET_CREATE_ACCOUNT_DESCRIPTION,
+  VIDEO_SHARE,
   default
 }
 
@@ -755,6 +756,8 @@ const TranslateConstants = ({
             return arabic?.tabletPopUp?.notSubscribedTitle;
         case TranslateKey.TABLET_CREATE_ACCOUNT_DESCRIPTION: 
             return arabic?.tabletPopUp?.createAccountDescription;
+        case TranslateKey.VIDEO_SHARE: 
+            return arabic?.sectionVideo?.share;
         default: return ''
     }
 }

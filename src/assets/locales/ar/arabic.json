@@ -111,7 +111,8 @@
         }
     },
     "sectionVideo": {
-        "toWatch": "مشاهدة"
+        "toWatch": "مشاهدة",
+        "share": "شارك"
     },
     "categoryPage": {
         "videoContent": "فيديو"
