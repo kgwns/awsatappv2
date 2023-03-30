@@ -141,7 +141,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
         />
       <FlatList
           data={videoDataInfo}
-          numColumns={isTab? 2 : 1}
+          numColumns={isTab? 3 : 1}
           testID='video_Item_FlatList1'
           listKey={'videoList'+ new Date().getTime().toString()}
           keyExtractor={(_, index) => index.toString()}
@@ -166,6 +166,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
         videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
         onPressBookmark={() => {updateVideosBookmark(index, videoDocumentaryInfo)}}
         isDocumentary={true}
+        index={index}
+        subTitle={''}
       />
     );
   };
@@ -184,6 +186,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
         videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
         isVideoContents={true} 
         onPressBookmark={() => {updateVideosBookmark(index, videoDataInfo)}}
+        index={index}
       />
     );
   };

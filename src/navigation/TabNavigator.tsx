@@ -145,7 +145,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                             <View style={[style.tabIconContainer, isTab && !isPortrait && style.tabItemMargin]}>
                             {(getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
                             </View>
-                            <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} style={isTab && !isPortrait && style.tabItemMargin} labelType={'label10'}>{route.name}</Label>
+                            <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} style={[isTab && !isPortrait && style.tabItemMargin,style.labelStyle]} labelType={'label10'}>{route.name}</Label>
                         </TouchableOpacity>
                     </View>
                 );
@@ -231,6 +231,9 @@ const customStyle = (theme: CustomThemeType) => {
             height: 16,
             width: 19,
             marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+        },
+        labelStyle: {
+            alignSelf: 'center',
         },
         tabItemMargin: {
             marginHorizontal: 50

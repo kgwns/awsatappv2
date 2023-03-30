@@ -141,6 +141,8 @@ import HomeIconDark from 'src/assets/images/icons/homeIconDark.svg';
 import PopupImage from 'src/assets/images/popupImage.svg'
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
 import CalendarIconLight from 'src/assets/images/icons/calendarIconLight.svg';
+import CalendarLightIcon from 'src/assets/images/icons/calendarLightIcon.svg';
+import CalendarDarkLightIcon from 'src/assets/images/icons/calendarDarkLightIcon.svg';
 
 
 //Contact Us
@@ -181,7 +183,7 @@ import SubscribeIconGreen from 'src/assets/images/subscribeIconGreen.svg';
 import ResetIcon from 'src/assets/images/icons/replayIcon.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { DARK_THEME_ID } from './colors'
+import { colors, DARK_THEME_ID } from './colors'
 
 import LiveIcon from 'src/assets/images/icons/liveIcon.svg';
 
@@ -406,6 +408,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <PopupImage {...props} />    
         case ImagesName.calendarIcon:
             return isDark ? <CalendarIcon {...props} /> : <CalendarIconLight {...props} />
+        case ImagesName.calendarLightIcon:
+            return isDark ? <CalendarLightIcon {...props} /> : <CalendarDarkLightIcon {...props} />
         case ImagesName.videoCloseIcon:
             return <MenuCloseIconDark {...props} />
         case ImagesName.myNewsIcon:

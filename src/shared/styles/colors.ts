@@ -98,6 +98,7 @@ export const colors = {
   darkWineRed: '#BD3C2F',
   seaTurtleGreen: '#2c8a82',
   richBlack: '#0e4540',
+  black55: '#0000008C',
   lightAlterGray: '#D1DEDD',
   blackOpacity60: '#00000099',
 };
