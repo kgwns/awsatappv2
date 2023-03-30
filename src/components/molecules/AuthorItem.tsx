@@ -222,7 +222,7 @@ const AuthorItem = ({
         <View style = {style.tabFooterContainer}>
           {mediaVisibility && <View style={style.tabMediaFooter}>
 
-              <TouchableOpacity testID='AutherItemTO2' onPress={onPressPlay} style={style.tabMediaFooter}>
+              <TouchableOpacity testID={'AutherItemTO2'} onPress={onPressPlay} style={style.tabMediaFooter}>
                 <ButtonImage
                   icon={() =>
                     trackData && trackData.id === (nid + 'opinion') &&
@@ -231,7 +231,7 @@ const AuthorItem = ({
                       getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) })
                   }
                   onPress={onPressPlay} />
-                {timeDuration && <Label children={timeDuration} style={style.tabDurationLabel} />}
+                {isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.tabDurationLabel} />}
 
                 <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} color={ isDarkMode ? themeData.summaryColor : Styles.color.green600}  style={style.tabArticleLabelSyle} />
               </TouchableOpacity>

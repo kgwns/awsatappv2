@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated, Text } from 'react-native';
+import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated } from 'react-native';
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
