@@ -115,7 +115,7 @@ export const MyNewsScreen = () => {
           const number = item.key.match(/\d+/g) || '0';
           const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
 
-          return <View style={{ width: isPortrait ? screenHeight / 2 : screenWidth / 2 }}>
+          return <View style={{ width: Dimensions.get('window').width/2  }}>
             <CustomTabBarItem index={tabIndex}
               key={tabIndex}
               onPress={setIndex}

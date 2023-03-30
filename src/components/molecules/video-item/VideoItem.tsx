@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, ImageStyle } from 'react-native';
+import { View, StyleSheet, ImageStyle, Dimensions } from 'react-native';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -13,7 +13,7 @@ import {
 } from 'src/components/atoms';
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
-import {isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, timeAgo, isObjectNonEmpty} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -23,12 +23,17 @@ import { MixedStyleRecord } from 'react-native-render-html';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
+import LinearGradient from 'react-native-linear-gradient';
+
+const width = Dimensions.get('window').width;
 
 export interface VideoItemProps {
   imageUrl: string;
+  index?: number;
   videoLabel?: string;
   time?: string;
   title: string;
+  subTitle?: string;
   des: string;
   date?: string;
   views?: string;
@@ -60,6 +65,8 @@ export const VideoItem = ({
   isBookmarked,
   onPressBookmark,
   videoThumbnailStyle,
+  index = 0,
+  subTitle = ''
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
@@ -79,50 +86,12 @@ export const VideoItem = ({
       fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
   };
-  return (
-    <View style={isVideoContents && styles.containerStyle}>
-      <FixedTouchable testID={testID} accessibilityLabel={testID} onPress={onPress}>
-        <View>
-        {isDocumentary ? (
-          <View style={[styles.videoContainer,styles.videoContainerStyle]}>
-            <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageBig} />
-            <View style={styles.titleContainer} >
-              <Label style={styles.titleStyle} numberOfLines={2}>{decode(title)}</Label>
-            </View>
-            <View style={styles.buttonContainer}>
-              <ButtonOutline title={VIDEO_DETAIL_EMPLOYMENT}
-              style={styles.buttonStyle}
-              labelStyle={styles.buttonLabel}
-              titleType={LabelTypeProp.h1}
-              onPress={onPress}
-              rightIcon={() => <View style={styles.rightIconStyle}><PlayIconSmall fill={colors.white}/></View>}
-              />
-              
-             </View>
-          </View>
-        ) : (
-            <View style={[styles.videoContainer,styles.spaceContainer, !isDocumentary && { marginTop: 0}]}>
-              <View>
-              <Image fallback resizeMode={'cover'} url={imageLink} style={[styles.image, videoThumbnailStyle]} />
-              <PlayIcon fill={colors.white} style={styles.playIcon} />
-              {duration && (<Label style={styles.time} color={colors.white}>
-                {duration}
-              </Label>)}
-              {videoLabel &&(<Label style={styles.videoLable}>{videoLabel}</Label>)}
-            </View>
-            </View>
-        )}
-        </View>
-      
-
-      <View style={styles.spaceContainer}>
-        {!isDocumentary && <Label style={styles.titleLabelStyle}>{decode(title)}</Label>}
-        {des && <View>
-          <HtmlRenderer source={des} tagsStyles={htmlTagStyle} />
-       </View> }
-      </View>
-
-      <View style={styles.footerContainer}>
+  const renderFooterContainer = () => {
+    const renderTimeIcon = () => TimeIcon(timeFormat.icon);
+    const listContainerStyle = isTab ? (isDocumentary ? styles.marginHorizontalStyle : styles.marginStartStyle) : styles.marginHorizontalStyle;
+    const lastIndex = (index + 1) % 3 == 0; 
+    return (
+      <View style={[styles.footerContainer, listContainerStyle, (isTab && lastIndex) && styles.marginEndStyle]}>
         <View style={styles.footerRight}>
           {(views || toWatchTitle) && (<ViewIcon
             fill={colors.silverChalice}
@@ -132,29 +101,100 @@ export const VideoItem = ({
           {views && (<Label style={styles.viewsStyle}>{views}</Label>)}
           {toWatchTitle && (<Label labelType="caption5">{toWatchTitle}</Label>)}
           {showSeparator && (<View style={styles.dividerV} />)}
-          {monthDate  && TimeIcon(timeFormat.icon)}
+          {monthDate && renderTimeIcon()}
           <Label style={styles.day} color={styles.footerTitleColor.color}>
             {monthDate}
           </Label>
         </View>
         <ButtonImage
-            testId={'bookmarkTestId'}
-            icon={() => {
-              return isBookmarked
-                ? getSvgImages({
-                    name: ImagesName.bookMarkActiveSVG,
-                    width: 11,
-                    height: 16
-                  })
-                : getSvgImages({
-                    name: ImagesName.bookMarkSVG,
-                    width: 11,
-                    height: 16
-                  });
-            }}
-            onPress={onPressBookmark}
-          />
+          testId={'bookmarkTestId'}
+          icon={() => {
+            return isBookmarked
+              ? getSvgImages({
+                name: ImagesName.bookMarkActiveSVG,
+                width: 11,
+                height: 16
+              })
+              : getSvgImages({
+                name: ImagesName.bookMarkSVG,
+                width: 11,
+                height: 16
+              });
+          }}
+          onPress={onPressBookmark}
+        />
       </View>
+    )
+  }
+  const renderTitleContainer = () => {
+    const fillColor = isTab ? colors.black : colors.white;
+    const buttonLabelStyle = isTab ? styles.buttonTabLabel : styles.buttonLabel;
+    const buttonContainerStyle = isTab ? styles.buttonTabStyle : styles.buttonStyle;
+    const titleLabelStyle = isTab ? styles.titleTabStyle : styles.titleStyle;
+    const containerStyle = isTab ? styles.buttonTabContainer : styles.buttonContainer;
+    return (
+      <>
+        <View style={styles.titleContainer} >
+          <Label style={titleLabelStyle} numberOfLines={2}>{decode(title)}</Label>
+          {isTab && <Label style={styles.subTitleLabelStyle} numberOfLines={2}>{decode(subTitle)}</Label>}
+        </View>
+        <View style={containerStyle}>
+          <ButtonOutline title={VIDEO_DETAIL_EMPLOYMENT}
+            style={buttonContainerStyle}
+            labelStyle={buttonLabelStyle}
+            titleType={LabelTypeProp.h1}
+            onPress={onPress}
+            rightIcon={() => <View style={styles.rightIconStyle}><PlayIconSmall fill={fillColor} /></View>}
+          />
+        </View>
+      </>
+    )
+  }
+  const renderListContainer = () => {
+    const timeStyle = isTab ? styles.tabTime : styles.time;
+    const listContainerStyle = isTab ? styles.paddingStartStyle : styles.paddingHorizontalStyle;
+    const lastIndex = (index + 1) % 3 == 0; 
+    
+    return (
+      <View style={[styles.videoContainer, listContainerStyle, !isDocumentary && { marginTop: 0 }, (isTab && lastIndex) && {paddingEnd: 0.02 * width}]}>
+        <View>
+          <Image fallback resizeMode={'cover'} url={imageLink} style={[styles.image, videoThumbnailStyle]} />
+          {!isTab && <PlayIcon fill={colors.white} style={styles.playIcon} />}
+          {duration && (<Label style={timeStyle} color={colors.white}>
+            {duration}
+          </Label>)}
+          {videoLabel && (<Label style={styles.videoLable}>{videoLabel}</Label>)}
+        </View>
+      </View>
+    )
+  }
+  const renderDescription = () => {
+    const spaceContainerStyle = isTab ? (isDocumentary ? styles.paddingHorizontalStyle : styles.paddingStartStyle) : styles.paddingHorizontalStyle;
+    const lastIndex = (index + 1) % 3 == 0; 
+    return (
+      <View style={[spaceContainerStyle, (isTab && lastIndex) && styles.paddingEndStyle]}>
+        {!isDocumentary && <Label style={styles.titleLabelStyle}>{decode(title)}</Label>}
+        {(isDocumentary && des) && (<View>
+          <HtmlRenderer source={des} tagsStyles={htmlTagStyle} />
+        </View>)}
+      </View>
+    )
+  }
+  return (
+    <View style={isVideoContents && styles.containerStyle}>
+      <FixedTouchable testID={testID} accessibilityLabel={testID} onPress={onPress}>
+        <View>
+          {isDocumentary ? (
+            <View style={[styles.videoContainer, styles.videoContainerStyle]}>
+              {isTab ? <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageTabBig} >
+                <LinearGradient colors={['rgba(1, 1, 1, 0)', 'rgba(1, 1, 1, 0)', 'rgba(0, 0, 0, 1)']} style={styles.linearGradient} />
+              </Image> : <Image fallback resizeMode={'cover'} url={imageLink} style={styles.imageBig} />}
+              {renderTitleContainer()}
+            </View>
+          ) : renderListContainer()}
+        </View>
+        {renderDescription()}
+        {renderFooterContainer()}
       </FixedTouchable>
     </View>
   );
@@ -167,10 +207,6 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'space-between',
       marginTop: normalize(10),
       marginBottom: normalize(20),
-      marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-    },
-    spaceContainer: {
-      paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     day: {
       fontFamily: fonts.AwsatDigital_Regular,
@@ -193,11 +229,15 @@ const createStyles = (theme: CustomThemeType) =>
     },
     image: {
       width: '100%',
-      height: normalize(200),
+      height: 200,
     },
     imageBig: {
       width: '100%',
       height: normalize(400),
+    },
+    imageTabBig: {
+      width: '100%',
+      height: normalize(600),
     },
     imageContainer: {
       width: '100%',
@@ -212,6 +252,13 @@ const createStyles = (theme: CustomThemeType) =>
       bottom: 0,
       opacity: 0.8,
       backgroundColor: colors.darkGreenishBlue,
+      padding: normalize(5),
+    },
+    tabTime: {
+      position: 'absolute',
+      right: 0,
+      bottom: 0,
+      backgroundColor: colors.black55,
       padding: normalize(5),
     },
     videoLable: {
@@ -236,6 +283,13 @@ const createStyles = (theme: CustomThemeType) =>
       right: 0,
       left: 0,
       position: 'absolute',
+    },
+    buttonTabContainer: {
+      bottom: normalize(50),
+      right: 0,
+      left: 0,
+      position: 'absolute',
+      paddingHorizontal: normalize(20)
     },
     titleContainer: {
       bottom: 0,
@@ -265,6 +319,18 @@ const createStyles = (theme: CustomThemeType) =>
       alignSelf: 'center',
       height: normalize(40)
     },
+    buttonTabStyle: {
+      backgroundColor:colors.white,
+      borderWidth: 0,
+      width: normalize(124),
+      alignSelf: 'center',
+      height: normalize(44)
+    },
+    buttonTabLabel: {
+      color: colors.black,
+      fontFamily: fonts.AwsatDigital_Regular,
+      lineHeight: normalize(26)
+    },
     rightIconStyle: {
       marginRight: normalize(15),
     },
@@ -280,6 +346,13 @@ const createStyles = (theme: CustomThemeType) =>
       fontFamily: fonts.AwsatDigital_Black,
       textAlign: 'center'
     },
+    titleTabStyle: {
+      color: colors.darkRed,
+      fontSize: 61,
+      lineHeight: 66,
+      fontFamily: fonts.AwsatDigital_Bold,
+      textAlign: 'center'
+    },
     documentaryTitle: {
       color: colors.white,
       fontSize: normalize(14)
@@ -293,12 +366,42 @@ const createStyles = (theme: CustomThemeType) =>
       color: theme.primaryBlack
     },
     containerStyle: {
-      width: isTab? '50%' : '100%'
+      width: isTab? '33.33%' : '100%'
     },
     footerTitleColor: {
       color: theme.footerTextColor
     },
     videoContainerStyle: {
       marginTop: 0
-    }
+    },
+    linearGradient: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%'
+    },
+    subTitleLabelStyle: {
+      color: colors.white,
+      fontSize: 25,
+      lineHeight: 35,
+      fontFamily: fonts.Effra_Arbc_Regular,
+      textAlign: 'center'
+    },
+    marginHorizontalStyle: {
+      marginHorizontal: isTab ? 0.02 * width : 0.04 * width,
+    },
+    marginStartStyle: {
+      marginStart: 0.02 * width,
+    },
+    marginEndStyle: {
+      marginEnd: 0.02 * width, 
+    },
+    paddingStartStyle: {
+      paddingStart: 0.02 * width,
+    },
+    paddingHorizontalStyle: {
+      paddingHorizontal: isTab ? 0.02 * width : 0.04 * width,
+    },
+    paddingEndStyle: {
+      marginEnd: 0.02 * width, 
+    },
   });
