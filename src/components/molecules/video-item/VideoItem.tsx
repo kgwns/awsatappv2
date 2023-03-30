@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, ImageStyle, Dimensions } from 'react-native';
+import { View, StyleSheet, ImageStyle, Dimensions, TouchableOpacity } from 'react-native';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -14,7 +14,7 @@ import {
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import {isTab, normalize} from 'src/shared/utils';
-import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, timeAgo, isObjectNonEmpty} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, timeAgo, isObjectNonEmpty, getShareUrl} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
@@ -24,6 +24,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 import LinearGradient from 'react-native-linear-gradient';
+import Share from 'react-native-share';
 
 const width = Dimensions.get('window').width;
 
@@ -43,8 +44,10 @@ export interface VideoItemProps {
   testID?: string;
   shortDescription?: string;
   toWatchTitle?: string;
+  link_node?: string;
   video?: string;
   isBookmarked:boolean;
+  showShare:boolean;
   onPressBookmark:()=>void;
   videoThumbnailStyle?: ImageStyle;
 }
@@ -66,11 +69,14 @@ export const VideoItem = ({
   onPressBookmark,
   videoThumbnailStyle,
   index = 0,
-  subTitle = ''
+  subTitle = '',
+  showShare = false,
+  link_node = ''
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
   const VIDEO_DETAIL_EMPLOYMENT = TranslateConstants({key:TranslateKey.VIDEO_DETAIL_EMPLOYMENT})
+  const VIDEO_SHARE = TranslateConstants({key:TranslateKey.VIDEO_SHARE})
   const timeFormat = dateTimeAgo(date)
   const showSeparator = (views || toWatchTitle) && (date)
   const imageLink = imageUrl ? getImageUrl(imageUrl) : undefined;
@@ -86,10 +92,36 @@ export const VideoItem = ({
       fontFamily: fonts.IBMPlexSansArabic_Regular,
     },
   };
+  const onPressShare = async () => {
+    await Share.open({
+      title,
+      url: getShareUrl('', link_node!),
+      failOnCancel: true,
+      subject: title
+    }).then(response => {
+      console.log('Shared successfully :::', response)
+    }).catch((error) => {
+      console.log('Cancelled share request :::', error)
+    })
+  }
   const renderFooterContainer = () => {
     const renderTimeIcon = () => TimeIcon(timeFormat.icon);
     const listContainerStyle = isTab ? (isDocumentary ? styles.marginHorizontalStyle : styles.marginStartStyle) : styles.marginHorizontalStyle;
-    const lastIndex = (index + 1) % 3 == 0; 
+    const lastIndex = (index + 1) % 3 == 0;
+    if (showShare && isTab && !isDocumentary) {
+      return (
+        <TouchableOpacity onPress={onPressShare}>
+          <View style={[styles.shareContainer, styles.marginStartStyle, lastIndex && styles.marginEndStyle]}>
+            {getSvgImages({
+              name: ImagesName.shareIcon,
+              width: 20,
+              height: 20,
+            })}
+            <Label children={VIDEO_SHARE} style={styles.shareStyle} />
+          </View>
+        </TouchableOpacity>
+      )
+    } 
     return (
       <View style={[styles.footerContainer, listContainerStyle, (isTab && lastIndex) && styles.marginEndStyle]}>
         <View style={styles.footerRight}>
@@ -108,6 +140,7 @@ export const VideoItem = ({
         </View>
         <ButtonImage
           testId={'bookmarkTestId'}
+          style={styles.centerStyle}
           icon={() => {
             return isBookmarked
               ? getSvgImages({
@@ -404,4 +437,21 @@ const createStyles = (theme: CustomThemeType) =>
     paddingEndStyle: {
       marginEnd: 0.02 * width, 
     },
+    shareContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      marginTop: normalize(10),
+      marginBottom: normalize(20),
+    },
+    shareStyle: {
+      color: colors.greenishBlue,
+      fontSize: 16,
+      lineHeight: 24,
+      fontFamily: fonts.AwsatDigitalV2_Bold,
+      textAlign: 'right',
+      marginStart: 8,
+    },
+    centerStyle: {
+      alignSelf: 'center'
+    }
   });

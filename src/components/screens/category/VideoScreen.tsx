@@ -168,6 +168,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
         isDocumentary={true}
         index={index}
         subTitle={''}
+        showShare
+        link_node={item.link_node}
       />
     );
   };
@@ -187,6 +189,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
         isVideoContents={true} 
         onPressBookmark={() => {updateVideosBookmark(index, videoDataInfo)}}
         index={index}
+        showShare
+        link_node={item.link_node}
       />
     );
   };
