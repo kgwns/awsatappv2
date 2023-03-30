@@ -18,7 +18,7 @@ const CarouselSlider = ({
     const carouselSliderStyle = useThemeAwareObject(customStyle);
 
     return (
-        <View style={!isTab && carouselSliderStyle.view}>
+        <View style={carouselSliderStyle.view}>
             {isNonEmptyArray(coverageInfo) &&
                 <ImageArticle key={0} {...coverageInfo[0]} author={''}
                     onPressBookmark={() => onUpdateHeroBookmark(0)}

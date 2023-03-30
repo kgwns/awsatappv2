@@ -95,6 +95,8 @@ const ArticleSection = ({
             titleStyle={isTab ? style.tabTitleStyle : style.titleStyle}
             bodyStyle={isTab ? style.tabletBodyStyle : style.bodyStyle}
             isAlbum={item.isAlbum}
+            mainContainerStyle = {style.mainContainerStyle}
+            tabletArticleContainerStyle = {style.tabletArticleContainer}
         />
     }
     return (
@@ -169,10 +171,19 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: 16,
         lineHeight: 24,
         textAlign: 'left' ,
-        fontWeight:'400'
+        fontWeight:'400',
+        color: theme.summaryColor
     },
     footerTitleColor: {
         color: theme.footerTextColor
-    }
+    },
+    mainContainerStyle: {
+        flex: 0
+    },
+    tabletArticleContainer: {
+        paddingBottom: normalize(20),
+        overflow: 'hidden',
+        flex: 0
+    },
 
 })

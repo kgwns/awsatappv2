@@ -40,7 +40,8 @@ export interface AuthorItemProps {
     selectedTrack?: string,
     selectedType?: string,
     renderLabelsOrder?: any,
-    showDivider?: boolean
+    showDivider?: boolean,
+    showInMainScreen?: boolean
 }
 
 const AuthorItem = ({
@@ -57,6 +58,7 @@ const AuthorItem = ({
     selectedTrack,
     selectedType,
     showDivider,
+    showInMainScreen = false,
     renderLabelsOrder = [LabelsType.authorName,LabelsType.title]
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
@@ -195,7 +197,7 @@ const AuthorItem = ({
       });
     };
     return (
-        isTab ? 
+        showInMainScreen ? 
         <View style = {style.tabAuthorContainer}>
           <View testID='AutherItemTO1' key={index} style={[style.tabContainer]} >
             <View style={style.tabContentContainer}>

@@ -92,6 +92,7 @@ const AuthorSlider = ({
             index={index} 
             nid={item.nid}
             showDivider = {index < 6 ? true : false}
+            showInMainScreen = {true}
             />
         </View>
     );

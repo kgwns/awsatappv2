@@ -198,10 +198,11 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
           </View>
           <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
             style={style.buttonStyle}
-            labelStyle={style.buttonLabel}
+            labelStyle={isTab ? style.tabTextStyle : style.buttonLabel}
             titleType={LabelTypeProp.h1}
             onPress={() => onPress(podcastData)}
             rightIcon={() => playPauseIcon(podcastData)}
+            color={Styles.color.white}
           />
         </View>
       </>
@@ -393,6 +394,12 @@ const createStyles = (theme: CustomThemeType) => {
       fontSize: 14,
       lineHeight: 26,
       marginLeft: 3
+    },
+    tabTextStyle: {
+      fontSize: 16,
+      lineHeight: 26,
+      fontFamily:fonts.AwsatDigital_Bold,
+      fontWeight:'700'
     },
     rightIconStyle: {
       paddingRight: normalize(15),

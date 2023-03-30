@@ -48,6 +48,7 @@ const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
                 leftTitleColor={ isTab ? Styles.color.black900 : Styles.color.silverChalice}
                 showDivider={false}
                 isAlbum={isTypeAlbum(archiveData.type)}
+                rightTitleStyle = {style.rightTitleStyle}
             />
         </View>
     )
@@ -157,6 +158,12 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         fontFamily: isTab ? fonts.AwsatDigital_Black : fonts.AwsatDigitalV2_Regular,
         lineHeight: isTab ? 36 : 38,
         color: theme.primaryBlack,
+    },
+    rightTitleStyle: {
+        fontFamily:fonts.Effra_Arbc_Regular,
+        fontSize:13,
+        lineHeight:16,
+        fontWeight:'400',
     }
 
 })

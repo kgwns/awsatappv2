@@ -3,8 +3,7 @@ import {StyleProp, ViewStyle, TouchableOpacity, TextStyle, StyleSheet, View} fro
 import { SvgProps } from 'react-native-svg';
 import {Image, ImageName} from 'src/components/atoms';
 import { Label,LabelType} from 'src/components/atoms/label/Label';
-import {isTab, normalize} from 'src/shared/utils/dimensions';
-import { fonts } from 'src/shared/styles/fonts';
+import { normalize} from 'src/shared/utils/dimensions';
 import { colors } from '../../../shared/styles/colors';
 
 const styles = StyleSheet.create({
@@ -36,15 +35,9 @@ const styles = StyleSheet.create({
     justifyContent:'center',
     alignItems:'center',
   },
-  tabTextStyle: {
-    fontSize: 16,
-    lineHeight: 26,
-    fontFamily:fonts.AwsatDigital_Bold,
-    fontWeight:'700'
-  }
 });
 
-const {container,tabTextStyle, textStyle, imageContainer,labelContainer} = styles;
+const {container, textStyle, imageContainer,labelContainer} = styles;
 
 interface ButtonOutlineProps {
   title: string;
@@ -79,7 +72,7 @@ export const ButtonOutline: FunctionComponent<ButtonOutlineProps> = ({
   >
     <View style={[labelContainer]}>
       {rightIcon && rightIcon()}
-      <Label color={color} style={[isTab ? tabTextStyle : textStyle, labelStyle]} labelType={titleType}>
+      <Label color={color} style={[textStyle, labelStyle]} labelType={titleType}>
         {title}
       </Label>
       {leftIcon && leftIcon()}
