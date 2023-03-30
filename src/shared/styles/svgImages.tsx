@@ -186,6 +186,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { colors, DARK_THEME_ID } from './colors'
 
 import LiveIcon from 'src/assets/images/icons/liveIcon.svg';
+import BlackDownArrow from 'src/assets/images/icons/blackDownArrow.svg'
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -442,6 +443,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <PlayWithBg {...props} />
         case ImagesName.tabPopupLogo:
             return <TabPopupLogo {...props} />
+        case ImagesName.tabletDownArrowIcon:
+            return isDark ? <DownArrow {...props} /> : <BlackDownArrow {...props}/>
         default: return null
     }
 }

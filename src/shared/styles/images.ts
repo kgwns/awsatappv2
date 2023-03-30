@@ -182,6 +182,7 @@ export enum ImagesName {
   liveIcon = 'liveIcon',
   playWithBg = 'playWithBg',
   tabPopupLogo = 'tabPopupLogo',
+  tabletDownArrowIcon = 'tabletDownArrowIcon',
 }
 
 export const images = {
