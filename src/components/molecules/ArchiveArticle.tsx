@@ -30,7 +30,7 @@ const archiveFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice,
   bookMarkColorType: BookMarkColorType.WHITE,
   leftTitleStyle: { fontWeight: 'bold' },
-  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20, }
+  rightTitleStyle: isTab ? {fontFamily:fonts.Effra_Arbc_Regular,fontSize:13,lineHeight:16,fontWeight:'400' } : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
 }
 
 export interface ArchiveArticleProps extends BannerImageWithOverlayProps {
@@ -97,7 +97,7 @@ const ArchiveArticle = ({
             <ArticleFooter {...archiveFooterSample}
               rightTitle={timeFormat.time}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
-              rightTitleColor={isDark ? Styles.color.silverChalice : Styles.color.black}
+              rightTitleColor={isDark ? Styles.color.silverChalice : isTab ? Styles.color.black900 : Styles.color.black}
               rightContainerStyle={rightContainerStyle}
               rightIcon={() => TimeIcon(timeFormat.icon)}
               hideBookmark={true}

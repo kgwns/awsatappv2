@@ -8,12 +8,13 @@ import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { getImageUrl, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
 import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { ImagesName } from 'src/shared/styles';
+import { ImagesName, Styles } from 'src/shared/styles';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useNavigation } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants/Constants';
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { fonts } from 'src/shared/styles/fonts';
 
 const AuthorSlider = ({
     data,
@@ -64,7 +65,7 @@ const AuthorSlider = ({
 
   const renderAuthorList = (item: any, index: number) => {
     return (
-        <View>
+        <View style = {isTab && style.tabAuthorContainer}>
             <AuthorItem body={item.title}  
             mediaVisibility={isNotEmpty(item.field_jwplayer_id_opinion_export)} 
             jwPlayerID={isNotEmpty(item.field_jwplayer_id_opinion_export) ? item.field_jwplayer_id_opinion_export : null}
@@ -90,6 +91,7 @@ const AuthorSlider = ({
             }
             index={index} 
             nid={item.nid}
+            showDivider = {index < 6 ? true : false}
             />
         </View>
     );
@@ -106,9 +108,10 @@ const AuthorSlider = ({
   const widgetHeaderData: WidgetHeaderProps = {
     headerLeft: {
         title: widgetHeader ? widgetHeader : CONST_OPINION_COMBO_TITLE,
-        color: themeData.primary,
+        color: isTab ? themeData.primaryBlack : themeData.primary,
         labelType: LabelTypeProp.title3,
-        elementContainerStyle: style.headerLeftContainer
+        elementContainerStyle: style.headerLeftContainer,
+        textStyle: isTab && style.opinionHeader
     },
     headerRight: {
         title: SECTION_COMBO_ONE_HEADER_RIGHT,
@@ -160,35 +163,67 @@ const AuthorSlider = ({
     )
   }
   return (
-    <View style={StyleSheet.flatten([style.container,containerStyle])}>
-        <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
+    <View>
+      {
+        isTab ?
+        <View style={StyleSheet.flatten([style.container, containerStyle])}>
+          <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
             <WidgetHeader {...widgetHeaderData} widgetHeaderStyle={widgetHeaderStyle} onPress={onPressMore} />
-        </View>
-        <ScrollView
-        ref={scrollRef}
-        horizontal
-        pagingEnabled
-        scrollEventThrottle={32}
-        showsHorizontalScrollIndicator={false}
-        onContentSizeChange={()=> scrollToStart()}
-        bounces={false}
-        onMomentumScrollEnd={onMomentumScrollEnd}
-        style={style.container}>
-            <FlatList
-            listKey={'AuthorSlider' + new Date().getTime().toString()}
-            keyExtractor={(_, index) => index.toString()}
-            numColumns={4}
-            data={data}
+          </View>
+          {/* Enable ScrollView in Tab when required */}
+          {/* <ScrollView
+            ref={scrollRef}
+            horizontal
+            pagingEnabled
+            scrollEventThrottle={32}
             showsHorizontalScrollIndicator={false}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item, index }) => renderItem(item, index)}
-            style={style.listContainer}
+            onContentSizeChange={() => scrollToStart()}
             bounces={false}
-        />
-    </ScrollView>
-      {isNonEmptyArray(data) && <View style={style.indicatorContainer}>
-        {renderIndicator()}
-      </View>}
+            onMomentumScrollEnd={onMomentumScrollEnd}
+            style={style.container}> */}
+            <FlatList
+              listKey={'AuthorSlider' + new Date().getTime().toString()}
+              keyExtractor={(_, index) => index.toString()}
+              numColumns={3}
+              data={data}
+              renderItem={({ item, index }) => renderAuthorList(item, index)}
+            />
+          {/* </ScrollView> */}
+          {/* {isNonEmptyArray(data) && <View style={style.indicatorContainer}>
+            {renderIndicator()}
+          </View>} */}
+        </View>
+        : <View style={StyleSheet.flatten([style.container, containerStyle])}>
+          <View style={StyleSheet.flatten([style.headerContainer, widgetHeaderContainerStyle])}>
+            <WidgetHeader {...widgetHeaderData} widgetHeaderStyle={widgetHeaderStyle} onPress={onPressMore} />
+          </View>
+          <ScrollView
+            ref={scrollRef}
+            horizontal
+            pagingEnabled
+            scrollEventThrottle={32}
+            showsHorizontalScrollIndicator={false}
+            onContentSizeChange={() => scrollToStart()}
+            bounces={false}
+            onMomentumScrollEnd={onMomentumScrollEnd}
+            style={style.container}>
+            <FlatList
+              listKey={'AuthorSlider' + new Date().getTime().toString()}
+              keyExtractor={(_, index) => index.toString()}
+              numColumns={4}
+              data={data}
+              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
+              renderItem={({ item, index }) => renderItem(item, index)}
+              style={style.listContainer}
+              bounces={false}
+            />
+          </ScrollView>
+          {isNonEmptyArray(data) && <View style={style.indicatorContainer}>
+            {renderIndicator()}
+          </View>}
+        </View>
+      }
     </View>
   );
 };
@@ -198,10 +233,12 @@ const customStyle = (theme: CustomThemeType) => {
     container: {
       backgroundColor: theme.secondaryWhite,
       alignContent: 'center',
-      flex: 1
+      flex: 1,
+      paddingHorizontal: isTab ? 25 : 0,
+      paddingBottom: isTab ? 20 : 0
     },
     headerContainer: {
-        paddingHorizontal:0.04 * screenWidth,
+        paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
         backgroundColor: theme.secondaryWhite,
         paddingTop:normalize(30),
         paddingBottom: normalize(10),
@@ -246,6 +283,16 @@ const customStyle = (theme: CustomThemeType) => {
     },
     containerStyle: {
       flexDirection: 'row' 
+    },
+    tabAuthorContainer: {
+      flex: 1,
+      margin:10,
+    },
+    opinionHeader: {
+      fontFamily: fonts.AwsatDigital_Black,
+      fontSize: 25,
+      lineHeight: 36,
+      fontWeight: '900'
     }
   });
   return AuthorSliderStyle;

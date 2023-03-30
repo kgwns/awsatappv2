@@ -43,9 +43,9 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     }
 
     return (
-        <FixedTouchable onPress={onPress} style={style.mainContainer}>
+        <FixedTouchable onPress={onPress} style={ !isTab && style.mainContainer}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
-                style={StyleSheet.flatten([style.container, articleItemStyle])}>
+                style={StyleSheet.flatten([isTab ? style.tabletContainer : style.container, articleItemStyle])}>
                 {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
@@ -67,6 +67,10 @@ const style = StyleSheet.create({
     container: {
         paddingBottom: normalize(25),
         flex: 1,
+        overflow: 'hidden',
+    },
+    tabletContainer: {
+        paddingBottom: normalize(20),
         overflow: 'hidden',
     },
     mainContainer: {

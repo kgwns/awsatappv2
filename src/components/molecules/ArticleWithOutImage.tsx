@@ -1,7 +1,7 @@
 import { View, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { Divider, Label, TextWithFlag } from '../atoms';
-import { normalize } from 'src/shared/utils';
+import { isTab, normalize } from 'src/shared/utils';
 import { Styles } from '../../shared/styles';
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules';
 import { TextWithFlagProps } from 'src/components/atoms';
@@ -11,6 +11,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { decode } from 'html-entities';
 import { ArticleLabel } from './articleLabel/ArticleLabel';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
@@ -43,6 +44,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
 }) => {
     const style = useThemeAwareObject(customStyle)
     const bodyInfo = isNotEmpty(body) ? decodeHTMLTags(decode(body)) : ''
+    const { themeData } = useTheme();
     return (
     <FixedTouchable onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
@@ -50,7 +52,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
                 <TextWithFlag {...props} style={titleStyle}/>
                 {isNotEmpty(bodyInfo) && showBody && <Label 
                     children={bodyInfo}
-                    color={Styles.color.davyGrey}
+                    color={ isTab ? themeData.summaryColor : Styles.color.davyGrey}
                     numberOfLines={bodyLineCount}
                     style={bodyStyle}
                 />

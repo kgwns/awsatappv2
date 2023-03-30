@@ -45,7 +45,7 @@ const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
                 {...archiveData}
                 containerStyle={isTab ? style.tabletImageStyle : {}}
                 titleStyle={style.titleStyle}
-                leftTitleColor={Styles.color.silverChalice}
+                leftTitleColor={ isTab ? Styles.color.black900 : Styles.color.silverChalice}
                 showDivider={false}
                 isAlbum={isTypeAlbum(archiveData.type)}
             />
@@ -59,7 +59,7 @@ const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
     const ArchiveHeader = () => (
         <View style={style.headerView}>
             <View style={style.headerLogoContainer}>
-                <Image name={isDarkMode ? ImagesName.archiveIconDarkImage : ImagesName.archiveIconLightImage} style={style.headerLogo} />
+                {!isTab && <Image name={isDarkMode ? ImagesName.archiveIconDarkImage : ImagesName.archiveIconLightImage} style={style.headerLogo} />}
             </View>
             <Label children={props.title} style={style.headerTitle} />
         </View>
@@ -90,9 +90,10 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: 0.04 * screenWidth,
     },
     tabletImageStyle: {
-        width: screenWidth,
+        width: '100%',
         height: 'auto',
         aspectRatio: 1.34,
+        padding: normalize(30)
     },
     divider: {
         height: 1,
@@ -107,9 +108,10 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         marginTop: isTab ? 0 : 5,
     },
     titleStyle: {
-        fontSize: 20,
-        lineHeight: 32,
-        fontFamily: fonts.AwsatDigital_Black,
+        fontSize: isTab ? 25 : 20,
+        lineHeight: isTab ? 35 : 32,
+        fontFamily: isTab ? fonts.AwsatDigital_Bold : fonts.AwsatDigital_Black,
+        fontWeight: isTab ? '700' : 'normal'
     },
     listArticleTitle: {
         fontSize: normalize(17),
@@ -151,10 +153,10 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         height: 22
     },
     headerTitle: {
-        fontSize: 20,
-        fontFamily: fonts.AwsatDigitalV2_Regular,
-        lineHeight: 38,
-        color: theme.primaryBlack
+        fontSize: isTab ? 25 : 20,
+        fontFamily: isTab ? fonts.AwsatDigital_Black : fonts.AwsatDigitalV2_Regular,
+        lineHeight: isTab ? 36 : 38,
+        color: theme.primaryBlack,
     }
 
 })

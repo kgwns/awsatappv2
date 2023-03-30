@@ -9,9 +9,9 @@ export const ImageWithIconStyle = StyleSheet.create({
         height: normalize(155),
         resizeMode: 'cover',
     },
-    articleImageLandscape: {
-        width: normalize(300),
-        height: normalize(200),
+    tabArticleImage: {
+        width: 170,
+        height: 100,
         resizeMode: 'cover',
     },
     tagText: {

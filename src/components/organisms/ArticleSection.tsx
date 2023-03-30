@@ -33,14 +33,14 @@ export interface ArticleSectionProps {
 }
 
 export const articleFooterDataSet: articleFooterProps = {
-    leftTitleColor: Styles.color.silverChalice,
+    leftTitleColor: isTab ? Styles.color.black900 : Styles.color.silverChalice,
     leftIcon: () => {return getSvgImages({
         name: ImagesName.clock,
         size: normalize(12),
         style: { marginRight: normalize(7) }
     })},
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20 }
+    leftTitleStyle: isTab ? { fontFamily: fonts.Effra_Arbc_Regular, fontWeight: '400', fontSize: 13, lineHeight: 16,} : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20 }
 };
 
 
@@ -91,9 +91,9 @@ const ArticleSection = ({
             onPressBookmark={() => onPressBookmark(index)}
             showDivider={canShowDivider}
             showFooterTitle={showFooterTitle}
-            articleItemStyle={articleItemStyle}
-            titleStyle={style.titleStyle}
-            bodyStyle={style.bodyStyle}
+            articleItemStyle={articleItemStyle} 
+            titleStyle={isTab ? style.tabTitleStyle : style.titleStyle}
+            bodyStyle={isTab ? style.tabletBodyStyle : style.bodyStyle}
             isAlbum={item.isAlbum}
         />
     }
@@ -131,7 +131,7 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         marginLeft: normalize(20),
     },
     tabImageStyle: {
-        width: 0.5 * screenWidth,
+        width: '100%', 
         height: 'auto',
         aspectRatio: 1.34,
     },
@@ -148,12 +148,28 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         paddingVertical: normalize(8),
         color: theme.primaryBlack
     },
+    tabTitleStyle:{
+        fontFamily: fonts.AwsatDigital_Bold,
+        fontSize: 18,
+        lineHeight: 28,
+        textAlign: 'left', 
+        paddingVertical: normalize(8),
+        color: theme.primaryBlack,
+        fontWeight: '700',
+    },
     bodyStyle:{
         fontFamily: fonts.Effra_Arbc_Regular,
         fontSize: normalize(16),
         lineHeight: normalize(26),
         textAlign: 'left' ,
         color: theme.summaryColor,
+    },
+    tabletBodyStyle:{
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontSize: 16,
+        lineHeight: 24,
+        textAlign: 'left' ,
+        fontWeight:'400'
     },
     footerTitleColor: {
         color: theme.footerTextColor
