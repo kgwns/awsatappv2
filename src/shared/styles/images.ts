@@ -186,6 +186,7 @@ export enum ImagesName {
   bookmarkBold = 'bookmarkBold',
   shareBold = 'shareBold',
   fontScalingBold = 'fontScalingBold',
+  tabletDownArrowIcon = 'tabletDownArrowIcon',
 }
 
 export const images = {

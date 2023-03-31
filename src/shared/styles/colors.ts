@@ -102,6 +102,13 @@ export const colors = {
   lightAlterGray: '#D1DEDD',
   blackOpacity60: '#00000099',
   paleGray: '#627170',
+  darkFungusGreen: '#172F2F',
+  blackOpacity0: '#00000000',
+  blackOpacity80: '#000000CC',
+  blackOpacity100: '#000000FF',
+  whiteOpacity0: '#F9FBFB00',
+  whiteOpacity80: '#F9FBFBCC',
+  whiteOpacity100: '#F9FBFBFF',
 };
 
 export interface CustomThemeType {
@@ -165,6 +172,7 @@ export interface CustomThemeType {
   onBoardBackground: string,
   newsFeed: string,
   articleCaption: string,
+  contactUsTitleColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -231,6 +239,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   onBoardBackground: colors.aquaHaze,
   newsFeed: colors.smokeyGrey,
   articleCaption: colors.charcoalGray,
+  contactUsTitleColor: colors.darkFungusGreen,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -294,5 +303,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   onBoardBackground: colors.codGray,
   newsFeed: colors.white,
   articleCaption: colors.white,
+  contactUsTitleColor: colors.white,
 }
 

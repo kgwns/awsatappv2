@@ -271,6 +271,7 @@ enum TranslateKey {
   LAST_UPDATED,
   PUBLISH_TO,
   DATE_SEPARATOR,
+  ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB,
   default
 }
 
@@ -607,6 +608,8 @@ const TranslateConstants = ({
             return arabic?.onBoard?.selectTopics?.title;
         case TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION:
             return arabic?.onBoard?.selectTopics?.description;
+        case TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB:
+            return arabic?.onBoard?.selectTopics?.tabDescription;
         case TranslateKey.MANAGE_MY_NEWS_ALERT:
             return arabic?.manageMyNews?.alert;
         case TranslateKey.MANAGE_MY_NEWS_REMOVE_AUTHOR:
