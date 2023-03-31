@@ -5,7 +5,7 @@ import { StyleProp, StyleSheet, TextStyle, View, } from 'react-native'
 import { ArticleDetailImage, Journalist } from 'src/components/molecules'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types'
 import { SCRIBBLE_LIVE_EVENT_URL, SCRIBBLE_LIVE_JSON_PARAM, SCRIBBLE_LIVE_TOKEN_PARAM, SCRIBBLE_TOKEN } from 'src/services/apiUrls';
-import { isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab } from 'src/shared/utils';
+import { isAndroid, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab } from 'src/shared/utils';
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { Divider, Label } from '../atoms';
 import { fonts } from 'src/shared/styles/fonts';
@@ -147,11 +147,11 @@ const customStyle = (theme: CustomThemeType) => (
             color: theme.primary,
             fontFamily: fonts.AwsatDigital_Regular,
             fontWeight: '400',
-            paddingRight: 10,
+            marginRight: 10,
         },
         dateValue: {
             fontSize: 14,
-            lineHeight: 20,
+            lineHeight: isAndroid ? 26 : 20,
             textAlign: 'right',
             color: colors.paleGray,
             fontFamily: fonts.Effra_Arbc_Regular,
