@@ -111,6 +111,7 @@ export const colors = {
   whiteOpacity100: '#F9FBFBFF',
   black900: '#041313',
   green600: '#485655',
+  paleGray: '#E4EDEC'
 };
 
 export interface CustomThemeType {
@@ -176,6 +177,7 @@ export interface CustomThemeType {
   articleCaption: string,
   tabOnBoardHeaderBackground: string,
   contactUsTitleColor: string,
+  sectionStoryVideo: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -244,6 +246,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   articleCaption: colors.charcoalGray,
   tabOnBoardHeaderBackground: colors.white,
   contactUsTitleColor: colors.darkFungusGreen,
+  sectionStoryVideo: colors.paleGray,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -309,5 +312,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   articleCaption: colors.white,
   tabOnBoardHeaderBackground: colors.codGray,
   contactUsTitleColor: colors.white,
+  sectionStoryVideo: colors.codGray
 }
 

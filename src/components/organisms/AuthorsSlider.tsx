@@ -39,7 +39,7 @@ const AuthorSlider = ({
 
   const CONST_OPINION_COMBO_TITLE = TranslateConstants({key: TranslateKey.OPINION_SLIDER_TITLE})
   const SECTION_COMBO_ONE_HEADER_RIGHT = TranslateConstants({key: TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT})
-
+  const TAB_OPINION_TITLE = TranslateConstants({key: TranslateKey.TABLET_OPINION_SLIDER_LEFT_HEADER})
 
   const { themeData } = useTheme()
   const style = useThemeAwareObject(customStyle);
@@ -108,7 +108,7 @@ const AuthorSlider = ({
 
   const widgetHeaderData: WidgetHeaderProps = {
     headerLeft: {
-        title: widgetHeader ? widgetHeader : CONST_OPINION_COMBO_TITLE,
+        title: widgetHeader ? widgetHeader : isTab ? TAB_OPINION_TITLE : CONST_OPINION_COMBO_TITLE,
         color: isTab ? themeData.primaryBlack : themeData.primary,
         labelType: LabelTypeProp.title3,
         elementContainerStyle: style.headerLeftContainer,
