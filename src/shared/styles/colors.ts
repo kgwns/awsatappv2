@@ -101,6 +101,7 @@ export const colors = {
   black55: '#0000008C',
   lightAlterGray: '#D1DEDD',
   blackOpacity60: '#00000099',
+  darkFungusGreen: '#172F2F',
   blackOpacity0: '#00000000',
   blackOpacity80: '#000000CC',
   blackOpacity100: '#000000FF',
@@ -171,6 +172,7 @@ export interface CustomThemeType {
   newsFeed: string,
   articleCaption: string,
   tabOnBoardHeaderBackground: string,
+  contactUsTitleColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -238,6 +240,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   newsFeed: colors.smokeyGrey,
   articleCaption: colors.charcoalGray,
   tabOnBoardHeaderBackground: colors.white,
+  contactUsTitleColor: colors.darkFungusGreen,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -302,5 +305,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   newsFeed: colors.white,
   articleCaption: colors.white,
   tabOnBoardHeaderBackground: colors.codGray,
+  contactUsTitleColor: colors.white,
 }
 

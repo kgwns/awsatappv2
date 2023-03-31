@@ -184,6 +184,7 @@ export enum ImagesName {
   tabPopupLogo = 'tabPopupLogo',
   shareIcon = 'shareIcon',
   tabletAuthorItem = 'tabletAuthorItem',
+  tabletDownArrowIcon = 'tabletDownArrowIcon',
 }
 
 export const images = {
