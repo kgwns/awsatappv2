@@ -4,6 +4,7 @@ import {
   FlatList,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
@@ -50,7 +51,10 @@ export interface ArticleSectionProps {
   listStyle?: StyleProp<ViewStyle>
   hideImage?: boolean;
   showLeftTitle?: boolean;
-  containerStyle?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>,
+  titleColor?: string,
+  articleTextStyle?: StyleProp<TextStyle>,
+  rightTitleColor?: string
 }
 
 export const shortArticleFooter: articleFooterProps = {
@@ -76,6 +80,9 @@ const ShortArticle = ({ data, headerLeft, onPress,
   hideImage = false,
   showLeftTitle = true,
   containerStyle,
+  titleColor,
+  articleTextStyle,
+  rightTitleColor
 }: ArticleSectionProps) => {
   const { isLoggedIn } = useLogin()
   const style = useThemeAwareObject(customStyle);
@@ -124,7 +131,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
           <View style={[ labelContainerStyle, leftContainerStyle, hideImage && style.hideImage]}>
             <ArticleLabel displayType={item.displayType} enableBottomMargin />
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
-              <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
+              <TextWithFlag {...item} numberOfLines={0} labelType={labelType} titleColor = {titleColor} style = {articleTextStyle} />
             </View>
             
             {isNotEmpty(item.body) && showBody &&
@@ -137,7 +144,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
             {!isFooterOutside && <View style={[style.footerContainer]}>
               <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
                 onPress={() => checkAndUpdateBookmark(index)}
-                isBookmarked={item.isBookmarked}
+                isBookmarked={item.isBookmarked} rightTitleColor = {rightTitleColor}
               />
             </View>}
           </View>

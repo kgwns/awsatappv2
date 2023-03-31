@@ -269,6 +269,8 @@ enum TranslateKey {
   TABLET_CREATE_ACCOUNT_DESCRIPTION,
   VIDEO_SHARE,
   ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB,
+  TABLET_VIDEO_CONTENT_TITLE,
+  TABLET_OPINION_SLIDER_LEFT_HEADER,
   default
 }
 
@@ -761,6 +763,10 @@ const TranslateConstants = ({
             return arabic?.tabletPopUp?.createAccountDescription;
         case TranslateKey.VIDEO_SHARE: 
             return arabic?.sectionVideo?.share;
+        case TranslateKey.TABLET_OPINION_SLIDER_LEFT_HEADER:
+            return arabic?.latestNewsTab?.sectionWriters?.tabSliderLeftHeader
+        case TranslateKey.TABLET_VIDEO_CONTENT_TITLE:
+            return arabic?.categoryPage?.tabVideoContent
         default: return ''
     }
 }

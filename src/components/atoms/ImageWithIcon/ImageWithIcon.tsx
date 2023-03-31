@@ -6,9 +6,10 @@ import { ImageResize } from '../../../shared/styles/text-styles'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import {ImageWithIconStyle } from 'src/components/atoms/ImageWithIcon/ImageWithIcon.style'
 import  WhitePlayIcon from 'src/assets/images/icons/whitePlayIcon.svg'
+import { isTab } from 'src/shared/utils'
 
 
-const { articleImage, tagText, bottomTagContainer, playIconPosition, iconStyle, tabArticleImage} = ImageWithIconStyle;
+const { articleImage, tagText, bottomTagContainer, tabTimeContainer ,playIconPosition, iconStyle, tabArticleImage} = ImageWithIconStyle;
 export interface ImageIconProps {
     name?: ImageName,
     url?: string,
@@ -18,22 +19,24 @@ export interface ImageIconProps {
     isVideoList?: boolean
 }
 
-export const ImageWithIcon = ({ name, url, bottomTag,onPress, fallback= false, isVideoList}: ImageIconProps) => {
+export const ImageWithIcon = ({ name, url, bottomTag,onPress, fallback= false, isVideoList = false}: ImageIconProps) => {
     return (
         <View>
             <Image fallback={fallback} name={name} url={url} style={ isVideoList ? tabArticleImage : articleImage} resizeMode={ImageResize.COVER}/>
             {bottomTag &&
-            <View style={bottomTagContainer}>
+            <View style={ isTab ? tabTimeContainer : bottomTagContainer}>
                 <Text children={bottomTag}
                     style={ tagText }
                 />
             </View>
             }
+            { !isTab &&  
                 <View style={playIconPosition}>
                     <TouchableOpacity onPress={onPress}>
                     <WhitePlayIcon style={iconStyle}/>
                     </TouchableOpacity>
-                </View>        
+                </View>    
+            }    
         </View>
     )
 }
