@@ -344,6 +344,32 @@ export const getConvertedTime = (time?: number, timezone?: number) => {
   }
 };
 
+const formatToTwoDigit = (num: number) => {
+  return num < 10 ? `0${num}` : num;
+}
+
+export const formatHijri = (value: string) => {
+  let date = new Date(value);
+  let format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  const parsedDate = format.format(date);
+  return parsedDate;
+}
+
+export const formatGregorian = (value: string) => {
+  const hour = formatToTwoDigit(calculateHour(value));
+  const minutes = formatToTwoDigit(calculateMinutes(value));
+
+  const day = formatToTwoDigit(calculateDate(value));
+  const month = calculateMonth(value);
+  const year = formatToTwoDigit(calculateYear(value));
+
+  return `${day}-${hour}:${minutes} ${month} ${year}`;
+}
+
 export const getCountryNameFromCode = ( countryCode: string) : string => {
   countries.registerLocale(arabicLang);
   const countryName = countries.getName(countryCode, "ar");

@@ -12,8 +12,9 @@ export interface BannerImageWithOverlayProps {
     onImageLoadEnd?(isSuccess: boolean): void
     isImageLoaded?: boolean
     showOverlay?: boolean;
-    isAlbum: boolean;
+    isAlbum?: boolean;
     displayType?: string;
+    renderTagName?: JSX.Element | null;
 }
 
 export const RenderPhotoIcon = () => (
@@ -33,6 +34,7 @@ export const BannerImageWithOverlay = ({
     showOverlay,
     displayType,
     isAlbum = false,
+    renderTagName,
 }: BannerImageWithOverlayProps) => {
     const [isError, setIsError] = useState(false) 
 
@@ -56,6 +58,7 @@ export const BannerImageWithOverlay = ({
             {displayType && <View style={bannerImageWithOverlayStyle.liveTagContainer}>
                 <ArticleLabel displayType={displayType}/>
             </View>}
+            {renderTagName}
             {showOverlay && isImageLoaded && <Overlay />}
         </View>
     )
