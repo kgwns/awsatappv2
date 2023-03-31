@@ -101,6 +101,7 @@ export const colors = {
   black55: '#0000008C',
   lightAlterGray: '#D1DEDD',
   blackOpacity60: '#00000099',
+  paleGray: '#627170',
 };
 
 export interface CustomThemeType {

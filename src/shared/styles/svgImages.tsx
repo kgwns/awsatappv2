@@ -188,6 +188,10 @@ import { colors, DARK_THEME_ID } from './colors'
 
 import LiveIcon from 'src/assets/images/icons/liveIcon.svg';
 
+import BookmarkBold from 'src/assets/images/icons/detail/bookmark_bold_icon.svg';
+import ShareBold from 'src/assets/images/icons/detail/share_bold_icon.svg';
+import FontScalingBold from 'src/assets/images/icons/detail/font_scaling_bold_icon.svg';
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -445,6 +449,12 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <TabPopupLogo {...props} />
         case ImagesName.shareIcon:
             return <ShareIcon {...props} />
+        case ImagesName.bookmarkBold:
+            return <BookmarkBold {...props} />
+        case ImagesName.shareBold:
+            return <ShareBold {...props} />
+        case ImagesName.fontScalingBold:
+            return <FontScalingBold {...props} />
         default: return null
     }
 }

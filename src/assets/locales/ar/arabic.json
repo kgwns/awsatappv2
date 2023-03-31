@@ -400,7 +400,10 @@
         "description": "سنتواصل معك و نجيب على سؤالك خلال يومين"
     },
     "articleDetail": {
-        "contentBundleWidgetTitle": "اقرأ أيضاً"
+        "contentBundleWidgetTitle": "اقرأ أيضاً",
+        "lastUpdated": "آخر تحديث:",
+        "toPublish": "نُشر:",
+        "dateSeparator": "م ـ"
     },
     "displayTag": {
         "liveTagTitle": "مباشر",

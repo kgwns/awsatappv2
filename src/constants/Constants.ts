@@ -268,6 +268,9 @@ enum TranslateKey {
   TABLET_NOT_SUBSCRIBED_POP_UP,
   TABLET_CREATE_ACCOUNT_DESCRIPTION,
   VIDEO_SHARE,
+  LAST_UPDATED,
+  PUBLISH_TO,
+  DATE_SEPARATOR,
   default
 }
 
@@ -758,6 +761,12 @@ const TranslateConstants = ({
             return arabic?.tabletPopUp?.createAccountDescription;
         case TranslateKey.VIDEO_SHARE: 
             return arabic?.sectionVideo?.share;
+        case TranslateKey.LAST_UPDATED:
+            return arabic?.articleDetail?.lastUpdated;
+        case TranslateKey.PUBLISH_TO:
+            return arabic?.articleDetail?.toPublish;
+        case TranslateKey.DATE_SEPARATOR:
+            return arabic?.articleDetail?.dateSeparator;
         default: return ''
     }
 }

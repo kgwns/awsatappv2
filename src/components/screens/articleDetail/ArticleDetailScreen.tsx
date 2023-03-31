@@ -2,7 +2,7 @@ import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWind
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants'
-import { ArticleDetailFooter, VideoPlayerControl, DetailHeader, Journalist } from 'src/components/molecules'
+import { ArticleDetailFooter, VideoPlayerControl, DetailHeader, DetailHeaderTablet } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
@@ -495,11 +495,18 @@ export const ArticleDetailScreen = ({
     navigation.pop(noOfDetailRoutes)
   }
 
-  const renderHeader = () => (
-    <View style={style.backContainer}>
-      <DetailHeader visibleHome={noOfDetailRoutes > 1 && route.params.isRelatedArticle} onHomePress={onHomePress} onBackPress={onPressBack} />
-    </View>
-  )
+  const renderHeader = () => {
+    const headerProps = {
+      visibleHome: noOfDetailRoutes > 1 && route.params.isRelatedArticle,
+      onHomePress: () => onHomePress(),
+      onBackPress: () => onPressBack(),
+    }
+    return (
+      <View style={style.backContainer}>
+        {isTab ? <DetailHeaderTablet {...headerProps} /> : <DetailHeader {...headerProps} />}
+      </View>
+    )
+  };
 
   const articleHtmlContent = (index: number) => (
     <ArticleDetailBody body={articleDetailState[index].body}
@@ -516,10 +523,11 @@ export const ArticleDetailScreen = ({
   )
 
   const renderItem = ({ item, index }: { item: ArticleDetailDataType, index: number }) => {
-    const relatedArticles = relatedArticleState.slice(index * 2, (index * 2) + 2)
-
+    const relatedArticleCount = isTab ? 4 : 2;
+    const relatedArticles = relatedArticleState.slice(index * relatedArticleCount, (index * relatedArticleCount) + relatedArticleCount)
+    const hasArticleSection = isNonEmptyArray(articleDetailState) && articleDetailState.length > 1;
     return (
-      <View>
+      <View style={[isTab && style.tabItem, isTab && !hasArticleSection && { paddingBottom: 110 }]}>
         {isNonEmptyArray(articleDetailState) && <>
           <ArticleDetailWidget articleData={item}
             isRelatedArticle={route.params.isRelatedArticle} 
@@ -535,11 +543,6 @@ export const ArticleDetailScreen = ({
             showReplay={showReplay}
             setReset={(show: boolean) => setShowReplay(show)}
           />
-          {isNonEmptyArray(item.journalistId) && <Journalist
-            journalistCity={item.journalistCity}
-            journalistId={item.journalistId}
-            journalistName={item.journalistName} />
-          }
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
           { isNotEmpty(item.scribbleLiveId) && <ArticleLiveBlog scribbleId={item.scribbleLiveId}/>}
@@ -643,7 +646,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     width: '100%'
   },
   relatedArticle: {
-    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth
+    paddingHorizontal: (isTab ? 0 : 0.04) * screenWidth,
+    paddingBottom: isTab ? normalize(50) : normalize(20),
   },
   divider: {
     height: 1,
@@ -654,7 +658,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   backContainer: {
     width: '100%',
-    height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
+    height: isTab ? 83 : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
     backgroundColor: theme.secondaryWhite,
     justifyContent: 'center',
   },
@@ -664,15 +668,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     shadowOpacity: .5,
     shadowRadius: 4,
     elevation: 15,
-  },
-  videoContainer: {
-    position: 'absolute',
-    bottom: isIOS ? normalize(80) : normalize(70),
-    right: (isTab ? 0.02 : 0.04) * screenWidth,
-    left: (isTab ? 0.02 : 0.04) * screenWidth,
-    height: 'auto',
-    aspectRatio: 1.62,
-    backgroundColor: colors.black,
   },
   fullScreenContainer: {
     backgroundColor: Styles.color.black
@@ -696,6 +691,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   fullScreenBackground: {
     backgroundColor: colors.black
-  }
+  },
+  tabItem: {
+    paddingHorizontal: normalize(50)
+  },
 })
 

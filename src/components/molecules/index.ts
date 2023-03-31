@@ -62,6 +62,6 @@ export { StaticPageHeader, StaticPageHeaderType } from 'src/components/molecules
 export { PhotoGalleryItem } from 'src/components/molecules/photogallery/PhotoGalleryItem';
 export { PhotoGalleryDetailFooter } from 'src/components/molecules/photogallery/PhotoGalleryDetailFooter';
 export { GridViewItem } from 'src/components/molecules/GridViewItem';
-
 export { Journalist } from 'src/components/molecules/journalists/Journalists'
 export {default as ArchiveArticle} from './ArchiveArticle';
+export { DetailHeaderTablet } from 'src/components/molecules/detailHeader/DetailHeaderTablet';
