@@ -210,7 +210,8 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
         ({ title, body_export, nid_export, field_image_export, view_node,
           field_news_categories_export, author_resource, field_tags_topics_export, field_new_sub_title_export,
           field_new_photo_export, field_new_photo_titles, field_jwplayer_id_export,
-          field_paragraph_export, jor_city, jor_id, jor_name, field_shorturl, field_scribblelive_id, field_display_export,changed, link_node
+          field_paragraph_export, jor_city, jor_id, jor_name, field_shorturl, field_scribblelive_id, field_display_export,changed, link_node,
+          field_publication_date_export,
          }: any) => ({
             body: body_export,
             title: isNotEmpty(title) ? decode(title) : '',
@@ -231,7 +232,8 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
             shortUrl: field_shorturl,
             scribbleLiveId: field_scribblelive_id,
             displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
-            link_node: link_node
+            link_node: link_node,
+            publishedDate: field_publication_date_export,
           })
       );
     }
@@ -276,7 +278,8 @@ export const parseArticleSectionSuccess = (response: any, current_nid: number): 
             ({ title, body, nid, field_image, view_node,
               field_news_categories_export, author_resource, field_tags_topics_export, created_export,
               field_new_photo_export, field_new_photo_titles,
-              jor_city, jor_id, jor_name, field_display_export, }: any) => ({
+              jor_city, jor_id, jor_name, field_display_export,
+              field_publication_date_export, }: any) => ({
                 body: body,
                 title: isNotEmpty(title) ? decode(title) : '',
                 nid: nid,
@@ -291,6 +294,7 @@ export const parseArticleSectionSuccess = (response: any, current_nid: number): 
                 journalistCity: jor_city,
                 journalistName: jor_name,
                 displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
+                publishedDate: field_publication_date_export,
               })
           );
        responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== current_nid)
@@ -309,7 +313,7 @@ export const parseRelatedArticleSuccess = (response: any): RelatedArticleSuccess
   const responseData: RelatedArticleSuccessPayload = {
     relatedArticleData: []
   }
-  responseData.relatedArticleData = formattedData.splice(0, 20)
+  responseData.relatedArticleData = formattedData.splice(0, 30)
   return responseData
 }
 

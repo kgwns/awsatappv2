@@ -450,7 +450,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
     },
     itemContainer: {
-        padding: 0.04 * screenWidth 
+        padding: isTab ? 0 : 0.04 * screenWidth 
     },
     descriptionStyle: {
         paddingHorizontal: 40 

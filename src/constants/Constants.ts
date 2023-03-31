@@ -268,6 +268,9 @@ enum TranslateKey {
   TABLET_NOT_SUBSCRIBED_POP_UP,
   TABLET_CREATE_ACCOUNT_DESCRIPTION,
   VIDEO_SHARE,
+  LAST_UPDATED,
+  PUBLISH_TO,
+  DATE_SEPARATOR,
   ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB,
   TABLET_VIDEO_CONTENT_TITLE,
   TABLET_OPINION_SLIDER_LEFT_HEADER,
@@ -767,6 +770,12 @@ const TranslateConstants = ({
             return arabic?.latestNewsTab?.sectionWriters?.tabSliderLeftHeader
         case TranslateKey.TABLET_VIDEO_CONTENT_TITLE:
             return arabic?.categoryPage?.tabVideoContent
+        case TranslateKey.LAST_UPDATED:
+            return arabic?.articleDetail?.lastUpdated;
+        case TranslateKey.PUBLISH_TO:
+            return arabic?.articleDetail?.toPublish;
+        case TranslateKey.DATE_SEPARATOR:
+            return arabic?.articleDetail?.dateSeparator;
         default: return ''
     }
 }

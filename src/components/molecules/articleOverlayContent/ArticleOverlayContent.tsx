@@ -35,10 +35,11 @@ export interface ArticleOverlayContentProps {
     author: string,
     created: string,
     subtitle?: string 
+    showFooter?: boolean;
 }
 
 export const ArticleOverlayContent = ({
-    category, title, author, created, subtitle
+    title, created, subtitle, showFooter = true,
 }: ArticleOverlayContentProps) => {    
     const { themeData } = useTheme()
     const imageArticleStyle = useThemeAwareObject(customStyle)
@@ -62,11 +63,11 @@ export const ArticleOverlayContent = ({
                     style={imageArticleStyle.subtitle}
                 />
             }
-            <ArticleFooter {...articleDetailFooterData} isDetail={true}
+            {showFooter && <ArticleFooter {...articleDetailFooterData} isDetail={true}
                 // rightTitle={decodeHTMLTags(decode(author))} 
                 leftTitle={timeFormat.time}
                 leftIcon={() => TimeIcon(timeFormat.icon)}
-            />
+            />}
         </View>
     )
 }

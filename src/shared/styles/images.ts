@@ -183,6 +183,9 @@ export enum ImagesName {
   playWithBg = 'playWithBg',
   tabPopupLogo = 'tabPopupLogo',
   shareIcon = 'shareIcon',
+  bookmarkBold = 'bookmarkBold',
+  shareBold = 'shareBold',
+  fontScalingBold = 'fontScalingBold',
   tabletAuthorItem = 'tabletAuthorItem',
   tabletDownArrowIcon = 'tabletDownArrowIcon',
 }
