@@ -128,7 +128,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
         {isNonEmptyArray(categoriesInfo) &&
           <FlatList
             keyExtractor={(_, index) => index.toString()}
-            listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
+            listKey={`${flatListUniqueKey.INTERESTED_TOPICS}${new Date().getTime().toString()}`}
             data={categoriesInfo}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => renderItem(item, index)}
