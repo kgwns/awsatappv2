@@ -211,6 +211,10 @@ export const calculateDate = (time: any) => {
   return moment(time).utcOffset(time).get('date');
 };
 
+export const calculateMonthNumber = (time: any) => {
+  return moment(time).utcOffset(time).get('month');
+};
+
 export const calculateMonth = (time: any) => {
   return arabic.months[moment(time).utcOffset(time).get('month')];;
 };
@@ -349,7 +353,12 @@ const formatToTwoDigit = (num: number) => {
 }
 
 export const formatHijri = (value: string) => {
-  let date = new Date(value);
+  const day = formatToTwoDigit(calculateDate(value));
+  const month = formatToTwoDigit(calculateMonthNumber(value) + 1);
+  const year = formatToTwoDigit(calculateYear(value));
+  const formattedDate = `${year}-${month}-${day}`.toString();
+  let date = new Date(formattedDate);
+
   let format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
     year: 'numeric',
     month: 'long',
