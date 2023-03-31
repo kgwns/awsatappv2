@@ -2,15 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isDarkTheme, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { useIsFocused } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreenContainer } from '..';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { NewsLettersWidget } from 'src/components/organisms';
-import { useNewsLetters } from 'src/hooks';
+import { useAppCommon, useNewsLetters } from 'src/hooks';
 import { NewsLetterItemType } from 'src/redux/newsLetter/types';
 import { fonts } from 'src/shared/styles/fonts';
+import LinearGradient from 'react-native-linear-gradient';
+import { StepLineCircle } from 'src/components/molecules';
 
 export const NewsLetterScreen = ({ navigation, route }: any) => {
 
@@ -18,11 +20,16 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const ONBOARD_NEWSLETTER_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_NEWSLETTER_TITLE})
   const ONBOARD_NEWSLETTER_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_NEWSLETTER_DESCRIPTION})
 
+  const { theme } = useAppCommon()
+  const isDarkMode = isDarkTheme(theme)
   const style = useThemeAwareObject(customStyle);
+  const nextButtonStyles = useThemeAwareObject(tabNextButtonStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [canGoBack, setCanGoBack] = useState((route.params && route.params.canGoBack)?true:false)
   const [newsLettersDataInfo, setNewsLettersDataInfo] = useState<NewsLetterItemType[]>([])
   const isFocused = useIsFocused();
+  const titleStyle = isTab ? style.tabTitleStyle : style.titleStyle;
+  const descriptionStyle = isTab ? style.tabDescStyle : style.descStyle;
 
   const { getSelectedNewsLettersData, 
     selectedNewsLettersData, 
@@ -216,15 +223,41 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     }
   }
 
+  const renderTabletTopContainer = () => {
+    return (
+      <View style={style.stepCircleContainer}>
+        <StepLineCircle currentStep={3} />
+      </View>
+    )
+  }
+
+  const renderTabletBottomContainer = () => {
+    const gradient = isDarkMode ? [colors.blackOpacity0,colors.blackOpacity80,colors.blackOpacity100] : [colors.whiteOpacity0,colors.whiteOpacity80,colors.whiteOpacity100];
+    return (
+      <View style={style.bottomContainer}>
+        <LinearGradient colors={gradient} style={style.linearGradient} />
+        <NextButton
+          testID="nextButtonTestId"
+          disabled={disableNext}
+          title={ONBOARD_COMMON_NEXT_BUTTON}
+          onPress={onPressNext}
+          style={nextButtonStyles}
+          icon={false}
+        />
+      </View>
+    )
+  }
+
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}
       backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
+        {isTab && renderTabletTopContainer()}
         <View style={style.textContainer}>
-          {!canGoBack && <Label style={style.titleStyle}>
+          {!canGoBack && <Label style={titleStyle}>
             {ONBOARD_NEWSLETTER_TITLE}
           </Label>}
-          <Label style={style.descStyle}>
+          <Label style={descriptionStyle}>
             {ONBOARD_NEWSLETTER_DESCRIPTION}
           </Label>
         </View>
@@ -236,7 +269,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
           }
         </View>
       </View>
-      {!canGoBack && <>
+      {isTab ? renderTabletBottomContainer() :
+      !canGoBack &&<>
         <View style={style.transparentView} />
         <View style={style.nextButtonView}>
           <NextButton
@@ -268,7 +302,8 @@ const customStyle = (theme: CustomThemeType) => {
     textContainer: {
       flex: 0.15,
       paddingHorizontal: normalize(5),
-      justifyContent:  'center'
+      justifyContent:  'center',
+      marginTop: isTab ? 40 : 0
     },
     titleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,
@@ -277,12 +312,29 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       lineHeight: normalize(30),
     },
+    tabTitleStyle: {
+      fontFamily: fonts.AwsatDigital_Bold,
+      textAlign: 'center',
+      fontSize: 31,
+      color: theme.primary,
+      lineHeight: 48,
+      marginHorizontal: 10,
+    },
     descStyle: {
       fontFamily: fonts.Effra_Arbc_Regular,
       textAlign: 'center',
       fontSize: normalize(15),
       color: theme.secondaryDavyGrey,
       lineHeight: normalize(22),
+    },
+    tabDescStyle: {
+      fontFamily: fonts.Effra_Arbc_Regular,
+      textAlign: 'center',
+      fontSize: 20,
+      color: theme.secondaryDavyGrey,
+      lineHeight:35,
+      marginTop: 5,
+      marginBottom: 50,
     },
     contentStyle: {
       flex: 1,
@@ -331,7 +383,49 @@ const customStyle = (theme: CustomThemeType) => {
     },
     screenBackgroundColor: {
       backgroundColor: theme.profileBackground
-    }
+    },
+    bottomContainer: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      left: 0,
+      height: 211,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    linearGradient: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%'
+    },
+    stepCircleContainer: {
+      marginHorizontal: normalize(0.06 * screenWidth), 
+      height: 51, 
+      marginTop: 10
+    },
   });
   return NewsLetterScreenStyle;
 };
+
+const tabNextButtonStyle = (theme: CustomThemeType) => 
+   StyleSheet.create({
+    nextButtonContainer: {
+      height: 54,
+      backgroundColor: colors.greenishBlue,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      width: 250,
+      paddingHorizontal: 8
+    },
+    nextButtonText: {
+      fontFamily: fonts.AwsatDigital_Bold,
+      color: colors.white,
+      textAlign: 'center',
+      width: '100%',
+      fontSize: 20,
+      paddingTop: 5,
+      lineHeight: 28,
+    },
+});
+

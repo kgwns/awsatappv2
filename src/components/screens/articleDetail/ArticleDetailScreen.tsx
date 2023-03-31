@@ -560,6 +560,7 @@ export const ArticleDetailScreen = ({
             orientation={currentOrientation}
             isFooterOutside={true}
             leftContainerStyle={isTab && style.leftContainerStyle}
+            imageStyleProp={isTab && style.imageContainer}
           />}
       </View>
   )}
@@ -676,7 +677,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingBottom: normalize(80)
   },
   leftContainerStyle: {
-    width: (screenWidth * 0.5 - 40) -  144,
+    width: '70%',
   },
   containerStyle: {
     flex: 1,
@@ -695,5 +696,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   tabItem: {
     paddingHorizontal: normalize(50)
   },
+  imageContainer: {
+    width:'30%'
+  }
 })
 

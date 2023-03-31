@@ -24,6 +24,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     const style = useThemeAwareObject(customStyle)
     const navigation = useNavigation<StackNavigationProp<any>>()
     const [activeJournalist, setActiveJournalist] = useState<boolean[]>([]);
+    const [isJournalist,setJournalist] = useState(false);
     const { emptyJournalistArticleInfo } = useJournalist();
 
     useEffect(() => {
@@ -33,6 +34,10 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     useEffect(() => {
         setActiveJournalist(activeJournalist);
     },[activeJournalist])
+
+     useEffect(() => {
+        setJournalist(true);
+    },[isJournalist])
 
     const getActiveJournalist = async (journalistIdProps: string[]) => {
         const activeJournalistArray: boolean[] = [];
@@ -49,6 +54,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     };
 
     const onPressJournalist = (id: string) => {
+        setJournalist(false);
         emptyJournalistArticleInfo();
         navigation.push(ScreensConstants.JOURNALIST_DETAIL_SCREEN, { tid: id, isRelatedArticle: true })
     }
@@ -62,9 +68,9 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
                     <View key={index} style={[style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]}>
                         {item[index] && <View style={style.rowViewStyle}>
                             <Label children={journalistCity[index] + ' : '} style={style.headerLabel} />
-                            <TouchableOpacity onPress={() => onPressJournalist(item)} disabled={activeJournalist[index]}>
+                            {isJournalist && <TouchableOpacity onPress={() => onPressJournalist(item)} disabled={activeJournalist[index]}>
                                 <Label children={journalistName[index]} style={style.authorLabel} />
-                            </TouchableOpacity>
+                            </TouchableOpacity>}
                             {index !== journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} />}
                         </View>}
                     </View>
