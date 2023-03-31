@@ -315,8 +315,8 @@ export const TimeIcon = (type: DateIcon) => {
   return(
     getSvgImages({
       name: type === DateIcon.CALENDAR ? calendarIcon : ImagesName.clock,
-      width: isTab ? 20 : 12,
-      height: isTab ? 20 : 12,
+      width: 12,
+      height: 12,
       style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
     })
 )}
