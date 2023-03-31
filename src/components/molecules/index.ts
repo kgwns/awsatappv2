@@ -64,4 +64,5 @@ export { PhotoGalleryDetailFooter } from 'src/components/molecules/photogallery/
 export { GridViewItem } from 'src/components/molecules/GridViewItem';
 
 export { Journalist } from 'src/components/molecules/journalists/Journalists'
+export { StepLineCircle } from 'src/components/molecules/stepLineCircle/StepLineCircle'
 export {default as ArchiveArticle} from './ArchiveArticle';
