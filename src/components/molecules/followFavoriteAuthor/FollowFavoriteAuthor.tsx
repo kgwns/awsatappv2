@@ -54,7 +54,7 @@ const FollowFavoriteAuthor = ({
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const size = imageSize;
-  const tabSize = isPortrait ? 0.11 * screenHeight : 0.07 * screenHeight;
+  const tabSize = isPortrait ? 0.1 * screenWidth : 0.09 * screenHeight;
   return (
     <TouchableWithoutFeedback
       onPress={changeStatus}
@@ -87,7 +87,7 @@ const FollowFavoriteAuthor = ({
           {getSvgImages({
               name: isSelected
                 ? ImagesName.authorItemActive
-                : ImagesName.authorItem,
+                : isTab ? ImagesName.tabletAuthorItem : ImagesName.authorItem,
               size: normalize(22),
             })}
         </View>
@@ -99,7 +99,7 @@ const FollowFavoriteAuthor = ({
                 : colors.spanishGray
             }
             style={[
-              style.titleStyle,
+              isTab ? style.tabletTitleStyle : style.titleStyle,
               {
                 width: isTab ? normalize(tabSize) : normalize(size),
               },
@@ -138,13 +138,19 @@ const customStyle = (theme: CustomThemeType) => {
       ?normalize(0.020 * screenHeight)
       :normalize(0.026 * screenHeight),
       alignItems: 'center',
-      backgroundColor: theme.onBoardBackground, 
+      backgroundColor: colors.transparent, 
     },
     titleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'center',
       fontSize: normalize(14),
       lineHeight: normalize(22),
+    },
+    tabletTitleStyle: {
+      fontFamily: fonts.AwsatDigital_Bold,
+      textAlign: 'center',
+      fontSize: normalize(15),
+      lineHeight: normalize(24),
     },
     descStyle: {
       fontFamily: fonts.IBMPlexSansArabic_Regular,
@@ -153,7 +159,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(17),
     },
     tickIconContainer: {
-      bottom: isTab ? normalize(5) : normalize(6)
+      bottom: isTab ? normalize(10) : normalize(6)
     },
   });
   return FollowFavoriteAuthorStyle;
