@@ -10,7 +10,7 @@ interface NextButtonProps {
   onPress: () => void;
   style: {
     nextButtonContainer: {};
-    nextButtonIconContainer: {};
+    nextButtonIconContainer?: {};
     nextButtonText: {};
   };
   icon?:boolean

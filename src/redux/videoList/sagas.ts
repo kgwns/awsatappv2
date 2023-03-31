@@ -17,7 +17,7 @@ export const formatVideoData = (response: any): VideoItemType[] => {
           field_multimedia_section_export,
           field_thumbnil_multimedia_export,description,
           field_jwplayerinfo_export,body_export, 
-          field_video_media_id_export }: any) => ({
+          field_video_media_id_export, link_node }: any) => ({
           nid,
           title: isNotEmpty(title) ? decode(title) : '',
           created_export,
@@ -28,7 +28,8 @@ export const formatVideoData = (response: any): VideoItemType[] => {
           description,
           field_jwplayerinfo_export,
           body_export,
-          mediaId: field_video_media_id_export
+          mediaId: field_video_media_id_export,
+          link_node: isNotEmpty(link_node) ? isNotEmpty(link_node.split("/").pop()) ? link_node : link_node+nid : ''
         })
       );
     }

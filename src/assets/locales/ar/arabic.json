@@ -53,7 +53,8 @@
         },
         "selectTopics": {
             "title": "حدد اهتماماتك",
-            "description": "اختر مواضيعك المفضلة لتحصل عليها في صفحة أخباري ​"
+            "description": "اختر مواضيعك المفضلة لتحصل عليها في صفحة أخباري ​",
+            "tabDescription": "اختر مواضيعك المفضلة "
         },
         "newsLetter": {
             "title": "نشراتك البريدية",
@@ -111,7 +112,8 @@
         }
     },
     "sectionVideo": {
-        "toWatch": "مشاهدة"
+        "toWatch": "مشاهدة",
+        "share": "شارك"
     },
     "categoryPage": {
         "videoContent": "فيديو"
