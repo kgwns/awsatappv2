@@ -256,7 +256,7 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       textAlign: 'center',
       fontSize: 31,
       color: theme.primary,
-      lineHeight: 37,
+      lineHeight: 48,
       marginHorizontal: 10,
     },
     descStyle: {

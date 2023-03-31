@@ -183,6 +183,7 @@ export enum ImagesName {
   playWithBg = 'playWithBg',
   tabPopupLogo = 'tabPopupLogo',
   shareIcon = 'shareIcon',
+  tabletAuthorItem = 'tabletAuthorItem',
   tabletDownArrowIcon = 'tabletDownArrowIcon',
 }
 
