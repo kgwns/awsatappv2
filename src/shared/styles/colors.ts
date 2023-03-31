@@ -170,6 +170,7 @@ export interface CustomThemeType {
   onBoardBackground: string,
   newsFeed: string,
   articleCaption: string,
+  tabOnBoardHeaderBackground: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -236,6 +237,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   onBoardBackground: colors.aquaHaze,
   newsFeed: colors.smokeyGrey,
   articleCaption: colors.charcoalGray,
+  tabOnBoardHeaderBackground: colors.white,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -299,5 +301,6 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   onBoardBackground: colors.codGray,
   newsFeed: colors.white,
   articleCaption: colors.white,
+  tabOnBoardHeaderBackground: colors.codGray,
 }
 

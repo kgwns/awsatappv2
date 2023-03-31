@@ -138,7 +138,7 @@ const customStyle = (theme: CustomThemeType) => {
       ?normalize(0.020 * screenHeight)
       :normalize(0.026 * screenHeight),
       alignItems: 'center',
-      backgroundColor: theme.onBoardBackground, 
+      backgroundColor: colors.transparent, 
     },
     titleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,

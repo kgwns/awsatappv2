@@ -43,6 +43,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => renderItem(item)}
         style={style.tabletWideMargin}
+        contentContainerStyle={style.tabletBottomPadding}
         bounces={false}
       />
     )
@@ -80,7 +81,10 @@ const customStyle = (theme: CustomThemeType) => {
       alignContent: 'center',
     },
     tabletWideMargin: {
-      marginHorizontal: normalize(0.04 * screenWidth)
+      marginHorizontal: normalize(0.04 * screenWidth),
+    },
+    tabletBottomPadding: {
+      paddingBottom: 200
     },
     mobileWideMargin: {
       marginHorizontal: normalize(0.04 * screenWidth)

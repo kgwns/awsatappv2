@@ -20,7 +20,7 @@ export const StepLineCircle: FunctionComponent<StepLineCircleProps> = ({
     const { theme } = useAppCommon()
     const isDarkMode = isDarkTheme(theme)
     const renderCircle = (step: number, totalStep: number) => {
-        const left = step == currentStep ? 0 : step == totalStep ? '99%' : `${(step - 1) * (100 / (totalStep - 1))}%`;
+        const left = step == 1 ? -15 : step == totalStep ? '99%' : `${(step - 1) * (100 / (totalStep - 1))}%`;
         const backgroundColor = step == currentStep ? colors.greenishBlue : (isDarkMode ? colors.black : colors.cyanGray);
         const borderColor = step == currentStep ? colors.greenishBlue : (isDarkMode ? colors.white : colors.cyanGray);
         return (
@@ -63,6 +63,6 @@ const stepLineCircleStyle = (theme: CustomThemeType) =>
             fontSize: 16,
             lineHeight: 20,
             fontFamily: fonts.AwsatDigitalV2_Bold,
-            paddingTop: 2
+            paddingTop: 3
         }
     });
