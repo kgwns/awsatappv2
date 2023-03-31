@@ -1209,6 +1209,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: 36,
       fontFamily: fonts.AwsatDigital_Black,
       textAlign: 'center',
+      paddingTop: 22
     },
   })
 }
