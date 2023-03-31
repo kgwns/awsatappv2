@@ -102,6 +102,12 @@ export const colors = {
   lightAlterGray: '#D1DEDD',
   blackOpacity60: '#00000099',
   darkFungusGreen: '#172F2F',
+  blackOpacity0: '#00000000',
+  blackOpacity80: '#000000CC',
+  blackOpacity100: '#000000FF',
+  whiteOpacity0: '#F9FBFB00',
+  whiteOpacity80: '#F9FBFBCC',
+  whiteOpacity100: '#F9FBFBFF',
 };
 
 export interface CustomThemeType {

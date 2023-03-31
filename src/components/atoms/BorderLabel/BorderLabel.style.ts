@@ -19,12 +19,30 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
       borderColor: Styles.color.cyanGray,
       backgroundColor: theme.onBoardBackground
     },
+    tagTabContainer: {
+      height: 51,
+      paddingVertical: 6,
+      borderRadius: 25,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: Styles.color.cyanGray,
+      backgroundColor: theme.onBoardBackground
+    },
     labelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: fontSizeValue,
       lineHeight: lineHeightValue,
       paddingHorizontal: normalize(20),
       paddingBottom: normalize(5),
+      color: theme.primaryBlack
+    },
+    labelTabStyle: {
+      fontFamily: fonts.AwsatDigital_Regular,
+      fontSize: 20,
+      lineHeight: 28,
+      paddingHorizontal: 20,
+      paddingTop: 5,
       color: theme.primaryBlack
     },
     selectedTagContainer: {
@@ -37,12 +55,30 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
       borderColor: theme.primary,
       backgroundColor: theme.primary
     },
+    selectedTabTagContainer: {
+      height: 51,
+      paddingVertical: 6,
+      borderRadius: 25,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderWidth: 1,
+      borderColor: theme.primary,
+      backgroundColor: theme.primary
+    },
     selectedLabelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: fontSizeValue,
       lineHeight: lineHeightValue,
       paddingHorizontal: normalize(20),
       paddingBottom: normalize(5),
+      color: Styles.color.white
+    },
+    selectedTabLabelStyle: {
+      fontFamily: fonts.AwsatDigital_Regular,
+      fontSize: 20,
+      lineHeight: 28,
+      paddingHorizontal: 20,
+      paddingTop: 5,
       color: Styles.color.white
     }
   });
