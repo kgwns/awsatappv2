@@ -176,9 +176,9 @@ const customStyle = (theme: CustomThemeType) => {
     const videoContentStyle = StyleSheet.create({
         container: {
             height: 'auto',
-            backgroundColor: theme.sectionStoryVideo,
+            backgroundColor: isTab ? theme.sectionStoryVideo : theme.secondaryWhite,
             paddingBottom: isTab ? 0 : 20,
-            marginLeft: -20
+            marginLeft: isTab ? -20 : 0
         },
         videoCardContainer: {
             backgroundColor: isTab ? theme.sectionStoryVideo : theme.secondaryWhite,
