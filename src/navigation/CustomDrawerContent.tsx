@@ -366,6 +366,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }
 
   const socialIconSize = isTab ? 33 : 23;
+  const contactUsTitleStyle = isTab ? styles.tabletTitleStyle : styles.nonBoldTitle; 
 
   return (
     <ScreenContainer showPlayer={false} backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
@@ -382,7 +383,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         <View style={styles.menuContainer}>
           {sideMenuDataInfo.length > 0 &&
             sideMenuDataInfo.map((item: any, index: number) => {
-              const icon = isNonEmptyArray(item.child) ? ImagesName.downArrowIcon : null
+              const icon = isNonEmptyArray(item.child) ? isTab ? ImagesName.tabletDownArrowIcon : ImagesName.downArrowIcon : null
               return (
                 <View key={index}>
                   {buttonListItem({isChild: false, item, index, icon, isSubChild: false, parentIndex: index})}
@@ -402,7 +403,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: ADVERTISE_WITH_US, id: ADVERTISE_INFO_ID }
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
           />
           {/* <ButtonList
             title={t('drawer.aboutTheEast')}
@@ -410,7 +411,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: t('drawer.aboutTheEast'), id: AWSATT_HISTORY_INFO_ID }
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
           /> */}
           <ButtonList
             title={ABOUT_THE_MIDDLE_EAST}
@@ -418,7 +419,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: ABOUT_THE_MIDDLE_EAST, id: ABOUT_US }
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
           />
           <ButtonList
             title={CALL_US}
@@ -426,7 +427,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               ScreensConstants.CONTACT_US_SCREEN, {}
 
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
           />
           <ButtonList
             title={TERMS_OF_USE}
@@ -434,7 +435,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: TERMS_OF_USE, id: TERMS_AND_CONDITION }
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
           />
 
           <View style={styles.socialContainer}>
@@ -618,5 +619,12 @@ const createStyles = (theme: CustomThemeType) =>
     },
     screenBackgroundColor: {
       backgroundColor: theme.profileBackground
-    }
+    },
+    tabletTitleStyle: {
+      fontFamily: fonts.Effra_Arbc_Regular,
+      fontSize: 20,
+      lineHeight: 35,
+      fontWeight:"400",
+      color: theme.contactUsTitleColor,
+    },
   });
