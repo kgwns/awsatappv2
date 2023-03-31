@@ -108,6 +108,8 @@ export const colors = {
   whiteOpacity0: '#F9FBFB00',
   whiteOpacity80: '#F9FBFBCC',
   whiteOpacity100: '#F9FBFBFF',
+  black900: '#041313',
+  green600: '#485655',
 };
 
 export interface CustomThemeType {

@@ -179,7 +179,7 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
   const minuteValue = calculateMinutes(time)
   const minuteString = minuteValue  < 10 ? '0' + minuteValue : minuteValue
 
-  const timeAgoFormatInfo = `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  const timeAgoFormatInfo = isTab ?  `${calculateDateNumber(time)}/${calculateMothNumber(time)} - ${hourString}:${minuteString}` : `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
   const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
   return { icon: DateIcon.CALENDAR, time: fullDateFormat }
 };
@@ -315,8 +315,8 @@ export const TimeIcon = (type: DateIcon) => {
   return(
     getSvgImages({
       name: type === DateIcon.CALENDAR ? calendarIcon : ImagesName.clock,
-      width: isTab ? 20 : 12,
-      height: isTab ? 20 : 12,
+      width: 12,
+      height: 12,
       style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
     })
 )}

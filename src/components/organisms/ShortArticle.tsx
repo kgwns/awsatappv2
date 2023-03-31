@@ -80,7 +80,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
   const { isLoggedIn } = useLogin()
   const style = useThemeAwareObject(customStyle);
   const [articleData, setArticleData] = useState(data)
-  const { isPortrait } = useOrientation();
+
   useEffect(() => {
     updateData()
   }, [data])
@@ -96,6 +96,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     setArticleData(updatedData)
     onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
   }
+  const { isPortrait } = useOrientation();
 
   const checkAndUpdateBookmark = (index: number) => {
     isLoggedIn ? onPressBookmark(index) : showSignUpPopUp()
@@ -212,8 +213,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingRight: normalize(12),
   },
   footerLandscapeStyle: {
-    width: '75%',
-    flexWrap:'wrap',
+    width: '70%',
     paddingRight: normalize(12),
   },
   cardContainer: {
@@ -225,7 +225,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     height: isTab ? normalize(80) : normalize(65),
   },
   imageContainerLandscape: {
-    width: imageContainerWidth,
+    width: '30%',
   },
   hideImage: {
     flex: 1,
@@ -246,7 +246,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   containerStyle: {
     flexDirection: 'row' ,
-    justifyContent:'space-around',
+    justifyContent:'space-between',
   },
   articleFooterStyle: {
     flex: 1 

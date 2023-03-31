@@ -15,7 +15,9 @@ export interface ArticleItemProps extends articleProps {
     showDivider?: boolean,
     showFooterTitle?: boolean,
     containerStyle?: ViewStyle,
-    isJournalist?: boolean
+    isJournalist?: boolean,
+    mainContainerStyle?: ViewStyle,
+    tabletArticleContainerStyle?: ViewStyle
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({
@@ -28,6 +30,8 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     hideImage,
     containerStyle,
     isJournalist = false,
+    mainContainerStyle,
+    tabletArticleContainerStyle,
     ...props
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -43,9 +47,9 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     }
 
     return (
-        <FixedTouchable onPress={onPress} style={style.mainContainer}>
+        <FixedTouchable onPress={onPress} style={[style.mainContainer,mainContainerStyle]}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
-                style={StyleSheet.flatten([style.container, articleItemStyle])}>
+                style={StyleSheet.flatten([style.container, articleItemStyle,tabletArticleContainerStyle])}>
                 {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}

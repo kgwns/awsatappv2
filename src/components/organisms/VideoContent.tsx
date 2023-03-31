@@ -1,6 +1,6 @@
 import { View, StyleSheet, FlatList } from 'react-native';
 import React, { useState } from 'react';
-import { Label, LabelTypeProp, ImageWithIcon } from '../atoms';
+import { Label, LabelTypeProp, ImageWithIcon, Divider } from '../atoms';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Styles } from 'src/shared/styles';
 import { SectionVideoFooter } from '../molecules';
@@ -26,11 +26,13 @@ export interface videoProps {
 export const VideoContent = ({ 
     data, 
     onPress,
-    isTabDesign = false
+    isTabDesign = false,
+    isVideoList = false
 }: { 
     data: VideoItemType[], 
     onPress?: (item: VideoItemType) => void,
-    isTabDesign?: boolean
+    isTabDesign?: boolean,
+    isVideoList?: boolean
 }) => {
     const CATEGORY_PAGE_VIDEO_CONTENT = TranslateConstants({key:TranslateKey.CATEGORY_PAGE_VIDEO_CONTENT})
     const theme = useTheme();
@@ -58,23 +60,36 @@ export const VideoContent = ({
         const date = timeFormat.time
         const time = item.field_jwplayerinfo_export ? convertSecondsToHMS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
-        const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, marginBottom: normalize(30) } :
-            index === data.length - 1 && { marginRight: 0.04 * screenWidth }
+        const itemStyle = !isVideoList && index === data.length - 1 && { marginRight: 0.04 * screenWidth }
 
         const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)} testID = "videoContentPressId">
-                <View style={[style.videoCardContainer, itemStyle]}>
-                    <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
+                <View style={[ isVideoList ? style.tabVideoCardContainer : style.videoCardContainer, itemStyle]}>
+                    {isVideoList ? <View style = {style.tabVideoContainer}>
+                    <View style = {style.tabVideoLabelContainer}>
+                        <Label
+                            numberOfLines={3}
+                            onTextLayout={onTextLayout}
+                            style={[style.tabTextStyle]}
+                            labelType={LabelTypeProp.h3}>
+                            {decode(item.title)}
+                        </Label>
+                    </View>
+                        <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)} isVideoList = {isVideoList}  />
+                        <Divider style={style.divider} />
+                    </View> :
+                    <>
+                    <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)} />
                     <Label
                         numberOfLines={isTab ? 3 : 2}
                         onTextLayout={onTextLayout}
-                        style={[style.textStyle, !isTab && moreStyle]}
+                        style={[style.textStyle,moreStyle]}
                         labelType={LabelTypeProp.h3}>
                         {decode(item.title)}
                     </Label>
                     
-                    <SectionVideoFooter
+                   <SectionVideoFooter
                         leftTitleColor={style.footerTitleColor.color}
                         rightIcon={() => TimeIcon(timeFormat.icon)}
                         rightDate={date}
@@ -82,18 +97,29 @@ export const VideoContent = ({
                         rightTitleColor={style.footerTitleColor.color}
                         leftViewsColor={theme.themeData.primary}
                     />
+                    </>
+                    }
+
                 </View>
             </TouchableOpacity>
         )
     }
     return (
-        <View style={style.container}>
-            <Label style={style.titleTextStyle} labelType={LabelTypeProp.title3} children={CATEGORY_PAGE_VIDEO_CONTENT} numberOfLines={2} />
+        <View style={ isVideoList ? style.tabContainer : style.container}>
+
+            {
+                isVideoList ? <Divider style={style.divider} /> :
+                <Label style={style.titleTextStyle} 
+                    labelType={LabelTypeProp.title3} 
+                    children={CATEGORY_PAGE_VIDEO_CONTENT}
+                    numberOfLines={2} 
+                />
+            }
             <FlatList
                 horizontal={!isTabDesign}
                 keyExtractor={(_, index) => index.toString()}
                 listKey={flatListUniqueKey.VIDEO_CONTENT}
-                style={style.listContainer}
+                style={ !isVideoList && style.listContainer}
                 data={data}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
@@ -160,6 +186,35 @@ const customStyle = (theme: CustomThemeType) => {
         },
         footerTitleColor: {
             color: theme.footerTextColor
+        },
+        tabContainer: {
+            height: 'auto',
+            paddingBottom: isTab ? 0 : 20,
+        },
+        tabVideoCardContainer: {
+            flex: 1,
+        },
+        tabTextStyle: {
+            paddingVertical: normalize(10),
+            fontFamily: fonts.AwsatDigital_Bold,
+            fontWeight: '700',
+            fontSize: 18,
+            lineHeight: 29,
+        },
+        tabVideoLabelContainer: {
+            flex:1
+        },
+        tabVideoContainer: {
+            flexDirection:'row',
+            width:'100%',
+            justifyContent:'space-between',
+            flexWrap:'wrap'
+        },
+        divider: {
+            height: 1,
+            backgroundColor: theme.dividerColor,
+            marginTop: 20,
+            marginBottom:20
         },
     })
     return videoContentStyle

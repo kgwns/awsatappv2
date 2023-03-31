@@ -30,7 +30,7 @@ const archiveFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice,
   bookMarkColorType: BookMarkColorType.WHITE,
   leftTitleStyle: { fontWeight: 'bold' },
-  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20, }
+  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
 }
 
 export interface ArchiveArticleProps extends BannerImageWithOverlayProps {
@@ -46,7 +46,8 @@ export interface ArchiveArticleProps extends BannerImageWithOverlayProps {
   titleStyle?: StyleProp<TextStyle>,
   leftTitleColor?: string;
   showDivider?: boolean,
-  contentStyle?: StyleProp<TextStyle>
+  contentStyle?: StyleProp<TextStyle>,
+  rightTitleStyle?: StyleProp<TextStyle>,
 }
 
 const ArchiveArticle = ({
@@ -63,13 +64,14 @@ const ArchiveArticle = ({
   contentStyle,
   isAlbum,
   displayType,
+  rightTitleStyle
 }: ArchiveArticleProps) => {
 
   const navigation = useNavigation<StackNavigationProp<any>>()
   const { themeData } = useTheme();
   const timeFormat = dateTimeAgo(created)
   const isDark = themeData?.id === DARK_THEME_ID
-
+  archiveFooterSample.rightTitleStyle = rightTitleStyle
   const onPress = () => {
     if (nid) {
       const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
@@ -97,7 +99,7 @@ const ArchiveArticle = ({
             <ArticleFooter {...archiveFooterSample}
               rightTitle={timeFormat.time}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
-              rightTitleColor={isDark ? Styles.color.silverChalice : Styles.color.black}
+              rightTitleColor={isDark ? Styles.color.silverChalice : isTab ? Styles.color.black900 : Styles.color.black}
               rightContainerStyle={rightContainerStyle}
               rightIcon={() => TimeIcon(timeFormat.icon)}
               hideBookmark={true}
