@@ -4,6 +4,8 @@ import { Label } from 'src/components/atoms/label/Label'
 import { fonts } from 'src/shared/styles/fonts'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
+import { useAppCommon } from 'src/hooks'
+import { isDarkTheme } from 'src/shared/utils'
 
 export interface StepLineCircleProps {
     currentStep: number;
@@ -12,14 +14,17 @@ export interface StepLineCircleProps {
 
 export const StepLineCircle: FunctionComponent<StepLineCircleProps> = ({
     currentStep,
-    totalStep = 4,
+    totalStep = 3,
 }) => {
     const style = useThemeAwareObject(stepLineCircleStyle);
+    const { theme } = useAppCommon()
+    const isDarkMode = isDarkTheme(theme)
     const renderCircle = (step: number, totalStep: number) => {
         const left = step == currentStep ? 0 : step == totalStep ? '99%' : `${(step - 1) * (100 / (totalStep - 1))}%`;
-        const backgroundColor = step == currentStep ? colors.greenishBlue : colors.cyanGray;
+        const backgroundColor = step == currentStep ? colors.greenishBlue : (isDarkMode ? colors.black : colors.cyanGray);
+        const borderColor = step == currentStep ? colors.greenishBlue : (isDarkMode ? colors.white : colors.cyanGray);
         return (
-            <View key={step} style={[style.circleContainer, { backgroundColor: backgroundColor, left: left }]}>
+            <View key={step} style={[style.circleContainer, { backgroundColor: backgroundColor, left: left, borderWidth: 1, borderColor: borderColor }]}>
                 <Label children={step.toString()} style={style.labelStyle} />
             </View>
         )

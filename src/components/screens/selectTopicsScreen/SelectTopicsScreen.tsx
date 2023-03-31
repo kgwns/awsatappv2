@@ -2,11 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert, FlatList } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { BorderLabel, Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, isDarkTheme } from 'src/shared/utils';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
-import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
+import { useAllSiteCategories, useAppCommon, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { useIsFocused } from '@react-navigation/native';
@@ -27,6 +27,8 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
     updateAllSiteCategoriesData, 
     emptySendTopicsInfoData } = useAllSiteCategories();
   const {userProfileData} = useUserProfileData();
+  const { theme } = useAppCommon()
+  const isDarkMode = isDarkTheme(theme)
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [categoriesInfo, setCategoriesInfo] = useState<AllSiteCategoriesItemType[]>([])
   const [updatedTopics, setUpdatedTopics] = useState<string[]>([])
@@ -126,7 +128,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
         {isNonEmptyArray(categoriesInfo) &&
           <FlatList
             keyExtractor={(_, index) => index.toString()}
-            listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
+            listKey={`${flatListUniqueKey.INTERESTED_TOPICS}${new Date().getTime().toString()}`}
             data={categoriesInfo}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item, index }) => renderItem(item, index)}
@@ -140,9 +142,10 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
     )
   }
   const renderBottomContainer = () => {
+    const gradient = isDarkMode ? [colors.blackOpacity0,colors.blackOpacity80,colors.blackOpacity100] : [colors.whiteOpacity0,colors.whiteOpacity80,colors.whiteOpacity100];
     return (
       <View style={style.bottomContainer}>
-        <LinearGradient colors={['rgba(249, 251, 251, 0)', 'rgba(249, 251, 251, 0.8)', 'rgba(249, 251, 251, 1)']} style={style.linearGradient} />
+        <LinearGradient colors={gradient} style={style.linearGradient} />
         <NextButton
           testID="nextButtonTestId"
           disabled={disableNext}
@@ -166,7 +169,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const renderTopContainer = () => {
     return (
-      <View style={{ marginHorizontal: 0.04 * screenWidth, height: 51, marginTop: 10 }}>
+      <View style={style.stepCircleContainer}>
         <StepLineCircle currentStep={1} />
       </View>
     )
@@ -333,6 +336,11 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       flexWrap: 'wrap',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+    stepCircleContainer: {
+      marginHorizontal: normalize(0.06 * screenWidth), 
+      height: 51, 
+      marginTop: 10
     }
 });
 
