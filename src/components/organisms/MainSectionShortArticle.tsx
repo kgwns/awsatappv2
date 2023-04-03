@@ -126,7 +126,7 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
               </View> */}
         <View style={[labelContainerStyle, leftContainerStyle, hideImage && style.hideImage]}>
           <View style={style.imageContainer}>
-            {!hideImage && <View style={style.tabImage}>
+            {!hideImage && <View style={style.tabImage} testID='imageId'>
               <Image fallback url={getImageUrl(item.image)} style={style.imageStyle} resizeMode={ImageResize.COVER} />
               {isAlbum && <RenderPhotoIcon />}
             </View>}
