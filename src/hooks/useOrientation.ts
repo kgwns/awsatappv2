@@ -2,7 +2,12 @@ import { useIsFocused } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { Dimensions } from 'react-native';
 
-export const useOrientation = () => {
+export type UseOrientationReturn = {
+  isPortrait: boolean;
+  isLandscape: boolean
+}
+
+export const useOrientation = (): UseOrientationReturn => {
   
   const PORTRAIT = 'PORTRAIT';
   const LANDSCAPE = 'LANDSCAPE';
