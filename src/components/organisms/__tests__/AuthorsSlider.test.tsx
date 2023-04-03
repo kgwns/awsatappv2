@@ -150,7 +150,16 @@ describe('<AuthorSlider>', () => {
     }
 
     const sampleData: any = [
-      {image: 'image', nid: 'nid', author: 'author', created: 'created'},
+      {
+        image: 'image', 
+        nid: 'nid',
+        title: 'title', 
+        author: 'author', 
+        created: 'created',
+        field_opinion_writer_node_export:{
+          opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        }
+      },
     ];
 
     beforeEach(() => {
@@ -203,19 +212,19 @@ describe('<AuthorSlider>', () => {
     });
 
     test('Should call FlatList onPress', () => {
-      const element = instance.container.findAllByType(FlatList)[1]
-      fireEvent(element, 'renderItem', {item: mockItem, index: 2});
+      const element = instance.container.findAllByType(FlatList)[0]
+      fireEvent(element, 'renderItem', {item: sampleData[0], index: 2});
       expect(mockFunction).toBeTruthy()
     });
 
     test('Should call FlatList keyExtractor', () => {
-      const element = instance.container.findAllByType(FlatList)[1]
+      const element = instance.container.findAllByType(FlatList)[0]
       fireEvent(element, 'keyExtractor', '', 2);
       expect(mockFunction).toBeTruthy()
     });
 
     it('when PodcastVerticalList only When onPressBookmark', () => {
-      const testID = instance.container.findAllByType(FlatList)[1];
+      const testID = instance.container.findAllByType(FlatList)[0];
       fireEvent(testID, 'ItemSeparatorComponent');
       expect(<Divider />).toBeTruthy();
     });
