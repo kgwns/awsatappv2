@@ -111,7 +111,7 @@ export const colors = {
   whiteOpacity100: '#F9FBFBFF',
   black900: '#041313',
   green600: '#485655',
-  paleGray: '#E4EDEC'
+  greenishCyan: '#E4EDEC'
 };
 
 export interface CustomThemeType {
@@ -246,7 +246,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   articleCaption: colors.charcoalGray,
   tabOnBoardHeaderBackground: colors.white,
   contactUsTitleColor: colors.darkFungusGreen,
-  sectionStoryVideo: colors.paleGray,
+  sectionStoryVideo: colors.greenishCyan,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {

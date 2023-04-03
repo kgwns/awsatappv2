@@ -134,7 +134,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
             renderItem={({ item, index }) => renderItem(item, index)}
             contentContainerStyle={style.itemContainer}
             columnWrapperStyle={style.wrapperStyle}
-            numColumns={categoriesInfo.length}
+            numColumns={categoriesInfo.length > 1 ? categoriesInfo.length : 5}
             showsVerticalScrollIndicator={false}
           />
         }

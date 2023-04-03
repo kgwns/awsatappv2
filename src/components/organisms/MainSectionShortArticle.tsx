@@ -1,11 +1,15 @@
 import {
   View,
   StyleSheet,
-  FlatList,
   StyleProp,
   ViewStyle,
   Dimensions,
 } from 'react-native';
+/*
+** Horizontal scroll is not working properly By Importing Flatlist using 'react-native' in Android.
+** So, We have fixed this by Importing Flatlist from 'react-native-gesture-handler'
+*/
+import { FlatList } from 'react-native-gesture-handler';  
 import React, { useEffect, useState } from 'react';
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'

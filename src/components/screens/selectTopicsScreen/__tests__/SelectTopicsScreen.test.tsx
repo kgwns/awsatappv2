@@ -145,6 +145,7 @@ describe('<SelectTopicsScreen>', () => {
   });
 
   test('Should render SelectTopicScreen in iOS', () => {
+    DeviceTypeUtilsMock.isTab = false;
     DeviceTypeUtilsMock.isIOS = true;
     expect(instance).toBeDefined();
   });
