@@ -10,10 +10,8 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer'
 import { useLogin } from 'src/hooks';
 import { FlatList } from 'react-native'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms'
-import { ArticleDetailFooter } from 'src/components/molecules'
 import * as ArticleDetailSaga from 'src/redux/articleDetail/sagas';
-import { requestArticleDetail } from 'src/services/articleDetailService'
-import { AxiosError } from 'axios'
+import 'moment/locale/ar';
 
 const sampleData = { params: { nid: '123', isRelatedArticle: true } };
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
@@ -131,11 +129,15 @@ const sampleData1: ArticleDetailDataType[] = [
     caption: 'example',
     subtitle: 'example',
     jwplayerId: '12',
-    created: 'example',
+    created:  '',
     journalistCity: [],
     journalistId: [],
     journalistName: [],
     richHTML: richHTMLMock,
+    publishedDate: '',
+    shortUrl: 'www.example.com',
+    link_node: 'www.example.com',
+    scribbleLiveId: '123',
   },
 ];
 
@@ -155,24 +157,7 @@ const sampleData3: RelatedArticleDataType[] = [
       name: 'name'
     },
     author: 'author',
-    created: '23/10/2021'
-  },
-  {
-    isBookmarked: true,
-    title: 'abc',
-    body: 'body',
-    nid: '122',
-    image: 'abc',
-    view_node: 'node',
-    news_categories: {
-      id: '12',
-      title: 'qbc',
-      url: 'url',
-      bundle: 'bundle',
-      name: 'name'
-    },
-    author: 'author',
-    created: '23/10/2021'
+    created: '',
   },
 ];
 
@@ -431,8 +416,9 @@ describe('should call parseArticleDetailSuccess', () => {
       journalistCity: ['journalistCity'],
       shortUrl: 'shortURL',
       scribbleLiveId: 'scribbleLiveId',
-      created:'created',
-      link_node: 'linkNode'
+      created:  '',
+      link_node: 'linkNode',
+      publishedDate: '',
     }],
     pager:{
       current_page: 34,

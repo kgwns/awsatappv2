@@ -74,6 +74,9 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
     );
 
     const renderDate = (title: string, date: string, valueStyle?: StyleProp<TextStyle>) => {
+        if(!isNotEmpty(date)) {
+            return null;
+        }
         const hijriDate = formatHijri(date);
         const gregorianDate = formatGregorian(date);
         const value = `${gregorianDate} ${DATE_SEPARATOR} ${hijriDate}`;
