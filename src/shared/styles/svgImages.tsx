@@ -193,6 +193,9 @@ import BlackDownArrow from 'src/assets/images/icons/blackDownArrow.svg'
 import BookmarkBold from 'src/assets/images/icons/detail/bookmark_bold_icon.svg';
 import ShareBold from 'src/assets/images/icons/detail/share_bold_icon.svg';
 import FontScalingBold from 'src/assets/images/icons/detail/font_scaling_bold_icon.svg';
+import BookmarkBoldWhite from 'src/assets/images/icons/detail/bookmark_bold_white_icon.svg';
+import ShareBoldWhite from 'src/assets/images/icons/detail/share_bold_white_icon.svg';
+import FontScalingBoldWhite from 'src/assets/images/icons/detail/font_scaling_bold_white_icon.svg';
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -452,11 +455,11 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
         case ImagesName.shareIcon:
             return <ShareIcon {...props} />
         case ImagesName.bookmarkBold:
-            return <BookmarkBold {...props} />
+            return isDark ? <BookmarkBoldWhite {...props} /> : <BookmarkBold {...props} />;
         case ImagesName.shareBold:
-            return <ShareBold {...props} />
+            return isDark ? <ShareBoldWhite {...props} /> : <ShareBold {...props} />;
         case ImagesName.fontScalingBold:
-            return <FontScalingBold {...props} />
+            return isDark ? <FontScalingBoldWhite {...props} /> : <FontScalingBold {...props} />;
         case ImagesName.tabletAuthorItem:
             return <AddAuthorIcon {...props} />
         case ImagesName.tabletDownArrowIcon:
