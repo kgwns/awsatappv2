@@ -51,7 +51,7 @@ export const VideosVerticalList = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const PodcastCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     cardContainer: {
       flex:1,
       backgroundColor: theme.backgroundColor,
@@ -98,5 +98,4 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'flex-start'
     }
   });
-  return PodcastCardStyle;
 };

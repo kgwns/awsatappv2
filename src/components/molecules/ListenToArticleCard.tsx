@@ -6,7 +6,7 @@ import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {isIOS, normalize} from 'src/shared/utils';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { useAppPlayer } from 'src/hooks';
@@ -104,7 +104,7 @@ return (
 };
 export default ListenToArticleCard;
 const customStyle = (theme: CustomThemeType) => {
-  const ListenToArticleCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flexWrap: 'wrap',
       alignSelf: 'flex-start',
@@ -140,5 +140,4 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems:'center',
     },
   });
-  return ListenToArticleCardStyle;
 };

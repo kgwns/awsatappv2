@@ -9,7 +9,6 @@ import {fonts} from 'src/shared/styles/fonts';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {getImageUrl, TimeIcon} from 'src/shared/utils/utilities';
-import {Styles} from 'src/shared/styles';
 import {AlbumListItemType} from 'src/redux/photoGallery/types';
 import {useLogin} from 'src/hooks';
 

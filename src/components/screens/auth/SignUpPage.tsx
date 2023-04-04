@@ -7,11 +7,10 @@ import {
   TouchableOpacity,
   Alert,
   Keyboard,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
 import {isIOS, normalize, recordLogEvent} from 'src/shared/utils';
-import {ScreensConstants} from 'src/constants/Constants';
+import {ScreensConstants,TranslateConstants,TranslateKey} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -36,7 +35,6 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
-import { TranslateConstants,TranslateKey } from 'src/constants/Constants';
 export interface SignUpPageProps {
   route: any;
 }

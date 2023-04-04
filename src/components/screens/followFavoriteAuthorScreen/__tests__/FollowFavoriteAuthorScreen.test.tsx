@@ -6,6 +6,7 @@ import {FollowFavoriteAuthorScreen} from '../FollowFavoriteAuthorScreen';
 import { AllWritersItemType } from 'src/redux/allWriters/types';
 import { useAllWriters } from 'src/hooks';
 import { NextButton } from 'src/components/atoms/NextButton/NextButton';
+import { FollowFavoriteAuthorWidget } from 'src/components/organisms';
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
@@ -66,8 +67,8 @@ describe('<FollowFavoriteAuthorScreen>', () => {
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
-    (useState as jest.Mock).mockImplementation(() => [sampleData, writersData]);
     (useState as jest.Mock).mockImplementation(() => [[], setUpdatedWriters]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, writersData]);
     useAllWritersMock.mockReturnValue({
       isLoading: false,
       allWritersData: [
@@ -145,8 +146,8 @@ describe('<FollowFavoriteAuthorScreen>', () => {
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
-    (useState as jest.Mock).mockImplementation(() => [sampleData, writersData]);
     (useState as jest.Mock).mockImplementation(() => [[], setUpdatedWriters]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, writersData]);
     useAllWritersMock.mockReturnValue({
       isLoading: false,
       allWritersData: [
@@ -224,8 +225,8 @@ describe('<FollowFavoriteAuthorScreen>', () => {
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useAllWriters as jest.Mock).mockImplementation(useAllWritersMock);
-    (useState as jest.Mock).mockImplementation(() => [sampleData, writersData]);
     (useState as jest.Mock).mockImplementation(() => [[], setUpdatedWriters]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData, writersData]);
     useAllWritersMock.mockReturnValue({
       isLoading: false,
       allWritersData: [
@@ -278,6 +279,11 @@ describe('<FollowFavoriteAuthorScreen>', () => {
   test('Should render FollowFavoriteAuthorScreen', () => {
     expect(instance).toBeDefined();
   });
+
+  test("test changeSelectedStatus function",() => {
+    const element = instance.container.findByType(FollowFavoriteAuthorWidget);
+    fireEvent(element,'changeSelectedStatus',{tid:'1',isSelected:false},true)
+  })
 
 });
 

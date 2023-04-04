@@ -21,6 +21,7 @@ export const fetchAllWritersApi = async (body: AllWritersBodyGet) => {
             );
         return response;
     } catch (error) {
+        console.log('allWritersService - fetchAllWritersApi - error', error)
         throw error;
     }
 };
@@ -36,6 +37,7 @@ export const sendSelectedWritersApi = async (body: SendSelectedAuthorBody) => {
             );
         return response;
     } catch (error) {
+        console.log('allWritersService - sendSelectedWritersApi - error', error)
         throw error;
     }
 };
@@ -48,6 +50,7 @@ export const getSelectedAuthorsApi = async () => {
             );
         return response;
     } catch (error) {
+        console.log('allWritersService - getSelectedAuthorsApi - error', error)
         throw error;
     }
 };
@@ -62,6 +65,7 @@ export const removeWritersApi = async (body: RemoveAuthorBody) => {
             );
         return response;
     } catch (error) {
+        console.log('allWritersService - removeWritersApi - error', error)
         throw error;
     }
 };
@@ -74,6 +78,7 @@ export const fetchAllSelectedWritersDataApi = async (body: AllSelectedWritersDet
             );
         return response;
     } catch (error) {
+        console.log('allWritersService - fetchAllSelectedWritersDataApi - error', error)
         throw error;
     }
 };

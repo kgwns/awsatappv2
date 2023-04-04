@@ -3,7 +3,7 @@ import { SaveTokenAfterRegistraionBodyType, SaveTokenBodyType, SaveTokenSuccessP
 import { SaveToken, SaveTokenAfterRegistration } from 'src/redux/notificationSaveToken/action';
 import { getIsLoading, getSaveTokenError, getSaveTokenInfo } from 'src/redux/notificationSaveToken/selectors';
 
-export interface useSaveTokenReturn {
+export interface UseSaveTokenReturn {
   isSaveTokenLoading: boolean;
   saveTokenData: SaveTokenSuccessPayloadType | null;
   saveTokenError: string;
@@ -11,7 +11,7 @@ export interface useSaveTokenReturn {
   saveTokenAfterRegistrationRequest(payload: SaveTokenAfterRegistraionBodyType): void;
 }
 
-export const useNotificationSaveToken = (): useSaveTokenReturn => {
+export const useNotificationSaveToken = (): UseSaveTokenReturn => {
   const dispatch = useDispatch();
   const isSaveTokenLoading = useSelector(getIsLoading);
   const saveTokenData = useSelector(getSaveTokenInfo);

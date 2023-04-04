@@ -3,11 +3,10 @@ import {StyleSheet, View} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import { isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
 import {Divider, HtmlRenderer, Label} from '../atoms';
-import { Styles} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {
   ArticleFooter,
-  articleFooterProps,
+  ArticleFooterProps,
   ListenToArticleCard,
   WriterBannerImage,
 } from '../molecules';
@@ -105,7 +104,7 @@ export const OpinionArticleDetailWidget = ({
 
   const timeFormat = dateTimeAgo(data.created_export)
 
-  const articleDetailFooterData: articleFooterProps = {
+  const articleDetailFooterData: ArticleFooterProps = {
     leftTitleColor: style.footerTitleColor.color,
     leftIcon: () => TimeIcon(timeFormat.icon),
     leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: isIOS ? 20 : 25 },
@@ -158,7 +157,7 @@ export const OpinionArticleDetailWidget = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionArticleDetailWidgetStyle = StyleSheet.create({
+  return StyleSheet.create({
     contentContainer: {
       paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
       paddingTop: normalize(0.02 * screenWidth),
@@ -194,5 +193,4 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.footerTextColor
     },
   });
-  return OpinionArticleDetailWidgetStyle;
-};
+  };

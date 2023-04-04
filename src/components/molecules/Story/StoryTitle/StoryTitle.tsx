@@ -19,13 +19,12 @@ const StoryTitle: FunctionComponent<StoryTitleProps> = ({ storyTitle }) => {
 }
 
 const customStyle = (theme: CustomThemeType) => {
-    const style = StyleSheet.create({
+    return StyleSheet.create({
         labelStyle: {
             textAlign: 'center',
             color: theme.primaryDarkSlateGray
         },
     })
-    return style
 }
 
 

@@ -9,4 +9,3 @@ export const getVideoData: Selector<VideoItemType[]> = (state: AppState) =>
 
 export const getVideoError: Selector<string> = (state: AppState) =>
   state.videoList.error;
-  

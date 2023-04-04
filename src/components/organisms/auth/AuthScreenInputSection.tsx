@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { View, StyleProp, ViewStyle, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, StyleProp, ViewStyle, StyleSheet, TouchableOpacity, } from 'react-native';
 import { Label } from 'src/components/atoms/label/Label';
 import { SocialLoginButton } from 'src/components/atoms/social-login-button/SocialLoginButton';
 import { TextInputField } from 'src/components/atoms/text-input-field/TextInputField';

@@ -2,7 +2,7 @@ import { WidgetHeaderProps } from 'src/components/atoms/widgetHeader/WidgetHeade
 import { LabelTypeProp, TextWithFlagProps, ImageName } from 'src/components/atoms';
 import { ImagesName, Styles } from 'src/shared/styles';
 import {
-    articleFooterProps,
+    ArticleFooterProps,
     TabBarDataProps,
     VideoItemProps,
     PodcastVerticalListProps,
@@ -10,7 +10,7 @@ import {
 import { ArticleFontSize, ServerEnvironment, Theme } from 'src/redux/appCommon/types';
 import configureStore from 'redux-mock-store';
 import {
-    articleProps,
+    ArticleProps,
     ShortArticleProps,
     SearchResultsProps,
     StoryListItemProps,
@@ -18,7 +18,7 @@ import {
     PodcastProgramInfoProps,
 } from 'src/components/organisms';
 import { normalize, isIOS } from 'src/shared/utils';
-import { podcastCardProps } from 'src/components/organisms/PodcastCardSection';
+import { PodcastCardProps } from 'src/components/organisms/PodcastCardSection';
 import { NewsWithImageItemProps } from 'src/components/molecules/podcast/NewsWithImageItem';
 import { ArticleRectangleCardProps } from 'src/components/molecules/podcast/ArticleRectangleCard';
 import { NewsFeedProps } from 'src/components/organisms/NewsFeed';
@@ -812,7 +812,14 @@ const storeInfo = [
             theme: Theme?.LIGHT,
             isAppFirstSession: true,
             articleFontSize: ArticleFontSize?.normal,
-            serverEnvironment: ServerEnvironment?.PRODUCTION
+            serverEnvironment: ServerEnvironment?.PRODUCTION,
+            baseUrlConfig: {
+                baseUrl: 'https://aawsat.srpcdigital.com/',
+                umsUrl:  "https://awsatapi.srpcdigital.com/",
+                imageUrl: 'https://static.srpcdigital.com/',
+                profileImageUrl: "https://awsatapi.srpcdigital.com/storage/",
+                liveBlogUrl: "https://aawsat.srpcdigital.com/livenews/",
+            }
         },
         home: {
             isLoading: false,
@@ -879,7 +886,7 @@ const storeInfo = [
             error: '',
             isLoading: false
         },
-        opinionsReducer: {
+        opinions: {
             opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
             error: '',
             isLoading: false,
@@ -925,7 +932,7 @@ const storeInfo = [
             error: '',
             isLoading: false
         },
-        newsViewReducer: {
+        newsView: {
             heroListData: {
                 rows: [],
                 pager: { current_page: 0, items_per_page: '' }
@@ -1197,7 +1204,7 @@ const authorHeaderData: WidgetHeaderProps = {
     },
 };
 
-const articleFooterSample: articleFooterProps = {
+const articleFooterSample: ArticleFooterProps = {
     leftTitle: 'وتمجيد',
     leftTitleColor: Styles.color.greenishBlue,
     rightTitle: 'يتحمل',
@@ -1228,7 +1235,7 @@ const mostReadItem = {
     isBookmarked: false,
 };
 
-const mostReadData: articleProps[] = [
+const mostReadData: ArticleProps[] = [
     {
         tagName: '1',
         ...mostReadItem,
@@ -1674,7 +1681,7 @@ const opinionWritersArticlesData: any = {
     },
 };
 
-const podcastCardSectionData: podcastCardProps[] = [
+const podcastCardSectionData: PodcastCardProps[] = [
     {
         imageUrl: mediaSampleImageUrl,
         podcastTitle: podcastSampleTitle,

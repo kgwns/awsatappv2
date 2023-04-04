@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation,useIsFocused} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
   View,
@@ -38,15 +38,13 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
-import { useIsFocused } from '@react-navigation/native';
-import { AccessToken } from 'react-native-fbsdk-next';
 import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
 import { RegisterBodyType } from 'src/redux/register/types';
 import { getDeviceName as getDeviceType } from 'src/shared/utils/utilities';
 
 export const onSuccessSocialLogin = async (
   userInfo: any,
-  provider = SocialProviders.facebook,
+  loginProvider = SocialProviders.facebook,
 ) => {
   const userDetails = userInfo.user;
   const deviceType = await getDeviceType();
@@ -55,13 +53,13 @@ export const onSuccessSocialLogin = async (
     device_name: deviceType,
     first_name: userDetails.givenName,
     last_name: userDetails.familyName,
-    provider: provider,
+    provider: loginProvider,
     provider_id: userDetails.id,
   };
-  if (provider === SocialProviders.facebook && userDetails.profile_url) {
+  if (loginProvider === SocialProviders.facebook && userDetails.profile_url) {
     payload.profile_url = userDetails.profile_url;
   }
-  if (provider === SocialProviders.google && userInfo) {
+  if (loginProvider === SocialProviders.google && userInfo) {
     payload.profile_url = userInfo.user.photo;
   }
   return payload
@@ -255,7 +253,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     };
   }, []);
 
-  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders, message?:String) => {
+  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders, message?:string) => {
     if(success){
       fbLoginRef.current = false
       const payload = await onSuccessSocialLogin(userInfo,provider)
@@ -294,8 +292,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
     recordLogEvent('Login');
 
     const payload: FetchLoginPayloadType = {
-      email: email,
-      password: password,
+      email,
+      password,
       device_name: deviceName,
     };
 
@@ -351,7 +349,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
               setChangeText={setEmail}
               setChangePassword={setPassword}
               navigateToSection={navigateToSection}
-              goToPasswordScreen={() => forgotPassworRequest({email: email})}
+              goToPasswordScreen={() => forgotPassworRequest({email})}
               onPressSignup={onPressSignIn}
               socialButtonBoldStyle={true}
               isSignInScreen={true}

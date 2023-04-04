@@ -1,7 +1,7 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch} from 'react-redux';
 import {
-  usePhotoGalleryReturn,
+  UsePhotoGalleryReturn,
   usePhotoGallery,
 } from '../usePhotoGallery';
 
@@ -11,14 +11,14 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('#usePhotoGallery', () => {
-  let result: RenderHookResult<undefined, usePhotoGalleryReturn>;
+  let result: RenderHookResult<undefined, UsePhotoGalleryReturn>;
 
   const dispatchMock = jest.fn();
 
   beforeAll(() => {
     (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
 
-    result = renderHook<undefined, usePhotoGalleryReturn>(() =>
+    result = renderHook<undefined, UsePhotoGalleryReturn>(() =>
     usePhotoGallery(),
     );
   });

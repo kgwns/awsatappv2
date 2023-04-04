@@ -16,9 +16,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
-import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
-import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks'
+import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion'
 
 enum LabelsType  {
     title = 'title',
@@ -69,7 +68,7 @@ const AuthorItem = ({
     const CONST_OPINION_LISTEN_TO_ARTICLE_LIST = TranslateConstants({key:TranslateKey.OPINION_LISTEN_TO_ARTICLE_LIST})
     useEffect(() => {
         if(jwPlayerID){
-          getNarratedOpinion()
+          getNarratedOpinion(jwPlayerID,setMediaData,setTimeDuration);
         }
     }, [])
 
@@ -81,31 +80,10 @@ const AuthorItem = ({
       }
       setPrevPlayBackState(playbackState);
     }, [playbackState])
-
-    const getNarratedOpinion = async() => {
-        try {
-          const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
-          if(isObjectNonEmpty(opinionData)){
-            setMediaData(opinionData);
-            const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
-              if(playList){
-              const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
-              setTimeDuration(time)
-              } 
-          }
-        } catch (error) {
-          const errorResponse: AxiosError = error as AxiosError;
-          if (errorResponse.response) {
-            const errorMessage: { message: string } = errorResponse.response.data;
-            console.log(errorMessage,'errorMessage');
-          }
-        }
-      }
  
-    
     const onPress = () => {
         if (nid) {
-            navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:nid})
+            navigation.navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid})
         }
     }
 

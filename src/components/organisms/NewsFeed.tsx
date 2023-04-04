@@ -50,9 +50,9 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   const style = useThemeAwareObject(customStyle)
   const { showMiniPlayer } = useAppPlayer()
   
-  const onPress = (nid: string) => {
-    if (nid) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
+  const onPress = (Nid: string) => {
+    if (Nid) {
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: Nid});
     }
   };
 

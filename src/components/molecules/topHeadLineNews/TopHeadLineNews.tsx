@@ -24,9 +24,9 @@ export const TopHeadLineNews = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
 
-    const onPress = (nid: string) => {
-        if (isNotEmpty(nid)) {
-            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+    const onPress = (nId: string) => {
+        if (isNotEmpty(nId)) {
+            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nId })
         }
     }
 

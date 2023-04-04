@@ -2,6 +2,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native'
 import React, { useState } from 'react'
 import  {DynamicGameScreen} from 'src/components/screens/games/DynamicGameScreen'
 import { useNavigation } from '@react-navigation/native';
+import WebView from 'react-native-webview';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -46,6 +47,20 @@ describe('<DynamicGameScreen />', () => {
     const element = instance.getByTestId('DynamicGameScreenID01');
     fireEvent(element, 'onNavigationStateChange', {nativeEvent: {url: 'https://cdn-eu1.amuselabs.com/pmm/crossword?id='}});
     expect(mockFunction).toBeTruthy()
+  });
+
+  test('Should call GameIntroCard onShouldStartLoadWithRequest', () => {
+    const element = instance.container.findByType(WebView);
+    fireEvent(element,'onShouldStartLoadWithRequest',{url:'https://cdn-eu1.amuselabs.com/pmm/crossword?id='});
+    expect(mockFunction).toBeTruthy()
+    expect(navigation.push).toHaveBeenCalled();
+  });
+
+  test('Should call GameIntroCard onShouldStartLoadWithRequest url is empty', () => {
+    const element = instance.container.findByType(WebView);
+    fireEvent(element,'onShouldStartLoadWithRequest',{url:''});
+    expect(mockFunction).toBeTruthy()
+    expect(navigation.push).not.toHaveBeenCalled();
   });
 
 })

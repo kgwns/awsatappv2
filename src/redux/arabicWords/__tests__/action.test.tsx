@@ -1,9 +1,9 @@
 import {fetchArabicWords}  from "../action"
 import { FETCH_ARABIC_DATA } from "../actionType"
-import { fetchArabicWordsPayloadType } from "../types"
+import { FetchArabicWordsPayloadType } from "../types"
 
 describe('<ArabicWordsAction', () => {
-    const payload: fetchArabicWordsPayloadType = {
+    const payload: FetchArabicWordsPayloadType = {
         arabic:'mockWord'
     }
 

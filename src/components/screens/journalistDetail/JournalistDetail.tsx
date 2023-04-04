@@ -9,7 +9,7 @@ import { useIsFocused, useNavigation, useNavigationState } from '@react-navigati
 import { StackNavigationProp } from '@react-navigation/stack';
 import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
 import { JournalistSection } from 'src/components/organisms';
-import { horizontalEdge, isNotEmpty } from 'src/shared/utils/utilities';
+import { horizontalEdge, } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { ScreensConstants } from 'src/constants/Constants'
 import Orientation from 'react-native-orientation-locker';
@@ -94,7 +94,7 @@ export const JournalistDetail = ({
     }
 
     useEffect(() => {
-        getJournalistArticleInfo({ nid: jId, page: page });
+        getJournalistArticleInfo({ nid: jId, page });
     }, [page]);
 
     useEffect(() => {

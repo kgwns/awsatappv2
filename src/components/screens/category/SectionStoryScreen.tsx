@@ -4,7 +4,7 @@ import { ShortArticle, NewsFeed } from '../../organisms';
 import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
+import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {NewsViewBodyGet, NewsViewListItemType} from 'src/redux/newsView/types';
@@ -243,7 +243,7 @@ export const SectionStoryScreen = React.memo(({
 
   const onPressArticle = (nid: string) => {
     nid &&
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid});
   };
 
   useEffect(() => {
@@ -587,7 +587,7 @@ export const SectionStoryScreen = React.memo(({
 });
 
 const customStyle = (theme: CustomThemeType) => {
-  const sectionStoryStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
     },
@@ -678,5 +678,4 @@ const customStyle = (theme: CustomThemeType) => {
       width: (screenWidth * 0.5 - 40) -  144,
     }
   });
-  return sectionStoryStyle;
 };

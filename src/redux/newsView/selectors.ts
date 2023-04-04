@@ -3,19 +3,19 @@ import { LatestArticleDataType } from '../latestNews/types';
 import {NewsViewListItemType} from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
-  state.newsViewReducer.isLoading;
+  state.newsView.isLoading;
 
 export const getNewsViewError: Selector<string> = (state: AppState) =>
-  state.newsViewReducer.error;
+  state.newsView.error;
 
 export const getHeroListData: Selector<NewsViewListItemType[]> = (
   state: AppState,
-) => state.newsViewReducer.heroListData.rows;
+) => state.newsView.heroListData.rows;
 
 export const getTopListData: Selector<LatestArticleDataType[]> = (
   state: AppState,
-) => state.newsViewReducer.topListData;
+) => state.newsView.topListData;
 
 export const getBottomListData: Selector<NewsViewListItemType[]> = (
   state: AppState,
-) => state.newsViewReducer.bottomListData.rows;
+) => state.newsView.bottomListData.rows;

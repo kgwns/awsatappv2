@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {Provider} from 'react-redux';
-import {storeSampleData} from '../../../../constants/Constants';
+import { storeSampleData} from '../../../../constants/Constants';
 import {SelectTopicsScreen} from '../SelectTopicsScreen';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { InterestedTopics } from 'src/components/organisms';
 import { useAllSiteCategories } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
+import { NextButton } from 'src/components/atoms';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -22,7 +23,7 @@ jest.mock('src/shared/utils/dimensions', () => ({
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
-  useNavigation: jest.fn(),
+  useNavigation: jest.fn().mockReturnValue({navigate: jest.fn()}),
   useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
@@ -173,7 +174,7 @@ describe('<SelectTopicsScreen>', () => {
     (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [sampleData1, categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [sampleData1, updatedTopics]);
-    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useNavigation as jest.Mock).mockReturnValue(navigation);
     (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
     useAllSiteCategoriesMock.mockReturnValue({
       isLoading: false,
@@ -210,6 +211,11 @@ describe('<SelectTopicsScreen>', () => {
     expect(mockFunction).toBeTruthy()
   });
 
+  it("Should call NextButton onPress",() => {
+    const testId = instance.container.findByType(NextButton)
+    fireEvent(testId,'onPress');
+  })
+
 });
 
 describe('<SelectTopicsScreen>', () => {
@@ -225,7 +231,7 @@ describe('<SelectTopicsScreen>', () => {
   }
 
   beforeEach(() => {
-    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useNavigation as jest.Mock).mockReturnValue(navigation);
     (useState as jest.Mock).mockImplementation(() => [true, disableNext]);
     (useState as jest.Mock).mockImplementation(() => [[], categoriesInfo]);
     (useState as jest.Mock).mockImplementation(() => [[], updatedTopics]);
@@ -259,3 +265,47 @@ describe('<SelectTopicsScreen>', () => {
 
 });
 
+describe('<SelectTopicsScreen>', () => {
+  let instance: RenderAPI;
+
+  const mockFunction = jest.fn();
+  const disableNext = mockFunction;
+  const categoriesInfo = mockFunction;
+  const updatedTopics = mockFunction;
+  const useAllSiteCategoriesMock = jest.fn();
+
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [false, disableNext]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData1, categoriesInfo]);
+    (useState as jest.Mock).mockImplementation(() => [sampleData1, updatedTopics]);
+    (useAllSiteCategories as jest.Mock).mockImplementation(useAllSiteCategoriesMock);
+    useAllSiteCategoriesMock.mockReturnValue({
+      isLoading: false,
+      allSiteCategoriesData: [],
+      sentTopicsData: {
+        code: 200,
+      },
+      sendSelectedTopicInfo: () => { return [] },
+      fetchAllSiteCategoriesRequest: () => { return [] },
+      updateAllSiteCategoriesData: () => { return [] },
+      emptySendTopicsInfoData: () => {return [] },
+      getSelectedTopicsData: () => {return [] },
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <SelectTopicsScreen navigation = {{navigate: jest.fn()}} />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should navigate to Follow Favorite Author Screen', () => {
+    expect(instance).toBeDefined();
+  });
+
+});

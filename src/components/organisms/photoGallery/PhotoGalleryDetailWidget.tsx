@@ -111,7 +111,7 @@ export const PhotoGalleryDetailWidget = ({
   };
 
   const labelStyle ={ 
-    fontSize: fontSize,
+    fontSize,
     lineHeight: 1.8 * fontSize
   }
 
@@ -154,8 +154,7 @@ export const PhotoGalleryDetailWidget = ({
           return renderImagesWithText(image, caption)
         },
       );
-    }
-    else {
+    } else {
       return renderImagesWithText(data.field_album_img_export, data.field_album_img)
     }
   };
@@ -173,7 +172,7 @@ export const PhotoGalleryDetailWidget = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const styles = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
     },
@@ -233,5 +232,4 @@ const customStyle = (theme: CustomThemeType) => {
       paddingVertical: normalize(15)
     }
   });
-  return styles;
 };

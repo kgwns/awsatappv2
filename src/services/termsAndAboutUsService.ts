@@ -11,6 +11,7 @@ export const requestStaticDetail = async (body: StaticDetailBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('termsAndAboutUsService - requestStaticDetail - error', error)
     throw error;
   }
 };

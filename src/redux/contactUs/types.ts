@@ -54,4 +54,3 @@ export type ContactUsInfoAction =
   | SendContactUsInfoSuccessType
   | SendContactUsInfoFailedType
   | EmptyContactUsDetailType
-  

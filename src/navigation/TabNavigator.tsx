@@ -153,7 +153,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-    const TabNavigatorStyle = StyleSheet.create({
+    return StyleSheet.create({
         bottomBar: {
             width: "100%",
             height: isTab ? 93 : 80,
@@ -228,7 +228,6 @@ const customStyle = (theme: CustomThemeType) => {
             marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
         },
     })
-    return TabNavigatorStyle;
 }
 
 export default TabNavigator;

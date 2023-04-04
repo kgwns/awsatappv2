@@ -127,10 +127,10 @@ export const PhotoGalleryScreen = React.memo(
       setShowPopUp(false);
     };
 
-    const onPress = (nid: string) => {
-      nid &&
+    const onPress = (nId: string) => {
+      nId &&
         navigation.navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
-          nid: nid,
+          nid: nId,
         });
     };
 
@@ -220,7 +220,7 @@ export const PhotoGalleryScreen = React.memo(
 );
 
 const customStyle = (theme: CustomThemeType) => {
-  const galleryScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
@@ -248,5 +248,4 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
     }
   });
-  return galleryScreenStyle;
 }

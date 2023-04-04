@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Animated, StyleSheet, View} from 'react-native';
 import {FlatList} from 'react-native-gesture-handler';
 import {
@@ -11,7 +11,7 @@ import {useOpinionWriter} from 'src/hooks/useOpinionWriter';
 import {useOpinions} from 'src/hooks/useOpinions';
 import {WritersBodyGet} from 'src/redux/writers/types';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
-import { useAppPlayer, useBookmark, useLatestNewsTab, useLogin } from 'src/hooks';
+import { useAppPlayer, useBookmark, useLogin } from 'src/hooks';
 import { horizontalEdge, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useIsFocused, useNavigation } from '@react-navigation/native';
@@ -68,7 +68,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   }, []);
 
   useEffect(() => {
-    fetchOpinionsRequest({ page: page });
+    fetchOpinionsRequest({ page });
   }, [page]);
 
   const {
@@ -195,7 +195,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
 });
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
     },
@@ -212,5 +212,4 @@ const customStyle = (theme: CustomThemeType) => {
       width: '100%' 
     }
   });
-  return OpinionScreenStyle;
 };

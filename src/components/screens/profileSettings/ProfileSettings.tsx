@@ -12,7 +12,7 @@ import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { horizontalEdge, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
-import { ButtonImage, ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
+import { ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { ToggleWithLabel } from 'src/components/molecules';
@@ -257,8 +257,9 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
         </>
     )
 
-  const email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
-  const usernameStyle = isNotEmpty(email) && email!.length > 24 && {width: '100%'}  
+  const _email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
+  const email = _email !== undefined ? _email : '';
+  const usernameStyle = isNotEmpty(email) && email.length > 24 && {width: '100%'}  
   const welcomeView = () => (
       <View style={style.title}>
           <Label

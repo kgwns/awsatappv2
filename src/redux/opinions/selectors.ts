@@ -2,24 +2,24 @@ import {AppState, Selector} from 'src/redux/rootReducer';
 import {OpinionsListItemType} from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
-  state.opinionsReducer.isLoading;
+  state.opinions.isLoading;
 
 export const getOpinionsData: Selector<OpinionsListItemType[]> = (
   state: AppState,
-) => state.opinionsReducer.opinionData.rows;
+) => state.opinions.opinionData.rows;
 
 export const getOpinionsError: Selector<string> = (state: AppState) =>
-  state.opinionsReducer.error;
+  state.opinions.error;
 
 export const getWriterOpinionIsLoading: Selector<boolean> = (state: AppState) =>
-  state.opinionsReducer.writerOpinionLoading;
+  state.opinions.writerOpinionLoading;
 
 export const getWriterOpinionsData: Selector<OpinionsListItemType[]> = (
   state: AppState,
-) => state.opinionsReducer.writerOpinionData.rows;
+) => state.opinions.writerOpinionData.rows;
 
 export const getWriterOpinionsError: Selector<string> = (state: AppState) =>
-  state.opinionsReducer.writerOpinionError;
+  state.opinions.writerOpinionError;
 
 export const getHomeOpinionNidData: Selector<string> = (state: AppState) =>
-  state.opinionsReducer.homeOpinionNid
+  state.opinions.homeOpinionNid

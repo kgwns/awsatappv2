@@ -1,9 +1,8 @@
-import { View, StyleSheet, TouchableOpacity, Dimensions, Linking } from 'react-native'
+import { View, StyleSheet, Dimensions, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { decodeHTMLTags, getImageUrl, isNotEmpty } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ButtonImage} from 'src/components/atoms/button-image/ButtonImage'
-import {HomeButton} from 'src/components/atoms/homeButton/HomeButton'
 import {Image} from 'src/components/atoms/image/Image'
 import {Label } from 'src/components/atoms/label/Label'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -12,7 +11,6 @@ import { isAndroid, isIOS, isTab, normalize, screenWidth } from 'src/shared/util
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { ImageResize } from 'src/shared/styles/text-styles'
-import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
 import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TranslateConstants, TranslateKey, TWITTER_APP_URL } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'

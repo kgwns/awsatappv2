@@ -18,7 +18,6 @@ import {
   LabelTypeProp,
   LoadingState,
 } from 'src/components/atoms';
-import {AllWritersBodyGet} from 'src/redux/allWriters/types';
 import {FavouriteOpinionsBodyGet} from 'src/redux/contentForYou/types';
 import {getImageUrl} from 'src/shared/utils/utilities';
 import {
@@ -96,8 +95,7 @@ export const MyNewsWriters = () => {
           return item.tid.toString() == selectedTid && item 
         });
         onPress(authorSelected[0], indexValue)
-      }
-      else {
+      } else {
         setInitialData()
       }
     }
@@ -162,9 +160,9 @@ export const MyNewsWriters = () => {
     isNonEmptyArray(authorsIdList) && fetchOpinionData(authorsIdList, 0);
   };
 
-  const fetchOpinionData = (authorsData: any, page: number) => {
+  const fetchOpinionData = (authorsData: any, Page: number) => {
     const opinionBody: FavouriteOpinionsBodyGet = {
-      page: page,
+      page: Page,
       items_per_page: isTab ? 12 : 10,
       authorsList: authorsData,
     };

@@ -4,7 +4,7 @@ import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, isIOS} from 'src/shared/utils';
-import {ImagesName, Styles} from 'src/shared/styles';
+import {ImagesName} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
@@ -12,10 +12,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
-import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
-import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
+import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion';
 
 
 export interface OpinionWritersCardViewProps {
@@ -71,7 +70,7 @@ const OpinionWritersCardView = ({
 
   useEffect(() => {
     if(jwPlayerID){
-      getNarratedOpinion()
+      getNarratedOpinion(jwPlayerID,setMediaData,setTimeDuration);
     }
   }, [])
 
@@ -84,30 +83,10 @@ const OpinionWritersCardView = ({
     setPrevPlayBackState(playbackState);
   }, [playbackState])
 
-  const getNarratedOpinion = async() => {
-      try {
-        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
-        if(isObjectNonEmpty(opinionData)){
-          setMediaData(opinionData);
-          const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
-          if(playList){
-            const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
-            setTimeDuration(time)
-          } 
-        }
-      } catch (error) {
-        const errorResponse: AxiosError = error as AxiosError;
-        if (errorResponse.response) {
-          const errorMessage: { message: string } = errorResponse.response.data;
-          console.log(errorMessage,'errorMessage');
-        }
-      }
-  }
-
   const onPress = () => {
     if (nid) {
       const screenName = ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN
-      const params = { nid: nid }
+      const params = { nid }
       noOfWriterRoutes > 0 ? navigation.push(screenName, params) : navigation.navigate(screenName, params)
     }
   }
@@ -232,7 +211,7 @@ const onPressPlay = () => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionWritersCardViewStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
@@ -306,7 +285,6 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.dividerColor
     }
   });
-  return OpinionWritersCardViewStyle;
 };
 
 export default OpinionWritersCardView;

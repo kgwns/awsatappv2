@@ -31,8 +31,7 @@ const InterestedTopics = (props:any) => {
       previousIndex = i + 1
       individualSpliceArray = []
       lengthOfElementsInRow = 0
-    }
-    else if (lengthOfElementsInRow - (totalLengthOfElements / 9) > 50) {
+    } else if (lengthOfElementsInRow - (totalLengthOfElements / 9) > 50) {
       for (let j = previousIndex; j < i; j++) {
         individualSpliceArray.push(data[j])
       }
@@ -41,8 +40,7 @@ const InterestedTopics = (props:any) => {
       individualSpliceArray = []
       previousIndex = i
       lengthOfElementsInRow = 0
-    }
-    else if (i === arrayOfLengths.length - 1) {
+    } else if (i === arrayOfLengths.length - 1) {
       for (let j = previousIndex; j <= i; j++) {
         individualSpliceArray.push(data[j])
       }

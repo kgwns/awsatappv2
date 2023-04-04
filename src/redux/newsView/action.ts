@@ -12,7 +12,6 @@ import {
   FetchBottomListSuccessType,
   FetchBottomListFailedPayloadtype,
   FetchBottomListFailedType,
-  EmptyAllList,
 } from 'src/redux/newsView/types';
 import {
   REQUEST_HERO_LIST_DATA,

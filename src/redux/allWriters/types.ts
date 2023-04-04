@@ -243,4 +243,3 @@ export type AllWritersActions =
   | SetSelectedDataFromOnboard
   | EmptySelectedWritersDataFromOnboard
   | EmptySelectedAuthors
-  

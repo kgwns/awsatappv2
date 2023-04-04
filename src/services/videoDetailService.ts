@@ -33,6 +33,7 @@ export const fetchVideoDetail = async (payload: FetchVideoDetailPayload) => {
         );
         return response;
     } catch (error) {
+        console.log('videoDetailService - fetchVideoDetail - error', error)
         throw error;
     }
 };

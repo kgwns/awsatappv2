@@ -11,6 +11,7 @@ export const fetchMostReadApi = async () => {
 
     return response;
   } catch (error) {
+    console.log('mostReadService-fetchMostReadApi - error', error)
     throw error;
   }
 };

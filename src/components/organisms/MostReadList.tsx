@@ -16,7 +16,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from '../molecules/populateWidget/PopulateWidget';
 
-export interface articleProps
+export interface ArticleProps
   extends ImageLabelProps,
     ArticleWithOutImageProps {
   image?: string;

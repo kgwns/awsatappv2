@@ -3,7 +3,7 @@ import React, { FunctionComponent } from 'react';
 import { Divider, Label, TextWithFlag } from '../atoms';
 import { normalize } from 'src/shared/utils';
 import { Styles } from '../../shared/styles';
-import { ArticleFooter, articleFooterProps } from 'src/components/molecules';
+import { ArticleFooter, ArticleFooterProps } from 'src/components/molecules';
 import { TextWithFlagProps } from 'src/components/atoms';
 import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -14,7 +14,7 @@ import { ArticleLabel } from './articleLabel/ArticleLabel';
 
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
-    footerInfo?: articleFooterProps,
+    footerInfo?: ArticleFooterProps,
     contentStyle?: StyleProp<ViewStyle>,
     showDivider?: boolean,
     showFooterTitle?: boolean,

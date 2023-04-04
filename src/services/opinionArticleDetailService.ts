@@ -18,6 +18,7 @@ export const requestOpinionArticleDetailAPI = async (
     
     return response;
   } catch (error) {
+    console.log('opinionArticleDetailService - requestOpinionArticleDetailAPI - error', error)
     throw error;
   }
 };
@@ -32,6 +33,7 @@ export const fetchRelatedOpinionAPI = async (
     
     return response;
   } catch (error) {
+    console.log('opinionArticleDetailService - fetchRelatedOpinionAPI - error', error)
     throw error;
   }
 };

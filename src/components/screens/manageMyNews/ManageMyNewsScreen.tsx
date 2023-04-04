@@ -219,12 +219,12 @@ export const ManageMyNewsScreen = () => {
     buttonTitle: MANAGE_MY_NEWS_REMOVE
   }
 
-  const Remove_Author = 'Remove_Author';
-  const Remove_Topic = 'Remove_Topic';
+  const removeAuthor = 'Remove_Author';
+  const removeTopic = 'Remove_Topic';
 
   const [alertPayload, setAlertPayload] = useState(removeFavAuthorAlertPayload);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
-  const [popupType, setPopupType] = useState(Remove_Author);
+  const [popupType, setPopupType] = useState(removeAuthor);
 
   useEffect(() => {
     if (isFocused) {
@@ -280,12 +280,12 @@ export const ManageMyNewsScreen = () => {
   }, [allSelectedWritersDetailList]);
 
   const alertOnPress = () => {
-    if (popupType === Remove_Author) {
+    if (popupType === removeAuthor) {
       const authorsData = selectedWriters.filter((i) => filteredSelectedAuthor.find((j) => Number(j) === Number(i.tid)));
       setSelectedWriters(authorsData)
       sendSelectedWriterInfo({ tid: joinArray(filteredSelectedAuthor), isList: true })
       setFilteredSelectedAuthor([]);
-    } else if (popupType === Remove_Topic) {
+    } else if (popupType === removeTopic) {
       sendSelectedTopicInfo({ tid: joinArray(filteredSelectedTopic) })
       const topicsData = selectedInterested.filter((i) => filteredSelectedTopic.find((j) => Number(j) === Number(i.tid)));
       setSelectedInterested(topicsData)
@@ -331,7 +331,7 @@ export const ManageMyNewsScreen = () => {
 
   const onPressTopicItem = (item: any) => {
     setAlertPayload(removeTopicAlertPayload)
-    setPopupType(Remove_Topic);
+    setPopupType(removeTopic);
     setFilteredSelectedTopic(getSelectedTopicIds().filter(e => Number(e) !== Number(item.tid)))
     setIsAlertVisible(true);
   }
@@ -343,7 +343,7 @@ export const ManageMyNewsScreen = () => {
   }
 
   const favAuthorOnPress = (item: any) => {
-    setPopupType(Remove_Author);
+    setPopupType(removeAuthor);
     setAlertPayload(removeFavAuthorAlertPayload)
     setFilteredSelectedAuthor(getSelectedData().filter((e: any) => Number(e) !== Number(item.tid)))
     setIsAlertVisible(true);
@@ -377,7 +377,7 @@ export const ManageMyNewsScreen = () => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const ManageMyNewsScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       paddingLeft: normalize(3)
@@ -449,5 +449,4 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.profileBackground
     }
   });
-  return ManageMyNewsScreenStyle;
 };

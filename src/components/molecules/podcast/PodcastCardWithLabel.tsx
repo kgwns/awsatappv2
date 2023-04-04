@@ -37,7 +37,7 @@ export const PodcastCardWithLabel = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const PodcastCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     cardContainer: {
       width: normalize(257),
       height: normalize(233),
@@ -60,7 +60,6 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: normalize(8),
     },
   });
-  return PodcastCardStyle;
 };
 
 export default PodcastCardWithLabel;

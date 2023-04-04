@@ -2,7 +2,7 @@ import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants/Constants'
-import { articleFooterProps, ArticleItem } from '../molecules'
+import { ArticleFooterProps, ArticleItem } from '../molecules'
 import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
 import { ImageLabelProps } from '../atoms/imageWithLabel/ImageWithLabel'
 import { ImagesName, Styles } from 'src/shared/styles'
@@ -12,7 +12,7 @@ import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
 
-export interface articleProps extends ImageLabelProps, ArticleWithOutImageProps {
+export interface ArticleProps extends ImageLabelProps, ArticleWithOutImageProps {
    image?: string,
    nid: string,
    author: string,
@@ -22,7 +22,7 @@ export interface articleProps extends ImageLabelProps, ArticleWithOutImageProps 
 }
 
 export interface ArticleSectionProps {
-    data: articleProps[],
+    data: ArticleProps[],
     onUpdateBookmark?: (nid: string,isBookmarked: boolean) => void,
     listKey?: string,
     showDivider?: boolean,
@@ -32,13 +32,15 @@ export interface ArticleSectionProps {
     addStyle?: StyleProp<ViewStyle>
 }
 
-export const articleFooterDataSet: articleFooterProps = {
+export const articleFooterDataSet: ArticleFooterProps = {
     leftTitleColor: Styles.color.silverChalice,
-    leftIcon: () => {return getSvgImages({
+    leftIcon: () => { 
+        return getSvgImages({
         name: ImagesName.clock,
         size: normalize(12),
         style: { marginRight: normalize(7) }
-    })},
+        })
+    },
     rightTitleColor: Styles.color.silverChalice,
     leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20 }
 };
@@ -73,7 +75,7 @@ const ArticleSection = ({
         onUpdateBookmark && onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
     }
 
-    const renderItem = (item: articleProps, index: number) => {
+    const renderItem = (item: ArticleProps, index: number) => {
         const timeFormat = dateTimeAgo(item.created)
 
         articleFooterDataSet.rightTitle = item.author

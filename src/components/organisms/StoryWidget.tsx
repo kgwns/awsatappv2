@@ -62,7 +62,7 @@ const StoryWidget: FunctionComponent<StoryWidgetProps> = ({
 export default StoryWidget;
 
 const storyWidgetStyle = (theme: CustomThemeType) => {
-  const style = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       width: '100%',
       height: normalize(170),
@@ -82,5 +82,4 @@ const storyWidgetStyle = (theme: CustomThemeType) => {
       marginTop: normalize(24)
     }
   })
-  return style
 }

@@ -2,14 +2,14 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants'
 import { ImageWithLabel } from '../atoms'
-import { articleProps } from '../organisms'
+import { ArticleProps } from '../organisms'
 import { ArticleWithOutImage } from '../molecules'
 import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
-export interface ArticleItemProps extends articleProps {
+export interface ArticleItemProps extends ArticleProps {
     index: number,
     articleItemStyle?: ViewStyle,
     showDivider?: boolean,
