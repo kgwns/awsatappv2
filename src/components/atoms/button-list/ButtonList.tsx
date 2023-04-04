@@ -19,11 +19,11 @@ interface ButtonListProps {
 }
 
 export const ButtonList = (props: ButtonListProps) => {
-  const icon_name = props.iconName ? props.iconName : isTab ? null : ImagesName.leftArrowIcon;
-  const icon_style = props.iconStyle ? props.iconStyle : { size: normalize(12) }
+  const buttonIconName = props.iconName ? props.iconName : isTab ? null : ImagesName.leftArrowIcon;
+  const buttonIconStyle = props.iconStyle ? props.iconStyle : { size: normalize(12) }
   const renderIcon = () => {
     return <TouchableOpacity hitSlop={props.hitSlop} onPress={props.onPressIcon ? props.onPressIcon : props.onPress} style={props.iconStyle}>
-      {getSvgImages({ name: _iconName, ..._iconStyle })}
+      {getSvgImages({ name: buttonIconName, ...buttonIconStyle })}
     </TouchableOpacity>
   }
 
