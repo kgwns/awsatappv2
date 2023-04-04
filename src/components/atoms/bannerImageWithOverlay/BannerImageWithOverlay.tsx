@@ -6,6 +6,7 @@ import {  Overlay } from 'src/components/atoms/overlay/Overlay'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'
 import { ArticleLabel } from 'src/components/molecules/articleLabel/ArticleLabel'
+import { isTab } from 'src/shared/utils'
 
 export interface BannerImageWithOverlayProps {
     image?: string
@@ -18,11 +19,11 @@ export interface BannerImageWithOverlayProps {
 }
 
 export const RenderPhotoIcon = () => (
-    <View style={bannerImageWithOverlayStyle.photoIconContainer}>
+    <View style={isTab ? bannerImageWithOverlayStyle.tabPhotoIconContainer : bannerImageWithOverlayStyle.photoIconContainer}>
         {getSvgImages({
             name: ImagesName.photoIcon,
-            width: 27,
-            height: 22,
+            width: isTab ? 17 : 27,
+            height: isTab ? 12 :22,
         })}
     </View>
 );
@@ -80,5 +81,10 @@ const bannerImageWithOverlayStyle = StyleSheet.create({
         position: 'absolute', 
         top: 15, 
         right: 15
+    },
+    tabPhotoIconContainer: {
+        position: 'absolute', 
+        top: 8, 
+        right: 8
     }
 })
