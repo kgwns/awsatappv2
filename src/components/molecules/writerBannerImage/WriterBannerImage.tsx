@@ -127,12 +127,12 @@ export const WriterBannerImage = ({
         <ReturnButton />
       </View> */}
       <View style={style.contentContainer}>
-        <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation === 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation === 'PORTRAIT' ? 0.33 : 0.15 }}>
+        <View style={{ flex: isTab ? isWriter ? 0.20 : currentOrientation === 'PORTRAIT' ? 0.20 : 0.10 : isWriter ? 0.33 : currentOrientation === 'PORTRAIT' ? 0.33 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
-            <View style={style.imageContainer}>
+            <View style={isTab ? style.imageTabContainer : style.imageContainer}>
               <Image url={getImageUrl(data.authorImage)}
                 type={'round'}
-                size={normalize(100)}
+                size={isTab ? 130 : normalize(100)}
                 resizeMode={ImageResize.COVER}
                 fallback={true}
                 fallbackName={ImagesName.authorDefault}
@@ -207,6 +207,12 @@ const customStyle = (theme: CustomThemeType) => {
       width: normalize(100),
       height: normalize(100),
       borderRadius: normalize(50)
+    },
+    imageTabContainer: {
+      overflow: 'hidden',
+      width: 130,
+      height: 130,
+      borderRadius: 65,
     },
     authorSubscribeView:{
       flex: 1,
