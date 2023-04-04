@@ -725,7 +725,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     userContainerStyle: {
       flex: 1,
-      marginVertical: '20%',
+      marginVertical: isTab ? '10%' : '20%',
     },
     userContainer: {
       flexDirection: 'row',
