@@ -37,10 +37,11 @@ const ContinueLabel = (
 const MyFavoriteBooks = (props: any) => {
   const style = useThemeAwareObject(customStyle);
   const data = props.data;
+  const isPortrait = props.isPortrait;
   const scrollRef = useRef<any>(null);
   const MANAGE_MY_NEWS_MY_FAVORITE_BOOKS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_BOOKS })
   const MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS })
-
+  const continueContainerStyle = isTab ? isPortrait ? style.tabBooksContinue : style.booksContinueLandscape : style.booksContinue
   const scrollToStart = () => {
     if (isIOS) {
       scrollRef.current?.scrollTo(0);
@@ -77,7 +78,7 @@ const MyFavoriteBooks = (props: any) => {
             />)
         }
       </ScrollView>}
-      <View style={ !props.isPortrait ? style.booksContinueLandscape : style.booksContinue}>
+      <View style={continueContainerStyle}>
         <ContinueLabel 
           label={MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS} 
           goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} 
@@ -92,11 +93,13 @@ const MyFavoriteBooks = (props: any) => {
 const MyFavoriteTopics = (props: any) => {
   const style = useThemeAwareObject(customStyle);
   const data = props.data;
+  const isPortrait = props.isPortrait;
   const numberOfTopics = data.length as number
   const numberOfRows = isTab ? numberOfTopics > 7 ? 3 : 1 : numberOfTopics > 3 ? 3 : 1;
   const scrollRef = useRef<any>(null);
   const MANAGE_MY_NEWS_MY_FAVORITE_TOPICS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_TOPICS })
   const MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS })
+  const continueContainerStyle = isTab ? isPortrait ? style.tabTopicsContinue : style.topicsContinueLandscape : style.topicsContinue 
 
   const scrollToStart = () => {
     if (isIOS) {
@@ -147,7 +150,7 @@ const MyFavoriteTopics = (props: any) => {
             />
           </ScrollView>
         </View>}
-        <View style={ props.isPortrait ? style.topicsContinue : style.topicsContinueLandscape}>
+        <View style={continueContainerStyle}>
           <ContinueLabel 
             label={MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS} 
             goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} 
@@ -376,10 +379,10 @@ export const ManageMyNewsScreen = () => {
         <View style={ !isPortrait ? style.favBooksLandscape : style.favBooks}>
           <MyFavoriteBooks data={selectedWriters} isPortrait={isPortrait}  favAuthorOnPress={favAuthorOnPress} onPressContinue={onPressContinue} />
         </View>
-        { isTab ? <View style = {style.tabDivider}></View> : 
+        { isTab ? <View style = {style.tabDivider}/> : 
           <Divider style={style.divider} />
         }
-        <View style={ !isPortrait ? style.favTopicsLandscape : style.favTopics}>
+        <View style={ isPortrait ? style.favTopics : style.favTopicsLandscape}>
           <MyFavoriteTopics data={selectedInterested} isPortrait={isPortrait} onPressTopicItem={onPressTopicItem} onPressContinue={onPressContinue} />
         </View>
       </View>
@@ -437,20 +440,28 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: isTab ? 20 : normalize(0.04 * screenWidth),
     },
     booksContinue: {
-      paddingVertical: isTab ? 20 : 0.05 * screenWidth,
-      paddingStart: isTab ? 20 : normalize(0.04 * screenWidth),
+      paddingVertical: 0.05 * screenWidth,
+      paddingStart: normalize(0.04 * screenWidth),
+    },
+    tabBooksContinue: {
+      paddingVertical: 20,
+      paddingStart: 20,
     },
     booksContinueLandscape: {
       paddingHorizontal: 20,
       paddingVertical:0
     },
     topicsContinue: {
-      paddingVertical: isTab ? 20 : 0.05 * screenWidth,
-      paddingStart: isTab ? 20 : normalize(0.04 * screenWidth),
+      paddingVertical: 0.05 * screenWidth,
+      paddingStart: normalize(0.04 * screenWidth),
+    },
+    tabTopicsContinue: {
+      paddingVertical: 20,
+      paddingStart: 20,
     },
     topicsContinueLandscape: {
       paddingVertical: 0,
-      paddingStart: isTab ? 20 : normalize(0.04 * screenWidth),
+      paddingStart: 20,
     },
     booksDivider: {
       paddingTop: 0.05 * screenWidth,
