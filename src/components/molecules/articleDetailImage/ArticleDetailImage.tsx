@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, StyleSheet, ViewStyle } from 'react-native'
+import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native'
 import { Styles } from 'src/shared/styles'
 import { BannerImageWithOverlay, BannerImageWithOverlayProps} from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
@@ -88,26 +88,31 @@ const ArticleDetailImage = ({
             </View>
         )
     }
+
+    const renderBannerContent = (style: StyleProp<ViewStyle>, showFooter: boolean) => (
+        <View style={style}>
+            <ArticleOverlayContent {...props} showFooter={showFooter} />
+        </View>
+    );
+
     return (
         <View>
-
             <View>
                 {isLive && <LiveArticleDetailHeader timeAgo={liveTimeAgo}/>}
-                <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer])}>
+                <View style={isTab ? imageArticleStyle.sliderTabItemContainer : imageArticleStyle.sliderItemContainer}>
+                {isTab && renderBannerContent(imageArticleStyle.tabSlideContent, false)}
                 { isNotEmpty(jwplayerId) && isFirstItem ? <ArticleDetailVideo mediaId={jwplayerId} showReplay={showReplay} {...props}  /> : 
                     <BannerImageWithOverlay image={image}
                         onImageLoadEnd={onImageLoaded} isImageLoaded={imageLoaded}
                         showOverlay={false}
+                        renderTagName={renderTagName()}
                     />
                 }
-                {!isNotEmpty(jwplayerId) && renderTagName()}
+                {(!isTab && !isNotEmpty(jwplayerId)) && renderTagName()}
                 </View>
-                {!isNotEmpty(jwplayerId) && renderCaption()}
-                <View style={imageArticleStyle.tabSlideContent}>
-                    <ArticleOverlayContent {...props} />
-                </View>
+                {renderCaption()}
+                {!isTab && renderBannerContent(imageArticleStyle.mobileSlideContent, true)}
             </View>
-            
         </View>
     )
 }
@@ -120,11 +125,18 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         width: '100%',
         height: 'auto',
         aspectRatio: 1.34,
-       
+    },
+    sliderTabItemContainer: {
+        flex: 1,
+    },
+    mobileSlideContent: {
+        width: '100%',
+        paddingHorizontal: 0.04 * screenWidth,
+        paddingTop: normalize(5),
     },
     tabSlideContent: {
         width: '100%',
-        paddingHorizontal: 0.04 * screenWidth,
+        paddingHorizontal: 0,
         paddingTop: normalize(5),
     },
     captionView: {

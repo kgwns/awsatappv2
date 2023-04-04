@@ -3,7 +3,7 @@ import {View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle, Ins
 import { ImagesName } from 'src/shared/styles';
 import {Label} from 'src/components/atoms/label/Label';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { normalize } from 'src/shared/utils';
+import { isTab, normalize } from 'src/shared/utils';
 
 interface ButtonListProps {
   title: string;
@@ -19,8 +19,8 @@ interface ButtonListProps {
 }
 
 export const ButtonList = (props: ButtonListProps) => {
-  const _iconName = props.iconName ? props.iconName : ImagesName.leftArrowIcon;
-  const _iconStyle = props.iconStyle ? props.iconStyle : { size: normalize(12) }
+  const icon_name = props.iconName ? props.iconName : isTab ? null : ImagesName.leftArrowIcon;
+  const icon_style = props.iconStyle ? props.iconStyle : { size: normalize(12) }
   const renderIcon = () => {
     return <TouchableOpacity hitSlop={props.hitSlop} onPress={props.onPressIcon ? props.onPressIcon : props.onPress} style={props.iconStyle}>
       {getSvgImages({ name: _iconName, ..._iconStyle })}

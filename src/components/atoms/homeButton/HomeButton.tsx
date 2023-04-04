@@ -5,7 +5,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { isIOS, isTab } from 'src/shared/utils';
 
 interface HomeButtonProps {
-    containerStyle: StyleProp<ViewStyle>;
+    containerStyle?: StyleProp<ViewStyle>;
     onPress: () => void;
 }
 

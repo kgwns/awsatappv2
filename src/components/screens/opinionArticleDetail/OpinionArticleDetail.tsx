@@ -3,7 +3,7 @@ import { StyleSheet, View, FlatList, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
-import {OpinionArticleDetailFooter, DetailHeader} from 'src/components/molecules';
+import {OpinionArticleDetailFooter, DetailHeader, ArticleDetailFooter} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
   RelatedOpinionArticlesWidget,
@@ -95,11 +95,12 @@ export const OpinionArticleDetail = ({
 
     getSelectedAuthorsData()
     emptyRelatedOpinionData()
-    if (isTab) {
-      Orientation.unlockAllOrientations();
-      Orientation.getDeviceOrientation(updateScreenEdge);
-      Orientation.addDeviceOrientationListener(updateScreenEdge);
-    }
+    //Disabled for iPad orientation
+    // if (isTab) {
+    //   Orientation.unlockAllOrientations();
+    //   Orientation.getDeviceOrientation(updateScreenEdge);
+    //   Orientation.addDeviceOrientationListener(updateScreenEdge);
+    // }
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
@@ -107,10 +108,11 @@ export const OpinionArticleDetail = ({
       setrelatedOpinioninfo([]);
       emptyRelatedOpinionData();
       emptyOpinionArticleData();
-      if (!route.params.isRelatedArticle) {
-        Orientation.lockToPortrait();
-        Orientation.removeOrientationListener(updateScreenEdge);
-      }
+      //Disabled for iPad orientation
+      // if (!route.params.isRelatedArticle) {
+      //   Orientation.lockToPortrait();
+      //   Orientation.removeOrientationListener(updateScreenEdge);
+      // }
     };
   }, []);
 
@@ -278,10 +280,11 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressBack = async () => {
-    if (!route.params.isRelatedArticle && isTab) {
-      Orientation.unlockAllOrientations()
-      Orientation.lockToPortrait()
-    }
+    //Disabled for iPad orientation
+    // if (!route.params.isRelatedArticle && isTab) {
+    //   Orientation.unlockAllOrientations()
+    //   Orientation.lockToPortrait()
+    // }
     navigation.goBack()
   }
 
@@ -339,8 +342,8 @@ export const OpinionArticleDetail = ({
           contentContainerStyle={showMiniPlayer && style.contentContainer}
           />
           <View style={style.shadowEffect}>
-            <OpinionArticleDetailFooter
-              opinionArticleDetailData={opinionArticle[0]}
+            <ArticleDetailFooter
+              articleDetailData={opinionArticle[0]}
               isBookmarked={isBookmarked}
               onPressSave={() => onPressSave(opinionArticle[0].nid_export)}
               onPressFontSizeChange={onPressFontSizeChange}

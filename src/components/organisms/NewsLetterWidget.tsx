@@ -37,6 +37,7 @@ export const NewsLettersWidget = (props:any) => {
         renderItem={({item}) => renderItem(item)}
         bounces={false}
         ListFooterComponent={<View style={{height: props.canGoBack ? 0 : 90}}/>}
+        contentContainerStyle={isTab && style.tabletContentStyle}
       />
     </View>
   );
@@ -48,5 +49,8 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
     },
     cardContainer: { paddingVertical: normalizeBy320(10) },
+    tabletContentStyle: {
+      paddingBottom: 60
+    }
   });
 };

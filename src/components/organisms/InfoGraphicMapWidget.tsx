@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
-import { isIOS, isNotEmpty } from 'src/shared/utils'
+import { isIOS, isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { fonts } from 'src/shared/styles/fonts'
 import { Label } from '../atoms'
 import AutoHeightWebView from 'react-native-autoheight-webview'
@@ -53,11 +53,12 @@ const InfoGraphicMapWidget = ({
             source={htmlSource}
             scalesPageToFit={false}
             viewportContent={'width=device-width, user-scalable=no'}
+            style={isTab && styles.tabWebViewContainer}
         />
     )
 
     return (
-        <View style={styles.widgetContainer}>
+            <View style={isTab ? styles.tabWidgetContainer : styles.widgetContainer}>
             <View style={styles.headerContainer}>
                 <Label
                     children={title}
@@ -80,19 +81,29 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: colors.aliceDimBlue
     },
+    tabWidgetContainer: {
+        width: '100%',
+        height:'100%',
+        backgroundColor: colors.aliceDimBlue
+    },
     headerContainer: {
         width: '100%',
-        marginLeft: 15
+        marginLeft: 15,
+        paddingBottom: isTab ? normalize(30) : 0,
     },
     titleStyle: {
-        marginTop: 10,
+        marginTop: isTab ? 25 : 10,
         textAlign: 'left',
         fontFamily: fonts.AwsatDigitalV2_Black,
-        fontSize: 24,
+        fontSize: isTab ? 25 : 24,
         lineHeight: 36,
-        color: colors.black
+        color: colors.black,
+        fontWeight: isTab ? '500' : 'normal',
     },
     scrollViewStyle: {
         overflow: 'hidden',
-    }
+    },
+    tabWebViewContainer: {
+        width: '100%',
+    },
 })

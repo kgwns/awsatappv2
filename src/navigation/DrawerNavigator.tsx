@@ -50,7 +50,7 @@ const DrawerNavigator = () => {
         headerTitleAlign: 'center',
         headerRight: Search,
         drawerStyle: {
-          width: '100%',
+          width: isTab ? '50%' :'100%',
           backgroundColor: themeData.backgroundColor
         }
       }}>

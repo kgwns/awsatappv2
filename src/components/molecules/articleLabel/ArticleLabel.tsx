@@ -1,8 +1,7 @@
 import React, { FC } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { Label } from 'src/components/atoms/label/Label';
-import { LiveBlogTag } from 'src/components/atoms/liveBlogTag/LiveBlogTag';
-import { isIOS, isNotEmpty, isTab, normalize } from 'src/shared/utils';
+import { View, StyleSheet, StyleProp, ViewProps } from 'react-native';
+import { Label, LiveBlogTag } from 'src/components/atoms';
+import { isIOS, isNotEmpty, normalize } from 'src/shared/utils';
 import { DisplayTypes, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { Styles } from 'src/shared/styles';
 import { fonts } from 'src/shared/styles/fonts';
@@ -12,12 +11,14 @@ type ArticleLabelTypes = {
     displayType?: string;
     enableTopMargin?: boolean;
     enableBottomMargin?: boolean;
+    labelContainer?: StyleProp<ViewProps>
 }
 
 export const ArticleLabel: FC<ArticleLabelTypes> = ({
     displayType,
     enableTopMargin = false,
     enableBottomMargin = false,
+    labelContainer
 }) => {
     if (!isNotEmpty(displayType)) {
         return null;
@@ -29,7 +30,7 @@ export const ArticleLabel: FC<ArticleLabelTypes> = ({
 
     const renderLabel = (tagName: string, bgColor: string) => {
         const labelContainerStyle = StyleSheet.flatten([style.tagContainer,
-        enableTopMargin && style.topMargin, enableBottomMargin && style.bottomMargin]);
+        enableTopMargin && style.topMargin, enableBottomMargin && style.bottomMargin,labelContainer]);
         return (
             <View style={style.labelContainer} testID = {'labelId'}>
                 <View style={[labelContainerStyle, { backgroundColor: bgColor }]}>
@@ -71,7 +72,7 @@ const style = StyleSheet.create({
         lineHeight: isIOS ? 18 : 22,
     },
     topMargin: {
-        marginTop: isTab ? 0 : 10
+        marginTop: 10
     },
     bottomMargin: {
         marginBottom: 10

@@ -9,7 +9,7 @@ import 'moment/locale/ar';
 import { getSvgImages } from "../styles/svgImages";
 import { normalize } from 'src/shared/utils';
 import { ImagesName } from "../styles";
-import { isIOS } from "./dimensions";
+import { isIOS, isTab } from "./dimensions";
 import { decode } from "html-entities";
 import DeviceInfo from 'react-native-device-info';
 import countries from "i18n-iso-countries";
@@ -179,7 +179,7 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
   const minuteValue = calculateMinutes(time)
   const minuteString = minuteValue  < 10 ? '0' + minuteValue : minuteValue
 
-  const timeAgoFormatInfo = `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  const timeAgoFormatInfo = isTab ?  `${calculateDateNumber(time)}/${calculateMothNumber(time)} - ${hourString}:${minuteString}` : `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
   const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
   return { icon: DateIcon.CALENDAR, time: fullDateFormat }
 };
@@ -209,6 +209,10 @@ export const calculateMothNumber = (time: any) => {
 
 export const calculateDate = (time: any) => {
   return moment(time).utcOffset(time).get('date');
+};
+
+export const calculateMonthNumber = (time: any) => {
+  return moment(time).utcOffset(time).get('month');
 };
 
 export const calculateMonth = (time: any) => {
@@ -310,14 +314,16 @@ export const convertSecondsToHMS = (seconds: number | string) => {
   return `${hrs}${mins}${scnds}`;
 };
 
-export const TimeIcon = (type: DateIcon) => (
-  getSvgImages({
-    name: type === DateIcon.CALENDAR ? ImagesName.calendarIcon : ImagesName.clock,
-    width: 12,
-    height: 12,
-    style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
-  })
-)
+export const TimeIcon = (type: DateIcon) => {
+  const calendarIcon = isTab ? ImagesName.calendarLightIcon : ImagesName.calendarIcon;
+  return(
+    getSvgImages({
+      name: type === DateIcon.CALENDAR ? calendarIcon : ImagesName.clock,
+      width: 12,
+      height: 12,
+      style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
+    })
+)}
 
 export const removeWhiteSpace = ( value: string) : string | any => {
   return typeof value === 'string' ? value.trim() : value;
@@ -339,6 +345,37 @@ export const getConvertedTime = (time?: number, timezone?: number) => {
     return ''
   }
 };
+
+const formatToTwoDigit = (num: number) => {
+  return num < 10 ? `0${num}` : num;
+}
+
+export const formatHijri = (value: string) => {
+  const day = formatToTwoDigit(calculateDate(value));
+  const month = formatToTwoDigit(calculateMonthNumber(value) + 1);
+  const year = formatToTwoDigit(calculateYear(value));
+  const formattedDate = `${year}-${month}-${day}`.toString();
+  let date = new Date(formattedDate);
+
+  let format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  const parsedDate = format.format(date);
+  return parsedDate;
+}
+
+export const formatGregorian = (value: string) => {
+  const hour = formatToTwoDigit(calculateHour(value));
+  const minutes = formatToTwoDigit(calculateMinutes(value));
+
+  const day = formatToTwoDigit(calculateDate(value));
+  const month = calculateMonth(value);
+  const year = formatToTwoDigit(calculateYear(value));
+
+  return `${day}-${hour}:${minutes} ${month} ${year}`;
+}
 
 export const getCountryNameFromCode = ( countryCode: string) : string => {
   countries.registerLocale(arabicLang);
