@@ -46,7 +46,7 @@ import {useUserProfileData} from 'src/hooks/useUserProfileData';
 import ImagePicker from 'react-native-image-crop-picker';
 import {UpdateUserImageBodyType} from 'src/redux/profileUserDetail/types';
 import {isDarkTheme,SystemPermissions} from 'src/shared/utils';
-import {useAppCommon, useLogin} from 'src/hooks';
+import {useAppCommon} from 'src/hooks';
 import {
   DEFAULT_MINIMUM_DATE,
   DEFAULT_ALERT_TITLE,
@@ -160,19 +160,19 @@ export const UserDetailScreen: FunctionComponent = () => {
     {
       setOccupation(
         userProfileData.user?.occupation
-          ? (userProfileData.user?.occupation as string)
+          ? ((userProfileData.user?.occupation).toString())
           : occupation,
       );
     }
     {
       userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
-        setName(userProfileData.user?.name as string);
+        setName((userProfileData.user?.name).toString());
     }
     {
       userProfileData.user?.image &&
         setUserProfileImage(
-          getProfileImageUrl(userProfileData.user?.image as string),
+          getProfileImageUrl((userProfileData.user?.image).toString()),
         );
     }
     if (userProfileData.user?.birthday) {
@@ -186,7 +186,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     {
       userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setUserName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
-        setUserName(userProfileData.user?.name as string);
+        setUserName((userProfileData.user?.name).toString());
     }
     if(userProfileData.user?.image == null){
       userProfileData.user?.profile_url &&
@@ -203,16 +203,14 @@ export const UserDetailScreen: FunctionComponent = () => {
   }, []);
 
   useEffect(()=>{
-    if(isNotEmpty(name)){
-      setDisableName(!(userProfileData.user?.display_name === name))
-    }
-    else{
+    if (isNotEmpty(name)) {
+      setDisableName(userProfileData.user?.display_name !== name)
+    } else {
       setDisableName(false)
     }
-    if(isNotEmpty(occupation)){
-      setDisableOccupation(!(userProfileData.user?.occupation === occupation))
-    }
-    else{
+    if (isNotEmpty(occupation)) {
+      setDisableOccupation((userProfileData.user?.occupation !== occupation))
+    } else {
       setDisableOccupation(false)
     }
 
@@ -297,11 +295,10 @@ export const UserDetailScreen: FunctionComponent = () => {
   );
 
   const tabContent = () => {
-    switch (tabSelectedIndex) {
-      case 1:
-        return renderPassword();
-      default:
-        return renderUserDetails();
+    if (tabSelectedIndex === 1) {
+      return renderPassword();
+    } else {
+      return renderUserDetails();
     }
   };
 
@@ -913,4 +910,5 @@ const createStyles = (theme: CustomThemeType) =>
     screenBackgroundColor: {
       backgroundColor: theme.profileBackground
     }
-  });
+  }
+  );

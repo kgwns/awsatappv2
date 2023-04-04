@@ -69,10 +69,10 @@ export const PopulateWidget = ({
     const {isPortrait} = useOrientation();
     const videoThumbnailStyle = isTab ? isPortrait ? style.videoThumbnailPortrait : style.videoThumbnailLandscape : {}
     
-    const onPressAlbum = (nid: string) => {
-        nid &&
+    const onPressAlbum = (Nid: string) => {
+        Nid &&
           navigation.navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
-            nid: nid,
+            nid: Nid,
           });
       };
 

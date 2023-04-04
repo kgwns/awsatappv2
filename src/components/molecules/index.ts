@@ -1,6 +1,6 @@
 export {
   default as ArticleFooter,
-  articleFooterProps,
+  ArticleFooterProps,
 } from '../molecules/articleFooter/ArticleFooter';
 export {default as AuthorItem, AuthorItemProps} from '../molecules/AuthorItem';
 export {default as StoryCircle} from './Story/StoryCircle/StoryCircle';

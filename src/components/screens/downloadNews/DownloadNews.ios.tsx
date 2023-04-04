@@ -17,7 +17,7 @@ export const DownloadNewsIOS = () => {
     const style = useThemeAwareObject(customStyle);
 
     const onClickOpenPDF = (selectedPDF: any) => {
-        navigation.navigate(ScreensConstants.PDF_EDITOR_VIEW, { selectedPDF: selectedPDF })
+        navigation.navigate(ScreensConstants.PDF_EDITOR_VIEW, { selectedPDF })
     }
 
     const onClickArchive = () => {

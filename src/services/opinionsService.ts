@@ -17,6 +17,7 @@ export const fetchOpinionsApi = async (body: OpinionsBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('opinionService - fetchOpinionsApi - error', error)
     throw error;
   }
 };
@@ -28,6 +29,7 @@ export const fetchWriterOpinionsApi = async (body: WriterOpinionsBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('opinionService - fetchWriterOpinionsApi - error', error)
     throw error;
   }
 };
@@ -40,6 +42,7 @@ export const fetchOpinionsListApi = async (body: OpinionsListBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('opinionService - fetchOpinionsListApi - error', error)
     throw error;
   }
 };
@@ -51,6 +54,7 @@ export const fetchHomeOpinionsListApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('opinionService - fetchHomeOpinionsListApi - error', error)
     throw error;
   }
 };

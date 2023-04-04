@@ -120,8 +120,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
         }
       }
       return false
-    }
-    else {
+    } else {
       return false
     }
   }
@@ -289,7 +288,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const NewsLetterScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       width: '100%',
@@ -404,7 +403,6 @@ const customStyle = (theme: CustomThemeType) => {
       marginTop: 10
     },
   });
-  return NewsLetterScreenStyle;
 };
 
 const tabNextButtonStyle = (theme: CustomThemeType) => 

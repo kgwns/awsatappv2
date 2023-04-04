@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
+import { ArticleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { LatestArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
@@ -15,7 +15,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import { dateTimeAgo, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities'
 
-export const sectionComboArticleFooter: articleFooterProps = {
+export const sectionComboArticleFooter: ArticleFooterProps = {
     leftTitleColor: isTab ? Styles.color.black900 : Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
     leftTitleStyle: isTab ? {fontFamily: fonts.Effra_Arbc_Regular, fontSize: 13,lineHeight: 16,fontWeight: '400'} : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
@@ -106,7 +106,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
 
 
     const onPressMore = () => {
-        navigation.navigate(ScreensConstants.SectionArticlesScreen, { sectionId: sectionId, title: props.title });
+        navigation.navigate(ScreensConstants.SectionArticlesScreen, { sectionId, title: props.title });
     }
 
     if (!isNonEmptyArray(data)) {

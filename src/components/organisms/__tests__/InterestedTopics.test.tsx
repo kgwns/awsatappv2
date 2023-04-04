@@ -12,6 +12,19 @@ const sampleData: any = [
   {image: 'image', nid: 'nid', name: 'author', created: 'created'},
 ];
 
+const sampleData1: any = [
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+  {image: 'image', nid: 'nid', name: 'author', created: 'created'},
+];
 describe('<InterestedTopics>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
@@ -52,7 +65,7 @@ describe('<InterestedTopics>', () => {
 
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true;
-    const component = <InterestedTopics allSiteCategoriesData={sampleData} onTopicsChanged={mockFunction}/>;
+    const component = <InterestedTopics allSiteCategoriesData={sampleData1} onTopicsChanged={mockFunction}/>;
     instance = render(component);
   });
 

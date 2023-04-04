@@ -7,9 +7,8 @@ import {isIOS, isTab, normalize} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import Share from 'react-native-share';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
-import { getShareUrl } from 'src/shared/utils/utilities';
+import { onPressShare } from 'src/shared/utils/onPressShare';
 
 export const OpinionArticleDetailFooter = ({
   opinionArticleDetailData,
@@ -22,22 +21,6 @@ export const OpinionArticleDetailFooter = ({
   onPressSave: () => void
   onPressFontSizeChange: () => void
 }) => {
-  const onPressShare = async () => {
-    const {title, link_node, field_shorturl} = opinionArticleDetailData;
-    await Share.open({
-      title,
-      url: getShareUrl(field_shorturl,link_node),
-      failOnCancel: true,
-      subject: title,
-    })
-      .then(response => {
-        console.log('Shared successfully :::', response);
-      })
-      .catch(error => {
-        console.log('Cancelled share request :::', error);
-      });
-  };
-
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
 
@@ -83,8 +66,9 @@ export const OpinionArticleDetailFooter = ({
       <ButtonImage icon={() => isTab ? fontScalingTab : fontScalingMobile}
         onPress={onPressFontSizeChange}
       />
-      <ButtonImage icon={() => isTab ? shareTab : shareMobile}
-        onPress={onPressShare}
+      <ButtonImage
+        icon={() => isTab ? shareTab : shareMobile}
+        onPress = {() => onPressShare(opinionArticleDetailData)}
       />
       <ButtonImage icon={() => isTab ? saveTab : saveMobile}
         onPress={onPressSave}

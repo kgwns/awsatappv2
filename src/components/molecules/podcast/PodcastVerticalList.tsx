@@ -6,7 +6,6 @@ import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
 import {Image} from 'src/components/atoms/image/Image';
 import { Label } from 'src/components/atoms/label/Label';
 import {CustomThemeType, colors} from 'src/shared/styles/colors';
-import PlayIcon from 'src/assets/images/icons/play_icon.svg';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
 import {decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay} from 'src/shared/utils/utilities';
@@ -121,7 +120,7 @@ export const PodcastVerticalList = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const PodcastCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     cardContainer: {
       flex:1,
       backgroundColor: theme.podcastEpisodeCardColor,
@@ -188,7 +187,6 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize:12
     }
   });
-  return PodcastCardStyle;
 };
 
 export default PodcastVerticalList;

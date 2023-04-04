@@ -27,12 +27,12 @@ enum TextAlign {
 }
 
 export const textStyles = (theme: CustomThemeType) => {
-  const style = StyleSheet.create<Record<string, TextStyle>>({
+  return StyleSheet.create<Record<string, TextStyle>>({
     h2: {
       fontFamily: fonts.AwsatDigital_Bold,
       fontStyle: FontStyle.NORMAL,
       fontSize: isTab ? normalize(20) : normalize(16),
-      lineHeight: isTab ? normalize(32) :normalize(26),
+      lineHeight: isTab ? normalize(32) : normalize(26),
       textAlign: TextAlign.LEFT,
       paddingVertical: normalize(8),
       color: theme.primaryBlack
@@ -234,7 +234,5 @@ export const textStyles = (theme: CustomThemeType) => {
       color: theme.primaryBlack,
     }
   })
-
-    return style
 }
 

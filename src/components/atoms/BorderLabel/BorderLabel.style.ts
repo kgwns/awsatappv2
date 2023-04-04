@@ -8,7 +8,7 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
   const containerHeight = isIOS ? normalize(36) : normalize(40);
   const fontSizeValue = isIOS ? normalize(14) : normalize(17);
   const lineHeightValue = isIOS ? normalize(24) : normalize(28);
-  const BorderLabelStyle = StyleSheet.create({
+  return StyleSheet.create({
     tagContainer: {
       height: containerHeight,
       paddingVertical: normalize(6),
@@ -82,5 +82,4 @@ export const customBorderLabelStyles = (theme: CustomThemeType) => {
       color: Styles.color.white
     }
   });
-  return BorderLabelStyle
 }

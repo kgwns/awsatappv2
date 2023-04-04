@@ -1,4 +1,4 @@
-import TrackPlayer, { Capability, RepeatMode } from 'react-native-track-player';
+import TrackPlayer, { Capability } from 'react-native-track-player';
 
 class AppPlayer {
     static selectedTrack: null;

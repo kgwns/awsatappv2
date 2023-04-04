@@ -46,22 +46,6 @@ describe('<CustomTabBarItem>', () => {
         expect(instance).toBeDefined()
     })
 
-    test('Should render component', () => {
-        const spyon = jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('كتابي' );
-        expect(render(<CustomTabBarItem tabName='كتابي' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined();
-        spyon.mockClear();
-    })
-
-    test('Should render component', () => {
-        jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('ميديا');
-        expect(render(<CustomTabBarItem tabName='ميديا' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined()
-    })
-
-    test('Should render component', () => {
-        jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('مواضيعي');
-        expect(render(<CustomTabBarItem tabName='مواضيعي' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined()
-    })
-
     it('When MenuButton Press', () => {
         const listButton = instance.container.findAllByType(TouchableOpacity)[0];
         fireEvent(listButton, 'onPress');
@@ -80,4 +64,47 @@ describe('<CustomTabBarItem>', () => {
             expect(instance).toBeDefined()
         })
     })
+})
+
+
+describe('<CustomTabBarItem>', () => {
+    let instance: RenderAPI
+
+    let tabItem = {
+        tabName: 'كتابي',
+        isSelected: false
+    }
+
+    const mockOnPress = jest.fn().mockImplementation(() => {
+        tabItem.isSelected = !tabItem.isSelected
+    })
+
+    beforeEach(() => {
+        const component = <CustomTabBarItem tabName='كتابي' index={0} onPress={mockOnPress} isSelected={false} />
+        instance = render(component)
+    })
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    test('Should render component with myNewsTabWriters', () => {
+        const spyon = jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('myNewsTabWriters').mockReturnValueOnce('myNewsTabMedia').mockReturnValueOnce('myNewsTabTopics')
+        expect(render(<CustomTabBarItem tabName='myNewsTabWriters' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined();
+        spyon.mockClear();
+    })
+
+    test('Should render component with myNewsTabMedia', () => {
+        const spyon = jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('myNewsTabWriters').mockReturnValueOnce('myNewsTabMedia').mockReturnValueOnce('myNewsTabTopics')
+        expect(render(<CustomTabBarItem tabName='myNewsTabMedia' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined();
+        spyon.mockClear();
+    })
+
+    test('Should render component with myNewsTabTopics', () => {
+        const spyon = jest.spyOn(constant,'TranslateConstants').mockReturnValueOnce('myNewsTabWriters').mockReturnValueOnce('myNewsTabMedia').mockReturnValueOnce('myNewsTabTopics')
+        expect(render(<CustomTabBarItem tabName='myNewsTabTopics' index={0} onPress={mockOnPress} isSelected={true} />)).toBeDefined();
+        spyon.mockClear();
+    })
+
 })

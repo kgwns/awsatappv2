@@ -52,7 +52,7 @@ const KeepNotifiedWidget = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const KeepNotifiedWidgetStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       backgroundColor: theme.profileBackground,
@@ -62,7 +62,6 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.dividerColor
     }
   });
-  return KeepNotifiedWidgetStyle;
 };
 
 export default KeepNotifiedWidget;

@@ -43,7 +43,7 @@ export const NewsLettersWidget = (props:any) => {
   );
 };
 const customStyle = (theme: CustomThemeType) => {
-  const NewsLettersWidgetStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.profileBackground,
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
@@ -53,5 +53,4 @@ const customStyle = (theme: CustomThemeType) => {
       paddingBottom: 60
     }
   });
-  return NewsLettersWidgetStyle;
 };

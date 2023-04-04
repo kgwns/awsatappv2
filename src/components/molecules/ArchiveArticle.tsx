@@ -5,7 +5,7 @@ import { ArchiveImage} from 'src/components/atoms/archiveImage/ArchiveImage'
 import { Divider } from 'src/components/atoms/divider/Divider'
 import { BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
-import ArticleFooter, { articleFooterProps, BookMarkColorType } from 'src/components/molecules/articleFooter/ArticleFooter'
+import ArticleFooter, { ArticleFooterProps, BookMarkColorType } from 'src/components/molecules/articleFooter/ArticleFooter'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -18,7 +18,7 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
 import { ArticleLabel } from './articleLabel/ArticleLabel'
 
-const archiveFooterSample: articleFooterProps = {
+const archiveFooterSample: ArticleFooterProps = {
   leftTitleColor: Styles.color.white,
   rightIcon: () => {
     return getSvgImages({
@@ -75,7 +75,7 @@ const ArchiveArticle = ({
   const onPress = () => {
     if (nid) {
       const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
-      navigation.navigate(screenName, { nid: nid })
+      navigation.navigate(screenName, { nid })
     }
   }
 

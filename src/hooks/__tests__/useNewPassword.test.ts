@@ -2,7 +2,7 @@ import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch} from 'react-redux';
 import {
   useNewPassword,
-  useChangePassword,
+  UseChangePassword,
 } from '../useNewPassword';
 
 jest.mock('react-redux', () => ({
@@ -11,14 +11,14 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('#useNewPassword', () => {
-  let result: RenderHookResult<undefined, useChangePassword>;
+  let result: RenderHookResult<undefined, UseChangePassword>;
 
   const dispatchMock = jest.fn();
 
   beforeAll(() => {
     (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
 
-    result = renderHook<undefined, useChangePassword>(() =>
+    result = renderHook<undefined, UseChangePassword>(() =>
       useNewPassword(),
     );
   });

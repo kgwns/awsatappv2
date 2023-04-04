@@ -131,7 +131,7 @@ const FollowFavoriteAuthor = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const FollowFavoriteAuthorStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       marginVertical: isIOS ? normalize(0.015 * screenWidth) : normalize(0.030 * screenWidth),
       marginEnd: (Platform.OS==='ios')
@@ -162,7 +162,6 @@ const customStyle = (theme: CustomThemeType) => {
       bottom: isTab ? normalize(10) : normalize(6)
     },
   });
-  return FollowFavoriteAuthorStyle;
 };
 
 export default FollowFavoriteAuthor;

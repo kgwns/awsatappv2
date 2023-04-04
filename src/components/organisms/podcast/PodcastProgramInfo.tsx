@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {View, StyleSheet, Linking, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import { Label } from 'src/components/atoms/label/Label';
 import { Image } from 'src/components/atoms/image/Image';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -12,7 +12,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
 import { podcastServices } from 'src/constants/Constants';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
-
+import { onPodcastServicePress } from 'src/shared/utils/onPodcastServicePress';
 interface PodcastProgramProps {
   data: PodcastListItemType;
 }
@@ -23,26 +23,6 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
   const styles = useThemeAwareObject(createStyles);
   const fieldData = data ? data : podcastEpisodeInitialData
   const podcastSectionData =  fieldData.field_podcast_sect_export
-
-  const onPodcastServicePress = (podcastService: string) => {
-    switch (podcastService) {
-      case podcastServices.anghami:
-        Linking.openURL(podcastSectionData.anghami.url);
-        return;
-      case podcastServices.apple:
-        Linking.openURL(podcastSectionData.apple_podcasts.url)
-        return;
-      case podcastServices.google:
-        Linking.openURL(podcastSectionData.google_podcast.url);
-        return;
-      case podcastServices.spotify:
-        Linking.openURL(podcastSectionData.spotify.url)
-        return;
-      default:
-        return;
-    }
-  }
-
 
   return (
     <View>
@@ -71,7 +51,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
               <View style={styles.rowStyle}>
                 <TouchableOpacity 
                   disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)}
-                  onPress={() => onPodcastServicePress(podcastServices.apple)}
+                  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.apple)}
                   testID = "tabApplePodcastsUrl"
                 >
                   {getSvgImages({ name: ImagesName.applePodcast, width: normalize(110), height: normalize(50), })}
@@ -80,7 +60,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
               <View style={styles.rowStyle}>
                 <TouchableOpacity
                   disabled={!isNotEmpty(podcastSectionData.google_podcast.url)}
-                  onPress={() => onPodcastServicePress(podcastServices.google)}
+                  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.google)}
                   testID = "tabGooglePodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(110), height: normalize(50), })}
@@ -89,7 +69,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
               <View style={styles.rowStyle}>
                 <TouchableOpacity
                   disabled={!isNotEmpty(podcastSectionData.spotify.url)}
-                  onPress={() => onPodcastServicePress(podcastServices.spotify)}
+                  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.spotify)}
                   testID = "tabSpotifyPodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(70), height: normalize(50), })}
@@ -98,7 +78,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
               <View style={styles.rowStyle}>
                 <TouchableOpacity
                   disabled={!isNotEmpty(podcastSectionData.anghami.url)}
-                  onPress={() => onPodcastServicePress(podcastServices.anghami)}
+                  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.anghami)}
                   testID = "tabAnghamiPodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.anghamiPodcast, width: normalize(80), height: normalize(50), })}
@@ -112,7 +92,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
               <View style={styles.rowStyle}>
                 <TouchableOpacity 
                   disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)}
-                  onPress={() => onPodcastServicePress(podcastServices.apple)}
+                  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.apple)}
                   testID = "applePodcastsUrl"
                 >
                   {getSvgImages({ name: ImagesName.applePodcast, width: normalize(110), height: normalize(50), })}
@@ -120,7 +100,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
                 <View style={styles.topRowImage} />
                 <TouchableOpacity
                   disabled={!isNotEmpty(podcastSectionData.google_podcast.url)}
-                  onPress={() => onPodcastServicePress(podcastServices.google)}
+                  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.google)}
                   testID = "googlePodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(110), height: normalize(50), })}
@@ -131,7 +111,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
               <View style={styles.rowStyle}>
                 <TouchableOpacity
                   disabled={!isNotEmpty(podcastSectionData.spotify.url)}
-                  onPress={() => onPodcastServicePress(podcastServices.spotify)}
+                  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.spotify)}
                   testID = "spotifyPodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(70), height: normalize(50), })}
@@ -139,7 +119,7 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
                 <View style={styles.bottomRowImage} />
                 <TouchableOpacity
                   disabled={!isNotEmpty(podcastSectionData.anghami.url)}
-                  onPress={() => onPodcastServicePress(podcastServices.anghami)}
+                  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.anghami)}
                   testID = "anghamiPodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.anghamiPodcast, width: normalize(80), height: normalize(50), })}

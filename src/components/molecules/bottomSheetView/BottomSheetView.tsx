@@ -63,7 +63,7 @@ export const BottomSheetView = ({ onPressSignUp, title, subTitle, description, s
 }
 
 const customStyle = (theme: CustomThemeType) => {
-    const bottomSheetViewStyle = StyleSheet.create({
+    return StyleSheet.create({
         imageBackground: {
             flex: 1,
             width: '100%',
@@ -201,7 +201,6 @@ const customStyle = (theme: CustomThemeType) => {
             flex: 0.95
         },
     })
-    return bottomSheetViewStyle
 }
 
 

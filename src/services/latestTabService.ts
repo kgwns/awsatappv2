@@ -35,6 +35,7 @@ export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - requestLatestArticle - error', error)
     throw error;
   }
 };
@@ -47,6 +48,7 @@ export const requestSectionCombo = async(body: RequestSectionComboBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - requestSectionCombo - error', error)
     throw error;
   }
 }
@@ -58,6 +60,7 @@ export const writerOpinionApi = async (body: LatestArticleBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - writerOpinionApi - error', error)
     throw error;
   }
 };
@@ -69,6 +72,7 @@ export const podcastHomeApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - podcastHomeApi - error', error)
     throw error;
   }
 };
@@ -86,6 +90,7 @@ export const mainCoverageBlockApi = async () => {
 
     return response;
   } catch (error) {
+    console.log('latestTabService - mainCoverageBlockApi - error', error)
     throw error;
   }
 };
@@ -97,6 +102,7 @@ export const mainFeaturedArticleApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - mainFeaturedArticleApi - error', error)
     throw error;
   }
 };
@@ -108,6 +114,7 @@ export const mainHorizontalArticleApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - mainHorizontalArticleApi - error', error)
     throw error;
   }
 };
@@ -119,6 +126,7 @@ export const editorsChoiceApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - editorsChoiceApi - error', error)
     throw error;
   }
 }
@@ -130,6 +138,7 @@ export const spotlightApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - spotlightApi - error', error)
     throw error;
   }
 }
@@ -141,6 +150,7 @@ export const requestSpotlightArticleSection = async (body: SpotlightArticleSecti
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - requestSpotlightArticleSection - error', error)
     throw error;
   }
 };
@@ -152,6 +162,7 @@ export const infoGraphicBlockApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - infoGraphicBlockApi - error', error)
     throw error;
   }
 };
@@ -163,6 +174,7 @@ export const archivedArticleApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('latestTabService - archivedArticleApi - error', error)
     throw error;
   }
 };

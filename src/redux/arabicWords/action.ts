@@ -1,7 +1,7 @@
 import { FETCH_ARABIC_DATA } from "./actionType"
-import { fetchArabicWordsPayloadType } from "./types"
+import { FetchArabicWordsPayloadType } from "./types"
 
-export const fetchArabicWords = (payload:fetchArabicWordsPayloadType) => {
+export const fetchArabicWords = (payload:FetchArabicWordsPayloadType) => {
     return{
         type: FETCH_ARABIC_DATA,
         payload

@@ -278,7 +278,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
 };
 
 const createStyles = (theme: CustomThemeType) => {
-  const podcastWidgetStyle = StyleSheet.create({
+  return StyleSheet.create({
     title: {
       textAlign: 'left',
       fontSize: 16,
@@ -423,7 +423,6 @@ const createStyles = (theme: CustomThemeType) => {
       paddingHorizontal: 0.06 * screenWidth
     },
   });
-  return podcastWidgetStyle;
 };
 
 export default PodcastWidget;

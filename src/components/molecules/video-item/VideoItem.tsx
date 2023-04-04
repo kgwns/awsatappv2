@@ -14,7 +14,7 @@ import {
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import {isTab, normalize} from 'src/shared/utils';
-import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, timeAgo, isObjectNonEmpty, getShareUrl} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, getShareUrl} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';

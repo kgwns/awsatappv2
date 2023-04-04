@@ -62,7 +62,7 @@ const DrawerNavigator = () => {
 export default DrawerNavigator;
 
 const customStyle = (theme: CustomThemeType) => {
-  const headerStyles = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.tabBarBackground,
       shadowColor: colors.transparent,
@@ -83,5 +83,4 @@ const customStyle = (theme: CustomThemeType) => {
       marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
     },
   });
-  return headerStyles
 }

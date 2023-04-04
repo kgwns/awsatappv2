@@ -1,5 +1,5 @@
 import {contentForYouActions} from '../action';
-import {FETCH_FAVOURITE_OPINIONS, FETCH_FAVOURITE_ARTICLES, EMPTY_ALL_DATA} from '../actionTypes';
+import {FETCH_FAVOURITE_OPINIONS, FETCH_FAVOURITE_ARTICLES, EMPTY_ALL_DATA, FETCH_FAVOURITE_OPINIONS_SUCCESS, FETCH_FAVOURITE_ARTICLES_SUCCESS} from '../actionTypes';
 import contentForYouReducer from '../reducer';
 import {FavouriteListState} from '../types';
 
@@ -125,6 +125,24 @@ describe('opinions reducer', () => {
     expect(nextState.isArticleLoading).toBe(true);
   });
 
+  test("check when FETCH_FAVOURITE_OPINIONS_SUCCESS",() => {
+    const nextState = contentForYouReducer(initialState, {
+      type: FETCH_FAVOURITE_OPINIONS_SUCCESS,
+      payload: {opinionListData:{rows:[{response:{data:'data1'}}],pager:{current_page:'10',items_per_page:'1'}}}
+    });
+    expect(nextState.isArticleLoading).toBe(false);
+    expect(nextState.favouriteOpinionData).toEqual({pager: {current_page: "10", items_per_page: "1"}, rows: [{response: {data: "data1"}}]})
+  });
+
+  test("check when FETCH_FAVOURITE_ARTICLES_SUCCESS",() => {
+    const nextState = contentForYouReducer(initialState, {
+      type: FETCH_FAVOURITE_ARTICLES_SUCCESS,
+      payload: {favouriteArticlesData:{rows:[{response:{data:'data1'}}],pager:{current_page:'10',items_per_page:'1'}}}
+    })
+    expect(nextState.isArticleLoading).toBe(false);
+    expect(nextState.favouriteArticlesData).toEqual({pager: {current_page: "10", items_per_page: "1"}, rows: [{response: {data: "data1"}}]})
+  });
+
   test('empty state', () => {
     const nextState = contentForYouReducer(initialState, {
       type: EMPTY_ALL_DATA,
@@ -225,5 +243,11 @@ describe('opinions reducer', () => {
     expect(nextState.isArticleLoading).toBe(false);
   });
 
-});
+  test('render default state', () => {
+    const nextState = contentForYouReducer(initialState, {
+      type: 'state' as any,
+    });
+    expect(nextState.isArticleLoading).toBe(false);
+  });
 
+});

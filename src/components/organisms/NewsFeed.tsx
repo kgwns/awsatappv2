@@ -54,9 +54,9 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelConta
   const { showMiniPlayer } = useAppPlayer()
   const themeData = useAppCommon();
   const isDarkMode = isDarkTheme(themeData.theme);
-  const onPress = (nid: string) => {
-    if (nid) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
+  const onPress = (nId: string) => {
+    if (nId) {
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nId});
     }
   };
 

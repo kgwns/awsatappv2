@@ -142,4 +142,3 @@ export type NewsLettersActions =
   | EmptySelectedNewsLettersInfo
   | SetSelectedDataFromNewsletterOnboard
   | EmptySelectedNewsletterDataFromOnboard;
-  

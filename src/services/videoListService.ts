@@ -10,6 +10,7 @@ export const fetchVideoListApi = async () => {
     );
     return response;
   } catch (error) {
+    console.log('videoListService - fetchVideoListApi - error', error)
     throw error;
   }
 };

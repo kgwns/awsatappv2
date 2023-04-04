@@ -7,9 +7,8 @@ import {isIOS, isTab, normalize} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import Share from 'react-native-share';
 import {AlbumDetailType} from 'src/redux/photoGallery/types';
-import { getShareUrl } from 'src/shared/utils/utilities';
+import { onPressShare } from 'src/shared/utils/onPressShare';
 
 export const PhotoGalleryDetailFooter = ({
   albumData,
@@ -22,21 +21,6 @@ export const PhotoGalleryDetailFooter = ({
   onPressSave: () => void;
   onPressFontChange: () => void;
 }) => {
-  const onPressShare = async () => {
-    const {title, link_node, field_shorturl} = albumData;
-    await Share.open({
-      title,
-      url: getShareUrl(field_shorturl,link_node),
-      failOnCancel: true,
-      subject: title,
-    })
-      .then(response => {
-        console.log('Shared successfully :::', response);
-      })
-      .catch(error => {
-        console.log('Cancelled share request :::', error);
-      });
-  };
 
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
@@ -83,8 +67,9 @@ export const PhotoGalleryDetailFooter = ({
       <ButtonImage icon={() => isTab ? fontScalingTab : fontScalingMobile}
         onPress={onPressFontChange}
       />
-      <ButtonImage icon={() => isTab ? shareTab : shareMobile}
-        onPress={onPressShare}
+      <ButtonImage
+        icon={() => isTab ? shareTab : shareMobile}
+        onPress={() => onPressShare(albumData)}
       />
       <ButtonImage icon={() => isTab ? saveTab : saveMobile}
         onPress={onPressSave}

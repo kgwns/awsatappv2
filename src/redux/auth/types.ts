@@ -56,4 +56,3 @@ import {
     | FetchEmailCheckFailedType
     | UserLogoutType
     | emptyEmailCheckType;
-    

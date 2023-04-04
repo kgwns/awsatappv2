@@ -10,13 +10,12 @@ import {ImagesName} from 'src/shared/styles/images';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ButtonOnboard, Label} from 'src/components/atoms';
 import TickAnimation from '../../../assets/lottie-animation/tick.json';
-import {ScreensConstants} from 'src/constants/Constants';
+import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import { useDispatch } from 'react-redux';
 import { onBoardingSuccess } from 'src/redux/login/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
 import { useAllWriters, useNewsLetters, useOrientation } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation';
 
 export const SuccessScreen: FunctionComponent = () => {

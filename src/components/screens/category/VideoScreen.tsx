@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native';
 
-import {VideoItem, VideoItemProps} from 'src/components/molecules';
+import {VideoItem} from 'src/components/molecules';
 import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants/Constants';
 import { useBookmark, useLogin, useVideoList, useDocumentaryVideo, useAppPlayer } from 'src/hooks';
@@ -122,8 +122,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     fetchVideoRequest();
    }, []);
 
-  const onPressItem = (item:VideoItemType, isDocumentary:boolean)=>{
-    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isDocumentary})
+  const onPressItem = (item:VideoItemType, isVideoDocumentary:boolean)=>{
+    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isVideoDocumentary})
   }
 
   const [videoDataInfo, setVideoDataInfo] = useState(videoData)
@@ -223,7 +223,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 });
 
 const customStyle = (theme: CustomThemeType) => {
-  const videoScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       marginBottom: normalize(10)
     },
@@ -234,5 +234,4 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.backgroundColor,
     }
   });
-  return videoScreenStyle;
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle } from 'react-native'
 import { normalize } from 'src/shared/utils/dimensions'
 import { moleculesTestID } from 'src/constants/Constants'
@@ -14,7 +14,7 @@ export enum BookMarkColorType {
   BLACK = 'black'
 }
 
-export interface articleFooterProps {
+export interface ArticleFooterProps {
   leftTitle?: string,
   leftIcon?: () => void,
   leftTitleColor?: string,
@@ -54,7 +54,7 @@ const ArticleFooter = ({
   favouriteIconHeight = 16,
   rightTitleStyle,
   isDetail = false
-}: articleFooterProps) => {
+}: ArticleFooterProps) => {
   let storySaveIcon=() => {
     
     return getSvgImages({

@@ -1,5 +1,5 @@
 import {storeInfo} from 'src/constants/Constants';
-import {getThemeState, getIsFirstSession, getServerEnvironment, getArticleFontSize} from '../selectors';
+import {getThemeState, getIsFirstSession, getServerEnvironment, getArticleFontSize, getBaseUrlConfig} from '../selectors';
 import {ServerEnvironment, Theme} from '../types';
 
 describe('App Common Selector', () => {
@@ -24,6 +24,11 @@ describe('App Common Selector', () => {
   test('Get isAppFirstSession state', () => {
     const articleFontSize: number = getArticleFontSize(storeData);
     expect(articleFontSize).toEqual(18);
+  });
+
+  test('Get getBaseUrlConfig state', () => {
+    const baseUrlConfig = getBaseUrlConfig(storeData);
+    expect(baseUrlConfig).toEqual(storeData.appCommon.baseUrlConfig);
   });
 
 });

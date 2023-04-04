@@ -150,8 +150,7 @@ export const ArticleDetailBody = React.memo(({
                 browserOptions(URL);
                 return false
             }
-        }
-        else {
+        } else {
             if (!URL.includes(HTML_URL)) {
                 browserOptions(URL);
                 return false

@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet, Linking, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
 import { Image } from 'src/components/atoms/image/Image'
 import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
@@ -22,6 +22,7 @@ import { usePlaybackState, State } from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { onPodcastServicePress } from 'src/shared/utils/onPodcastServicePress';
 
 export interface PodcastEpisodeModalInfoProps {
     data: PodcastVerticalListProps;
@@ -76,39 +77,20 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
         }
     }
 
-    const onPodcastServicePress = (podcastService: string) => {
-        switch (podcastService) {
-            case podcastServices.anghami:
-                Linking.openURL(podcastSectionData.anghami.url);
-                return;
-            case podcastServices.apple:
-                Linking.openURL(podcastSectionData.apple_podcasts.url)
-                return;
-            case podcastServices.google:
-                Linking.openURL(podcastSectionData.google_podcast.url);
-                return;
-            case podcastServices.spotify:
-                Linking.openURL(podcastSectionData.spotify.url)
-                return;
-            default:
-                return;
-        }
-    }
-
     const renderPodcastView = () => (
         <View style={styles.mainContainer}>
             <Label children={PODCAST_EPISODE_LISTEN_TO} style={styles.listToText} />
             <View style={styles.podcastContainer}>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastServices.spotify)} testID = "spotifyUrl">
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.spotify.url)} onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.spotify)} testID = "spotifyUrl">
                     <SpotifyIcon width={25} height={25} />
                 </TouchableOpacity>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastServices.anghami)} testID = "anghamiUrl">
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.anghami.url)} onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.anghami)} testID = "anghamiUrl">
                     <AnghamiPodcastIcon width={24} height={24} />
                 </TouchableOpacity>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastServices.apple)} testID = "appleUrl">
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)} onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.apple)} testID = "appleUrl">
                     <ApplePodcastIcon width={23} height={23} />
                 </TouchableOpacity>
-                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastServices.google)} testID = "googleUrl">
+                <TouchableOpacity disabled={!isNotEmpty(podcastSectionData.google_podcast.url)} onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.google)} testID = "googleUrl">
                     <GooglePodcastIcon width={23} height={23} />
                 </TouchableOpacity>
             </View>

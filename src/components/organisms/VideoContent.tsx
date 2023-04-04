@@ -21,7 +21,7 @@ import { getVideoDetail } from 'src/services/videoDetailService';
 import Share from 'react-native-share'
 import { getSvgImages } from 'src/shared/styles/svgImages';
 
-export interface videoProps {
+export interface VideoProps {
     storyImage: string,
     storyTitle: string,
     toWatch: string,
@@ -178,7 +178,7 @@ export const VideoContent = ({
 export default VideoContent;
 
 const customStyle = (theme: CustomThemeType) => {
-    const videoContentStyle = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             height: 'auto',
             backgroundColor: isTab ? theme.sectionStoryVideo : theme.secondaryWhite,
@@ -285,5 +285,4 @@ const customStyle = (theme: CustomThemeType) => {
             justifyContent:'flex-end'
         }
     })
-    return videoContentStyle
 }

@@ -8,8 +8,8 @@ import {
   getWriterOpinionsError,
   getHomeOpinionNidData,
 } from 'src/redux/opinions/selectors';
-import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, fetchWriterOpinionsSuccess, emptyOpinionsAction, fetchOpinionsSuccess} from 'src/redux/opinions/action';
-import { FetchOpinionsSuccessPayloadType, OpinionsBodyGet, OpinionsListBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
+import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, emptyOpinionsAction, fetchOpinionsSuccess} from 'src/redux/opinions/action';
+import { FetchOpinionsSuccessPayloadType, OpinionsBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
 
 export interface UseOpinionsReturn {
   isLoading: boolean;

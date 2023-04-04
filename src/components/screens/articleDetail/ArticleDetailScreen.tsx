@@ -1,7 +1,7 @@
 import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties, TranslateConstants, TranslateKey } from 'src/constants/Constants'
+import { shortArticleWithTagProperties, TranslateConstants, TranslateKey, ScreensConstants } from 'src/constants/Constants'
 import { ArticleDetailFooter, VideoPlayerControl, DetailHeader, DetailHeaderTablet } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
@@ -12,7 +12,6 @@ import { ArticleDetailDataType, ArticleReadAlsoType, HTMLElementParseStore, Rela
 import Orientation, { OrientationType } from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useAppPlayer, useBookmark, useLogin } from 'src/hooks'
-import { ScreensConstants } from 'src/constants/Constants'
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
@@ -352,7 +351,7 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const stopVideoPlayer = (showReplayProps: boolean = false) => {
+  const stopVideoPlayer = (showReplayProps = false) => {
     try {
       if (videoRefs) {
         videoRefs?.current[0]?.setNativeProps({
@@ -370,12 +369,12 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const onPressArticle = (nid: string) => {
-    if (nid && nid!==currentNId) {
+  const onPressArticle = (nidProps: string) => {
+    if (nidProps && nidProps!==currentNId) {
       stopVideoPlayer(true);
       const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
-      recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nid});
-      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true, hasHTMLContent })
+      recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nidProps});
+      navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nidProps, isRelatedArticle: true, hasHTMLContent })
     }
   }
 
@@ -563,7 +562,8 @@ export const ArticleDetailScreen = ({
             imageStyleProp={isTab && style.imageContainer}
           />}
       </View>
-  )}
+  )
+}
 
   const setPlayerDetails = (time: any , pausedProps: boolean) => {
     setCurrentTime(time)

@@ -6,11 +6,10 @@ const initialData = {
 }
 
 export default (state = initialData,action:FetchArabicWordsAction) => {
-    switch(action.type) {
-        case FETCH_ARABIC_DATA:
-            state.arabic = {...action.payload}
-            return state.arabic
-        default:
-            return state
+    if(action.type === FETCH_ARABIC_DATA){
+        state.arabic = {...action.payload}
+                return state.arabic
+    } else {
+        return state
     }
 }

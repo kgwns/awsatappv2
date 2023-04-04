@@ -1,5 +1,5 @@
 import SignInFaceBook from './facebookSignIn';
-import SignInGoogle from './googleSignIn'
+import SignInGoogle from './SigninGoogle'
 
 export enum Connection {
   Facebook = 'Facebook',

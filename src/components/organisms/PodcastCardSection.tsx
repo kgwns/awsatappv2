@@ -6,25 +6,25 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {PodcastCardWithLabel} from 'src/components/molecules';
 
-export interface podcastCardProps {
+export interface PodcastCardProps {
   imageUrl: string;
   podcastTitle: string;
   announcerName: string;
 }
 
-interface podcastCardSectionProps {
-  data: podcastCardProps[];
-  onPress?: (item: podcastCardProps)=> void;
+interface PodcastCardSectionProps {
+  data: PodcastCardProps[];
+  onPress?: (item: PodcastCardProps)=> void;
 }
 
-export const PodcastCardSection = ({data,onPress}: podcastCardSectionProps) => {
+export const PodcastCardSection = ({data,onPress}: PodcastCardSectionProps) => {
   const style = useThemeAwareObject(customStyle);
-  const handleOnItemPressAction = (item: podcastCardProps) => {
+  const handleOnItemPressAction = (item: PodcastCardProps) => {
     if (onPress) {
       onPress(item);
     }
   };
-  const renderItem = (item: podcastCardProps, index: number) => {
+  const renderItem = (item: PodcastCardProps, index: number) => {
     return (
       <View
         style={style.cardContainer}
@@ -57,7 +57,7 @@ export const PodcastCardSection = ({data,onPress}: podcastCardSectionProps) => {
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const PodcastCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.secondaryWhite,
     },
@@ -69,7 +69,6 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryWhite,
     },
   });
-  return PodcastCardStyle;
 };
 
 export default PodcastCardSection;

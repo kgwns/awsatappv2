@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
+import { flatListUniqueKey, ScreensConstants, displayTypes } from 'src/constants/Constants';
 import { GridViewItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -26,7 +26,7 @@ export const ArticleGridView = ({
     const onPress = (nid: string, isAlbum: boolean) => {
         if (isNotEmpty(nid)) {
             const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
-            navigation.navigate(screenName, { nid: nid });
+            navigation.navigate(screenName, { nid });
         }
     }
 

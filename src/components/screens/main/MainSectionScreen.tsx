@@ -3,17 +3,23 @@ import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
-  EditorsPickSection, articleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
+  EditorsPickSection, ArticleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
   ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { heroSectionProperties, opinionListSampleData, shortArticleWithTagProperties } from 'src/constants/Constants';
+import {
+  heroSectionProperties,
+  shortArticleWithTagProperties,
+  flatListUniqueKey,
+  ScreensConstants,
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/Constants';
 import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer, useAppCommon } from 'src/hooks';
-import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
+import { LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Styles } from 'src/shared/styles';
@@ -22,10 +28,9 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
-import AuthorSlider from 'src/components/organisms/AuthorsSlider';
+import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { Label } from 'src/components/atoms';
 import { getPodcastUrl, isDarkTheme, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
@@ -434,7 +439,7 @@ export const MainSectionScreen = React.memo((
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
-  const featuredArticleInfo: articleProps[] = topViewSectionData.map((item: MainSectionBlockType, index: number) => (
+  const featuredArticleInfo: ArticleProps[] = topViewSectionData.map((item: MainSectionBlockType, index: number) => (
     {
       ...item,
       ...heroSectionProperties,
@@ -533,9 +538,9 @@ export const MainSectionScreen = React.memo((
   }, [opinionLoaded, podcastHomeLoaded, editorChoiceLoaded])
 
 
-  const onPressArticle = (nid: string, isAlbum: boolean = false) => {
+  const onPressArticle = (nid: string, isAlbum = false) => {
     const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
-    nid && navigation.navigate(screenName, { nid: nid })
+    nid && navigation.navigate(screenName, { nid })
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {

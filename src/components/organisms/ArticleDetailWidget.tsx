@@ -62,6 +62,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
             );
             setScribbleLiveData(response.data)
         } catch (error) {
+            console.log('ArticleDetailWidget - fetchScribbleLive - error', error)
             throw error;
         }
     };

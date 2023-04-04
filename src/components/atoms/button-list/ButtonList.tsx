@@ -23,7 +23,7 @@ export const ButtonList = (props: ButtonListProps) => {
   const icon_style = props.iconStyle ? props.iconStyle : { size: normalize(12) }
   const renderIcon = () => {
     return <TouchableOpacity hitSlop={props.hitSlop} onPress={props.onPressIcon ? props.onPressIcon : props.onPress} style={props.iconStyle}>
-      {getSvgImages({ name: icon_name, ...icon_style })}
+      {getSvgImages({ name: _iconName, ..._iconStyle })}
     </TouchableOpacity>
   }
 

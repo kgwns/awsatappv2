@@ -7,7 +7,7 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
 import { useNavigation } from '@react-navigation/native';
-import AuthorSlider from 'src/components/organisms/AuthorsSlider';
+import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { useAppPlayer, useLogin } from 'src/hooks';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 

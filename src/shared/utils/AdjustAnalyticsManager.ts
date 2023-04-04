@@ -70,6 +70,6 @@ class AdjustAnalyticsManager {
             console.log("Attribution ::::::::",attribution);
         });
     }
-};
+}
 
 export default new AdjustAnalyticsManager()

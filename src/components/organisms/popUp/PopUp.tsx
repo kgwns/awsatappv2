@@ -42,7 +42,7 @@ export const PopUp = ({
 }: PopUpProp) => {
     let refRBSheet: RBSheet = useRef();
     const style = useThemeAwareObject(customStyle);
-    const [height, setheight] = useState(0.85 * screenHeight)
+    const [deviceHeight, setheight] = useState(0.85 * screenHeight)
 
     useEffect(() => {
         if (type === PopUpType.rbSheet && !isTab) { 
@@ -70,8 +70,7 @@ export const PopUp = ({
     useEffect(() => {
         if (currentOrientation === 'PORTRAIT') {
             setheight(0.85 * screenHeight)
-        }
-        else {
+        } else {
             setheight(0.85 * screenWidth)
         }
     }, [currentOrientation]);
@@ -96,13 +95,13 @@ export const PopUp = ({
         <RBSheet
             ref={ref => refRBSheet = ref}
             animationType={'none'}
-            height={height}
+            height={deviceHeight}
             closeOnDragDown={true}
             closeOnPressMask={true}
             closeOnDragAboveSheet={true}
             onClose={onClosePopUp}
             customStyles={{
-                container: StyleSheet.flatten([style.rbSheetContainer, {height: height}]),
+                container: StyleSheet.flatten([style.rbSheetContainer, {height: deviceHeight}]),
                 wrapper: style.popupBackground,
                 draggableIcon: style.rbDraggableIcon
             }}
@@ -147,7 +146,7 @@ export const PopUp = ({
 }
 
 const customStyle = (theme: CustomThemeType) => {
-    const popUpStyle = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             flex: 1,
         },
@@ -169,7 +168,6 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.popupBackground
         }
     });
-    return popUpStyle
 }
 
 export default PopUp;
