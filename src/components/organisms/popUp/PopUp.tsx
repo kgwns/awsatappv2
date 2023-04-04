@@ -7,6 +7,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { AlertModal } from '../AlertModal/AlertModal';
 import { TranslateConstants,TranslateKey } from 'src/constants/Constants'
+import { TabletPopup } from '../tabletPopup/TabletPopup';
 
 export enum PopUpType {
     alertModal = 'alertModal',
@@ -44,7 +45,7 @@ export const PopUp = ({
     const [deviceHeight, setheight] = useState(0.85 * screenHeight)
 
     useEffect(() => {
-        if (type === PopUpType.rbSheet) { 
+        if (type === PopUpType.rbSheet && !isTab) { 
             (showPopUp) ? refRBSheet.open() : refRBSheet.close() 
         }
     }, [showPopUp])
@@ -75,7 +76,7 @@ export const PopUp = ({
     }, [currentOrientation]);
 
     const onPressSuccessButton = () => {
-        if (type === PopUpType.rbSheet) {
+        if (type === PopUpType.rbSheet && !isTab) {
             refRBSheet.close()
         }
         onPressButton()
@@ -121,9 +122,23 @@ export const PopUp = ({
             case PopUpType.alertModal:
                 return renderAlertModal()
             case PopUpType.rbSheet:
-                return renderRBSheet()
+                return choosePopup()
             default:
-                return renderRBSheet()
+                return choosePopup()
+        }
+    }
+
+    const renderTabletModal = () => (<TabletPopup
+        isVisible={showPopUp}
+        onButtonPress={onPressSuccessButton}
+        onClose={() => onClosePopUp()}
+    />)
+
+    const choosePopup = () => {
+        if (isTab) {
+            return renderTabletModal()
+        } else {
+            return renderRBSheet()
         }
     }
 

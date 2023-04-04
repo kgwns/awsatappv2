@@ -41,7 +41,6 @@ const OpinionWritersArticlesSection = ({
 
   const CONST_OPINION_ARTICLE_TITLE = TranslateConstants({key: TranslateKey.OPINION_ARTICLE_TITLE})
 
-
   const renderItem = (item: any, index: number) => {
     return (
       <View key={flatListUniqueKey.OPINION_WRITER_ARTICLES_SECTION + index}>
@@ -85,7 +84,8 @@ const OpinionWritersArticlesSection = ({
   };
   return (
     <View style={style.container}>
-      <Label style={style.headerStyle} children={CONST_OPINION_ARTICLE_TITLE} />
+      <Label style={[style.headerStyle, isTab && style.headerTablet]}
+        children={CONST_OPINION_ARTICLE_TITLE} />
       <FlatList
         keyExtractor={(_, index) => index.toString()}
         showsHorizontalScrollIndicator={false}
@@ -115,9 +115,13 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: 42,
       color: theme.primary,
       textAlign: 'left',
-      marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      marginLeft: normalize(0.04 * screenWidth),
       marginBottom: normalize(8),
       fontFamily: fonts.AwsatDigital_Bold,
+    },
+    headerTablet: {
+      marginLeft: normalize(0.02 * screenWidth),
+      color: theme.primaryBlack,
     },
     loaderStyle: {
       margin: normalize(28)

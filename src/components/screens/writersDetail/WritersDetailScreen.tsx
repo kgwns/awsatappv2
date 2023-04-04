@@ -69,7 +69,7 @@ export const WritersDetailScreen = ({
         if(isFocused){
             getWriterDetailData({ tid: route.params.tid })
             getSelectedAuthorsData()
-            Orientation.lockToPortrait()
+            // Orientation.lockToPortrait() //Disabled for iPad orientation
 
             return () => {
                 emptyWriterDetailData()

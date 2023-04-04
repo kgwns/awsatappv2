@@ -9,7 +9,7 @@ import {
   ImageBackground,
   AppState,
 } from 'react-native';
-import {isIOS} from 'src/shared/utils';
+import {isIOS, isTab} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
@@ -209,7 +209,7 @@ const VideoPlayerFullScreen = ({
       imageStyle={[styles.vignette]}>
       <View style={styles.topContainer}>
         <View style={styles.closeButtonContainer}>{renderCloseButton()}</View>
-        <View style={styles.closeButtonContainer}>{renderFullScreen()}</View>
+       {!isTab && <View style={styles.closeButtonContainer}>{renderFullScreen()}</View>}
       </View>
     </ImageBackground>
   );

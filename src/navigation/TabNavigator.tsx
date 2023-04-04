@@ -16,6 +16,7 @@ import { isIOS, isNonEmptyArray, isTab, normalize, recordCurrentScreen, screenWi
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { useNavigation, useNavigationState, DrawerActions } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants/Constants';
+import { useOrientation } from 'src/hooks';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -68,8 +69,9 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
 }) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
+    const {isPortrait} = useOrientation();
     return (
-        <View style={[style.bottomBar, { backgroundColor: themeData.primaryWhite }]}>
+        <View style={[style.bottomBar, { backgroundColor: themeData.primaryWhite }, isTab && !isPortrait && style.bottomBarLandscape]}>
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;
 
@@ -140,10 +142,10 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                         <TouchableOpacity
                             key={index}
                             onPress={() => onPress()}>
-                            <View style={style.tabIconContainer}>
+                            <View style={[style.tabIconContainer, isTab && !isPortrait && style.tabItemMargin]}>
                             {(getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
                             </View>
-                            <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
+                            <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} style={[isTab && !isPortrait && style.tabItemMargin,style.labelStyle]} labelType={'label10'}>{route.name}</Label>
                         </TouchableOpacity>
                     </View>
                 );
@@ -166,6 +168,9 @@ const customStyle = (theme: CustomThemeType) => {
             shadowOpacity: .1,
             shadowRadius: 4,
             elevation: 15,
+        },
+        bottomBarLandscape: {
+            justifyContent: 'center'
         },
         tabIconContainer: {
             height: isTab ? 29 : 24,
@@ -227,6 +232,12 @@ const customStyle = (theme: CustomThemeType) => {
             width: 19,
             marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
         },
+        labelStyle: {
+            alignSelf: 'center',
+        },
+        tabItemMargin: {
+            marginHorizontal: 50
+        }
     })
 }
 

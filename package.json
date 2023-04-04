@@ -69,6 +69,7 @@
     "react-native-image-crop-picker": "^0.37.3",
     "react-native-inappbrowser-reborn": "3.7.0",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
+    "react-native-linear-gradient": "^2.6.2",
     "react-native-orientation-locker": "^1.4.0",
     "react-native-pager-view": "5.4.15",
     "react-native-permissions": "^3.6.0",

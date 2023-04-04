@@ -34,14 +34,18 @@ const OnBoardNavigator = () => {
 
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
-  const previousIconStyle = style.onBoardPrevIcon;
+  const previousIconStyle = isTab ? style.tabletOnBoardPrevIcon : style.onBoardPrevIcon;
+  const headerStyles = isTab ? style.tabletContainer : style.container;
+  const headerLogoStyle = isTab ? style.tabletLogo : style.logo;
+  const skipButtonStyle = isTab ? style.tabletOnBoardSkip : style.onBoardSkip;
+  const previousButtonStyle =isTab ? style.tabletOnBoardPrevTitle : style.onBoardPrevTitle;
 
   const HeaderLogo = () =>
     getSvgImages({
       name: ImagesName.headerLogo,
-      width: style.logo.width,
-      height: style.logo.height,
-      style: style.logo,
+      width: headerLogoStyle.width,
+      height: headerLogoStyle.height,
+      style: headerLogoStyle,
     });
 
   const onBoardSkip = (routesName: any) => (
@@ -75,14 +79,14 @@ const OnBoardNavigator = () => {
             });
         }
       }}>
-      <Label style={style.onBoardSkip}>{ON_BOARD_COMMON_SKIP}</Label>
+      <Label style={skipButtonStyle}>{ON_BOARD_COMMON_SKIP}</Label>
     </TouchableOpacity>
   );
   const onBoardReturn = () => (
     <TouchableOpacity
       style={style.onBoardReturn}
       onPress={() => navigation.goBack()}>
-      <Label style={style.onBoardPrevTitle}>{ON_BOARD_COMMON_RETURN}</Label>
+      <Label style={previousButtonStyle}>{ON_BOARD_COMMON_RETURN}</Label>
       <BackIcon fill={themeData.backIconColor} style={previousIconStyle} />
     </TouchableOpacity>
   );
@@ -93,7 +97,7 @@ const OnBoardNavigator = () => {
         name={ScreensConstants.SELECT_TOPICS_SCREEN}
         component={Routes.SelectTopicsScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: headerStyles,
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
           headerRight: () =>
@@ -104,7 +108,7 @@ const OnBoardNavigator = () => {
         name={ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN}
         component={Routes.FollowFavoriteAuthorScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: headerStyles,
           headerLeft: () => onBoardReturn(),
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
@@ -115,7 +119,7 @@ const OnBoardNavigator = () => {
         name={ScreensConstants.NEWS_LETTER_SCREEN}
         component={Routes.NewsLetterScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: headerStyles,
           headerLeft: () => onBoardReturn(),
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
@@ -127,7 +131,7 @@ const OnBoardNavigator = () => {
         name={ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN}
         component={Routes.KeepNotifiedScreen}
         options={{
-          headerStyle: style.container,
+          headerStyle: headerStyles,
           headerLeft: () => onBoardReturn(),
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
@@ -149,6 +153,11 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.onBoardBackground,
       shadowColor: colors.transparent,
     },
+    tabletContainer: {
+      height:83,
+      backgroundColor: theme.tabOnBoardHeaderBackground,
+      shadowColor: colors.transparent,
+    },
     search: {
       height: 19,
       width: 18,
@@ -159,6 +168,11 @@ const customStyle = (theme: CustomThemeType) => {
       width: 135,
       alignItems: 'center',
     },
+    tabletLogo: {
+      height: 41,
+      width: 160,
+      alignItems: 'center',
+    },
     menu: {
       height: 16,
       width: 19,
@@ -167,7 +181,12 @@ const customStyle = (theme: CustomThemeType) => {
     onBoardReturn: {
       flexDirection: 'row-reverse',
       alignItems: 'center',
-      marginEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      marginEnd: normalize(0.04 * screenWidth),
+    },
+    tabletOnBoardReturn: {
+      flexDirection: 'row-reverse',
+      alignItems: 'center',
+      marginEnd: normalize(0.04 * screenWidth),
     },
     onBoardPrevTitle: {
       fontFamily: fonts.AwsatDigital_Regular,
@@ -176,10 +195,23 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(20),
       marginBottom: isIOS ? 0 : 4,
     },
+    tabletOnBoardPrevTitle: {
+      fontFamily: fonts.AwsatDigital_Regular,
+      color: theme.backIconColor,
+      fontSize: 18,
+      lineHeight: 28,
+      marginBottom: isIOS ? 0 : 4,
+    },
     onBoardPrevIcon: {
       width: normalize(12),
       height: normalize(8.8),
       marginEnd: 5,
+    },
+    tabletOnBoardPrevIcon: {
+      width: 17,
+      height: 12,
+      marginEnd: 5,
+      marginBottom: 2
     },
     onBoardSkip: {
       fontFamily: fonts.AwsatDigital_Regular,
@@ -188,10 +220,17 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: normalize(12),
       lineHeight: normalize(20),
     },
+    tabletOnBoardSkip: {
+      fontFamily: fonts.AwsatDigital_Regular,
+      alignItems: 'center',
+      color: theme.primary,
+      fontSize: 18,
+      lineHeight: 28,
+    },
     skipContainer: {
-      marginEnd: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      marginEnd: normalize(0.04 * screenWidth),
       borderBottomColor: colors.greenishBlue,
-      borderBottomWidth: 1,
+      borderBottomWidth: isTab ? 0 : 1,
     },
   });
 };

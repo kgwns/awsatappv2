@@ -1,18 +1,25 @@
-import { View, StyleSheet, FlatList } from 'react-native';
+import { View, StyleSheet } from 'react-native';
+/*
+** Horizontal scroll is not working properly By Importing Flatlist using 'react-native' in Android.
+** So, We have fixed this by Importing Flatlist from 'react-native-gesture-handler'
+*/
+import { FlatList } from 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { Label, LabelTypeProp, ImageWithIcon } from '../atoms';
+import { Label, LabelTypeProp, ImageWithIcon, Divider } from '../atoms';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
-import { Styles } from 'src/shared/styles';
-import { SectionVideoFooter } from '../molecules';
+import { ImagesName, Styles } from 'src/shared/styles';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { VideoItemType } from 'src/redux/videoList/types';
-import { dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon } from 'src/shared/utils/utilities';
+import { getImageUrl, convertSecondsToHMS, getShareUrl } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
+import { getVideoDetail } from 'src/services/videoDetailService';
+import Share from 'react-native-share'
+import { getSvgImages } from 'src/shared/styles/svgImages';
 
 export interface VideoProps {
     storyImage: string,
@@ -26,14 +33,18 @@ export interface VideoProps {
 export const VideoContent = ({ 
     data, 
     onPress,
-    isTabDesign = false
+    isTabDesign = false,
+    isVideoList = false
 }: { 
     data: VideoItemType[], 
     onPress?: (item: VideoItemType) => void,
-    isTabDesign?: boolean
+    isTabDesign?: boolean,
+    isVideoList?: boolean
 }) => {
     const CATEGORY_PAGE_VIDEO_CONTENT = TranslateConstants({key:TranslateKey.CATEGORY_PAGE_VIDEO_CONTENT})
-    const theme = useTheme();
+    const SECTION_VIDEO_SHARE = TranslateConstants({key:TranslateKey.VIDEO_SHARE})
+    const TAB_VIDEO_CONTENT_TITLE = TranslateConstants({key: TranslateKey.TABLET_VIDEO_CONTENT_TITLE})
+    const { themeData } = useTheme();
     const style = useThemeAwareObject(customStyle);
     const [isTitleLineCount, setIsTitleLineCount] = useState(1)
     const [isTwoLine, setIsTwoLine] = useState<boolean>(false)
@@ -51,49 +62,111 @@ export const VideoContent = ({
         }
     }
 
+    const onPressShare = async (item: VideoItemType) => {
+        const requestBody = { nid: item.nid };
+        const videoDetailData = await getVideoDetail(requestBody)
+        const { title, field_shorturl_export, link_node } = videoDetailData[0]
+        await Share.open({
+            title,
+            url: getShareUrl(field_shorturl_export!, link_node!),
+            failOnCancel: true,
+            subject: title
+        }).then(response => {
+            console.log('Shared successfully :::', response)
+        }).catch((error) => {
+            console.log('Cancelled share request :::', error)
+        })
+    }
+
+    const ShareIcon = ({item}: any) => {
+        return (
+            <TouchableOpacity onPress={() => onPressShare(item)} style={style.shareContainer}>
+                <Label style={style.shareTextStyle}
+                    children={SECTION_VIDEO_SHARE}
+                    numberOfLines={2}
+                    color={themeData.primary}
+                />
+                {getSvgImages({
+                    name: ImagesName.shareIcon,
+                    width: 16,
+                    height: 16,
+                })}
+            </TouchableOpacity>
+        )
+    }
+
     const renderItem = (item: VideoItemType, index: number) => {
-        const timeFormat = dateTimeAgo(item.created_export)
+        // const timeFormat = dateTimeAgo(item.created_export) Enable timeFormat when required video footer
         
         const imageLink = item.field_thumbnil_multimedia_export ? getImageUrl(item.field_thumbnil_multimedia_export) : undefined;
-        const date = timeFormat.time
+        // const date = timeFormat.time   Enable date when required video footer
         const time = item.field_jwplayerinfo_export ? convertSecondsToHMS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
-        const itemStyle = isTab ? { paddingHorizontal: 0.02 * screenWidth, marginBottom: normalize(30) } :
-            index === data.length - 1 && { marginRight: 0.04 * screenWidth }
-
+        const itemStyle = isTab ? isVideoList ? {} : {  marginBottom: normalize(30),paddingLeft: normalize(20) } :
+        index === data.length - 1 && { marginRight: 0.04 * screenWidth }
         const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
         return (
             <TouchableOpacity onPress={()=>onItemPress(item)} testID = "videoContentPressId">
-                <View style={[style.videoCardContainer, itemStyle]}>
-                    <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)}  />
+                    {isVideoList ? 
+                    <View style={[style.tabVideoCardContainer, itemStyle]}>
+                    <View style = {style.tabVideoContainer}>
+                    <View style = {style.tabVideoLabelContainer}>
+                        <Label
+                            numberOfLines={3}
+                            onTextLayout={onTextLayout}
+                            style={[style.tabTextStyle]}
+                            labelType={LabelTypeProp.h3}>
+                            {decode(item.title)}
+                        </Label>
+                    </View>
+                        <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)} isVideoList = {isVideoList}  />
+                        <Divider style={style.divider} />
+                    </View> 
+                    </View>
+                    :
+                    <View style={[style.videoCardContainer, itemStyle]}>
+                    <ImageWithIcon bottomTag={time} fallback url={imageLink} onPress={()=>onItemPress(item)} />
                     <Label
                         numberOfLines={isTab ? 3 : 2}
                         onTextLayout={onTextLayout}
-                        style={[style.textStyle, !isTab && moreStyle]}
+                        style={[style.textStyle,moreStyle]}
                         labelType={LabelTypeProp.h3}>
                         {decode(item.title)}
                     </Label>
-                    
-                    <SectionVideoFooter
+                    <ShareIcon item = {item} />
+                   
+                   {/*
+                   Enable Video Footer when required 
+                   <SectionVideoFooter
                         leftTitleColor={style.footerTitleColor.color}
                         rightIcon={() => TimeIcon(timeFormat.icon)}
                         rightDate={date}
                         rightDateColor={style.footerTitleColor.color}
                         rightTitleColor={style.footerTitleColor.color}
                         leftViewsColor={theme.themeData.primary}
-                    />
-                </View>
+                    /> */}
+                    </View>
+                    }
+
             </TouchableOpacity>
         )
     }
     return (
-        <View style={style.container}>
-            <Label style={style.titleTextStyle} labelType={LabelTypeProp.title3} children={CATEGORY_PAGE_VIDEO_CONTENT} numberOfLines={2} />
+        <View style={ isVideoList ? style.tabContainer : style.container}>
+
+            {
+                isVideoList ? <Divider style={style.divider} /> :
+                <Label style={style.titleTextStyle} 
+                    labelType={isTab ? LabelTypeProp.title3 : LabelTypeProp.title1} 
+                    children={ isTab ? TAB_VIDEO_CONTENT_TITLE : CATEGORY_PAGE_VIDEO_CONTENT }
+                    numberOfLines={2} 
+                />
+            }
             <FlatList
                 horizontal={!isTabDesign}
                 keyExtractor={(_, index) => index.toString()}
                 listKey={flatListUniqueKey.VIDEO_CONTENT}
-                style={style.listContainer}
+                style={ !isVideoList && style.listContainer}
                 data={data}
                 showsHorizontalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
@@ -108,12 +181,13 @@ const customStyle = (theme: CustomThemeType) => {
     return StyleSheet.create({
         container: {
             height: 'auto',
-            backgroundColor: theme.secondaryWhite,
+            backgroundColor: isTab ? theme.sectionStoryVideo : theme.secondaryWhite,
             paddingBottom: isTab ? 0 : 20,
+            marginLeft: isTab ? -20 : 0
         },
         videoCardContainer: {
-            backgroundColor: theme.secondaryWhite,
-            paddingLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+            backgroundColor: isTab ? theme.sectionStoryVideo : theme.secondaryWhite,
+            paddingLeft: normalize(0.04 * screenWidth),
         },
         listContainer: {
             height: 'auto',
@@ -122,9 +196,13 @@ const customStyle = (theme: CustomThemeType) => {
             marginVertical: normalize(7),
         },
         titleTextStyle: {
-            paddingTop: normalize(10),
-            marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-            color: theme.primary,
+            paddingTop: normalize(25),
+            marginLeft: isTab ? normalize(20) : normalize(0.04 * screenWidth),
+            color: theme.primaryBlack,
+            fontFamily: fonts.AwsatDigital_Black,
+            fontWeight:'900',
+            fontSize: 25,
+            lineHeight: 36
         },
         imageStyle: {
             width: normalize(263),
@@ -134,8 +212,10 @@ const customStyle = (theme: CustomThemeType) => {
         },
         textStyle: {
             width: normalize(263),
-            paddingVertical: normalize(10),
+            paddingTop: normalize(10),
             fontFamily: fonts.AwsatDigital_Bold,
+            fontSize: 16,
+            lineHeight: 26
         },
         baseStyle: {
             alignSelf: 'flex-start',
@@ -161,5 +241,48 @@ const customStyle = (theme: CustomThemeType) => {
         footerTitleColor: {
             color: theme.footerTextColor
         },
+        tabContainer: {
+            height: 'auto',
+            paddingBottom: isTab ? 0 : 20,
+        },
+        tabVideoCardContainer: {
+            flex: 1,
+        },
+        tabTextStyle: {
+            paddingVertical: normalize(10),
+            fontFamily: fonts.AwsatDigital_Bold,
+            fontWeight: '700',
+            fontSize: 18,
+            lineHeight: 29,
+        },
+        tabVideoLabelContainer: {
+            flex:1
+        },
+        tabVideoContainer: {
+            flexDirection:'row',
+            width:'100%',
+            justifyContent:'space-between',
+            flexWrap:'wrap'
+        },
+        divider: {
+            height: 1,
+            backgroundColor: theme.dividerColor,
+            marginTop: 20,
+            marginBottom:20
+        },
+        shareTextStyle: {
+            fontFamily: fonts.AwsatDigital_Regular,
+            fontSize: 16,
+            lineHeight: 24,
+            fontWeight: '400',
+            marginLeft:10,
+            marginTop: 5
+        },
+        shareContainer: {
+            flex:1,
+            alignItems:'center',
+            flexDirection:'row-reverse',
+            justifyContent:'flex-end'
+        }
     })
 }

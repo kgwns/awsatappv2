@@ -5,7 +5,7 @@ import { flatListUniqueKey, ScreensConstants, displayTypes } from 'src/constants
 import { GridViewItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isNonEmptyArray, isNotEmpty, isTypeAlbum, screenWidth } from 'src/shared/utils';
+import { isNonEmptyArray, isNotEmpty, isTab, isTypeAlbum, screenWidth } from 'src/shared/utils';
 import { Divider } from '../atoms';
 import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
@@ -36,7 +36,7 @@ export const ArticleGridView = ({
 
         return (
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_GRID_VIEW + index}
-                onPress={() => onPress(item.nid, isAlbum)} testID = "gridViewClick">
+                onPress={() => onPress(item.nid, isAlbum)} testID = "gridViewClick" style = { isTab &&style.gridContainer}>
                 <GridViewItem
                     imageUrl={item.image}
                     title={item.title}
@@ -56,29 +56,31 @@ export const ArticleGridView = ({
 
     const renderItemSeparatorComponent = () => {
         return (
-            <View style={style.dividerContainer}>
+            <View style={ isTab ? style.tabDividerContainer : style.dividerContainer}>
                 <Divider style={style.divider} />
             </View>
         )
     }
 
     return (
-        <View style={style.container}>
-            {renderItemSeparatorComponent()}
-            <FlatList
-                keyExtractor={(_, index) => index.toString()}
-                listKey={
-                    flatListUniqueKey.ARTICLE_GRID_VIEW +
-                    new Date().getTime().toString()
-                }
-                showsVerticalScrollIndicator={false}
-                data={data}
-                style={style.contentContainer}
-                contentContainerStyle={style.contentContainer}
-                ItemSeparatorComponent={() => renderItemSeparatorComponent()}
-                renderItem={({ item, index }) => renderItem(item, index)}
-                numColumns={2}
-            />
+        <View style = { isTab ? style.tabContainer : style.container}>
+            { !isTab && renderItemSeparatorComponent()}
+                    <FlatList
+                        keyExtractor={(_, index) => index.toString()}
+                        listKey={
+                            flatListUniqueKey.ARTICLE_GRID_VIEW +
+                            new Date().getTime().toString()
+                        }
+                        showsVerticalScrollIndicator={false}
+                        data={data}
+                        style={ !isTab && style.contentContainer}
+                        contentContainerStyle={ !isTab && style.contentContainer}
+                        ItemSeparatorComponent={() => renderItemSeparatorComponent()}
+                        renderItem={({ item, index }) => renderItem(item, index)}
+                        numColumns={2}
+                        columnWrapperStyle={ isTab && style.tabWrapperStyle}
+                    />
+            
             <View style={style.spaceStyle}>
                 {renderItemSeparatorComponent()}
             </View>
@@ -96,6 +98,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         backgroundColor: theme.mainBackground,
     },
+    tabContainer: {
+        flex:1,
+        backgroundColor: theme.mainBackground,
+    },
     dividerContainer: {
         paddingHorizontal: 0.04 * screenWidth,
     },
@@ -105,5 +111,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     spaceStyle: {
         marginTop: 5
+    },
+    gridContainer: {
+        flex: 0.48
+    },
+    tabWrapperStyle:{
+        justifyContent:'space-between'
+    },
+    tabDividerContainer: { 
+        marginBottom: 23
     }
 });

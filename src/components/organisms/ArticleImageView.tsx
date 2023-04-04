@@ -78,12 +78,12 @@ export const ArticleImageView = ({
                     new Date().getTime().toString()
                 }
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={style.contentContainer}
+                contentContainerStyle={ !isTab && style.contentContainer}
                 data={data}
                 ItemSeparatorComponent={() => renderItemSeparatorComponent()}
                 renderItem={({ item, index }) => renderItem(item, index)}
             />
-            <View style={style.dividerContainer}>
+            <View style={!isTab && style.dividerContainer}>
                 <Divider style={style.divider} />
             </View>
         </View>

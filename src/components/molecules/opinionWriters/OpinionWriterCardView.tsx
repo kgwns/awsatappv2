@@ -41,16 +41,13 @@ const OpinionWritersCardView = ({
   headLine,
   subHeadLine,
   audioLabel,
-  duration,
   nid,
   isBookmarked,
   mediaVisibility,
   onPressBookmark,
   hideImageView = false,
   jwPlayerID = null,
-  togglePlayback,
-  selectedTrack,
-  authorId
+  authorId,
 }: OpinionWritersCardViewProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const routes = useNavigationState(state => state.routes)
@@ -141,13 +138,15 @@ const onPressPlay = () => {
   //   togglePlayback(nid, mediaData)
   // }
 }
-
+  const playIconMobile = getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) });
+  const playIconTab = getSvgImages({ name: ImagesName.playWithBg, width: 35, height: 35 });
+  const playIconWidget = isTab ? playIconTab : playIconMobile;
   return (
     <FixedTouchable style={style.container} onPress={()=>onPress()}>
       {!hideImageView && <View style={style.topImageWithLabelContainer}>
         <TouchableOpacity onPress={() => onPressWriter(authorId)}>
           <Image
-            size={normalize(43)}
+            size={isTab ? 53 : normalize(43)}
             url={imageUrl}
             type="round"
             resizeMode="cover"
@@ -174,9 +173,8 @@ const onPressPlay = () => {
                   trackData && trackData.id === (nid+'opinion') && 
                   playbackState === State.Playing || isBuffering   ? 
                   getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-                  getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+                  playIconWidget
                 }
-                style={style.playIcon}
                 onPress={() => onPressPlay()}
                 testId={'playIconTestId'}
               />
@@ -260,10 +258,6 @@ const customStyle = (theme: CustomThemeType) => {
     listenArticleContainer: {
       flexDirection: 'row',
       alignItems: 'center',
-    },
-    playIcon: {
-      width: normalize(13),
-      height: normalize(13),
     },
     footerLabel: {
       fontSize: 12,

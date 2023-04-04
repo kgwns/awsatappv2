@@ -93,10 +93,11 @@ export const OpinionArticleDetailWidget = ({
   );
 
   const onPressReturn = async() => {
-    if (!isRelatedArticle && isTab) {
-      Orientation.unlockAllOrientations();
-      Orientation.lockToPortrait();
-    }
+    //Disabled for iPad orientation
+    // if (!isRelatedArticle && isTab) {
+    //   Orientation.unlockAllOrientations();
+    //   Orientation.lockToPortrait();
+    // }
     (isTab || isIOS) ? setTimeout(() => {
       navigation.goBack()
     },50) : navigation.goBack()

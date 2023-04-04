@@ -2,7 +2,7 @@ import React, {FunctionComponent, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {View, StyleSheet} from 'react-native';
-import {normalize, recordLogEvent} from 'src/shared/utils';
+import {isTab, normalize, recordLogEvent} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
@@ -14,7 +14,7 @@ import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/
 import { useDispatch } from 'react-redux';
 import { onBoardingSuccess } from 'src/redux/login/action';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
-import { useAllWriters, useNewsLetters } from 'src/hooks';
+import { useAllWriters, useNewsLetters, useOrientation } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
 import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation';
 
@@ -22,6 +22,8 @@ export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const styles = useThemeAwareObject(createStyles);
   const dispatch = useDispatch();
+  const {isPortrait} = useOrientation();
+  const buttonContainerStyle = (isTab && !isPortrait) ? styles.buttonContainerLandscape : styles.buttonContainer
 
   const { emptySelectedWritersDataOnboard } = useAllWriters();
   const { emptySelectedNewsletterDataOnboard } = useNewsLetters();
@@ -53,7 +55,7 @@ export const SuccessScreen: FunctionComponent = () => {
             children={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_MAIL_ACKNOWLEDGEMENT})}
           />
         </View>
-        <View style={styles.buttonContainer}>
+        <View style={buttonContainerStyle}>
           <ButtonOnboard
             title={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_GO_TO_HOME})}
             onPress={() => {
@@ -122,6 +124,9 @@ const createStyles = (theme: CustomThemeType) =>
     },
     buttonContainer: {
       marginTop: '15%',
+    },
+    buttonContainerLandscape: {
+      marginTop: '5%',
     },
     titleStyle: {
       fontSize: normalize(22),

@@ -4,10 +4,10 @@ import { OpinionArticleDetailItemType } from 'src/redux/opinionArticleDetail/typ
 import { getShareUrl } from './utilities';
 
 export const onPressShare = async (data:AlbumDetailType | OpinionArticleDetailItemType) => {
-    const {title, view_node, field_shorturl} = data;
+    const {title, link_node, field_shorturl} = data;
     await Share.open({
       title,
-      url: getShareUrl(field_shorturl,view_node),
+      url: getShareUrl(field_shorturl,link_node),
       failOnCancel: true,
       subject: title,
     })

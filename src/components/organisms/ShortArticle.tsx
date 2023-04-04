@@ -4,6 +4,7 @@ import {
   FlatList,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
@@ -13,7 +14,7 @@ import { ArticleFooter, ArticleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
-import { useLogin } from 'src/hooks';
+import { useLogin, useOrientation } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
@@ -50,7 +51,10 @@ export interface ArticleSectionProps {
   listStyle?: StyleProp<ViewStyle>
   hideImage?: boolean;
   showLeftTitle?: boolean;
-  containerStyle?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>,
+  titleColor?: string,
+  articleTextStyle?: StyleProp<TextStyle>,
+  rightTitleColor?: string
 }
 
 export const shortArticleFooter: ArticleFooterProps = {
@@ -76,6 +80,9 @@ const ShortArticle = ({ data, headerLeft, onPress,
   hideImage = false,
   showLeftTitle = true,
   containerStyle,
+  titleColor,
+  articleTextStyle,
+  rightTitleColor
 }: ArticleSectionProps) => {
   const { isLoggedIn } = useLogin()
   const style = useThemeAwareObject(customStyle);
@@ -96,6 +103,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     setArticleData(updatedData)
     onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
   }
+  const { isPortrait } = useOrientation();
 
   const checkAndUpdateBookmark = (index: number) => {
     isLoggedIn ? onPressBookmark(index) : showSignUpPopUp()
@@ -114,15 +122,16 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
     const isAlbum = isTypeAlbum(item.type);
+    const labelContainerStyle = isPortrait ? style.footerStyle : style.footerLandscapeStyle;
 
     return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid, isAlbum)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
         <View style={style.containerStyle}>
-          <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
+          <View style={[ labelContainerStyle, leftContainerStyle, hideImage && style.hideImage]}>
             <ArticleLabel displayType={item.displayType} enableBottomMargin />
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
-              <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
+              <TextWithFlag {...item} numberOfLines={0} labelType={labelType} titleColor = {titleColor} style = {articleTextStyle} />
             </View>
             
             {isNotEmpty(item.body) && showBody &&
@@ -135,7 +144,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
             {!isFooterOutside && <View style={[style.footerContainer]}>
               <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
                 onPress={() => checkAndUpdateBookmark(index)}
-                isBookmarked={item.isBookmarked}
+                isBookmarked={item.isBookmarked} rightTitleColor = {rightTitleColor}
               />
             </View>}
           </View>
@@ -208,7 +217,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   footerStyle: {
     width: footerWidth,
-    paddingRight: normalize(12)
+    paddingRight: normalize(12),
+  },
+  footerLandscapeStyle: {
+    width: '70%',
+    paddingRight: normalize(12),
   },
   cardContainer: {
     paddingBottom: normalize(20),
@@ -219,7 +232,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     height: isTab ? normalize(80) : normalize(65),
   },
   imageContainerLandscape: {
-    width: imageContainerWidth,
+    width: '30%',
   },
   hideImage: {
     flex: 1,
@@ -239,7 +252,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     color: theme.footerTextColor
   },
   containerStyle: {
-    flexDirection: 'row' 
+    flexDirection: 'row' ,
+    justifyContent:'space-between',
   },
   articleFooterStyle: {
     flex: 1 

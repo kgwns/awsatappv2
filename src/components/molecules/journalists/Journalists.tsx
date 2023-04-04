@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Label } from 'src/components/atoms/label/Label';
-import { isIOS, isNonEmptyArray, normalize } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isTab, normalize } from 'src/shared/utils';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreensConstants } from 'src/constants/Constants';
@@ -62,7 +62,7 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     const journalistLength =  isNonEmptyArray(journalistId) ? journalistId.length : 0
 
     return (
-        <View style={style.containerStyle}>
+        <View style={[style.containerStyle, isTab && { flex: 1 }]}>
             {isNonEmptyArray(journalistId) && isNonEmptyArray(journalistName) && isNonEmptyArray(journalistCity) && journalistId.map((item: any, index: number) => {
                 return (
                     <View key={index} style={[style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]}>
@@ -88,7 +88,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     containerStyle: {
         flexDirection: 'row', 
         flexWrap: 'wrap', 
-        paddingHorizontal: normalize(15)
+        paddingHorizontal: isTab ? 0 : normalize(15)
     },
     headerLabel: {
         lineHeight: isIOS ? 20 : 26,

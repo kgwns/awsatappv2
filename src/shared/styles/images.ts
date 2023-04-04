@@ -158,6 +158,7 @@ export enum ImagesName {
   popupImage = 'popupImage',
   calendarIcon = 'calendarIcon',
   calendarIconLight = 'calendarIconLight',
+  calendarLightIcon = 'calendarLightIcon',
   videoCloseIcon = 'videoCloseIcon',
   authorDefault = 'authorDefault',
   myNewsIcon = 'myNewsIcon',
@@ -179,6 +180,14 @@ export enum ImagesName {
   anghamiPodcast = 'anghamiPodcast',
   resetIcon = 'resetIcon',
   liveIcon = 'liveIcon',
+  playWithBg = 'playWithBg',
+  tabPopupLogo = 'tabPopupLogo',
+  shareIcon = 'shareIcon',
+  bookmarkBold = 'bookmarkBold',
+  shareBold = 'shareBold',
+  fontScalingBold = 'fontScalingBold',
+  tabletAuthorItem = 'tabletAuthorItem',
+  tabletDownArrowIcon = 'tabletDownArrowIcon',
 }
 
 export const images = {
