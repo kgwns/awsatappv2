@@ -20,6 +20,8 @@ export interface FollowFavoriteAuthorProps {
   onPress: (isSelected: boolean) => void;
   imageSize?: number;
   containerStyle?: StyleProp<ViewStyle>;
+  tabContainerStyle?: StyleProp<ViewStyle>;
+  tabEnable?: boolean
 }
 
 const FollowFavoriteAuthor = ({
@@ -31,6 +33,8 @@ const FollowFavoriteAuthor = ({
   testId,
   imageSize = 0.099 * screenHeight,
   containerStyle,
+  tabContainerStyle,
+  tabEnable = false
 }: FollowFavoriteAuthorProps) => {
   const timerRef = useRef<any>(null);
   const [fallback, setFallBack] = useState(false)
@@ -61,13 +65,13 @@ const FollowFavoriteAuthor = ({
       testID={testId}
      >
       <View
-        style={[style.container,containerStyle]}>
+        style={[style.container,containerStyle,tabContainerStyle]}>
         {!isSelected ? (
           <Grayscale>
             <Image
               url={authorImage}
               type="round"
-              size={isTab ? normalize(tabSize) : normalize(size)}
+              size={ tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size)}
               resizeMode="cover"
               fallback={fallback}
               fallbackName={ImagesName.authorDefault}
@@ -77,7 +81,7 @@ const FollowFavoriteAuthor = ({
           <Image
             url={authorImage}
             type="round"
-            size={isTab ? normalize(tabSize) : normalize(size)}
+            size={tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size)}
             resizeMode="cover"
               fallback={fallback}
               fallbackName={ImagesName.authorDefault}
@@ -101,7 +105,7 @@ const FollowFavoriteAuthor = ({
             style={[
               isTab ? style.tabletTitleStyle : style.titleStyle,
               {
-                width: isTab ? normalize(tabSize) : normalize(size),
+                width: tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size),
               },
             ]}
             numberOfLines={2}>
@@ -118,7 +122,7 @@ const FollowFavoriteAuthor = ({
             style={[
               style.descStyle,
               {
-                width: isTab ? normalize(tabSize) : normalize(size),
+                width: tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size),
               },
             ]}
             numberOfLines={1}>

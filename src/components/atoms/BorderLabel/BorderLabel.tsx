@@ -1,5 +1,5 @@
 import React, { FunctionComponent } from 'react';
-import { StyleProp, Text, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
+import { StyleProp, Text, TextStyle, TouchableWithoutFeedback, View, ViewStyle } from 'react-native';
 import { customBorderLabelStyles } from './BorderLabel.style';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 
@@ -11,9 +11,11 @@ interface BorderLabelProps {
   clickable?: boolean;
   tabEnable?: boolean;
   unSelectedContainerStyle?: StyleProp<ViewStyle>;
+  selectedTopicContainerStyle?: StyleProp<ViewStyle>;
+  selectedTopicLabelStyle?: StyleProp<TextStyle>;
 }
 export const BorderLabel: FunctionComponent<BorderLabelProps> = ({
-  testID, label, onPress, isSelected, clickable = true, unSelectedContainerStyle, tabEnable = false }
+  testID, label, onPress, isSelected, clickable = true, unSelectedContainerStyle, tabEnable = false, selectedTopicContainerStyle,selectedTopicLabelStyle }
 ) => {
   const style = useThemeAwareObject(customBorderLabelStyles)
   const tagSTyle = tabEnable ? (isSelected ? style.selectedTabTagContainer : style.tagTabContainer) : (isSelected ? style.selectedTagContainer : style.tagContainer);
@@ -25,8 +27,8 @@ export const BorderLabel: FunctionComponent<BorderLabelProps> = ({
           onPress((isSelected === false || isSelected === true) ? !isSelected : true)
         }
       }}>
-      <View style={[tagSTyle, !isSelected && unSelectedContainerStyle]}>
-        <Text style={labelSTyle}>{label}</Text>
+      <View style={[tagSTyle, !isSelected && unSelectedContainerStyle,selectedTopicContainerStyle]}>
+        <Text style={[labelSTyle,selectedTopicLabelStyle]}>{label}</Text>
       </View>
     </TouchableWithoutFeedback>
   )
