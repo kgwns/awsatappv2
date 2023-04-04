@@ -269,7 +269,7 @@ const AuthorItem = ({
                         <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     </TouchableOpacity>
-                    { timeDuration && <Label children={timeDuration} style={style.durationLabel} /> }
+                    { isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.durationLabel} /> }
                 </View>}
             </View>
             <View>

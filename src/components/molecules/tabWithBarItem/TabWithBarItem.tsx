@@ -47,7 +47,7 @@ export const TabWithBarItem: FunctionComponent<TabBarItemProps> = ({
 
 const tabWitBarItemStyle = StyleSheet.create({
   container: {
-    marginHorizontal: isTab ? normalize(0.025 * screenWidth) : isAndroid ? 0.045 * screenWidth : normalize(0.04 * screenWidth),
+    marginHorizontal: isTab ? 0.025 * screenWidth : isAndroid ? 0.045 * screenWidth : normalize(0.04 * screenWidth),
   },
   barLine: {
     width: '100%',
