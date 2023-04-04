@@ -139,14 +139,14 @@ const onPressPlay = () => {
   // }
 }
   const playIconMobile = getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) });
-  const playIconTab = getSvgImages({ name: ImagesName.playWithBg, width: normalize(35), height: normalize(35) });
+  const playIconTab = getSvgImages({ name: ImagesName.playWithBg, width: 35, height: 35 });
   const playIconWidget = isTab ? playIconTab : playIconMobile;
   return (
     <FixedTouchable style={style.container} onPress={()=>onPress()}>
       {!hideImageView && <View style={style.topImageWithLabelContainer}>
         <TouchableOpacity onPress={() => onPressWriter(authorId)}>
           <Image
-            size={normalize(43)}
+            size={isTab ? 53 : normalize(43)}
             url={imageUrl}
             type="round"
             resizeMode="cover"
