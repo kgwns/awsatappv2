@@ -6,22 +6,24 @@ import {  Overlay } from 'src/components/atoms/overlay/Overlay'
 import { getSvgImages } from 'src/shared/styles/svgImages'
 import { ImagesName } from 'src/shared/styles'
 import { ArticleLabel } from 'src/components/molecules/articleLabel/ArticleLabel'
+import { isTab } from 'src/shared/utils'
 
 export interface BannerImageWithOverlayProps {
     image?: string
     onImageLoadEnd?(isSuccess: boolean): void
     isImageLoaded?: boolean
     showOverlay?: boolean;
-    isAlbum: boolean;
+    isAlbum?: boolean;
     displayType?: string;
+    renderTagName?: JSX.Element | null;
 }
 
 export const RenderPhotoIcon = () => (
-    <View style={bannerImageWithOverlayStyle.photoIconContainer}>
+    <View style={isTab ? bannerImageWithOverlayStyle.tabPhotoIconContainer : bannerImageWithOverlayStyle.photoIconContainer}>
         {getSvgImages({
             name: ImagesName.photoIcon,
-            width: 27,
-            height: 22,
+            width: isTab ? 17 : 27,
+            height: isTab ? 12 :22,
         })}
     </View>
 );
@@ -33,6 +35,7 @@ export const BannerImageWithOverlay = ({
     showOverlay,
     displayType,
     isAlbum = false,
+    renderTagName,
 }: BannerImageWithOverlayProps) => {
     const [isError, setIsError] = useState(false) 
 
@@ -56,6 +59,7 @@ export const BannerImageWithOverlay = ({
             {displayType && <View style={bannerImageWithOverlayStyle.liveTagContainer}>
                 <ArticleLabel displayType={displayType}/>
             </View>}
+            {renderTagName}
             {showOverlay && isImageLoaded && <Overlay />}
         </View>
     )
@@ -77,5 +81,10 @@ const bannerImageWithOverlayStyle = StyleSheet.create({
         position: 'absolute', 
         top: 15, 
         right: 15
+    },
+    tabPhotoIconContainer: {
+        position: 'absolute', 
+        top: 8, 
+        right: 8
     }
 })

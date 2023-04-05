@@ -53,7 +53,7 @@ export const StaticPageHeader = ({
 const customStyle = (theme: CustomThemeType) => (
     StyleSheet.create({
         headerContainer: {
-            width: screenWidth,
+            width: '100%',
             height: isIOS ? normalize(220) : normalize(200),
             backgroundColor: theme.secondaryGreen,
             alignItems: 'center',

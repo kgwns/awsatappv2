@@ -9,6 +9,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {Grayscale} from 'react-native-color-matrix-image-filters';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
+import { useOrientation } from 'src/hooks';
 
 export interface FollowFavoriteAuthorProps {
   authorName: string;
@@ -19,6 +20,8 @@ export interface FollowFavoriteAuthorProps {
   onPress: (isSelected: boolean) => void;
   imageSize?: number;
   containerStyle?: StyleProp<ViewStyle>;
+  tabContainerStyle?: StyleProp<ViewStyle>;
+  tabEnable?: boolean
 }
 
 const FollowFavoriteAuthor = ({
@@ -30,6 +33,8 @@ const FollowFavoriteAuthor = ({
   testId,
   imageSize = 0.099 * screenHeight,
   containerStyle,
+  tabContainerStyle,
+  tabEnable = false
 }: FollowFavoriteAuthorProps) => {
   const timerRef = useRef<any>(null);
   const [fallback, setFallBack] = useState(false)
@@ -49,23 +54,24 @@ const FollowFavoriteAuthor = ({
   const changeStatus = () => {
     onPress((isSelected === false || isSelected === true)  ? !isSelected : true)
   };
+  const {isPortrait} = useOrientation();
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const size = imageSize;
-  const tabSize = 0.11 * screenHeight;
+  const tabSize = isPortrait ? 0.1 * screenWidth : 0.09 * screenHeight;
   return (
     <TouchableWithoutFeedback
       onPress={changeStatus}
       testID={testId}
      >
       <View
-        style={[style.container,containerStyle]}>
+        style={[style.container,containerStyle,tabContainerStyle]}>
         {!isSelected ? (
           <Grayscale>
             <Image
               url={authorImage}
               type="round"
-              size={isTab ? normalize(tabSize) : normalize(size)}
+              size={ tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size)}
               resizeMode="cover"
               fallback={fallback}
               fallbackName={ImagesName.authorDefault}
@@ -75,7 +81,7 @@ const FollowFavoriteAuthor = ({
           <Image
             url={authorImage}
             type="round"
-            size={isTab ? normalize(tabSize) : normalize(size)}
+            size={tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size)}
             resizeMode="cover"
               fallback={fallback}
               fallbackName={ImagesName.authorDefault}
@@ -85,7 +91,7 @@ const FollowFavoriteAuthor = ({
           {getSvgImages({
               name: isSelected
                 ? ImagesName.authorItemActive
-                : ImagesName.authorItem,
+                : isTab ? ImagesName.tabletAuthorItem : ImagesName.authorItem,
               size: normalize(22),
             })}
         </View>
@@ -97,9 +103,9 @@ const FollowFavoriteAuthor = ({
                 : colors.spanishGray
             }
             style={[
-              style.titleStyle,
+              isTab ? style.tabletTitleStyle : style.titleStyle,
               {
-                width: isTab ? normalize(tabSize) : normalize(size),
+                width: tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size),
               },
             ]}
             numberOfLines={2}>
@@ -116,7 +122,7 @@ const FollowFavoriteAuthor = ({
             style={[
               style.descStyle,
               {
-                width: isTab ? normalize(tabSize) : normalize(size),
+                width: tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size),
               },
             ]}
             numberOfLines={1}>
@@ -136,13 +142,19 @@ const customStyle = (theme: CustomThemeType) => {
       ?normalize(0.020 * screenHeight)
       :normalize(0.026 * screenHeight),
       alignItems: 'center',
-      backgroundColor: theme.onBoardBackground, 
+      backgroundColor: colors.transparent, 
     },
     titleStyle: {
       fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'center',
       fontSize: normalize(14),
       lineHeight: normalize(22),
+    },
+    tabletTitleStyle: {
+      fontFamily: fonts.AwsatDigital_Bold,
+      textAlign: 'center',
+      fontSize: normalize(15),
+      lineHeight: normalize(24),
     },
     descStyle: {
       fontFamily: fonts.IBMPlexSansArabic_Regular,
@@ -151,7 +163,7 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: normalize(17),
     },
     tickIconContainer: {
-      bottom: isTab ? normalize(5) : normalize(6)
+      bottom: isTab ? normalize(10) : normalize(6)
     },
   });
 };

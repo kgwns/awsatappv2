@@ -120,7 +120,7 @@ const ImageArticle = ({
               isBookmarked={isBookmarked}
               onPress={onPressBookmark}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
-              rightTitleColor={isDark ? Styles.color.silverChalice : Styles.color.black}
+              rightTitleColor={isDark ? Styles.color.silverChalice : isTab ? Styles.color.black900 : Styles.color.black}
               bookMarkColorType={BookMarkColorType.BLACK}
               rightContainerStyle={rightContainerStyle}
               rightIcon={() => TimeIcon(timeFormat.icon)}

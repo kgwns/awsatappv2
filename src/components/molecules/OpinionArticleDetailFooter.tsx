@@ -3,7 +3,7 @@ import React from 'react';
 import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
-import {isIOS, normalize} from 'src/shared/utils';
+import {isIOS, isTab, normalize} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
@@ -21,40 +21,56 @@ export const OpinionArticleDetailFooter = ({
   onPressSave: () => void
   onPressFontSizeChange: () => void
 }) => {
-  const articleSaveIcon = isBookmarked
-    ? ImagesName.bookMarkActiveSVG
-    : ImagesName.bookmarkGray;
-
   const {themeData} = useTheme();
   const style = useThemeAwareObject(customStyle);
+
+  const fontScalingTab = getSvgImages({
+    name: ImagesName.fontScalingBold,
+    width: 40,
+    height: 28,
+    fill: themeData.primaryBlack
+  });
+
+  const shareTab = getSvgImages({
+    name: ImagesName.shareBold,
+    width: 37,
+    height: 36,
+  });
+
+  const saveTab = getSvgImages({
+    name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmarkBold,
+    width: 19,
+    height: 33,
+  });
+
+
+  const fontScalingMobile = getSvgImages({
+    name: ImagesName.fontScaling,
+    size: normalize(21),
+    fill: themeData.primaryBlack
+  });
+
+  const shareMobile = getSvgImages({
+    name: ImagesName.share,
+    size: normalize(18),
+  });
+
+  const saveMobile = getSvgImages({
+    name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark,
+    size: normalize(18),
+  });
+
+
   return (
     <View style={style.container}>
-      <ButtonImage
-        icon={() => {
-          return getSvgImages({
-            name: ImagesName.fontScaling,
-            size: normalize(21), 
-            fill:themeData.secondarySpanishGray
-          });
-        }}
+      <ButtonImage icon={() => isTab ? fontScalingTab : fontScalingMobile}
         onPress={onPressFontSizeChange}
       />
       <ButtonImage
-        icon={() => {
-          return getSvgImages({
-            name: ImagesName.shareGray,
-            size: normalize(18),
-          });
-        }}
+        icon={() => isTab ? shareTab : shareMobile}
         onPress = {() => onPressShare(opinionArticleDetailData)}
       />
-      <ButtonImage
-        icon={() => {
-          return getSvgImages({
-            name: articleSaveIcon,
-            size: normalize(18),
-          });
-        }}
+      <ButtonImage icon={() => isTab ? saveTab : saveMobile}
         onPress={onPressSave}
       />
     </View>
@@ -65,7 +81,7 @@ const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
     container: {
       width: '100%',
-      height: isIOS ? normalize(70) : normalize(60),
+      height: isTab ? 104 : isIOS ? normalize(70) : normalize(60),
       paddingBottom: isIOS ? normalize(15) : 0,
       flexDirection: 'row',
       justifyContent: 'space-around',
@@ -73,6 +89,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryWhite,
       position: 'absolute',
       bottom: 0,
+      paddingHorizontal: isTab ? '20%' : 0,
     },
   });
 };

@@ -104,6 +104,7 @@ export const ArticleDetailBody = React.memo(({
           if(imageElement && imageElement.length > 0) {
             for(i=0; i < imageElement.length; i++) {
               imageElement[i].style["max-width"] = "100%"; 
+              imageElement[i].style["min-width"] = "100%"; 
               imageElement[i].style["height"] = "auto"; 
             } 
           }
@@ -211,12 +212,12 @@ export const ArticleDetailBody = React.memo(({
 
 const customStyle = () => StyleSheet.create({
     scrollViewStyle: {
-        marginHorizontal: 0.04 * screenWidth,
+        marginHorizontal: isTab ? 0 : 0.04 * screenWidth,
         overflow: 'hidden',
         marginTop: 20,
     },
     iosContainerViewStyle: {
-        marginHorizontal: 0.04 * screenWidth,
+        marginHorizontal: isTab ? 0 : 0.04 * screenWidth,
         marginTop: 20,
     },
     webView: {

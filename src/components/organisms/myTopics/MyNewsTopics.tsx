@@ -248,9 +248,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         aspectRatio: 1.34,
     },
     tabImageStyle: {
-        width: 0.5 * screenWidth,
-        height: 'auto',
-        aspectRatio: 1.34,
+        // Enable when New UI change requested
+        // width: 0.5 * screenWidth,
+        // height: 'auto',
+        // aspectRatio: 1.34,
     },
     listContainer: {
         flex: 1,

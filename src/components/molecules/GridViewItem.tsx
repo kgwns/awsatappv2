@@ -33,9 +33,9 @@ export const GridViewItem = ({
     const isOdd = (index + 1) % 2 === 0;
 
     return (
-        <View style={[style.container, !isOdd && style.borderStyle]}>
+        <View style={[ !isTab && style.container, !isOdd && !isTab && style.borderStyle]}>
             {imageUrl &&
-                <View style={isTab ? style.tabImageStyle : style.imageContainerStyle} >
+                <View style={ style.imageContainerStyle} >
                     <Image url={imageUrl} style={style.image}
                         resizeMode={ImageResize.COVER} fallback
                         defaultImageStyle={style.image}
@@ -45,6 +45,7 @@ export const GridViewItem = ({
             }
             {showHighlightTitle && !isNotEmpty(displayType) && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
             <ArticleLabel displayType={displayType} enableTopMargin/>
+            {isTab && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
             {title &&
                 <Label style={style.title} children={title} numberOfLines={3} />
             }
@@ -66,15 +67,15 @@ const customStyle = (theme: CustomThemeType) => {
             height: '100%'
         },
         highlightedTitle: {
-            fontSize: isTab ? 14 : 12,
-            lineHeight: isTab ? 20 : 18,
+            fontSize: isTab ? 13 : 12,
+            lineHeight: isTab ? 16 : 18,
             marginTop: normalize(10),
             color: theme.primary,
             fontFamily: fonts.Effra_Arbc_Regular,
         },
         title: {
-            fontSize: isTab ? 20 : 14,
-            lineHeight: isTab ? 32 : 22,
+            fontSize: isTab ? 16 : 14,
+            lineHeight: isTab ? 26 : 22,
             marginTop: normalize(8),
             color: theme.primaryBlack,
             textAlign: 'left',
@@ -92,11 +93,6 @@ const customStyle = (theme: CustomThemeType) => {
         dividerContainer: {
             height: 0.01
         },
-        tabImageStyle: {
-            width: '100%',
-            aspectRatio: 4/3,
-            height: 'auto'
-        }
     });
 };
 

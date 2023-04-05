@@ -42,7 +42,7 @@ export const TopHeadLineNews = ({
                         <View style={{ paddingRight: normalize(8) }}>
                             <ArticleLabel displayType={item.displayType} />
                         </View>
-                        <Label children={decode(item.title)} style={style.title} />
+                        <Label children={decode(item.title)} style={isTab ? style.tabTitle : style.title} />
                     </View>
                 </View>
             </FixedTouchable>
@@ -86,6 +86,16 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontFamily: fonts.AwsatDigital_Bold,
         flex: 1,
         flexWrap: 'wrap',
+    },
+    tabTitle: {
+        fontSize: 18,
+        lineHeight: 29,
+        textAlign: 'left',
+        color: theme.primaryBlack,
+        fontFamily: fonts.AwsatDigital_Bold,
+        flex: 1,
+        flexWrap: 'wrap',
+        fontWeight: '700'
     },
     circleContainer: {
         width: isTab ? 'auto' :'5%'

@@ -98,6 +98,20 @@ export const colors = {
   darkWineRed: '#BD3C2F',
   seaTurtleGreen: '#2c8a82',
   richBlack: '#0e4540',
+  black55: '#0000008C',
+  lightAlterGray: '#D1DEDD',
+  blackOpacity60: '#00000099',
+  paleGray: '#627170',
+  darkFungusGreen: '#172F2F',
+  blackOpacity0: '#00000000',
+  blackOpacity80: '#000000CC',
+  blackOpacity100: '#000000FF',
+  whiteOpacity0: '#F9FBFB00',
+  whiteOpacity80: '#F9FBFBCC',
+  whiteOpacity100: '#F9FBFBFF',
+  black900: '#041313',
+  green600: '#485655',
+  greenishCyan: '#E4EDEC'
 };
 
 export interface CustomThemeType {
@@ -161,6 +175,9 @@ export interface CustomThemeType {
   onBoardBackground: string,
   newsFeed: string,
   articleCaption: string,
+  tabOnBoardHeaderBackground: string,
+  contactUsTitleColor: string,
+  sectionStoryVideo: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -227,6 +244,9 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   onBoardBackground: colors.aquaHaze,
   newsFeed: colors.smokeyGrey,
   articleCaption: colors.charcoalGray,
+  tabOnBoardHeaderBackground: colors.white,
+  contactUsTitleColor: colors.darkFungusGreen,
+  sectionStoryVideo: colors.greenishCyan,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -290,5 +310,8 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   onBoardBackground: colors.codGray,
   newsFeed: colors.white,
   articleCaption: colors.white,
+  tabOnBoardHeaderBackground: colors.codGray,
+  contactUsTitleColor: colors.white,
+  sectionStoryVideo: colors.codGray
 }
 
