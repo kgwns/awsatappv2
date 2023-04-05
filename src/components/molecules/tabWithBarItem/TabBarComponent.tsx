@@ -44,7 +44,7 @@ export const TabBarComponent = ({ tabItem, onPressTabItem, style }: TabBarWidget
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
-    width: screenWidth,
+    width: '100%',
     marginTop: normalize(10)
   },
   contentStyle: {
