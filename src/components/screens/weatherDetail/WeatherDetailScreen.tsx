@@ -8,6 +8,8 @@ import {
   TouchableWithoutFeedback,
 } from 'react-native';
 import {
+  isIOS,
+  isTab,
   normalize,
 } from '../../../shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -34,7 +36,7 @@ import { calculateNonUtcDateNumber,
   isStringIncludes } from 'src/shared/utils/utilities';
 import { arabic } from 'src/assets/locales/ar/common-ar';
 import moment from 'moment';
-import { useWeatherDetails } from 'src/hooks';
+import { useOrientation, useWeatherDetails } from 'src/hooks';
 import SunImageIcon from 'src/assets/images/icons/weather/Images/Sun.svg'
 import CloudImageIcon from 'src/assets/images/icons/weather/Images/Clouds.svg'
 import FogImageIcon from 'src/assets/images/icons/weather/Images/Fog.svg'
@@ -75,6 +77,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
 
   const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
   const styles = useThemeAwareObject(createStyles);
+  const {isPortrait} = useOrientation();
 
   const currentDate = new Date();
   const data: WeatherDate[] = [];
@@ -245,10 +248,10 @@ export const WeatherDetailScreen: FunctionComponent = () => {
   };
 
   const renderItem = (item: WeatherDate, index: number) => {
-    console.log('ITEM', item)
+    const dayContainerStyle = isPortrait ? styles.tabDayContainerNotSelected : styles.tabLandscapeDayContainerNotSelected
     return (
       <TouchableWithoutFeedback onPress={() => updateOnPress(index)}>
-        <View style={[styles.dayContainerNotSelected, item.selected && styles.dayContainerSelected]}>
+        <View style={[styles.dayContainerNotSelected, isTab && dayContainerStyle, item.selected && styles.dayContainerSelected]}>
           <View>
             <Label numberOfLines={1}
               style={[styles.dayContainerLabel, item.selected && { color: colors.white }]}
@@ -345,7 +348,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
     <View style={styles.container}>
       <ScrollView showsVerticalScrollIndicator={false}>
         {weatherDetail()}
-        <View style={styles.horizontalDateView}>
+        <View style={isTab? styles.tabHorizontalDateView : styles.horizontalDateView}>
           <FlatList
             testID={'newsHorizontalListId'}
             horizontal
@@ -354,6 +357,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item, index }) => renderItem(item, index)}
             bounces={false}
+            style={!isIOS && {alignSelf: 'flex-start'}}
           />
         </View>
         {weatherDescription()}
@@ -373,6 +377,10 @@ const createStyles = (theme: CustomThemeType) =>
     },
     horizontalDateView: {
       margin: normalize(15),
+      marginBottom: normalize(40)
+    },
+    tabHorizontalDateView: {
+      margin: isIOS ? normalize(15) :  normalize(20),
       marginBottom: normalize(40)
     },
     weatherImage: {
@@ -450,6 +458,12 @@ const createStyles = (theme: CustomThemeType) =>
       borderRadius: normalize(5),
       borderColor: colors.borderGray,
       borderWidth: normalize(1),
+    },
+    tabDayContainerNotSelected: {
+      width: isIOS ? normalize(95) : normalize(100),
+    },
+    tabLandscapeDayContainerNotSelected: {
+      width: isIOS ? 148 : 168,
     },
     dayContainerSelected: {
       backgroundColor: colors.greenishBlue,
