@@ -1,7 +1,6 @@
 import { Label } from 'src/components/atoms/label/Label'
 import React, { useEffect, useState } from "react";
 import { Modal, View, TouchableOpacity, StyleSheet } from "react-native";
-import { normalize, screenHeight } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { colors, CustomThemeType } from 'src/shared/styles/colors'
 import CloseIcon from 'src/assets/images/icons/close.svg'
@@ -26,6 +25,7 @@ export const TabletPopup = ({
     const [modalVisible, setModalVisibility] = useState(isVisible)
     const styles = useThemeAwareObject(customStyle)
     const Logo = () => getSvgImages({ name: ImagesName.tabPopupLogo, width: styles.logo.width, height: styles.logo.height });
+    const TABLET_POPUP_BUTTON_TEXT = TranslateConstants({ key: TranslateKey.TABLET_POPUP_BUTTON_TEXT });
 
     useEffect(() => {
         setModalVisibility(isVisible)
@@ -60,12 +60,11 @@ export const TabletPopup = ({
                             <Label
                                 children={description}
                                 style={styles.descriptionTextStyle}
-                                numberOfLines={3}
                             />
                             <TouchableOpacity testID="AlertModalTO2" onPress={onButtonPress}>
                                 <View style={styles.buttonBackgroundStyle}>
                                     <Label style={styles.buttonLabelStyle}
-                                        children={'الدخول'} />
+                                        children={TABLET_POPUP_BUTTON_TEXT} />
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -88,47 +87,47 @@ const customStyle = (theme: CustomThemeType) =>
         },
         innerContainer: {
             alignItems: 'center',
-            height: normalize(558),
-            width: 548,
+            height: 'auto',
+            width: 380,
             backgroundColor: theme.bottomSheetBackground,
-            borderRadius: normalize(30),
+            borderRadius: 30,
         },
         titleContainer: {
-            marginTop: normalize(35)
+            marginTop: 20
         },
         titleTextStyle: {
-            fontSize: normalize(38),
+            fontSize: 23,
             color: colors.white,
-            lineHeight: normalize(44),
+            lineHeight: 44,
             fontFamily: fonts.AwsatDigital_Bold,
             justifyContent: 'center',
             textAlign: 'center',
-            paddingTop: normalize(20)
         },
         descriptionTextStyle: {
-            fontSize: normalize(18),
+            fontSize: 14,
             color: colors.aliceDimBlue,
-            lineHeight: normalize(28),
+            lineHeight: 28,
             textAlign: 'center',
-            paddingTop: normalize(25),
-            paddingBottom: normalize(50),
-            width: "80%",
+            paddingTop: 30,
+            paddingBottom: 30,
             fontFamily: fonts.IBMPlexSansArabic_Regular,
+            width: '90%'
         },
         buttonBackgroundStyle: {
-            height: normalize(65),
+            height: 50,
             backgroundColor: colors.white,
-            borderRadius: normalize(100),
+            borderRadius: 100,
             justifyContent: 'center',
-            width: normalize(236),
-            alignSelf: 'center'
+            width: 200,
+            alignSelf: 'center',
+            marginBottom: 40
         },
         buttonLabelStyle: {
-            paddingHorizontal: normalize(10),
-            fontSize: normalize(25),
+            paddingHorizontal: 10,
+            fontSize: 20,
             fontFamily: fonts.AwsatDigital_Bold,
             color: colors.black,
-            lineHeight: normalize(40),
+            lineHeight: 40,
             textAlign: 'center',
         },
         iconStyle: {
@@ -138,17 +137,17 @@ const customStyle = (theme: CustomThemeType) =>
         },
         logoContainer: {
             alignSelf: 'center',
-            marginTop: normalize(100)
+            marginTop: 60
         },
         logo: {
-            width: normalize(284),
-            height: 0.065 * screenHeight,
+            width: 150,
+            height: 50,
         },
         divider: {
             backgroundColor: colors.lightAlterGray,
             height: 1,
-            width: normalize(100),
+            width: 50,
             alignSelf: 'center',
-            marginTop: normalize(10)
+            marginTop: 10
         },
     })
