@@ -464,7 +464,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               </View>
             </TouchableOpacity>
           </View>
-          <View style={ isPortrait ? styles.spaceStyle : styles.spaceLandscapeStyle}>
+          <View style={styles.spaceStyle}>
             <Label
               style={[styles.occupationTitle, !isPortrait && { marginTop: '3%' }]}
               color={colors.greenishBlue}
@@ -932,12 +932,6 @@ const createStyles = (theme: CustomThemeType) =>
     },
     spaceStyle: {
       paddingHorizontal: isTab ? '10%' : 0.1 * screenWidth
-    },
-    spacePortraitStyle: {
-      paddingHorizontal: '10%',
-    },
-    spaceLandscapeStyle: {
-      paddingHorizontal: '10%',
     },
     nameInputContainer: {
       paddingStart: '10%', 
