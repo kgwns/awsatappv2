@@ -251,7 +251,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}
       backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
-        {isTab && renderTabletTopContainer()}
+        {isTab && !canGoBack && renderTabletTopContainer()}
         <View style={style.textContainer}>
           {!canGoBack && <Label style={titleStyle}>
             {ONBOARD_NEWSLETTER_TITLE}
@@ -268,7 +268,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
           }
         </View>
       </View>
-      {isTab ? renderTabletBottomContainer() :
+      {isTab && !canGoBack ? renderTabletBottomContainer() :
       !canGoBack &&<>
         <View style={style.transparentView} />
         <View style={style.nextButtonView}>
