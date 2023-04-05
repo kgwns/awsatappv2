@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
-import { CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, isNotchDevice, normalize, screenHeight, screenWidth, joinArray, isIOS } from 'src/shared/utils';
 import { BorderLabel, Divider, Label } from 'src/components/atoms';
@@ -37,11 +37,11 @@ const ContinueLabel = (
 const MyFavoriteBooks = (props: any) => {
   const style = useThemeAwareObject(customStyle);
   const data = props.data;
+  const isPortrait = props.isPortrait;
   const scrollRef = useRef<any>(null);
   const MANAGE_MY_NEWS_MY_FAVORITE_BOOKS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_BOOKS })
   const MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS })
-  const addAuthorButtonStyle = (isTab && !props.isPortrait) ? style.booksContinueLandscape : style.booksContinue
-
+  const continueContainerStyle = isTab ? isPortrait ? style.tabBooksContinue : style.booksContinueLandscape : style.booksContinue
   const scrollToStart = () => {
     if (isIOS) {
       scrollRef.current?.scrollTo(0);
@@ -51,7 +51,7 @@ const MyFavoriteBooks = (props: any) => {
   }
 
   return (
-    <View style={style.favBooksView}>
+    <View style={ props.isPortrait ? style.favBooksView : style.favBooksViewLandscape}>
       <Label style={style.titleLabel}>
         {MANAGE_MY_NEWS_MY_FAVORITE_BOOKS}
       </Label>
@@ -72,11 +72,13 @@ const MyFavoriteBooks = (props: any) => {
               onPress={() => props.favAuthorOnPress && props.favAuthorOnPress(item)}
               key={'manageAuthor' + index}
               imageSize={85}
-              containerStyle={index === 0 ? { paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) } : {}}
+              containerStyle={index === 0 ? { paddingStart: isTab ? 20 : normalize(0.04 * screenWidth) } : {}}
+              tabContainerStyle = {isTab && style.tabContainerStyle}
+              tabEnable = {isTab}
             />)
         }
       </ScrollView>}
-      <View style={addAuthorButtonStyle}>
+      <View style={continueContainerStyle}>
         <ContinueLabel 
           label={MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS} 
           goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN} 
@@ -91,11 +93,13 @@ const MyFavoriteBooks = (props: any) => {
 const MyFavoriteTopics = (props: any) => {
   const style = useThemeAwareObject(customStyle);
   const data = props.data;
+  const isPortrait = props.isPortrait;
   const numberOfTopics = data.length as number
   const numberOfRows = isTab ? numberOfTopics > 7 ? 3 : 1 : numberOfTopics > 3 ? 3 : 1;
   const scrollRef = useRef<any>(null);
   const MANAGE_MY_NEWS_MY_FAVORITE_TOPICS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_MY_FAVORITE_TOPICS })
   const MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS = TranslateConstants({ key: TranslateKey.MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS })
+  const continueContainerStyle = isTab ? isPortrait ? style.tabTopicsContinue : style.topicsContinueLandscape : style.topicsContinue 
 
   const scrollToStart = () => {
     if (isIOS) {
@@ -106,8 +110,14 @@ const MyFavoriteTopics = (props: any) => {
   }
 
   const renderItemTopics = (item: any, index: number) => (
-    <View style={style.renderItemTopics} key={index}>
-      <BorderLabel label={decode(item.name)} onPress={() => props.onPressTopicItem && props.onPressTopicItem(item)} isSelected={true} clickable={true} />
+    <View style={ props.isPortrait ? style.renderItemTopics : style.renderItemTopicsLandscape} key={index}>
+      <BorderLabel label={decode(item.name)} 
+        onPress={() => props.onPressTopicItem && props.onPressTopicItem(item)} 
+        isSelected={true} 
+        clickable={true} 
+        selectedTopicContainerStyle={isTab && style.selectedTopicContainerStyle}
+        selectedTopicLabelStyle = {isTab && style.selectedTopicLabelStyle}
+      />
     </View>
   );
 
@@ -136,11 +146,11 @@ const MyFavoriteTopics = (props: any) => {
               showsVerticalScrollIndicator={false}
               bounces={false}
               renderItem={({ item, index }) => renderItemTopics(item, index)}
-              style={{ marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth), }}
+              style={{ marginLeft: isTab ? 20 : normalize(0.04 * screenWidth)}}
             />
           </ScrollView>
         </View>}
-        <View style={style.topicsContinue}>
+        <View style={continueContainerStyle}>
           <ContinueLabel 
             label={MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS} 
             goToScreen={ScreensConstants.MANAGE_MY_FAVORITE_TOPICS_SCREEN} 
@@ -365,12 +375,14 @@ export const ManageMyNewsScreen = () => {
       setIsAlertVisible={(isVisible: boolean) => setIsAlertVisible(isVisible)}
       backgroundColor={style.screenBackgroundColor.backgroundColor}
     >
-      <View style={style.container}>
-        <View style={[ (isTab && !isPortrait) ? style.favBooksLandscape : style.favBooks]}>
+      <View style={isTab ? style.tabContainer : style.container }>
+        <View style={ !isPortrait ? style.favBooksLandscape : style.favBooks}>
           <MyFavoriteBooks data={selectedWriters} isPortrait={isPortrait}  favAuthorOnPress={favAuthorOnPress} onPressContinue={onPressContinue} />
         </View>
-        <Divider style={style.divider} />
-        <View style={[ (isTab && !isPortrait) ? style.favTopicsLandscape : style.favTopics]}>
+        { isTab ? <View style = {style.tabDivider}/> : 
+          <Divider style={style.divider} />
+        }
+        <View style={ isPortrait ? style.favTopics : style.favTopicsLandscape}>
           <MyFavoriteTopics data={selectedInterested} isPortrait={isPortrait} onPressTopicItem={onPressTopicItem} onPressContinue={onPressContinue} />
         </View>
       </View>
@@ -384,27 +396,36 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 1,
       paddingLeft: normalize(3)
     },
+    tabContainer: {
+      height:'100%'
+    },
     favBooks: {
       flex: isTab ? 0.55 : isIOS ? !isNotchDevice ? 0.57 : 0.47 : 0.50,
       paddingTop: 0.05 * screenHeight,
     },
     favBooksLandscape: {
-      flex:  0.55,
+      height: '50%'
     },
     favTopics: {
       flex: 0.5,
       paddingVertical: 0.04 * screenHeight,
     },
     favTopicsLandscape: {
-      flex: 0.60,
-      paddingVertical: 0.01 * screenHeight,
+      height: '50%'
     },
     favBooksView: {
-      paddingTop: 0.05 * screenWidth,
+      paddingTop: isTab ? 20 : 0.05 * screenWidth,
+      alignItems: FLEX_START
+    },
+    favBooksViewLandscape: {
+      paddingTop: 0,
       alignItems: FLEX_START
     },
     favTopicsScrollView: {
-      paddingVertical: 0.04 * screenWidth,
+      paddingVertical: isTab ? 15 : 0.04 * screenWidth,
+    },
+    favTopicsScrollViewLandscape: {
+      paddingVertical: 0,
     },
     favTopicsView: {
       width: '100%',
@@ -416,19 +437,31 @@ const customStyle = (theme: CustomThemeType) => {
       color: theme.primary,
       fontFamily: fonts.AwsatDigital_Bold,
       textAlign: 'left',
-      paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      paddingHorizontal: isTab ? 20 : normalize(0.04 * screenWidth),
     },
     booksContinue: {
       paddingVertical: 0.05 * screenWidth,
-      paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      paddingStart: normalize(0.04 * screenWidth),
+    },
+    tabBooksContinue: {
+      paddingVertical: 20,
+      paddingStart: 20,
     },
     booksContinueLandscape: {
-      paddingVertical: 0.02 * screenWidth,
-      paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      paddingHorizontal: 20,
+      paddingVertical:0
     },
     topicsContinue: {
       paddingVertical: 0.05 * screenWidth,
-      paddingStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      paddingStart: normalize(0.04 * screenWidth),
+    },
+    tabTopicsContinue: {
+      paddingVertical: 20,
+      paddingStart: 20,
+    },
+    topicsContinueLandscape: {
+      paddingVertical: 0,
+      paddingStart: 20,
     },
     booksDivider: {
       paddingTop: 0.05 * screenWidth,
@@ -440,17 +473,21 @@ const customStyle = (theme: CustomThemeType) => {
       justifyContent: 'center',
       alignSelf: FLEX_START,
       borderRadius: normalize(50 / 2),
-      paddingHorizontal: 0.06 * screenWidth,
+      paddingHorizontal: isTab ? 20 : 0.06 * screenWidth,
     },
     continueLabel: {
       fontSize: normalize(12),
-      lineHeight: normalize(42),
+      lineHeight: isTab ? normalize(35) : normalize(42),
       fontFamily: fonts.AwsatDigital_Bold,
       color: theme.secondaryDavyGrey,
       marginStart: normalize(10),
     },
     renderItemTopics: {
       paddingBottom: normalize(10),
+      paddingRight: normalize(10),
+    },
+    renderItemTopicsLandscape: {
+      paddingBottom: 8,
       paddingRight: normalize(10),
     },
     divider: {
@@ -460,6 +497,26 @@ const customStyle = (theme: CustomThemeType) => {
     },
     screenBackgroundColor: {
       backgroundColor: theme.profileBackground
+    },
+    tabDivider: {
+      borderBottomWidth:1,
+      marginStart: 20,
+      marginTop:2,
+      borderBottomColor: theme.dividerColor,
+      height:1
+    },
+    tabContainerStyle: {
+      marginVertical: 20,
+      marginEnd: 20,
+      alignItems: 'center',
+      backgroundColor: colors.transparent, 
+    },
+    selectedTopicContainerStyle: {
+      height: 47
+    },
+    selectedTopicLabelStyle: {
+      fontSize: 17,
+      lineHeight: 30
     }
   });
 };
