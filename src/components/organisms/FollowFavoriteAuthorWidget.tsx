@@ -12,6 +12,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
   const data = props.writersData;
   const style = useThemeAwareObject(customStyle);
   const scrollRef = useRef<ScrollView>(null);
+  const numColumns = 7;
 
   const renderItem = (item: any) => {
     return (
@@ -21,6 +22,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         authorImage={getImageUrl(item.field_opinion_writer_photo_export) }
         isSelected={item.isSelected}
         onPress={selected => props.changeSelectedStatus(item, selected)}
+        numColumns={numColumns}
       />
     );
   };
@@ -37,12 +39,11 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         key={'tabletFollowFavoriteAuthorFlatList'}
         listKey={flatListUniqueKey.FOLLOW_FAVORITE_AUTHOR_WIDGET}
         keyExtractor={(_, index) => index.toString()}
-        numColumns={7}
+        numColumns={numColumns}
         data={data}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => renderItem(item)}
-        style={style.tabletWideMargin}
         contentContainerStyle={style.tabletBottomPadding}
         bounces={false}
       />
