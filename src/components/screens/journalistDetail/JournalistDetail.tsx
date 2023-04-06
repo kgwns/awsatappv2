@@ -69,8 +69,8 @@ export const JournalistDetail = ({
         if (isFocused) {
             getJournalistDetailInfo({ tid: jId })
             getSelectedAuthorsData()
-            Orientation.lockToPortrait()
-
+            // enable when orientation required for mobile
+            // Orientation.lockToPortrait()
             return () => {
                 emptyWriterDetailData()
             }
