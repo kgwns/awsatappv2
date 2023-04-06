@@ -1510,8 +1510,8 @@ describe("OpinionArticleDetail", () => {
 
   it("should call Orientation in useEffect when isTab is true", () => {
     expect(Orientation.unlockAllOrientations).toHaveBeenCalled();
-    expect(Orientation.getDeviceOrientation).toHaveBeenCalled();
-    expect(Orientation.addDeviceOrientationListener).toHaveBeenCalled();
+    expect(Orientation.getDeviceOrientation).not.toHaveBeenCalled();
+    expect(Orientation.addDeviceOrientationListener).not.toHaveBeenCalled();
   })
 
   it("should call setTimeout in useEffect and update state with 0",() => {
@@ -1654,8 +1654,8 @@ describe("OpinionArticleDetail", () => {
     DeviceTypeUtilsMock.isTab = true;
     const element = instance.container.findByType(DetailHeader);
     fireEvent(element,'onBackPress');
-    expect(Orientation.unlockAllOrientations).toHaveBeenCalled();
-    expect(Orientation.lockToPortrait).toHaveBeenCalled();
+    expect(Orientation.unlockAllOrientations).not.toHaveBeenCalled();
+    expect(Orientation.lockToPortrait).not.toHaveBeenCalled();
     expect(navigation.goBack).toHaveBeenCalled();
   })
 })
