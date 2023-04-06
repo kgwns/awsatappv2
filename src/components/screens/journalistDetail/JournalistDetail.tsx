@@ -7,7 +7,7 @@ import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin, useWriterDetail, useJournalist } from 'src/hooks';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
+import { WriterBannerImage, DetailHeader, DetailHeaderTablet } from 'src/components/molecules';
 import { JournalistSection } from 'src/components/organisms';
 import { horizontalEdge, } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
@@ -69,8 +69,8 @@ export const JournalistDetail = ({
         if (isFocused) {
             getJournalistDetailInfo({ tid: jId })
             getSelectedAuthorsData()
-            Orientation.lockToPortrait()
-
+            // enable when orientation required for mobile
+            // Orientation.lockToPortrait()
             return () => {
                 emptyWriterDetailData()
             }
@@ -189,11 +189,19 @@ export const JournalistDetail = ({
         navigation.popToTop()
     }
 
-    const renderHeader = () => (
-        <View style={style.backContainer}>
-            <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
-        </View>
-    )
+    const renderHeader = () => {
+        const headerProps = {
+            visibleHome: noOfDetailRoutes > 1,
+            onHomePress: () => onPressHome(),
+            onBackPress: () => onPressBack(),
+        }
+
+        return (
+            <View style={style.backContainer}>
+                {isTab ? <DetailHeaderTablet {...headerProps} /> : <DetailHeader {...headerProps} />}
+            </View>
+        );
+    };
 
     const renderItem = () => {
         const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
