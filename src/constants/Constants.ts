@@ -1418,8 +1418,8 @@ const searchResults: SearchResultsProps[] = [
         label: 'عنوان لاخر المواضيع بوضع هنا',
     },
 ];
-
-const opinionWritersData: any = [
+ 
+const opinionData = [
     {
         name: 'غسان الإمام',
         description__value_export: null,
@@ -1560,151 +1560,12 @@ const opinionWritersData: any = [
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
         parent_target_id_export: [],
     },
-];
+]
+
+const opinionWritersData: any = [...opinionData] 
 
 const opinionWritersArticlesData: any = {
-    rows: [
-        {
-            name: 'غسان الإمام',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
-            tid: '92570',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'إياد أبو شقرا',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
-            tid: '92571',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'عبد الرحمن الراشد',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
-            tid: '92572',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'أونا هاثاواي وسكوت شابيرو',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
-            tid: '92573',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'صالح القلاب',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
-            tid: '92574',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'زين العابدين الركابي',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
-            tid: '92575',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'ألبرتو تشيروتي',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
-            tid: '92576',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'صالح بن علي الحمادي',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
-            tid: '92577',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'موفق النويصر',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
-            tid: '92578',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
-            parent_target_id_export: [],
-        },
-        {
-            name: 'محمد السلمي',
-            description__value_export: null,
-            field_opinion_writer_path_export: null,
-            view_taxonomy_term:
-                'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
-            tid: '92579',
-            vid_export: null,
-            field_description_export: null,
-            field_opinion_writer_path_export_1: null,
-            field_opinion_writer_photo_export:
-                'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
-            parent_target_id_export: [],
-        },
-    ],
+    rows: [...opinionData],
     pager: {
         current_page: 0,
         items_per_page: '10',
@@ -1937,64 +1798,44 @@ const newsFeedInfo: NewsFeedProps = {
 
 const newsFeedData: NewsFeedProps[] = Array(4).fill(newsFeedInfo)
 
+const PodcastData = {
+    nid: "29",
+    type: "podcast",
+    view_node: podcastSampleViewNode,
+    field_new_sub_title_export: null,
+    title: podcastSampleEpisodeTitle,
+    field_duration_export: null,
+    field_episode_export: null,
+    field_google_podcast_export: null,
+    field_podcast_image_export: null,
+    field_podcast_sect_export: {
+        id: "94842",
+        title: podcastSectSampleTitle,
+        url: podcastSectSampleUrl,
+        bundle: "podcast_section",
+        description: podcastSectSampleDescription,
+        img_podcast_desktop: podcastSectSampleDesktopImageUrl,
+        img_podcast_mobile: podcastSectSampleMobileImageUrl,
+        name: podcastSectSampleTitle
+    },
+    field_spotify_export: null,
+    field_spreaker_episode_export: null,
+    field_spreaker_show_export: null,
+    field_announcer_name_export: null,
+    field_apple_podcast_export: null,
+    body_export: null
+}
+
 const PodcastEpisodeData: any = [
     {
-        nid: "29",
-        type: "podcast",
-        view_node: podcastSampleViewNode,
-        field_new_sub_title_export: null,
-        title: podcastSampleEpisodeTitle,
-        field_duration_export: null,
-        field_episode_export: null,
-        field_google_podcast_export: null,
-        field_podcast_image_export: null,
-        field_podcast_sect_export: {
-            id: "94842",
-            title: podcastSectSampleTitle,
-            url: podcastSectSampleUrl,
-            bundle: "podcast_section",
-            description: podcastSectSampleDescription,
-            img_podcast_desktop: podcastSectSampleDesktopImageUrl,
-            img_podcast_mobile: podcastSectSampleMobileImageUrl,
-            name: podcastSectSampleTitle
-        },
-        field_spotify_export: null,
-        field_spreaker_episode_export: null,
-        field_spreaker_show_export: null,
-        field_announcer_name_export: null,
-        field_apple_podcast_export: null,
-        body_export: null
+      ...PodcastData
     },
 ];
 
 const PodcastListData: any = [
     {
-        nid: "29",
-        type: "podcast",
-        view_node: podcastSampleViewNode,
-        field_new_sub_title_export: null,
-        title: podcastSampleEpisodeTitle,
-        field_duration_export: null,
-        field_episode_export: null,
-        field_google_podcast_export: null,
-        field_podcast_image_export: null,
-        field_podcast_sect_export: {
-            id: "94842",
-            title: podcastSectSampleTitle,
-            url: podcastSectSampleUrl,
-            bundle: "podcast_section",
-            description: podcastSectSampleDescription,
-            img_podcast_desktop: podcastSectSampleDesktopImageUrl,
-            img_podcast_mobile: podcastSectSampleMobileImageUrl,
-            name: podcastSectSampleTitle
-        },
-        field_spotify_export: null,
-        field_spreaker_episode_export: null,
-        field_spreaker_show_export: null,
-        field_announcer_name_export: null,
-        field_apple_podcast_export: null,
-        body_export: null
-    },
+        ...PodcastData
+      },
     {
         nid: "111",
         type: "podcast",
@@ -2194,318 +2035,6 @@ const opinionListSampleData = [
     field_jwplayer_id_opinion_export:  "opinion_sport_blog",
     type: "opinion"
   },
-  {
-    title: "دبلوماسية العزلة والعداوات",
-    created_export: "2021-05-19T20:48:17+0000",
-    field_opinion_writer_node_export: [
-      {
-        id: "94179",
-        title: "  سام منسی",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
-        langcode: "Persian, Farsi",
-        name: "  سام منسی"
-      },
-      {
-        id: "93970",
-        title: " Ilan Jonas",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
-        langcode: "إنجليزية",
-        name: " Ilan Jonas"
-      }
-    ],
-    nid: "2982216",
-    field_opinion_sport_blog_export: [
-      {
-        id: "83",
-        title: "الرأي",
-        bundle: "opinion_sport_blog",
-        name: "الرأي"
-      }
-    ],
-    field_new_issueno_export: "15514",
-    published_at_export: "2021-05-19T20:48:17+0000",
-    body: "<p>تنظم العلاقات بين الدول مجموعة اتفاقات ومعاهدات ومواثيق، خشية الوقوع في أزمات ناتجة عن سوء فهم أو سوء تصرف. وفي كل وزارة خارجية في العالم دائرة خاصة اسمها «دائرة التشريفات» أو «البروتوكول». مهمّة هذه الدائرة أن تطبق القواعد والأعراف القائمة؛ ابتداءً بطريقة الجلوس والاستقبال وأصغر التفاصيل... وإلا عمّت الفوضى، وحدثت الإهانات، وساءت العلاقات.<br />\nفي سياسته الخارجية يعطي لبنان الأهمية الأولى، من حيث المبدأ، لدول الاغتراب بصفته دولة هجرة. والهجرة أنواع: إلى أميركا الشمالية والجنوبية؛ ونادراً ما يعودون. وإلى أفريقيا؛ وغالباً ما يعودون. وإلى الخليج؛ ودائماً يعودون، فهو على بعد ساعتين من بيروت، وأهله أهل.<br />\nبين دول الخليج كانت السعودية مركز الهجرة اللبنانية الأكبر والأهم، منذ أيام الملك عبد العزيز، الذي عمل إلى جانبه رجال مثل الحاج حسين العويني (رئيس الوزراء) ونجيب صالحة وفؤاد حمزة. وفي السعودية فاقت ثروات بعض اللبنانيين الخيال، منذ سبعين عاماً إلى اليوم.<br />\nفقط بعد تصريحات شربل وهبة سمعنا في السعودية أصواتاً تطالب بطرد اللبنانيين. فوزير الخارجية هذا تجاوز كل القواعد والأصول والأعراف في حديث متوتر وعصابي عن دول الخليج. ومن المؤسف القول إن التوتر العصبي والصراخ والهبوب، سمة من سمات «التيار الوطني الحر» ورجاله، وخصوصاً نساءه.<br />\nلم يكن تصرف شربل وهبة في استوديو «الحرة» لائقاً، ولا كلامه، ولا الطريقة التي انسحب بها من الاستوديو غاضباً من مداخلة زميل سعودي.<br />\nولو كلف شربل وهبة نفسه أن يسأل دائرة التشريفات في وزارته لكان أُبلغ أن وزير الخارجية لا يذهب عادة إلى الاستوديو، بل تأتي الكاميرا إليه. وإذا ما حدث وذهب فليس من أجل تهديم الباقي من علاقات لبنان مع السعودية ودول الخليج. فهذه مهمة كانت مسندة حصراً إلى وزير الخارجية الأسبق جبران باسيل، الذي هو مؤسس الدبلوماسية اللبنانية الحديثة، وفتوحاتها ونجاحها الرهيب؛ في عزل لبنان عن إطاره الطبيعي، وعلاقاته التاريخية والتقليدية.<br />\nمسكين شربل وهبة، فهو ليس سوى «صوت سيده». في الحزب، وما قاله على «الحرة» ثقافة عُبّئ بها تعبئة مطلقة. هو، كما أشار، همه الدفاع عن رئيس الجمهورية، أما لبنانيو الخليج، وعلاقات لبنان التاريخية، وانعكاس ذلك على الداخل اللبناني، فلم يعد مهماً. الحقيقة لم يعد شيء مهماً في لبنان. ولا بقي منه (لبنان) الكثير. ولا همومه تستحق الذكر. جبران باسيل منهمك الآن في مهمة «تثبيت» الرئيس بشار الأسد... والتعبير الحرفي لمعاليه، مؤسس الدبلوماسية الحديثة.</p>\n",
-    field_edit_letter_writer_export: null,
-    field_jwplayer_id_opinion_export:  "opinion_sport_blog",
-    type: "opinion"
-  },
-  {
-    title: "دبلوماسية العزلة والعداوات",
-    created_export: "2021-05-19T20:48:17+0000",
-    field_opinion_writer_node_export: [
-      {
-        id: "94179",
-        title: "  سام منسی",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
-        langcode: "Persian, Farsi",
-        name: "  سام منسی"
-      },
-      {
-        id: "93970",
-        title: " Ilan Jonas",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
-        langcode: "إنجليزية",
-        name: " Ilan Jonas"
-      }
-    ],
-    nid: "2982216",
-    field_opinion_sport_blog_export: [
-      {
-        id: "83",
-        title: "الرأي",
-        bundle: "opinion_sport_blog",
-        name: "الرأي"
-      }
-    ],
-    field_new_issueno_export: "15514",
-    published_at_export: "2021-05-19T20:48:17+0000",
-    body: "<p>تنظم العلاقات بين الدول مجموعة اتفاقات ومعاهدات ومواثيق، خشية الوقوع في أزمات ناتجة عن سوء فهم أو سوء تصرف. وفي كل وزارة خارجية في العالم دائرة خاصة اسمها «دائرة التشريفات» أو «البروتوكول». مهمّة هذه الدائرة أن تطبق القواعد والأعراف القائمة؛ ابتداءً بطريقة الجلوس والاستقبال وأصغر التفاصيل... وإلا عمّت الفوضى، وحدثت الإهانات، وساءت العلاقات.<br />\nفي سياسته الخارجية يعطي لبنان الأهمية الأولى، من حيث المبدأ، لدول الاغتراب بصفته دولة هجرة. والهجرة أنواع: إلى أميركا الشمالية والجنوبية؛ ونادراً ما يعودون. وإلى أفريقيا؛ وغالباً ما يعودون. وإلى الخليج؛ ودائماً يعودون، فهو على بعد ساعتين من بيروت، وأهله أهل.<br />\nبين دول الخليج كانت السعودية مركز الهجرة اللبنانية الأكبر والأهم، منذ أيام الملك عبد العزيز، الذي عمل إلى جانبه رجال مثل الحاج حسين العويني (رئيس الوزراء) ونجيب صالحة وفؤاد حمزة. وفي السعودية فاقت ثروات بعض اللبنانيين الخيال، منذ سبعين عاماً إلى اليوم.<br />\nفقط بعد تصريحات شربل وهبة سمعنا في السعودية أصواتاً تطالب بطرد اللبنانيين. فوزير الخارجية هذا تجاوز كل القواعد والأصول والأعراف في حديث متوتر وعصابي عن دول الخليج. ومن المؤسف القول إن التوتر العصبي والصراخ والهبوب، سمة من سمات «التيار الوطني الحر» ورجاله، وخصوصاً نساءه.<br />\nلم يكن تصرف شربل وهبة في استوديو «الحرة» لائقاً، ولا كلامه، ولا الطريقة التي انسحب بها من الاستوديو غاضباً من مداخلة زميل سعودي.<br />\nولو كلف شربل وهبة نفسه أن يسأل دائرة التشريفات في وزارته لكان أُبلغ أن وزير الخارجية لا يذهب عادة إلى الاستوديو، بل تأتي الكاميرا إليه. وإذا ما حدث وذهب فليس من أجل تهديم الباقي من علاقات لبنان مع السعودية ودول الخليج. فهذه مهمة كانت مسندة حصراً إلى وزير الخارجية الأسبق جبران باسيل، الذي هو مؤسس الدبلوماسية اللبنانية الحديثة، وفتوحاتها ونجاحها الرهيب؛ في عزل لبنان عن إطاره الطبيعي، وعلاقاته التاريخية والتقليدية.<br />\nمسكين شربل وهبة، فهو ليس سوى «صوت سيده». في الحزب، وما قاله على «الحرة» ثقافة عُبّئ بها تعبئة مطلقة. هو، كما أشار، همه الدفاع عن رئيس الجمهورية، أما لبنانيو الخليج، وعلاقات لبنان التاريخية، وانعكاس ذلك على الداخل اللبناني، فلم يعد مهماً. الحقيقة لم يعد شيء مهماً في لبنان. ولا بقي منه (لبنان) الكثير. ولا همومه تستحق الذكر. جبران باسيل منهمك الآن في مهمة «تثبيت» الرئيس بشار الأسد... والتعبير الحرفي لمعاليه، مؤسس الدبلوماسية الحديثة.</p>\n",
-    field_edit_letter_writer_export: null,
-    field_jwplayer_id_opinion_export:  "opinion_sport_blog",
-    type: "opinion"
-  },
-  {
-    title: "دبلوماسية العزلة والعداوات",
-    created_export: "2021-05-19T20:48:17+0000",
-    field_opinion_writer_node_export: [
-      {
-        id: "94179",
-        title: "  سام منسی",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
-        langcode: "Persian, Farsi",
-        name: "  سام منسی"
-      },
-      {
-        id: "93970",
-        title: " Ilan Jonas",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
-        langcode: "إنجليزية",
-        name: " Ilan Jonas"
-      }
-    ],
-    nid: "2982216",
-    field_opinion_sport_blog_export: [
-      {
-        id: "83",
-        title: "الرأي",
-        bundle: "opinion_sport_blog",
-        name: "الرأي"
-      }
-    ],
-    field_new_issueno_export: "15514",
-    published_at_export: "2021-05-19T20:48:17+0000",
-    body: "<p>تنظم العلاقات بين الدول مجموعة اتفاقات ومعاهدات ومواثيق، خشية الوقوع في أزمات ناتجة عن سوء فهم أو سوء تصرف. وفي كل وزارة خارجية في العالم دائرة خاصة اسمها «دائرة التشريفات» أو «البروتوكول». مهمّة هذه الدائرة أن تطبق القواعد والأعراف القائمة؛ ابتداءً بطريقة الجلوس والاستقبال وأصغر التفاصيل... وإلا عمّت الفوضى، وحدثت الإهانات، وساءت العلاقات.<br />\nفي سياسته الخارجية يعطي لبنان الأهمية الأولى، من حيث المبدأ، لدول الاغتراب بصفته دولة هجرة. والهجرة أنواع: إلى أميركا الشمالية والجنوبية؛ ونادراً ما يعودون. وإلى أفريقيا؛ وغالباً ما يعودون. وإلى الخليج؛ ودائماً يعودون، فهو على بعد ساعتين من بيروت، وأهله أهل.<br />\nبين دول الخليج كانت السعودية مركز الهجرة اللبنانية الأكبر والأهم، منذ أيام الملك عبد العزيز، الذي عمل إلى جانبه رجال مثل الحاج حسين العويني (رئيس الوزراء) ونجيب صالحة وفؤاد حمزة. وفي السعودية فاقت ثروات بعض اللبنانيين الخيال، منذ سبعين عاماً إلى اليوم.<br />\nفقط بعد تصريحات شربل وهبة سمعنا في السعودية أصواتاً تطالب بطرد اللبنانيين. فوزير الخارجية هذا تجاوز كل القواعد والأصول والأعراف في حديث متوتر وعصابي عن دول الخليج. ومن المؤسف القول إن التوتر العصبي والصراخ والهبوب، سمة من سمات «التيار الوطني الحر» ورجاله، وخصوصاً نساءه.<br />\nلم يكن تصرف شربل وهبة في استوديو «الحرة» لائقاً، ولا كلامه، ولا الطريقة التي انسحب بها من الاستوديو غاضباً من مداخلة زميل سعودي.<br />\nولو كلف شربل وهبة نفسه أن يسأل دائرة التشريفات في وزارته لكان أُبلغ أن وزير الخارجية لا يذهب عادة إلى الاستوديو، بل تأتي الكاميرا إليه. وإذا ما حدث وذهب فليس من أجل تهديم الباقي من علاقات لبنان مع السعودية ودول الخليج. فهذه مهمة كانت مسندة حصراً إلى وزير الخارجية الأسبق جبران باسيل، الذي هو مؤسس الدبلوماسية اللبنانية الحديثة، وفتوحاتها ونجاحها الرهيب؛ في عزل لبنان عن إطاره الطبيعي، وعلاقاته التاريخية والتقليدية.<br />\nمسكين شربل وهبة، فهو ليس سوى «صوت سيده». في الحزب، وما قاله على «الحرة» ثقافة عُبّئ بها تعبئة مطلقة. هو، كما أشار، همه الدفاع عن رئيس الجمهورية، أما لبنانيو الخليج، وعلاقات لبنان التاريخية، وانعكاس ذلك على الداخل اللبناني، فلم يعد مهماً. الحقيقة لم يعد شيء مهماً في لبنان. ولا بقي منه (لبنان) الكثير. ولا همومه تستحق الذكر. جبران باسيل منهمك الآن في مهمة «تثبيت» الرئيس بشار الأسد... والتعبير الحرفي لمعاليه، مؤسس الدبلوماسية الحديثة.</p>\n",
-    field_edit_letter_writer_export: null,
-    field_jwplayer_id_opinion_export:  "opinion_sport_blog",
-    type: "opinion"
-  },
-  {
-    title: "دبلوماسية العزلة والعداوات",
-    created_export: "2021-05-19T20:48:17+0000",
-    field_opinion_writer_node_export: [
-      {
-        id: "94179",
-        title: "  سام منسی",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
-        langcode: "Persian, Farsi",
-        name: "  سام منسی"
-      },
-      {
-        id: "93970",
-        title: " Ilan Jonas",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
-        langcode: "إنجليزية",
-        name: " Ilan Jonas"
-      }
-    ],
-    nid: "2982216",
-    field_opinion_sport_blog_export: [
-      {
-        id: "83",
-        title: "الرأي",
-        bundle: "opinion_sport_blog",
-        name: "الرأي"
-      }
-    ],
-    field_new_issueno_export: "15514",
-    published_at_export: "2021-05-19T20:48:17+0000",
-    body: "<p>تنظم العلاقات بين الدول مجموعة اتفاقات ومعاهدات ومواثيق، خشية الوقوع في أزمات ناتجة عن سوء فهم أو سوء تصرف. وفي كل وزارة خارجية في العالم دائرة خاصة اسمها «دائرة التشريفات» أو «البروتوكول». مهمّة هذه الدائرة أن تطبق القواعد والأعراف القائمة؛ ابتداءً بطريقة الجلوس والاستقبال وأصغر التفاصيل... وإلا عمّت الفوضى، وحدثت الإهانات، وساءت العلاقات.<br />\nفي سياسته الخارجية يعطي لبنان الأهمية الأولى، من حيث المبدأ، لدول الاغتراب بصفته دولة هجرة. والهجرة أنواع: إلى أميركا الشمالية والجنوبية؛ ونادراً ما يعودون. وإلى أفريقيا؛ وغالباً ما يعودون. وإلى الخليج؛ ودائماً يعودون، فهو على بعد ساعتين من بيروت، وأهله أهل.<br />\nبين دول الخليج كانت السعودية مركز الهجرة اللبنانية الأكبر والأهم، منذ أيام الملك عبد العزيز، الذي عمل إلى جانبه رجال مثل الحاج حسين العويني (رئيس الوزراء) ونجيب صالحة وفؤاد حمزة. وفي السعودية فاقت ثروات بعض اللبنانيين الخيال، منذ سبعين عاماً إلى اليوم.<br />\nفقط بعد تصريحات شربل وهبة سمعنا في السعودية أصواتاً تطالب بطرد اللبنانيين. فوزير الخارجية هذا تجاوز كل القواعد والأصول والأعراف في حديث متوتر وعصابي عن دول الخليج. ومن المؤسف القول إن التوتر العصبي والصراخ والهبوب، سمة من سمات «التيار الوطني الحر» ورجاله، وخصوصاً نساءه.<br />\nلم يكن تصرف شربل وهبة في استوديو «الحرة» لائقاً، ولا كلامه، ولا الطريقة التي انسحب بها من الاستوديو غاضباً من مداخلة زميل سعودي.<br />\nولو كلف شربل وهبة نفسه أن يسأل دائرة التشريفات في وزارته لكان أُبلغ أن وزير الخارجية لا يذهب عادة إلى الاستوديو، بل تأتي الكاميرا إليه. وإذا ما حدث وذهب فليس من أجل تهديم الباقي من علاقات لبنان مع السعودية ودول الخليج. فهذه مهمة كانت مسندة حصراً إلى وزير الخارجية الأسبق جبران باسيل، الذي هو مؤسس الدبلوماسية اللبنانية الحديثة، وفتوحاتها ونجاحها الرهيب؛ في عزل لبنان عن إطاره الطبيعي، وعلاقاته التاريخية والتقليدية.<br />\nمسكين شربل وهبة، فهو ليس سوى «صوت سيده». في الحزب، وما قاله على «الحرة» ثقافة عُبّئ بها تعبئة مطلقة. هو، كما أشار، همه الدفاع عن رئيس الجمهورية، أما لبنانيو الخليج، وعلاقات لبنان التاريخية، وانعكاس ذلك على الداخل اللبناني، فلم يعد مهماً. الحقيقة لم يعد شيء مهماً في لبنان. ولا بقي منه (لبنان) الكثير. ولا همومه تستحق الذكر. جبران باسيل منهمك الآن في مهمة «تثبيت» الرئيس بشار الأسد... والتعبير الحرفي لمعاليه، مؤسس الدبلوماسية الحديثة.</p>\n",
-    field_edit_letter_writer_export: null,
-    field_jwplayer_id_opinion_export:  "opinion_sport_blog",
-    type: "opinion"
-  },
-  {
-    title: "دبلوماسية العزلة والعداوات",
-    created_export: "2021-05-19T20:48:17+0000",
-    field_opinion_writer_node_export: [
-      {
-        id: "94179",
-        title: "  سام منسی",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
-        langcode: "Persian, Farsi",
-        name: "  سام منسی"
-      },
-      {
-        id: "93970",
-        title: " Ilan Jonas",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
-        langcode: "إنجليزية",
-        name: " Ilan Jonas"
-      }
-    ],
-    nid: "2982216",
-    field_opinion_sport_blog_export: [
-      {
-        id: "83",
-        title: "الرأي",
-        bundle: "opinion_sport_blog",
-        name: "الرأي"
-      }
-    ],
-    field_new_issueno_export: "15514",
-    published_at_export: "2021-05-19T20:48:17+0000",
-    body: "<p>تنظم العلاقات بين الدول مجموعة اتفاقات ومعاهدات ومواثيق، خشية الوقوع في أزمات ناتجة عن سوء فهم أو سوء تصرف. وفي كل وزارة خارجية في العالم دائرة خاصة اسمها «دائرة التشريفات» أو «البروتوكول». مهمّة هذه الدائرة أن تطبق القواعد والأعراف القائمة؛ ابتداءً بطريقة الجلوس والاستقبال وأصغر التفاصيل... وإلا عمّت الفوضى، وحدثت الإهانات، وساءت العلاقات.<br />\nفي سياسته الخارجية يعطي لبنان الأهمية الأولى، من حيث المبدأ، لدول الاغتراب بصفته دولة هجرة. والهجرة أنواع: إلى أميركا الشمالية والجنوبية؛ ونادراً ما يعودون. وإلى أفريقيا؛ وغالباً ما يعودون. وإلى الخليج؛ ودائماً يعودون، فهو على بعد ساعتين من بيروت، وأهله أهل.<br />\nبين دول الخليج كانت السعودية مركز الهجرة اللبنانية الأكبر والأهم، منذ أيام الملك عبد العزيز، الذي عمل إلى جانبه رجال مثل الحاج حسين العويني (رئيس الوزراء) ونجيب صالحة وفؤاد حمزة. وفي السعودية فاقت ثروات بعض اللبنانيين الخيال، منذ سبعين عاماً إلى اليوم.<br />\nفقط بعد تصريحات شربل وهبة سمعنا في السعودية أصواتاً تطالب بطرد اللبنانيين. فوزير الخارجية هذا تجاوز كل القواعد والأصول والأعراف في حديث متوتر وعصابي عن دول الخليج. ومن المؤسف القول إن التوتر العصبي والصراخ والهبوب، سمة من سمات «التيار الوطني الحر» ورجاله، وخصوصاً نساءه.<br />\nلم يكن تصرف شربل وهبة في استوديو «الحرة» لائقاً، ولا كلامه، ولا الطريقة التي انسحب بها من الاستوديو غاضباً من مداخلة زميل سعودي.<br />\nولو كلف شربل وهبة نفسه أن يسأل دائرة التشريفات في وزارته لكان أُبلغ أن وزير الخارجية لا يذهب عادة إلى الاستوديو، بل تأتي الكاميرا إليه. وإذا ما حدث وذهب فليس من أجل تهديم الباقي من علاقات لبنان مع السعودية ودول الخليج. فهذه مهمة كانت مسندة حصراً إلى وزير الخارجية الأسبق جبران باسيل، الذي هو مؤسس الدبلوماسية اللبنانية الحديثة، وفتوحاتها ونجاحها الرهيب؛ في عزل لبنان عن إطاره الطبيعي، وعلاقاته التاريخية والتقليدية.<br />\nمسكين شربل وهبة، فهو ليس سوى «صوت سيده». في الحزب، وما قاله على «الحرة» ثقافة عُبّئ بها تعبئة مطلقة. هو، كما أشار، همه الدفاع عن رئيس الجمهورية، أما لبنانيو الخليج، وعلاقات لبنان التاريخية، وانعكاس ذلك على الداخل اللبناني، فلم يعد مهماً. الحقيقة لم يعد شيء مهماً في لبنان. ولا بقي منه (لبنان) الكثير. ولا همومه تستحق الذكر. جبران باسيل منهمك الآن في مهمة «تثبيت» الرئيس بشار الأسد... والتعبير الحرفي لمعاليه، مؤسس الدبلوماسية الحديثة.</p>\n",
-    field_edit_letter_writer_export: null,
-    field_jwplayer_id_opinion_export:  "opinion_sport_blog",
-    type: "opinion"
-  },
-  {
-    title: "دبلوماسية العزلة والعداوات",
-    created_export: "2021-05-19T20:48:17+0000",
-    field_opinion_writer_node_export: [
-      {
-        id: "94179",
-        title: "  سام منسی",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
-        langcode: "Persian, Farsi",
-        name: "  سام منسی"
-      },
-      {
-        id: "93970",
-        title: " Ilan Jonas",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
-        langcode: "إنجليزية",
-        name: " Ilan Jonas"
-      }
-    ],
-    nid: "2982216",
-    field_opinion_sport_blog_export: [
-      {
-        id: "83",
-        title: "الرأي",
-        bundle: "opinion_sport_blog",
-        name: "الرأي"
-      }
-    ],
-    field_new_issueno_export: "15514",
-    published_at_export: "2021-05-19T20:48:17+0000",
-    body: "<p>تنظم العلاقات بين الدول مجموعة اتفاقات ومعاهدات ومواثيق، خشية الوقوع في أزمات ناتجة عن سوء فهم أو سوء تصرف. وفي كل وزارة خارجية في العالم دائرة خاصة اسمها «دائرة التشريفات» أو «البروتوكول». مهمّة هذه الدائرة أن تطبق القواعد والأعراف القائمة؛ ابتداءً بطريقة الجلوس والاستقبال وأصغر التفاصيل... وإلا عمّت الفوضى، وحدثت الإهانات، وساءت العلاقات.<br />\nفي سياسته الخارجية يعطي لبنان الأهمية الأولى، من حيث المبدأ، لدول الاغتراب بصفته دولة هجرة. والهجرة أنواع: إلى أميركا الشمالية والجنوبية؛ ونادراً ما يعودون. وإلى أفريقيا؛ وغالباً ما يعودون. وإلى الخليج؛ ودائماً يعودون، فهو على بعد ساعتين من بيروت، وأهله أهل.<br />\nبين دول الخليج كانت السعودية مركز الهجرة اللبنانية الأكبر والأهم، منذ أيام الملك عبد العزيز، الذي عمل إلى جانبه رجال مثل الحاج حسين العويني (رئيس الوزراء) ونجيب صالحة وفؤاد حمزة. وفي السعودية فاقت ثروات بعض اللبنانيين الخيال، منذ سبعين عاماً إلى اليوم.<br />\nفقط بعد تصريحات شربل وهبة سمعنا في السعودية أصواتاً تطالب بطرد اللبنانيين. فوزير الخارجية هذا تجاوز كل القواعد والأصول والأعراف في حديث متوتر وعصابي عن دول الخليج. ومن المؤسف القول إن التوتر العصبي والصراخ والهبوب، سمة من سمات «التيار الوطني الحر» ورجاله، وخصوصاً نساءه.<br />\nلم يكن تصرف شربل وهبة في استوديو «الحرة» لائقاً، ولا كلامه، ولا الطريقة التي انسحب بها من الاستوديو غاضباً من مداخلة زميل سعودي.<br />\nولو كلف شربل وهبة نفسه أن يسأل دائرة التشريفات في وزارته لكان أُبلغ أن وزير الخارجية لا يذهب عادة إلى الاستوديو، بل تأتي الكاميرا إليه. وإذا ما حدث وذهب فليس من أجل تهديم الباقي من علاقات لبنان مع السعودية ودول الخليج. فهذه مهمة كانت مسندة حصراً إلى وزير الخارجية الأسبق جبران باسيل، الذي هو مؤسس الدبلوماسية اللبنانية الحديثة، وفتوحاتها ونجاحها الرهيب؛ في عزل لبنان عن إطاره الطبيعي، وعلاقاته التاريخية والتقليدية.<br />\nمسكين شربل وهبة، فهو ليس سوى «صوت سيده». في الحزب، وما قاله على «الحرة» ثقافة عُبّئ بها تعبئة مطلقة. هو، كما أشار، همه الدفاع عن رئيس الجمهورية، أما لبنانيو الخليج، وعلاقات لبنان التاريخية، وانعكاس ذلك على الداخل اللبناني، فلم يعد مهماً. الحقيقة لم يعد شيء مهماً في لبنان. ولا بقي منه (لبنان) الكثير. ولا همومه تستحق الذكر. جبران باسيل منهمك الآن في مهمة «تثبيت» الرئيس بشار الأسد... والتعبير الحرفي لمعاليه، مؤسس الدبلوماسية الحديثة.</p>\n",
-    field_edit_letter_writer_export: null,
-    field_jwplayer_id_opinion_export:  "opinion_sport_blog",
-    type: "opinion"
-  },
-  {
-    title: "دبلوماسية العزلة والعداوات",
-    created_export: "2021-05-19T20:48:17+0000",
-    field_opinion_writer_node_export: [
-      {
-        id: "94179",
-        title: "  سام منسی",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
-        langcode: "Persian, Farsi",
-        name: "  سام منسی"
-      },
-      {
-        id: "93970",
-        title: " Ilan Jonas",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
-        langcode: "إنجليزية",
-        name: " Ilan Jonas"
-      }
-    ],
-    nid: "2982216",
-    field_opinion_sport_blog_export: [
-      {
-        id: "83",
-        title: "الرأي",
-        bundle: "opinion_sport_blog",
-        name: "الرأي"
-      }
-    ],
-    field_new_issueno_export: "15514",
-    published_at_export: "2021-05-19T20:48:17+0000",
-    body: "<p>تنظم العلاقات بين الدول مجموعة اتفاقات ومعاهدات ومواثيق، خشية الوقوع في أزمات ناتجة عن سوء فهم أو سوء تصرف. وفي كل وزارة خارجية في العالم دائرة خاصة اسمها «دائرة التشريفات» أو «البروتوكول». مهمّة هذه الدائرة أن تطبق القواعد والأعراف القائمة؛ ابتداءً بطريقة الجلوس والاستقبال وأصغر التفاصيل... وإلا عمّت الفوضى، وحدثت الإهانات، وساءت العلاقات.<br />\nفي سياسته الخارجية يعطي لبنان الأهمية الأولى، من حيث المبدأ، لدول الاغتراب بصفته دولة هجرة. والهجرة أنواع: إلى أميركا الشمالية والجنوبية؛ ونادراً ما يعودون. وإلى أفريقيا؛ وغالباً ما يعودون. وإلى الخليج؛ ودائماً يعودون، فهو على بعد ساعتين من بيروت، وأهله أهل.<br />\nبين دول الخليج كانت السعودية مركز الهجرة اللبنانية الأكبر والأهم، منذ أيام الملك عبد العزيز، الذي عمل إلى جانبه رجال مثل الحاج حسين العويني (رئيس الوزراء) ونجيب صالحة وفؤاد حمزة. وفي السعودية فاقت ثروات بعض اللبنانيين الخيال، منذ سبعين عاماً إلى اليوم.<br />\nفقط بعد تصريحات شربل وهبة سمعنا في السعودية أصواتاً تطالب بطرد اللبنانيين. فوزير الخارجية هذا تجاوز كل القواعد والأصول والأعراف في حديث متوتر وعصابي عن دول الخليج. ومن المؤسف القول إن التوتر العصبي والصراخ والهبوب، سمة من سمات «التيار الوطني الحر» ورجاله، وخصوصاً نساءه.<br />\nلم يكن تصرف شربل وهبة في استوديو «الحرة» لائقاً، ولا كلامه، ولا الطريقة التي انسحب بها من الاستوديو غاضباً من مداخلة زميل سعودي.<br />\nولو كلف شربل وهبة نفسه أن يسأل دائرة التشريفات في وزارته لكان أُبلغ أن وزير الخارجية لا يذهب عادة إلى الاستوديو، بل تأتي الكاميرا إليه. وإذا ما حدث وذهب فليس من أجل تهديم الباقي من علاقات لبنان مع السعودية ودول الخليج. فهذه مهمة كانت مسندة حصراً إلى وزير الخارجية الأسبق جبران باسيل، الذي هو مؤسس الدبلوماسية اللبنانية الحديثة، وفتوحاتها ونجاحها الرهيب؛ في عزل لبنان عن إطاره الطبيعي، وعلاقاته التاريخية والتقليدية.<br />\nمسكين شربل وهبة، فهو ليس سوى «صوت سيده». في الحزب، وما قاله على «الحرة» ثقافة عُبّئ بها تعبئة مطلقة. هو، كما أشار، همه الدفاع عن رئيس الجمهورية، أما لبنانيو الخليج، وعلاقات لبنان التاريخية، وانعكاس ذلك على الداخل اللبناني، فلم يعد مهماً. الحقيقة لم يعد شيء مهماً في لبنان. ولا بقي منه (لبنان) الكثير. ولا همومه تستحق الذكر. جبران باسيل منهمك الآن في مهمة «تثبيت» الرئيس بشار الأسد... والتعبير الحرفي لمعاليه، مؤسس الدبلوماسية الحديثة.</p>\n",
-    field_edit_letter_writer_export: null,
-    field_jwplayer_id_opinion_export:  "opinion_sport_blog",
-    type: "opinion"
-  },
-  {
-    title: "دبلوماسية العزلة والعداوات",
-    created_export: "2021-05-19T20:48:17+0000",
-    field_opinion_writer_node_export: [
-      {
-        id: "94179",
-        title: "  سام منسی",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
-        langcode: "Persian, Farsi",
-        name: "  سام منسی"
-      },
-      {
-        id: "93970",
-        title: " Ilan Jonas",
-        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
-        bundle: "writer",
-        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
-        langcode: "إنجليزية",
-        name: " Ilan Jonas"
-      }
-    ],
-    nid: "2982216",
-    field_opinion_sport_blog_export: [
-      {
-        id: "83",
-        title: "الرأي",
-        bundle: "opinion_sport_blog",
-        name: "الرأي"
-      }
-    ],
-    field_new_issueno_export: "15514",
-    published_at_export: "2021-05-19T20:48:17+0000",
-    body: "<p>تنظم العلاقات بين الدول مجموعة اتفاقات ومعاهدات ومواثيق، خشية الوقوع في أزمات ناتجة عن سوء فهم أو سوء تصرف. وفي كل وزارة خارجية في العالم دائرة خاصة اسمها «دائرة التشريفات» أو «البروتوكول». مهمّة هذه الدائرة أن تطبق القواعد والأعراف القائمة؛ ابتداءً بطريقة الجلوس والاستقبال وأصغر التفاصيل... وإلا عمّت الفوضى، وحدثت الإهانات، وساءت العلاقات.<br />\nفي سياسته الخارجية يعطي لبنان الأهمية الأولى، من حيث المبدأ، لدول الاغتراب بصفته دولة هجرة. والهجرة أنواع: إلى أميركا الشمالية والجنوبية؛ ونادراً ما يعودون. وإلى أفريقيا؛ وغالباً ما يعودون. وإلى الخليج؛ ودائماً يعودون، فهو على بعد ساعتين من بيروت، وأهله أهل.<br />\nبين دول الخليج كانت السعودية مركز الهجرة اللبنانية الأكبر والأهم، منذ أيام الملك عبد العزيز، الذي عمل إلى جانبه رجال مثل الحاج حسين العويني (رئيس الوزراء) ونجيب صالحة وفؤاد حمزة. وفي السعودية فاقت ثروات بعض اللبنانيين الخيال، منذ سبعين عاماً إلى اليوم.<br />\nفقط بعد تصريحات شربل وهبة سمعنا في السعودية أصواتاً تطالب بطرد اللبنانيين. فوزير الخارجية هذا تجاوز كل القواعد والأصول والأعراف في حديث متوتر وعصابي عن دول الخليج. ومن المؤسف القول إن التوتر العصبي والصراخ والهبوب، سمة من سمات «التيار الوطني الحر» ورجاله، وخصوصاً نساءه.<br />\nلم يكن تصرف شربل وهبة في استوديو «الحرة» لائقاً، ولا كلامه، ولا الطريقة التي انسحب بها من الاستوديو غاضباً من مداخلة زميل سعودي.<br />\nولو كلف شربل وهبة نفسه أن يسأل دائرة التشريفات في وزارته لكان أُبلغ أن وزير الخارجية لا يذهب عادة إلى الاستوديو، بل تأتي الكاميرا إليه. وإذا ما حدث وذهب فليس من أجل تهديم الباقي من علاقات لبنان مع السعودية ودول الخليج. فهذه مهمة كانت مسندة حصراً إلى وزير الخارجية الأسبق جبران باسيل، الذي هو مؤسس الدبلوماسية اللبنانية الحديثة، وفتوحاتها ونجاحها الرهيب؛ في عزل لبنان عن إطاره الطبيعي، وعلاقاته التاريخية والتقليدية.<br />\nمسكين شربل وهبة، فهو ليس سوى «صوت سيده». في الحزب، وما قاله على «الحرة» ثقافة عُبّئ بها تعبئة مطلقة. هو، كما أشار، همه الدفاع عن رئيس الجمهورية، أما لبنانيو الخليج، وعلاقات لبنان التاريخية، وانعكاس ذلك على الداخل اللبناني، فلم يعد مهماً. الحقيقة لم يعد شيء مهماً في لبنان. ولا بقي منه (لبنان) الكثير. ولا همومه تستحق الذكر. جبران باسيل منهمك الآن في مهمة «تثبيت» الرئيس بشار الأسد... والتعبير الحرفي لمعاليه، مؤسس الدبلوماسية الحديثة.</p>\n",
-    field_edit_letter_writer_export: null,
-    field_jwplayer_id_opinion_export:  "opinion_sport_blog",
-    type: "opinion"
-  }
 ]
 
 export type ScreenName = keyof undefined;
