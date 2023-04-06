@@ -6,7 +6,7 @@ import { OpinionArticleDetail } from '../OpinionArticleDetail';
 import { OpinionArticleDetailItemType, OpinionsListItemType } from 'src/redux/opinionArticleDetail/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { Animated, FlatList } from 'react-native';
-import { DetailHeader, OpinionArticleDetailFooter } from 'src/components/molecules';
+import { DetailHeader } from 'src/components/molecules';
 import { OpinionArticleDetailWidget, RelatedOpinionArticlesWidget } from 'src/components/organisms';
 import { useNavigation } from '@react-navigation/native';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
@@ -437,18 +437,6 @@ describe('<OpinionArticleDetail>', () => {
     expect(mockFunction).toBeTruthy()
   });
 
-  test('Should call OpinionArticleDetailFooter onPressSave', () => {
-    const element = instance.container.findByType(OpinionArticleDetailFooter)
-    fireEvent(element, 'onPressSave', opinionData[0].nid_export);
-    expect(mockFunction).toBeTruthy()
-  });
-
-  test('Should call OpinionArticleDetailFooter onPressFontSizeChange', () => {
-    const element = instance.container.findByType(OpinionArticleDetailFooter)
-    fireEvent(element, 'onPressFontSizeChange');
-    expect(mockFunction).toBeTruthy()
-  });
-
   test('Should call FlatList onScroll', () => {
     const element = instance.container.findByType(FlatList)
     fireEvent(element, 'onScroll', { nativeEvent: { contentOffset: { y: 120 } } });
@@ -645,17 +633,7 @@ describe('<OpinionArticleDetail>', () => {
     expect(mockFunction).toBeTruthy()
   });
 
-  test('Should call OpinionArticleDetailFooter onPressSave', () => {
-    const element = instance.container.findByType(OpinionArticleDetailFooter)
-    fireEvent(element, 'onPressSave', opinionData[0].nid_export);
-    expect(mockFunction).toBeTruthy()
-  });
 
-  test('Should call OpinionArticleDetailFooter onPressFontSizeChange', () => {
-    const element = instance.container.findByType(OpinionArticleDetailFooter)
-    fireEvent(element, 'onPressFontSizeChange');
-    expect(mockFunction).toBeTruthy()
-  });
 
   test('Should call FlatList onScroll', () => {
     const element = instance.container.findByType(FlatList)
@@ -841,17 +819,6 @@ describe('<OpinionArticleDetail>', () => {
     expect(mockFunction).toBeTruthy()
   });
 
-  test('Should call OpinionArticleDetailFooter onPressSave', () => {
-    const element = instance.container.findByType(OpinionArticleDetailFooter)
-    fireEvent(element, 'onPressSave', opinionData[0].nid_export);
-    expect(mockFunction).toBeTruthy()
-  });
-
-  test('Should call OpinionArticleDetailFooter onPressFontSizeChange', () => {
-    const element = instance.container.findByType(OpinionArticleDetailFooter)
-    fireEvent(element, 'onPressFontSizeChange');
-    expect(mockFunction).toBeTruthy()
-  });
 
   test('Should call FlatList onScroll', () => {
     const element = instance.container.findByType(FlatList)
@@ -2010,14 +1977,6 @@ describe("OpinionArticleDetail", () => {
     expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.WRITERS_DETAIL_SCREEN,{tid:'1'})
   });
 
-  test('Should call OpinionArticleDetailFooter onPressSave to update state to true for showing popUp', () => {
-    const element = instance.container.findByType(OpinionArticleDetailFooter)
-    fireEvent(element, 'onPressSave');
-    expect(setState).toHaveBeenCalled();
-    expect(setState).toHaveBeenCalledWith(true);
-    const screenContainerType = instance.container.findByType(ScreenContainer);
-    expect(screenContainerType.props.isSignUpAlertVisible).toBeTruthy();
-  });
   
 })
 
