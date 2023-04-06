@@ -59,10 +59,10 @@ const InfoGraphicMapWidget = ({
 
     return (
             <View style={isTab ? styles.tabWidgetContainer : styles.widgetContainer}>
-            <View style={styles.headerContainer}>
+            <View style={isTab ? styles.tabHeaderContainer : styles.headerContainer}>
                 <Label
                     children={title}
-                    style={styles.titleStyle}
+                    style={isTab ? styles.tabTitleStyle : styles.titleStyle}
                 />
             </View>
 
@@ -89,16 +89,29 @@ const styles = StyleSheet.create({
     headerContainer: {
         width: '100%',
         marginLeft: 15,
-        paddingBottom: isTab ? normalize(30) : 0,
+    },
+    tabHeaderContainer: {
+        width: '95%',
+        height: '13.5%',
+        marginLeft: 5,
+        justifyContent: 'center'
     },
     titleStyle: {
-        marginTop: isTab ? 25 : 10,
+        marginTop: 10,
         textAlign: 'left',
         fontFamily: fonts.AwsatDigitalV2_Black,
-        fontSize: isTab ? 25 : 24,
+        fontSize: 24,
         lineHeight: 36,
         color: colors.black,
-        fontWeight: isTab ? '500' : 'normal',
+        fontWeight: 'normal',
+    },
+    tabTitleStyle: {
+        textAlign: 'left',
+        fontFamily: fonts.AwsatDigitalV2_Black,
+        fontSize: 25,
+        lineHeight: 36,
+        color: colors.black,
+        fontWeight: '500',
     },
     scrollViewStyle: {
         overflow: 'hidden',

@@ -287,7 +287,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flex: 1,
   },
   sceneContainer: {
-    flex: 1
+    width: '100%', 
+    height: '100%',
+    flex: 1,
   },
   contentContainer: {
     flex: 1

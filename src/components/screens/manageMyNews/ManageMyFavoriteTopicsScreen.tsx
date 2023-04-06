@@ -1,18 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
+import { View, StyleSheet, Alert, FlatList } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
-import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight } from 'src/shared/utils';
+import { BorderLabel, Label, NextButton } from 'src/components/atoms';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, isDarkTheme } from 'src/shared/utils';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
+import { useAllSiteCategories, useAppCommon, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
-import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
+import { TranslateConstants, TranslateKey, flatListUniqueKey } from '../../../constants/Constants';
+import { decode } from 'html-entities';
+import LinearGradient from 'react-native-linear-gradient';
 
 export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
+  const nextButtonStyles = useThemeAwareObject(nextButtonStyle);
+  const { theme } = useAppCommon()
+  const isDarkMode = isDarkTheme(theme)
   const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
@@ -21,6 +26,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const ONBOARD_COMMON_DONE = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_DONE})
   const ONBOARD_SELECT_TOPICS_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_TITLE})
   const ONBOARD_SELECT_TOPICS_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION})
+  const ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB})
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
     items_per_page: 50,
@@ -114,38 +120,108 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
     navigation.goBack();
   }
 
-  return (
-    <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
-      <View style={style.container}>
-        <View
-          style={[
-            style.textContainer,
-            {justifyContent: isTab ? 'center' : 'flex-end'},
-          ]}>
-          <Label style={style.titleStyle}>
-            {ONBOARD_SELECT_TOPICS_TITLE}
-          </Label>
-          <Label style={style.descStyle}>
-            {ONBOARD_SELECT_TOPICS_DESCRIPTION}
-          </Label>
-        </View>
-        <View style={style.widgetContainer}>
-          {isNonEmptyArray(topicsData) &&
-            <InterestedTopics allSiteCategoriesData={topicsData} onTopicsChanged={onTopicsChanged} />
-          }
-        </View>
-        <View style={style.nextButtonView}>
-          <NextButton
-            testID="nextButtonTestId"
-            title={ONBOARD_COMMON_DONE}
-            onPress={onPressNext}
-            style={style}
-            icon={false}
-          />
-        </View>
+  const renderItem = (item: any, index: any) => {
+    return (
+      <View style={style.tabTopicButtonContainer}>
+        <BorderLabel label={decode(item.name)}
+          isSelected={item.isSelected}
+          onPress={selected => onTopicsChanged(item, selected)}
+          unSelectedContainerStyle={style.tabTopicButtonUnselected}
+          tabEnable
+        />
       </View>
-    </ScreenContainer>
-  );
+    )
+  }
+
+  const renderContentContainer = () => {
+    return (
+      <View style={style.contentContainer}>
+        {isNonEmptyArray(topicsData) &&
+          <FlatList
+            keyExtractor={(_, index) => index.toString()}
+            listKey={`${flatListUniqueKey.INTERESTED_TOPICS}${new Date().getTime().toString()}`}
+            data={topicsData}
+            showsHorizontalScrollIndicator={false}
+            renderItem={({ item, index }) => renderItem(item, index)}
+            contentContainerStyle={style.itemContainer}
+            columnWrapperStyle={style.wrapperStyle}
+            numColumns={topicsData.length > 1 ? topicsData.length : 5}
+            showsVerticalScrollIndicator={false}
+          />
+        }
+      </View>
+    )
+  }
+  const renderBottomContainer = () => {
+    const gradient = isDarkMode ? [colors.blackOpacity0,colors.blackOpacity80,colors.blackOpacity100] : [colors.whiteOpacity0,colors.whiteOpacity80,colors.whiteOpacity100];
+    return (
+      <View style={style.bottomContainer}>
+        <LinearGradient colors={gradient} style={style.linearGradient} />
+        <NextButton
+          testID="nextButtonTestId"
+          disabled={disableNext}
+          title={ONBOARD_COMMON_DONE}
+          onPress={onPressNext}
+          style={nextButtonStyles}
+          icon={false}
+        />
+      </View>
+    )
+  }
+
+  const renderHeaderContainer = () => {
+    return(
+      <View style={{marginTop: 25}}>
+          <Label children={ONBOARD_SELECT_TOPICS_TITLE} style={style.tabTitleStyle} />
+          <Label children={ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB} style={style.tabDescStyle} />
+      </View>
+    )
+  }
+
+  if (isTab) {
+    return (
+      <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
+        <View style={style.tabContainer}>
+          {renderHeaderContainer()}
+          {renderContentContainer()}
+          {renderBottomContainer()}
+        </View>
+      </ScreenContainer>
+    );
+  } else {
+    return (
+      <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} showPlayer={false} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
+        <View style={style.container}>
+          <View
+            style={[
+              style.textContainer,
+              {justifyContent: 'flex-end'},
+            ]}>
+            <Label style={style.titleStyle}>
+              {ONBOARD_SELECT_TOPICS_TITLE}
+            </Label>
+            <Label style={style.descStyle}>
+              {ONBOARD_SELECT_TOPICS_DESCRIPTION}
+            </Label>
+          </View>
+          <View style={style.widgetContainer}>
+            {isNonEmptyArray(topicsData) &&
+              <InterestedTopics allSiteCategoriesData={topicsData} onTopicsChanged={onTopicsChanged} />
+            }
+          </View>
+          <View style={style.nextButtonView}>
+            <NextButton
+              testID="nextButtonTestId"
+              title={ONBOARD_COMMON_DONE}
+              onPress={onPressNext}
+              style={style}
+              icon={false}
+            />
+          </View>
+        </View>
+      </ScreenContainer>
+    );
+  }
 };
 
 const customTopicsScreenStyle = (theme: CustomThemeType) => 
@@ -178,6 +254,14 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       paddingBottom: 5,
       paddingHorizontal: 10
     },
+    tabTitleStyle: {
+      fontFamily: fonts.AwsatDigital_Bold,
+      textAlign: 'center',
+      fontSize: 31,
+      color: theme.primary,
+      lineHeight: 48,
+      marginHorizontal: 10,
+    },
     descStyle: {
       textAlign: 'center',
       fontSize: normalize(15),
@@ -186,6 +270,15 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       fontFamily: fonts.IBMPlexSansArabic_Regular,
       marginTop: 10,
       marginBottom: isIOS ? 20 : 10,
+    },
+    tabDescStyle: {
+      fontFamily: fonts.Effra_Arbc_Regular,
+      textAlign: 'center',
+      fontSize: 20,
+      color: theme.secondaryDavyGrey,
+      lineHeight:35,
+      marginTop: 5,
+      marginBottom: 50,
     },
     nextButtonView: {
       flex: 0.1,
@@ -216,6 +309,64 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
     },
     screenBackgroundColor: {
       backgroundColor: theme.onBoardBackground
-    }
+    },
+    bottomContainer: {
+      position: 'absolute',
+      bottom: 0,
+      right: 0,
+      left: 0,
+      height: 211,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    linearGradient: {
+      position: 'absolute',
+      width: '100%',
+      height: '100%'
+    },
+    tabContainer: {
+      flex: 1,
+      backgroundColor: theme.backgroundColor,
+    },
+    contentContainer: {
+      flex: 1,
+      paddingHorizontal: 0.02 * screenWidth,
+    },
+    itemContainer: {
+      paddingBottom: 211,
+    },
+    wrapperStyle: {
+      flexWrap: 'wrap',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    tabTopicButtonContainer: {
+      paddingHorizontal: 10,
+      paddingBottom: 25
+    },
+    tabTopicButtonUnselected: {
+      backgroundColor: colors.transparent
+    },
 });
 
+const nextButtonStyle = (theme: CustomThemeType) =>
+  StyleSheet.create({
+    nextButtonContainer: {
+      height: 54,
+      backgroundColor: colors.greenishBlue,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 25,
+      width: 250,
+      paddingHorizontal: 8
+    },
+    nextButtonText: {
+      fontFamily: fonts.AwsatDigital_Bold,
+      color: colors.white,
+      textAlign: 'center',
+      width: '100%',
+      fontSize: 20,
+      paddingTop: 5,
+      lineHeight: 28,
+    },
+  });

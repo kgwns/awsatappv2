@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, FlatList, Modal, StyleSheet, View } from 'react-native';
 import { PodcastEpisodeModal, ScreenContainer } from '..';
 import { PodcastProgramInfo, PodcastEpisodeList } from 'src/components/organisms';
-import { horizontalEdge, isIOS, isNonEmptyArray, screenHeight } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, isTab, screenHeight } from 'src/shared/utils';
 import { useBookmark, usePodcast, useAppPlayer, useLogin } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -121,7 +121,7 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
 
   const episodeModal = () => (
     <Modal visible={true} animationType={'slide'} onRequestClose = {() => setShowModal(false)}>
-      <View style={{ height: screenHeight - insets.top }}>
+      <View style={[isTab ? styles.tabModalStyle : { height: screenHeight - insets.top }]}>
         <PodcastEpisodeModal
           route={{ params: { data: selectedItem.current, podcastListData: podcastEpisodeListInfo } }}
           onPressBack={() => setShowModal(false)}
@@ -177,5 +177,12 @@ const createStyles = (theme: CustomThemeType) =>
     },
     screenBackgroundColor: {
       backgroundColor: theme.backgroundColor,
+    },
+    tabModalStyle: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
     }
   });

@@ -111,11 +111,11 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const renderItem = (item: any, index: any) => {
     return (
-      <View style={{ paddingHorizontal: 10, paddingBottom: 25 }}>
+      <View style={style.tabTopicButtonContainer}>
         <BorderLabel label={decode(item.name)}
           isSelected={item.isSelected}
           onPress={selected => onTopicsChanged(item, selected)}
-          unSelectedContainerStyle={{ backgroundColor: 'transparent' }}
+          unSelectedContainerStyle={style.tabTopicButtonUnselected}
           tabEnable
         />
       </View>
@@ -341,7 +341,14 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       marginHorizontal: normalize(0.06 * screenWidth), 
       height: 51, 
       marginTop: 10
-    }
+    },
+    tabTopicButtonContainer: {
+      paddingHorizontal: 10,
+      paddingBottom: 25
+    },
+    tabTopicButtonUnselected: {
+      backgroundColor: colors.transparent
+    },
 });
 
 const nextButtonStyle = (theme: CustomThemeType) => 
