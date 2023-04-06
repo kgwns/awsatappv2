@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label';
 import { Image } from 'src/components/atoms/image/Image'
 import { ButtonOutline } from "src/components/atoms/button-outline/ButtonOutline";
@@ -129,7 +129,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     )
 
     const bottomView = () => (
-        <View style={[styles.bottomContainer, { bottom: insets.bottom + normalize(20) }]}>
+        <View style={[isTab ? styles.bottomTabContainer : styles.bottomContainer, { bottom: insets.bottom + normalize(20) }]}>
             <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
                 style={styles.buttonStyle}
                 labelStyle={styles.buttonLabel}
@@ -152,10 +152,28 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
         </View>
     )
 
+    const renderView = () => {
+        if (isTab) {
+            return (
+                <View style={styles.tabContainerStyle}>
+                    <ScrollView showsVerticalScrollIndicator={false}>
+                        {topView()}
+                        {bottomView()}
+                    </ScrollView>
+                </View>
+            )
+        }
+        return (
+            <>
+                {topView()}
+                {bottomView()}
+            </>
+        )
+    }
+
     return (
         <View style={styles.containerStyle}>
-            {topView()}
-            {bottomView()}
+            {renderView()}
         </View>
     );
 };
@@ -171,8 +189,8 @@ const createStyles = () => StyleSheet.create({
         paddingTop: normalize(10),
     },
     imageTab: {
-        width: 0.68 * screenWidth,
-        height: 0.54 * screenWidth,
+        width: normalize(204),
+        height: normalize(162),
         overflow: 'hidden',
     },
     imageStyle: {
@@ -273,5 +291,13 @@ const createStyles = () => StyleSheet.create({
     mainContainer: {
         alignItems: 'center', 
         paddingTop: normalize(20) 
+    },
+    bottomTabContainer: {
+        marginTop: normalize(60),
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    tabContainerStyle: {
+        flex: 1,
     }
 });
