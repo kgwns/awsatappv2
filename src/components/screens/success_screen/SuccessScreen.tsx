@@ -109,7 +109,7 @@ const createStyles = (theme: CustomThemeType) =>
     tickContainer: {
       width: normalize(150),
       height: normalize(150),
-      marginVertical: '10%',
+      marginVertical: isTab ? '4%' : '10%',
       alignSelf: 'center',
     },
     messageContainer: {
