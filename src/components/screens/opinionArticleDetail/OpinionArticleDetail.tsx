@@ -3,7 +3,7 @@ import { StyleSheet, View, FlatList, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
-import { DetailHeader, ArticleDetailFooter} from 'src/components/molecules';
+import {OpinionArticleDetailFooter, DetailHeader} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
   RelatedOpinionArticlesWidget,
@@ -342,8 +342,8 @@ export const OpinionArticleDetail = ({
           contentContainerStyle={showMiniPlayer && style.contentContainer}
           />
           <View style={style.shadowEffect}>
-            <ArticleDetailFooter
-              articleDetailData={opinionArticle[0]}
+            <OpinionArticleDetailFooter
+              opinionArticleDetailData={opinionArticle[0]}
               isBookmarked={isBookmarked}
               onPressSave={() => onPressSave(opinionArticle[0].nid_export)}
               onPressFontSizeChange={onPressFontSizeChange}
