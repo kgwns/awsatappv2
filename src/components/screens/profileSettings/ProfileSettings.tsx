@@ -4,9 +4,8 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
-  NativeModules
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
@@ -34,7 +33,6 @@ export type SettingDataType = {
   screenName: string,
 }
 
-const { ReactTheme } = NativeModules;
 export const ProfileSettings = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -49,6 +47,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const isDark = isDarkTheme(theme);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(isDark);
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const themToggleReference = useRef<any>(null)
 
   const CONST_MANAGE_NOTIFICATION = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION});
   const CONST_MANAGE_NEWS =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NEWS});
@@ -132,12 +131,20 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const { emptySelectedTopicsInfoData } = useAllSiteCategories();
   const { emptySelectedAuthorsInfoData } = useAllWriters();
 
-  const onPressToggle = (isOn: boolean) => {
-      const themeData = isOn ? Theme.LIGHT : Theme.DARK;
-      dispatch(storeAppTheme(themeData));
-      //ReactTheme.getReactTheme(themeData)
-      setIsDarkMode(!isOn);
-  };
+    const onPressToggle = (isOn: boolean) => {
+        requestAnimationFrame(() => {
+            setIsDarkMode(!isOn);
+            clearTimeout(themToggleReference.current)
+            themToggleReference.current = setTimeout(() => {
+                makeStoreTheme(isOn);
+            }, 500);
+        });
+    };
+
+    const makeStoreTheme = (isOn: boolean) => {
+        const themeData = isOn ? Theme.LIGHT : Theme.DARK;
+        dispatch(storeAppTheme(themeData));
+    };
 
     const onPressToggleServer = () => {
         const newServerType = serverEnvironment === ServerEnvironment.DEBUG ? ServerEnvironment.PRODUCTION : ServerEnvironment.DEBUG

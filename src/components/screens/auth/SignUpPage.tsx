@@ -9,7 +9,7 @@ import {
   Keyboard,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {isIOS, normalize, recordLogEvent} from 'src/shared/utils';
+import {isIOS, isTab, normalize, recordLogEvent} from 'src/shared/utils';
 import {ScreensConstants,TranslateConstants,TranslateKey} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -221,9 +221,14 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                   onChangeText={setEmail}
                   editable={false}
                   value={email}
-                  style={styles.inputStyle}
+                  style={isTab ? styles.tabInputStyle : styles.inputStyle}
                   leftIcon={() => <EmailIcon width={18} height={14} fill={themeData.textColor} />}
                   isMandatory
+                  textInputStyle = {isTab && styles.tabTextInputStyle }
+                  leftIconStyle = {isTab && styles.tabLeftIconStyle}
+                  errorStyle = { isTab && styles.tabErrorContainerStyle}
+                  tabErrorTextStyle = { isTab && styles.tabErrorTextStyle}
+                  tabStarLabelStyle = { isTab && styles.tabStarLabelStyle }
                 />
                 <TextInputField
                   placeholder={SIGNUP_PASSWORD}
@@ -231,11 +236,16 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                   rightIconTestID={'signUp_password_icon'}
                   onChangeText={setPassword}
                   value={password}
-                  style={styles.inputStyle}
+                  style={isTab ? styles.tabInputStyle : styles.inputStyle}
                   error={passwordError}
                   isPassword
                   isMandatory
                   maxLength={20}
+                  textInputStyle = {isTab && styles.tabTextInputStyle }
+                  leftIconStyle = {isTab && styles.tabLeftIconStyle}
+                  errorStyle = { isTab && styles.tabErrorContainerStyle}
+                  tabErrorTextStyle = { isTab && styles.tabErrorTextStyle}
+                  tabStarLabelStyle = { isTab && styles.tabStarLabelStyle }
                 />
                 <TextInputField
                   placeholder={SIGNUP_CONFIRM_PASSWORD}
@@ -243,17 +253,22 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
                   rightIconTestID={'signUp_confirm_password_icon'}
                   onChangeText={setConfirmPassword}
                   value={confirmPassword}
-                  style={styles.inputStyle}
+                  style={isTab ? styles.tabInputStyle : styles.inputStyle}
                   error={confirmPasswordError}
                   isPassword
                   isMandatory
                   maxLength={20}
+                  textInputStyle = {isTab && styles.tabTextInputStyle }
+                  leftIconStyle = {isTab && styles.tabLeftIconStyle}
+                  errorStyle = { isTab && styles.tabErrorContainerStyle}
+                  tabErrorTextStyle = { isTab && styles.tabErrorTextStyle}
+                  tabStarLabelStyle = { isTab && styles.tabStarLabelStyle }
                 />
                 <SocialLoginButton
                   testID="signUp_signUp"
                   onPress={onPressSignIn}
                   label={SIGNUP}
-                  style={styles.buttonStyle}
+                  style={isTab ? styles.tabButtonStyle : styles.buttonStyle}
                   labelStyle={styles.labelStyle}
                 />
               </View>
@@ -271,8 +286,8 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: normalize(20),
-      marginHorizontal: normalize(20),
+      paddingVertical: isTab ? 20 : normalize(20),
+      marginHorizontal: isTab ? 20 : normalize(20),
       justifyContent: 'space-between',
       backgroundColor: theme.onBoardBackground,
     },
@@ -280,8 +295,8 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       flex: 0.1,
-      marginBottom: normalize(35),
-      marginTop: normalize(20)
+      marginBottom: isTab ? 35 : normalize(35),
+      marginTop: isTab ? 20 : normalize(20)
     },
     headerStyle: {
       flex: 0.05,
@@ -296,21 +311,21 @@ const createStyles = (theme: CustomThemeType) =>
     },
     headerLabelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
-      fontSize: normalize(12),
+      fontSize: isTab ? 12 : normalize(12),
       color: theme.backIconColor,
-      lineHeight: normalize(16),
-      marginLeft: normalize(5),
+      lineHeight: isTab ? 16 : normalize(16),
+      marginLeft: isTab ? 5 : normalize(5),
     },
     containerStyle: {
       flex: 0.8,
-      paddingHorizontal: normalize(30),
+      paddingHorizontal: isTab ? 30 : normalize(30),
       backgroundColor: theme.secondaryWhite,
     },
     topContainerStyle: {
       flex: 0.6,
       justifyContent: 'center',
       alignItems: 'center',
-      marginVertical: normalize(25),
+      marginVertical: isTab ? 25 : normalize(25),
     },
     bottomContainerStyle: {
       flex: 0.3,
@@ -323,18 +338,18 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     logo: {
-      width: normalize(150),
-      height: normalize(37),
+      width: isTab ? 150 : normalize(150),
+      height: isTab ? 37 : normalize(37),
     },
     spaceStyle: {
       marginHorizontal: normalize(10),
     },
     textStyle: {
-      fontSize: normalize(13),
+      fontSize: isTab ? 13 : normalize(13),
       color: theme.signInTextColor,
-      lineHeight: normalize(22),
+      lineHeight: isTab ? 22 : normalize(22),
       fontFamily: fonts.IBMPlexSansArabic_Regular,
-      marginBottom: normalize(20),
+      marginBottom: isTab ? 20 : normalize(20),
     },
     buttonStyle: {
       backgroundColor: theme.primary,
@@ -347,7 +362,7 @@ const createStyles = (theme: CustomThemeType) =>
       lineHeight: 25,
     },
     accountStyle: {
-      fontSize: normalize(20),
+      fontSize: isTab ? 20 : normalize(20),
       lineHeight: 22,
     },
     inputStyle: {
@@ -355,13 +370,49 @@ const createStyles = (theme: CustomThemeType) =>
       color: theme.primaryLightGray,
     },
     passwordLabel: {
-      fontSize: normalize(15),
+      fontSize: isTab ? 15 : normalize(15),
       textDecorationLine: 'underline',
       color: theme.primary,
-      lineHeight: normalize(16),
-      marginBottom: normalize(15),
+      lineHeight: isTab ? 16 : normalize(16),
+      marginBottom: isTab ? 15 : normalize(15),
     },
     screenBackgroundColor: {
       backgroundColor: theme.onBoardBackground
-    }
+    },
+    tabTextInputStyle: {
+      fontSize: 14,
+      paddingVertical: 5,
+      paddingHorizontal: 0,
+    },
+    tabLeftIconStyle: {
+      paddingHorizontal: 5,
+    },
+    tabErrorContainerStyle: {
+      marginHorizontal: 5
+    },
+    tabErrorTextStyle: {
+      paddingVertical: 5
+    },
+    tabStarLabelStyle: {
+      lineHeight: 17,
+      fontSize: 16
+    },
+    tabButtonStyle: {
+      backgroundColor: theme.primary,
+      borderWidth: 0,
+      width: '60%',
+      marginBottom: 30,
+      marginVertical: 0,
+      height: isIOS ? 42 : 45,
+      borderRadius: 25,
+      paddingHorizontal: 15,
+      paddingVertical: 4,
+    },
+    tabInputStyle: {
+      width: '100%',
+      color: theme.primaryLightGray,
+      height: 42,
+      borderRadius: 25,
+      paddingHorizontal: 10
+    },
   });

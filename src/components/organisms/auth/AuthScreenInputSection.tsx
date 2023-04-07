@@ -119,9 +119,14 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
           editable={editableEmail}
           value={email}
           error={emailError}
-          style={styles.inputStyle}
+          style={isTab ? styles.tabInputStyle : styles.inputStyle}
           keyboardType={'email-address'}
           leftIcon={() => <EmailIcon width={18} height={14} fill={themeData.textColor} />}
+          textInputStyle = {isTab && styles.tabTextInputStyle }
+          leftIconStyle = {isTab && styles.tabLeftIconStyle}
+          errorStyle = { isTab && styles.tabErrorContainerStyle}
+          tabErrorTextStyle = { isTab && styles.tabErrorTextStyle}
+          tabStarLabelStyle = { isTab && styles.tabStarLabelStyle }
           isMandatory
         />
         {isPassword &&
@@ -130,11 +135,16 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
             rightIconTestID={rightIconTestID}
             onChangeText={(text) => onChangeText(text, 'password')}
             value={password}
-            style={styles.inputStyle}
+            style={isTab ? styles.tabInputStyle : styles.inputStyle}
             error={passwordError}
             isPassword
             isMandatory
             maxLength={20}
+            textInputStyle = {isTab && styles.tabTextInputStyle }
+            leftIconStyle = {isTab && styles.tabLeftIconStyle}
+            errorStyle = { isTab && styles.tabErrorContainerStyle}
+            tabErrorTextStyle = { isTab && styles.tabErrorTextStyle}
+            tabStarLabelStyle = { isTab && styles.tabStarLabelStyle }
           />
         }
         {isPassword &&
@@ -153,8 +163,8 @@ export const AuthScreenInputSection: FunctionComponent<AuthScreenInputSectionPro
         <SocialLoginButton testID="signin_signIn"
           onPress={onPress}
           label={SIGNIN}
-          style={styles.buttonStyle}
-          labelStyle={styles.signInLabelStyle}
+          style={isTab ? styles.tabButtonStyle : styles.buttonStyle}
+          labelStyle={isTab ? styles.tabSignInLabelStyle : styles.signInLabelStyle}
         />
       </View>
       <View style={styles.dividerContainber}>
@@ -182,24 +192,24 @@ const createStyles = (theme: CustomThemeType) =>
       flex: 1,
     },
     loginStyle: {
-      fontSize: normalize(20),
-      marginTop: normalize(20)
+      fontSize: isTab ? 20 : normalize(20),
+      marginTop: isTab ? 20 : normalize(20)
     },
     spaceStyle: {
       marginHorizontal: normalize(10),
     },
     textStyle: {
       fontFamily: fonts.IBMPlexSansArabic_Regular,
-      fontSize: normalize(13),
+      fontSize: isTab ? 13 : normalize(13),
       color: theme.signInTextColor,
-      lineHeight: normalize(22),
-      marginBottom: normalize(25),
+      lineHeight: isTab ? 22 : normalize(22),
+      marginBottom: isTab ? 25 : normalize(25),
     },
     textStyleBlack: {
       fontFamily: fonts.AwsatDigital_Bold,
-      fontSize: normalize(18),
+      fontSize: isTab ? 18 : normalize(18),
       color: theme.primaryBlack,
-      lineHeight: normalize(42),
+      lineHeight: isTab ? 42 : normalize(42),
     },
     buttonStyle: {
       backgroundColor: theme.primary,
@@ -208,58 +218,99 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: normalize(30),
       marginVertical: 0,
     },
+    tabButtonStyle: {
+      backgroundColor: theme.primary,
+      borderWidth: 0,
+      width: '60%',
+      marginBottom: 30,
+      marginVertical: 0,
+      height: isIOS ? 42 : 45,
+      borderRadius: 25,
+      paddingHorizontal: 15,
+      paddingVertical: 4,
+    },
     topContainerStyle: {
       flex: 0.5,
       justifyContent: 'center',
       alignItems: 'center',
-      marginHorizontal: normalize(8)
+      marginHorizontal: isTab ? 8 : normalize(8)
     },
     bottomContainerStyle: {
       flex: 0.45,
       justifyContent: 'center',
       alignItems: 'center',
-      marginBottom: normalize(25)
+      marginBottom: isTab ? 25 : normalize(25)
     },
     signInLabelStyle: {
       color: colors.white,
-      lineHeight: isTab ? 35 : 28,
+      lineHeight: 28,
+    },    
+    tabSignInLabelStyle: {
+      color: colors.white,
+      lineHeight: 35,
+      fontSize: 16
     },
     dividerContainber: {
       flex: 0.05,
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      marginBottom: normalize(25)
+      marginBottom: isTab ? 25 : normalize(25)
     },
     divider: {
       height: 1,
       flex: 1,
-      marginLeft: normalize(15),
+      marginLeft: isTab ? 15 : normalize(15),
       width: '100%',
       backgroundColor: theme.signInSeparator,
     },
     leftDivider: {
-      marginRight: normalize(20),
+      marginRight: isTab ? 20 : normalize(20),
       marginLeft: 0,
     },
     inputStyle: {
       width: '100%',
       color: theme.primaryLightGray,
     },
+    tabInputStyle: {
+      width: '100%',
+      color: theme.primaryLightGray,
+      height: 42,
+      borderRadius: 25,
+      paddingHorizontal: 10
+    },
     passwordLabel: {
       fontFamily: fonts.Effra_Arbc_Regular,
-      fontSize: normalize(14),
+      fontSize: isTab ? 14 : normalize(14),
       color: theme.primary,
-      lineHeight: normalize(25),
+      lineHeight: isTab ? 25 : normalize(25),
     },
     passwordLabelUnderline: {
       height: isIOS ? 1 : 2,
       backgroundColor: theme.primary,
       opacity: .3,
-      marginBottom: normalize(10),
+      marginBottom: isTab ? 10 : normalize(10),
     },
     passwordContainer: {
       marginBottom: 10
+    },
+    tabTextInputStyle: {
+      fontSize: 14,
+      paddingVertical: 5,
+      paddingHorizontal: 0,
+    },
+    tabLeftIconStyle: {
+      paddingHorizontal: 5,
+    },
+    tabErrorContainerStyle: {
+      marginHorizontal: 5
+    },
+    tabErrorTextStyle: {
+      paddingVertical: 5
+    },
+    tabStarLabelStyle: {
+      lineHeight: 17,
+      fontSize: 16
     }
   })
 
