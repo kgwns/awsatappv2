@@ -13,7 +13,9 @@ import {
 describe('#useAllWriters', () => {
   let result: RenderHookResult<undefined, UseAllWritersReturn>;
   const dispatchMock = jest.fn();
+  const selectedAuthorsDataMock = {data:[{reponse:true}]}
 
+  
   beforeAll(() => {
     (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
     (useSelector as jest.Mock).mockReturnValue(true);
@@ -48,7 +50,6 @@ describe('#useAllWriters', () => {
       expect(allWritersError).toBe(true);
     });
   });
-
   describe('#fetchAllWritersRequest', () => {
     it('should call dispatch with get token request action', () => {
       const {
@@ -262,6 +263,20 @@ describe('#useAllWriters', () => {
       });
 
       expect(dispatchMock).toHaveBeenCalled();
+    });
+  });
+  describe('#removeAuthorRequest', () => {
+    it('should call dispatch with get token request action', () => {
+      const {
+        result: {
+          current: {removeAuthorRequest},
+        },
+      } = result;
+
+      act(() => {
+        removeAuthorRequest({tid:'12'});
+      });
+      expect(dispatchMock).toBeTruthy();
     });
   });
 });

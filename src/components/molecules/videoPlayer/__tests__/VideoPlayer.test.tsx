@@ -11,6 +11,15 @@ jest.mock('react', () => ({
     useState: jest.fn(),
   }));
 
+  jest.mock('react-native-orientation-locker', () => {
+    return {
+      lockToLandscape: jest.fn(),
+      lockToPortrait: jest.fn(),
+      addDeviceOrientationListener: jest.fn(),
+      removeDeviceOrientationListener: jest.fn(),
+    };
+  });
+
   jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
     useNavigation: jest.fn(),
