@@ -1,12 +1,11 @@
 import {renderHook, RenderHookResult, act} from '@testing-library/react-hooks';
 import {useDispatch, useSelector} from 'react-redux';
-import { DESELECT_ALL_WRITERS, EMPTY_SELECTED_AUTHORS, EMPTY_SELECTED_AUTHORS_INFO, EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD, EMPTY_SEND_AUTHOR_INFO, GET_SELECTED_AUTHOR, REMOVE_AUTHOR } from 'src/redux/allWriters/actionTypes';
+import { DESELECT_ALL_WRITERS, EMPTY_SELECTED_AUTHORS, EMPTY_SELECTED_AUTHORS_INFO, EMPTY_SELECTED_WRITERS_DATA_FROM_ONBOARD, EMPTY_SEND_AUTHOR_INFO, GET_SELECTED_AUTHOR } from 'src/redux/allWriters/actionTypes';
 import {
   useAllWriters,
   UseAllWritersReturn,
 } from '../useAllWriters';
-
-jest.mock('react-redux', () => ({
+ jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
   useSelector: jest.fn(),
 }));
@@ -17,7 +16,7 @@ describe('#useAllWriters', () => {
 
   beforeAll(() => {
     (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
-
+    (useSelector as jest.Mock).mockReturnValue(true);
     result = renderHook<undefined, UseAllWritersReturn>(() =>
       useAllWriters(),
     );
@@ -35,7 +34,7 @@ describe('#useAllWriters', () => {
           current: {isLoading},
         },
       } = result;
-      expect(isLoading).toBe(undefined);
+      expect(isLoading).toBe(true);
     });
   });
 
@@ -46,7 +45,7 @@ describe('#useAllWriters', () => {
           current: {allWritersError},
         },
       } = result;
-      expect(allWritersError).toBe(undefined);
+      expect(allWritersError).toBe(true);
     });
   });
 
@@ -117,6 +116,44 @@ describe('#useAllWriters', () => {
       expect(dispatchMock).toHaveBeenCalledWith({
         type: EMPTY_SELECTED_AUTHORS_INFO,
       });
+    });
+  });
+
+  describe('#removeAuthorRequest', () => {
+    const selectorMock = jest.fn().mockReturnValueOnce([{tid: 92602, created_date: '2023-03-23 12:38:45'}]);
+    (useSelector as jest.Mock).mockReturnValue(selectorMock);
+    it('should call dispatch with get token request action', () => {
+      const {
+        result: {
+          current: {removeAuthorRequest},
+        },
+      } = result;
+
+      act(() => {
+        removeAuthorRequest({tid:'2'});
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+
+    });
+  });
+
+  describe('#removeAuthorRequestEmpty', () => {
+    const selectorMock = jest.fn().mockReturnValueOnce([{tid: '', created_date: ''}]);
+    (useSelector as jest.Mock).mockReturnValue(selectorMock);
+    it('should call dispatch with get token request action', () => {
+      const {
+        result: {
+          current: {removeAuthorRequest},
+        },
+      } = result;
+
+      act(() => {
+        removeAuthorRequest({tid:''});
+      });
+
+      expect(dispatchMock).toHaveBeenCalled();
+
     });
   });
 

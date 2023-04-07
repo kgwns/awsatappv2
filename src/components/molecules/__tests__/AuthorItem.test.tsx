@@ -30,6 +30,13 @@ jest.mock('src/services/narratedOpinionArticleService', () => ({
 
 jest.mock('src/hooks/useAppPlayer', () => ({ useAppPlayer: jest.fn() }));
 
+jest.mock("react-native-track-player", () => ({
+    TrackPlayer: jest.fn(),
+    Event: ['PlaybackState', 'PlaybackError', 'PlaybackQueueEnded'],
+    usePlaybackState: jest.fn(),
+    State: ['Playing', 'Buffering']
+  }))
+  
 describe('<Author Item>', () => {
     let instance: RenderAPI
     const data = {
@@ -43,7 +50,7 @@ describe('<Author Item>', () => {
         goBack: mockFunction,
         navigate: mockFunction,
     }
-
+    const prevPlayBackState = jest.fn();
     const mediaData = jest.fn();
     const timeDuration = jest.fn()
 
@@ -67,20 +74,21 @@ describe('<Author Item>', () => {
             ],
             title: 'abc'
         }, mediaData]);
+        (useState as jest.Mock).mockImplementation(() => [false, prevPlayBackState]);
         (useState as jest.Mock).mockImplementation(() => [100, timeDuration]);
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
         useAppPlayerMock.mockReturnValue({
             showMiniPlayer: false,
             isPlaying: false,
-            selectedTrack: { id: 1 },
+            selectedTrack: { id: '2opinion' },
             showControls: false,
             setControlState: setControlStateMock,
             setShowMiniPlayer: setShowMiniPlayerMock,
             setPlay: setPlayMock,
             setPlayerTrack: setPlayerTrackMock,
         });
-        const component = <AuthorItem index={0} togglePlayback={mockFunction} authorId={'2'} selectedType={'yes'} selectedTrack={'abc'} {...data} mediaVisibility={true} nid = "12" renderLabelsOrder = {['authorName','title','default']} />
+        const component = <AuthorItem index={0} togglePlayback={mockFunction} authorId={'2'} selectedType={'yes'} selectedTrack={'2opinion'} {...data} mediaVisibility={true} nid = "1opinion" renderLabelsOrder = {['authorName','title','default']} />
         instance = render(component)
     })
 
@@ -145,7 +153,7 @@ describe('<Author Item>', () => {
         const testItemId = instance.getByTestId('titleId');
         fireEvent(testItemId, 'onPress');
         expect(navigation.navigate).toHaveBeenCalled();
-        expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:'12'});
+        expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN,{nid:'1opinion'});
     });
 })
 
@@ -162,10 +170,9 @@ describe('<Author Item>', () => {
         goBack: mockFunction,
         navigate: mockFunction,
     }
-
+    const prevPlayBackState = jest.fn();
     const mediaData = jest.fn();
     const timeDuration = jest.fn()
-
     const useAppPlayerMock = jest.fn();
     const setControlStateMock = jest.fn();
     const setShowMiniPlayerMock = jest.fn();
@@ -190,12 +197,13 @@ describe('<Author Item>', () => {
             title: 'abc'
         }, mediaData]);
         (useState as jest.Mock).mockImplementation(() => [100, timeDuration]);
+        (useState as jest.Mock).mockImplementation(() => [true, prevPlayBackState]);
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
         useAppPlayerMock.mockReturnValue({
             showMiniPlayer: false,
             isPlaying: false,
-            selectedTrack: { id: 1 },
+            selectedTrack: { id: '2opinion' },
             showControls: false,
             setControlState: setControlStateMock,
             setShowMiniPlayer: setShowMiniPlayerMock,
@@ -269,6 +277,7 @@ describe('<Author Item> should call fetchNarratedOpinionArticleApi', () => {
 
     const mediaData = jest.fn();
     const timeDuration = jest.fn()
+    const prevPlayBackState = jest.fn();
 
     const useAppPlayerMock = jest.fn();
     const setControlStateMock = jest.fn();
@@ -294,12 +303,13 @@ describe('<Author Item> should call fetchNarratedOpinionArticleApi', () => {
             title: 'abc'
         }, mediaData]);
         (useState as jest.Mock).mockImplementation(() => [100, timeDuration]);
+        (useState as jest.Mock).mockImplementation(() => [true, prevPlayBackState]);
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
         useAppPlayerMock.mockReturnValue({
             showMiniPlayer: false,
             isPlaying: false,
-            selectedTrack: { id: 1 },
+            selectedTrack: { id: '2opinion' },
             showControls: false,
             setControlState: setControlStateMock,
             setShowMiniPlayer: setShowMiniPlayerMock,
