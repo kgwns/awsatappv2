@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');

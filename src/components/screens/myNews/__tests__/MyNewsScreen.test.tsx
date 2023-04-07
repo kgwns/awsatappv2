@@ -19,6 +19,7 @@ jest.mock('src/hooks/useLogin', () => ({ useLogin: jest.fn() }));
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
 const sampleData: ArticlesListItemType[] = [

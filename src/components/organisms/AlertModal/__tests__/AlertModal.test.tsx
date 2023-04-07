@@ -1,7 +1,15 @@
 import { AlertModal } from 'src/components/organisms/AlertModal/AlertModal';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
+import { isDarkTheme } from 'src/shared/utils';
+
+jest.mock("src/shared/utils/utilities", () => ({
+    ...jest.requireActual('src/shared/utils/utilities'),
+        isDarkTheme:jest.fn(),
+  }));
+
 describe('<AlertModal>', () => {
+    const isDarkThemeMock = jest.fn();
     let instance: RenderAPI;
     const mockFunction = jest.fn();
     beforeEach(() => {
@@ -22,6 +30,14 @@ describe('<AlertModal>', () => {
     })
 
     it('should render component', () => {
+        (isDarkTheme as jest.Mock).mockImplementation(isDarkThemeMock);
+        isDarkThemeMock.mockReturnValue(true);
+        expect(instance).toBeDefined()
+    })
+
+    it('should render component', () => {
+        (isDarkTheme as jest.Mock).mockImplementation(isDarkThemeMock);
+        isDarkThemeMock.mockReturnValue(false);
         expect(instance).toBeDefined()
     })
 

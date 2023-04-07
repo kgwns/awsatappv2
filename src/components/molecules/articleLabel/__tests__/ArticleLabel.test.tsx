@@ -10,6 +10,8 @@ jest.mock('src/shared/utils/dimensions', () => ({
   isIOS: true
 }));
 
+  jest.mock('src/components/atoms/label/Label',() => ({Label:() => <div></div>}));
+
 describe("test ArticleLabel",() => {
     let instance: RenderAPI;
     beforeEach(() => {

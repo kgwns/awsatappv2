@@ -3,14 +3,24 @@ import React from 'react';
 import FastImage from 'react-native-fast-image';
 import {Image} from 'src/components/atoms/image/Image';
 import { ImagesName } from 'src/shared/styles';
+import { isDarkTheme } from 'src/shared/utils';
+
+jest.mock("src/shared/utils/utilities", () => ({
+  ...jest.requireActual('src/shared/utils/utilities'),
+      isDarkTheme:jest.fn(),
+}));
 
 describe('<Image>', () => {
   let instance: RenderAPI;
   const IMAGE_SIZE = 40;
   const IMAGE_URL = 'https:www.abc.com/abc.png';
   const mockFunction = jest.fn();
+  const isDarkThemeMock = jest.fn();
 
   beforeEach(() => {
+    (isDarkTheme as jest.Mock).mockImplementation(isDarkThemeMock);
+    isDarkThemeMock.mockReturnValue(true);
+
     const component = (
       <Image name={'bookmarkActive'} type="round" size={IMAGE_SIZE} fallback={true} fallbackName={ImagesName.placeholderImg} />
     );
@@ -79,8 +89,11 @@ describe('<Image>', () => {
   let instance: RenderAPI;
   const IMAGE_SIZE = 40;
   const mockFunction = jest.fn();
+  const isDarkThemeMock = jest.fn();
 
   beforeEach(() => {
+    (isDarkTheme as jest.Mock).mockImplementation(isDarkThemeMock);
+    isDarkThemeMock.mockReturnValue(false);
     const component = (
         <Image type="round" size={IMAGE_SIZE} url=''/>
       );
