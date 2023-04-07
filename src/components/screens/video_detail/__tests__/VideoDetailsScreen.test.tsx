@@ -212,4 +212,36 @@ describe('<VideoDetailScreen >', () => {
       expect(response).toBeDefined();
     })
   });
+  describe('when VideoDetailScreen  only', () => {
+    beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      (getVideoDetail as jest.Mock).mockImplementation(getVideoDetailMock);
+      getVideoDetailMock.mockReturnValue([{response:true}]);
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useLogin as jest.Mock).mockReturnValue({
+        isLoggedIn: false,
+    });
+      const component = (
+        <Provider store={storeSampleData}>
+          <SafeAreaProvider>
+            <VideoDetailScreen route={{ params: { data: data } }} />
+          </SafeAreaProvider>
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render VideoDetailScreen ', () => {
+      expect(instance).toBeDefined();
+    });
+    it('when onPressSave is pressed from header', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onPressSave');
+      expect(mockFunction).toBeTruthy();
+    });
+  });
 });

@@ -142,8 +142,13 @@ describe('<ManageMyFavoriteTopicsScreen>', () => {
     instance.unmount();
   });
 
-  test('Should render ManageMyFavoriteTopicsScreen component', () => {
+  test('Should render ManageMyFavoriteTopicsScreen in tab', () => {
     DeviceTypeUtilsMock.isTab = true;
+    expect(instance).toBeDefined();
+  });
+
+  test('Should render ManageMyFavoriteTopicsScreen component', () => {
+    DeviceTypeUtilsMock.isTab = false;
     DeviceTypeUtilsMock.isIOS = true;
     expect(instance).toBeDefined();
   });

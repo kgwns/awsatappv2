@@ -115,3 +115,55 @@ describe('<LiveBlogTag>', () => {
   });
 
 });
+describe('<LiveBlogTag props when undefined>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const appState = {
+    current:'inactive'
+  };
+
+  const animationRef = mockFunction;
+
+  const LottieView = {
+    props:{
+      autoplay: false,
+      autosize: true
+    },
+    context:{},
+    refs:{},
+    resume: jest.fn()
+  }
+ 
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => [
+      LottieView,
+      animationRef,
+    ]);
+    (useRef as jest.Mock).mockImplementation(() => appState);
+
+    const component = (
+      <Provider store={storeSampleData}>
+        <LiveBlogTag isImageTag={undefined} enableBottomMargin={undefined} enableTopMargin={undefined}/>
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should render LiveBlogTag', () => {
+   
+    const appStateSpy = jest.spyOn(AppState, 'addEventListener').mockImplementation((_mockvalue,nextAppState) =>{
+      nextAppState('inactive')
+      return {
+      } as NativeEventSubscription
+    });
+    appStateSpy.mock.calls[0][1]('active')
+    expect(instance).toBeDefined();
+    expect(LottieView.resume).toBeCalled();
+  });
+
+});

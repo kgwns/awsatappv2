@@ -8,7 +8,7 @@ import {
   Alert,
   Keyboard,
 } from 'react-native';
-import {isIOS, isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
+import {isIOS, isObjectNonEmpty, isTab, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from 'src/components/organisms/';
 import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
@@ -368,8 +368,8 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: normalize(20),
-      marginHorizontal: normalize(20),
+      paddingVertical: isTab ? 20 : normalize(20),
+      marginHorizontal: isTab ? 20 : normalize(20),
       justifyContent: 'space-between',
       backgroundColor: theme.backgroundColor,
     },
@@ -377,8 +377,8 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       flex: 0.1,
-      marginBottom: normalize(35),
-      marginTop: normalize(20)
+      marginBottom: isTab ? 35 : normalize(35),
+      marginTop: isTab ? 20 : normalize(20)
     },
     headerStyle: {
       flex: 0.05,
@@ -393,14 +393,14 @@ const createStyles = (theme: CustomThemeType) =>
     },
     headerLabelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
-      fontSize: normalize(12),
+      fontSize: isTab ? 12 : normalize(12),
       color: theme.backIconColor,
-      lineHeight: normalize(16),
-      marginLeft: normalize(5),
+      lineHeight: isTab ? 16 : normalize(16),
+      marginLeft: isTab ? 5 : normalize(5),
     },
     containerStyle: {
       flex: 0.8,
-      paddingHorizontal: normalize(30),
+      paddingHorizontal: isTab ? 30 : normalize(30),
       backgroundColor: theme.secondaryWhite,
     },
     footerStyle: {
@@ -409,7 +409,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     logo: {
-      width: normalize(150),
-      height: normalize(37),
+      width: isTab ? 150 : normalize(150),
+      height: isTab ? 37 : normalize(37),
     },
   });
