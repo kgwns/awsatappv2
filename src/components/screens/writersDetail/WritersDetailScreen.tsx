@@ -2,19 +2,18 @@ import React, { useEffect, useState, useMemo } from 'react';
 import { StyleSheet, View, FlatList, Animated } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isIOS, isNonEmptyArray, isNotchDevice, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isNotchDevice, isObjectNonEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
 import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin, useWriterDetail } from 'src/hooks';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
-import { WriterBannerImage, DetailHeader } from 'src/components/molecules'
+import { WriterBannerImage, DetailHeader, DetailHeaderTablet } from 'src/components/molecules'
 import { OpinionWritersArticlesSection } from 'src/components/organisms';
 import { OpinionsListItemType } from 'src/redux/opinions/types';
 import { decodeHTMLTags, horizontalEdge } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { ScreensConstants } from 'src/constants/Constants'
-import Orientation from 'react-native-orientation-locker';
 import { fetchWriterOpinionsApi } from 'src/services/opinionsService';
 import { AxiosError } from 'axios';
 
@@ -217,11 +216,20 @@ export const WritersDetailScreen = ({
         navigation.popToTop()
     }
 
-    const renderHeader = () => (
-        <View style={style.backContainer}>
-            <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
-        </View>
-    )
+    const renderHeader = () => {
+        const headerProps = {
+            visibleHome: noOfDetailRoutes > 1,
+            onHomePress: () => onPressHome(),
+            onBackPress: () => onPressBack(),
+            containerStyle: isTab && { paddingHorizontal: normalize(0.02 * screenWidth) },
+        }
+
+        return (
+            <View style={style.backContainer}>
+                {isTab ? <DetailHeaderTablet {...headerProps} /> : <DetailHeader {...headerProps} />}
+            </View>
+        );
+    };
 
     const renderItem = () => {
         const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
@@ -291,7 +299,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     backContainer: {
         width: '100%',
-        height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
+        height: isTab ? 100 : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
         backgroundColor: theme.secondaryWhite,
         justifyContent: 'center',
     }

@@ -127,7 +127,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     aspectRatio: 1.34,
   },
   tabImageStyle: {
-    width: 0.5 * screenWidth,
+    width: '100%',
     height: 'auto',
     aspectRatio: 1.34,
   },
