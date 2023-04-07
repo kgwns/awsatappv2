@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet} from 'react-native';
-import {isNonEmptyArray, isObjectNonEmpty} from 'src/shared/utils';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
+import {isNonEmptyArray, isObjectNonEmpty, isTab} from 'src/shared/utils';
+import {colors} from 'src/shared/styles/colors';
 import {RequestVideoUrlSuccessResponse} from 'src/redux/videoList/types';
 import {fetchVideoDetailInfo} from 'src/services/VideoServices';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import VideoPlayerControl from 'src/components/molecules/articleDetailVideo/VideoPlayerControl';
+
 export interface ArticleVideoProps {
   mediaId?: string;
   currentTime?: any;
@@ -74,10 +75,10 @@ const ArticleDetailVideo = ({mediaId, showReplay = false, ...props}: ArticleVide
 
 export default ArticleDetailVideo;
 
-const customStyle = (theme: CustomThemeType) =>
+const customStyle = () =>
   StyleSheet.create({
     container: {
-      flex: 1,
+      flex:  isTab ? 0 : 1,
       width: '100%',
       height: 'auto',
       aspectRatio: 1.34,
