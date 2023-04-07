@@ -5,7 +5,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
-import {isIOS, normalize} from 'src/shared/utils';
+import {isIOS, isTab, normalize} from 'src/shared/utils';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS, isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
@@ -117,7 +117,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     title: {
       fontSize: 16,
-      lineHeight: 34,
+      lineHeight: isTab ? 44 : 34,
       color: theme.primary,
       fontFamily: fonts.AwsatDigital_Regular,
     },
