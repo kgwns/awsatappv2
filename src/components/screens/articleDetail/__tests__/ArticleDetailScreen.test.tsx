@@ -89,6 +89,18 @@ jest.mock('src/services/articleDetailService', () => ({
   }
 }));
 
+jest.mock('react-native-orientation-locker', () => {
+  return {
+    lockToLandscape: jest.fn(),
+    lockToPortrait: jest.fn(),
+    getAutoRotateState: jest.fn(),
+    addDeviceOrientationListener: jest.fn(),
+    removeDeviceOrientationListener: jest.fn(),
+    unlockAllOrientations: jest.fn(),
+    getDeviceOrientation: jest.fn(),
+  };
+});
+
 const richHTMLMock: HTMLElementParseStore[] = [
   {
     type: RichHTMLType.READ_ALSO,
