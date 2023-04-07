@@ -7,7 +7,7 @@ import DeviceInfo from 'react-native-device-info';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
-import { isIOS, normalize, recordLogEvent } from 'src/shared/utils';
+import { isIOS, isTab, normalize, recordLogEvent } from 'src/shared/utils';
 import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
 import {NavigateTypes} from 'src/components/screens';
 import {RegisterBodyType} from 'src/redux/register/types';
@@ -207,10 +207,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   labelStyle: {
-    fontSize: normalize(16)
+    fontSize: isTab ? 16 : normalize(16)
   },
   labelContainer: {
     justifyContent:'flex-start',
+    height: isIOS ? 48 : 45,
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginVertical: 7
   },
   textContainer:{
     alignItems:'flex-start',
