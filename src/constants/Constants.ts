@@ -2123,18 +2123,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2162,18 +2162,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2201,18 +2201,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2240,18 +2240,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2279,18 +2279,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2318,18 +2318,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2357,18 +2357,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2396,18 +2396,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2435,18 +2435,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }
@@ -2474,18 +2474,18 @@ const opinionListSampleData = [
       {
         id: "94179",
         title: "  سام منسی",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/fa/taxonomy/term/94179",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2019/02/18/sam-mensi-26112018.jpg?itok=AxvknBRJ",
         langcode: "Persian, Farsi",
         name: "  سام منسی"
       },
       {
         id: "93970",
         title: " Ilan Jonas",
-        url: "http://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
+        url: "https://srpcawsatdev.prod.acquia-sites.com/en/taxonomy/term/93970",
         bundle: "writer",
-        opinion_writer_photo: "http://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
+        opinion_writer_photo: "https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/304x292/public/2018/07/19/ar-180718419.jpg?itok=FGj8JPu0",
         langcode: "إنجليزية",
         name: " Ilan Jonas"
       }

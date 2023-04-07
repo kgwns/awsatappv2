@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Platform, StyleProp, StyleSheet, View, ViewStyle,TouchableWithoutFeedback} from 'react-native';
+import {Platform, StyleProp, StyleSheet, View, ViewStyle,TouchableWithoutFeedback, Dimensions} from 'react-native';
 import {Image, Label} from 'src/components/atoms';
 import {isIOS, isTab, normalize, screenHeight, screenWidth} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
@@ -19,6 +19,7 @@ export interface FollowFavoriteAuthorProps {
   testId?: string;
   onPress: (isSelected: boolean) => void;
   imageSize?: number;
+  numColumns?: number;
   containerStyle?: StyleProp<ViewStyle>;
   tabContainerStyle?: StyleProp<ViewStyle>;
   tabEnable?: boolean
@@ -34,7 +35,8 @@ const FollowFavoriteAuthor = ({
   imageSize = 0.099 * screenHeight,
   containerStyle,
   tabContainerStyle,
-  tabEnable = false
+  tabEnable = false,
+  numColumns,
 }: FollowFavoriteAuthorProps) => {
   const timerRef = useRef<any>(null);
   const [fallback, setFallBack] = useState(false)
@@ -58,7 +60,90 @@ const FollowFavoriteAuthor = ({
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const size = imageSize;
-  const tabSize = isPortrait ? 0.1 * screenWidth : 0.09 * screenHeight;
+  const getSize = () => {
+    const { width } = Dimensions.get('window');
+    const marginHorizontal = (0.04 * width) * 2;
+    if (numColumns) {
+      const columnSize = (width - (marginHorizontal + 120)) / (numColumns)
+      return columnSize;
+    } else {
+      return isPortrait ? 0.1 * screenWidth : 0.09 * screenHeight;
+    }
+  }
+  const tabSize = isTab ? getSize() : isPortrait ? 0.1 * screenWidth : 0.09 * screenHeight;
+  if(isTab){
+    return(
+      <TouchableWithoutFeedback
+      onPress={changeStatus}
+      testID={testId}
+     >
+        <View style={[{width: getSize()},style.tabContainer]}>
+        {!isSelected ? (
+          <Grayscale>
+            <Image
+              url={authorImage}
+              type="round"
+              size={getSize()}
+              resizeMode="cover"
+              fallback={fallback}
+              fallbackName={ImagesName.authorDefault}
+            />
+          </Grayscale>
+        ) : (
+          <Image
+            url={authorImage}
+            type="round"
+            size={getSize()}
+            resizeMode="cover"
+              fallback={fallback}
+              fallbackName={ImagesName.authorDefault}
+            />
+        )}
+        <View style={style.tickIconContainer}>
+          {getSvgImages({
+              name: isSelected
+                ? ImagesName.authorItemActive
+                : isTab ? ImagesName.tabletAuthorItem : ImagesName.authorItem,
+              size: normalize(22)
+            })}
+        </View>
+        {authorName && (
+          <Label
+            color={
+              isSelected
+                ? theme.themeData.primaryBlack
+                : colors.spanishGray
+            }
+            style={[style.tabletTitleStyle,
+              {
+                width: getSize(),
+              },
+            ]}
+            numberOfLines={2}>
+            {authorName}
+          </Label>
+        )}
+        {authorDescription && (
+          <Label
+            color={
+              isSelected
+                ? theme.themeData.secondaryDavyGrey
+                : colors.spanishGray
+            }
+            style={[
+              style.descStyle,
+              {
+                width: getSize(),
+              },
+            ]}
+            numberOfLines={1}>
+            {authorDescription}
+          </Label>
+        )}
+        </View>
+      </TouchableWithoutFeedback>
+    )
+  }
   return (
     <TouchableWithoutFeedback
       onPress={changeStatus}
@@ -164,6 +249,12 @@ const customStyle = (theme: CustomThemeType) => {
     },
     tickIconContainer: {
       bottom: isTab ? normalize(10) : normalize(6)
+    },
+    tabContainer: {
+      backgroundColor: colors.transparent, 
+      marginHorizontal: 10, 
+      marginVertical: 10, 
+      alignItems: 'center'
     },
   });
 };
