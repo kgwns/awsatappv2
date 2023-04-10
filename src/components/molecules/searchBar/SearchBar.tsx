@@ -30,7 +30,7 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
   const SEARCH_PLACEHOLDER = TranslateConstants({key:TranslateKey.SEARCH_PLACEHOLDER})
   const TABLET_SEARCH_PLACEHOLDER = TranslateConstants({key: TranslateKey.TABLET_SEARCH_PLACEHOLDER});
   return (
-    <View style={styles.container}>
+    <View style={isTab ? styles.tabContainer : styles.container}>
       <Input
         placeholder={isTab ? TABLET_SEARCH_PLACEHOLDER : SEARCH_PLACEHOLDER}
         testID={testID}
@@ -61,9 +61,9 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
         }
         inputStyle={isTab ? styles.tabInputStyle : styles.inputStyle}
         inputContainerStyle={styles.inputContainerStyle}
-        containerStyle={styles.containerStyle}
-        leftIconContainerStyle={styles.leftIconContainerStyle}
-        rightIconContainerStyle={styles.rightIconContainerStyle}
+        containerStyle={isTab ? styles.tabContainerStyle : styles.containerStyle}
+        leftIconContainerStyle={ isTab ? styles.tabLeftIconContainerStyle : styles.leftIconContainerStyle}
+        rightIconContainerStyle={isTab ? styles.tabRightIconContainerStyle : styles.rightIconContainerStyle}
         onSubmitEditing={onSubmitSearch}
       />
     </View>
@@ -73,25 +73,41 @@ export const SearchBar: FunctionComponent<SearchBarProps> = ({
 const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
-      marginVertical: isTab ? 12 : normalize(12),
-      height: isTab ? 38 : normalize(38),
+      marginVertical: normalize(12),
+      height: normalize(38),
+    },
+    tabContainer: {
+      marginVertical: 12,
+      height: 38,
     },
     leftIconStyle: {
       tintColor: Styles.color.black,
     },
     leftIconContainerStyle: {
-      height: isTab ? 30 : normalize(38),
-      paddingRight: isTab ? 15 : normalize(15),
+      height: normalize(38),
+      paddingRight: normalize(15),
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: isTab ? 0 : normalize(5),
+      marginTop: normalize(5),
+    },
+    tabLeftIconContainerStyle: {
+      height: 30,
+      paddingRight: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     rightIconContainerStyle: {
-      height: isTab ? 38 : normalize(38),
-      paddingLeft: isTab ? 15 : normalize(15),
+      height: normalize(38),
+      paddingLeft: normalize(15),
       justifyContent: 'center',
       alignItems: 'center',
-      marginTop: isTab ? 0 : normalize(5),
+      marginTop: normalize(5),
+    },
+    tabRightIconContainerStyle: {
+      height: 38,
+      paddingLeft: 15,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     rightIconStyle: {
       tintColor: Styles.color.black,
@@ -104,12 +120,21 @@ const createStyles = (theme: CustomThemeType) =>
     },
     containerStyle: {
       flex: 1,
-      height: isTab ? 38 : normalize(38),
+      height: normalize(38),
       paddingHorizontal: 0,
       paddingVertical: 0,
       marginVertical: 0,
       borderBottomWidth: 1.07,
-      borderColor: isTab ? Styles.color.lightAlterGray : theme.primaryNobel,
+      borderColor: theme.primaryNobel,
+    },
+    tabContainerStyle: {
+      flex: 1,
+      height: 38,
+      paddingHorizontal: 0,
+      paddingVertical: 0,
+      marginVertical: 0,
+      borderBottomWidth: 1.07,
+      borderColor: Styles.color.lightAlterGray,
     },
     inputStyle: {
       color: theme.primaryDarkSlateGray,

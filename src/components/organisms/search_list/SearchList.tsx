@@ -74,7 +74,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         onPress={() => {
           handleOnItemPressAction(item);
         }}>
-        <View style={styles.searchItemContainer}>
+        <View style={ isTab ? styles.tabSearchItemContainer : styles.searchItemContainer}>
           <View style={styles.rowContentContainer}>
             <View style={isTab ? styles.tabTitleContainer : styles.titleContainer}>
               <Text style={styles.searchTag}> {tagLabel}
@@ -163,7 +163,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
             testID="clear_search_history"
             onPress={() => emptySearchHistory()}
             label={CLEAR_SEARCH_HISTORY}
-            style={styles.clearButtonStyle}   
+            style={isTab ? styles.tabClearButtonStyle : styles.clearButtonStyle}   
             labelStyle={styles.clearButtonLabel}
           />
         }
@@ -201,7 +201,10 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
 const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
   searchItemContainer: {
-    marginTop: isTab ? 30 : normalize(20)
+    marginTop: normalize(20)
+  },
+  tabSearchItemContainer: {
+    marginTop: 30
   },
   searchTag: {
     color: theme.primary,
@@ -243,11 +246,17 @@ StyleSheet.create({
     color: Styles.color.davyGrey
   },
   clearButtonStyle: {
-   marginTop: isTab ? 40 : normalize(20),
+   marginTop: normalize(20),
    backgroundColor: colors.cyanGreen,
    borderWidth: 0,
-   marginBottom: isTab ? 30 : normalize(30)
+   marginBottom: normalize(30)
   },
+  tabClearButtonStyle: {
+    marginTop: 40,
+    backgroundColor: colors.cyanGreen,
+    borderWidth: 0,
+    marginBottom: 30
+   },
   clearButtonLabel: {
     color: colors.greenishBlue,
     lineHeight: isTab ? 36 : 32
