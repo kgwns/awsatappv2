@@ -178,6 +178,7 @@ export interface CustomThemeType {
   tabOnBoardHeaderBackground: string,
   contactUsTitleColor: string,
   sectionStoryVideo: string,
+  tabMostReadBodyColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -247,6 +248,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   tabOnBoardHeaderBackground: colors.white,
   contactUsTitleColor: colors.darkFungusGreen,
   sectionStoryVideo: colors.greenishCyan,
+  tabMostReadBodyColor: colors.green600,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -312,6 +314,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   articleCaption: colors.white,
   tabOnBoardHeaderBackground: colors.codGray,
   contactUsTitleColor: colors.white,
-  sectionStoryVideo: colors.codGray
+  sectionStoryVideo: colors.codGray,
+  tabMostReadBodyColor: colors.white,
 }
 
