@@ -78,7 +78,8 @@
         },
         "sectionWriters": {
             "headerLeft": "الرأي",
-            "sliderLeftHeader": "الرأي"
+            "sliderLeftHeader": "الرأي",
+            "tabSliderLeftHeader": "آراء وكتّاب"
         },
         "sectionComboThree": {
             "headerLeft": "شؤون إقليمية"
@@ -116,7 +117,8 @@
         "share": "شارك"
     },
     "categoryPage": {
-        "videoContent": "فيديو"
+        "videoContent": "فيديو",
+        "tabVideoContent": "محتوي فيديو"
     },
     "podcastProgram": {
         "episodes": "الحلقات",
@@ -238,7 +240,8 @@
     "searchScreen": {
         "placeholder": "ابحث في الشرق الأوسط …",
         "notFound": "لم يتم العثور على نتائج عن البحث",
-        "clearSearchHistory": "امسح البحث السابق"
+        "clearSearchHistory": "امسح البحث السابق",
+        "tabPlaceholder": "بحث .… "
     },
     "signUp": {
         "createAccount": "إنشاء حساب",
@@ -421,6 +424,11 @@
         "saveArticleToYourFavourite": "لحفظ المقالة لمفضلاتك",
         "signUp": "قم بالتسجيل",
         "logIn": "ادخل لحسابك"
+    },
+    "tabletPopUp": {
+      "notSubscribedTitle": "لم تشترك بعد",
+      "createAccountDescription": "انشئ حساباً خاصاً بك لتحصل على أخبار مخصصة لك ولتتمتع\nبخاصية حفظ المقالات وتتلقى نشراتنا البريدية المتنوعة​",
+      "access": "الدخول"
     },
     "photoGallery": {
         "title": "معرض الصور"

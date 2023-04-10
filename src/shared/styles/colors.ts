@@ -111,7 +111,8 @@ export const colors = {
   whiteOpacity100: '#F9FBFBFF',
   black900: '#041313',
   green600: '#485655',
-  greenishCyan: '#E4EDEC'
+  greenishCyan: '#E4EDEC',
+  ashGrey: '#ACC1C0'
 };
 
 export interface CustomThemeType {
@@ -178,6 +179,7 @@ export interface CustomThemeType {
   tabOnBoardHeaderBackground: string,
   contactUsTitleColor: string,
   sectionStoryVideo: string,
+  tabSearchPlaceholder: string,
   tabMostReadBodyColor: string,
 }
 
@@ -248,6 +250,7 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   tabOnBoardHeaderBackground: colors.white,
   contactUsTitleColor: colors.darkFungusGreen,
   sectionStoryVideo: colors.greenishCyan,
+  tabSearchPlaceholder: colors.ashGrey,
   tabMostReadBodyColor: colors.green600,
 }
 
@@ -315,6 +318,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   tabOnBoardHeaderBackground: colors.codGray,
   contactUsTitleColor: colors.white,
   sectionStoryVideo: colors.codGray,
+  tabSearchPlaceholder: colors.white,
   tabMostReadBodyColor: colors.white,
 }
 

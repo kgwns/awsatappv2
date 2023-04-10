@@ -1,5 +1,5 @@
 import React, {useState, FunctionComponent} from 'react';
-import {Keyboard, View, FlatList, ListRenderItem, TouchableWithoutFeedback, StyleSheet, ScrollView, Text} from 'react-native';
+import {Keyboard, View, TouchableWithoutFeedback, StyleSheet, ScrollView, Text} from 'react-native';
 import { Label } from 'src/components/atoms/label/Label';
 import { ButtonList } from 'src/components/atoms/button-list/ButtonList';
 import { LoadingState } from 'src/components/atoms/loading/LoadingState';
@@ -18,6 +18,8 @@ import { decodeHTMLTags, isNonEmptyArray, dateTimeAgo, TimeIcon, getArticleImage
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { decode } from 'html-entities';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
+import { Styles } from 'src/shared/styles';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export interface SearchResultsProps {
   id: string;
@@ -33,10 +35,6 @@ export interface SearchListProps {
   searchHistory: string[];
   onPressHistory: (historyText: string) => void;
 }
-
-const keyExtractor = (_item:SearchItemType,index: number) => {
-  return `serachResults-${index}`;
-};
 
 export const SearchList: FunctionComponent<SearchListProps> = ({
   onItemActionPress,
@@ -63,7 +61,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     recordLogEvent('Search_Content', {searchKeyword: searchText});
   }
 
-  const renderItem: ListRenderItem<SearchItemType> = ({item,index}) => {
+  const renderItem = (item:SearchItemType,index:number) => {
     const tagLabel =  item.field_news_categories_export && isNonEmptyArray(item.field_news_categories_export) ? item.field_news_categories_export[0].title + '  |  ' : ''
     const title = decode(item.title)
     const body = decode(item.body)
@@ -76,7 +74,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         onPress={() => {
           handleOnItemPressAction(item);
         }}>
-        <View style={styles.searchItemContainer}>
+        <View style={ isTab ? styles.tabSearchItemContainer : styles.searchItemContainer}>
           <View style={styles.rowContentContainer}>
             <View style={isTab ? styles.tabTitleContainer : styles.titleContainer}>
               <Text style={styles.searchTag}> {tagLabel}
@@ -124,17 +122,17 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   const getSearchResults = () => {
     return (
       <>
-        {isLoading ? <LoadingState /> :
+        {isLoading ?
+          <View style = {styles.loadingContainer}>
+             <LoadingState />
+          </View>
+        :
           <View style={styles.containerStyle}>
-            <FlatList
-              testID={'searchResultsListID'}
-              data={data}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={keyExtractor}
-              renderItem={renderItem}
-              bounces={false}
-              ListEmptyComponent={renderEmpty}
-            />
+            { isNonEmptyArray(data) ? data.map((item,index) => {
+                return renderItem(item,index);
+              }) :
+              renderEmpty()
+            }
           </View>
         }
       </>
@@ -148,12 +146,13 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
           <View style={styles.searchHistoryContainer}>
           {searchHistory?.length > 0 && searchHistory.map((item, index) => {
             return(
-              <View key={index}>
+              <View key={index} style = {(index === 0) && styles.listContainer}>
               <ButtonList
                 title={item}
-                titleStyle={styles.historyItemText}
+                titleStyle={ isTab ? styles.tabHistoryItemText : styles.historyItemText}
                 showIcon={false}
                 onPress={() => onSearchTextChange(item)}
+                containerStyle = {isTab && styles.searchDataContainer}
               />
               </View>
             )
@@ -164,19 +163,16 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
             testID="clear_search_history"
             onPress={() => emptySearchHistory()}
             label={CLEAR_SEARCH_HISTORY}
-            style={styles.clearButtonStyle}   
+            style={isTab ? styles.tabClearButtonStyle : styles.clearButtonStyle}   
             labelStyle={styles.clearButtonLabel}
           />
         }
         </ScrollView>
-        
-      
-      
     )
   }
 
   return (
-    <View style={styles.searchBarContainer}>
+    <View style={ isTab ? styles.tabSearchBarContainer : styles.searchBarContainer}>
       <SearchBar
         testID={testID}
         searchText={searchText}
@@ -192,9 +188,13 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         }}
         onSubmitSearch={onSubmit}
       />
+    <KeyboardAwareScrollView bounces={false} enableOnAndroid = {true} 
+      showsVerticalScrollIndicator={false} scrollEnabled>
       {/* User Need to type minimum four char */}
-      {searchText.length >= 4 ? getSearchResults() : searchHistoryView()}
-    </View>
+      {searchText.length >= 4 ? getSearchResults() : searchHistoryView()} 
+    </KeyboardAwareScrollView>
+  </View>
+
   );
 };
 
@@ -202,6 +202,9 @@ const createStyles = (theme: CustomThemeType) =>
 StyleSheet.create({
   searchItemContainer: {
     marginTop: normalize(20)
+  },
+  tabSearchItemContainer: {
+    marginTop: 30
   },
   searchTag: {
     color: theme.primary,
@@ -235,12 +238,25 @@ StyleSheet.create({
     fontWeight: 'normal',
     fontFamily: fonts.AwsatDigital_Regular,
   },
+  tabHistoryItemText: {
+    fontWeight: '400',
+    fontFamily: fonts.AwsatDigital_Regular,
+    fontSize: 20,
+    lineHeight: 28,
+    color: Styles.color.davyGrey
+  },
   clearButtonStyle: {
    marginTop: normalize(20),
    backgroundColor: colors.cyanGreen,
    borderWidth: 0,
    marginBottom: normalize(30)
   },
+  tabClearButtonStyle: {
+    marginTop: 40,
+    backgroundColor: colors.cyanGreen,
+    borderWidth: 0,
+    marginBottom: 30
+   },
   clearButtonLabel: {
     color: colors.greenishBlue,
     lineHeight: isTab ? 36 : 32
@@ -252,7 +268,7 @@ StyleSheet.create({
     width: '80%',
     flexDirection: 'row',
     flexShrink: 1,
-    paddingRight: 20,
+    paddingRight: 23,
   },
   titleContainer: {
     width: '70%',
@@ -286,7 +302,7 @@ StyleSheet.create({
   },
   tabImageContainer: {
     width: 153,
-    height: 125
+    height: 125,
   },
   imageContainer: {
     width: 92,
@@ -304,5 +320,20 @@ StyleSheet.create({
   },
   searchHistoryContainer: {
     alignItems: 'flex-start'
+  },
+  searchDataContainer: {
+    paddingVertical:23
+  },
+  tabSearchBarContainer: {
+    flex: 1,
+    backgroundColor: theme.profileBackground,
+    marginHorizontal: 35,
+    padding: 40,
+  },
+  listContainer: {
+    marginTop: 40
+  },
+  loadingContainer: {
+    marginTop:20
   }
 });
