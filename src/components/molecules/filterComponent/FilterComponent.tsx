@@ -52,7 +52,7 @@ export const FilterComponent = ({
     }
 
     const renderItemCount = (item: FilterDataType) => (
-        <Label style={[style.label, { paddingLeft: 3 }]}
+        <Label style={[style.label, { marginLeft: 3 }]}
             color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
             children={`(${item.count?.toString()})`}
         />
