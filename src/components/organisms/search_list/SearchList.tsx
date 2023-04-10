@@ -1,5 +1,5 @@
 import React, {useState, FunctionComponent} from 'react';
-import {Keyboard, View, TouchableWithoutFeedback, StyleSheet, ScrollView, Text, TextInput} from 'react-native';
+import {Keyboard, View, TouchableWithoutFeedback, StyleSheet, ScrollView, Text} from 'react-native';
 import { Label } from 'src/components/atoms/label/Label';
 import { ButtonList } from 'src/components/atoms/button-list/ButtonList';
 import { LoadingState } from 'src/components/atoms/loading/LoadingState';
