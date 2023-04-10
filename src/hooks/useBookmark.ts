@@ -45,6 +45,7 @@ export interface UseBookMarkReturn {
   removeBookmark(): void
   getSpecificBundleFavoriteDetail: (bundle: PopulateWidgetType, startIndex?: number) => void;
   canRefreshBookmarkDetail: boolean;
+  getSpecificBundleArticleCount: (bundle: PopulateWidgetType) => number;
 }
 
 export const useBookmark = (): UseBookMarkReturn => {
@@ -126,6 +127,12 @@ export const useBookmark = (): UseBookMarkReturn => {
     }
   }
 
+  const getSpecificBundleArticleCount = (payload: PopulateWidgetType) => {
+    const bookmarkId = [...bookmarkIdInfo];
+    const bundleBookmarkList = bookmarkId.filter((item) => item.bundle === payload);
+    return isNonEmptyArray(bundleBookmarkList) ? bundleBookmarkList.length : 0;
+  };
+
   const getCurrentBatchNid = (selectedData: any[], startIndex: number) => {
     const selectedDataInfo = isArray(selectedData) ? [...selectedData] : []
     const nextPageIdInfo = spliceArray(selectedDataInfo, startIndex, 25)
@@ -152,5 +159,6 @@ export const useBookmark = (): UseBookMarkReturn => {
     getSpecificBundleFavoriteDetail,
     filterBookmarkDetailInfo,
     canRefreshBookmarkDetail,
+    getSpecificBundleArticleCount,
   };
 };

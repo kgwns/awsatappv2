@@ -62,8 +62,9 @@ const ArticlePodCastWidget = ({
         }
     }
 
+    const containerStyle = isTab ? style.containerTab : style.container;
     return (
-        <TouchableOpacity style={style.container} onPress={onPress}>
+        <TouchableOpacity style={containerStyle} onPress={onPress}>
             <View style={style.topViewContainer}>
                 <View style={style.leftContainer}>
                     <Label labelType={LabelTypeProp.h1} children={getString(title)} color={themeData.primaryBlack} style={style.title} numberOfLines={1} />
@@ -82,7 +83,7 @@ const ArticlePodCastWidget = ({
                 onPressBookmark={onPressBookmark}
                 onPress={onPress}
             />
-            <Divider style={style.divider} />
+            {!isTab && <Divider style={style.divider} />}
         </TouchableOpacity>
     )
 }
@@ -92,7 +93,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: normalize(10),
-        paddingHorizontal: (isTab ? 0.025 : 0.04) * screenWidth
+        paddingHorizontal: 0.04 * screenWidth,
+    },
+    containerTab: {
+        paddingVertical: normalize(10),
+        paddingHorizontal: 0.025 * screenWidth,
+        backgroundColor: theme.secondaryWhite,
     },
     topViewContainer: {
         flex: 1,

@@ -11,7 +11,8 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export enum BookMarkColorType {
   WHITE = 'white',
-  BLACK = 'black'
+  BLACK = 'black',
+  PRIMARY = 'primary',
 }
 
 export interface ArticleFooterProps {
@@ -56,9 +57,9 @@ const ArticleFooter = ({
   isDetail = false
 }: ArticleFooterProps) => {
   let storySaveIcon=() => {
-    
+    const bookmarkActive = bookMarkColorType === BookMarkColorType.PRIMARY ? ImagesName.favoriteActiveIcon : ImagesName.bookMarkActiveSVG;
     return getSvgImages({
-          name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,
+          name: isBookmarked ? bookmarkActive : ImagesName.bookMarkSVG,
           width: favouriteIconWidth,
           height: favouriteIconHeight
         })

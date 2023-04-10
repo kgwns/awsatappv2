@@ -25,6 +25,7 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 import LinearGradient from 'react-native-linear-gradient';
 import Share from 'react-native-share';
+import { BookMarkColorType } from '../articleFooter/ArticleFooter';
 
 const width = Dimensions.get('window').width;
 
@@ -50,6 +51,7 @@ export interface VideoItemProps {
   showShare:boolean;
   onPressBookmark:()=>void;
   videoThumbnailStyle?: ImageStyle;
+  bookMarkColorType?: string;
 }
 
 export const VideoItem = ({
@@ -71,7 +73,8 @@ export const VideoItem = ({
   index = 0,
   subTitle = '',
   showShare = false,
-  link_node = ''
+  link_node = '',
+  bookMarkColorType,
 }: VideoItemProps) => {
   const styles = useThemeAwareObject(createStyles);
   const {themeData} = useTheme();
@@ -122,6 +125,8 @@ export const VideoItem = ({
         </TouchableOpacity>
       )
     } 
+
+    const bookmarkActive = bookMarkColorType === BookMarkColorType.PRIMARY ? ImagesName.favoriteActiveIcon : ImagesName.bookMarkActiveSVG;
     return (
       <View style={[styles.footerContainer, listContainerStyle, (isTab && lastIndex) && styles.marginEndStyle]}>
         <View style={styles.footerRight}>
@@ -144,7 +149,7 @@ export const VideoItem = ({
           icon={() => {
             return isBookmarked
               ? getSvgImages({
-                name: ImagesName.bookMarkActiveSVG,
+                name: bookmarkActive,
                 width: 11,
                 height: 16
               })
