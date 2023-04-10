@@ -1,7 +1,7 @@
 import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
-import {ArticleItem, ArticleWithOutImageProps} from 'src/components/molecules';
+import {ArticleItem, ArticleWithOutImageProps, MostReadTabItem} from 'src/components/molecules';
 import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
 import {isTab, screenWidth, normalize} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
@@ -129,27 +129,44 @@ const MostReadList = ({
     }
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
-    return (
-      <View>
-        <ArticleItem
-          {...item}
-          bodyStyle={style.bodyStyle}
-          showDivider={false}
-          index={index}
-          contentStyle={style.contentStyle}
-          footerInfo={footerData}
-          onPressBookmark={() => checkAndUpdateBookmark(index)}
-          titleStyle={style.titleStyle}
-          titleContainerStyle={style.titleContainerStyle}
-          articleItemStyle={style.articleItemStyle}
-        />
-        {isLoading && (data.length - 1 === index) && (
-          <View style={style.loaderStyle}>
-            <ActivityIndicator size={'small'} color={theme.themeData.primary} />
-          </View>
-        )}
-      </View>
-    );
+
+    if (isTab) {
+      return (
+        <View>
+          <MostReadTabItem
+            articleData={item}
+            index={index}
+            onPressBookmark={() => checkAndUpdateBookmark(index)} />
+          {isLoading && (data.length - 1 === index) && (
+            <View style={style.loaderStyle}>
+              <ActivityIndicator size={'small'} color={theme.themeData.primary} />
+            </View>
+          )}
+        </View>
+      )
+    } else {
+      return (
+        <View>
+          <ArticleItem
+            {...item}
+            bodyStyle={style.bodyStyle}
+            showDivider={false}
+            index={index}
+            contentStyle={style.contentStyle}
+            footerInfo={footerData}
+            onPressBookmark={() => checkAndUpdateBookmark(index)}
+            titleStyle={style.titleStyle}
+            titleContainerStyle={style.titleContainerStyle}
+            articleItemStyle={style.articleItemStyle}
+          />
+          {isLoading && (data.length - 1 === index) && (
+            <View style={style.loaderStyle}>
+              <ActivityIndicator size={'small'} color={theme.themeData.primary} />
+            </View>
+          )}
+        </View>
+      );
+    }
   };
 
   const listHeader = () => (
@@ -170,7 +187,7 @@ const MostReadList = ({
          onScrollBeginDrag={() => global.refFlatList = ref}
         keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.MOST_READ_LIST}
-        ListHeaderComponent={enableTag ? listHeader : <View/>}
+        ListHeaderComponent={enableTag ? listHeader : <View style={style.noTitleStyle}/>}
         data={articleData}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => renderItem(item, index)}
@@ -229,5 +246,8 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   loaderStyle: {
     margin: normalize(28)
-  }
+  },
+  noTitleStyle: {
+    marginTop: 40
+  },
 });

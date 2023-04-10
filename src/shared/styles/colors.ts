@@ -179,7 +179,8 @@ export interface CustomThemeType {
   tabOnBoardHeaderBackground: string,
   contactUsTitleColor: string,
   sectionStoryVideo: string,
-  tabSearchPlaceholder: string
+  tabSearchPlaceholder: string,
+  tabMostReadBodyColor: string,
 }
 
 export const LIGHT_THEME_ID = 'light'
@@ -249,7 +250,8 @@ export const DEFAULT_LIGHT_THEME: CustomThemeType = {
   tabOnBoardHeaderBackground: colors.white,
   contactUsTitleColor: colors.darkFungusGreen,
   sectionStoryVideo: colors.greenishCyan,
-  tabSearchPlaceholder: colors.ashGrey
+  tabSearchPlaceholder: colors.ashGrey,
+  tabMostReadBodyColor: colors.green600,
 }
 
 export const DEFAULT_DARK_THEME: CustomThemeType = {
@@ -316,6 +318,7 @@ export const DEFAULT_DARK_THEME: CustomThemeType = {
   tabOnBoardHeaderBackground: colors.codGray,
   contactUsTitleColor: colors.white,
   sectionStoryVideo: colors.codGray,
-  tabSearchPlaceholder: colors.white
+  tabSearchPlaceholder: colors.white,
+  tabMostReadBodyColor: colors.white,
 }
 
