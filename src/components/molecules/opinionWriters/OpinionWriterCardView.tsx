@@ -1,5 +1,5 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
@@ -15,6 +15,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { useAppPlayer } from 'src/hooks';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion';
+import { BookMarkColorType } from '../articleFooter/ArticleFooter';
 
 
 export interface OpinionWritersCardViewProps {
@@ -33,6 +34,9 @@ export interface OpinionWritersCardViewProps {
   togglePlayback?: (nid: string, mediaData: any)=> void,
   selectedTrack?: string,
   authorId:string
+  showDivider?: boolean;
+  addStyle?: StyleProp<ViewStyle>;
+  bookMarkColorType?: string;
 }
 
 const OpinionWritersCardView = ({
@@ -48,6 +52,9 @@ const OpinionWritersCardView = ({
   hideImageView = false,
   jwPlayerID = null,
   authorId,
+  showDivider = true,
+  addStyle,
+  bookMarkColorType,
 }: OpinionWritersCardViewProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const routes = useNavigationState(state => state.routes)
@@ -138,11 +145,25 @@ const onPressPlay = () => {
   //   togglePlayback(nid, mediaData)
   // }
 }
+  
+  const renderDivider = () => {
+    if(!showDivider) {
+      return null
+    };
+
+    return(
+      <Divider style={[style.divider, mediaVisibility && { marginTop: normalize(10) }]} />
+    );
+  };
+  
   const playIconMobile = getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) });
   const playIconTab = getSvgImages({ name: ImagesName.playWithBg, width: 35, height: 35 });
   const playIconWidget = isTab ? playIconTab : playIconMobile;
+  const bookmarkActive = bookMarkColorType === BookMarkColorType.PRIMARY ? ImagesName.favoriteActiveIcon : ImagesName.bookMarkActiveSVG;
+
   return (
-    <FixedTouchable style={style.container} onPress={()=>onPress()}>
+    <FixedTouchable style={[style.container, addStyle]}
+      onPress={() => onPress()}>
       {!hideImageView && <View style={style.topImageWithLabelContainer}>
         <TouchableOpacity onPress={() => onPressWriter(authorId)}>
           <Image
@@ -189,7 +210,7 @@ const onPressPlay = () => {
             icon={() => {
               return isBookmarked
                 ? getSvgImages({
-                    name: ImagesName.bookMarkActiveSVG,
+                    name: bookmarkActive,
                     width: 11,
                     height: 16
                   })
@@ -203,7 +224,7 @@ const onPressPlay = () => {
           />
         </View>
       </View>
-      <Divider style={[style.divider, mediaVisibility && { marginTop: normalize(10) }]} />
+      {renderDivider()}
     </FixedTouchable>
   );
 };

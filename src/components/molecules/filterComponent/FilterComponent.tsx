@@ -3,7 +3,7 @@ import React from 'react'
 import { Label } from 'src/components/atoms/label/Label'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { isIOS, isNonEmptyArray, normalize, normalizeBy320 } from 'src/shared/utils'
+import { isIOS, isNonEmptyArray, isNotEmpty, isTab, normalize, normalizeBy320 } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { moleculesTestID } from 'src/constants/Constants'
@@ -13,16 +13,23 @@ export type FilterDataType = {
     name: string,
     isSelected: boolean
     child?: FilterDataType[]
+    count?: number;
 }
 
 type FilterComponentType = {
     data: FilterDataType[],
     onPress: (index: number) => void
     onPressSubChild?: (childIndex: number, subChildIndex: number) => void;
+    selectedColor?: string;
+    showSelectedBorder?: boolean;
 }
 
 export const FilterComponent = ({
-    data, onPress, onPressSubChild
+    data, 
+    onPress, 
+    onPressSubChild, 
+    selectedColor,
+    showSelectedBorder = true,
 }: FilterComponentType) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle)
@@ -44,6 +51,13 @@ export const FilterComponent = ({
         )
     }
 
+    const renderItemCount = (item: FilterDataType) => (
+        <Label style={[style.label, { paddingLeft: 3 }]}
+            color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
+            children={`(${item.count?.toString()})`}
+        />
+    );
+
     return (
         <ScrollView style={style.container} horizontal={true}
             showsHorizontalScrollIndicator={false}
@@ -54,10 +68,13 @@ export const FilterComponent = ({
                     <>
                         <View style={style.labelContainer} key={index}>
                             <TouchableOpacity testID={moleculesTestID.filterBtn} activeOpacity={0.8} onPress={() => onPress(index)}
-                                style={[style.filterItem, item.isSelected && style.filterActive]}>
+                                style={[style.filterItem, item.isSelected && style.filterActive,
+                                item.isSelected && isNotEmpty(selectedColor) && { backgroundColor: selectedColor },
+                                item.isSelected && !showSelectedBorder && { borderWidth: 0 }]}>
                                 <Label children={item.name} style={style.label}
                                     color={item.isSelected ? Styles.color.white : themeData.secondarySpanishGray}
                                 />
+                                {isTab && typeof item.count == 'number' && renderItemCount(item)}
                             </TouchableOpacity>
                         </View>
                         {item.isSelected && isNonEmptyArray(item.child) && renderSubChild(index, item.child!)}
@@ -83,7 +100,8 @@ const customStyle = (theme: CustomThemeType) => (
             paddingRight: normalize(15),
             paddingTop: normalize(7),
             paddingBottom: isIOS ? normalize(4) : normalize(7),
-            borderRadius: normalize(20)
+            borderRadius: normalize(20),
+            flexDirection: 'row',
         },
         filterActive: {
             backgroundColor: theme.filterBackgroundColor,

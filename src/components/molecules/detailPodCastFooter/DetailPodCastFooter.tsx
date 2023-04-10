@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, TouchableOpacity } from 'react-native'
-import { isIOS, normalize } from '../../../shared/utils/dimensions'
+import { isIOS, isTab, normalize } from '../../../shared/utils/dimensions'
 import { moleculesTestID } from '../../../constants/Constants'
 import { ImageName, Label } from '../../atoms'
 import { getSvgImages } from 'src/shared/styles/svgImages'
@@ -32,10 +32,11 @@ const DetailPodCastFooter = ({
     onPressBookmark,
     onPress
 }: DetailPodCastFooterProps) => {
+    const activeIconSize = isTab ? ImagesName.favoriteActiveIcon : ImagesName.bookMarkActiveSVG;
     const storySaveIcon =() => {
         return isBookmarked
           ? getSvgImages({
-              name: ImagesName.bookMarkActiveSVG,
+              name: activeIconSize,
               width: 11,
               height: 16
             })

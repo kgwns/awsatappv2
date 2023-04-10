@@ -7,6 +7,7 @@ import { DynamicWidget } from 'src/components/organisms'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
+import { colors } from 'src/shared/styles/colors'
 
 export const Archives = () => {
     const isFocused = useIsFocused()
@@ -20,27 +21,33 @@ export const Archives = () => {
     const filterData: FilterDataType[] = [
         {
             name: FAVORITE_FILTERS_EVERYONE,
-            isSelected: true
+            isSelected: true,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_ARTICLES,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_VIDEO,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_OPINION,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_PODCAST,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_ALBUM,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         }
     ]
 
@@ -59,6 +66,7 @@ export const Archives = () => {
     const {
         getBookmarkedId, removeBookmarkedInfo,
         getBookmarkDetailData, getSpecificBundleFavoriteDetail,
+        getSpecificBundleArticleCount,
         bookmarkDetail, bookmarkLoading,
         isAllBookmarkFetched, filterBookmarkDetailInfo,
         bookmarkIdInfo, canRefreshBookmarkDetail,
@@ -79,6 +87,21 @@ export const Archives = () => {
             setInitialLoading(isFocused)
         }
     }, [isFocused])
+
+    useEffect(() => {
+        updateArticleCount([...filterItem]);
+    }, [bookmarkIdInfo]);
+
+    const updateArticleCount = (data: FilterDataType[]) => {
+        if (isFocused) {
+            const updatedFilterData = data.map((item: FilterDataType, index: number) => ({
+                ...item,
+                count: index === 0 ? isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.length
+                    : 0 : getSpecificBundleArticleCount(widgetNameByIndex(index))
+            }));
+            setFilterItem([...updatedFilterData]);
+        }
+    };
 
     useEffect(() => {
         if (isNonEmptyArray(bookmarkDetail) ||
@@ -133,7 +156,7 @@ export const Archives = () => {
         if (isNonEmptyArray(filterItemData) && typeof tabSelectedIndex == 'number') {
             filterItemData[tabSelectedIndex].isSelected = false;
             filterItemData[index].isSelected = true;
-            setFilterItem(filterItemData)
+            updateArticleCount(filterItemData);
             setTabSelectedIndex(index);
         }
     }
@@ -222,7 +245,12 @@ export const Archives = () => {
     return (
         <View style={styles.contentContainer}>
             <View style={styles.filterContainer}>
-                <FilterComponent data={filterItem} onPress={onPressFilterItem} />
+                <FilterComponent
+                    data={filterItem}
+                    selectedColor={isTab ? colors.greenishBlue : undefined}
+                    showSelectedBorder={false}
+                    onPress={onPressFilterItem}
+                />
             </View>
             {!initialLoading ?
                 <>

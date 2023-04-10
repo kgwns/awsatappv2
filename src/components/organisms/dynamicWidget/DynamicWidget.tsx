@@ -1,7 +1,7 @@
 import { ActivityIndicator, FlatList, ListRenderItem, View, StyleSheet } from 'react-native'
 import React, { useState } from 'react'
 import { PopulateWidget } from 'src/components/molecules'
-import { isNonEmptyArray, normalize } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useAppPlayer } from 'src/hooks'
 
@@ -52,11 +52,13 @@ export const DynamicWidget = ({
            data={data}
            keyExtractor={(_,index) => index.toString()}
            renderItem={renderItem}
+           numColumns={isTab ? 2 : 1}
            showsVerticalScrollIndicator={false}
            onEndReachedThreshold={0.5}
            onEndReached={onEndReached}
            ListFooterComponent={listFooterComponent}
-            contentContainerStyle={showMiniPlayer && styles.contentContainer}
+           contentContainerStyle={showMiniPlayer && styles.contentContainer}
+           columnWrapperStyle={isTab && styles.columnWrapper}
         />
     )
 }
@@ -70,5 +72,10 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1
-    }
+    },
+    columnWrapper: {
+        flex: 1,
+        justifyContent: 'space-between',
+        paddingHorizontal: 0.02 * screenWidth,
+    },
 })

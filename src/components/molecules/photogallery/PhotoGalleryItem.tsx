@@ -1,4 +1,4 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleProp, StyleSheet, View, ViewStyle} from 'react-native';
 import React, {FunctionComponent} from 'react';
 import {flatListUniqueKey} from 'src/constants/Constants';
 import {ImageWithLabel} from 'src/components/atoms';
@@ -24,6 +24,8 @@ export interface PhotoGalleryItemProps {
   isBookmarked: boolean;
   showDivider?: boolean;
   isFavouriteTab?: boolean;
+  bookMarkColorType?: string;
+  addBodyContentStyle?: StyleProp<ViewStyle>;
 }
 
 export const PhotoGalleryItem: FunctionComponent<PhotoGalleryItemProps> = ({
@@ -38,6 +40,8 @@ export const PhotoGalleryItem: FunctionComponent<PhotoGalleryItemProps> = ({
   isBookmarked,
   showDivider = false,
   isFavouriteTab = false,
+  bookMarkColorType,
+  addBodyContentStyle,
   ...props
 }) => {
   const {isLoggedIn} = useLogin();
@@ -54,6 +58,7 @@ export const PhotoGalleryItem: FunctionComponent<PhotoGalleryItemProps> = ({
     },
     rightIcon: () => TimeIcon(timeFormat.icon),
     rightTitleColor: style.footerTitleColor.color,
+    bookMarkColorType: bookMarkColorType,
   };
 
   const onPressBookmark = () => {
@@ -91,6 +96,7 @@ export const PhotoGalleryItem: FunctionComponent<PhotoGalleryItemProps> = ({
           style={[
             style.contentContainer,
             !showDivider && style.containerStyle,
+            addBodyContentStyle,
           ]}>
           <ArticleWithOutImage
             isBookmarked={isBookmarked}
