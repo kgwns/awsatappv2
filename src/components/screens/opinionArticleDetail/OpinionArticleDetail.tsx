@@ -2,8 +2,8 @@ import React, {useEffect, useState, useRef, useMemo} from 'react';
 import { StyleSheet, View, FlatList, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
-import {OpinionArticleDetailFooter, DetailHeader} from 'src/components/molecules';
+import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
+import {OpinionArticleDetailFooter, DetailHeader, DetailHeaderTablet} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
   RelatedOpinionArticlesWidget,
@@ -292,11 +292,21 @@ export const OpinionArticleDetail = ({
     navigation.popToTop()
   }
 
-  const renderHeader = () => (
-    <View style={style.backContainer} testID = "headerViewId">
-      <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
-    </View>
-  )
+  const renderHeader = () => {
+    const headerProps = {
+      visibleHome: noOfDetailRoutes > 1,
+      onHomePress: () => onPressHome(),
+      onBackPress: () => onPressBack(),
+      containerStyle: isTab && { paddingHorizontal: normalize(0.02 * screenWidth) },
+    }
+
+    return (
+      <View style={style.backContainer}>
+        {isTab ? <DetailHeaderTablet {...headerProps} /> : <DetailHeader {...headerProps} />}
+      </View>
+    );
+  };
+
   const renderItem = () => {
     const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
 
@@ -378,7 +388,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     backContainer: {
       width: '100%',
-      height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
+      height: isTab ? 100 : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
       backgroundColor: theme.secondaryWhite,
       justifyContent: 'center',
     }

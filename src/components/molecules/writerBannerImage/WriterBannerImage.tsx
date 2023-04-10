@@ -125,7 +125,7 @@ export const WriterBannerImage = ({
         <ReturnButton />
       </View> */}
       <View style={style.contentContainer}>
-        <View style={{ flex: isTab ? isWriter ? 0.20 : currentOrientation === 'PORTRAIT' ? 0.20 : 0.10 : isWriter ? 0.33 : currentOrientation === 'PORTRAIT' ? 0.33 : 0.15 }}>
+        <View style={!isTab && { flex: isWriter ? 0.33 : currentOrientation === 'PORTRAIT' ? 0.33 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
             <View style={isTab ? style.imageTabContainer : style.imageContainer}>
               <Image url={getImageUrl(data.authorImage)}
@@ -139,8 +139,7 @@ export const WriterBannerImage = ({
           </TouchableWithoutFeedback>
         </View>
         <View style={{ 
-          flex: isTab ? 
-          isWriter ? 0.85 : currentOrientation === 'PORTRAIT' ? 0.85 : 0.90 : 
+          flex: isTab ? 1 : 
           isWriter ? 0.67 :currentOrientation === 'PORTRAIT' ? 0.67 : 0.85, paddingStart: normalize(10) }}>
           <View style={style.authorSubscribeView}>
               <View style={style.authorNameView}>

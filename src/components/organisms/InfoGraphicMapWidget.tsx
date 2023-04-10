@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
-import { isIOS, isNotEmpty, isTab, normalize } from 'src/shared/utils'
+import { isIOS, isNotEmpty, isTab, screenWidth } from 'src/shared/utils'
 import { fonts } from 'src/shared/styles/fonts'
-import { Label } from '../atoms'
+import { Label, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { colors } from 'src/shared/styles/colors'
 import { generateAssetFontCss } from '../screens/articleDetail/components/ArticleDetailRichContent'
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 type InfoGraphicMapWidgetProps = {
     title: string
@@ -44,6 +45,7 @@ const InfoGraphicMapWidget = ({
         </html>`;
 
     const htmlSource = { html: isNotEmpty(htmlContent) ? infoGraphicHTML({body: htmlContent}) : '<div></div>' , baseUrl:''}
+    const { themeData } = useTheme();
 
     const renderWebview = () => (
         <AutoHeightWebView
@@ -57,15 +59,27 @@ const InfoGraphicMapWidget = ({
         />
     )
 
+    const widgetHeaderData: WidgetHeaderProps = {
+        headerLeft: {
+          title: title,
+          color: themeData.primaryBlack,
+          labelType: LabelTypeProp.title3,
+          textStyle: { fontFamily: fonts.AwsatDigital_Black }
+        },
+      };
+
     return (
             <View style={isTab ? styles.tabWidgetContainer : styles.widgetContainer}>
-            <View style={isTab ? styles.tabHeaderContainer : styles.headerContainer}>
-                <Label
-                    children={title}
-                    style={isTab ? styles.tabTitleStyle : styles.titleStyle}
-                />
-            </View>
-
+            
+            {isTab ? <View style={styles.widgetHeaderContainer}>
+                <WidgetHeader {...widgetHeaderData} />
+            </View> :
+                <View style={styles.headerContainer}>
+                    <Label
+                        children={title}
+                        style={styles.titleStyle}
+                    />
+                </View>}
             {isIOS ? renderWebview() : <ScrollView scrollEnabled={true} style={styles.scrollViewStyle}>
                 {renderWebview()}
             </ScrollView>}
@@ -118,5 +132,9 @@ const styles = StyleSheet.create({
     },
     tabWebViewContainer: {
         width: '100%',
+    },
+    widgetHeaderContainer: {
+        paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
+        paddingVertical: isIOS ? 20 : 21,
     },
 })

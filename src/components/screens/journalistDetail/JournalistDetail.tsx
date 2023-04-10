@@ -266,7 +266,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     backContainer: {
         width: '100%',
-        height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
+        height: isTab ? 100 : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
         backgroundColor: theme.secondaryWhite,
         justifyContent: 'center',
     }

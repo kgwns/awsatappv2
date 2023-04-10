@@ -1,4 +1,4 @@
-import { StyleSheet, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 import React from 'react';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { HomeButton, Label } from 'src/components/atoms';
@@ -14,12 +14,14 @@ interface DetailHeaderProps {
     visibleHome?: boolean;
     onBackPress: () => void;
     onHomePress: () => void;
+    containerStyle?: StyleProp<ViewStyle>;
 }
 
 export const DetailHeaderTablet = ({
     visibleHome = false,
     onBackPress,
     onHomePress,
+    containerStyle,
 }: DetailHeaderProps) => {
     const insets = useSafeAreaInsets();
     const style = useThemeAwareObject(customStyle);
@@ -44,7 +46,7 @@ export const DetailHeaderTablet = ({
     };
 
     return (
-        <View style={[style.headerContainer, { marginTop: insets.top }]}>
+        <View style={[style.headerContainer, containerStyle, { marginTop: insets.top }]}>
             {renderBackIcon()}
             {visibleHome && <HomeButton onPress={onHomePress} />}
         </View>
