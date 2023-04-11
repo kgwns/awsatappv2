@@ -197,7 +197,7 @@ export const VideoItem = ({
       <View style={[styles.videoContainer, listContainerStyle, !isDocumentary && { marginTop: 0 }, (isTab && lastIndex) && {paddingEnd: 0.02 * width}]}>
         <View>
           <Image fallback resizeMode={'cover'} url={imageLink} style={[styles.image, videoThumbnailStyle]} />
-          {!isTab && <PlayIcon fill={colors.white} style={styles.playIcon} />}
+          <PlayIcon fill={colors.white} style={styles.playIcon} />
           {duration && (<Label style={timeStyle} color={colors.white}>
             {duration}
           </Label>)}
@@ -211,7 +211,9 @@ export const VideoItem = ({
     const lastIndex = (index + 1) % 3 == 0; 
     return (
       <View style={[spaceContainerStyle, (isTab && lastIndex) && styles.paddingEndStyle]}>
-        {!isDocumentary && <Label style={styles.titleLabelStyle}>{decode(title)}</Label>}
+        {!isDocumentary && <View style={isTab && styles.titleHeight}>
+            <Label numberOfLines={3} style={styles.titleLabelStyle}>{decode(title)}</Label>
+          </View>}
         {(isDocumentary && des) && (<View>
           <HtmlRenderer source={des} tagsStyles={htmlTagStyle} />
         </View>)}
@@ -400,7 +402,8 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: isTab ? 20 : 16,
       lineHeight: isTab ? 32 : 28,
       textAlign: 'left',
-      paddingVertical: normalize(8),
+      paddingTop: 8,
+      paddingBottom: isTab ? 0 : 8,
       color: theme.primaryBlack
     },
     containerStyle: {
@@ -458,5 +461,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     centerStyle: {
       alignSelf: 'center'
+    },
+    titleHeight: {
+      height: 105
     }
   });

@@ -20,6 +20,7 @@ export interface ImageIconProps {
 }
 
 export const ImageWithIcon = ({ name, url, bottomTag,onPress, fallback= false, isVideoList = false}: ImageIconProps) => {
+    const videoPlayIconSize = isVideoList ? 25 : 30;
     return (
         <View>
             <Image fallback={fallback} name={name} url={url} style={ isVideoList ? tabArticleImage : articleImage} resizeMode={ImageResize.COVER}/>
@@ -30,13 +31,11 @@ export const ImageWithIcon = ({ name, url, bottomTag,onPress, fallback= false, i
                 />
             </View>
             }
-            { !isTab &&  
-                <View style={playIconPosition}>
-                    <TouchableOpacity onPress={onPress}>
-                    <WhitePlayIcon style={iconStyle}/>
-                    </TouchableOpacity>
-                </View>    
-            }    
+            <View style={playIconPosition}>
+                <TouchableOpacity onPress={onPress}>
+                    <WhitePlayIcon width={videoPlayIconSize} height={videoPlayIconSize}/>
+                </TouchableOpacity>
+            </View>    
         </View>
     )
 }
