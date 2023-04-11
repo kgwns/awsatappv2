@@ -115,22 +115,22 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                     let tabIconStyle:any = style.tabIcon ;
                     switch (route.name) {
                         case TabConstants.LATEST_NEWS:
-                            tabIconStyle = style.latestNewsIcon
+                            tabIconStyle = isTab ? style.tabLatestNewsIcon : style.latestNewsIcon
                             break;
                         case TabConstants.SECTIONS:
-                            tabIconStyle = style.sectionsIcon
+                            tabIconStyle = isTab ? style.tabSectionsIcon : style.sectionsIcon
                             break;
                         case TabConstants.MOST_READ:
-                            tabIconStyle = style.mostReadIcon
+                            tabIconStyle = isTab ? style.tabMostReadIcon : style.mostReadIcon
                             break;
                         case TabConstants.FAVORITE:
-                            tabIconStyle = style.favoriteIcon
+                            tabIconStyle = isTab ? style.tabFavoriteIcon : style.favoriteIcon
                             break;
                         case TabConstants.DOWNLOAD_NEWS:
-                            tabIconStyle = style.newsIcon
+                            tabIconStyle = isTab ? style.tabNewsIcon : style.newsIcon
                             break;
                         case TabConstants.MY_NEWS:
-                            tabIconStyle = style.myNewsIconStyle
+                            tabIconStyle = isTab ? style.tabMyNewsIconStyle : style.myNewsIconStyle
                             break;
                     }
                     return tabIconStyle;
@@ -237,7 +237,32 @@ const customStyle = (theme: CustomThemeType) => {
         },
         tabItemMargin: {
             marginHorizontal: 50
-        }
+        },
+        tabFavoriteIcon: {
+            width: 12,
+            height: 17,
+            marginTop: isIOS ? 2 : 5
+        },
+        tabNewsIcon: {
+            width: 31,
+            height: 22,
+        },
+        tabMostReadIcon: {
+            width: 17,
+            height: 22
+        },
+        tabSectionsIcon: {
+            width: 20,
+            height: 20
+        },
+        tabLatestNewsIcon: {
+            width: 18,
+            height: 21
+        },
+        tabMyNewsIconStyle: {
+            width: 26,
+            height: 22
+        },
     })
 }
 
