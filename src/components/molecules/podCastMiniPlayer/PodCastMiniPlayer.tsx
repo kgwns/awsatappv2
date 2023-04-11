@@ -274,7 +274,7 @@ const customStyle = (theme: CustomThemeType) => {
             textAlign: 'left',
             fontSize: isTab ? 16 : 13,
             lineHeight: isTab ? 19 : 16,
-            marginTop: normalize(10),
+            marginTop: isTab ? 16 : normalize(10),
             color: theme.primaryBlack
         },
         buttonBackground: {
@@ -284,7 +284,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         buttonContainer: {
             alignItems: 'center',
-            marginTop: isTab ? 10 : normalize(10),
+            marginTop: isTab ? 16 : normalize(10),
         },
         buttonContainerPortrait: {
             marginLeft: isTab? normalize(60) : normalize(10)
