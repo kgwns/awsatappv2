@@ -402,7 +402,8 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: isTab ? 20 : 16,
       lineHeight: isTab ? 32 : 28,
       textAlign: 'left',
-      paddingVertical: normalize(8),
+      paddingTop: 8,
+      paddingBottom: isTab ? 0 : 8,
       color: theme.primaryBlack
     },
     containerStyle: {
@@ -462,6 +463,6 @@ const createStyles = (theme: CustomThemeType) =>
       alignSelf: 'center'
     },
     titleHeight: {
-      height: 115
+      height: 105
     }
   });
