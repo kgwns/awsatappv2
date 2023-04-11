@@ -18,7 +18,7 @@ export interface ArticleProps extends ImageLabelProps, ArticleWithOutImageProps 
    author: string,
    created: string,
    hideImage?: boolean;
-   isAlbum: boolean,
+   isAlbum?: boolean,
 }
 
 export interface ArticleSectionProps {
