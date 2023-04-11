@@ -197,7 +197,7 @@ export const VideoItem = ({
       <View style={[styles.videoContainer, listContainerStyle, !isDocumentary && { marginTop: 0 }, (isTab && lastIndex) && {paddingEnd: 0.02 * width}]}>
         <View>
           <Image fallback resizeMode={'cover'} url={imageLink} style={[styles.image, videoThumbnailStyle]} />
-          {!isTab && <PlayIcon fill={colors.white} style={styles.playIcon} />}
+          <PlayIcon fill={colors.white} style={styles.playIcon} />
           {duration && (<Label style={timeStyle} color={colors.white}>
             {duration}
           </Label>)}
