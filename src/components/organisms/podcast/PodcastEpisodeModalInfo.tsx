@@ -27,7 +27,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ButtonImage } from 'src/components/atoms';
 import { ImagesName } from 'src/shared/styles';
 import ShareIcon from 'src/assets/images/icons/share_dark.svg';
-import  PodcastCalendar from 'src/assets/images/latest_tab/podcastCalendar.svg'
+import  PodcastCalendar from 'src/assets/images/podcastCalendar.svg'
 
 export interface PodcastEpisodeModalInfoProps {
     data: PodcastVerticalListProps;
@@ -214,11 +214,9 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
 
     const podcastDetailFooter = () => {
         return (
-            <>
                 <ScrollView showsVerticalScrollIndicator={false} alwaysBounceVertical={false}>
                     {bottomViewTab()}
                 </ScrollView>
-            </>
         )
     }
 
@@ -242,28 +240,17 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
             </View>
         )
     }
-    const renderView = () => {
-        if (isTab) {
-            return (
-                <>
-                    {podcastDetailFooter()}
-                    {footer()}
-                </>
-            )
-        }
-        return (
-            <>
-                <View style={styles.containerStyle}>
-                    {topView()}
-                    {bottomView()}
-                </View>
-            </>
-        )
-    }
 
     return (
-        <>
-            {renderView()}
+        <>{isTab ?
+            <>
+                {podcastDetailFooter()}
+                {footer()}
+            </>
+            : <View style={!isTab && styles.containerStyle}>
+                {topView()}
+                {bottomView()}
+            </View>}
         </>
     );
 };
@@ -271,7 +258,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
 const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     containerStyle: {
         flex: 1,
-        paddingHorizontal: (isTab ? 0.001 : 0.04) * screenWidth,
+        paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
         alignItems: 'center',
     },
     topContainer: {
@@ -328,6 +315,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         textAlign: 'center',
         paddingBottom: 20,
         fontFamily: fonts.AwsatDigital_Regular,
+        paddingTop: 15
     },
     footerContainer: {
         backgroundColor: colors.darkFungusGreen,
@@ -345,7 +333,7 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         textAlign: 'center',
     },
     descriptionTabContainer:{
-        width: 408, 
+        width: '50%', 
         alignSelf: 'center', 
         paddingBottom: 222,
         justifyContent:'center'
