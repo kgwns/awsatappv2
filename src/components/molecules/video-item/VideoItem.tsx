@@ -211,7 +211,9 @@ export const VideoItem = ({
     const lastIndex = (index + 1) % 3 == 0; 
     return (
       <View style={[spaceContainerStyle, (isTab && lastIndex) && styles.paddingEndStyle]}>
-        {!isDocumentary && <Label style={styles.titleLabelStyle}>{decode(title)}</Label>}
+        {!isDocumentary && <View style={isTab && styles.titleHeight}>
+            <Label numberOfLines={3} style={styles.titleLabelStyle}>{decode(title)}</Label>
+          </View>}
         {(isDocumentary && des) && (<View>
           <HtmlRenderer source={des} tagsStyles={htmlTagStyle} />
         </View>)}
@@ -458,5 +460,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     centerStyle: {
       alignSelf: 'center'
+    },
+    titleHeight: {
+      height: 115
     }
   });
