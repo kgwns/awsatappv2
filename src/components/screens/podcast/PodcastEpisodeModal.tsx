@@ -223,7 +223,8 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 isSaved={podcastEpisodeInfo ? podcastEpisodeInfo.isBookmarked ?? false : false}
                 isCloseIcon={true}
             />
-            <PodcastEpisodeModalInfo data={podcastEpisodeInfo} onListenPress={onListenPress} />
+            <PodcastEpisodeModalInfo isSaved={podcastEpisodeInfo ? podcastEpisodeInfo.isBookmarked ?? false : false}
+                data={podcastEpisodeInfo} onPressSave={onPressEpisodeBookmark} onPressShare={onPressShare} onListenPress={onListenPress} />
         </View>
     )
 
