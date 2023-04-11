@@ -118,7 +118,7 @@ export const PopulateWidget = ({
                 />
             </View>
         case PopulateWidgetType.OPINION:
-            return <View style={isTab && style.widgetContainerTab}>
+            return <View style={isTab && style.opinionContainerTab}>
                 <OpinionWritersCardView {...props} 
                     mediaVisibility={props.field_jwplayer_id_opinion_export ? 
                         isNotEmpty(props.field_jwplayer_id_opinion_export) : 
@@ -191,6 +191,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     widgetContainerTab: {
         flex: 0.485,
+    },
+    opinionContainerTab: {
+        flex: 0.485,
+        paddingBottom: 20,
     },
     podcastContainer: {
         backgroundColor: theme.secondaryWhite,
