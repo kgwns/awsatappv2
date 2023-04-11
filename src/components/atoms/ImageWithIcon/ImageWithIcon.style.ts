@@ -45,12 +45,8 @@ export const ImageWithIconStyle = StyleSheet.create({
     },
     playIconPosition: {
         position: 'absolute',
-        right: normalize(10),
+        right: 10,
         flexWrap: 'wrap',
-        top: normalize(10)
+        top: 10
     },
-    iconStyle: {
-        width: normalize(29),
-        height: normalize(29)
-    }
 });
