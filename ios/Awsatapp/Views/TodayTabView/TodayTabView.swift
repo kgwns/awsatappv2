@@ -70,6 +70,11 @@ class TodayTabView: UIView, LoadingView {
         load(EndPoints.pdfArchive.endPoint)
     }
   
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+    }
+
     private func setUpLoadingIndicator() {
       activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
       activityIndicator.startAnimating()
