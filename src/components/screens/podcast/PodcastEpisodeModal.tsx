@@ -15,6 +15,7 @@ import { getPodcastUrl, horizontalEdge, isObjectNonEmpty } from 'src/shared/util
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { PodcastEpisodeModalInfo } from 'src/components/organisms/podcast/PodcastEpisodeModalInfo';
+import { PodcastDetailHeader } from 'src/components/molecules/podcastDetailHeader/PodcastDetailHeader';
 
 export interface PodcastEpisodeModalProps {
     route: any;
@@ -209,8 +210,15 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const onGoBack = () => {
         onPressBack();
     }
+    const renderTabComponent = () => {
+        return (
+            <PodcastDetailHeader
+                onHomePress={onGoBack}
+                onBackPress={onGoBack} />
+        )
+    }
 
-    const renderItem = () => (
+    const podcastMobileComponent = () => {
         <View style={styles.headerStyle}>
             <PodcastProgramHeader
                 headerShareIconTestId={'podcast_episode_share'}
@@ -223,8 +231,22 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 isSaved={podcastEpisodeInfo ? podcastEpisodeInfo.isBookmarked ?? false : false}
                 isCloseIcon={true}
             />
+        </View>
+    }
+    
+    const renderHeaderComponent = () =>
+    (
+        isTab ?
+            renderTabComponent()
+            :
+            podcastMobileComponent()
+    )
+
+    const renderItem = () => (
+        <View style={styles.headerStyle}>
+            {renderHeaderComponent()}
             <PodcastEpisodeModalInfo isSaved={podcastEpisodeInfo ? podcastEpisodeInfo.isBookmarked ?? false : false}
-                data={podcastEpisodeInfo} onPressSave={onPressEpisodeBookmark} onPressShare={onPressShare} onListenPress={onListenPress} />
+                data={podcastEpisodeInfo} onPressSave={onPressEpisodeBookmark} onPressShare={onPressShare} onListenPress={onListenPress} onGoBack={onGoBack} />
         </View>
     )
 

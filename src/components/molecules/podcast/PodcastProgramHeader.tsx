@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useMemo, useState} from 'react';
+import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
@@ -12,7 +12,6 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { fonts } from 'src/shared/styles/fonts';
 import {  TranslateConstants,TranslateKey } from 'src/constants/Constants';
-import { PodcastDetailHeader } from 'src/components/molecules/podcastDetailHeader/PodcastDetailHeader';
 
 export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;
@@ -56,19 +55,6 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
     );
   };
 
-  
-  const renderTabComponent = () => {
-    const headerProps = {
-      onHomePress: onGoBack,
-      onBackPress: onGoBack,
-    }
-    return (
-      <>
-        <PodcastDetailHeader {...headerProps} />
-      </>
-    )
-  }
-
   const renderRightComponent = () => {
     return (
       <View style={styles.rightItemContainer}>
@@ -89,40 +75,18 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
       </View>
     );
   };
-
-  const renderView = () => {
-    if (isTab) {
-      return (
-        <>
-          <View>
-            {renderTabComponent()}
-          </View>
-        </>
-      )
-    }
-    return (
-      <>
-        <View style={styles.containerStyle}>
-
-          {renderLeftComponent()}
-          <View style={styles.titleContainerWrapper}>
-            {showLogo && getSvgImages({
-              name: ImagesName.headerLogoDark,
-              width: styles.logo.width,
-              height: styles.logo.height,
-            })}
-          </View>
-          {renderRightComponent()}
-        </View>
-
-      </>
-    );
-  }
-
   return (
-    <>
-      {renderView()}
-    </>
+    <View style={styles.containerStyle}>
+      {renderLeftComponent()}
+      <View style={styles.titleContainerWrapper}>
+        {showLogo && getSvgImages({
+          name: ImagesName.headerLogoDark,
+          width: styles.logo.width,
+          height: styles.logo.height,
+        })}
+      </View>
+      {renderRightComponent()}
+    </View>
   );
 };
 
@@ -141,10 +105,6 @@ StyleSheet.create({
     alignContent: 'center',
     alignItems: 'center',
     width: '100%',
-  },
-  backContainer: {
-    width: '100%',
-    justifyContent: 'center',
   },
   logo: {
     height: normalize(30),

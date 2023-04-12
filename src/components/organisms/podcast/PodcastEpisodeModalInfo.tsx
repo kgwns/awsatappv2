@@ -13,7 +13,7 @@ import SpotifyIcon from 'src/assets/images/icons/spotify_episode_icon.svg';
 import AnghamiPodcastIcon from 'src/assets/images/icons/anghami_icon.svg';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
 import PauseIcon from 'src/assets/images/icons/pauseIconBlack.svg';
-import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay, TimeIcon, dateTimeAgo, DateIcon } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, convertSecondsToHMS, isNotEmpty, isObjectNonEmpty, getDay, dateTimeAgo } from 'src/shared/utils/utilities';
 import { podcastEpisodeInitialData } from 'src/components/screens/podcast/PodcastEpisode';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
@@ -41,7 +41,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     data,
     onListenPress,
     onPressShare,
-    onPressSave,  
+    onPressSave,
     isSaved = false,
 }) => {
     const insets = useSafeAreaInsets();
@@ -161,7 +161,6 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
         </View>
     )
     const timeFormat = dateTimeAgo(fieldData.created_export)
-
     const bottomViewTab = () => (
         <>
             <Label style={styles.titleTextTabStyle} children={fieldData.title} />
@@ -212,7 +211,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
         </>
     )
 
-    const podcastDetailFooter = () => {
+    const podcastTabDetailContainer = () => {
         return (
                 <ScrollView showsVerticalScrollIndicator={false} alwaysBounceVertical={false}>
                     {bottomViewTab()}
@@ -220,7 +219,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
         )
     }
 
-    const footer = () => {
+    const podcastFooter = () => {
         return (
             <View style={styles.footerContainer}>
                 <TouchableOpacity onPress={onPressShare}>
@@ -244,10 +243,10 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
     return (
         <>{isTab ?
             <>
-                {podcastDetailFooter()}
-                {footer()}
+                {podcastTabDetailContainer()}
+                {podcastFooter()}
             </>
-            : <View style={!isTab && styles.containerStyle}>
+            : <View style={styles.containerStyle}>
                 {topView()}
                 {bottomView()}
             </View>}
@@ -382,7 +381,6 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: colors.white,
         borderWidth: 0,
         width: '48%',
-        // marginTop: 20,
     },
     rightIconStyle: {
         paddingRight: normalize(15),
