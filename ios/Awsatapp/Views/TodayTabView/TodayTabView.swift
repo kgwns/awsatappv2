@@ -59,6 +59,7 @@ class TodayTabView: UIView, LoadingView {
   
     deinit {
         //TODO: Need to remove observers
+      removeObservers()
     }
       
     // MARK: - Private
@@ -70,9 +71,15 @@ class TodayTabView: UIView, LoadingView {
         load(EndPoints.pdfArchive.endPoint)
     }
   
+    @objc private func handleDeviceOrientationChange() {
+      self.setNeedsLayout()
+      self.layoutIfNeeded()
+    }
+  
     override func layoutSubviews() {
         super.layoutSubviews()
         collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.layoutIfNeeded()
     }
 
     private func setUpLoadingIndicator() {
@@ -92,6 +99,7 @@ class TodayTabView: UIView, LoadingView {
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = sectionInset
         flowLayout.headerReferenceSize = CGSize(width: self.frame.width, height: 40)
+        flowLayout.estimatedItemSize = .zero
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.dataSource = self
@@ -138,6 +146,8 @@ class TodayTabView: UIView, LoadingView {
         showMobileDataAlertNotification =  NotificationCenter.default.addObserver(descriptor: UIApplication.userMobileDataAlertNotification) { _ in
             self.showMobileDataAlert()
         }
+      
+      NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceOrientationChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
   
     private func showPDFEdition(_ pdfEdition: PDFEdition, _ localFilePath: URL) {
@@ -173,6 +183,7 @@ class TodayTabView: UIView, LoadingView {
         readPDFEditionNotificationToken = nil
         downloadCompleteNotificationToken = nil
         showMobileDataAlertNotification = nil
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     // MARK: - Loading View Controller
@@ -236,13 +247,13 @@ extension TodayTabView: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
     }
     private var itemWidth: CGFloat {
         get {
-            let screenWidth = UIScreen.main.bounds.width
-            return screenWidth - collectionView!.contentInset.left - collectionView!.contentInset.right - sectionInset.left - sectionInset.right
+            let width = collectionView.bounds.width
+            return width - collectionView!.contentInset.left - collectionView!.contentInset.right - sectionInset.left - sectionInset.right
         }
     }
     private var itemHeight: CGFloat {
         get {
-          return UIScreen.main.bounds.height * 0.725
+          return collectionView.bounds.height * 0.825
         }
     }
   
@@ -253,4 +264,5 @@ extension TodayTabView: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInset
     }
+
 }
