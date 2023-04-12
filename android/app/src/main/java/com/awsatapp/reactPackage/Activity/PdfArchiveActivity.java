@@ -1,6 +1,7 @@
 package com.awsatapp.reactPackage.Activity;
 
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -67,9 +68,18 @@ public class PdfArchiveActivity extends CoreListActivity<Pdf> {
         return R.layout.activity_pdf_archive;
     }
 
+    public static boolean isTablet(Context context) {
+        Configuration config = context.getResources().getConfiguration();
+        int screenSize = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if(isTablet(mContext)) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        }
         pdfDownloadService =  ((MainApplication) getApplication()).getPDFDownloadService();
         Toolbar toolbar = (Toolbar) findViewById(R.id.tb);
         title = toolbar.findViewById(R.id.toolbar_title);

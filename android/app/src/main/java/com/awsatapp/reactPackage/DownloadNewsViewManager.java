@@ -1,11 +1,17 @@
 package com.awsatapp.reactPackage;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Choreographer;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.FrameLayout;
 
 import androidx.annotation.NonNull;
@@ -82,6 +88,12 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
         }
     }
 
+    public static boolean isTablet(Context context) {
+        Configuration config = context.getResources().getConfiguration();
+        int screenSize = config.screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK;
+        return screenSize >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
     public void createDownloadNewsFragment(FrameLayout root, int reactNativeViewId) {
         ViewGroup parentView = (ViewGroup) root.findViewById(reactNativeViewId);
         setupLayout(parentView);
@@ -90,6 +102,9 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
         final DownloadNewsFragment downloadNewsFragment = new DownloadNewsFragment();
         downloadNewsFragment.setArguments(bundle);
         MainActivity activity = (MainActivity) reactContext.getCurrentActivity();
+        if(isTablet(reactContext)) {
+            activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_SENSOR);
+        }
 
         activity.getSupportFragmentManager()
                 .beginTransaction()
@@ -115,6 +130,21 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
         // propWidth and propHeight coming from react-native props
         int width = propWidth;
         int height = propHeight;
+
+
+        // Get the window manager service
+        WindowManager wm = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+            wm = (WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE);
+        }
+
+        // Get the display metrics of the default display
+        DisplayMetrics metrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(metrics);
+
+        // Get the screen width and height
+        width = metrics.widthPixels;
+        height = metrics.heightPixels;
 
         view.measure(
                 View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
