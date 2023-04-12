@@ -132,19 +132,23 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
         int height = propHeight;
 
 
-        // Get the window manager service
-        WindowManager wm = null;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-            wm = (WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE);
-        }
+            if (isTablet(reactContext)) {
+                // Get the window manager service
+                WindowManager wm = null;
+                if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
+                    wm = (WindowManager) view.getContext().getSystemService(Context.WINDOW_SERVICE);
 
-        // Get the display metrics of the default display
-        DisplayMetrics metrics = new DisplayMetrics();
-        wm.getDefaultDisplay().getMetrics(metrics);
+                    if (isTablet(reactContext)) {
+                        // Get the display metrics of the default display
+                        DisplayMetrics metrics = new DisplayMetrics();
+                        wm.getDefaultDisplay().getMetrics(metrics);
 
-        // Get the screen width and height
-        width = metrics.widthPixels;
-        height = metrics.heightPixels;
+                        // Get the screen width and height
+                        width = metrics.widthPixels;
+                        height = metrics.heightPixels;
+                    }
+                }
+            }
 
         view.measure(
                 View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY),
