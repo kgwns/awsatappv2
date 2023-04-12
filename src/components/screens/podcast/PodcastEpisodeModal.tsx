@@ -253,7 +253,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     return (
         <ScreenContainer edge={horizontalEdge} barStyle={'light-content'} isLoading={isLoading}
             statusbarColor={Styles.color.codGray}
-            isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={[isTab && {bottom: 10}]}>
+            isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={[isTab && {bottom: 100}]}>
             <View style={{ height: insets.top, backgroundColor: colors.black }} />
             {renderItem()}
         </ScreenContainer>

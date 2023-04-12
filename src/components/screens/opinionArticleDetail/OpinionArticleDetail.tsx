@@ -339,7 +339,7 @@ export const OpinionArticleDetail = ({
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} isLandscape
       isSignUpAlertVisible={showupUp}
-      onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{ bottom : isIOS ? normalize(70) : normalize(60) }}>
+      onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{ bottom : isTab ? 104 : isIOS ? normalize(70) : normalize(60) }}>
         {renderHeader()}
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>
           <FlatList

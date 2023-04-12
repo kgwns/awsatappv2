@@ -186,8 +186,9 @@ export const PhotoGalleryDetailScreen = ({
       isLandscape
       isSignUpAlertVisible={showPopUp}
       onCloseSignUpAlert={onCloseSignUpAlert}
+      isLoading={isDetailLoading}
       playerPosition={{
-        bottom: isIOS ? normalize(70) : normalize(60),
+        bottom: isTab ? 104 : isIOS ? normalize(70) : normalize(60),
       }}>
       {isDetailLoading ? (
         <View style={styles.centeredStyle}>
