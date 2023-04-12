@@ -219,7 +219,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     }
 
     const podcastMobileComponent = () => {
-        <View style={styles.headerStyle}>
+        return (  
             <PodcastProgramHeader
                 headerShareIconTestId={'podcast_episode_share'}
                 headerBookmarkIconTestId={'podcast_episode_save'}
@@ -231,7 +231,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 isSaved={podcastEpisodeInfo ? podcastEpisodeInfo.isBookmarked ?? false : false}
                 isCloseIcon={true}
             />
-        </View>
+        )
     }
     
     const renderHeaderComponent = () =>
