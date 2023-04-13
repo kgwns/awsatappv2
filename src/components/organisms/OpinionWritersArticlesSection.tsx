@@ -83,7 +83,7 @@ const OpinionWritersArticlesSection = ({
     );
   };
   return (
-    <View style={style.container}>
+    <View style={[style.container, isTab && style.containerMargin]}>
       <Label style={[style.headerStyle, isTab && style.headerTablet]}
         children={CONST_OPINION_ARTICLE_TITLE} />
       <FlatList
@@ -125,6 +125,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     loaderStyle: {
       margin: normalize(28)
+    },
+    containerMargin: {
+      marginHorizontal: 0.02 * screenWidth
     }
   });
 };

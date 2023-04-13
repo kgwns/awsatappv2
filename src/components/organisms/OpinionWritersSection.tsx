@@ -55,7 +55,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
     );
   };
   return (
-    <View style={style.container}>
+    <View style={[style.container, isTab && style.containerLeftMargin]}>
       <Label style={[style.headerStyle, isTab && style.headerTablet]} children={OPINION_WRITERS} />
       {/* seted initialNumToRender = data.length to fix auto scrolling issue - this is open bug, added link below */}
       {/* https://github.com/facebook/react-native/issues/26436 */}
@@ -123,6 +123,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     imageContainer: {
       overflow: 'hidden'
+    },
+    containerLeftMargin: {
+      marginLeft: 0.02 * screenWidth
     }
   });
 };
