@@ -8,7 +8,7 @@ import {
   SectionStoryScreen,
   PhotoGalleryScreen,
 } from '..';
-import { isIOS, isNonEmptyArray, isStringIncludes, normalize } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isStringIncludes, isTab, normalize, screenWidth } from 'src/shared/utils';
 import {
   View,
   Dimensions,
@@ -182,7 +182,7 @@ export const SectionsScreen = () => {
         {...props}
         scrollEnabled
         indicatorStyle={styles.indicator}
-        style={styles.tabBar}
+        style={[styles.tabBar, isTab && styles.tabBarLeftPadding]}
         tabStyle={styles.tabBarStyle}
         labelStyle={styles.label}
         contentContainerStyle={styles.contentContainer}
@@ -297,4 +297,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   headerContainer: {
     backgroundColor: theme.tabBarBackground,
   },
+  tabBarLeftPadding: {
+    paddingLeft: 0.02 * screenWidth
+  }
 });
