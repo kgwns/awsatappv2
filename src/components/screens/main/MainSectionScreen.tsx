@@ -34,7 +34,7 @@ import { getPodcastUrl, isDarkTheme, isObjectNonEmpty, isTypeAlbum } from 'src/s
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
-import { SECTION_COMBO_SIX } from 'src/services/apiEndPoints';
+import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 
 const opinionListPayload: LatestArticleBodyGet = {
@@ -48,7 +48,7 @@ const sectionComboOnePayload: RequestSectionComboBodyGet = {
 }
 
 const sectionComboTwoPayload: RequestSectionComboBodyGet = {
-  id: 11,
+  id: SECTION_COMBO_TWO,
   items_per_page: 10,
   page: 0
 }
