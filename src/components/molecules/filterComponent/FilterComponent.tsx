@@ -14,6 +14,7 @@ export type FilterDataType = {
     isSelected: boolean
     child?: FilterDataType[]
     count?: number;
+    isVisible?: boolean;
 }
 
 type FilterComponentType = {
@@ -64,8 +65,10 @@ export const FilterComponent = ({
             bounces={false}
         >
             {
-                data.map((item: FilterDataType, index: number) => (
-                    <>
+                data.map((item: FilterDataType, index: number) => {
+                    if (item.isVisible == false) return null;
+
+                    return <>
                         <View style={style.labelContainer} key={index}>
                             <TouchableOpacity testID={moleculesTestID.filterBtn} activeOpacity={0.8} onPress={() => onPress(index)}
                                 style={[style.filterItem, item.isSelected && style.filterActive,
@@ -79,8 +82,7 @@ export const FilterComponent = ({
                         </View>
                         {item.isSelected && isNonEmptyArray(item.child) && renderSubChild(index, item.child!)}
                     </>
-                )
-                )
+                })
             }
         </ScrollView>
     )
