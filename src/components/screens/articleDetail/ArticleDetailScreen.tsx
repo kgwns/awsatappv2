@@ -491,7 +491,8 @@ export const ArticleDetailScreen = ({
   };
 
   const onHomePress = () => {
-    navigation.pop(noOfDetailRoutes)
+    // navigation.pop(noOfDetailRoutes)
+    navigation.popToTop()
   }
 
   const renderHeader = () => {
