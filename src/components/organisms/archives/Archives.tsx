@@ -1,7 +1,7 @@
 import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { FilterComponent, FilterDataType, PopulateWidgetType } from 'src/components/molecules'
-import { isArray, isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
+import { isArray, isInvalidOrEmptyArray, isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
@@ -23,6 +23,7 @@ export const Archives = () => {
             name: FAVORITE_FILTERS_EVERYONE,
             isSelected: true,
             count: 0,
+            isVisible: isTab ? false : true,
         },
         {
             name: FAVORITE_FILTERS_ARTICLES,
@@ -74,23 +75,31 @@ export const Archives = () => {
 
     //State
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
-    const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
+    const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(isTab ? 1 : 0);
     const selectedDataRef = useRef(true);
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
     const [initialLoading, setInitialLoading] = useState(true)
 
     useEffect(() => {
         const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length === bookmarkDetail.length
-        if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
-            updateFilterComponent(0) //We switch to all tab when bookmark add newly
-            getBookmarkedId()
-            setInitialLoading(isFocused)
+        if (isFocused && !isAllDataFetched) {
+            if (isTab && (canRefreshBookmarkDetail || isInvalidOrEmptyArray(filterBookmarkDetailInfo))) {
+                onPressFilterItem(tabSelectedIndex);
+                getBookmarkedId()
+                setInitialLoading(isFocused)
+            } else if (canRefreshBookmarkDetail) {
+                updateFilterComponent(0) //We switch to all tab when bookmark add newly
+                getBookmarkedId()
+                setInitialLoading(isFocused)
+            }
         }
     }, [isFocused])
 
     useEffect(() => {
-        updateArticleCount([...filterItem]);
-    }, [bookmarkIdInfo]);
+        if (isFocused) {
+            updateArticleCount([...filterItem]);
+        }
+    }, [isFocused, bookmarkIdInfo]);
 
     const updateArticleCount = (data: FilterDataType[]) => {
         if (isFocused) {
@@ -104,8 +113,8 @@ export const Archives = () => {
     };
 
     useEffect(() => {
-        if (isNonEmptyArray(bookmarkDetail) ||
-            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData) || isAllBookmarkFetched) {
+        if ((isTab && isAllBookmarkFetched) || (!isTab && isNonEmptyArray(bookmarkDetail) ||
+            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData) || isAllBookmarkFetched)) {
             updateBookmarkDetailInfo(tabSelectedIndex)
         }
     }, [bookmarkDetail])
