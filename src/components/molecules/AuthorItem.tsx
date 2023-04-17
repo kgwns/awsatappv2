@@ -267,8 +267,9 @@ export default AuthorItem
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         flex: 1,
+        width: '95%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     body: {
         paddingVertical: normalize(10),

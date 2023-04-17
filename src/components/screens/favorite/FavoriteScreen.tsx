@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { View, StyleSheet} from 'react-native';
-import { horizontalEdge } from 'src/shared/utils';
+import { horizontalEdge, isTab, screenWidth } from 'src/shared/utils';
 import { SignupAlertCard } from 'src/components/molecules';
 import { ScreenContainer } from '..';
 import { Archives } from 'src/components/organisms';
@@ -32,7 +32,7 @@ export const FavoriteScreen = () => {
   );
 
   const renderArchives = () => (
-    <View style={style.container}>
+    <View style={[style.container, isTab && {marginHorizontal: 0.03 * screenWidth}]}>
       <Archives />
     </View>
   )
