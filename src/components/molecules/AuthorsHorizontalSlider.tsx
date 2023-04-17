@@ -150,6 +150,7 @@ const customStyle = (theme: CustomThemeType) =>
     },
     contentStyle: {
       flexGrow: 1,
+      paddingLeft: isTab ? 0.03 * screenWidth : 0,
     },
     tabBarBottomView: {
       width: '100%',
