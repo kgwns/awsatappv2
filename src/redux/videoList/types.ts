@@ -2,6 +2,9 @@ import {
   FETCH_VIDEO,
   FETCH_VIDEO_SUCCESS,
   FETCH_VIDEO_FAILED,
+  FETCH_VIDEO_PAGINATION_SUCCESS,
+  FETCH_VIDEO_PAGINATION_FAILED,
+  FETCH_VIDEO_PAGINATION,
 } from './actionTypes';
 
 
@@ -32,14 +35,28 @@ export interface FetchVideoFailedPayloadtype {
   error: string;
 }
 
+export interface VideoListBodyGet {
+  page?: number;
+  items_per_page?: number;
+}
+
 export type VideoState = {
   videoData: any;
   error: string;
   isLoading: boolean;
+  isVideoLoading: boolean;
+  videoPaginationData: any;
+  videoError: string;
 }
 
 export type FetchVideoType = {
   type: typeof FETCH_VIDEO;
+  payload: VideoListBodyGet;
+};
+
+export type FetchVideoPaginationType = {
+  type: typeof FETCH_VIDEO_PAGINATION;
+  payload: VideoListBodyGet;
 };
 
 export type FetchVideoSuccessType = {
@@ -47,8 +64,18 @@ export type FetchVideoSuccessType = {
   payload: FetchVideoSuccessPayloadType;
 };
 
+export type FetchVideoPaginationSuccessType = {
+  type: typeof FETCH_VIDEO_PAGINATION_SUCCESS;
+  payload: FetchVideoSuccessPayloadType;
+};
+
 export type FetchVideoFailedType = {
   type: typeof FETCH_VIDEO_FAILED;
+  payload: FetchVideoFailedPayloadtype;
+};
+
+export type FetchVideoPaginationFailedType = {
+  type: typeof FETCH_VIDEO_PAGINATION_FAILED;
   payload: FetchVideoFailedPayloadtype;
 };
 
@@ -76,4 +103,7 @@ export type RequestVideoUrlSuccessResponse = {
 export type VideoActions =
   | FetchVideoType
   | FetchVideoSuccessType
-  | FetchVideoFailedType;
+  | FetchVideoFailedType
+  | FetchVideoPaginationType
+  | FetchVideoPaginationSuccessType
+  | FetchVideoPaginationFailedType;
