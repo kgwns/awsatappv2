@@ -102,7 +102,7 @@ export const VideoContent = ({
         // const date = timeFormat.time   Enable date when required video footer
         const time = item.field_jwplayerinfo_export ? convertSecondsToHMS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
-        const itemStyle = isTab ? isVideoList ? {} : {  marginBottom: normalize(30),paddingLeft: normalize(20) } :
+        const itemStyle = isTab ? isVideoList ? {} : {  marginBottom: normalize(30),paddingLeft: 20 } :
         index === data.length - 1 && { marginRight: 0.04 * screenWidth }
         const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
         return (
@@ -187,7 +187,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         videoCardContainer: {
             backgroundColor: isTab ? theme.sectionStoryVideo : theme.secondaryWhite,
-            paddingLeft: normalize(0.04 * screenWidth),
+            paddingLeft: 0,
         },
         listContainer: {
             height: 'auto',
@@ -197,7 +197,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         titleTextStyle: {
             paddingTop: normalize(25),
-            marginLeft: isTab ? normalize(20) : normalize(0.04 * screenWidth),
+            marginLeft: isTab ? 22 : normalize(0.04 * screenWidth),
             color: theme.primaryBlack,
             fontFamily: fonts.AwsatDigital_Black,
             fontWeight:'900',
