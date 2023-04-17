@@ -220,7 +220,7 @@ const customStyle = (theme: CustomThemeType) => {
         search: {
             height: 19,
             width: 18,
-            marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+            marginHorizontal: isTab ? 0.05 * screenWidth : 0.04 * screenWidth,
         },
         logo: {
             height: 32,
@@ -230,7 +230,7 @@ const customStyle = (theme: CustomThemeType) => {
         menu: {
             height: 16,
             width: 19,
-            marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+            marginHorizontal: isTab ? 0.05 * screenWidth : 0.04 * screenWidth,
         },
         labelStyle: {
             alignSelf: 'center',

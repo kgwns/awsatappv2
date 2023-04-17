@@ -1,8 +1,8 @@
-import { StyleSheet, View } from 'react-native';
+import { Dimensions, StyleSheet, View } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { Image, Label } from 'src/components/atoms';
 import { ArticleFooter } from '../molecules'
-import { dateTimeAgo, decodeHTMLTags, getArticleImage, isNotEmpty } from 'src/shared/utils'
+import { dateTimeAgo, decodeHTMLTags, getArticleImage, isNotEmpty, isTab, screenWidth } from 'src/shared/utils'
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { decode } from 'html-entities';
 import { TimeIcon, isTypeAlbum } from 'src/shared/utils/utilities';
@@ -59,7 +59,7 @@ const MostReadTabItem: FunctionComponent<MostReadTabItemProps> = ({ articleData,
                         <Label children={noTag} style={style.tagText} />
                     </View>
                 </View>
-                <View style={style.tabContentContainer}>
+                <View style={[style.tabContentContainer, !isPortrait && style.tabContentContainerLandscape]}>
                     <Label children={title} style={style.tabTitleStyle} />
                     <Label children={description} numberOfLines={descriptionLines} style={style.tabDescriptionStyle} />
                     <View>
@@ -80,7 +80,7 @@ const MostReadTabItemStyle = (theme: CustomThemeType) => StyleSheet.create({
         flexDirection: 'row',
         width: '90%',
         marginBottom: 40,
-        marginHorizontal: '5%',
+        marginHorizontal: 0.05 * screenWidth,
     },
     tabImageContainer: {
         width: '50%',
@@ -108,7 +108,7 @@ const MostReadTabItemStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontWeight: '400',
     },
     tabContentContainer: {
-        width: '50%',
+        width: '48%',
         justifyContent: 'flex-end',
         borderBottomWidth: 1,
         marginLeft: 10,
@@ -144,4 +144,7 @@ const MostReadTabItemStyle = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight: 40,
         fontSize: 12
     },
+    tabContentContainerLandscape: {
+        width: '53%',
+    }
 })

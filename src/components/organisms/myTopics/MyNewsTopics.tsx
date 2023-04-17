@@ -278,6 +278,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     itemContainer: {
         flex: 1,
+        marginHorizontal: (isTab ? 0.03 : 0) * screenWidth
     },
     articleContainer: {
         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth
