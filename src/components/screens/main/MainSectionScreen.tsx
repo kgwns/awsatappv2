@@ -239,7 +239,7 @@ export const MainSectionScreen = React.memo((
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
     const newData = [...opinionList]
-    const data = listPartition(newData, 4)
+    const data = listPartition(newData, 3)
     setOpinionListData(data)
   }, [opinionList])
   useEffect(() => {

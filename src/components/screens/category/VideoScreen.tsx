@@ -144,7 +144,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   }
 
   const renderFooterComponent = () => {
-    if (!isLoading) return null;
+    if (!isLoading || isVideoLoading) return null;
     return (
       <View style={styles.loaderStyle}>
         <ActivityIndicator size={'small'} color={themeData.primary} />
