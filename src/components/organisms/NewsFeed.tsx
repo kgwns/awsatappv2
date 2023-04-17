@@ -113,22 +113,22 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelConta
   )
 
   const renderTitle = (title: string) => (
-    <View style={isTab ? style.titleContainer : style.titleStyle}>
+    <View style={isTab ? style.tabTitleContainer : style.titleStyle}>
       <Label
-        style={style.title}
+        style={isTab ? style.tabTitle : style.title}
         color={theme.themeData.primaryBlack}
         children={decodeHTMLTags(title)}
       />
     </View>
   )
-  // Enable Description in Tab when required
-  // const renderDescription = (body: string) => (
-  //   <Label
-  //     style={style.descriptionStyle}
-  //     children={decodeHTMLTags(decode(body))}
-  //     numberOfLines={isTab ? 2 : 3}
-  //   />
-  // )
+
+  const renderDescription = (body: string) => (
+    <Label
+      style={style.descriptionStyle}
+      children={decodeHTMLTags(decode(body))}
+      numberOfLines={isTab ? 2 : 3}
+    />
+  )
 
   const renderItem = (item: NewsViewListItemType, index: number) => {
     return (
@@ -141,7 +141,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelConta
                 <View style={style.tabLeftContainer}>
                   <ArticleLabel displayType={item.field_display_export} enableTopMargin labelContainer = {labelContainerStyle} />
                   {renderTitle(item.title)}
-                  {/* {renderDescription(item.body)}    Enable Description when required  */}
+                  {renderDescription(item.body)}
                 </View>
                 {renderArticleImage(item)}
               </View>
@@ -196,7 +196,7 @@ export default NewsFeed;
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
-    paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+    paddingHorizontal: isTab ? 18 : normalize(0.04 * screenWidth),
     paddingTop: normalize(25),
   },
   listContainer: {},
@@ -214,6 +214,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingBottom: normalize(20),
     paddingTop: normalize(5),
     lineHeight: normalize(18),
+  },
+  tabDescriptionStyle: {
+    fontSize: 18,
+    color: theme.newsFeed,
+    textAlign: 'left',
+    paddingBottom: 20,
+    paddingTop: 5,
+    lineHeight: 29,
   },
   divider: {
     height: 1.07,
@@ -239,21 +247,30 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     marginRight: normalize(10),
     top: isTab ? 0 : normalize(10),
   },
+  tabTitleContainer: {
+    marginRight: 10,
+  },
   tabSplitter: {
     flex: 1,
-    flexDirection: 'row',
-    paddingTop: normalize(15),
+    flexDirection: 'row-reverse',
+    paddingTop: 15,
   },
   tabLeftContainer: {
     flex: 1,
-    paddingRight: normalize(30),
+    paddingLeft: 20,
   },
   title: {
     textAlign: 'left',
     fontFamily: fonts.AwsatDigital_Bold,
-    fontSize: isTab ? 20 : normalize(18),
-    lineHeight: isTab ? 28 : normalize(29),
+    fontSize: normalize(18),
+    lineHeight: normalize(29),
     marginBottom: 10,
+  },
+  tabTitle: {
+    textAlign: 'left',
+    fontFamily: fonts.AwsatDigital_Bold,
+    fontSize: 20,
+    lineHeight: 33,
   },
   titleStyle: {
     marginRight: normalize(10),
