@@ -49,6 +49,13 @@ const AuthorSlider = ({
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState<any>(isIOS ? 0 : data.length - 1);
 
+  const renderSepartor = () => {
+    if(isTab) return null;
+    return(
+      <Divider style={style.divider} />
+    )
+  }
+
   const renderItem = (item: any, index: number) => {
     return (
       <FlatList
@@ -57,11 +64,12 @@ const AuthorSlider = ({
         showsVerticalScrollIndicator={false}
         listKey={`AuthorSlider${index}${new Date().getTime().toString()}`}
         renderItem={({ item, index }) => renderAuthorList(item, index)}
-        style={[style.itemListContainer, isTab && index === 2 && { marginLeft: 0 }]}
-        ItemSeparatorComponent={() => <Divider style={style.divider} />}
+        style={[!isTab && style.itemListContainer, isTab && index === 2 && { marginLeft: 0 }]}
+        ItemSeparatorComponent={() => renderSepartor()}
       />
     );
   };
+  
 
   const renderAuthorList = (item: any, index: number) => {
     return (
@@ -74,24 +82,24 @@ const AuthorSlider = ({
           author={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? item.field_opinion_writer_node_export[0].name
-              : item.field_opinion_writer_node_export.opinion_writer_photo
+              : item.field_opinion_writer_node_export?.opinion_writer_photo
           }
           authorId={
-            isNonEmptyArray(item.field_opinion_writer_node_export) && item.field_opinion_writer_node_export[0].id
+            isNonEmptyArray(item.field_opinion_writer_node_export) && item?.field_opinion_writer_node_export[0].id
           }
           duration={''}
           image={
             isNonEmptyArray(item.field_opinion_writer_node_export)
               ? getImageUrl(
-                item.field_opinion_writer_node_export[0].opinion_writer_photo
+                item.field_opinion_writer_node_export[0]?.opinion_writer_photo
               )
               : getImageUrl(
-                item.field_opinion_writer_node_export.opinion_writer_photo,
+                item.field_opinion_writer_node_export?.opinion_writer_photo,
               )
           }
           index={index}
           nid={item.nid}
-          showDivider = {index < 6 ? true : false}
+          showDivider = {(isTab && index < 6) ? true : false}
           showInMainScreen = {true}
         />
       </View>
@@ -187,7 +195,7 @@ const AuthorSlider = ({
               keyExtractor={(_, index) => index.toString()}
               numColumns={3}
               data={data}
-              renderItem={({ item, index }) => renderAuthorList(item, index)}
+              renderItem={({ item, index }) => renderItem(item, index)}
             />
           {/* </ScrollView> */}
           {/* {isNonEmptyArray(data) && <View style={style.indicatorContainer}>
