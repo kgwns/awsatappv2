@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native';
+import {View, StyleSheet, FlatList, ListRenderItem, Animated, ActivityIndicator} from 'react-native';
 
 import {VideoItem} from 'src/components/molecules';
 import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
@@ -13,6 +13,7 @@ import { RequestDocumentaryVideoPayload } from 'src/redux/documentaryVideo/types
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -25,12 +26,15 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   const styles = useThemeAwareObject(customStyle);
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
-  const {isLoading,videoData,fetchVideoRequest} = useVideoList();
+  const {isVideoLoading: isLoading,videoPaginationData, fetchVideoWithPagination} = useVideoList();
   const {isVideoLoading, videoDocumentaryData, fetchDocumentaryVideoRequest} = useDocumentaryVideo();
   const [showupUp,setShowPopUp] = useState(false)
   const navigation = useNavigation<StackNavigationProp<any>>()
   const [isShowPlayer, setIsShowPlayer] = useState(false)
+  const [page, setPage] = useState<number>(0)
   const { showMiniPlayer } = useAppPlayer()
+  const { themeData } = useTheme()
+  const VIDEO_ITEMS_PER_PAGE = isTab ? 9 : 10;
 
   const ref = React.useRef(null);
   useEffect(() => {
@@ -53,16 +57,16 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   useEffect(() => {
     updateVideoData()
-  }, [videoData,bookmarkIdInfo])
+  }, [videoPaginationData,bookmarkIdInfo])
 
   useEffect(() => {
     updateDocumentaryVideoData()
   }, [videoDocumentaryData,bookmarkIdInfo])
 
   const updateVideoData = () => {
-    if(isNonEmptyArray(videoData)) {
-      const videos = updateBookmark(videoData)
-      setVideoDataInfo(videos)
+    if(isNonEmptyArray(videoPaginationData)) {
+      const videos = updateBookmark(videoPaginationData)
+      setVideoDataInfo((data: any) => [...data, ...videos as any])
     }
   }
 
@@ -119,15 +123,34 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   }
   useEffect(() => { 
     fetchDocumentaryVideoRequest(documentaryVideoPayload);
-    fetchVideoRequest();
+    fetchVideoWithPagination({page, items_per_page: VIDEO_ITEMS_PER_PAGE});
    }, []);
+
+  useEffect(() => { 
+    if(page != 0) fetchVideoWithPagination({page, items_per_page: VIDEO_ITEMS_PER_PAGE});
+   }, [page]);
 
   const onPressItem = (item:VideoItemType, isVideoDocumentary:boolean)=>{
     navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isVideoDocumentary})
   }
 
-  const [videoDataInfo, setVideoDataInfo] = useState(videoData)
+  const [videoDataInfo, setVideoDataInfo] = useState(videoPaginationData)
   const [videoDocumentaryInfo, setVideoDocumentaryInfo] = useState(videoDocumentaryData)
+
+  const onLoadMore = () => {
+    if(!isLoading){
+      setPage(page+1)
+    }
+  }
+
+  const renderFooterComponent = () => {
+    if (!isLoading || isVideoLoading) return null;
+    return (
+      <View style={styles.loaderStyle}>
+        <ActivityIndicator size={'small'} color={themeData.primary} />
+      </View>
+    )
+  }
 
   const renderItem = () => (
     <View>
@@ -146,7 +169,10 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
           listKey={'videoList'+ new Date().getTime().toString()}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderVideoItem}
+          onEndReachedThreshold={0.5}
+          onEndReached={onLoadMore}
           showsVerticalScrollIndicator={false}
+          ListFooterComponent={renderFooterComponent()}
         />
     </View>
   );
@@ -197,7 +223,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   
 
   return (
-    <ScreenContainer edge={horizontalEdge} isLoading={isLoading || isVideoLoading}
+    <ScreenContainer edge={horizontalEdge} isLoading={isVideoLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
       backgroundColor={styles.screenBackgroundColor?.backgroundColor} >
@@ -232,6 +258,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     screenBackgroundColor: {
       backgroundColor: theme.backgroundColor,
+    },
+    loaderStyle: {
+      margin: normalize(28) 
     }
   });
 }

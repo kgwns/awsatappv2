@@ -34,7 +34,7 @@ import { getPodcastUrl, isDarkTheme, isObjectNonEmpty, isTypeAlbum } from 'src/s
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
-import { SECTION_COMBO_SIX } from 'src/services/apiEndPoints';
+import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 
 const opinionListPayload: LatestArticleBodyGet = {
@@ -48,7 +48,7 @@ const sectionComboOnePayload: RequestSectionComboBodyGet = {
 }
 
 const sectionComboTwoPayload: RequestSectionComboBodyGet = {
-  id: 11,
+  id: SECTION_COMBO_TWO,
   items_per_page: 10,
   page: 0
 }
@@ -166,12 +166,13 @@ export const MainSectionScreen = React.memo((
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(null);
   
-  const topViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(0, 2) : [];
-  const gridViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(2, 4) : [];
+  const topViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(0, 3) : [];
+  const gridViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(2, 3) : [];
   const topViewSectionDataTwo = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(6, 3) : [];
   const topViewSectionDataThree = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(9, 2) : [];
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
   const [editorsChoiceInfo, setEditorsChoiceInfo] = useState(editorsChoice)
+  const videoPayload = {page: 0, items_per_page: 10}
 
   useFocusEffect(
     React.useCallback(() => {
@@ -238,7 +239,7 @@ export const MainSectionScreen = React.memo((
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
     const newData = [...opinionList]
-    const data = listPartition(newData, 4)
+    const data = listPartition(newData, 3)
     setOpinionListData(data)
   }, [opinionList])
   useEffect(() => {
@@ -455,7 +456,7 @@ export const MainSectionScreen = React.memo((
     }
   ))
 
-  const heroListInfoOne = [...featuredArticleInfo].splice(0, 2)
+  const heroListInfoOne = [...featuredArticleInfo].splice(0, 3)
   // const heroListInfoTwo = [...featuredArticleInfo].splice(2, 5)
   // ENABLE WHEN TOP LIST IS REQUIRED
   // const topListData = topList.map((item: LatestArticleDataType) => (
@@ -507,7 +508,7 @@ export const MainSectionScreen = React.memo((
 
   const loadMiddleWidgetAPI = () => {
     fetchOpinionTopList(opinionListPayload)
-    isTab && fetchVideoRequest();
+    isTab && fetchVideoRequest(videoPayload);
     fetchPodcastHome();
     fetchEditorsChoice();
   }
@@ -780,9 +781,11 @@ export const MainSectionScreen = React.memo((
             />
           </View>
           <View style={mainSectionStyle.tabletTopNewsContainer}>
-            <TopHeadLineNews data={headlineNews} />
+            <TopHeadLineNews data={headlineNews} tabContainerStyle={mainSectionStyle.tabTopNewsContainerStyle} />
           </View>
-           <View>
+         <Divider style={mainSectionStyle.tabDividerTop} />
+
+           {/* <View>
             {isNonEmptyArray(videoData) && (
               <VideoContent data={[...videoData].splice(0, 3)}
                 onPress={onVideoItemPress}
@@ -790,9 +793,9 @@ export const MainSectionScreen = React.memo((
                 isVideoList = {true}
               />
             )}
-           </View>
+           </View> */}
         </View>
-        <View style = {mainSectionStyle.articleSectionWidget}>
+        {/* <View style = {mainSectionStyle.articleSectionWidget}>
           <View style={mainSectionStyle.sectionWidgetContainer}>
             <ArticleSection data={heroListInfoOne}
               showDivider={true}
@@ -803,7 +806,7 @@ export const MainSectionScreen = React.memo((
             {isNonEmptyArray(gridViewSectionData) && 
               <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />
             }
-        </View>
+        </View> */}
       </View>
       {/* For future Reference */}
       {/* <View style={mainSectionStyle.verticalDivider} />
@@ -819,6 +822,21 @@ export const MainSectionScreen = React.memo((
         htmlContent={infoGraphicBlock[0].body}
       />} */}
       {/* <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} /> */}
+
+      {/* <View> */}
+          <View> 
+            <ArticleSection data={heroListInfoOne}
+              showDivider={false}
+              onUpdateBookmark={updateBookmarkInfo}
+              listKey={flatListUniqueKey.TAB_ARTICLE_SECTION_ONE}
+              numColumns={3}
+              addStyle={{marginTop: 30}}
+            />
+          </View> 
+            {isNonEmptyArray(gridViewSectionData) && 
+              <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />
+            }
+        {/* </View> */}
 
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
@@ -1084,6 +1102,11 @@ const customStyle = (theme: CustomThemeType) => {
       borderBottomWidth: 1,
       borderColor: theme.dividerColor,
     },
+    tabDividerTop: {
+      height: 1,
+      backgroundColor: Styles.color.lightAlterGray,
+      marginTop:10
+    },
     miniPlayerContainer: {
       width: '100%',
       height: normalize(80),
@@ -1133,7 +1156,12 @@ const customStyle = (theme: CustomThemeType) => {
       overflow: 'hidden'
     },
     tabletTopNewsContainer: {
-      overflow: 'hidden'
+      overflow: 'hidden',
+      flex: 1,
+      alignItems:'center'
+    },
+    tabTopNewsContainerStyle: {
+      width: '75%'
     },
     heroContainer: {
       marginHorizontal: isTab ? 0.04 * screenWidth : 0,
@@ -1189,9 +1217,12 @@ const customStyle = (theme: CustomThemeType) => {
     topContainerWidget: {
       flex:1,
       overflow: 'hidden',
-      paddingRight: 20
+      // paddingRight: 20
     },
     articleSectionWidget: {
+      flex:0.47,
+    },
+    articleSectionWidgetList: {
       flex:0.47
     },
     tabSplitterContainer:{

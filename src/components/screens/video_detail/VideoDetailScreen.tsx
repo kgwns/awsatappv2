@@ -42,10 +42,11 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   
   const { isLoggedIn } = useLogin()
   const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const videoPayload = {page: 0, items_per_page: 10}
 
   useEffect(() => {
     fetchDetailData();
-    fetchVideoRequest();
+    fetchVideoRequest(videoPayload);
   }, []);
 
   useEffect(() => {

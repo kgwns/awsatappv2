@@ -540,9 +540,9 @@ export const SectionStoryScreen = React.memo(({
           {renderTopArticle()}
         </View>
       </View> 
-      <View style={style.videoContainer}>
-        <VideoContent data={videoListData} onPress={onVideoItemPress} />
-      </View>
+        {isNonEmptyArray(videoListData) && <View style={style.videoContainer}>
+          <VideoContent data={videoListData} onPress={onVideoItemPress} />
+        </View>}
       </>:
         <>
           {renderTopArticle()}
@@ -630,7 +630,7 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row',
       paddingTop: isTab ? 0 : normalize(15),
       justifyContent: 'space-between',
-      marginHorizontal: isTab ? normalize(30) : 0,
+      marginHorizontal: isTab ? 30 : 0,
     },
     sectionStoryContainer: {
       paddingTop: isTab ? 0 : normalize(15), 
@@ -665,7 +665,7 @@ const customStyle = (theme: CustomThemeType) => {
       paddingRight: isTab ? normalize(20) : 0
     },
     videoContainer: {
-      paddingLeft: isTab ? normalize(27) : 0,
+      paddingLeft: isTab ? 30 : 0,
       backgroundColor: isTab ? theme.sectionStoryVideo : theme.secondaryWhite
     },
     newsFeedContainer: {
@@ -686,7 +686,7 @@ const customStyle = (theme: CustomThemeType) => {
         color: theme.summaryColor,
     },
     filterContainer: {
-      paddingHorizontal: isTab ? normalize(30) : 0.02 * screenWidth,
+      paddingHorizontal: isTab ? 30 : 0.02 * screenWidth,
       paddingVertical: 10,
       backgroundColor: theme.backgroundColor,
     },

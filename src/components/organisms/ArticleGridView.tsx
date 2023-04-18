@@ -2,14 +2,18 @@ import React from 'react';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
-import { GridViewItem } from '../molecules';
+import { ArticleFooterProps, GridViewItem } from '../molecules';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isNonEmptyArray, isNotEmpty, isTab, isTypeAlbum, screenWidth } from 'src/shared/utils';
+import { dateTimeAgo, isNonEmptyArray, isNotEmpty, isTab, isTypeAlbum, normalize, screenWidth } from 'src/shared/utils';
 import { Divider } from '../atoms';
 import { MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { ImagesName, Styles } from 'src/shared/styles';
+import { getSvgImages } from 'src/shared/styles/svgImages';
+import { fonts } from 'src/shared/styles/fonts';
+import { TimeIcon } from 'src/shared/utils/utilities';
 
 interface ArticleGridViewProps {
     data: MainSectionBlockType[];
@@ -30,14 +34,35 @@ export const ArticleGridView = ({
         }
     }
 
+    const articleFooterDataSet: ArticleFooterProps = {
+        leftTitleColor: isTab ? Styles.color.black900 : Styles.color.silverChalice,
+        leftIcon: () => { 
+            return getSvgImages({
+            name: ImagesName.clock,
+            size: normalize(12),
+            style: { marginRight: normalize(7) }
+            })
+        },
+        rightTitleColor: Styles.color.silverChalice,
+        leftTitleStyle: isTab ? { fontFamily: fonts.Effra_Arbc_Regular, fontWeight: '400', fontSize: 13, lineHeight: 16,} : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20 }
+    };
+
     const renderItem = (item: MainSectionBlockType, index: number) => {
         const highlightTitle = item.news_categories?.title || ''
         const isAlbum = isTypeAlbum(item.type);
+        const timeFormat = dateTimeAgo(item.created)
+
+        articleFooterDataSet.rightTitleColor = style.footerTitleColor.color
+        articleFooterDataSet.leftTitle = timeFormat.time
+        articleFooterDataSet.leftTitleColor = style.footerTitleColor.color
+        articleFooterDataSet.leftIcon = () => TimeIcon(timeFormat.icon) 
+        articleFooterDataSet.hideBookmark = isTab && true
 
         return (
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_GRID_VIEW + index}
                 onPress={() => onPress(item.nid, isAlbum)} testID = "gridViewClick" style = { isTab &&style.gridContainer}>
                 <GridViewItem
+                    {...item}
                     imageUrl={item.image}
                     title={item.title}
                     highlightedTitle={highlightTitle}
@@ -45,6 +70,10 @@ export const ArticleGridView = ({
                     index={index}
                     displayType={item.displayType}
                     isAlbum={isTypeAlbum(item.type)}
+                    footerData = { isTab && articleFooterDataSet}
+                    showDivider={isTab && false}
+                    bodyStyle={isTab ? style.tabletBodyStyle : {}}
+                    tabBodyLineCount={isTab && 2}
                 />
             </TouchableOpacity>
         );
@@ -77,7 +106,7 @@ export const ArticleGridView = ({
                         contentContainerStyle={ !isTab && style.contentContainer}
                         ItemSeparatorComponent={() => renderItemSeparatorComponent()}
                         renderItem={({ item, index }) => renderItem(item, index)}
-                        numColumns={2}
+                        numColumns={isTab ? 3 : 2}
                         columnWrapperStyle={ isTab && style.tabWrapperStyle}
                     />
             
@@ -113,12 +142,23 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         marginTop: 5
     },
     gridContainer: {
-        flex: 0.48
+        flex: 0.30
     },
     tabWrapperStyle:{
         justifyContent:'space-between'
     },
     tabDividerContainer: { 
         marginBottom: 23
-    }
+    },
+    footerTitleColor: {
+        color: theme.footerTextColor
+    },
+    tabletBodyStyle:{
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontSize: 16,
+        lineHeight: 24,
+        textAlign: 'left' ,
+        fontWeight:'400',
+        color: theme.summaryColor
+    },
 });

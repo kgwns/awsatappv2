@@ -1,8 +1,8 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { FetchVideoSuccessPayloadType, VideoItemType } from './types';
-import { fetchVideoListFailed, fetchVideoListSuccess } from './action';
-import { FETCH_VIDEO } from './actionTypes';
+import { FetchVideoSuccessPayloadType, FetchVideoType, VideoItemType } from './types';
+import { fetchVideoListFailed, fetchVideoListSuccess, fetchVideoListWithPaginationFailed, fetchVideoListWithPaginationSuccess } from './action';
+import { FETCH_VIDEO, FETCH_VIDEO_PAGINATION } from './actionTypes';
 import { fetchVideoListApi } from 'src/services/videoListService';
 import { isNonEmptyArray, isNotEmpty } from 'src/shared/utils';
 import { decode } from 'html-entities';
@@ -29,7 +29,7 @@ export const formatVideoData = (response: any): VideoItemType[] => {
           field_jwplayerinfo_export,
           body_export,
           mediaId: field_video_media_id_export,
-          link_node: isNotEmpty(link_node) ? isNotEmpty(link_node.split("/").pop()) ? link_node : link_node+nid : ''
+          link_node: link_node
         })
       );
     }
@@ -45,11 +45,12 @@ const parseVideosList = (response: any): FetchVideoSuccessPayloadType => {
   return responseData
 }
 
-export function* fetchVideoList() {
+export function* fetchVideoList(action: FetchVideoType) {
 
   try {
     const payload: FetchVideoSuccessPayloadType = yield call(
       fetchVideoListApi,
+      action.payload
     );
     const response = parseVideosList(payload)
     yield put(fetchVideoListSuccess(response));
@@ -59,8 +60,24 @@ export function* fetchVideoList() {
   }
 }
 
+export function* fetchVideoListPagination(action: FetchVideoType) {
+
+  try {
+    const payload: FetchVideoSuccessPayloadType = yield call(
+      fetchVideoListApi,
+      action.payload
+    );
+    const response = parseVideosList(payload)
+    yield put(fetchVideoListWithPaginationSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    yield put(fetchVideoListWithPaginationFailed({ error: errorResponse.message }));
+  }
+}
+
 function* videoListSaga() {
   yield all([takeLatest(FETCH_VIDEO, fetchVideoList)]);
+  yield all([takeLatest(FETCH_VIDEO_PAGINATION, fetchVideoListPagination)]);
 }
 
 export default videoListSaga;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, StyleSheet,TouchableOpacity } from 'react-native'
+import { View, StyleSheet,TouchableOpacity, StyleProp, ViewStyle } from 'react-native'
 import { ButtonImage} from 'src/components/atoms/button-image/ButtonImage'
 import { Image} from 'src/components/atoms/image/Image'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
@@ -41,6 +41,7 @@ export interface AuthorItemProps {
     renderLabelsOrder?: any,
     showDivider?: boolean,
     showInMainScreen?: boolean
+    containerStyle?: StyleProp<ViewStyle>;
 }
 
 const AuthorItem = ({
@@ -58,7 +59,8 @@ const AuthorItem = ({
     selectedType,
     showDivider,
     showInMainScreen = false,
-    renderLabelsOrder = [LabelsType.authorName,LabelsType.title]
+    renderLabelsOrder = [LabelsType.authorName,LabelsType.title],
+    containerStyle,
 }: AuthorItemProps) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
@@ -231,7 +233,7 @@ const AuthorItem = ({
         {showDivider && <Divider style = {style.tabDivider} />}
         </View>
         :
-        <View testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }]} >
+        <View testID='AutherItemTO1' key={index} style={[style.container, isTab && { paddingRight: 20 }, containerStyle]} >
             <View style={style.contentContainer}>
                 {renderLabels()}
                 {mediaVisibility && <View style={style.mediaFooter}>
@@ -267,8 +269,9 @@ export default AuthorItem
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         flex: 1,
+        width: '95%',
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     body: {
         paddingVertical: normalize(10),
