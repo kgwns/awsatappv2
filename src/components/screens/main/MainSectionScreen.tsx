@@ -36,6 +36,7 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
 import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
+import MainSectionAuthorSlider from 'src/components/organisms/MainSectionAuthorSlider';
 import { eventParameterProps } from 'src/shared/utils/analytics';
 
 const opinionListPayload: LatestArticleBodyGet = {
@@ -920,8 +921,8 @@ export const MainSectionScreen = React.memo((
               />
             </View>
           )} */}
-      {isNonEmptyArray(opinionListData) && 
-      <AuthorSlider data={[...opinionListData].splice(0,9)} 
+      {isNonEmptyArray(opinionList) && 
+      <MainSectionAuthorSlider data={[...opinionList].splice(0,9)} 
       selectedType={selectedType} 
       getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
       onClose={onClose} 
