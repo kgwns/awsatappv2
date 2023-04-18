@@ -102,7 +102,7 @@ const ArticleSection = ({
             isAlbum={item.isAlbum}
             mainContainerStyle = {style.mainContainerStyle}
             tabletArticleContainerStyle = {style.tabletArticleContainer}
-            tabBodyLineCount={isTab && 2}
+            tabBodyLineCount={isTab ? 2 : 3}
         />
     }
     return (

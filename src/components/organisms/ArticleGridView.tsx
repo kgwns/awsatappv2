@@ -71,9 +71,9 @@ export const ArticleGridView = ({
                     displayType={item.displayType}
                     isAlbum={isTypeAlbum(item.type)}
                     footerData = { isTab && articleFooterDataSet}
-                    showDivider={isTab && false}
+                    showDivider={!isTab}
                     bodyStyle={isTab ? style.tabletBodyStyle : {}}
-                    tabBodyLineCount={isTab && 2}
+                    tabBodyLineCount={isTab ? 2 : 3}
                 />
             </TouchableOpacity>
         );
