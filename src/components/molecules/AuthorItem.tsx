@@ -192,7 +192,7 @@ const AuthorItem = ({
             </View>
             <View>
                 <TouchableOpacity testID='AutherItemTO3' onPress={() => onPressWriter(authorId)}>
-                    <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
+                    <Image url={image} size={58} resizeMode={'cover'} type={'round'}
                         fallback={true}
                         fallbackName={ImagesName.authorDefault} 
                     />
