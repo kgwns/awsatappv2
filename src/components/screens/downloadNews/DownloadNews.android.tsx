@@ -1,11 +1,12 @@
 import * as React from 'react';
-import {horizontalAndTop} from 'src/shared/utils';
+import {horizontalAndTop, recordLogEvent} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { UIManager, findNodeHandle, PixelRatio, Dimensions, StyleSheet } from 'react-native';
+import { UIManager, findNodeHandle, PixelRatio, Dimensions, StyleSheet, NativeModules, EventEmitter, NativeEventEmitter } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
+import { getFullDate } from 'src/shared/utils/utilities';
 
 
 const createFragment = (viewId:number|null) =>{
@@ -25,6 +26,7 @@ export const DownloadNews = () => {
   const theme = useAppCommon()
   const ref = React.useRef(null);
   const [userTheme,setUserTheme] = React.useState<string>(theme.theme)
+  const downloadStatus = React.useRef(-1);
 
   const style = useThemeAwareObject(customStyle);
   
@@ -37,6 +39,29 @@ export const DownloadNews = () => {
     console.log('themeSelected',theme)
     setUserTheme(theme.theme)
   },[theme])
+
+  const storeDownloadEvent = (event: any) => {
+    const createdDate = getFullDate(event.downloadStatus * 1000);
+    if(event.downloadStatus === 0) {
+      if(downloadStatus.current === -1) {
+        downloadStatus.current = event.downloadStatus
+      }
+    }
+    if(event.downloadStatus === 2) {
+      if(downloadStatus.current === 0) {
+        recordLogEvent('today_copy_download',{newspaper_date: createdDate});
+        downloadStatus.current = -1
+      }
+    }
+  }
+
+  React.useEffect(() => {
+    const eventEmitter = new NativeEventEmitter(NativeModules.PDFViewListener);
+    eventEmitter.addListener('pdfInfo', event => {
+      console.log(event) // 0 -> download clicked, 1 -> downloading, 2 -> downloaded
+      storeDownloadEvent(event);
+    });
+  }, []);
 
   return (
     <ScreenContainer

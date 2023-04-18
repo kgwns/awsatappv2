@@ -13,7 +13,7 @@ import {
 } from 'src/components/atoms';
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
-import {isTab, normalize} from 'src/shared/utils';
+import {isTab, normalize, recordLogEvent} from 'src/shared/utils';
 import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, getShareUrl} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -96,6 +96,14 @@ export const VideoItem = ({
     },
   };
   const onPressShare = async () => {
+    const decodeBody = des && des.split(' ').length;
+    const eventParameter = {
+        content_type: 'video',
+        article_name: title,
+        article_category: 'video',
+        article_length: decodeBody
+    }
+    recordLogEvent('social_share', eventParameter);
     await Share.open({
       title,
       url: getShareUrl('', link_node!),

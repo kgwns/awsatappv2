@@ -5,8 +5,9 @@ import { StyleSheet } from 'react-native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreensConstants } from 'src/constants/Constants';
 import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenContainer';
-import { horizontalEdge } from 'src/shared/utils/utilities';
+import { getFullDate, horizontalEdge } from 'src/shared/utils/utilities';
 import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';
+import { recordLogEvent } from 'src/shared/utils';
 
 export const NativeView: any = getRequiredNativeComponent('RNTodayTabView');
 
@@ -24,12 +25,18 @@ export const DownloadNewsIOS = () => {
         navigation.navigate(ScreensConstants.PDFArchive)
     }
 
+    const handleDownloadComplete = (downloadedPdf:any) => {
+        const createdDate = getFullDate(downloadedPdf.issueDate * 1000);
+        recordLogEvent('today_copy_download',{newspaper_date: createdDate});
+    }
+
     return (
         <ScreenContainer edge={horizontalEdge}>
             <NativeView style={style.container}
                 onItemClick={(data: any) => onClickOpenPDF(data.nativeEvent.SelectedPDF)}
                 onArchiveButtonClick={onClickArchive}
                 isActive={isActive}
+                onDownloadComplete = {(data:any) => handleDownloadComplete(data.nativeEvent.DownloadedPdf)}
             />
         </ScreenContainer>
     );

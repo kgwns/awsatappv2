@@ -7,7 +7,7 @@ import DeviceInfo from 'react-native-device-info';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
-import { isIOS, isTab, normalize, recordLogEvent } from 'src/shared/utils';
+import { isIOS, isTab, normalize, recordLogEvent, recordLogLogin, recordLogSignUp, recordUserId } from 'src/shared/utils';
 import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
 import {NavigateTypes} from 'src/components/screens';
 import {RegisterBodyType} from 'src/redux/register/types';
@@ -61,7 +61,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     if (loginProvider === 'google' && userInfo) {
       payload.profile_url = userInfo.user.photo
     }
-    console.log(payload, userInfo);
+    recordLogSignUp({method: payload.provider})
     createUserRequest(payload);
   }
 
@@ -114,6 +114,8 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
+        const userId = registerUserInfo?.user?.id.toString();
+        recordUserId(userId);
         emptySearchHistory();
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
         navigation.reset({
@@ -140,6 +142,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       first_name: fullName.givenName,
       last_name: fullName.familyName,
     };
+    recordLogSignUp({method: 'apple'});
     createUserRequest(payload);
   };
 
@@ -147,6 +150,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
 
   const buttonPressAction = (type: string) => {
     recordLogEvent('Login');
+    recordLogLogin({method: type});
     switch (type) {
       case NavigateTypes.google:
         const googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);

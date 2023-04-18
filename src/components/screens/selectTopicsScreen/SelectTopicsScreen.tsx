@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert, FlatList } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { BorderLabel, Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, isDarkTheme } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, isDarkTheme, recordUserProperty } from 'src/shared/utils';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
@@ -84,6 +84,8 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
+      const selectedId = joinArray(getSelectedData());
+      recordUserProperty('personalized_sections',selectedId);
       recordLogEvent('Add_Interests_Topic',{userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
       sendSelectedTopicInfo({ tid: joinArray(getSelectedData()) })
     }

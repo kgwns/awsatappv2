@@ -8,7 +8,7 @@ import {
   SectionStoryScreen,
   PhotoGalleryScreen,
 } from '..';
-import { isIOS, isNonEmptyArray, isStringIncludes, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isStringIncludes, isTab, normalize, screenWidth, recordCurrentScreen } from 'src/shared/utils';
 import {
   View,
   Dimensions,
@@ -147,6 +147,7 @@ export const SectionsScreen = () => {
   const onPressTabItem = (selectedIndex: number) => {
     const routeData = [...routes]
     const selectedRoute = routeData[selectedIndex]
+    recordCurrentScreen(selectedRoute.keyName);
     let selectedRouteChild: TopMenuItemType[] = [];
 
     if(selectedRoute && selectedRoute.child) {

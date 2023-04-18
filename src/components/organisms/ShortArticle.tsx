@@ -38,7 +38,7 @@ export interface ArticleSectionProps {
   headerLeft?: HeaderElementProps;
   onPress: (nid: string, isAlbum?: boolean) => void;
   labelType?: LabelTypeProp;
-  onUpdateBookmark: (nid: string, bookmarkStatus: boolean) => void,
+  onUpdateBookmark: (nid: string, bookmarkStatus: boolean,eventParameter: any) => void,
   showSignUpPopUp: () => void,
   listKey?: string,
   numColumns?: number,
@@ -100,8 +100,18 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const updatedData = [...articleData]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus
-    setArticleData(updatedData)
-    onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
+    setArticleData(updatedData);
+    const {title,body,author,type,} = updatedData[index];
+    const decodeBody = body && decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: type,
+      article_name: title,
+      article_category: 'article',
+      article_author: author,
+      article_length: decodeBody.split(' ').length,
+
+    }
+    onUpdateBookmark(updatedData[index].nid, bookmarkStatus,eventParameter)
   }
   const { isPortrait } = useOrientation();
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, FlatList, Modal, StyleSheet, View } from 'react-native';
 import { PodcastEpisodeModal, ScreenContainer } from '..';
 import { PodcastProgramInfo, PodcastEpisodeList } from 'src/components/organisms';
-import { horizontalEdge, isIOS, isNonEmptyArray, isTab, screenHeight } from 'src/shared/utils';
+import { decodeHTMLTags, horizontalEdge, isIOS, isNonEmptyArray, isTab, recordLogEvent, screenHeight } from 'src/shared/utils';
 import { useBookmark, usePodcast, useAppPlayer, useLogin } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -77,9 +77,15 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
   const [podcastEpisodeListInfo, setPodcastEpisodeListInfo] = useState<PodcastListItemType[]>(podcastListData)
 
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? (
+        recordLogEvent('article_save',eventParameter),
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST })
+      ) : (
+        recordLogEvent('article_unsave',eventParameter),
+        removeBookmarkedInfo({ nid })
+      )
     } else {
       setShowPopUp(true)
     }
@@ -91,7 +97,15 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
     const newBookmarked = !item.isBookmarked
     data[index].isBookmarked = newBookmarked
     setPodcastEpisodeListInfo(data)
-    updateBookmarkInfo(item.nid, newBookmarked)
+    const { title,body_export, type} = data[index];
+    const decodeBody = decodeHTMLTags(body_export);
+    const eventParameter = {
+        content_type: type,
+        article_name: title,
+        article_category: type,
+        article_length: decodeBody.split(' ').length
+      }
+    updateBookmarkInfo(item.nid, newBookmarked,eventParameter)
   }
 
   const checkAndUpdateBookmark = (index: number) => {

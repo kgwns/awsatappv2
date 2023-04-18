@@ -1,11 +1,11 @@
-import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
+import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions, TextInput } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, TranslateConstants, TranslateKey, ScreensConstants } from 'src/constants/Constants'
 import { ArticleDetailFooter, VideoPlayerControl, DetailHeader, DetailHeaderTablet } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
 import { ArticleDetailDataType, ArticleReadAlsoType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
@@ -38,7 +38,8 @@ import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetai
 import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import ArticleLiveBlog from './components/ArticleLiveBlog'
-
+import { eventParameterProps } from 'src/shared/utils/analytics'
+import Clipboard from '@react-native-clipboard/clipboard'
 export interface ArticleDetailScreenProps {
   route: any
 }
@@ -383,10 +384,33 @@ export const ArticleDetailScreen = ({
     const data = [...articleDetailState]
     data[bookmarkIndex].isBookmarked = !data[bookmarkIndex].isBookmarked
     setIsBookmarked(newBookmarked)
-    onUpdateBookMark(nid, newBookmarked)
+    const {title,author,publishedDate, body,tagTopicsList} = data[bookmarkIndex];
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: 'article',
+      article_name: title,
+      article_category: 'article',
+      article_author: author,
+      article_publish_date: publishedDate,
+      tags: tagTopicsList,
+      article_length: decodeBody.split(' ').length
+    }
+    onUpdateBookMark(nid, newBookmarked,eventParameter) 
   }
 
   const onPressFontChange = () => {
+    const { title,author,publishedDate,body, tagTopicsList} = articleDetailState[bookmarkIndex];
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: 'article',
+      article_name: title,
+      article_category: 'article',
+      article_author: author,
+      article_publish_date: publishedDate,
+      tags: tagTopicsList,
+      article_length: decodeBody.split(' ').length
+  }
+    recordLogEvent('font_change',eventParameter)
     storeArticleFontSizeInfo()
   }
 
@@ -394,9 +418,15 @@ export const ArticleDetailScreen = ({
     isLoggedIn ? onPressSave(nid) : setShowPopUp(true)
   }
 
-  const onUpdateBookMark = (nid: string, hasBookmarked: boolean) => {
+  const onUpdateBookMark = (nid: string, hasBookmarked: boolean,eventParameter: eventParameterProps) => {
     if (isLoggedIn) {
-      hasBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
+      hasBookmarked ? (
+        recordLogEvent('article_save',eventParameter),
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
+      ) : (
+        recordLogEvent('article_unsave',eventParameter),
+        removeBookmarkedInfo({ nid })
+      );
     } else {
       setShowPopUp(true)
     }
@@ -511,6 +541,10 @@ export const ArticleDetailScreen = ({
     <ArticleDetailBody body={articleDetailState[index].body}
       index={index} articleFontSize={articleFontSize}
       orientation={currentOrientation}
+      title = {articleDetailState[index].title}
+      author = {articleDetailState[index].author}
+      publishedDate = {articleDetailState[index].publishedDate}
+      tagTopicsList = {articleDetailState[index].tagTopicsList}
     />
   )
 
@@ -576,9 +610,57 @@ export const ArticleDetailScreen = ({
   // }
 
   const onViewableItemRef = useRef((viewableItems: any) => {
+    const {title,author,publishedDate,tagTopicsList,body} = viewableItems.changed[0].item;
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: 'article',
+      article_name: title,
+      article_category: 'article',
+      article_author: author,
+      article_publish_date: publishedDate,
+      tags: tagTopicsList,
+      article_length: decodeBody.split(' ').length
+    }
+    recordLogEvent('dynamic_article_load',eventParameter);
+    if(viewableItems.changed.length === 2) {
+      const {title: viewedTitle, 
+        author: viewedAuthor,
+        publishedDate : viewedPublishedDate,
+        tagTopicsList: viewedTagTopicsList,
+        body: viewedBody
+      } = viewableItems.changed[1].item;
+      const decodeBody = decodeHTMLTags(viewedBody);
+      const viewedEventParameter = {
+        content_type: 'article',
+        article_name: viewedTitle,
+        article_category: 'article',
+        article_author: viewedAuthor,
+        article_publish_date: viewedPublishedDate,
+        tags: viewedTagTopicsList,
+        viewedBody: decodeBody.split(' ').length
+      }
+      recordLogEvent('article_completed', viewedEventParameter);
+    } 
     setBookmarkIndex(viewableItems.changed[0].index)
   })
   
+
+  const onEndReachedHandler = () => {
+    if(articleDetailState && articleDetailState.length === 1 && isArticleSectionLoaded) {
+      const { author, title, publishedDate, tagTopicsList,body} = articleDetailState[0];
+      const decodeBody = decodeHTMLTags(body);
+      const eventParameter = {
+        content_type: 'article',
+        article_name: title,
+        article_category: 'article',
+        article_author: author,
+        article_publish_date: publishedDate,
+        tags: tagTopicsList,
+        article_length: decodeBody.split(' ').length
+      }
+      recordLogEvent('article_completed', eventParameter);
+    }
+  }
 
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
@@ -602,6 +684,8 @@ export const ArticleDetailScreen = ({
           contentContainerStyle={showMiniPlayer && style.contentContainer}
           initialNumToRender={1}
           maxToRenderPerBatch={1}
+          onEndReached={onEndReachedHandler}
+          onEndReachedThreshold={0.5}
         />
         {/* As per ticket AMAR-1044 we dont show the PIP
         {isNotEmpty(articleDetailState[0].jwplayerId) && playerUrl && !isFullScreen && 

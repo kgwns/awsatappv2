@@ -195,7 +195,18 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
   return formattedData
 }
 
-
+const getTagTopicsList = (tagTopics: any) => {
+  let tagNames = '';
+  if(isNonEmptyArray(tagTopics)){
+    const tag = tagTopics.map((tag:any) => tag.name);
+    tagNames = tag.toString();
+    return tagNames;
+  } else if(isObjectNonEmpty(tagTopics)){
+    return tagTopics?.name;
+  } else {
+    return '';
+  }
+}
 
 export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload => {
   const responseData: ArticleDetailSuccessPayload = {
@@ -234,6 +245,7 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
             displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
             link_node: link_node,
             publishedDate: field_publication_date_export,
+            tagTopicsList: getTagTopicsList(field_tags_topics_export)
           })
       );
     }
@@ -295,6 +307,7 @@ export const parseArticleSectionSuccess = (response: any, currentNid: number): A
                 journalistName: jor_name,
                 displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
                 publishedDate: field_publication_date_export,
+                tagTopicsList: getTagTopicsList(field_tags_topics_export)
               })
           );
        responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== currentNid)

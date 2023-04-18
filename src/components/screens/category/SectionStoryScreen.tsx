@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {View, StyleSheet, ViewStyle, Animated,StyleProp} from 'react-native';
 import { ShortArticle, NewsFeed, VideoContent } from '../../organisms';
-import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
+import {isTab, normalize, recordLogEvent, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -36,6 +36,7 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import { fetchVideoListApi } from 'src/services/videoListService';
 import { formatVideoData } from 'src/redux/videoList/sagas';
 import { Styles } from 'src/shared/styles';
+import { eventParameterProps } from 'src/shared/utils/analytics';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -321,9 +322,15 @@ export const SectionStoryScreen = React.memo(({
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter:eventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? (
+        recordLogEvent('article_save',eventParameter),
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
+      ) : (
+        recordLogEvent('article_unsave',eventParameter),
+        removeBookmarkedInfo({ nid })
+      )
     } else {
       makeSignUpAlert()
     }
@@ -358,8 +365,17 @@ export const SectionStoryScreen = React.memo(({
   const updatedChangeBookmark = (data: NewsViewListItemType[], index: number) => { 
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
-    updatedData[index].isBookmarked = bookmarkStatus
-    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    updatedData[index].isBookmarked = bookmarkStatus;
+    const {title,body,field_publication_date_export} = updatedData[index];
+    const decodeBody = body && decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: 'article',
+      article_name: title,
+      article_category: 'article',
+      article_length: decodeBody.split(' ').length,
+      article_publish_date: field_publication_date_export
+    }
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus,eventParameter)
     return updatedData
   }
 
@@ -540,9 +556,9 @@ export const SectionStoryScreen = React.memo(({
           {renderTopArticle()}
         </View>
       </View> 
-      <View style={style.videoContainer}>
-        <VideoContent data={videoListData} onPress={onVideoItemPress} />
-      </View>
+        {isNonEmptyArray(videoListData) && <View style={style.videoContainer}>
+          <VideoContent data={videoListData} onPress={onVideoItemPress} />
+        </View>}
       </>:
         <>
           {renderTopArticle()}

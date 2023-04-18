@@ -62,7 +62,6 @@ export const GridViewItem = ({
             }
             {showHighlightTitle && !isNotEmpty(displayType) && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
             <ArticleLabel displayType={displayType} enableTopMargin/>
-            {isTab && <Label style={style.highlightedTitle} children={highlightedTitle} labelType={LabelTypeProp.h5} />}
             {title &&
                 <Label style={style.title} children={title} numberOfLines={3} />
             }

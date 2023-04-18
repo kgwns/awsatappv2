@@ -26,6 +26,7 @@ import RNRestart from 'react-native-restart'
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { LoginManager } from "react-native-fbsdk-next";
+import { recordUserId } from 'src/shared/utils/analytics';
 
 export type SettingDataType = {
   iconName: ImagesName,
@@ -183,9 +184,11 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
     }
   };
 
-  const logout = () => {
+  const logout = () => {;
     logoutFromfacebook()
-    recordLogEvent('Logout');
+    recordLogEvent('log_out');
+    const userId = userProfileData?.user?.id.toString();
+    recordUserId(userId);
     fetchLogoutRequest();
     unlinkFcmToken();
     removeBookmark()

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isDarkTheme, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isDarkTheme, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordUserProperty, screenHeight, screenWidth } from 'src/shared/utils';
 import { useIsFocused } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreenContainer } from '..';
@@ -210,6 +210,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
+      const selectedId = joinArray(getSelectedData());
+      recordUserProperty('personalized_newsletters',selectedId);
       sendSelectedNewsLettersInfo({ tid: joinArray(getSelectedData()) })
     }
   }

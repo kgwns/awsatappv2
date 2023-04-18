@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isDarkTheme, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isDarkTheme, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, recordUserProperty, screenHeight, screenWidth } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -88,6 +88,8 @@ export const FollowFavoriteAuthorScreen = () => {
 
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
+      const selectedId = joinArray(getSelectedData());
+      recordUserProperty('personalized_authors',selectedId);
       recordLogEvent('Add_Favorite_Authors',{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
       sendSelectedWriterInfo({ tid: joinArray(getSelectedData()), isList: true })
     }

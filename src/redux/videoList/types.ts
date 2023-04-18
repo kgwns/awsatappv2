@@ -94,6 +94,7 @@ export type JWTVideoSourceType = {
 export type JWTVideoPlayListType = {
   sources: JWTVideoSourceType[],
   images?: any,
+  title: string
 }
 
 export type RequestVideoUrlSuccessResponse = {

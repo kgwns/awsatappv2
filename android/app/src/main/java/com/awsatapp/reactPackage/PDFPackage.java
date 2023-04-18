@@ -35,6 +35,7 @@ public class PDFPackage implements ReactPackage {
             @NonNull ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new GetReactTheme());
+        modules.add(new PDFViewListener(reactContext));
         return modules;
     }
 

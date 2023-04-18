@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity, Keyboard } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AlertPayloadType, ScreenContainer } from '../ScreenContainer/ScreenContainer'
-import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, screenWidth, testProps } from 'src/shared/utils'
+import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, recordLogEvent, screenWidth, testProps } from 'src/shared/utils'
 import { StaticPageHeader } from 'src/components/molecules'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { Label, TextInputField } from 'src/components/atoms'
@@ -93,7 +93,8 @@ export const ContactUs = () => {
                 setIsAlertVisible(true);
                 return
             }
-            Keyboard.dismiss()
+            Keyboard.dismiss();
+            recordLogEvent('contact_form_submit');
             sendContactUsInfo({
                 name: name.trim(),
                 email: email.trim(),

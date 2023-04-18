@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { isIOS, isTab, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
@@ -13,6 +13,10 @@ type ArticleDetailBodyProps = {
     index: number;
     articleFontSize: number;
     orientation: string;
+    title: string;
+    author: string;
+    publishedDate: string;
+    tagTopicsList: string
 }
 
 export const ArticleDetailBody = React.memo(({
@@ -20,6 +24,10 @@ export const ArticleDetailBody = React.memo(({
     index,
     articleFontSize,
     orientation,
+    title,
+    author,
+    publishedDate,
+    tagTopicsList
 }: ArticleDetailBodyProps) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
@@ -170,6 +178,21 @@ export const ArticleDetailBody = React.memo(({
         setDynamicHeight(size.height + 2)
     }
 
+    const storeCopiedTextInAnalytics = (copiedText:string) => {
+        const decodeBody = body && decodeHTMLTags(body);
+        const eventParameter = {
+            copied_text: copiedText,
+            copied_text_length: copiedText.split(' ').length,
+            article_name: title,
+            article_category: 'article',
+            article_author: author,
+            article_length: decodeBody.split(' ').length,
+            article_publish_date: publishedDate,
+            tags: tagTopicsList
+        }
+        recordLogEvent('text_copy',eventParameter)
+    }
+
     const renderWebView = () => (
         <AutoHeightWebView
             key={index}
@@ -190,6 +213,7 @@ export const ArticleDetailBody = React.memo(({
             allowsFullscreenVideo={true}
             scrollEnabled={false}
             onSizeUpdated={onSizeUpdated}
+            onMessage={(event) => storeCopiedTextInAnalytics(event.nativeEvent.data)}
         />
     )
 

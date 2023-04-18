@@ -8,7 +8,7 @@ import {
   Alert,
   Keyboard,
 } from 'react-native';
-import {isIOS, isObjectNonEmpty, isTab, normalize, recordLogEvent} from 'src/shared/utils';
+import {isIOS, isObjectNonEmpty, isTab, normalize, recordLogEvent, recordLogLogin, recordUserId} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from 'src/components/organisms/';
 import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
@@ -172,6 +172,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
         getBookmarkedId();
         AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN);
         fetchProfileDataRequest();
+        const userId = loginData.user.id.toString();
+        recordUserId(userId);      
         navigation.reset({
           index: 0,
           routes: [
@@ -290,6 +292,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     setPasswordError(emptyPasswordValidation(password));
 
     recordLogEvent('Login');
+    recordLogLogin({method: 'email'})
 
     const payload: FetchLoginPayloadType = {
       email,
