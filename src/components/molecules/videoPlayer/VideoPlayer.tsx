@@ -14,11 +14,13 @@ export interface VideoPlayerProps {
   goBack?: () => void;
   testID?: string;
   url: string;
+  title: string;
 }
 export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   goBack,
   testID,
   url,
+  title,
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [isPaused, setIsPaused] = useState(false);
@@ -105,6 +107,7 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
       isLandscape >
       <View style={styles.videoStyles}>
         <VideoPlayerFullScreen
+          title={title}
           url={videoUrl}
           isPaused={isPaused}
           isFullScreen={fullScreen}

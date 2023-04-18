@@ -9,7 +9,7 @@ import {
   ImageBackground,
   AppState,
 } from 'react-native';
-import {isIOS, isTab} from 'src/shared/utils';
+import {isIOS, isTab, recordLogEvent} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
@@ -31,6 +31,7 @@ export interface VideoPlayerFullScreenProp {
   isFullScreen?: boolean;
   onChangeFullScreen?: (isFullScreen: boolean) => void;
   onClose?: () => void;
+  title: string;
 }
 
 const VideoPlayerFullScreen = ({
@@ -40,6 +41,7 @@ const VideoPlayerFullScreen = ({
   onChangeFullScreen,
   onClose,
   testID,
+  title
 }: VideoPlayerFullScreenProp) => {
   const styles = useThemeAwareObject(customStyle);
 
@@ -61,6 +63,37 @@ const VideoPlayerFullScreen = ({
   };
 
   const onProgress = (data: any) => {
+    const percentageCalculation = () => {
+        {
+          const percentageData =  (Math.floor((data.currentTime / 5) * 100) + '%')
+          if((percentageData === '10%') || (percentageData === '25%')|| (percentageData === '50%')|| (percentageData === '75%')){
+            const logProgressData = {
+              content_title:title,
+              content_duration: duration,
+              progress_percentage:percentageData,
+              content_type: 'video',
+            }
+            recordLogEvent('video_progress',  logProgressData );  
+          }
+          else if ((data.currentTime === data.seekTime)) {
+            const logProgressData = {
+              content_title:title,
+              content_duration: duration,
+              progress_percentage:'100%',
+              content_type: 'video',
+            }
+            const logEndData = {
+              content_title:title,
+              content_duration:duration,
+              content_type:'video',
+              is_completed:'1'
+            }
+            recordLogEvent('video_progress',  logProgressData );  
+            recordLogEvent('video_completed',  logEndData );
+          }
+        }      
+    }
+    percentageCalculation()
     if (!isLoading) {
       setCurrentTime(data.currentTime);
     }
@@ -72,7 +105,15 @@ const VideoPlayerFullScreen = ({
     onScreenTouch();
   };
 
-  const onLoadStart = (data: any) => setIsLoading(true);
+  const onLoadStart = (data: any) => {
+    const logStartData = {
+      content_title:title,
+      content_duration:duration,
+      content_type:'video',
+    }
+    recordLogEvent('video_start',  logStartData );
+    setIsLoading(true)
+  };
 
   const onEnd = () => {
     videoPlayer.current?.seek(duration);

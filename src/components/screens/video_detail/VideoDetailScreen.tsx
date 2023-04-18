@@ -143,7 +143,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
 
   const goToPlayer = (item:VideoItemType) =>{
     if(item.mediaId || item.field_video_media_id_export){
-      navigation.navigate(ScreensConstants.VideoPlayerScreen,{mediaID: item.mediaId ? item.mediaId : item.field_video_media_id_export , nid: item.nid} as never)
+      navigation.navigate(ScreensConstants.VideoPlayerScreen,{mediaID: item.mediaId ? item.mediaId : item.field_video_media_id_export , nid: item.nid, title: item.title} as never)
     }
   }
 
