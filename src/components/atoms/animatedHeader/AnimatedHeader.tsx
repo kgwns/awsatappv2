@@ -4,7 +4,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
-import { isDarkTheme, screenWidth } from 'src/shared/utils';
+import { isDarkTheme, recordLogEvent, screenWidth } from 'src/shared/utils';
 import HeaderDarkLogoSvg from 'src/assets/images/headerIcons/aaaNewLogoDarkStretch.svg';
 import HeaderLogoSvg from 'src/assets/images/headerIcons/aaaNewLogoStretch.svg';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
@@ -33,7 +33,14 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
     const { theme } = useAppCommon();
     const isDarkMode = isDarkTheme(theme);
 
-    const onPressRightIcon = () => navigation.dispatch(DrawerActions.toggleDrawer());
+    const onPressRightIcon = () => {
+        const eventParameter = {
+            screen_type: 'sideMenu',
+            screen_name: 'sideMenu'
+        }
+        recordLogEvent('menu_view',eventParameter)
+        navigation.dispatch(DrawerActions.toggleDrawer());
+    }
 
     const onPressLeftIcon = () => navigation.navigate(ScreensConstants.SearchScreen);
 

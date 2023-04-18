@@ -6,7 +6,7 @@ import { View, StyleSheet } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { Label, LabelTypeProp, ImageWithIcon, Divider } from '../atoms';
-import { isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -65,7 +65,15 @@ export const VideoContent = ({
     const onPressShare = async (item: VideoItemType) => {
         const requestBody = { nid: item.nid };
         const videoDetailData = await getVideoDetail(requestBody)
-        const { title, field_shorturl_export, link_node } = videoDetailData[0]
+        const { title, field_shorturl_export, link_node, body_export } = videoDetailData[0];
+        const decodeBody = body_export && body_export.split(' ').length;
+        const eventParameter = {
+            content_type: 'video',
+            article_name: title,
+            article_category: 'video',
+            article_length: decodeBody
+        };
+        recordLogEvent('social_share', eventParameter);
         await Share.open({
             title,
             url: getShareUrl(field_shorturl_export!, link_node!),

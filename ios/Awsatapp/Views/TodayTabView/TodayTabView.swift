@@ -11,6 +11,7 @@ import SwiftyJSON
 class TodayTabView: UIView, LoadingView {
   
     @objc var onItemClick: RCTBubblingEventBlock?
+    @objc var onDownloadComplete: RCTBubblingEventBlock?
     @objc var onArchiveButtonClick: RCTBubblingEventBlock?
     @objc var isActive: Bool = false {
         didSet {
@@ -123,7 +124,6 @@ class TodayTabView: UIView, LoadingView {
             guard let self = self else { return }
             self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
         }
-        
         downloadCompleteNotificationToken = NotificationCenter.default.addObserver(descriptor: PDFFileManager.downloadCompleteNotification) { [weak self] (pdfEditionNotificationInfoPayload) in
             
             guard let self = self else { return }
@@ -136,13 +136,14 @@ class TodayTabView: UIView, LoadingView {
             switch self.datasource.first {
                 case .largePDFEdition(let pdfEdition):
                     if pdfEdition.issueNumber == pdfEditionNotificationInfoPayload.pdfEditon.issueNumber {
+                      self.onDownloadComplete?(["DownloadedPdf": ["issueNumber": pdfEdition.issueNumber!, "issueDate": pdfEdition.issueDate!]])
                       self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
                     }
                 default:
                     break
             }
         }
-        
+
         showMobileDataAlertNotification =  NotificationCenter.default.addObserver(descriptor: UIApplication.userMobileDataAlertNotification) { _ in
             self.showMobileDataAlert()
         }

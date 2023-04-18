@@ -6,7 +6,7 @@ import {
 } from '@react-navigation/stack';
 import {Routes, ScreenList} from './index';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
-import {isIOS, isTab, normalize, screenWidth} from 'src/shared/utils';
+import {isIOS, isTab, normalize, recordLogEvent, screenWidth} from 'src/shared/utils';
 import {StyleSheet} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Label} from 'src/components/atoms';
@@ -58,12 +58,15 @@ const OnBoardNavigator = () => {
             navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN);
             return;
           case ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN:
+            recordLogEvent('registration_skip_click',{step_name: 'personalized_sections'});
             navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN);
             return;
           case ScreensConstants.NEWS_LETTER_SCREEN:
+            recordLogEvent('registration_skip_click',{step_name: 'personalized_authors'});
             navigation.navigate(ScreensConstants.NEWS_LETTER_SCREEN);
             return;
           case ScreensConstants.SUCCESS_SCREEN:
+            recordLogEvent('registration_skip_click',{step_name: 'personalized_newsletters'});
             navigation.navigate(ScreensConstants.SUCCESS_SCREEN);
             return;
           case ScreensConstants.AppNavigator:

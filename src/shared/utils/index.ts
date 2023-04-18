@@ -39,4 +39,4 @@ export {
   formatGregorian,
 } from 'src/shared/utils/utilities'
 export { SystemPermissions } from 'src/shared/utils/SystemPermissions'
-export {recordCurrentScreen, recordLogEvent} from './analytics';
+export {recordCurrentScreen, recordLogEvent, recordUserId, recordLogSignUp, recordLogLogin, recordUserProperty, recordCurrentScreenWithData} from './analytics';

@@ -6,7 +6,7 @@ import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
 import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty, isNotEmpty } from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty, isNotEmpty, recordLogEvent } from 'src/shared/utils';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { RequestVideoUrlSuccessResponse, VideoItemType } from 'src/redux/videoList/types';
@@ -17,7 +17,7 @@ import { Styles } from 'src/shared/styles';
 import { fetchVideoDetailInfo } from 'src/services/VideoServices';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { getVideoDetail } from 'src/services/videoDetailService';
-import { getShareUrl } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getShareUrl } from 'src/shared/utils/utilities';
  
 export interface VideoDetailScreenProps {
   route: any
@@ -129,7 +129,15 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
       return;
     }
     const videoDetailData = detailData[0];
-    const { title, field_shorturl_export, link_node } = videoDetailData
+    const { title, field_shorturl_export, link_node, body_export } = videoDetailData;
+    const decodeBody = body_export && decodeHTMLTags(body_export);
+    const eventParameter = {
+      content_type: 'video',
+      article_name: title,
+      article_category: 'video',
+      article_length: decodeBody?.split(' ').length
+    };
+    recordLogEvent('social_share', eventParameter);
     await Share.open({
         title,
         url: getShareUrl(field_shorturl_export!, link_node!),
@@ -144,7 +152,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
 
   const goToPlayer = (item:VideoItemType) =>{
     if(item.mediaId || item.field_video_media_id_export){
-      navigation.navigate(ScreensConstants.VideoPlayerScreen,{mediaID: item.mediaId ? item.mediaId : item.field_video_media_id_export , nid: item.nid} as never)
+      navigation.navigate(ScreensConstants.VideoPlayerScreen,{mediaID: item.mediaId ? item.mediaId : item.field_video_media_id_export , nid: item.nid, title: item.title} as never)
     }
   }
 

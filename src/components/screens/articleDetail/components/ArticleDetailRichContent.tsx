@@ -354,6 +354,12 @@ export const articleHtml = ({ body }: { body: string }) => `
       ${body}
       <script async=\"\" src=\"https://platform.instagram.com/en_US/embeds.js\"></script>
       <script async=\"\" src=\"https://if-cdn.com/embed.js"></script>
+      <script>
+      document.addEventListener('copy',function(){
+        const selectedText = window.getSelection().toString()
+        window.ReactNativeWebView.postMessage(selectedText)
+      });
+      </script>
   </body>
   </html>
   `;

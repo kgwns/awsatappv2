@@ -58,7 +58,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   };
 
   const onSubmit = () => {
-    recordLogEvent('Search_Content', {searchKeyword: searchText});
+    recordLogEvent('search', {query: searchText, results_length: data.length});
   }
 
   const renderItem = (item:SearchItemType,index:number) => {

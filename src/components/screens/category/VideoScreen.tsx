@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem, Animated, ActivityIndicator} from 'react-native';
 
 import {VideoItem} from 'src/components/molecules';
-import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
+import {decodeHTMLTags, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent} from 'src/shared/utils';
 import {useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants/Constants';
@@ -91,14 +91,28 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   const updatedChangeBookmark = (data: VideoItemType[], index: number) => {
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
-    updatedData[index].isBookmarked = bookmarkStatus
-    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    updatedData[index].isBookmarked = bookmarkStatus;
+    const { title,body_export } = updatedData[index];
+    const decodeBody = body_export && decodeHTMLTags(body_export);
+    const eventParameter = {
+      content_type: 'video',
+      article_title: title,
+      article_category: 'video',
+      article_length: decodeBody?.split(' ').length
+    }
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus, eventParameter)
     return updatedData
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.VIDEO }) : removeBookmarkedInfo({ nid })
+      isBookmarked ? (
+        recordLogEvent('article_save',eventParameter),
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.VIDEO })
+      ) : (
+        recordLogEvent('article_unsave',eventParameter),
+        removeBookmarkedInfo({ nid })
+      )
     } else {
       setShowPopUp(true)
     }

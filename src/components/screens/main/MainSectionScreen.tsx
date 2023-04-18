@@ -15,7 +15,7 @@ import {
   TranslateConstants,
   TranslateKey,
 } from 'src/constants/Constants';
-import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer, useAppCommon } from 'src/hooks';
@@ -30,12 +30,13 @@ import { TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { Label } from 'src/components/atoms';
-import { getPodcastUrl, isDarkTheme, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
+import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, isDarkTheme, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
 import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
+import { eventParameterProps } from 'src/shared/utils/analytics';
 
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
@@ -195,16 +196,34 @@ export const MainSectionScreen = React.memo((
   const updatedChangeBookmark = (data: LatestArticleDataType[], index: number) => {
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
-    updatedData[index].isBookmarked = bookmarkStatus
-    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    updatedData[index].isBookmarked = bookmarkStatus;
+    const {author,body,title,type} = updatedData[index];
+    const decodeBody = body && decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: type,
+      article_name: title,
+      article_category: 'article',
+      article_author: author,
+      article_length: decodeBody.split(' ').length
+    }
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus,eventParameter)
     return updatedData
   }
 
   const mainBlockUpdatedBookMark = (data: MainSectionBlockType[], index: number) => {
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
-    updatedData[index].isBookmarked = bookmarkStatus
-    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    updatedData[index].isBookmarked = bookmarkStatus;
+    const {author,body,title,type} = updatedData[index];
+    const decodeBody = body && decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: type,
+      article_name: title,
+      article_category: 'article',
+      article_author: author,
+      article_length: decodeBody.split(' ').length
+    }
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus,eventParameter)
     return updatedData
   }
 
@@ -544,9 +563,15 @@ export const MainSectionScreen = React.memo((
     nid && navigation.navigate(screenName, { nid })
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter:eventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
+      isBookmarked ?(
+        recordLogEvent('article_save',eventParameter),
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
+        )  : (
+          recordLogEvent('article_unsave',eventParameter),
+          removeBookmarkedInfo({ nid })
+        )
     } else {
       setShowPopUp(true)
     }
@@ -579,6 +604,12 @@ export const MainSectionScreen = React.memo((
       if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ) {
         setPlayerTrack(trackPlayerData);
       }
+      const eventParameter = {
+        content_title: podcastData.title,
+        content_duration: convertSecondsToHMS(podcastData.duration),
+        content_type: 'podcast' 
+      }
+      !showMiniPlayer && recordLogEvent('podcast_play',eventParameter);
       !showMiniPlayer && setShowMiniPlayer(true);
       showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }

@@ -9,7 +9,7 @@ import {
   Keyboard,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {isIOS, isTab, normalize, recordLogEvent} from 'src/shared/utils';
+import {isIOS, isTab, normalize, recordLogEvent, recordLogSignUp, recordUserId} from 'src/shared/utils';
 import {ScreensConstants,TranslateConstants,TranslateKey} from 'src/constants/Constants';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -123,6 +123,8 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
       if (message.code === 200) {
         emptySearchHistory();
         recordLogEvent('Completed_registration');
+        const userId =  registerUserInfo?.user?.id.toString();
+        recordUserId(userId);
         dispatch(fetchLoginSuccess({loginData: registerUserInfo}));
         fetchProfileDataRequest();
         AdjustAnalyticsManager.trackEvent(AdjustEventID.REGISTRATION);
@@ -163,6 +165,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
         device_name: deviceName,
       };
       Keyboard.dismiss();
+      recordLogSignUp({method: 'email'})
       createUserRequest(payload);
     }
   };
