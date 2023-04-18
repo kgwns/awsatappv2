@@ -172,6 +172,7 @@ export const MainSectionScreen = React.memo((
   const topViewSectionDataThree = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(9, 2) : [];
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
   const [editorsChoiceInfo, setEditorsChoiceInfo] = useState(editorsChoice)
+  const videoPayload = {page: 0, items_per_page: 10}
 
   useFocusEffect(
     React.useCallback(() => {
@@ -507,7 +508,7 @@ export const MainSectionScreen = React.memo((
 
   const loadMiddleWidgetAPI = () => {
     fetchOpinionTopList(opinionListPayload)
-    isTab && fetchVideoRequest();
+    isTab && fetchVideoRequest(videoPayload);
     fetchPodcastHome();
     fetchEditorsChoice();
   }

@@ -211,7 +211,7 @@ export const MyNewsWriters = () => {
   const itemSeparatorComponent = () => <Divider style={styles.divider} />;
 
   const renderOpinionItem = ({item, index}: {item: any; index: number}) => (
-    <View style={styles.itemContainer}>
+    <View style={isTab ? styles.itemContainerTab : styles.itemContainer}>
       <AuthorItem
         body={item.title}
         mediaVisibility={
@@ -248,6 +248,7 @@ export const MyNewsWriters = () => {
         index={index}
         nid={item.nid}
         renderLabelsOrder={['title', 'authorName']}
+        containerStyle={styles.authorItem}
       />
       {itemSeparatorComponent()}
     </View>
@@ -255,7 +256,7 @@ export const MyNewsWriters = () => {
 
   const renderOpinion = () => (
     <FlatList
-      style={styles.listContainer}
+      style={isTab ? styles.listContainerTab : styles.listContainer}
       data={opinionData}
       keyExtractor={keyExtractor}
       showsVerticalScrollIndicator={false}
@@ -264,6 +265,7 @@ export const MyNewsWriters = () => {
       onEndReachedThreshold={0.5}
       ListFooterComponent={renderFooterComponent}
       numColumns={numberOfColumn}
+      columnWrapperStyle={isTab && styles.columnWrapper}
     />
   );
 
@@ -315,14 +317,32 @@ const customStyle = (theme: CustomThemeType) =>
       flex: 1,
       paddingTop: 20,
       backgroundColor: colors.transparent,
-      paddingBottom: isTab ? 20 : 0,
-      marginEnd: (isTab ? 0.02 : 0.04) * screenWidth,
+      paddingBottom: 0,
+      marginEnd: 0.04 * screenWidth,
+    },
+    listContainerTab: {
+      flex: 1,
+      backgroundColor: colors.transparent,
+      paddingVertical: 20,
+      marginHorizontal: 0.05 * screenWidth,
     },
     itemContainer: {
       flex: 1,
-      marginStart: (isTab ? 0.02 : 0.04) * screenWidth,
+      marginStart: 0.04 * screenWidth,
+    },
+    itemContainerTab: {
+      flex: 0.48,
+      marginStart: 0,
     },
     screenBackgroundColor: {
       backgroundColor: theme.backgroundColor,
-    }
+    },
+    columnWrapper: {
+      flex: 1,
+      justifyContent: 'space-between',
+    },
+    authorItem: {
+      paddingRight: 0,
+      width: '100%'
+    },
   });
