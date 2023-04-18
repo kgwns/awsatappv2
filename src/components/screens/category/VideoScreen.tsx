@@ -121,9 +121,11 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
       setVideoDocumentaryInfo(updatedData);
     }
   }
-  useEffect(() => { 
+  useEffect(() => {
+    setPage(0);
+    setVideoDataInfo([]);
     fetchDocumentaryVideoRequest(documentaryVideoPayload);
-    fetchVideoWithPagination({page, items_per_page: VIDEO_ITEMS_PER_PAGE});
+    fetchVideoWithPagination({page: 0, items_per_page: VIDEO_ITEMS_PER_PAGE});
    }, []);
 
   useEffect(() => { 
