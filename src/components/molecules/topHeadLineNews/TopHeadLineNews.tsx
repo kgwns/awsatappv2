@@ -1,4 +1,4 @@
-import { View, FlatList, ListRenderItem, StyleSheet } from 'react-native'
+import { View, FlatList, ListRenderItem, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import React from 'react'
 import { Label } from 'src/components/atoms/label/Label'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -15,11 +15,13 @@ import { ArticleLabel } from '../articleLabel/ArticleLabel'
 
 
 export type TopHeadLineNewsProps = {
-    data: MainSectionBlockType[]
+    data: MainSectionBlockType[],
+    tabContainerStyle?: StyleProp<ViewStyle>
 }
 
 export const TopHeadLineNews = ({
-    data
+    data,
+    tabContainerStyle
 }: TopHeadLineNewsProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
@@ -50,7 +52,7 @@ export const TopHeadLineNews = ({
 
     }
     return (
-        <View style={[style.container]}>
+        <View style={[style.container,tabContainerStyle]}>
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
                 data={data}
@@ -64,7 +66,6 @@ export const TopHeadLineNews = ({
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingBottom: isTab ? 0 : normalize(15),
-        paddingTop: isTab ? normalize(10) : 0,
     },
     rowItem: {
         justifyContent: 'center',

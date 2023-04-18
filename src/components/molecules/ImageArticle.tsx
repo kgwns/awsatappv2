@@ -28,7 +28,8 @@ const carouselFooterSample: ArticleFooterProps = {
   rightTitleColor: Styles.color.silverChalice,
   bookMarkColorType: BookMarkColorType.WHITE,
   leftTitleStyle: { fontWeight: 'bold' },
-  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20,}
+  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20,},
+  hideBookmark: false
 }
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
@@ -50,6 +51,9 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
   showDivider?: boolean,
   contentStyle?: StyleProp<TextStyle>;
   displayType?: string,
+  tabTitleContainer?: StyleProp<ViewStyle>;
+  hideBookmark?: boolean,
+  carouselContainerStyle?: StyleProp<ViewStyle>;
 }
 
 const ImageArticle = ({
@@ -71,6 +75,9 @@ const ImageArticle = ({
   contentStyle,
   displayType,
   isAlbum,
+  tabTitleContainer,
+  hideBookmark,
+  carouselContainerStyle
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
@@ -88,11 +95,12 @@ const ImageArticle = ({
       navigation.navigate(screenName, { nid })
     }
   }
+  const timeFormat = dateTimeAgo(created);
+  carouselFooterSample.hideBookmark = hideBookmark;
 
-  const timeFormat = dateTimeAgo(created)
   return (
     <FixedTouchable onPress={onPress}>
-      <View>
+      <View style = {[carouselContainerStyle]}> 
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
           <BannerImageWithOverlay image={image}
             onImageLoadEnd={onImageLoadEnd}
@@ -103,7 +111,7 @@ const ImageArticle = ({
         </View>
         <View style={isTab ? [imageArticleStyle.tabArticleContent, contentStyle ] : imageArticleStyle.articleContent}>
           {isNotEmpty(title) &&
-            <View style={imageArticleStyle.titleContainer}>
+            <View style={[imageArticleStyle.titleContainer,tabTitleContainer]}>
               <Label labelType={LabelTypeProp.title1}
                 children={decodeHTMLTags(title)}
                 style={titleStyle}

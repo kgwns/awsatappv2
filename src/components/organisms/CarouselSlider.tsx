@@ -26,6 +26,10 @@ const CarouselSlider = ({
                     titleStyle={carouselSliderStyle.titleStyle}
                     textStyles={carouselSliderStyle.textStyle}
                     isAlbum={isTypeAlbum(coverageInfo[0].type)}
+                    contentStyle = {isTab && carouselSliderStyle.tabContentStyle}
+                    tabTitleContainer = {isTab && carouselSliderStyle.tabTitleContainer}
+                    hideBookmark = {isTab ? true : false}
+                    carouselContainerStyle = {isTab && carouselSliderStyle.carouselContainerStyle}
                 />
             }
         </View>
@@ -50,6 +54,17 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: isTab ? 18 : normalize(16),
         lineHeight: isTab ? 30 : normalize(26),
         fontFamily: fonts.IBMPlexSansArabic_Regular,
-        color: theme.summaryColor,
+        color: isTab ? theme.tabMostReadBodyColor : theme.summaryColor,
+    },
+    tabContentStyle: {
+        width: '75%',
+    },
+    tabTitleContainer:{
+        paddingBottom: normalize(10),
+        width: '100%',
+    },
+    carouselContainerStyle: {
+        flex:1, 
+        alignItems:'center'
     }
 })
