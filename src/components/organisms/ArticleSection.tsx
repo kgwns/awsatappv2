@@ -83,15 +83,17 @@ const ArticleSection = ({
         articleFooterDataSet.leftTitle = timeFormat.time
         articleFooterDataSet.leftTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftIcon = () => TimeIcon(timeFormat.icon) 
+        articleFooterDataSet.hideBookmark = isTab && true
 
         const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns === 1 && 
         articleData.length === index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
-        const articleItemStyle = isTab ? numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? style.evenStyle : style.oddStyle : {} : style.mobileArticleItem
+        // const articleItemStyle = isTab ? numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? style.evenStyle : style.oddStyle : {} : style.mobileArticleItem
+        const articleItemStyle = isTab ? {} : style.mobileArticleItem
         return <ArticleItem {...item} index={index}
             imageStyle={isTab ? style.tabImageStyle : style.mobileImageStyle}
             footerInfo={articleFooterDataSet}
             onPressBookmark={() => onPressBookmark(index)}
-            showDivider={canShowDivider}
+            showDivider={isTab ? showDivider : canShowDivider}
             showFooterTitle={showFooterTitle}
             articleItemStyle={articleItemStyle} 
             titleStyle={isTab ? style.tabTitleStyle : style.titleStyle}
@@ -99,6 +101,7 @@ const ArticleSection = ({
             isAlbum={item.isAlbum}
             mainContainerStyle = {style.mainContainerStyle}
             tabletArticleContainerStyle = {style.tabletArticleContainer}
+            tabBodyLineCount={isTab && 2}
         />
     }
     return (
@@ -111,6 +114,7 @@ const ArticleSection = ({
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
                 numColumns={numColumns}
+                columnWrapperStyle = { isTab && style.tabWrapperStyle}
             />
         </View>
     );
@@ -180,12 +184,13 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         color: theme.footerTextColor
     },
     mainContainerStyle: {
-        flex: 0
+        flex: 0.30
     },
     tabletArticleContainer: {
         paddingBottom: normalize(20),
         overflow: 'hidden',
-        flex: 0
     },
-
+    tabWrapperStyle:{
+        justifyContent:'space-between'
+    },
 })

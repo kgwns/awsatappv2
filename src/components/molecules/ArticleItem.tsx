@@ -17,7 +17,8 @@ export interface ArticleItemProps extends ArticleProps {
     containerStyle?: ViewStyle,
     isJournalist?: boolean,
     mainContainerStyle?: ViewStyle,
-    tabletArticleContainerStyle?: ViewStyle
+    tabletArticleContainerStyle?: ViewStyle,
+    tabBodyLineCount?: number
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({
@@ -32,6 +33,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     isJournalist = false,
     mainContainerStyle,
     tabletArticleContainerStyle,
+    tabBodyLineCount,
     ...props
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -54,7 +56,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
                 <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                         onPressBookmark={onPressBookmark} titleStyle={props.titleStyle} bodyStyle={props.bodyStyle}
-                        displayType={undefined} //DisplayType with display in ImageWithLabel itself
+                        bodyLineCount={tabBodyLineCount} displayType={undefined} //DisplayType with display in ImageWithLabel itself
                     />
                 </View>
             </View>

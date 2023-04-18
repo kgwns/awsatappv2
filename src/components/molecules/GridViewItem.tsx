@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
 import {  Image} from 'src/components/atoms/image/Image';
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
@@ -9,6 +9,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { fonts } from 'src/shared/styles/fonts';
 import { ArticleLabel } from './articleLabel/ArticleLabel';
+import { ArticleFooterProps } from './articleFooter/ArticleFooter';
+import ArticleWithOutImage from './ArticleWithOutImage';
 
 export interface GridViewItemProps {
     imageUrl?: string;
@@ -18,6 +20,13 @@ export interface GridViewItemProps {
     index: number;
     isAlbum: boolean;
     displayType: string;
+    showDivider?: boolean;
+    showFooterTitle?: boolean,
+    titleStyle?: StyleProp<ViewStyle>,
+    containerStyle?: StyleProp<ViewStyle>,
+    footerData?: ArticleFooterProps
+    bodyStyle?: StyleProp<TextStyle>,
+    tabBodyLineCount?:number
 }
 
 export const GridViewItem = ({
@@ -28,6 +37,14 @@ export const GridViewItem = ({
     index,
     isAlbum = false,
     displayType,
+    showDivider,
+    showFooterTitle,
+    titleStyle,
+    containerStyle,
+    footerData,
+    bodyStyle,
+    tabBodyLineCount,
+    ...props
 }: GridViewItemProps) => {
     const style = useThemeAwareObject(customStyle);
     const isOdd = (index + 1) % 2 === 0;
@@ -49,6 +66,16 @@ export const GridViewItem = ({
             {title &&
                 <Label style={style.title} children={title} numberOfLines={3} />
             }
+            {
+            isTab &&  <View>
+                <ArticleWithOutImage isBookmarked={false} showDivider={showDivider} 
+                showFooterTitle={showFooterTitle} {...props}
+                 footerInfo={footerData} bodyStyle={bodyStyle} bodyLineCount={tabBodyLineCount}
+                displayType={undefined} //DisplayType with display in ImageWithLabel itself
+                />
+            </View>
+            }
+            
             <View style={style.dividerContainer} />
         </View>
     );
@@ -74,8 +101,8 @@ const customStyle = (theme: CustomThemeType) => {
             fontFamily: fonts.Effra_Arbc_Regular,
         },
         title: {
-            fontSize: isTab ? 16 : 14,
-            lineHeight: isTab ? 26 : 22,
+            fontSize: isTab ? 18 : 14,
+            lineHeight: isTab ? 29 : 22,
             marginTop: normalize(8),
             color: theme.primaryBlack,
             textAlign: 'left',
