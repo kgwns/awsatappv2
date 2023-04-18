@@ -540,9 +540,9 @@ export const SectionStoryScreen = React.memo(({
           {renderTopArticle()}
         </View>
       </View> 
-      <View style={style.videoContainer}>
-        <VideoContent data={videoListData} onPress={onVideoItemPress} />
-      </View>
+        {isNonEmptyArray(videoListData) && <View style={style.videoContainer}>
+          <VideoContent data={videoListData} onPress={onVideoItemPress} />
+        </View>}
       </>:
         <>
           {renderTopArticle()}
