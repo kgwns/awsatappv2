@@ -18,7 +18,7 @@ import {
 import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer, useAppCommon } from 'src/hooks';
+import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer, useAppCommon, useFetchPodcastData } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -38,7 +38,6 @@ import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints'
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 import MainSectionAuthorSlider from 'src/components/organisms/MainSectionAuthorSlider';
 import { eventParameterProps } from 'src/shared/utils/analytics';
-import { useFetchPodcastData } from 'src/hooks/useFetchPodcastData';
 
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,

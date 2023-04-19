@@ -1,14 +1,13 @@
 import { useEffect, useRef } from "react"
 import { useProgress } from "react-native-track-player";
-import { useSelector } from "react-redux";
-import { getPodcastData } from "src/redux/podcastAnalytics/selectors";
 import { recordLogEvent } from "./analytics";
+import { useFetchPodcastData } from "src/hooks";
 
 export const PodcastAnalyticsManager = () => {
     const progress = useProgress();
-    const podcastData = useSelector(getPodcastData);
-    const { content_title,content_duration,content_type} = podcastData
-    const ref:any = useRef(0);
+    const { podcastData } = useFetchPodcastData();
+    const { content_title,content_duration,content_type} = podcastData;
+    const ref = useRef<number>(0);
 
     const podcastAnalytics = () => {
         const percentageData = Math.floor((progress.position / progress.duration) * 100)
