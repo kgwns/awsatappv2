@@ -16,6 +16,7 @@ import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { PodcastEpisodeModalInfo } from 'src/components/organisms/podcast/PodcastEpisodeModalInfo';
 import { PodcastDetailHeader } from 'src/components/molecules/podcastDetailHeader/PodcastDetailHeader';
+import { useFetchPodcastData } from 'src/hooks/useFetchPodcastData';
 
 export interface PodcastEpisodeModalProps {
     route: any;
@@ -75,6 +76,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const isFocused = useIsFocused();
     const initialRef = useRef(0);
     const playbackState = usePlaybackState();
+    const { fetchPodcastDataAnalytics } = useFetchPodcastData();
 
     const nid = route.params.data.nid
 
@@ -227,6 +229,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 
             }
             !showMiniPlayer && recordLogEvent('podcast_play',eventParameter);
+            fetchPodcastDataAnalytics(eventParameter);
             if ((trackData && trackData.id !== trackPlayerData.id) || trackData == null) {
                 setPlayerTrack(trackPlayerData);
             }

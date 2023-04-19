@@ -38,6 +38,7 @@ import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints'
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 import MainSectionAuthorSlider from 'src/components/organisms/MainSectionAuthorSlider';
 import { eventParameterProps } from 'src/shared/utils/analytics';
+import { useFetchPodcastData } from 'src/hooks/useFetchPodcastData';
 
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
@@ -143,7 +144,7 @@ export const MainSectionScreen = React.memo((
     fetchEditorsChoice, fetchSpotlight, fetchInfoGraphicBlockData, fetchArchivedArticleSection,
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
-  
+  const { fetchPodcastDataAnalytics } = useFetchPodcastData();
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
@@ -611,6 +612,7 @@ export const MainSectionScreen = React.memo((
         content_type: 'podcast' 
       }
       !showMiniPlayer && recordLogEvent('podcast_play',eventParameter);
+      fetchPodcastDataAnalytics(eventParameter);
       !showMiniPlayer && setShowMiniPlayer(true);
       showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }

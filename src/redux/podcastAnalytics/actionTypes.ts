@@ -1,0 +1,1 @@
+export const FETCH_PODCAST_DATA = 'FETCH_PODCAST_DATA'
