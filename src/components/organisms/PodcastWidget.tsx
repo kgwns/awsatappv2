@@ -161,6 +161,10 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )
 
+  const onPressPodcast = () => {
+    onPress(episodeData[0]);
+  }
+
   const renderMobile = (podcastData: any, index: number) => {
     if (!isObjectNonEmpty(podcastData)) {
       return null;
@@ -200,7 +204,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
             style={style.buttonStyle}
             labelStyle={isTab ? style.tabTextStyle : style.buttonLabel}
             titleType={LabelTypeProp.h1}
-            onPress={() => onPress(podcastData)}
+            onPress={() => onPressPodcast()}
             rightIcon={() => playPauseIcon(podcastData)}
             color={Styles.color.white}
           />
