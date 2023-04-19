@@ -35,6 +35,7 @@ import contactUsInfoReducer from 'src/redux/contactUs/reducer';
 import albumListReducer from 'src/redux/photoGallery/reducer';
 import journalistReducer from 'src/redux/journalist/reducer';
 import arabicWordsReducer from 'src/redux/arabicWords/reducer';
+import podcastDataReducer from 'src/redux/podcastAnalytics/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -75,6 +76,7 @@ const rootReducer = combineReducers({
   albumList: albumListReducer,
   journalist: journalistReducer,
   arabicWords:arabicWordsReducer,
+  podcastData: podcastDataReducer
 });
 
 export type AppState = ReturnType<typeof rootReducer>;

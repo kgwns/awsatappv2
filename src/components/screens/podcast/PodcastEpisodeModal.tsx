@@ -7,7 +7,7 @@ import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { normalize, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
+import { useAppPlayer, useBookmark, useLogin, usePodcast, useFetchPodcastData } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
 import { useIsFocused } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
@@ -75,6 +75,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const isFocused = useIsFocused();
     const initialRef = useRef(0);
     const playbackState = usePlaybackState();
+    const { fetchPodcastDataAnalytics } = useFetchPodcastData();
 
     const nid = route.params.data.nid
 
@@ -227,6 +228,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 
             }
             !showMiniPlayer && recordLogEvent('podcast_play',eventParameter);
+            fetchPodcastDataAnalytics(eventParameter);
             if ((trackData && trackData.id !== trackPlayerData.id) || trackData == null) {
                 setPlayerTrack(trackPlayerData);
             }

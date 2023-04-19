@@ -18,7 +18,7 @@ import {
 import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer, useAppCommon } from 'src/hooks';
+import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer, useAppCommon, useFetchPodcastData } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -143,7 +143,7 @@ export const MainSectionScreen = React.memo((
     fetchEditorsChoice, fetchSpotlight, fetchInfoGraphicBlockData, fetchArchivedArticleSection,
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
-  
+  const { fetchPodcastDataAnalytics } = useFetchPodcastData();
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
@@ -618,6 +618,7 @@ export const MainSectionScreen = React.memo((
         content_type: 'podcast' 
       }
       !showMiniPlayer && recordLogEvent('podcast_play',eventParameter);
+      fetchPodcastDataAnalytics(eventParameter);
       !showMiniPlayer && setShowMiniPlayer(true);
       showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
