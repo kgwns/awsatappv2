@@ -111,10 +111,7 @@ const SplashNavigation = () => {
             : <>
                 {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
             </>}
-        
         </>
-     
-
     );
 }
 
