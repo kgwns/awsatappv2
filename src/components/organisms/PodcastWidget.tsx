@@ -96,7 +96,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       color: Styles.color.smokeyGrey,
       labelType: LabelTypeProp.h3,
       clickable: true,
-      textStyle: { fontFamily: fonts.Effra_Arbc_Medium }
+      textStyle: { fontFamily: fonts.Effra_Arbc_Regular }
     },
   };
 
