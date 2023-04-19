@@ -12,7 +12,6 @@ export const PodcastAnalyticsManager = () => {
 
     const podcastAnalytics = () => {
         const percentageData = Math.floor((progress.position / progress.duration) * 100)
-        console.log(percentageData)
         let eventParameter:any = {
             content_title,
             content_duration,
@@ -26,7 +25,6 @@ export const PodcastAnalyticsManager = () => {
             recordLogEvent('podcast_progress', eventParameter);
             ref.current = 10
         } else if((percentageData >= 25) && (ref.current < 25)) {
-            console.log(percentageData,ref.current)
             eventParameter = {
                 ...eventParameter,
                 progress_percentage: 25
