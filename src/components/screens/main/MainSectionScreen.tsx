@@ -169,10 +169,17 @@ export const MainSectionScreen = React.memo((
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(null);
   
-  const topViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(0, 3) : [];
-  const gridViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(2, 3) : [];
-  const topViewSectionDataTwo = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(6, 3) : [];
-  const topViewSectionDataThree = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(9, 2) : [];
+  const topViewCount = isTab ? 3: 2;
+  const gridViewCount = isTab ? 3 : 4;
+  const topViewTwoCount = 3;
+  const topViewThreeCount = 2;
+  const topViewTwoStartIndex = gridViewCount + topViewCount;
+  const topViewThreeStartIndex = topViewTwoCount + gridViewCount + topViewCount;
+
+  const topViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(0, topViewCount) : [];
+  const gridViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(topViewCount, gridViewCount) : [];
+  const topViewSectionDataTwo = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(topViewTwoStartIndex, topViewTwoCount) : [];
+  const topViewSectionDataThree = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(topViewThreeStartIndex, topViewThreeCount) : [];
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
   const [editorsChoiceInfo, setEditorsChoiceInfo] = useState(editorsChoice)
   const videoPayload = {page: 0, items_per_page: 10}

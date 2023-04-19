@@ -28,7 +28,7 @@ const CarouselSlider = ({
                     isAlbum={isTypeAlbum(coverageInfo[0].type)}
                     contentStyle = {isTab && carouselSliderStyle.tabContentStyle}
                     tabTitleContainer = {isTab && carouselSliderStyle.tabTitleContainer}
-                    hideBookmark = {isTab ? true : false}
+                    hideBookmark = {isTab}
                     carouselContainerStyle = {isTab && carouselSliderStyle.carouselContainerStyle}
                 />
             }
