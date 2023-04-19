@@ -178,19 +178,27 @@ export const ArticleDetailBody = React.memo(({
         setDynamicHeight(size.height + 2)
     }
 
-    const storeCopiedTextInAnalytics = (copiedText:string) => {
-        const decodeBody = body && decodeHTMLTags(body);
-        const eventParameter = {
-            copied_text: copiedText,
-            copied_text_length: copiedText.split(' ').length,
-            article_name: title,
-            article_category: 'article',
-            article_author: author,
-            article_length: decodeBody.split(' ').length,
-            article_publish_date: publishedDate,
-            tags: tagTopicsList
+    const storeCopiedTextInAnalytics = (data:string) => {
+        try {
+            const copiedData = JSON.parse(data);
+            const { copiedText, isClipboard } = copiedData;
+            if(isClipboard) {
+                const decodeBody = body && decodeHTMLTags(body);
+                const eventParameter = {
+                    copied_text: copiedText,
+                    copied_text_length: copiedText.split(' ').length,
+                    article_name: title,
+                    article_category: 'article',
+                    article_author: author,
+                    article_length: decodeBody.split(' ').length,
+                    article_publish_date: publishedDate,
+                    tags: tagTopicsList
+                }
+                recordLogEvent('text_copy',eventParameter)
+            }
+        } catch(error) {
+            console.log(error)
         }
-        recordLogEvent('text_copy',eventParameter)
     }
 
     const renderWebView = () => (

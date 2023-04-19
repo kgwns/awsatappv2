@@ -357,7 +357,11 @@ export const articleHtml = ({ body }: { body: string }) => `
       <script>
       document.addEventListener('copy',function(){
         const selectedText = window.getSelection().toString()
-        window.ReactNativeWebView.postMessage(selectedText)
+        const copiedData = {
+            copiedText:selectedText,
+            isClipboard:true
+        }
+        window.ReactNativeWebView.postMessage(JSON.stringify(copiedData))
       });
       </script>
   </body>
