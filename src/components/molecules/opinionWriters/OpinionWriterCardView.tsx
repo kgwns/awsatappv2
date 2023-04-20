@@ -149,7 +149,7 @@ const onPressPlay = () => {
   const renderDivider = () => {
     if(!showDivider) {
       return null
-    };
+    }
 
     return(
       <Divider style={[style.divider, mediaVisibility && { marginTop: normalize(10) }]} />

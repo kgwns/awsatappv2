@@ -2,7 +2,7 @@ import * as React from 'react';
 import {horizontalAndTop, recordLogEvent} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { UIManager, findNodeHandle, PixelRatio, Dimensions, StyleSheet, NativeModules, EventEmitter, NativeEventEmitter } from 'react-native';
+import { UIManager, findNodeHandle, PixelRatio, Dimensions, StyleSheet, NativeModules, NativeEventEmitter } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';

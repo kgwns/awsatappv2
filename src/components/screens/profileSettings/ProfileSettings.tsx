@@ -184,7 +184,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
     }
   };
 
-  const logout = () => {;
+  const logout = () => {
     logoutFromfacebook()
     recordLogEvent('log_out');
     const userId = userProfileData?.user?.id.toString();

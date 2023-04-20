@@ -185,7 +185,7 @@ import SubscribeIconGreen from 'src/assets/images/subscribeIconGreen.svg';
 import ResetIcon from 'src/assets/images/icons/replayIcon.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { colors, DARK_THEME_ID } from './colors'
+import { DARK_THEME_ID } from './colors'
 
 import LiveIcon from 'src/assets/images/icons/liveIcon.svg';
 import BlackDownArrow from 'src/assets/images/icons/blackDownArrow.svg'

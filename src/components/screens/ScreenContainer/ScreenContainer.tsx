@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
+import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
 import {useAppCommon} from '../../../hooks/useAppCommon';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';

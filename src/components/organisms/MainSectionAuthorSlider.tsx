@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
+import React, { useState } from 'react';
 import { FlatList, StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType } from 'src/shared/styles/colors';
 import { AuthorItem } from 'src/components/molecules';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { getImageUrl, isNonEmptyArray, isNotEmpty } from 'src/shared/utils/utilities';
-import { Divider, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
+import { LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { ImagesName } from 'src/shared/styles';
 import { getSvgImages } from 'src/shared/styles/svgImages';

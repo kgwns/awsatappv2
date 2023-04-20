@@ -53,6 +53,13 @@ const VideoPlayerFullScreen = ({
   const [tapActionTimeout, setTapActionTimeout] = useState<any>(null);
   const [showControls, setShowControls] = useState(false);
   const [screenType, setScreenType] = useState('contain');
+  const dataAnalytics = useRef({
+    ten: false,
+    twentyFive: false,
+    fifty: false,
+    seventyFive: false,
+    hundred: false
+  })
 
   const onSeek = (seek: any) => {
     videoPlayer.current?.seek(seek);
@@ -65,32 +72,63 @@ const VideoPlayerFullScreen = ({
   const onProgress = (data: any) => {
     const percentageCalculation = () => {
         {
-          const percentageData =  (Math.floor((data.currentTime / 5) * 100) + '%')
-          if((percentageData === '10%') || (percentageData === '25%')|| (percentageData === '50%')|| (percentageData === '75%')){
-            const logProgressData = {
-              content_title:title,
-              content_duration: duration,
-              progress_percentage:percentageData,
-              content_type: 'video',
-            }
-            recordLogEvent('video_progress',  logProgressData );  
+          const percentageData =  Math.floor((data.currentTime / 5) * 100)
+          const logProgressData = {
+            content_title:title,
+            content_duration: duration,
+            progress_percentage: percentageData + '%',
+            content_type: 'video',
           }
-          else if ((data.currentTime === data.seekTime)) {
-            const logProgressData = {
-              content_title:title,
-              content_duration: duration,
-              progress_percentage:'100%',
-              content_type: 'video',
-            }
-            const logEndData = {
-              content_title:title,
-              content_duration:duration,
-              content_type:'video',
-              is_completed:'1'
-            }
-            recordLogEvent('video_progress',  logProgressData );  
-            recordLogEvent('video_completed',  logEndData );
+        // switch (true) {
+        //   case (percentageData >= 10 && dataAnalytics.current.ten === false):
+        //     recordLogEvent('video_progress', logProgressData);
+        //     dataAnalytics.current.ten = true
+        //     break;
+        //   case ((percentageData >= 25 && dataAnalytics.current.twentyFive === false)):
+        //     recordLogEvent('video_progress', logProgressData);
+        //     dataAnalytics.current.twentyFive = true
+        //     break;
+        //   case ((percentageData >= 50 && dataAnalytics.current.fifty === false)):
+        //     recordLogEvent('video_progress', logProgressData);
+        //     dataAnalytics.current.fifty = true
+        //     break;
+        //   case ((percentageData >= 75 && dataAnalytics.current.seventyFive === false)):
+        //     recordLogEvent('video_progress', logProgressData);
+        //     dataAnalytics.current.seventyFive = true
+        //     break;
+        // }
+        if (percentageData === 10 && dataAnalytics.current.ten === false) {
+          recordLogEvent('video_progress', logProgressData);
+          dataAnalytics.current.ten = true
+        }
+        else if (percentageData === 25 && dataAnalytics.current.twentyFive === false) {
+          recordLogEvent('video_progress', logProgressData);
+          dataAnalytics.current.twentyFive = true
+        }
+        else if (percentageData === 50 && dataAnalytics.current.fifty === false) {
+          recordLogEvent('video_progress', logProgressData);
+          dataAnalytics.current.fifty = true
+        }
+        else if (percentageData === 75 && dataAnalytics.current.seventyFive === false) {
+          recordLogEvent('video_progress', logProgressData);
+          dataAnalytics.current.seventyFive = true
           }
+        else if ((data.currentTime === data.seekTime)) {
+          const logProgressData = {
+            content_title: title,
+            content_duration: duration,
+            progress_percentage: '100%',
+            content_type: 'video',
+          }
+          const logEndData = {
+            content_title: title,
+            content_duration: duration,
+            content_type: 'video',
+            is_completed: '1'
+          }
+          recordLogEvent('video_progress', logProgressData);
+          recordLogEvent('video_completed', logEndData);
+        }
         }      
     }
     percentageCalculation()

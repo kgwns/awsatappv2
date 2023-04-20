@@ -1,4 +1,4 @@
-import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions, TextInput } from 'react-native'
+import { View, FlatList, StyleSheet, BackHandler, Dimensions, StatusBar, useWindowDimensions } from 'react-native'
 import React, { useEffect, useLayoutEffect, useRef, useState, useMemo } from 'react'
 import { ScreenContainer } from '..'
 import { shortArticleWithTagProperties, TranslateConstants, TranslateKey, ScreensConstants } from 'src/constants/Constants'
@@ -39,7 +39,6 @@ import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import ArticleLiveBlog from './components/ArticleLiveBlog'
 import { eventParameterProps } from 'src/shared/utils/analytics'
-import Clipboard from '@react-native-clipboard/clipboard'
 export interface ArticleDetailScreenProps {
   route: any
 }

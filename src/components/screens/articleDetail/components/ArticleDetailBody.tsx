@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { decodeHTMLTags, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, isIOS, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'

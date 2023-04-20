@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ScreenContainer } from '..'
-import { horizontalEdge, isIOS, isNonEmptyArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, normalize } from 'src/shared/utils';
 import { Label } from 'src/components/atoms';
 import { Dimensions, View, StyleSheet, StatusBar } from 'react-native';
 import { Styles } from 'src/shared/styles';

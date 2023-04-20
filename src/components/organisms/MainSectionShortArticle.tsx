@@ -3,7 +3,6 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
-  Dimensions,
 } from 'react-native';
 /*
 ** Horizontal scroll is not working properly By Importing Flatlist using 'react-native' in Android.
@@ -18,14 +17,13 @@ import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
-import { useAppCommon, useLogin, useOrientation } from 'src/hooks';
+import { useLogin, useOrientation } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { HomePageArticleType } from 'src/redux/latestNews/types';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
-import { decode } from 'html-entities';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,

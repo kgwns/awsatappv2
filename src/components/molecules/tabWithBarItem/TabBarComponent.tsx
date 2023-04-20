@@ -1,7 +1,7 @@
 import { ScrollView, StyleProp, StyleSheet, View } from 'react-native'
 import React, { useRef } from 'react'
 import { TabWithBarItem, TabBarDataProps } from '..'
-import { isIOS, normalize, screenWidth } from 'src/shared/utils'
+import { isIOS, normalize } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 
