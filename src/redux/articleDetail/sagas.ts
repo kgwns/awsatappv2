@@ -200,12 +200,10 @@ const getTagTopicsList = (tagTopics: any) => {
   if(isNonEmptyArray(tagTopics)){
     const tag = tagTopics.map((tag:any) => tag.name);
     tagNames = tag.toString();
-    return tagNames;
   } else if(isObjectNonEmpty(tagTopics)){
-    return tagTopics?.name;
-  } else {
-    return '';
-  }
+    tagNames = tagTopics?.name;
+  } 
+  return tagNames;
 }
 
 export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload => {

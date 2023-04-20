@@ -3,14 +3,16 @@ import React from 'react';
 import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
-import { isIOS, isTab, normalize, recordLogEvent } from 'src/shared/utils';
+import { isIOS, isTab, normalize } from 'src/shared/utils';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import Share from 'react-native-share'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
-import { decodeHTMLTags, getShareUrl } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getShareUrl, isNotEmpty } from 'src/shared/utils/utilities';
+import { articleEvents } from 'src/shared/utils/analyticsEvents';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const ArticleDetailFooter = ({
     articleDetailData,
@@ -26,16 +28,8 @@ export const ArticleDetailFooter = ({
     const onPressShare = async () => {
         const { title, link_node, shortUrl,publishedDate,author,tagTopicsList,body } = articleDetailData;
         const decodeBody = decodeHTMLTags(body);
-        const eventParameter = {
-            content_type: 'article',
-            article_name: title,
-            article_category: 'article',
-            article_author: author,
-            article_length: decodeBody.split(' ').length,
-            article_publish_date: publishedDate,
-            tags: tagTopicsList
-        }
-        recordLogEvent('social_share', eventParameter);
+        const eventName = AnalyticsEvents.SOCIAL_SHARE;
+        articleEvents(title, author, publishedDate, decodeBody, tagTopicsList, eventName);
         await Share.open({
             title,
             url: getShareUrl(shortUrl,link_node),

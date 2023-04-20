@@ -1,7 +1,7 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {View, StyleSheet, ViewStyle, Animated,StyleProp} from 'react-native';
 import { ShortArticle, NewsFeed, VideoContent } from '../../organisms';
-import {isTab, normalize, recordLogEvent, screenHeight, screenWidth} from '../../../shared/utils';
+import {articleEventParameter, isTab, normalize, recordLogEvent, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -36,7 +36,7 @@ import { VideoItemType } from 'src/redux/videoList/types';
 import { fetchVideoListApi } from 'src/services/videoListService';
 import { formatVideoData } from 'src/redux/videoList/sagas';
 import { Styles } from 'src/shared/styles';
-import { eventParameterProps } from 'src/shared/utils/analytics';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -322,13 +322,13 @@ export const SectionStoryScreen = React.memo(({
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter:eventParameterProps) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
       isBookmarked ? (
-        recordLogEvent('article_save',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter),
         sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
       ) : (
-        recordLogEvent('article_unsave',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter),
         removeBookmarkedInfo({ nid })
       )
     } else {
@@ -367,11 +367,10 @@ export const SectionStoryScreen = React.memo(({
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus;
     const {title,body,field_publication_date_export} = updatedData[index];
-    const decodeBody = body && decodeHTMLTags(body);
+    const decodeBody = decodeHTMLTags(body);
     const eventParameter = {
-      content_type: 'article',
+      ...articleEventParameter,
       article_name: title,
-      article_category: 'article',
       article_length: decodeBody.split(' ').length,
       article_publish_date: field_publication_date_export
     }

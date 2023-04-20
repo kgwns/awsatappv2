@@ -15,6 +15,7 @@ import { emailValidation } from 'src/shared/validators'
 import { useNavigation } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { FLEX_START } from 'src/shared/styles/item-alignment'
+import { AnalyticsEvents } from 'src/shared/utils/analytics'
 
 export type ContactUsModal = {
     name: string;
@@ -94,7 +95,7 @@ export const ContactUs = () => {
                 return
             }
             Keyboard.dismiss();
-            recordLogEvent('contact_form_submit');
+            recordLogEvent(AnalyticsEvents.CONTACT_FORM_SUBMIT);
             sendContactUsInfo({
                 name: name.trim(),
                 email: email.trim(),

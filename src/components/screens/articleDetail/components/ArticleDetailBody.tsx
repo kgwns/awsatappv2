@@ -1,12 +1,13 @@
 import { StyleSheet, ScrollView, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { decodeHTMLTags, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, EventsValue, isIOS, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
 import AutoHeightWebView, { SizeUpdate } from 'react-native-autoheight-webview'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/Constants'
+import { AnalyticsEvents } from 'src/shared/utils/analytics'
 
 type ArticleDetailBodyProps = {
     body: string;
@@ -183,18 +184,18 @@ export const ArticleDetailBody = React.memo(({
             const copiedData = JSON.parse(data);
             const { copiedText, isClipboard } = copiedData;
             if(isClipboard) {
-                const decodeBody = body && decodeHTMLTags(body);
+                const decodeBody = decodeHTMLTags(body);
                 const eventParameter = {
                     copied_text: copiedText,
                     copied_text_length: copiedText.split(' ').length,
                     article_name: title,
-                    article_category: 'article',
+                    article_category: EventsValue.article,
                     article_author: author,
                     article_length: decodeBody.split(' ').length,
                     article_publish_date: publishedDate,
                     tags: tagTopicsList
                 }
-                recordLogEvent('text_copy',eventParameter)
+                recordLogEvent(AnalyticsEvents.TEXT_COPY,eventParameter)
             }
         } catch(error) {
             console.log(error)

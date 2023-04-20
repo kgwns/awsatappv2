@@ -12,6 +12,7 @@ import { ScreenContainer } from '..';
 import { fonts } from 'src/shared/styles/fonts';
 import  {TranslateConstants,TranslateKey} from '../../../constants/Constants'
 import LinearGradient from 'react-native-linear-gradient';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const ManageMyFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -131,7 +132,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   }
 
   const onPressNext = () => {
-      recordLogEvent('Add_Favorite_Authors',{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
+      recordLogEvent(AnalyticsEvents.ADD_FAVORITE_AUTHORS,{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
       sendSelectedWriterInfo({ tid: joinArray(getSelectedData()), isList: true })
   }
 

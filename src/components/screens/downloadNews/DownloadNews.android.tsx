@@ -2,11 +2,12 @@ import * as React from 'react';
 import {horizontalAndTop, recordLogEvent} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { UIManager, findNodeHandle, PixelRatio, Dimensions, StyleSheet, NativeModules, EventEmitter, NativeEventEmitter } from 'react-native';
+import { UIManager, findNodeHandle, PixelRatio, Dimensions, StyleSheet, NativeModules, NativeEventEmitter } from 'react-native';
 import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 import { getFullDate } from 'src/shared/utils/utilities';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 
 const createFragment = (viewId:number|null) =>{
@@ -49,7 +50,7 @@ export const DownloadNews = () => {
     }
     if(event.downloadStatus === 2) {
       if(downloadStatus.current === 0) {
-        recordLogEvent('today_copy_download',{newspaper_date: createdDate});
+        recordLogEvent(AnalyticsEvents.TODAY_COPY_DOWNLOAD,{newspaper_date: createdDate});
         downloadStatus.current = -1
       }
     }

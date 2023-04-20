@@ -6,7 +6,7 @@ import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabe
 import {isTab, screenWidth, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
 import { Styles } from 'src/shared/styles';
-import {dateTimeAgo, decodeHTMLTags, getArticleImage, isNonEmptyArray, isObjectNonEmpty, TimeIcon} from 'src/shared/utils/utilities';
+import {dateTimeAgo, decodeHTMLTags, getArticleImage, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, TimeIcon} from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useAppPlayer, useBookmark, useLogin } from 'src/hooks';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -15,7 +15,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from '../molecules/populateWidget/PopulateWidget';
-import { eventParameterProps } from 'src/shared/utils/analytics';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 export interface ArticleProps
   extends ImageLabelProps,
@@ -111,12 +111,12 @@ const MostReadList = ({
     });
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter:eventParameterProps) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if(isBookmarked) {
-      recordLogEvent('article_save',eventParameter);
+      recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter);
       sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE });
     } else {
-      recordLogEvent('article_unsave',eventParameter);
+      recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter);
       removeBookmarkedInfo({ nid });
     }
   }

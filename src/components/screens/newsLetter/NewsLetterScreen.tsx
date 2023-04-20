@@ -13,6 +13,7 @@ import { NewsLetterItemType } from 'src/redux/newsLetter/types';
 import { fonts } from 'src/shared/styles/fonts';
 import LinearGradient from 'react-native-linear-gradient';
 import { StepLineCircle } from 'src/components/molecules';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const NewsLetterScreen = ({ navigation, route }: any) => {
 
@@ -211,7 +212,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
       const selectedId = joinArray(getSelectedData());
-      recordUserProperty('personalized_newsletters',selectedId);
+      recordUserProperty(AnalyticsEvents.PERSONALIZED_NEWSLETTERS,selectedId);
       sendSelectedNewsLettersInfo({ tid: joinArray(getSelectedData()) })
     }
   }

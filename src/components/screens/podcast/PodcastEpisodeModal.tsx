@@ -5,17 +5,18 @@ import { PodcastProgramHeader } from 'src/components/molecules/podcast/PodcastPr
 import Share from 'react-native-share';
 import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { normalize, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
+import { normalize, isNonEmptyArray, recordLogEvent, isTab, screenWidth, podcastPlayEventParameter, podcastShareEvents } from 'src/shared/utils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, usePodcast, useFetchPodcastData } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
 import { useIsFocused } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, horizontalEdge, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, horizontalEdge, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { PodcastEpisodeModalInfo } from 'src/components/organisms/podcast/PodcastEpisodeModalInfo';
 import { PodcastDetailHeader } from 'src/components/molecules/podcastDetailHeader/PodcastDetailHeader';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 export interface PodcastEpisodeModalProps {
     route: any;
@@ -136,13 +137,13 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
         setPodcastEpisodeDetailInfo(podcastEpisodeDetail)
     }
 
-    const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter) => {
+    const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter: EventParameterProps) => {
         if (isLoggedIn) {
             isBookmarked ? (
-                recordLogEvent('article_save',eventParameter),
+                recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter),
                 sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST })
             ) : (
-                recordLogEvent('article_unsave',eventParameter),
+                recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter),
                 removeBookmarkedInfo({ nid })
             )
         } else {
@@ -186,14 +187,9 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const podcastEpisodeInfo = podcastEpisodeDetailInfo ? podcastEpisodeDetailInfo[episodeIndex] : podcastEpisodeInitialData
 
     const onPressShare = async () => {
-        const decodeBody = podcastEpisodeInfo.body_export && decodeHTMLTags(podcastEpisodeInfo.body_export);
-        const eventParameter = {
-            content_type: podcastEpisodeInfo.type,
-            article_name: podcastEpisodeInfo.title,
-            article_category: podcastEpisodeInfo.type,
-            article_length: decodeBody?.split(' ').length
-        };
-        recordLogEvent('social_share', eventParameter);
+        const decodeBody = decodeHTMLTags(podcastEpisodeInfo.body_export);
+        const eventName = AnalyticsEvents.SOCIAL_SHARE;
+        podcastShareEvents(podcastEpisodeInfo.type,podcastEpisodeInfo.title,decodeBody,eventName)
         await Share.open({
             title: podcastEpisodeInfo.title,
             url: podcastEpisodeInfo.view_node,
@@ -222,12 +218,11 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
             }
             const eventParameter = {
+                ...podcastPlayEventParameter,
                 content_title: podcastEpisodeInfo.title,
                 content_duration: convertSecondsToHMS(duration),
-                content_type: 'podcast'
-                
             }
-            !showMiniPlayer && recordLogEvent('podcast_play',eventParameter);
+            !showMiniPlayer && recordLogEvent(AnalyticsEvents.PODCAST_PLAY, eventParameter);
             fetchPodcastDataAnalytics(eventParameter);
             if ((trackData && trackData.id !== trackPlayerData.id) || trackData == null) {
                 setPlayerTrack(trackPlayerData);

@@ -13,6 +13,7 @@ import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constant
 import { fonts } from 'src/shared/styles/fonts';
 import { StepLineCircle } from 'src/components/molecules';
 import LinearGradient from 'react-native-linear-gradient';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const FollowFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -89,8 +90,8 @@ export const FollowFavoriteAuthorScreen = () => {
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
       const selectedId = joinArray(getSelectedData());
-      recordUserProperty('personalized_authors',selectedId);
-      recordLogEvent('Add_Favorite_Authors',{userId: userProfileData.user?.id,favoriteIds: joinArray(getSelectedData())});
+      recordUserProperty(AnalyticsEvents.PERSONALIZED_AUTHORS,selectedId);
+      recordLogEvent(AnalyticsEvents.ADD_FAVORITE_AUTHORS,{userId: userProfileData.user?.id,favoriteIds: selectedId});
       sendSelectedWriterInfo({ tid: joinArray(getSelectedData()), isList: true })
     }
   }

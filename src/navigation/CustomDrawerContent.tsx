@@ -43,6 +43,7 @@ import SunIcon from 'src/assets/images/icons/weather/sun.svg'
 import { weatherType } from 'src/components/screens/weatherDetail/WeatherDetailScreen';
 import { openSettings } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -318,25 +319,25 @@ const CustomDrawerContent = () => {
   const openSocialMedia = (type: string) => {
     switch (type) {
       case SocialMediaType.facebook:
-        recordLogEvent('Pressed_on_social_media_extensions', { socialMedia: SocialMediaType.facebook });
+        recordLogEvent(AnalyticsEvents.PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS, { socialMedia: SocialMediaType.facebook });
         Linking.openURL(FACEBOOK_APP_URL).catch(() => {
           Linking.openURL(FACEBOOK_URL)
         });
         return;
       case SocialMediaType.instagram:
-        recordLogEvent('Pressed_on_social_media_extensions', { socialMedia: SocialMediaType.instagram });
+        recordLogEvent(AnalyticsEvents.PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS, { socialMedia: SocialMediaType.instagram });
         Linking.openURL(INSTAGRAM_APP_URL).catch(() => {
           Linking.openURL(INSTAGRAM_URL)
         });
         return;
       case SocialMediaType.linkedIn:
-        recordLogEvent('Pressed_on_social_media_extensions', { socialMedia: SocialMediaType.linkedIn });
+        recordLogEvent(AnalyticsEvents.PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS, { socialMedia: SocialMediaType.linkedIn });
         Linking.openURL(LINKEDIN_APP_URL).catch(() => {
           Linking.openURL(LINKEDIN_URL)
         });
         return;
       case SocialMediaType.twitter:
-        recordLogEvent('Pressed_on_social_media_extensions', { socialMedia: SocialMediaType.twitter });
+        recordLogEvent(AnalyticsEvents.PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS, { socialMedia: SocialMediaType.twitter });
         Linking.openURL(TWITTER_APP_URL).catch(() => {
           Linking.openURL(TWITTER_URL)
         });

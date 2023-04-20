@@ -20,6 +20,7 @@ import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constant
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
@@ -142,14 +143,14 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       first_name: fullName.givenName,
       last_name: fullName.familyName,
     };
-    recordLogSignUp({method: 'apple'});
+    recordLogSignUp({method: payload.provider});
     createUserRequest(payload);
   };
 
   //-------end AppleSignin--
 
   const buttonPressAction = (type: string) => {
-    recordLogEvent('Login');
+    recordLogEvent(AnalyticsEvents.LOGIN);
     recordLogLogin({method: type});
     switch (type) {
       case NavigateTypes.google:

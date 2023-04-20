@@ -14,6 +14,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import LinearGradient from 'react-native-linear-gradient';
 import { decode } from 'html-entities';
 import { StepLineCircle } from 'src/components/molecules';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const SelectTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
@@ -85,8 +86,8 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const onPressNext = () => {
     if (isNonEmptyArray(getSelectedData())) {
       const selectedId = joinArray(getSelectedData());
-      recordUserProperty('personalized_sections',selectedId);
-      recordLogEvent('Add_Interests_Topic',{userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
+      recordUserProperty(AnalyticsEvents.PERSONALIZED_SECTIONS, selectedId);
+      recordLogEvent(AnalyticsEvents.ADD_INTERESTS_TOPICS, {userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
       sendSelectedTopicInfo({ tid: joinArray(getSelectedData()) })
     }
   }
