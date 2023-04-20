@@ -276,6 +276,7 @@ enum TranslateKey {
   TABLET_OPINION_SLIDER_LEFT_HEADER,
   TABLET_POPUP_BUTTON_TEXT,
   TABLET_SEARCH_PLACEHOLDER,
+  PRIVACY_POLICY,
   default
 }
 
@@ -782,6 +783,8 @@ const TranslateConstants = ({
             return arabic?.articleDetail?.dateSeparator;
         case TranslateKey.TABLET_SEARCH_PLACEHOLDER:
             return arabic?.searchScreen?.tabPlaceholder;
+        case TranslateKey.PRIVACY_POLICY:
+            return arabic?.drawer?.privacyPolicy;
         default: return ''
     }
 }
