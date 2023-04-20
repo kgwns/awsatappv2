@@ -132,13 +132,13 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ? (
-        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE,eventParameter),
-        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST }) 
-      ): (
-        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE,eventParameter),
+      if (isBookmarked) {
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST })
+      } else {
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
         removeBookmarkedInfo({ nid })
-      )
+      }
     } else {
       setShowPopUp(true)
     }

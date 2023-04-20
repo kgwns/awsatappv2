@@ -410,13 +410,13 @@ export const ArticleDetailScreen = ({
 
   const onUpdateBookMark = (nid: string, hasBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
-      hasBookmarked ? (
-        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE,eventParameter),
+      if (hasBookmarked) {
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
         sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
-      ) : (
-        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE,eventParameter),
+      } else {
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
         removeBookmarkedInfo({ nid })
-      );
+      }
     } else {
       setShowPopUp(true)
     }
