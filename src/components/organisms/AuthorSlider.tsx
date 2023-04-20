@@ -50,7 +50,9 @@ const AuthorSlider = ({
   const [activeIndex, setActiveIndex] = useState<any>(isIOS ? 0 : data.length - 1);
 
   const renderSepartor = () => {
-    if(isTab) return null;
+    if (isTab) {
+      return null
+    };
     return(
       <Divider style={style.divider} />
     )
