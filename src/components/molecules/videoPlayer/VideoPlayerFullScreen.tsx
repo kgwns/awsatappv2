@@ -66,7 +66,7 @@ const VideoPlayerFullScreen = ({
   const onProgress = (data: any) => {
     const percentageCalculation = () => {
         {
-          const percentageData =  (Math.floor((data.currentTime / 5) * 100) + '%')
+          const percentageData =  (Math.floor((data?.currentTime / 5) * 100) + '%')
           if((percentageData === '10%') || (percentageData === '25%')|| (percentageData === '50%')|| (percentageData === '75%')){
             const logProgressData = {
               content_title:title,
@@ -76,7 +76,7 @@ const VideoPlayerFullScreen = ({
             }
             recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, logProgressData );  
           }
-          else if ((data.currentTime === data.seekTime)) {
+          else if ((data?.currentTime === data?.seekTime)) {
             const logEndData = {
               content_title:title,
               content_duration:duration,

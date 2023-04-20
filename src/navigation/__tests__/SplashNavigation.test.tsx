@@ -157,6 +157,18 @@ jest.mock("src/hooks/useEmailCheck", () => ({
   },
 }));
 
+jest.mock("src/hooks/useFetchPodcastData", () => ({
+  useFetchPodcastData: () => {
+    return {
+      podcastData: {
+        content_title: '',
+        content_duration: '',
+        content_type: ''
+      }
+    }
+  },
+}));
+
 describe('<SplashNavigation>', () => {
   let instance: RenderAPI;
   const dispatchMock = jest.fn();

@@ -222,7 +222,7 @@ export const ArticleDetailBody = React.memo(({
             allowsFullscreenVideo={true}
             scrollEnabled={false}
             onSizeUpdated={onSizeUpdated}
-            onMessage={(event) => storeCopiedTextInAnalytics(event.nativeEvent.data)}
+            onMessage={(event) => storeCopiedTextInAnalytics(event.nativeEvent?.data)}
         />
     )
 

@@ -286,8 +286,10 @@ describe('<PodcastEpisodeModal >', () => {
     it('Should render PodcastEpisode in tab', () => {
       DeviceTypeUtilsMock.isTab = true;
       expect(instance).toBeDefined();
+      DeviceTypeUtilsMock.isTab = false;
     });
     it('when onPressSave is pressed from PodcastHeader', () => {
+      DeviceTypeUtilsMock.isTab = false;
       const testID = instance.container.findByType(PodcastProgramHeader);
       fireEvent(testID, 'onPressSave');
       expect(mockFunction).toBeTruthy();

@@ -128,7 +128,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
              <LoadingState />
           </View>
         :
-          <View style={styles.containerStyle}>
+          <View style={styles.containerStyle} testID={'searchResultsListID'}>
             { isNonEmptyArray(data) ? data.map((item,index) => {
                 return renderItem(item,index);
               }) :

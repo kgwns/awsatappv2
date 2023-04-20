@@ -115,7 +115,7 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
-        const userId = registerUserInfo?.user?.id.toString();
+        const userId = registerUserInfo?.user?.id?.toString();
         recordUserId(userId);
         emptySearchHistory();
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));

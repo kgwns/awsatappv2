@@ -173,7 +173,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
         getBookmarkedId();
         AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN);
         fetchProfileDataRequest();
-        const userId = loginData.user.id.toString();
+        const userId = loginData.user?.id.toString();
         recordUserId(userId);      
         navigation.reset({
           index: 0,

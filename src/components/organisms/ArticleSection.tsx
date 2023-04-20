@@ -107,7 +107,7 @@ const ArticleSection = ({
     }
     return (
         <View style={[style.container, addStyle]}>
-            <FlatList
+            {numColumns == 1 ? <FlatList
                 keyExtractor={(_,index) => index.toString()}
                 listKey={listKey ? listKey : flatListUniqueKey.ARTICLE_SECTION}
                 style={style.listContainer}
@@ -115,8 +115,16 @@ const ArticleSection = ({
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
                 numColumns={numColumns}
-                columnWrapperStyle = { isTab && style.tabWrapperStyle}
-            />
+            /> : <FlatList
+                keyExtractor={(_,index) => index.toString()}
+                listKey={listKey ? listKey : flatListUniqueKey.ARTICLE_SECTION}
+                style={style.listContainer}
+                data={articleData}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item, index }) => renderItem(item, index)}
+                numColumns={numColumns}
+                columnWrapperStyle = {style.tabWrapperStyle}
+            />}
         </View>
     );
 };

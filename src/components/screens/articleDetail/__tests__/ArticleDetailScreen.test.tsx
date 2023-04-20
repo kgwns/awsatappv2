@@ -268,7 +268,8 @@ describe('<< With Valid Article Detail >>', () => {
 
   test('Should call FlatList onViewableItemsChanged', () => {
     const element = instance.container.findByType(FlatList)
-    fireEvent(element, 'onViewableItemsChanged', { changed: [{ index: 0 }] });
+    const item = {title: '',author: '',publishedDate: '',tagTopicsList: [],body: ''}
+    fireEvent(element, 'onViewableItemsChanged', { changed: [{ index: 0, item }] });
   });
 
   test('Test ArticleDetailWidget setMiniPlayerVisible', () => {
