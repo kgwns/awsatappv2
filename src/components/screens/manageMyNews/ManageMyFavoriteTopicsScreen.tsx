@@ -12,6 +12,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { TranslateConstants, TranslateKey, flatListUniqueKey } from '../../../constants/Constants';
 import { decode } from 'html-entities';
 import LinearGradient from 'react-native-linear-gradient';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
@@ -97,7 +98,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   };
 
   const onPressNext = () => {
-      recordLogEvent('Add_Interests_Topic',{userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
+      recordLogEvent(AnalyticsEvents.ADD_INTERESTS_TOPICS,{userId: userProfileData.user?.id,interestsIds: joinArray(getSelectedData())});
       sendSelectedTopicInfo({ tid: joinArray(getSelectedData()) })
   }
 

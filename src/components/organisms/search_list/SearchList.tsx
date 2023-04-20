@@ -20,6 +20,7 @@ import { decode } from 'html-entities';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 import { Styles } from 'src/shared/styles';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export interface SearchResultsProps {
   id: string;
@@ -58,7 +59,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   };
 
   const onSubmit = () => {
-    recordLogEvent('search', {query: searchText, results_length: data.length});
+    recordLogEvent(AnalyticsEvents.SEARCH, {query: searchText, results_length: data.length});
   }
 
   const renderItem = (item:SearchItemType,index:number) => {
@@ -127,7 +128,7 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
              <LoadingState />
           </View>
         :
-          <View style={styles.containerStyle}>
+          <View style={styles.containerStyle} testID={'searchResultsListID'}>
             { isNonEmptyArray(data) ? data.map((item,index) => {
                 return renderItem(item,index);
               }) :

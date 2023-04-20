@@ -102,7 +102,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     updatedData[index].isBookmarked = bookmarkStatus
     setArticleData(updatedData);
     const {title,body,author,type,} = updatedData[index];
-    const decodeBody = body && decodeHTMLTags(body);
+    const decodeBody = decodeHTMLTags(body);
     const eventParameter = {
       content_type: type,
       article_name: title,

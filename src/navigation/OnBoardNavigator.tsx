@@ -18,6 +18,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { fonts } from 'src/shared/styles/fonts';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import BackIcon from 'src/assets/images/icons/back_icon.svg';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 const Stack = createStackNavigator<ScreenList>();
 
@@ -58,15 +59,15 @@ const OnBoardNavigator = () => {
             navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN);
             return;
           case ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN:
-            recordLogEvent('registration_skip_click',{step_name: 'personalized_sections'});
+            recordLogEvent(AnalyticsEvents.REGISTRATION_SKIP_CLICK, {step_name: AnalyticsEvents.PERSONALIZED_SECTIONS});
             navigation.navigate(ScreensConstants.FOLLOW_FAVORITE_AUTHOR_SCREEN);
             return;
           case ScreensConstants.NEWS_LETTER_SCREEN:
-            recordLogEvent('registration_skip_click',{step_name: 'personalized_authors'});
+            recordLogEvent(AnalyticsEvents.REGISTRATION_SKIP_CLICK,{step_name: AnalyticsEvents.PERSONALIZED_AUTHORS});
             navigation.navigate(ScreensConstants.NEWS_LETTER_SCREEN);
             return;
           case ScreensConstants.SUCCESS_SCREEN:
-            recordLogEvent('registration_skip_click',{step_name: 'personalized_newsletters'});
+            recordLogEvent(AnalyticsEvents.REGISTRATION_SKIP_CLICK,{step_name: AnalyticsEvents.PERSONALIZED_NEWSLETTERS});
             navigation.navigate(ScreensConstants.SUCCESS_SCREEN);
             return;
           case ScreensConstants.AppNavigator:

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem, Animated, ActivityIndicator} from 'react-native';
 
 import {VideoItem} from 'src/components/molecules';
-import {decodeHTMLTags, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent} from 'src/shared/utils';
+import {decodeHTMLTags, EventsValue, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent} from 'src/shared/utils';
 import {useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants/Constants';
@@ -14,6 +14,7 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -93,24 +94,24 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus;
     const { title,body_export } = updatedData[index];
-    const decodeBody = body_export && decodeHTMLTags(body_export);
+    const decodeBody = decodeHTMLTags(body_export);
     const eventParameter = {
-      content_type: 'video',
-      article_title: title,
-      article_category: 'video',
+      content_type: EventsValue.video,
+      article_name: title,
+      article_category: EventsValue.video,
       article_length: decodeBody?.split(' ').length
     }
     updateBookmarkInfo(updatedData[index].nid, bookmarkStatus, eventParameter)
     return updatedData
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
       isBookmarked ? (
-        recordLogEvent('article_save',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE,eventParameter),
         sendBookmarkInfo({ nid, bundle: PopulateWidgetType.VIDEO })
       ) : (
-        recordLogEvent('article_unsave',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE,eventParameter),
         removeBookmarkedInfo({ nid })
       )
     } else {

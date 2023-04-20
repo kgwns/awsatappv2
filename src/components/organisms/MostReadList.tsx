@@ -15,7 +15,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from '../molecules/populateWidget/PopulateWidget';
-import { eventParameterProps } from 'src/shared/utils/analytics';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 export interface ArticleProps
   extends ImageLabelProps,
@@ -111,12 +111,12 @@ const MostReadList = ({
     });
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter:eventParameterProps) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if(isBookmarked) {
-      recordLogEvent('article_save',eventParameter);
+      recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter);
       sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE });
     } else {
-      recordLogEvent('article_unsave',eventParameter);
+      recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter);
       removeBookmarkedInfo({ nid });
     }
   }

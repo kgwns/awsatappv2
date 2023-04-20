@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, FlatList, Modal, StyleSheet, View } from 'react-native';
 import { PodcastEpisodeModal, ScreenContainer } from '..';
 import { PodcastProgramInfo, PodcastEpisodeList } from 'src/components/organisms';
-import { decodeHTMLTags, horizontalEdge, isIOS, isNonEmptyArray, isTab, recordLogEvent, screenHeight } from 'src/shared/utils';
+import { decodeHTMLTags, horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isTab, recordLogEvent, screenHeight } from 'src/shared/utils';
 import { useBookmark, usePodcast, useAppPlayer, useLogin } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -77,13 +78,13 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
   const [podcastEpisodeListInfo, setPodcastEpisodeListInfo] = useState<PodcastListItemType[]>(podcastListData)
 
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
       isBookmarked ? (
-        recordLogEvent('article_save',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter),
         sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST })
       ) : (
-        recordLogEvent('article_unsave',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter),
         removeBookmarkedInfo({ nid })
       )
     } else {

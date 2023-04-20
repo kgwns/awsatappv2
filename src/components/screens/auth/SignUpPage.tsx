@@ -35,6 +35,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 export interface SignUpPageProps {
   route: any;
 }
@@ -122,7 +123,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
     if (message) {
       if (message.code === 200) {
         emptySearchHistory();
-        recordLogEvent('Completed_registration');
+        recordLogEvent(AnalyticsEvents.COMPLETED_REGISTRATION);
         const userId =  registerUserInfo?.user?.id.toString();
         recordUserId(userId);
         dispatch(fetchLoginSuccess({loginData: registerUserInfo}));
@@ -165,7 +166,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
         device_name: deviceName,
       };
       Keyboard.dismiss();
-      recordLogSignUp({method: 'email'})
+      recordLogSignUp({method: AnalyticsEvents.EMAIL})
       createUserRequest(payload);
     }
   };

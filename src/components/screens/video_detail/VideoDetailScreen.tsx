@@ -6,7 +6,7 @@ import Share from 'react-native-share';
 import {VideosList, VideoInfo} from 'src/components/organisms';
 import {CustomThemeType,colors} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty, isNotEmpty, recordLogEvent } from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isNonEmptyArray, isObjectNonEmpty, isNotEmpty, videoEvents } from 'src/shared/utils';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, useVideoList } from 'src/hooks';
 import { RequestVideoUrlSuccessResponse, VideoItemType } from 'src/redux/videoList/types';
@@ -18,6 +18,7 @@ import { fetchVideoDetailInfo } from 'src/services/VideoServices';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { getVideoDetail } from 'src/services/videoDetailService';
 import { decodeHTMLTags, getShareUrl } from 'src/shared/utils/utilities';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
  
 export interface VideoDetailScreenProps {
   route: any
@@ -130,14 +131,10 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     }
     const videoDetailData = detailData[0];
     const { title, field_shorturl_export, link_node, body_export } = videoDetailData;
-    const decodeBody = body_export && decodeHTMLTags(body_export);
-    const eventParameter = {
-      content_type: 'video',
-      article_name: title,
-      article_category: 'video',
-      article_length: decodeBody?.split(' ').length
-    };
-    recordLogEvent('social_share', eventParameter);
+    const decodeBody = decodeHTMLTags(body_export);
+    const bodyLength =  decodeBody.split(' ').length;
+    const eventName = AnalyticsEvents.SOCIAL_SHARE;
+    videoEvents(title,bodyLength,eventName);
     await Share.open({
         title,
         url: getShareUrl(field_shorturl_export!, link_node!),

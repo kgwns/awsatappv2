@@ -99,11 +99,6 @@ describe('<SearchList>', () => {
       fireEvent(searchBarId, 'onSubmitSearch');
       expect(recordLogEvent).toBeTruthy();
     });
-    test('Should call FlatList ListEmptyComponent', () => {
-      const element = instance.container.findAllByType(FlatList)[0];
-      fireEvent(element, 'ListEmptyComponent');
-      expect(mockFunction).toBeTruthy()
-  });
   });
 });
 

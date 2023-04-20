@@ -23,6 +23,7 @@ import {images, ImagesName} from 'src/shared/styles/images';
 import {NativeViewGestureHandler} from 'react-native-gesture-handler';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export interface VideoPlayerFullScreenProp {
   url: string;
@@ -72,63 +73,25 @@ const VideoPlayerFullScreen = ({
   const onProgress = (data: any) => {
     const percentageCalculation = () => {
         {
-          const percentageData =  Math.floor((data.currentTime / 5) * 100)
-          const logProgressData = {
-            content_title:title,
-            content_duration: duration,
-            progress_percentage: percentageData + '%',
-            content_type: 'video',
+          const percentageData =  (Math.floor((data?.currentTime / 5) * 100) + '%')
+          if((percentageData === '10%') || (percentageData === '25%')|| (percentageData === '50%')|| (percentageData === '75%')){
+            const logProgressData = {
+              content_title:title,
+              content_duration: duration,
+              progress_percentage:percentageData,
+              content_type: 'video',
+            }
+            recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, logProgressData );  
           }
-        // switch (true) {
-        //   case (percentageData >= 10 && dataAnalytics.current.ten === false):
-        //     recordLogEvent('video_progress', logProgressData);
-        //     dataAnalytics.current.ten = true
-        //     break;
-        //   case ((percentageData >= 25 && dataAnalytics.current.twentyFive === false)):
-        //     recordLogEvent('video_progress', logProgressData);
-        //     dataAnalytics.current.twentyFive = true
-        //     break;
-        //   case ((percentageData >= 50 && dataAnalytics.current.fifty === false)):
-        //     recordLogEvent('video_progress', logProgressData);
-        //     dataAnalytics.current.fifty = true
-        //     break;
-        //   case ((percentageData >= 75 && dataAnalytics.current.seventyFive === false)):
-        //     recordLogEvent('video_progress', logProgressData);
-        //     dataAnalytics.current.seventyFive = true
-        //     break;
-        // }
-        if (percentageData === 10 && dataAnalytics.current.ten === false) {
-          recordLogEvent('video_progress', logProgressData);
-          dataAnalytics.current.ten = true
-        }
-        else if (percentageData === 25 && dataAnalytics.current.twentyFive === false) {
-          recordLogEvent('video_progress', logProgressData);
-          dataAnalytics.current.twentyFive = true
-        }
-        else if (percentageData === 50 && dataAnalytics.current.fifty === false) {
-          recordLogEvent('video_progress', logProgressData);
-          dataAnalytics.current.fifty = true
-        }
-        else if (percentageData === 75 && dataAnalytics.current.seventyFive === false) {
-          recordLogEvent('video_progress', logProgressData);
-          dataAnalytics.current.seventyFive = true
+          else if ((data?.currentTime === data?.seekTime)) {
+            const logEndData = {
+              content_title:title,
+              content_duration:duration,
+              content_type:'video',
+              is_completed:'1'
+            }
+            recordLogEvent(AnalyticsEvents.VIDEO_COMPLETED, logEndData );
           }
-        else if ((data.currentTime === data.seekTime)) {
-          const logProgressData = {
-            content_title: title,
-            content_duration: duration,
-            progress_percentage: '100%',
-            content_type: 'video',
-          }
-          const logEndData = {
-            content_title: title,
-            content_duration: duration,
-            content_type: 'video',
-            is_completed: '1'
-          }
-          recordLogEvent('video_progress', logProgressData);
-          recordLogEvent('video_completed', logEndData);
-        }
         }      
     }
     percentageCalculation()
@@ -149,7 +112,7 @@ const VideoPlayerFullScreen = ({
       content_duration:duration,
       content_type:'video',
     }
-    recordLogEvent('video_start',  logStartData );
+    recordLogEvent(AnalyticsEvents.VIDEO_START, logStartData );
     setIsLoading(true)
   };
 

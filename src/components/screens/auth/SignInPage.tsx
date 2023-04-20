@@ -41,6 +41,7 @@ import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveTok
 import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
 import { RegisterBodyType } from 'src/redux/register/types';
 import { getDeviceName as getDeviceType } from 'src/shared/utils/utilities';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const onSuccessSocialLogin = async (
   userInfo: any,
@@ -172,7 +173,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
         getBookmarkedId();
         AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN);
         fetchProfileDataRequest();
-        const userId = loginData.user.id.toString();
+        const userId = loginData.user?.id.toString();
         recordUserId(userId);      
         navigation.reset({
           index: 0,
@@ -291,8 +292,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const onPressSignIn = () => {
     setPasswordError(emptyPasswordValidation(password));
 
-    recordLogEvent('Login');
-    recordLogLogin({method: 'email'})
+    recordLogEvent(AnalyticsEvents.LOGIN);
+    recordLogLogin({method: AnalyticsEvents.EMAIL})
 
     const payload: FetchLoginPayloadType = {
       email,

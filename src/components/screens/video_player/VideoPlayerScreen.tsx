@@ -10,6 +10,7 @@ import { isNonEmptyArray, isObjectNonEmpty, recordLogEvent, screenHeight } from 
 import TrackPlayer from 'react-native-track-player';
 import { useAppPlayer } from 'src/hooks';
 import { colors } from 'src/shared/styles/colors';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export interface VideoPlayerScreenProps {
   route: any
@@ -30,7 +31,7 @@ export const VideoPlayerScreen = ({route}: VideoPlayerScreenProps) => {
 
   useEffect(() => {
     if(nid) {
-      recordLogEvent('Played_Specific_Video', {videoid: nid});
+      recordLogEvent(AnalyticsEvents.PLAYED_SPECIFIC_VIDEO, {videoid: nid});
     }
     getVideoUrlInfo()
     stopTrackPlayer()

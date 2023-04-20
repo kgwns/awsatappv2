@@ -84,9 +84,13 @@ jest.mock("src/hooks/useVideoList", () => ({
     useVideoList: () => {
       return {
         isLoading: false,
+        isVideoLoading: false,
         videoData: videoData,
         videoError: 'error',
         fetchVideoRequest: () => {
+          return []
+        },
+        fetchVideoWithPagination: () => {
           return []
         },
       }

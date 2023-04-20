@@ -5,7 +5,7 @@ import { shortArticleWithTagProperties, TranslateConstants, TranslateKey, Screen
 import { ArticleDetailFooter, VideoPlayerControl, DetailHeader, DetailHeaderTablet } from 'src/components/molecules'
 import { Divider, HeaderElementProps, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { Styles } from 'src/shared/styles'
-import { decodeHTMLTags, horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { articleEventParameter, articleEvents, decodeHTMLTags, horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
 import { ArticleDetailDataType, ArticleReadAlsoType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
@@ -38,7 +38,7 @@ import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetai
 import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import ArticleLiveBlog from './components/ArticleLiveBlog'
-import { eventParameterProps } from 'src/shared/utils/analytics'
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics'
 export interface ArticleDetailScreenProps {
   route: any
 }
@@ -110,7 +110,7 @@ export const ArticleDetailScreen = ({
   }, [])
 
   const getArticleDetail = async () => {
-    recordLogEvent('Article_Details_Screen', { articleId: currentNId });
+    recordLogEvent(AnalyticsEvents.ARTICLE_DETAIL_SCREEN, { articleId: currentNId });
     try {
       const response = await requestArticleDetail({ nid: parseInt(currentNId) })
       const result = parseArticleDetailSuccess(response)
@@ -373,7 +373,7 @@ export const ArticleDetailScreen = ({
     if (nidProps && nidProps!==currentNId) {
       stopVideoPlayer(true);
       const hasHTMLContent = isNonEmptyArray(articleDetailState) && isNonEmptyArray(articleDetailState[0].richHTML)
-      recordLogEvent('Pressed_On_Related_Article', {relatedArticleId: nidProps});
+      recordLogEvent(AnalyticsEvents.PRESSED_ON_RELATED_ARTICLE, {relatedArticleId: nidProps});
       navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nidProps, isRelatedArticle: true, hasHTMLContent })
     }
   }
@@ -386,9 +386,8 @@ export const ArticleDetailScreen = ({
     const {title,author,publishedDate, body,tagTopicsList} = data[bookmarkIndex];
     const decodeBody = decodeHTMLTags(body);
     const eventParameter = {
-      content_type: 'article',
+      ...articleEventParameter,
       article_name: title,
-      article_category: 'article',
       article_author: author,
       article_publish_date: publishedDate,
       tags: tagTopicsList,
@@ -400,16 +399,8 @@ export const ArticleDetailScreen = ({
   const onPressFontChange = () => {
     const { title,author,publishedDate,body, tagTopicsList} = articleDetailState[bookmarkIndex];
     const decodeBody = decodeHTMLTags(body);
-    const eventParameter = {
-      content_type: 'article',
-      article_name: title,
-      article_category: 'article',
-      article_author: author,
-      article_publish_date: publishedDate,
-      tags: tagTopicsList,
-      article_length: decodeBody.split(' ').length
-  }
-    recordLogEvent('font_change',eventParameter)
+    const eventName = AnalyticsEvents.FONT_CHANGE;
+    articleEvents(title, author, publishedDate, decodeBody, tagTopicsList, eventName);
     storeArticleFontSizeInfo()
   }
 
@@ -417,13 +408,13 @@ export const ArticleDetailScreen = ({
     isLoggedIn ? onPressSave(nid) : setShowPopUp(true)
   }
 
-  const onUpdateBookMark = (nid: string, hasBookmarked: boolean,eventParameter: eventParameterProps) => {
+  const onUpdateBookMark = (nid: string, hasBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
       hasBookmarked ? (
-        recordLogEvent('article_save',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE,eventParameter),
         sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
       ) : (
-        recordLogEvent('article_unsave',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE,eventParameter),
         removeBookmarkedInfo({ nid })
       );
     } else {
@@ -611,16 +602,8 @@ export const ArticleDetailScreen = ({
   const onViewableItemRef = useRef((viewableItems: any) => {
     const {title,author,publishedDate,tagTopicsList,body} = viewableItems.changed[0].item;
     const decodeBody = decodeHTMLTags(body);
-    const eventParameter = {
-      content_type: 'article',
-      article_name: title,
-      article_category: 'article',
-      article_author: author,
-      article_publish_date: publishedDate,
-      tags: tagTopicsList,
-      article_length: decodeBody.split(' ').length
-    }
-    recordLogEvent('dynamic_article_load',eventParameter);
+    const eventName = AnalyticsEvents.DYNAMIC_ARTICLE_LOAD;
+    articleEvents(title, author, publishedDate, decodeBody, tagTopicsList, eventName);
     if(viewableItems.changed.length === 2) {
       const {title: viewedTitle, 
         author: viewedAuthor,
@@ -629,16 +612,8 @@ export const ArticleDetailScreen = ({
         body: viewedBody
       } = viewableItems.changed[1].item;
       const decodeBody = decodeHTMLTags(viewedBody);
-      const viewedEventParameter = {
-        content_type: 'article',
-        article_name: viewedTitle,
-        article_category: 'article',
-        article_author: viewedAuthor,
-        article_publish_date: viewedPublishedDate,
-        tags: viewedTagTopicsList,
-        viewedBody: decodeBody.split(' ').length
-      }
-      recordLogEvent('article_completed', viewedEventParameter);
+      const eventName = AnalyticsEvents.ARTICLE_COMPLETED;
+      articleEvents(viewedTitle, viewedAuthor, viewedPublishedDate, decodeBody, viewedTagTopicsList, eventName);
     } 
     setBookmarkIndex(viewableItems.changed[0].index)
   })
@@ -648,16 +623,8 @@ export const ArticleDetailScreen = ({
     if(articleDetailState && articleDetailState.length === 1 && isArticleSectionLoaded) {
       const { author, title, publishedDate, tagTopicsList,body} = articleDetailState[0];
       const decodeBody = decodeHTMLTags(body);
-      const eventParameter = {
-        content_type: 'article',
-        article_name: title,
-        article_category: 'article',
-        article_author: author,
-        article_publish_date: publishedDate,
-        tags: tagTopicsList,
-        article_length: decodeBody.split(' ').length
-      }
-      recordLogEvent('article_completed', eventParameter);
+      const eventName = AnalyticsEvents.ARTICLE_COMPLETED;
+      articleEvents(title, author, publishedDate, decodeBody, tagTopicsList, eventName);
     }
   }
 

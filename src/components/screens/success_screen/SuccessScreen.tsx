@@ -17,6 +17,7 @@ import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAn
 import { useAllWriters, useNewsLetters, useOrientation } from 'src/hooks';
 import { fonts } from 'src/shared/styles/fonts';
 import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const SuccessScreen: FunctionComponent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -59,7 +60,7 @@ export const SuccessScreen: FunctionComponent = () => {
           <ButtonOnboard
             title={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_GO_TO_HOME})}
             onPress={() => {
-              recordLogEvent('Completed_Onboarding');
+              recordLogEvent(AnalyticsEvents.COMPLETED_ONBOARDING);
               dispatch(onBoardingSuccess());
               navigation.reset({
                 index: 0,
@@ -72,7 +73,7 @@ export const SuccessScreen: FunctionComponent = () => {
           <ButtonOnboard
             title={TranslateConstants({key: TranslateKey.ONBOARD_SUCCESS_GO_TO_MY_NEWS})}
             onPress={() => {
-              recordLogEvent('Completed_Onboarding');
+              recordLogEvent(AnalyticsEvents.COMPLETED_ONBOARDING);
               dispatch(onBoardingSuccess());
               navigation.reset({
                 index: 0,

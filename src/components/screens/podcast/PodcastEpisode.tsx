@@ -6,7 +6,7 @@ import Share from 'react-native-share';
 import { PodcastEpisodeContent, PodcastEpisodeInfo } from 'src/components/organisms';
 import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
+import { normalize, horizontalAndBottomEdge, isIOS, isNonEmptyArray, recordLogEvent, isTab, screenWidth, podcastShareEvents, EventsValue } from 'src/shared/utils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
@@ -16,6 +16,7 @@ import { decodeHTMLTags, getPodcastUrl, isNotEmpty, isObjectNonEmpty } from 'src
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 export interface PodcastEpisodeProps {
   route: any
@@ -129,13 +130,13 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const [podcastEpisodeDetailInfo, setPodcastEpisodeDetailInfo] = useState<PodcastListItemType[]>(podcastEpisodeData)
 
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
       isBookmarked ? (
-        recordLogEvent('article_save',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE,eventParameter),
         sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST }) 
       ): (
-        recordLogEvent('article_unsave',eventParameter),
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE,eventParameter),
         removeBookmarkedInfo({ nid })
       )
     } else {
@@ -158,7 +159,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         article_category: type,
         article_length: decodeBody.split(' ').length
       }
-    updateBookmarkInfo(podcastItem.nid, newBookmarked,eventParameter)
+    updateBookmarkInfo(podcastItem.nid, newBookmarked, eventParameter)
   }
 
   const onPressSaveEpisodeList = (nidProps: string) => {
@@ -202,14 +203,10 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const otherPodcast = podcastEpisodeListInfo.filter((item: any) => item.nid !== nid);
 
   const onPressShare = async () => {
-    const decodeBody = podcastEpisodeInfo.body_export && decodeHTMLTags(podcastEpisodeInfo.body_export);
-    const eventParameter = {
-        content_type: 'podcast',
-        article_name: podcastEpisodeInfo.title,
-        article_category: 'podcast',
-        article_length: decodeBody?.split(' ').length
-    };
-    recordLogEvent('social_share', eventParameter);
+    const decodeBody = decodeHTMLTags(podcastEpisodeInfo.body_export);
+    const type = EventsValue.podcast;
+    const eventName = AnalyticsEvents.SOCIAL_SHARE;
+    podcastShareEvents(type,podcastEpisodeInfo.title,decodeBody,eventName);
     await Share.open({
       title: podcastEpisodeInfo.title,
       url: podcastEpisodeInfo.view_node,
@@ -265,7 +262,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
         artist: podcastEpisodeInfo.title,
         artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
       }
-      recordLogEvent('Played_Podcast', {podcastid: podcastEpisodeInfo.nid });
+      recordLogEvent(AnalyticsEvents.PLAYED_PODCAST, {podcastid: podcastEpisodeInfo.nid });
       if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ) {
         setPlayerTrack(trackPlayerData);
       }

@@ -6,19 +6,21 @@ import { View, StyleSheet } from 'react-native';
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { Label, LabelTypeProp, ImageWithIcon, Divider } from '../atoms';
-import { isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
+import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { VideoItemType } from 'src/redux/videoList/types';
-import { getImageUrl, convertSecondsToHMS, getShareUrl } from 'src/shared/utils/utilities';
+import { getImageUrl, convertSecondsToHMS, getShareUrl, isNotEmpty } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { getVideoDetail } from 'src/services/videoDetailService';
 import Share from 'react-native-share'
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { videoEvents } from 'src/shared/utils/analyticsEvents';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export interface VideoProps {
     storyImage: string,
@@ -65,14 +67,9 @@ export const VideoContent = ({
         const requestBody = { nid: item.nid };
         const videoDetailData = await getVideoDetail(requestBody)
         const { title, field_shorturl_export, link_node, body_export } = videoDetailData[0];
-        const decodeBody = body_export && body_export.split(' ').length;
-        const eventParameter = {
-            content_type: 'video',
-            article_name: title,
-            article_category: 'video',
-            article_length: decodeBody
-        };
-        recordLogEvent('social_share', eventParameter);
+        const decodeBody = isNotEmpty(body_export) ? body_export?.split(' ').length : 0;
+        const eventName = AnalyticsEvents.SOCIAL_SHARE;
+        videoEvents(title, decodeBody, eventName);
         await Share.open({
             title,
             url: getShareUrl(field_shorturl_export!, link_node!),

@@ -14,7 +14,7 @@ import {
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
 import {isTab, normalize, recordLogEvent} from 'src/shared/utils';
-import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, getShareUrl} from 'src/shared/utils/utilities';
+import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, getShareUrl, isNotEmpty} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
@@ -26,6 +26,8 @@ import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 import LinearGradient from 'react-native-linear-gradient';
 import Share from 'react-native-share';
 import { BookMarkColorType } from '../articleFooter/ArticleFooter';
+import { videoEvents } from 'src/shared/utils/analyticsEvents';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 const width = Dimensions.get('window').width;
 
@@ -96,14 +98,9 @@ export const VideoItem = ({
     },
   };
   const onPressShare = async () => {
-    const decodeBody = des && des.split(' ').length;
-    const eventParameter = {
-        content_type: 'video',
-        article_name: title,
-        article_category: 'video',
-        article_length: decodeBody
-    }
-    recordLogEvent('social_share', eventParameter);
+    const decodeBody = isNotEmpty(des) ? des.split(' ').length : 0;
+    const eventName = AnalyticsEvents.SOCIAL_SHARE;
+    videoEvents(title, decodeBody, eventName);
     await Share.open({
       title,
       url: getShareUrl('', link_node!),

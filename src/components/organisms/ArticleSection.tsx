@@ -11,7 +11,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
-import { eventParameterProps } from 'src/shared/utils/analytics'
+import { EventParameterProps } from 'src/shared/utils/analytics'
 
 export interface ArticleProps extends ImageLabelProps, ArticleWithOutImageProps {
    image?: string,
@@ -24,7 +24,7 @@ export interface ArticleProps extends ImageLabelProps, ArticleWithOutImageProps 
 
 export interface ArticleSectionProps {
     data: ArticleProps[],
-    onUpdateBookmark?: (nid: string,isBookmarked: boolean,eventParameter: eventParameterProps) => void,
+    onUpdateBookmark?: (nid: string,isBookmarked: boolean,eventParameter: EventParameterProps) => void,
     listKey?: string,
     showDivider?: boolean,
     showFooterTitle?: boolean,
@@ -107,7 +107,7 @@ const ArticleSection = ({
     }
     return (
         <View style={[style.container, addStyle]}>
-            <FlatList
+            {numColumns == 1 ? <FlatList
                 keyExtractor={(_,index) => index.toString()}
                 listKey={listKey ? listKey : flatListUniqueKey.ARTICLE_SECTION}
                 style={style.listContainer}
@@ -115,8 +115,16 @@ const ArticleSection = ({
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item, index }) => renderItem(item, index)}
                 numColumns={numColumns}
-                columnWrapperStyle = { isTab && style.tabWrapperStyle}
-            />
+            /> : <FlatList
+                keyExtractor={(_,index) => index.toString()}
+                listKey={listKey ? listKey : flatListUniqueKey.ARTICLE_SECTION}
+                style={style.listContainer}
+                data={articleData}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item, index }) => renderItem(item, index)}
+                numColumns={numColumns}
+                columnWrapperStyle = {style.tabWrapperStyle}
+            />}
         </View>
     );
 };

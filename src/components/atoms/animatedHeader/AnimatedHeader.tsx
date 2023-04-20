@@ -10,6 +10,8 @@ import HeaderLogoSvg from 'src/assets/images/headerIcons/aaaNewLogoStretch.svg';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useAppCommon } from 'src/hooks';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { sideMenuEventParameter } from 'src/shared/utils/analyticsEvents';
 
 export interface HeaderProps {
     scrollY?: any;
@@ -34,11 +36,7 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
     const isDarkMode = isDarkTheme(theme);
 
     const onPressRightIcon = () => {
-        const eventParameter = {
-            screen_type: 'sideMenu',
-            screen_name: 'sideMenu'
-        }
-        recordLogEvent('menu_view',eventParameter)
+        recordLogEvent(AnalyticsEvents.MENU_VIEW,sideMenuEventParameter)
         navigation.dispatch(DrawerActions.toggleDrawer());
     }
 

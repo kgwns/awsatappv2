@@ -8,6 +8,7 @@ import { ScreenContainer } from 'src/components/screens/ScreenContainer/ScreenCo
 import { getFullDate, horizontalEdge } from 'src/shared/utils/utilities';
 import { getRequiredNativeComponent } from 'src/shared/utils/NativeComponent';
 import { recordLogEvent } from 'src/shared/utils';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const NativeView: any = getRequiredNativeComponent('RNTodayTabView');
 
@@ -27,7 +28,7 @@ export const DownloadNewsIOS = () => {
 
     const handleDownloadComplete = (downloadedPdf:any) => {
         const createdDate = getFullDate(downloadedPdf.issueDate * 1000);
-        recordLogEvent('today_copy_download',{newspaper_date: createdDate});
+        recordLogEvent(AnalyticsEvents.TODAY_COPY_DOWNLOAD,{newspaper_date: createdDate});
     }
 
     return (

@@ -8,6 +8,7 @@ import { normalize, recordLogEvent } from 'src/shared/utils';
 import { StoryContainer } from 'react-native-stories-view';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import {useNavigation} from '@react-navigation/native';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export interface StoryListItemProps {
   id?: string;
@@ -48,7 +49,7 @@ export const StoryListView: FunctionComponent<StoryListDataProps> = ({
   )
 
   const onStoryPress = () => {
-    recordLogEvent('Pressed_On_Read_Story', {storyId: data[selectedItemIndex].data[selectedImageIndex].id});
+    recordLogEvent(AnalyticsEvents.PRESSED_ON_READ_STORY, {storyId: data[selectedItemIndex].data[selectedImageIndex].id});
   }
 
   const footerComponent = (

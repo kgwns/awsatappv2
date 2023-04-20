@@ -1,13 +1,13 @@
 import { useEffect, useRef } from "react"
 import { useProgress } from "react-native-track-player";
-import { recordLogEvent } from "./analytics";
+import { AnalyticsEvents, recordLogEvent } from "./analytics";
 import { useFetchPodcastData } from "src/hooks";
 
 export const PodcastAnalyticsManager = () => {
     const progress = useProgress();
     const { podcastData } = useFetchPodcastData();
     const { content_title,content_duration,content_type} = podcastData;
-    const ref = useRef<number>(0);
+    const currentDataRef = useRef<number>(0);
 
     const podcastAnalytics = () => {
         const percentageData = Math.floor((progress.position / progress.duration) * 100)
@@ -16,45 +16,23 @@ export const PodcastAnalyticsManager = () => {
             content_duration,
             content_type,
         }
-        if((percentageData >= 10) && (ref.current < 10)) {
+
+        const progressDataSet = [ 10, 25, 50, 75, 100 ];
+        const currentIndex = progressDataSet.findIndex((item) => item === currentDataRef.current);
+        const nextValue = currentIndex > -1 ? progressDataSet[currentIndex + 1] : 10;
+
+        if ((percentageData >= nextValue) && (currentDataRef.current < nextValue)) {
             eventParameter = {
                 ...eventParameter,
-                progress_percentage: 10
+                progress_percentage: nextValue
             }
-            recordLogEvent('podcast_progress', eventParameter);
-            ref.current = 10
-        } else if((percentageData >= 25) && (ref.current < 25)) {
-            eventParameter = {
-                ...eventParameter,
-                progress_percentage: 25
-            }
-            recordLogEvent('podcast_progress', eventParameter);
-            ref.current = 25
-        } else if((percentageData >= 50) && (ref.current < 50)) {
-            eventParameter = {
-                ...eventParameter,
-                progress_percentage: 50
-            }
-            recordLogEvent('podcast_progress', eventParameter);
-            ref.current = 50
-        } else if((percentageData >= 75) && (ref.current < 75)) {
-            eventParameter = {
-                ...eventParameter,
-                progress_percentage: 75
-            }
-            recordLogEvent('podcast_progress', eventParameter);
-            ref.current = 75
-        } else if((percentageData >= 100) && (ref.current < 100)) {
-            eventParameter = {
-                ...eventParameter,
-                is_completed: 1
-            }
-            recordLogEvent('podcast_completed', eventParameter);
-            ref.current = 0;
-        } else if(percentageData < 10) {
-            ref.current = 0;
-        }
-        
+            const eventName = nextValue === 100 ? AnalyticsEvents.PODCAST_COMPLETED : 
+                AnalyticsEvents.PODCAST_PROGRESS;
+            recordLogEvent(eventName, eventParameter);
+            currentDataRef.current = nextValue
+        } else if (percentageData < 10) {
+            currentDataRef.current = 0;
+        }  
     }
 
     useEffect(() => {

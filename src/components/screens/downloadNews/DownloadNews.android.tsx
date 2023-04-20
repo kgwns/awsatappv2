@@ -7,6 +7,7 @@ import { DownloadNewsViewManager } from './DownloadNewsViewManager';
 import { useAppCommon } from 'src/hooks';
 import { TranslateConstants, TranslateKey } from '../../../constants/Constants';
 import { getFullDate } from 'src/shared/utils/utilities';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 
 const createFragment = (viewId:number|null) =>{
@@ -49,7 +50,7 @@ export const DownloadNews = () => {
     }
     if(event.downloadStatus === 2) {
       if(downloadStatus.current === 0) {
-        recordLogEvent('today_copy_download',{newspaper_date: createdDate});
+        recordLogEvent(AnalyticsEvents.TODAY_COPY_DOWNLOAD,{newspaper_date: createdDate});
         downloadStatus.current = -1
       }
     }

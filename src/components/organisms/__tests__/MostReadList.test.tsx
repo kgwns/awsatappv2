@@ -101,6 +101,7 @@ describe('<MostReadList>', () => {
   test('Should render component in tab', () => {
     DeviceTypeUtilsMock.isTab = true;
     expect(instance).toBeDefined();
+    DeviceTypeUtilsMock.isTab = false;
   });
   
   test('Should call ArticleItem onPress', () => {
@@ -156,7 +157,7 @@ describe('<MostReadList>', () => {
     reset: jest.fn()
   }
   beforeEach(() => {
-    DeviceTypeUtilsMock.isTab = true;
+    DeviceTypeUtilsMock.isTab = false;
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     useLoginMock.mockReturnValue({ isLoggedIn: false })
