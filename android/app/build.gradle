@@ -148,7 +148,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 278
-        versionName "5.0.22"
+        versionName "5.0.23"
         bundle{
             language{
                 enableSplit false
