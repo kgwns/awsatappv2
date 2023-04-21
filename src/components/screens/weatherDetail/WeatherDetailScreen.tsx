@@ -43,6 +43,7 @@ import FogImageIcon from 'src/assets/images/icons/weather/Images/Fog.svg'
 import RainImageIcon from 'src/assets/images/icons/weather/Images/Rain.svg'
 import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { FLEX_START } from 'src/shared/styles/item-alignment';
 
 interface WeatherDate {
   date: string,
@@ -61,7 +62,6 @@ export enum weatherType {
   fog = 'fog',
 }
 
-const flex = 'flex-start'
 
 export const WeatherDetailScreen: FunctionComponent = () => {
   const CONST_SUNRISE = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNRISE })
@@ -359,7 +359,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item, index }) => renderItem(item, index)}
             bounces={false}
-            style={!isIOS && {alignSelf: flex}}
+            style={!isIOS && {alignSelf: FLEX_START}}
           />
         </View>
         {weatherDescription()}
@@ -449,7 +449,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: 8,
       color: colors.white,
       fontFamily: fonts.Effra_Regular,
-      alignSelf: flex
+      alignSelf: FLEX_START
     },
     dayContainerNotSelected: {
       justifyContent: 'space-around',
@@ -519,7 +519,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.white,
       lineHeight: 33,
       justifyContent: 'center',
-      alignSelf: flex
+      alignSelf: FLEX_START
     },
     timeZoneStyle: {
       flexDirection: 'row',

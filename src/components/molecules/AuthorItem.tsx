@@ -19,13 +19,12 @@ import { fonts } from 'src/shared/styles/fonts'
 import { useAppCommon, useAppPlayer } from 'src/hooks'
 import { Divider } from '../atoms'
 import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion'
+import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment'
 
 enum LabelsType  {
     title = 'title',
     authorName = 'authorName'
 }
-
- const space = 'space-between'
  
 export interface AuthorItemProps {
     author: string,
@@ -273,7 +272,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
         width: '95%',
         flexDirection: 'row',
-        justifyContent: space,
+        justifyContent: SPACE_BETWEEN,
     },
     body: {
         paddingVertical: normalize(10),
@@ -350,12 +349,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   tabAuthorContainer: {
     flex:1,
     flexDirection:'column',
-    justifyContent:space,
+    justifyContent:SPACE_BETWEEN,
   },
   tabFooterContainer: {
     marginTop:10,
     alignItems:'center',
-    justifyContent:space,
+    justifyContent:SPACE_BETWEEN,
     flexDirection:'row-reverse',
     flexWrap:'wrap',
   },
