@@ -14,7 +14,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useLogin, useSideMenu, useWeatherDetails } from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ABOUT_US, ADVERTISE_INFO_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import { ABOUT_US, ADVERTISE_INFO_ID, PRIVACY_POLICY_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
@@ -69,6 +69,7 @@ const CustomDrawerContent = () => {
   const ADVERTISE_WITH_US = TranslateConstants({key: TranslateKey.ADVERTISE_WITH_US});
   const ABOUT_THE_MIDDLE_EAST = TranslateConstants({key: TranslateKey.ABOUT_THE_MIDDLE_EAST});
   const TERMS_OF_USE = TranslateConstants({key: TranslateKey.TERMS_OF_USE});
+  const PRIVACY_POLICY = TranslateConstants({key: TranslateKey.PRIVACY_POLICY});
   const CALL_US = TranslateConstants({key: TranslateKey.DRAWER_CALL_US});
   const [latitude, setLatitude] = useState<number>();
   const [longitude, setLongitude] = useState<number>();
@@ -432,6 +433,15 @@ const CustomDrawerContent = () => {
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: TERMS_OF_USE, id: TERMS_AND_CONDITION }
+            )}
+            titleStyle={contactUsTitleStyle}
+          />
+
+          <ButtonList
+            title={PRIVACY_POLICY}
+            onPress={() => onPressNavigation(
+              ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: PRIVACY_POLICY, id: PRIVACY_POLICY_ID }
             )}
             titleStyle={contactUsTitleStyle}
           />

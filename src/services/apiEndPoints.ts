@@ -74,6 +74,7 @@ export const ADVERTISE_INFO_ID = 49
 export const AWSATT_HISTORY_INFO_ID = 153
 export const ABOUT_US = 56
 export const TERMS_AND_CONDITION = 57
+export const PRIVACY_POLICY_ID = 138
 export const CONTACT_US_END_POINT = 'api/ums/v1/sendContactUsMail'
 
 // Register

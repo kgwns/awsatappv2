@@ -107,13 +107,13 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ? (
-        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE,eventParameter),
+      if (isBookmarked) {
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
         sendBookmarkInfo({ nid, bundle: PopulateWidgetType.VIDEO })
-      ) : (
-        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE,eventParameter),
+      } else {
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
         removeBookmarkedInfo({ nid })
-      )
+      }
     } else {
       setShowPopUp(true)
     }

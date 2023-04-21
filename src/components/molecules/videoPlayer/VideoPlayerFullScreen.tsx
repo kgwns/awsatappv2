@@ -54,13 +54,7 @@ const VideoPlayerFullScreen = ({
   const [tapActionTimeout, setTapActionTimeout] = useState<any>(null);
   const [showControls, setShowControls] = useState(false);
   const [screenType, setScreenType] = useState('contain');
-  const dataAnalytics = useRef({
-    ten: false,
-    twentyFive: false,
-    fifty: false,
-    seventyFive: false,
-    hundred: false
-  })
+  const analyticsProgress = useRef<number>(0)
 
   const onSeek = (seek: any) => {
     videoPlayer.current?.seek(seek);
@@ -73,26 +67,57 @@ const VideoPlayerFullScreen = ({
   const onProgress = (data: any) => {
     const percentageCalculation = () => {
         {
-          const percentageData =  (Math.floor((data?.currentTime / 5) * 100) + '%')
-          if((percentageData === '10%') || (percentageData === '25%')|| (percentageData === '50%')|| (percentageData === '75%')){
-            const logProgressData = {
-              content_title:title,
-              content_duration: duration,
-              progress_percentage:percentageData,
-              content_type: 'video',
-            }
-            recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, logProgressData );  
+        const percentageData = Math.floor((data.currentTime / data.seekableDuration) * 100)
+        let videoEventPreset = {
+          content_title: title,
+          content_duration: duration,
+          content_type: 'video',
+        }
+        if ((percentageData >= 10) && (analyticsProgress.current < 10)) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 10
           }
-          else if ((data?.currentTime === data?.seekTime)) {
-            const logEndData = {
-              content_title:title,
-              content_duration:duration,
-              content_type:'video',
-              is_completed:'1'
-            }
-            recordLogEvent(AnalyticsEvents.VIDEO_COMPLETED, logEndData );
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          analyticsProgress.current = 10
+        } else if ((percentageData >= 25) && (analyticsProgress.current < 25)) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 25
           }
-        }      
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          analyticsProgress.current = 25
+        } else if ((percentageData >= 50) && (analyticsProgress.current < 50)) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 50
+          }
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          analyticsProgress.current = 50
+        } else if ((percentageData >= 75) && (analyticsProgress.current < 75)) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 75
+          }
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          analyticsProgress.current = 75
+        } else if (percentageData < 10) {
+          analyticsProgress.current = 0;
+        } else if (data.currentTime === data.seekTime) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 100
+          }
+          const logEndData = {
+            content_title: title,
+            content_duration: duration,
+            content_type: 'video',
+            is_completed: '1'
+          }
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          recordLogEvent(AnalyticsEvents.VIDEO_COMPLETED, logEndData);
+        }
+      }      
     }
     percentageCalculation()
     if (!isLoading) {

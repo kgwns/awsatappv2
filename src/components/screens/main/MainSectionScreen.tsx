@@ -573,13 +573,13 @@ export const MainSectionScreen = React.memo((
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ?(
-        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter),
+      if (isBookmarked) {
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
         sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
-        )  : (
-          recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter),
-          removeBookmarkedInfo({ nid })
-        )
+      } else {
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
+        removeBookmarkedInfo({ nid })
+      }
     } else {
       setShowPopUp(true)
     }
