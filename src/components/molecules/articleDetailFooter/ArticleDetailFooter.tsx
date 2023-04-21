@@ -10,7 +10,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import Share from 'react-native-share'
 import { ArticleDetailDataType } from 'src/redux/articleDetail/types';
 import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAnalyticsManager';
-import { decodeHTMLTags, getShareUrl, isNotEmpty } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getShareUrl } from 'src/shared/utils/utilities';
 import { articleEvents } from 'src/shared/utils/analyticsEvents';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
 

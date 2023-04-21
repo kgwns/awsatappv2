@@ -52,7 +52,7 @@ const AuthorSlider = ({
   const renderSepartor = () => {
     if (isTab) {
       return null
-    };
+    }
     return(
       <Divider style={style.divider} />
     )

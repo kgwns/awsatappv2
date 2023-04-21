@@ -146,7 +146,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   useEffect(() => { 
     if (page != 0) {
       fetchVideoWithPagination({ page, items_per_page: VIDEO_ITEMS_PER_PAGE })
-    };
+    }
    }, [page]);
 
   const onPressItem = (item:VideoItemType, isVideoDocumentary:boolean)=>{
@@ -165,7 +165,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   const renderFooterComponent = () => {
     if (!isLoading || isVideoLoading) {
       return null
-    };
+    }
     return (
       <View style={styles.loaderStyle}>
         <ActivityIndicator size={'small'} color={themeData.primary} />

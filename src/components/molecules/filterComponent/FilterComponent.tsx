@@ -68,7 +68,7 @@ export const FilterComponent = ({
                 data.map((item: FilterDataType, index: number) => {
                     if (item.isVisible == false) {
                         return null
-                    };
+                    }
 
                     return <>
                         <View style={style.labelContainer} key={index}>
