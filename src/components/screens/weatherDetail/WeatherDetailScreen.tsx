@@ -61,6 +61,8 @@ export enum weatherType {
   fog = 'fog',
 }
 
+const flex = 'flex-start'
+
 export const WeatherDetailScreen: FunctionComponent = () => {
   const CONST_SUNRISE = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNRISE })
   const CONST_SUNSET = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNSET })
@@ -357,7 +359,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item, index }) => renderItem(item, index)}
             bounces={false}
-            style={!isIOS && {alignSelf: 'flex-start'}}
+            style={!isIOS && {alignSelf: flex}}
           />
         </View>
         {weatherDescription()}
@@ -447,7 +449,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: 8,
       color: colors.white,
       fontFamily: fonts.Effra_Regular,
-      alignSelf: 'flex-start'
+      alignSelf: flex
     },
     dayContainerNotSelected: {
       justifyContent: 'space-around',
@@ -517,7 +519,7 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.white,
       lineHeight: 33,
       justifyContent: 'center',
-      alignSelf: 'flex-start'
+      alignSelf: flex
     },
     timeZoneStyle: {
       flexDirection: 'row',

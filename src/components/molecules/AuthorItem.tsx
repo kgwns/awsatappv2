@@ -25,6 +25,8 @@ enum LabelsType  {
     authorName = 'authorName'
 }
 
+ const space = 'space-between'
+ 
 export interface AuthorItemProps {
     author: string,
     authorId: string,
@@ -271,7 +273,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
         width: '95%',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: space,
     },
     body: {
         paddingVertical: normalize(10),
@@ -348,12 +350,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   tabAuthorContainer: {
     flex:1,
     flexDirection:'column',
-    justifyContent:'space-between',
+    justifyContent:space,
   },
   tabFooterContainer: {
     marginTop:10,
     alignItems:'center',
-    justifyContent:'space-between',
+    justifyContent:space,
     flexDirection:'row-reverse',
     flexWrap:'wrap',
   },
