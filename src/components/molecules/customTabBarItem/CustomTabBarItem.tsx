@@ -44,6 +44,7 @@ export const CustomTabBarItem: FunctionComponent<TabBarItemProps> = ({
             children={tabName}
             color={color}
             style={customStyle.labelStyle}
+            testID='tabNameId'
           />
         </View>
         {isSelected && (
