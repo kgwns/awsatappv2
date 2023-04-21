@@ -28,7 +28,7 @@ export const SignupAlertCard = ({
 
     const styles = useThemeAwareObject(customStyle)
     return (
-    <View style={styles.container}>
+    <View style={styles.container} testID='signUpAlertContainerID'>
       <View>
         <Label children={subTitle} style={styles.titleTextStyle} />
         <Label

@@ -256,14 +256,14 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
       <View style={style.container}>
         {isTab && !canGoBack && renderTabletTopContainer()}
         <View style={style.textContainer}>
-          {!canGoBack && <Label style={titleStyle}>
+          {!canGoBack && <Label style={titleStyle} testID='onBoardNewsLetterTitleTestId'>
             {ONBOARD_NEWSLETTER_TITLE}
           </Label>}
           <Label style={descriptionStyle}>
             {ONBOARD_NEWSLETTER_DESCRIPTION}
           </Label>
         </View>
-        <View style={!canGoBack ? style.contentStyle : style.profileSettingContentStyle }>
+        <View style={!canGoBack ? style.contentStyle : style.profileSettingContentStyle } testID = "viewId">
           {isNonEmptyArray(newsLettersDataInfo) &&
             <View>
               <NewsLettersWidget data={newsLettersDataInfo} changeSelectedStatus={changeSelectedStatus} canGoBack={canGoBack} />
