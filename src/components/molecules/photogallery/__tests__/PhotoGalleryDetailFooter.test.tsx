@@ -10,6 +10,22 @@ jest.mock('src/shared/utils/dimensions', () => ({
   isTab: false
 }));
 
+const mockFunction = jest.fn();
+const mockString = 'mockString';
+const data: AlbumDetailType = {
+    title: mockString,
+    type: 'album',
+    field_album_img_export: mockString,
+    field_photo_album_export: [mockString],
+    body_export: mockString,
+    nid: '2982206',
+    view_node: mockString,
+    created_export: new Date(),
+    created: new Date(),
+    field_album_source_export: null,
+    isBookmarked: false,
+};
+
 describe('<PhotoGalleryDetailFooter>', () => {
     let instance: RenderAPI;
     const mockFunction = jest.fn();
@@ -73,22 +89,7 @@ describe('<PhotoGalleryDetailFooter>', () => {
 
 describe('render isBookmarked as true in <PhotoGalleryDetailFooter> ', () => {
     let instance: RenderAPI;
-    const mockFunction = jest.fn();
-    const mockString = 'mockString';
-    const data: AlbumDetailType = {
-        title: mockString,
-        type: 'album',
-        field_album_img_export: mockString,
-        field_photo_album_export: [mockString],
-        body_export: mockString,
-        nid: '2982206',
-        view_node: mockString,
-        created_export: new Date(),
-        created: new Date(),
-        field_album_source_export: null,
-        isBookmarked: false,
-    };
-
+    
     beforeEach(() => {
         const component = (
             <PhotoGalleryDetailFooter albumData={data} isBookmarked={true} onPressSave={mockFunction} onPressFontChange={mockFunction} />
@@ -108,6 +109,32 @@ describe('render isBookmarked as true in <PhotoGalleryDetailFooter> ', () => {
 
     it('should render PhotoGalleryDetailFooter component in iOS', () => {
         DeviceTypeUtilsMock.isIOS = true;
+        expect(instance).toBeDefined();
+    });
+
+    it('should render PhotoGalleryDetailFooter component in Tab', () => {
+        DeviceTypeUtilsMock.isTab = true;
+        expect(instance).toBeDefined();
+    });
+});
+
+describe('render <PhotoGalleryDetailFooter> with tab true ', () => {
+    let instance: RenderAPI;
+
+    beforeEach(() => {
+        DeviceTypeUtilsMock.isTab = true;
+        const component = (
+            <PhotoGalleryDetailFooter albumData={data} isBookmarked={true} onPressSave={mockFunction} onPressFontChange={mockFunction} />
+        );
+        instance = render(component);
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks();
+        instance.unmount();
+    });
+
+    it('should render PhotoGalleryDetailFooter component in Tab', () => {
         expect(instance).toBeDefined();
     });
 });

@@ -67,7 +67,7 @@ const VideoPlayerFullScreen = ({
   const onProgress = (data: any) => {
     const percentageCalculation = () => {
         {
-        const percentageData = Math.floor((data.currentTime / data.seekableDuration) * 100)
+        const percentageData = Math.floor((data?.currentTime / data?.seekableDuration) * 100)
         let videoEventPreset = {
           content_title: title,
           content_duration: duration,
@@ -103,7 +103,7 @@ const VideoPlayerFullScreen = ({
           analyticsProgress.current = 75
         } else if (percentageData < 10) {
           analyticsProgress.current = 0;
-        } else if (data.currentTime === data.seekTime) {
+        } else if (data?.currentTime === data?.seekTime) {
           videoEventPreset = {
             ...videoEventPreset,
             progress_percentage: 100

@@ -41,16 +41,16 @@ export interface SignUpPageProps {
 }
 
 export const SignUpPage = ({route}: SignUpPageProps) => {
-  const navigation = useNavigation();
   const {themeData} = useTheme();
-  const styles = useThemeAwareObject(createStyles);
+  const navigation = useNavigation();
+  const styles = useThemeAwareObject(signUpStyles);
   const [email, setEmail] = useState(route.params.email);
-  const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPasswordError, setonfirmPasswordError] = useState('');
-  const [deviceName, setDeviceName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const [deviceName, setDeviceName] = useState('');
   const {
     createUserRequest,
     registerUserInfo,
@@ -286,7 +286,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const signUpStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
