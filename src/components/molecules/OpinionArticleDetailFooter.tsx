@@ -22,7 +22,13 @@ export const OpinionArticleDetailFooter = ({
   onPressFontSizeChange: () => void
 }) => {
   const {themeData} = useTheme();
-  const style = useThemeAwareObject(customStyle);
+  const style = useThemeAwareObject(opinionCustomStyle);
+
+  const saveTab = getSvgImages({
+    name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmarkBold,
+    width: 19,
+    height: 33,
+  });
 
   const fontScalingTab = getSvgImages({
     name: ImagesName.fontScalingBold,
@@ -37,12 +43,10 @@ export const OpinionArticleDetailFooter = ({
     height: 36,
   });
 
-  const saveTab = getSvgImages({
-    name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmarkBold,
-    width: 19,
-    height: 33,
+  const saveMobile = getSvgImages({
+    name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark,
+    size: normalize(18),
   });
-
 
   const fontScalingMobile = getSvgImages({
     name: ImagesName.fontScaling,
@@ -55,14 +59,8 @@ export const OpinionArticleDetailFooter = ({
     size: normalize(18),
   });
 
-  const saveMobile = getSvgImages({
-    name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark,
-    size: normalize(18),
-  });
-
-
   return (
-    <View style={style.container}>
+    <View style={style.opinionContainer}>
       <ButtonImage icon={() => isTab ? fontScalingTab : fontScalingMobile}
         onPress={onPressFontSizeChange}
       />
@@ -77,9 +75,9 @@ export const OpinionArticleDetailFooter = ({
   );
 };
 
-const customStyle = (theme: CustomThemeType) => {
+const opinionCustomStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
-    container: {
+    opinionContainer: {
       width: '100%',
       height: isTab ? 104 : isIOS ? normalize(70) : normalize(60),
       paddingBottom: isIOS ? normalize(15) : 0,

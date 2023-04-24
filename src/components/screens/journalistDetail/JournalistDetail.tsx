@@ -26,7 +26,7 @@ export const JournalistDetail = ({
     const routes = useNavigationState(state => state.routes)
     const isFocused = useIsFocused();
 
-    const style = useThemeAwareObject(customStyle);
+    const style = useThemeAwareObject(journalistCustomStyle);
 
     const {
         bookmarkIdInfo,
@@ -252,7 +252,7 @@ export const JournalistDetail = ({
     );
 };
 
-const customStyle = (theme: CustomThemeType) => StyleSheet.create({
+const journalistCustomStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingBottom: normalize(80),
         backgroundColor: theme.backgroundColor,
