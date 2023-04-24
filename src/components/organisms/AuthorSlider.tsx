@@ -100,6 +100,7 @@ const AuthorSlider = ({
           index={index}
           nid={item.nid}
           showDivider = {(isTab && index < 6) ? true : false}
+          showInMainScreen = {isTab ? true : false}
         />
       </View>
     );
@@ -194,7 +195,7 @@ const AuthorSlider = ({
               keyExtractor={(_, index) => index.toString()}
               numColumns={3}
               data={data}
-              renderItem={({ item, index }) => renderItem(item, index)}
+              renderItem={({ item, index }) => renderAuthorList(item, index)}
             />
           {/* </ScrollView> */}
           {/* {isNonEmptyArray(data) && <View style={style.indicatorContainer}>
