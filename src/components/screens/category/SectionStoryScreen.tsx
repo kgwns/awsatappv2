@@ -390,7 +390,7 @@ export const SectionStoryScreen = React.memo(({
 
   const onVideoItemPress = (item: VideoItemType) => {
     navigation.navigate(ScreensConstants.VideoPlayerScreen,
-      { mediaID: item.mediaId, nid: item.nid })
+      { mediaID: item.mediaId, nid: item.nid, title: item.title })
   }
 
 
