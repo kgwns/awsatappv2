@@ -32,7 +32,7 @@ export interface VideoPlayerFullScreenProp {
   isFullScreen?: boolean;
   onChangeFullScreen?: (isFullScreen: boolean) => void;
   onClose?: () => void;
-  title: string;
+  title?: string;
 }
 
 const VideoPlayerFullScreen = ({
@@ -42,7 +42,7 @@ const VideoPlayerFullScreen = ({
   onChangeFullScreen,
   onClose,
   testID,
-  title
+  title = ''
 }: VideoPlayerFullScreenProp) => {
   const styles = useThemeAwareObject(customStyle);
 
@@ -72,6 +72,7 @@ const VideoPlayerFullScreen = ({
           content_title: title,
           content_duration: duration,
           content_type: 'video',
+          progress_percentage: 0
         }
         if ((percentageData >= 10) && (analyticsProgress.current < 10)) {
           videoEventPreset = {
@@ -292,7 +293,7 @@ const VideoPlayerFullScreen = ({
         onPress={toggleFullscreen}
         hitSlop={DEFAULT_HIT_SLOP}
         style={styles.fullScreenBtnContainer}>
-        <Image source={source} />
+        <Image source={source} testID='fullScreenIconId' />
       </TouchableHighlight>
     );
   };
@@ -330,7 +331,7 @@ const VideoPlayerFullScreen = ({
         onPress={onPaused}
         hitSlop={DEFAULT_HIT_SLOP}
         style={styles.playButtoncontainer}>
-        <Image source={source} />
+        <Image source={source} testID='playPauseIconId'/>
       </TouchableHighlight>
     );
   };
@@ -347,7 +348,7 @@ const VideoPlayerFullScreen = ({
             {isLoading && <LoadingState />}
             {showControls && (
               <>
-                <View style={styles.videoContainer}>{renderTopControls()}</View>
+                <View style={styles.videoContainer} testID = 'topControlId'>{renderTopControls()}</View>
                 <View style={styles.videoContainer}>{renderBottomControls()}</View>
               </>
             )}
