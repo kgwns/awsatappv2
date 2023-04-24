@@ -32,7 +32,7 @@ export interface VideoPlayerFullScreenProp {
   isFullScreen?: boolean;
   onChangeFullScreen?: (isFullScreen: boolean) => void;
   onClose?: () => void;
-  title: string;
+  title?: string;
 }
 
 const VideoPlayerFullScreen = ({
@@ -42,7 +42,7 @@ const VideoPlayerFullScreen = ({
   onChangeFullScreen,
   onClose,
   testID,
-  title
+  title = ''
 }: VideoPlayerFullScreenProp) => {
   const styles = useThemeAwareObject(customStyle);
 
@@ -72,32 +72,33 @@ const VideoPlayerFullScreen = ({
           content_title: title,
           content_duration: duration,
           content_type: 'video',
+          progressPercentage: 0
         }
         if ((percentageData >= 10) && (analyticsProgress.current < 10)) {
           videoEventPreset = {
             ...videoEventPreset,
-            progress_percentage: 10
+            progressPercentage: 10
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 10
         } else if ((percentageData >= 25) && (analyticsProgress.current < 25)) {
           videoEventPreset = {
             ...videoEventPreset,
-            progress_percentage: 25
+            progressPercentage: 25
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 25
         } else if ((percentageData >= 50) && (analyticsProgress.current < 50)) {
           videoEventPreset = {
             ...videoEventPreset,
-            progress_percentage: 50
+            progressPercentage: 50
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 50
         } else if ((percentageData >= 75) && (analyticsProgress.current < 75)) {
           videoEventPreset = {
             ...videoEventPreset,
-            progress_percentage: 75
+            progressPercentage: 75
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 75
@@ -106,7 +107,7 @@ const VideoPlayerFullScreen = ({
         } else if (data.currentTime === data.seekTime) {
           videoEventPreset = {
             ...videoEventPreset,
-            progress_percentage: 100
+            progressPercentage: 100
           }
           const logEndData = {
             content_title: title,
@@ -292,7 +293,7 @@ const VideoPlayerFullScreen = ({
         onPress={toggleFullscreen}
         hitSlop={DEFAULT_HIT_SLOP}
         style={styles.fullScreenBtnContainer}>
-        <Image source={source} />
+        <Image source={source} testID='fullScreenIconId' />
       </TouchableHighlight>
     );
   };
@@ -330,7 +331,7 @@ const VideoPlayerFullScreen = ({
         onPress={onPaused}
         hitSlop={DEFAULT_HIT_SLOP}
         style={styles.playButtoncontainer}>
-        <Image source={source} />
+        <Image source={source} testID='playPauseIconId'/>
       </TouchableHighlight>
     );
   };
@@ -347,7 +348,7 @@ const VideoPlayerFullScreen = ({
             {isLoading && <LoadingState />}
             {showControls && (
               <>
-                <View style={styles.videoContainer}>{renderTopControls()}</View>
+                <View style={styles.videoContainer} testID = 'topControlId'>{renderTopControls()}</View>
                 <View style={styles.videoContainer}>{renderBottomControls()}</View>
               </>
             )}
