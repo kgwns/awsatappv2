@@ -23,64 +23,63 @@ export const PhotoGalleryDetailFooter = ({
 }) => {
 
   const {themeData} = useTheme();
-  const style = useThemeAwareObject(customStyle);
-  
-  const fontScalingTab = getSvgImages({
+  const style = useThemeAwareObject(galleryCustomStyle);
+
+  const galleryShareTab = getSvgImages({
+    name: ImagesName.shareBold,
+    width: 37,
+    height: 36,
+  });
+
+  const galleryFontScalingTab = getSvgImages({
     name: ImagesName.fontScalingBold,
     width: 40,
     height: 28,
     fill: themeData.primaryBlack
   });
 
-  const shareTab = getSvgImages({
-    name: ImagesName.shareBold,
-    width: 37,
-    height: 36,
-  });
-
-  const saveTab = getSvgImages({
+  const gallerySaveTab = getSvgImages({
     name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmarkBold,
     width: 19,
     height: 33,
   });
 
+  const galleryShareMobile = getSvgImages({
+    name: ImagesName.share,
+    size: normalize(18),
+  });
 
-  const fontScalingMobile = getSvgImages({
+  const galleryFontScalingMobile = getSvgImages({
     name: ImagesName.fontScaling,
     size: normalize(21),
     fill: themeData.primaryBlack
   });
 
-  const shareMobile = getSvgImages({
-    name: ImagesName.share,
-    size: normalize(18),
-  });
-
-  const saveMobile = getSvgImages({
+  const gallerySaveMobile = getSvgImages({
     name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark,
     size: normalize(18),
   });
 
 
   return (
-    <View style={style.container}>
-      <ButtonImage icon={() => isTab ? fontScalingTab : fontScalingMobile}
+    <View style={style.galleryContainer}>
+      <ButtonImage icon={() => isTab ? galleryFontScalingTab : galleryFontScalingMobile}
         onPress={onPressFontChange}
       />
       <ButtonImage
-        icon={() => isTab ? shareTab : shareMobile}
+        icon={() => isTab ? galleryShareTab : galleryShareMobile}
         onPress={() => onPressShare(albumData)}
       />
-      <ButtonImage icon={() => isTab ? saveTab : saveMobile}
+      <ButtonImage icon={() => isTab ? gallerySaveTab : gallerySaveMobile}
         onPress={onPressSave}
       />
     </View>
   );
 };
 
-const customStyle = (theme: CustomThemeType) => {
+const galleryCustomStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
-    container: {
+    galleryContainer: {
       width: '100%',
       height: isTab ? 104 : isIOS ? normalize(70) : normalize(60),
       paddingBottom: isIOS ? normalize(15) : 0,

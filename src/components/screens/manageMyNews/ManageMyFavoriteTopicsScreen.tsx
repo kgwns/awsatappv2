@@ -20,8 +20,8 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const { theme } = useAppCommon()
   const isDarkMode = isDarkTheme(theme)
   const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
-  const [disableNext, setDisableNext] = useState<boolean>(true)
   const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
+  const [disableNext, setDisableNext] = useState<boolean>(true)
   const {userProfileData} = useUserProfileData();
   const OK = TranslateConstants({key:TranslateKey.COMMON_OK});
   const ONBOARD_COMMON_DONE = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_DONE})

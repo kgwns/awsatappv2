@@ -84,7 +84,7 @@ export interface SignInPageProps {
 export const SignInPage = ({route}: SignInPageProps) => {
   const navigation = useNavigation();
   const {themeData} = useTheme();
-  const styles = useThemeAwareObject(createStyles);
+  const styles = useThemeAwareObject(signInStyles);
   const [email, setEmail] = useState(route.params.email);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -368,7 +368,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const signInStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
