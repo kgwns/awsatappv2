@@ -72,33 +72,33 @@ const VideoPlayerFullScreen = ({
           content_title: title,
           content_duration: duration,
           content_type: 'video',
-          progressPercentage: 0
+          progress_percentage: 0
         }
         if ((percentageData >= 10) && (analyticsProgress.current < 10)) {
           videoEventPreset = {
             ...videoEventPreset,
-            progressPercentage: 10
+            progress_percentage: 10
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 10
         } else if ((percentageData >= 25) && (analyticsProgress.current < 25)) {
           videoEventPreset = {
             ...videoEventPreset,
-            progressPercentage: 25
+            progress_percentage: 25
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 25
         } else if ((percentageData >= 50) && (analyticsProgress.current < 50)) {
           videoEventPreset = {
             ...videoEventPreset,
-            progressPercentage: 50
+            progress_percentage: 50
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 50
         } else if ((percentageData >= 75) && (analyticsProgress.current < 75)) {
           videoEventPreset = {
             ...videoEventPreset,
-            progressPercentage: 75
+            progress_percentage: 75
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 75
@@ -107,7 +107,7 @@ const VideoPlayerFullScreen = ({
         } else if (data?.currentTime === data?.seekTime) {
           videoEventPreset = {
             ...videoEventPreset,
-            progressPercentage: 100
+            progress_percentage: 100
           }
           const logEndData = {
             content_title: title,
