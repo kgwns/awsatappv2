@@ -19,6 +19,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { useAppCommon, useAppPlayer } from 'src/hooks'
 import { Divider } from '../atoms'
 import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion'
+import { AlignItemsTo, FlexDirectionTo, FlexWrapTo, JustifyContentTo } from 'src/shared/styles/styleProperties'
 
 enum LabelsType  {
     title = 'title',
@@ -107,7 +108,6 @@ const AuthorItem = ({
     };
     
     const onPressPlay = () => {
-      console.log('onPressPlay');
       if (nid && isObjectNonEmpty(mediaData)) {
         const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
     
@@ -271,7 +271,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
         width: '95%',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: JustifyContentTo.SPACE_BETWEEN,
     },
     body: {
         paddingVertical: normalize(10),
@@ -292,8 +292,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight: 36,
     },
     mediaFooter: {
-        flexDirection: 'row',
-        alignItems: 'center' 
+        flexDirection: FlexDirectionTo.ROW,
+        alignItems: AlignItemsTo.CENTER,
     },
     authorTitle: {
       fontSize: 14,
@@ -311,12 +311,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     tabContainer:{
       flex: 1,
-      flexDirection: 'row',
-      alignItems:'flex-start',
+      flexDirection: FlexDirectionTo.ROW,
+      alignItems:AlignItemsTo.FLEX_START,
     },
     tabContentContainer: {
       flex: 1,
-      alignItems:'flex-start',
+      alignItems:AlignItemsTo.FLEX_START,
     },
     tabletBody: {
       fontSize: 16,
@@ -331,8 +331,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     lineHeight: 28,
   },
   tabMediaFooter: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
+    flexDirection: FlexDirectionTo.ROW_REVERSE,
+    alignItems: AlignItemsTo.CENTER,
     flexWrap:'wrap'
   },
   tabDurationLabel: {
@@ -347,15 +347,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   tabAuthorContainer: {
     flex:1,
-    flexDirection:'column',
-    justifyContent:'space-between',
+    flexDirection:FlexDirectionTo.COLUMN,
+    justifyContent:JustifyContentTo.SPACE_BETWEEN,
   },
   tabFooterContainer: {
     marginTop:10,
-    alignItems:'center',
-    justifyContent:'space-between',
-    flexDirection:'row-reverse',
-    flexWrap:'wrap',
+    alignItems:AlignItemsTo.CENTER,
+    justifyContent:JustifyContentTo.SPACE_BETWEEN,
+    flexDirection:FlexDirectionTo.ROW_REVERSE,
+    flexWrap:FlexWrapTo.WRAP,
   },
   tabDivider:{
     marginBottom:10,

@@ -43,7 +43,16 @@ export const articleFooterDataSet: ArticleFooterProps = {
         })
     },
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: isTab ? { fontFamily: fonts.Effra_Arbc_Regular, fontWeight: '400', fontSize: 13, lineHeight: 16,} : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20 }
+    leftTitleStyle: isTab ? {
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontWeight: '400',
+        fontSize: 13,
+        lineHeight: 16,
+    } : {
+        fontFamily: fonts.IBMPlexSansArabic_Regular,
+        fontSize: 12,
+        lineHeight:20
+    }
 };
 
 
@@ -84,11 +93,10 @@ const ArticleSection = ({
         articleFooterDataSet.leftTitle = timeFormat.time
         articleFooterDataSet.leftTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftIcon = () => TimeIcon(timeFormat.icon) 
-        articleFooterDataSet.hideBookmark = isTab && true
+        articleFooterDataSet.hideBookmark = isTab
 
         const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns === 1 && 
         articleData.length === index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
-        // const articleItemStyle = isTab ? numColumns > 1 && articleData.length > 1 ? (index % 2 === 0) ? style.evenStyle : style.oddStyle : {} : style.mobileArticleItem
         const articleItemStyle = isTab ? {} : style.mobileArticleItem
         return <ArticleItem {...item} index={index}
             imageStyle={isTab ? style.tabImageStyle : style.mobileImageStyle}

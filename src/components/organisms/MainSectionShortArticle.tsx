@@ -3,7 +3,6 @@ import {
   StyleSheet,
   StyleProp,
   ViewStyle,
-  Dimensions,
 } from 'react-native';
 /*
 ** Horizontal scroll is not working properly By Importing Flatlist using 'react-native' in Android.
@@ -13,19 +12,18 @@ import { FlatList } from 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react';
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
-import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
-import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
+import { TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
+import { ArticleFooter, ArticleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
-import { useAppCommon, useLogin, useOrientation } from 'src/hooks';
+import { useLogin, useOrientation } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { HomePageArticleType } from 'src/redux/latestNews/types';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
-import { decode } from 'html-entities';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -59,7 +57,7 @@ export interface ArticleSectionProps {
   containerStyle?: StyleProp<ViewStyle>
 }
 
-export const shortArticleFooter: articleFooterProps = {
+export const shortArticleFooter: ArticleFooterProps = {
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
   leftTitleStyle: { fontSize: 13, lineHeight: 18, fontFamily: fonts.IBMPlexSansArabic_Regular },
@@ -115,19 +113,15 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
     shortArticleFooter.rightIcon = () => TimeIcon(timeFormat.icon)
     shortArticleFooter.leftTitle = showLeftTitle ? item.author : ''
     shortArticleFooter.leftTitleColor = style.footerTitleColor.color
-    // const cardStyle = (numColumns > 1 && index % 2 === 0) ? {marginRight: normalize(20)} : {}
-    // const showDivider = (numColumns === 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
-    // const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
-    // const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
     const isAlbum = isTypeAlbum(item.type);
     const labelContainerStyle = isPortrait ? style.footerStyle : style.footerLandscapeStyle;
 
-    return <FixedTouchable key={flatListUniqueKey.SHORT_ARTICLE + index} onPress={() => onPress(item.nid, isAlbum)} style={index === 0 && isTab && { marginStart: 0.02 * screenWidth }}>
+    return <FixedTouchable 
+              key={flatListUniqueKey.SHORT_ARTICLE + index}
+              onPress={() => onPress(item.nid, isAlbum)}
+              style={index === 0 && isTab && { marginStart: 0.02 * screenWidth }}
+            >
       <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={StyleSheet.flatten([style.container, containerStyle])}>
-
-        {/* <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
-                <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
-              </View> */}
         <View style={[labelContainerStyle, leftContainerStyle, hideImage && style.hideImage]}>
           <View style={style.imageContainer}>
             {!hideImage && <View style={style.tabImage} testID='imageId'>
@@ -164,16 +158,12 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
             />
           </View>}
 
-          {/* </View> */}
           {isFooterOutside && <View style={style.outsideFooterContainer}>
             <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
               onPress={() => checkAndUpdateBookmark(index)}
               isBookmarked={item.isBookmarked}
             />
           </View>}
-          {/* {showDivider &&  !hideImage && <Divider style={style.divider}/>} */}
-          {/* </View> */}
-          {/* {showDivider && hideImage && <Divider style={style.divider}/>} */}
         </View>
       </View>
     </FixedTouchable>

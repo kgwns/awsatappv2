@@ -39,6 +39,5 @@ export const PodcastAnalyticsManager = () => {
         podcastAnalytics();
     },[progress])
 
-return (
-    null
-)}
+    return null
+}

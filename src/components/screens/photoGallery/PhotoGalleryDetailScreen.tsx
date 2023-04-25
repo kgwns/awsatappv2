@@ -150,7 +150,10 @@ export const PhotoGalleryDetailScreen = ({
   };
 
   const onPressBack = () => {
-    // Orientation.lockToPortrait(); //Disabled for iPad orientation
+    
+    //Disabled for iPad orientation
+    // Orientation.lockToPortrait();
+    
     isTab && isIOS
       ? setTimeout(() => {
           navigation.goBack();

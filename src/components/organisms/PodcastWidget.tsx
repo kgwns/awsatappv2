@@ -127,7 +127,8 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       />
     </TouchableOpacity>
   )
-
+  
+  // Enable when required Podcast List data which is displayed in Tab
   /* const AllEpisodesCard = () => (
     <View style={style.allEpisodeContainer}>
       <Label
