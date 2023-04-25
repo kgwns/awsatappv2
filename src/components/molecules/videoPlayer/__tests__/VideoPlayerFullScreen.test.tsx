@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import VideoPlayerFullScreen from '../VideoPlayerFullScreen';
 import Slider from '@react-native-community/slider';
@@ -9,6 +9,7 @@ import { images } from 'src/shared/styles/images';
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn().mockImplementation(() => [ true, () => null]),
+  useRef: jest.fn(),
 }));
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
@@ -25,12 +26,15 @@ jest.mock('@react-navigation/native', () => ({
   useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
 }));
 
+const videoPlayer: any = { current: Video };
+
 describe('<VideoPlayerFullScreen>',() => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
   const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4';
   beforeEach(() => {
     jest.useFakeTimers('legacy');
+    (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     const component = <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
     instance = render(component)
   });
@@ -56,6 +60,7 @@ describe('<VideoPlayerFullScreen>',() => {
   })
 
   it("Should Display expand icon when the screen is not in full screen and calls toggleFullScreen",() => {
+    (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     const component = <VideoPlayerFullScreen isFullScreen={false} url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
     instance = render(component)
     DeviceTypeUtilsMock.isTab = false;
@@ -66,6 +71,7 @@ describe('<VideoPlayerFullScreen>',() => {
   });
 
   it("Should Display shrink icon when the screen is in full screen and calls toggleFullScreen",() => {
+    (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     const component = <VideoPlayerFullScreen isFullScreen={true} url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
     instance = render(component)
     DeviceTypeUtilsMock.isTab = false;
@@ -98,6 +104,7 @@ describe('<VideoPlayerFullScreen> in tab',() => {
   const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4';
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true;
+    (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     const component = <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
     instance = render(component)
   });
@@ -118,6 +125,7 @@ describe('<VideoPlayerFullScreen>',() => {
   const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4';
   const setState = mockFunction;
   beforeEach(() => {
+    (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useState as jest.Mock).mockImplementationOnce(() => [true, setState]).mockImplementationOnce(() => [false, setState]).mockImplementationOnce(() => [false, setState]).mockImplementationOnce(() => [false, setState]);
     DeviceTypeUtilsMock.isTab = true;
     const component = <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
@@ -147,6 +155,7 @@ describe('<VideoPlayerFullScreen>', () => {
 
   beforeEach(() => {
     jest.useFakeTimers('legacy');
+    (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     const component = <VideoPlayerFullScreen url={url} title={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
     instance = render(component)
   })
@@ -199,12 +208,40 @@ describe('<VideoPlayerFullScreen>', () => {
   });
 })
 
+describe.each([{ analyticsValue: 5, currentTime: 15, seekableDuration: 100 },
+{ analyticsValue: 20, currentTime: 30, seekableDuration: 100 },
+{ analyticsValue: 45, currentTime: 55, seekableDuration: 100 },
+{ analyticsValue: 65, currentTime: 80, seekableDuration: 100 },
+{ analyticsValue: 5, currentTime: 5, seekableDuration: 100 }])(
+  '<VideoPlayerFullScreen> onProgress Results',
+  results => {
+    let instance: RenderAPI;
+    const mockFunction = jest.fn();
+    const setState = mockFunction;
+    beforeEach(() => {
+      (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
+      (useRef as jest.Mock).mockReturnValue({ current: results.analyticsValue });
+      (useState as jest.Mock).mockImplementation(() => [false, setState]);
+      const component = <VideoPlayerFullScreen url={'url'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+      instance = render(component);
+    })
+    afterEach(() => {
+      jest.clearAllMocks();
+    })
+    it(`Drag the video with currentTime as ${results.currentTime} and the analyticsValue ${results.analyticsValue}`, () => {
+      const element = instance.container.findByType(Video);
+      fireEvent(element, 'onProgress', { currentTime: results.currentTime, seekableDuration: results.seekableDuration });
+      expect(element.props.paused).toBeFalsy();
+    });
+  },
+);
+
 describe("<VideoPlayerFullScreen>", () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
   const setState = mockFunction;
   beforeEach(() => {
-    jest.spyOn(React,'useRef').mockReturnValue({current: 10});
+    (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useState as jest.Mock).mockImplementation(() => [false,setState]);
     const component = <VideoPlayerFullScreen url={'url'} title={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
     instance = render(component);
@@ -212,29 +249,9 @@ describe("<VideoPlayerFullScreen>", () => {
   afterEach(() => {
     jest.clearAllMocks();
   })
-  it("Drag the video with currentTime as 10 and the video should not paused",() => { 
-    const element = instance.container.findByType(Video);
-    fireEvent(element,'onProgress',{currentTime:2,seekableDuration: 40});
-    expect(element.props.paused).toBeFalsy();
-  });
-  it("Drag the video with currentTime as 10 and the video should not paused",() => {
-    const element = instance.container.findByType(Video);
-    fireEvent(element,'onProgress',{currentTime:10,seekableDuration: 40});
-    expect(element.props.paused).toBeFalsy();
-  });
-  it("Drag the video with currentTime as 20 and the video should not paused",() => {
-    const element = instance.container.findByType(Video);
-    fireEvent(element,'onProgress',{currentTime:20,seekableDuration: 40});
-    expect(element.props.paused).toBeFalsy();
-  });
   it("Should call onprogress when the video complete",() => {
     const element = instance.container.findByType(Video);
     fireEvent(element,'onProgress',{currentTime: 0,seekTime: 0});
-    expect(element.props.paused).toBeFalsy();
-  })
-  it("Should call onprogress",() => {
-    const element = instance.container.findByType(Video);
-    fireEvent(element,'onProgress',{currentTime: 0,seekTime: 10});
     expect(element.props.paused).toBeFalsy();
   })
 })
@@ -247,6 +264,7 @@ describe('<VideoPlayerFullScreen>', () => {
 
   beforeEach(() => {
     jest.useFakeTimers('legacy');
+    (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useState as jest.Mock).mockImplementationOnce(() => [false, tapActionTimeout]);
     const component = <VideoPlayerFullScreen title = {'title'} url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
     instance = render(component)
