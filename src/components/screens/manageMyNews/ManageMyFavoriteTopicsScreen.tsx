@@ -2,24 +2,25 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert, FlatList } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { BorderLabel, Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, isDarkTheme } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, } from 'src/shared/utils';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useAllSiteCategories, useAppCommon, useUserProfileData } from 'src/hooks';
+import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { fonts } from 'src/shared/styles/fonts';
 import { TranslateConstants, TranslateKey, flatListUniqueKey } from '../../../constants/Constants';
 import { decode } from 'html-entities';
-import LinearGradient from 'react-native-linear-gradient';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { OnBoardingBottom } from 'src/components/molecules';
 
 export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   const style = useThemeAwareObject(customTopicsScreenStyle);
-  const nextButtonStyles = useThemeAwareObject(nextButtonStyle);
-  const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
-  const {isLoading, allSiteCategoriesData, sentTopicsData, sendSelectedTopicInfo, fetchAllSiteCategoriesRequest,selectedTopicsData, getSelectedTopicsData} = useAllSiteCategories();
+
+  const { isLoading, allSiteCategoriesData, sentTopicsData,
+    sendSelectedTopicInfo, fetchAllSiteCategoriesRequest, selectedTopicsData, getSelectedTopicsData
+  } = useAllSiteCategories();
+
   const [topicsData,setTopicsData] = useState<AllSiteCategoriesItemType[]>([])
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const {userProfileData} = useUserProfileData();
@@ -86,7 +87,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
     }
   }, [sentTopicsData]);
 
-  const onTopicsChanged = (item: any, selected: boolean) => {
+  const onTopicsChanged = (item: any) => {
     const data = [...topicsData]
     for (let i = 0; i < data.length; i++) {
       if (item.tid === data[i].tid) {
@@ -121,12 +122,12 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
     navigation.goBack();
   }
 
-  const renderItem = (item: any, index: any) => {
+  const renderItem = (item: any) => {
     return (
       <View style={style.tabTopicButtonContainer}>
         <BorderLabel label={decode(item.name)}
           isSelected={item.isSelected}
-          onPress={selected => onTopicsChanged(item, selected)}
+          onPress={() => onTopicsChanged(item)}
           unSelectedContainerStyle={style.tabTopicButtonUnselected}
           tabEnable
         />
@@ -143,7 +144,7 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
             listKey={`${flatListUniqueKey.INTERESTED_TOPICS}${new Date().getTime().toString()}`}
             data={topicsData}
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => renderItem(item, index)}
+            renderItem={({ item }) => renderItem(item)}
             contentContainerStyle={style.itemContainer}
             columnWrapperStyle={style.wrapperStyle}
             numColumns={topicsData.length > 1 ? topicsData.length : 5}
@@ -153,22 +154,14 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
       </View>
     )
   }
-  const renderBottomContainer = () => {
-    const gradient = isDarkMode ? [colors.blackOpacity0,colors.blackOpacity80,colors.blackOpacity100] : [colors.whiteOpacity0,colors.whiteOpacity80,colors.whiteOpacity100];
-    return (
-      <View style={style.bottomContainer}>
-        <LinearGradient colors={gradient} style={style.linearGradient} />
-        <NextButton
-          testID="nextButtonTestId"
-          disabled={disableNext}
-          title={ONBOARD_COMMON_DONE}
-          onPress={onPressNext}
-          style={nextButtonStyles}
-          icon={false}
-        />
-      </View>
-    )
-  }
+
+  const renderBottomContainer = () => (
+    <OnBoardingBottom
+      title={ONBOARD_COMMON_DONE}
+      onPressNext={onPressNext}
+      disableNext={disableNext}
+    />
+  );
 
   const renderHeaderContainer = () => {
     return(
@@ -349,25 +342,3 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       backgroundColor: colors.transparent
     },
 });
-
-const nextButtonStyle = (theme: CustomThemeType) =>
-  StyleSheet.create({
-    nextButtonContainer: {
-      height: 54,
-      backgroundColor: colors.greenishBlue,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 25,
-      width: 250,
-      paddingHorizontal: 8
-    },
-    nextButtonText: {
-      fontFamily: fonts.AwsatDigital_Bold,
-      color: colors.white,
-      textAlign: 'center',
-      width: '100%',
-      fontSize: 20,
-      paddingTop: 5,
-      lineHeight: 28,
-    },
-  });
