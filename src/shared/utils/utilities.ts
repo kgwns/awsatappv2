@@ -355,9 +355,9 @@ export const formatHijri = (value: string) => {
   const month = formatToTwoDigit(calculateMonthNumber(value) + 1);
   const year = formatToTwoDigit(calculateYear(value));
   const formattedDate = `${year}-${month}-${day}`.toString();
-  let date = new Date(formattedDate);
+  const date = new Date(formattedDate);
 
-  let format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
+  const format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

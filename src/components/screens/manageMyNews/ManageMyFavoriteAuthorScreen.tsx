@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent, screenWidth, isIOS, isDarkTheme } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent, screenWidth, isIOS } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useAllWriters, useAppCommon, useUserProfileData } from 'src/hooks';
+import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 import { fonts } from 'src/shared/styles/fonts';
 import  {TranslateConstants,TranslateKey} from '../../../constants/Constants'
-import LinearGradient from 'react-native-linear-gradient';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { OnBoardingBottom } from 'src/components/molecules';
 
 export const ManageMyFavoriteAuthorScreen = () => {
   const navigation = useNavigation();
@@ -20,10 +20,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
   const ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_TITLE})
   const ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION})
 
-  const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
   const style = useThemeAwareObject(customStyle);
-  const nextButtonStyles = useThemeAwareObject(tabletNextButtonStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [authorsData,setAuthorsData] = useState<AllWritersItemType[]>([])
   const [selectedCheck,setselectedCheck] = useState<boolean>(false)
@@ -114,7 +111,7 @@ export const ManageMyFavoriteAuthorScreen = () => {
     }
   }, [sentAuthorInfoData]);
 
-  const changeSelectedStatus = (item: any, selected: boolean) => {
+  const changeSelectedStatus = (item: any) => {
     const data = [...authorsData]
     for (let i = 0; i < data.length; i++) {
       if (item.tid === data[i].tid) {
@@ -176,21 +173,12 @@ export const ManageMyFavoriteAuthorScreen = () => {
     </View>
   )
 
-  const renderBottomContainer = () => {
-    const gradient = isDarkMode ? [colors.blackOpacity0, colors.blackOpacity80, colors.blackOpacity100] : [colors.whiteOpacity0, colors.whiteOpacity80, colors.whiteOpacity100];
-    return (
-      <View style={style.bottomContainer}>
-        <LinearGradient colors={gradient} style={style.linearGradient} />
-        <NextButton
-          testID="nextButtonTestId"
-          title={ONBOARD_COMMON_DONE}
-          onPress={onPressNext}
-          style={nextButtonStyles}
-          icon={false}
-        />
-      </View>
-    )
-  }
+  const renderBottomContainer = () => (
+    <OnBoardingBottom
+      title={ONBOARD_COMMON_DONE}
+      onPressNext={onPressNext}
+    />
+  );
 
   if (isTab) {
     return (
@@ -347,25 +335,3 @@ const customStyle = (theme: CustomThemeType) => {
     },
   });
 };
-
-const tabletNextButtonStyle = (theme: CustomThemeType) =>
-  StyleSheet.create({
-    nextButtonContainer: {
-      height: 54,
-      backgroundColor: colors.greenishBlue,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 25,
-      width: 250,
-      paddingHorizontal: 8
-    },
-    nextButtonText: {
-      fontFamily: fonts.AwsatDigital_Bold,
-      color: colors.white,
-      textAlign: 'center',
-      width: '100%',
-      fontSize: 20,
-      paddingTop: 5,
-      lineHeight: 28,
-    },
-  });
