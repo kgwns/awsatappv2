@@ -18,7 +18,16 @@ import { dateTimeAgo, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities'
 export const sectionComboArticleFooter: ArticleFooterProps = {
     leftTitleColor: isTab ? Styles.color.black900 : Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: isTab ? {fontFamily: fonts.Effra_Arbc_Regular, fontSize: 13,lineHeight: 16,fontWeight: '400'} : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
+    leftTitleStyle: isTab ? {
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontSize: 13,
+        lineHeight: 16,
+        fontWeight: '400'
+    } : {
+        fontFamily: fonts.IBMPlexSansArabic_Regular,
+        fontSize: 12,
+        lineHeight: 20
+    }
 }
 
 interface BannerArticleSectionProps {

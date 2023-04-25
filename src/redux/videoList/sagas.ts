@@ -29,7 +29,7 @@ export const formatVideoData = (response: any): VideoItemType[] => {
           field_jwplayerinfo_export,
           body_export,
           mediaId: field_video_media_id_export,
-          link_node: link_node
+          link_node
         })
       );
     }
