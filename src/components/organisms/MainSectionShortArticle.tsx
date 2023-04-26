@@ -11,7 +11,7 @@ import {
 */
 import { FlatList } from 'react-native-gesture-handler';  
 import React, { useEffect, useState } from 'react';
-import { isTab, normalize, screenWidth } from 'src/shared/utils'
+import { articleEventParameter, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
 import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
@@ -26,6 +26,7 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { HomePageArticleType } from 'src/redux/latestNews/types';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 import { decode } from 'html-entities';
+import { EventParameterProps } from 'src/shared/utils/analytics';
 
 export interface ShortArticleProps extends TextWithFlagProps {
   image: string,
@@ -43,7 +44,7 @@ export interface ArticleSectionProps {
   headerLeft?: HeaderElementProps;
   onPress: (nid: string, isAlbum?: boolean) => void;
   labelType?: LabelTypeProp;
-  onUpdateBookmark: (nid: string, bookmarkStatus: boolean) => void,
+  onUpdateBookmark: (nid: string, bookmarkStatus: boolean, eventParameter: EventParameterProps) => void,
   showSignUpPopUp: () => void,
   listKey?: string,
   numColumns?: number,
@@ -99,7 +100,16 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus
     setArticleData(updatedData)
-    onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
+    const { title, body, author, type } = updatedData[index];
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      ...articleEventParameter,
+      content_type: type,
+      article_name: title,
+      article_author: author,
+      article_length: decodeBody.split(' ').length,
+    }
+    onUpdateBookmark(updatedData[index].nid, bookmarkStatus, eventParameter);
   }
   const { isPortrait } = useOrientation();
 
