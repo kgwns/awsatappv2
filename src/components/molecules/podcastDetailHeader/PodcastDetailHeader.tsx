@@ -26,7 +26,7 @@ export const PodcastDetailHeader = ({
     const renderLeftComponent = () => {
         return (
             <TouchableOpacity
-                onPress={onHomePress}>
+                onPress={onHomePress} testID={'podcastHomeId'}>
                 <View style={style.leftComponentContainer}>
                     <PodcastHome width={26} height={23} />
                 </View>
@@ -37,7 +37,7 @@ export const PodcastDetailHeader = ({
     const renderRightComponent = () => {
         return (
             <TouchableOpacity
-                onPress={onBackPress}>
+                onPress={onBackPress} testID={'podcastBackIconId'} >
                 <View style={style.prevTabContainer}>
                     {getSvgImages({
                         name: ImagesName.returnWhiteIcon,

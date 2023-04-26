@@ -85,7 +85,7 @@ export const VideoContent = ({
 
     const ShareIcon = ({item}: any) => {
         return (
-            <TouchableOpacity onPress={() => onPressShare(item)} style={style.shareContainer}>
+            <TouchableOpacity testID={'shareId'} onPress={() => onPressShare(item)} style={style.shareContainer}>
                 <Label style={style.shareTextStyle}
                     children={SECTION_VIDEO_SHARE}
                     numberOfLines={2}
@@ -165,6 +165,7 @@ export const VideoContent = ({
                     labelType={isTab ? LabelTypeProp.title3 : LabelTypeProp.title1} 
                     children={ isTab ? TAB_VIDEO_CONTENT_TITLE : CATEGORY_PAGE_VIDEO_CONTENT }
                     numberOfLines={2} 
+                    testID={'videoContentTitleId'}
                 />
             }
             <FlatList

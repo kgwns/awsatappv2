@@ -1154,6 +1154,11 @@ const storeInfo = [
             error: '',
             isDetailLoading: false,
         },
+        podcastData: {
+            contentTitle: 'podcastTitle',
+            contentDuration: 'podcastDuration',
+            contentType: 'podcast'
+        }
     },
 ];
 

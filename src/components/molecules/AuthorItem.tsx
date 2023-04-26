@@ -179,9 +179,9 @@ const AuthorItem = ({
     return (
         showInMainScreen ? 
         <View style = {style.tabAuthorContainer}>
-          <View testID='AutherItemTO1' key={index} style={[style.tabContainer]} >
+          <View testID='MainScreenAuthorId' key={index} style={[style.tabContainer]} >
             <View style={style.tabContentContainer}>
-              <TouchableOpacity key={`indexKey${index}`} onPress={onPress} testID = "titleId">
+              <TouchableOpacity key={`indexKey${index}`} onPress={onPress} testID = "authorId">
                   <Label
                     children={body}
                     numberOfLines={2}
@@ -191,7 +191,7 @@ const AuthorItem = ({
                 </TouchableOpacity>
             </View>
             <View>
-                <TouchableOpacity testID='AutherItemTO3' onPress={() => onPressWriter(authorId)}>
+                <TouchableOpacity testID='mainScreenAuthorItemId' onPress={() => onPressWriter(authorId)}>
                     <Image url={image} size={58} resizeMode={'cover'} type={'round'}
                         fallback={true}
                         fallbackName={ImagesName.authorDefault} 
@@ -202,7 +202,7 @@ const AuthorItem = ({
         <View style = {style.tabFooterContainer}>
           {mediaVisibility && <View style={style.tabMediaFooter}>
 
-              <TouchableOpacity testID={'AutherItemTO2'} onPress={onPressPlay} style={style.tabMediaFooter}>
+              <TouchableOpacity testID={'mainScreenMediaId'} onPress={onPressPlay} style={style.tabMediaFooter}>
                 <ButtonImage
                   icon={() =>
                     trackData && trackData.id === (nid + 'opinion') &&
@@ -211,9 +211,9 @@ const AuthorItem = ({
                       getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) })
                   }
                   onPress={onPressPlay} />
-                {isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.tabDurationLabel} />}
-
-                <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} color={ isDarkMode ? themeData.summaryColor : Styles.color.green600}  style={style.tabArticleLabelSyle} />
+                {isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.tabDurationLabel} testID={'mainScreenTimeDuration'} />}
+                <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} color={ isDarkMode ? themeData.summaryColor : Styles.color.green600}  
+                  style={style.tabArticleLabelSyle}  testID={'listenToArticleId'} />
               </TouchableOpacity>
 
             </View>}
@@ -222,7 +222,7 @@ const AuthorItem = ({
               key={`title${index}`}
               children={author}
               style={style.tabAuthorTitle}
-              testID={'AutherItemLabel1'}
+              testID={'mainScreenAuthorLabelId'}
               color={themeData.primary}
               numberOfLines={1}
               onPress={() => onPressWriter(authorId)}
@@ -249,7 +249,7 @@ const AuthorItem = ({
                         <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     </TouchableOpacity>
-                    { isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.durationLabel} /> }
+                    { isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.durationLabel} testID={'authorTimeDuration'} /> }
                 </View>}
             </View>
             <View>

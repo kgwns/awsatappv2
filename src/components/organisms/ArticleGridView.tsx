@@ -85,7 +85,7 @@ export const ArticleGridView = ({
 
     const renderItemSeparatorComponent = () => {
         return (
-            <View style={ isTab ? style.tabDividerContainer : style.dividerContainer}>
+            <View style={ isTab ? style.tabDividerContainer : style.dividerContainer} testID={'dividerId'}>
                 <Divider style={style.divider} />
             </View>
         )
@@ -108,6 +108,7 @@ export const ArticleGridView = ({
                         renderItem={({ item, index }) => renderItem(item, index)}
                         numColumns={isTab ? 3 : 2}
                         columnWrapperStyle={ isTab && style.tabWrapperStyle}
+                        testID={'flatListId'}
                     />
             
             <View style={style.spaceStyle}>
