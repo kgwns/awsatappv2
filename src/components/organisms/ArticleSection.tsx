@@ -1,6 +1,6 @@
 import { View, StyleSheet, FlatList, StyleProp, ViewStyle } from 'react-native'
 import React, { useEffect, useState } from 'react'
-import { isNonEmptyArray, isTab, normalize, screenWidth } from '../../shared/utils'
+import { articleEventParameter, isNonEmptyArray, isTab, normalize, screenWidth } from '../../shared/utils'
 import { flatListUniqueKey } from '../../constants/Constants'
 import { ArticleFooterProps, ArticleItem } from '../molecules'
 import { ArticleWithOutImageProps } from '../molecules/ArticleWithOutImage'
@@ -10,7 +10,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages'
 import { fonts } from 'src/shared/styles/fonts'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
-import { dateTimeAgo, TimeIcon } from 'src/shared/utils/utilities'
+import { dateTimeAgo, decodeHTMLTags, TimeIcon } from 'src/shared/utils/utilities'
 import { EventParameterProps } from 'src/shared/utils/analytics'
 
 export interface ArticleProps extends ImageLabelProps, ArticleWithOutImageProps {
@@ -73,7 +73,16 @@ const ArticleSection = ({
         const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
         updatedData[index].isBookmarked = bookmarkStatus
         setArticleData(updatedData)
-        onUpdateBookmark && onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
+        const {title,body,author} = updatedData[index];
+        const decodeBody = decodeHTMLTags(body);
+        const eventParameter = {
+          ...articleEventParameter,
+          article_name: title,
+          article_author: author,
+          article_length: decodeBody.split(' ').length,
+    
+        }
+        onUpdateBookmark && onUpdateBookmark(updatedData[index].nid, bookmarkStatus, eventParameter)
     }
 
     const renderItem = (item: ArticleProps, index: number) => {
