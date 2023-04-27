@@ -1,7 +1,7 @@
-import { View, StyleSheet, TouchableOpacity, ScrollView, Keyboard } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Keyboard } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AlertPayloadType, ScreenContainer } from '../ScreenContainer/ScreenContainer'
-import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, screenWidth, testProps } from 'src/shared/utils'
+import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, recordLogEvent, screenWidth, testProps } from 'src/shared/utils'
 import { StaticPageHeader } from 'src/components/molecules'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { Label, TextInputField } from 'src/components/atoms'
@@ -15,6 +15,7 @@ import { emailValidation } from 'src/shared/validators'
 import { useNavigation } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { FLEX_START } from 'src/shared/styles/item-alignment'
+import { AnalyticsEvents } from 'src/shared/utils/analytics'
 
 export type ContactUsModal = {
     name: string;
@@ -93,7 +94,8 @@ export const ContactUs = () => {
                 setIsAlertVisible(true);
                 return
             }
-            Keyboard.dismiss()
+            Keyboard.dismiss();
+            recordLogEvent(AnalyticsEvents.CONTACT_FORM_SUBMIT);
             sendContactUsInfo({
                 name: name.trim(),
                 email: email.trim(),

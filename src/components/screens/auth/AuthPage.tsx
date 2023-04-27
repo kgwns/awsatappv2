@@ -7,10 +7,9 @@ import {
   TouchableOpacity,
   Keyboard,
   TouchableWithoutFeedback,
-  Alert,
 } from 'react-native';
 import {colors} from '../../../shared/styles/colors';
-import {isObjectNonEmpty, normalize} from '../../../shared/utils';
+import {isObjectNonEmpty, isTab, normalize} from '../../../shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from '../../../components/organisms/';
 import {
@@ -106,7 +105,7 @@ export const AuthPage: FunctionComponent = () => {
     userInfo: any,
     success: boolean,
     provider: SocialProviders,
-    message?: String,
+    message?: string,
   ) => {
     if (success) {
       fbLoginRef.current = false;
@@ -151,9 +150,9 @@ export const AuthPage: FunctionComponent = () => {
     const message = emailCheckData?.message;
     if (message) {
       if (message.code === 200) {
-        navigation.navigate(ScreensConstants.SignInPage, {email: email});
+        navigation.navigate(ScreensConstants.SignInPage, {email});
       } else {
-        navigation.navigate(ScreensConstants.SignUpPage, {email: email});
+        navigation.navigate(ScreensConstants.SignUpPage, {email});
       }
     }
     emptyEmailCheckInfo();
@@ -199,7 +198,7 @@ export const AuthPage: FunctionComponent = () => {
 
     if (emailValidation(email) === '') {
       const payload: FetchEmailCheckPayloadType = {
-        email: email,
+       email,
       };
       Keyboard.dismiss();
       fetchEmailCheckRequest(payload);
@@ -286,8 +285,8 @@ const createStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: normalize(20),
-      marginHorizontal: normalize(20),
+      paddingVertical: isTab ? 20 : normalize(20),
+      marginHorizontal: isTab ? 20 : normalize(20),
       justifyContent: 'space-between',
       backgroundColor: theme.onBoardBackground,
     },
@@ -295,8 +294,8 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       flex: 0.09,
-      marginBottom: normalize(35),
-      marginTop: normalize(20),
+      marginBottom: isTab ? 35 : normalize(35),
+      marginTop: isTab ? 20 : normalize(20),
     },
     headerStyle: {
       flex: 0.05,
@@ -305,20 +304,20 @@ const createStyles = (theme: CustomThemeType) =>
     },
     headerLabelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
-      fontSize: normalize(12),
+      fontSize: isTab ? 12 : normalize(12),
       color: theme.primary,
-      lineHeight: normalize(16),
+      lineHeight: isTab ? 16 : normalize(16),
     },
     containerStyle: {
       flex: 0.71,
-      paddingHorizontal: normalize(30),
+      paddingHorizontal: isTab ? 30 : normalize(30),
       backgroundColor: theme.secondaryWhite,
     },
     footerStyle: {
       flex: 1,
       alignItems: 'center',
       position: 'absolute',
-      bottom: normalize(20),
+      bottom: isTab ? 20 : normalize(20),
       width: '100%',
       justifyContent: 'center',
     },
@@ -327,11 +326,11 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'center',
     },
     logo: {
-      width: normalize(150),
-      height: normalize(37),
+      width: isTab ? 150 : normalize(150),
+      height: isTab ? 37 : normalize(37),
     },
     spaceStyle: {
-      marginHorizontal: normalize(5),
+      marginHorizontal: isTab ? 5 : normalize(5),
     },
     rightsStyle: {
       marginTop: 5,

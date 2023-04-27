@@ -5,7 +5,7 @@ import { ArchiveImage} from 'src/components/atoms/archiveImage/ArchiveImage'
 import { Divider } from 'src/components/atoms/divider/Divider'
 import { BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
-import ArticleFooter, { articleFooterProps, BookMarkColorType } from 'src/components/molecules/articleFooter/ArticleFooter'
+import ArticleFooter, { ArticleFooterProps, BookMarkColorType } from 'src/components/molecules/articleFooter/ArticleFooter'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
@@ -18,7 +18,7 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
 import { ArticleLabel } from './articleLabel/ArticleLabel'
 
-const archiveFooterSample: articleFooterProps = {
+const archiveFooterSample: ArticleFooterProps = {
   leftTitleColor: Styles.color.white,
   rightIcon: () => {
     return getSvgImages({
@@ -30,7 +30,7 @@ const archiveFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice,
   bookMarkColorType: BookMarkColorType.WHITE,
   leftTitleStyle: { fontWeight: 'bold' },
-  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20, }
+  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
 }
 
 export interface ArchiveArticleProps extends BannerImageWithOverlayProps {
@@ -46,7 +46,8 @@ export interface ArchiveArticleProps extends BannerImageWithOverlayProps {
   titleStyle?: StyleProp<TextStyle>,
   leftTitleColor?: string;
   showDivider?: boolean,
-  contentStyle?: StyleProp<TextStyle>
+  contentStyle?: StyleProp<TextStyle>,
+  rightTitleStyle?: StyleProp<TextStyle>,
 }
 
 const ArchiveArticle = ({
@@ -63,17 +64,18 @@ const ArchiveArticle = ({
   contentStyle,
   isAlbum,
   displayType,
+  rightTitleStyle
 }: ArchiveArticleProps) => {
 
   const navigation = useNavigation<StackNavigationProp<any>>()
   const { themeData } = useTheme();
   const timeFormat = dateTimeAgo(created)
   const isDark = themeData?.id === DARK_THEME_ID
-
+  archiveFooterSample.rightTitleStyle = rightTitleStyle
   const onPress = () => {
     if (nid) {
       const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
-      navigation.navigate(screenName, { nid: nid })
+      navigation.navigate(screenName, { nid })
     }
   }
 
@@ -97,7 +99,7 @@ const ArchiveArticle = ({
             <ArticleFooter {...archiveFooterSample}
               rightTitle={timeFormat.time}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
-              rightTitleColor={isDark ? Styles.color.silverChalice : Styles.color.black}
+              rightTitleColor={isDark ? Styles.color.silverChalice : isTab ? Styles.color.black900 : Styles.color.black}
               rightContainerStyle={rightContainerStyle}
               rightIcon={() => TimeIcon(timeFormat.icon)}
               hideBookmark={true}

@@ -11,6 +11,7 @@ export const fetchSideMenuApi = async () => {
    
     return response;
   } catch (error) {
+    console.log('sideMenuService - fetchSideMenuApi - error', error)
     throw error;
   }
 };

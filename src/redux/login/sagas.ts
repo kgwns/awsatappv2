@@ -8,7 +8,7 @@ import {
   ForgotPasswordSuccessPayloadType,
 } from './types';
 import {fetchLoginFailed, fetchLoginSuccess, forgotPasswordFailed, forgotPasswordSuccess, userLogoutSuccess} from './action';
-import {EMPTY_FORGOT_PASSWORD_RESPONSE, EMPTY_LOGIN_DATA, FETCH_LOGIN, FETCH_USER_LOGOUT, FORGOT_PASSWORD_REQUEST} from './actionTypes';
+import {FETCH_LOGIN, FETCH_USER_LOGOUT, FORGOT_PASSWORD_REQUEST} from './actionTypes';
 import {fetchLoginApi, fetchLogoutApi, forgotPasswordApi} from 'src/services/loginService';
 import {Alert} from 'react-native';
 

@@ -9,7 +9,7 @@ import {
   ImageBackground,
   AppState,
 } from 'react-native';
-import {isIOS} from 'src/shared/utils';
+import {isIOS, isTab, recordLogEvent} from 'src/shared/utils';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import Video from 'react-native-video';
@@ -23,6 +23,7 @@ import {images, ImagesName} from 'src/shared/styles/images';
 import {NativeViewGestureHandler} from 'react-native-gesture-handler';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export interface VideoPlayerFullScreenProp {
   url: string;
@@ -31,6 +32,7 @@ export interface VideoPlayerFullScreenProp {
   isFullScreen?: boolean;
   onChangeFullScreen?: (isFullScreen: boolean) => void;
   onClose?: () => void;
+  title?: string;
 }
 
 const VideoPlayerFullScreen = ({
@@ -40,6 +42,7 @@ const VideoPlayerFullScreen = ({
   onChangeFullScreen,
   onClose,
   testID,
+  title = ''
 }: VideoPlayerFullScreenProp) => {
   const styles = useThemeAwareObject(customStyle);
 
@@ -51,6 +54,7 @@ const VideoPlayerFullScreen = ({
   const [tapActionTimeout, setTapActionTimeout] = useState<any>(null);
   const [showControls, setShowControls] = useState(false);
   const [screenType, setScreenType] = useState('contain');
+  const analyticsProgress = useRef<number>(0)
 
   const onSeek = (seek: any) => {
     videoPlayer.current?.seek(seek);
@@ -61,6 +65,62 @@ const VideoPlayerFullScreen = ({
   };
 
   const onProgress = (data: any) => {
+    const percentageCalculation = () => {
+        {
+        const percentageData = Math.floor((data?.currentTime / data?.seekableDuration) * 100)
+        let videoEventPreset = {
+          content_title: title,
+          content_duration: duration,
+          content_type: 'video',
+          progress_percentage: 0
+        }
+        if ((percentageData >= 10) && (analyticsProgress.current < 10)) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 10
+          }
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          analyticsProgress.current = 10
+        } else if ((percentageData >= 25) && (analyticsProgress.current < 25)) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 25
+          }
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          analyticsProgress.current = 25
+        } else if ((percentageData >= 50) && (analyticsProgress.current < 50)) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 50
+          }
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          analyticsProgress.current = 50
+        } else if ((percentageData >= 75) && (analyticsProgress.current < 75)) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 75
+          }
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          analyticsProgress.current = 75
+        } else if (percentageData < 10) {
+          analyticsProgress.current = 0;
+        } else if (data?.currentTime === data?.seekTime) {
+          videoEventPreset = {
+            ...videoEventPreset,
+            progress_percentage: 100
+          }
+          const logEndData = {
+            content_title: title,
+            content_duration: duration,
+            content_type: 'video',
+            is_completed: '1'
+          }
+          recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
+          recordLogEvent(AnalyticsEvents.VIDEO_COMPLETED, logEndData);
+        }
+      }      
+    }
+    percentageCalculation()
     if (!isLoading) {
       setCurrentTime(data.currentTime);
     }
@@ -72,7 +132,15 @@ const VideoPlayerFullScreen = ({
     onScreenTouch();
   };
 
-  const onLoadStart = (data: any) => setIsLoading(true);
+  const onLoadStart = (data: any) => {
+    const logStartData = {
+      content_title:title,
+      content_duration:duration,
+      content_type:'video',
+    }
+    recordLogEvent(AnalyticsEvents.VIDEO_START, logStartData );
+    setIsLoading(true)
+  };
 
   const onEnd = () => {
     videoPlayer.current?.seek(duration);
@@ -209,7 +277,7 @@ const VideoPlayerFullScreen = ({
       imageStyle={[styles.vignette]}>
       <View style={styles.topContainer}>
         <View style={styles.closeButtonContainer}>{renderCloseButton()}</View>
-        <View style={styles.closeButtonContainer}>{renderFullScreen()}</View>
+       {!isTab && <View style={styles.closeButtonContainer}>{renderFullScreen()}</View>}
       </View>
     </ImageBackground>
   );
@@ -225,7 +293,7 @@ const VideoPlayerFullScreen = ({
         onPress={toggleFullscreen}
         hitSlop={DEFAULT_HIT_SLOP}
         style={styles.fullScreenBtnContainer}>
-        <Image source={source} />
+        <Image source={source} testID='fullScreenIconId' />
       </TouchableHighlight>
     );
   };
@@ -263,7 +331,7 @@ const VideoPlayerFullScreen = ({
         onPress={onPaused}
         hitSlop={DEFAULT_HIT_SLOP}
         style={styles.playButtoncontainer}>
-        <Image source={source} />
+        <Image source={source} testID='playPauseIconId'/>
       </TouchableHighlight>
     );
   };
@@ -280,7 +348,7 @@ const VideoPlayerFullScreen = ({
             {isLoading && <LoadingState />}
             {showControls && (
               <>
-                <View style={styles.videoContainer}>{renderTopControls()}</View>
+                <View style={styles.videoContainer} testID = 'topControlId'>{renderTopControls()}</View>
                 <View style={styles.videoContainer}>{renderBottomControls()}</View>
               </>
             )}

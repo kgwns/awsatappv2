@@ -1,5 +1,5 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
-import {EMPTY_USER_INFO, REGISTER_USER} from './actionTypes';
+import {REGISTER_USER} from './actionTypes';
 import { registerUser } from 'src/services/registerService';
 import {registerSuccess, registerFailed} from './action';
 import {RegisterSuccessPayloadType, UserRegisterType} from './types';

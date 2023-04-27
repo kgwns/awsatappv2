@@ -1,9 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {StyleProp, ViewStyle, TouchableOpacity, TextStyle, StyleSheet, View} from 'react-native';
-import { SvgProps } from 'react-native-svg';
-import {Image, ImageName} from 'src/components/atoms';
 import { Label,LabelType} from 'src/components/atoms/label/Label';
-import {normalize} from 'src/shared/utils/dimensions';
+import { normalize} from 'src/shared/utils/dimensions';
 import { colors } from '../../../shared/styles/colors';
 
 const styles = StyleSheet.create({

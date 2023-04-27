@@ -464,7 +464,7 @@ export enum MainSectionBlockName {
 export enum HomePageArticleType {
   ARTICLE = 'article',
   ALBUM = 'album',
-};
+}
 
 export type MainSectionBlockType = {
   body: string;

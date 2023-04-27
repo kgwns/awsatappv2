@@ -47,17 +47,15 @@ export const ForgotPassword: FunctionComponent = () => {
   }, [])
 
   const navigateToSection = (type: string) => {
-    switch (type) {
-      case NavigateTypes.termsAndConditions:
-        navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US,
-          { title: CONST_TERMS_AND_CONDITION, id: TERMS_AND_CONDITION });
-        return;
-      default:
-        navigation.reset({
-          index: 0,
-          routes: [{ name: ScreensConstants.OnBoardNavigator }],
-        });
-    }
+    if(type === NavigateTypes.termsAndConditions){
+      navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: CONST_TERMS_AND_CONDITION, id: TERMS_AND_CONDITION });
+    } else{
+    navigation.reset({
+            index: 0,
+            routes: [{ name: ScreensConstants.OnBoardNavigator }],
+          });
+        }
   };
   const onPressBack = () => {
     navigation.goBack();

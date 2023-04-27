@@ -7,7 +7,7 @@ import {
   View,
 } from 'react-native';
 import React, {useRef} from 'react';
-import {isIOS, isTab, normalize, normalizeBy320, screenWidth, isDarkTheme} from 'src/shared/utils';
+import {isIOS, isTab, normalize, normalizeBy320, screenWidth,} from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors, CustomThemeType} from 'src/shared/styles/colors';
 import {Image, Label} from 'src/components/atoms';
@@ -150,6 +150,7 @@ const customStyle = (theme: CustomThemeType) =>
     },
     contentStyle: {
       flexGrow: 1,
+      paddingLeft: isTab ? 0.03 * screenWidth : 0,
     },
     tabBarBottomView: {
       width: '100%',
@@ -210,4 +211,3 @@ const customStyle = (theme: CustomThemeType) =>
       borderRadius: 33/2
     }
   });
-  

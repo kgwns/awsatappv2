@@ -1,4 +1,4 @@
-import { View, StyleSheet, FlatList, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, FlatList, ActivityIndicator, StyleProp, ViewStyle } from 'react-native';
 import React from 'react';
 import {Image} from '../atoms/image/Image';
 import { isTab, normalize, screenWidth} from '../../shared/utils';
@@ -14,6 +14,7 @@ import {
   dateTimeAgo,
   TimeIcon,
   getArticleImage,
+  isDarkTheme,
 } from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -22,8 +23,9 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import { decode } from 'html-entities';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
-import { useAppPlayer } from 'src/hooks';
+import { useAppCommon, useAppPlayer } from 'src/hooks';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
+import { Styles } from 'src/shared/styles';
 
 export interface NewsFeedProps {
   title: string;
@@ -41,18 +43,20 @@ interface NewsFeedWidgetProps {
   data: NewsViewListItemType[];
   onScroll: () => void;
   isLoading: boolean;
-  onUpdateNewsFeedBookmark: (index: number) => void
+  onUpdateNewsFeedBookmark: (index: number) => void,
+  labelContainerStyle?: StyleProp<ViewStyle>
 }
 
-const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeedWidgetProps) => {
+const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelContainerStyle}: NewsFeedWidgetProps) => {
   const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>();
   const style = useThemeAwareObject(customStyle)
   const { showMiniPlayer } = useAppPlayer()
-  
-  const onPress = (nid: string) => {
-    if (nid) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
+  const themeData = useAppCommon();
+  const isDarkMode = isDarkTheme(themeData.theme);
+  const onPress = (nId: string) => {
+    if (nId) {
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nId});
     }
   };
 
@@ -66,7 +70,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
           leftTitleColor={theme.themeData.primary}
           rightIcon={() => TimeIcon(timeFormat.icon)}
           rightDate={timeFormat.time}
-          rightDateColor={style.footerTitleColor.color}
+          rightDateColor={ isTab ? isDarkMode ? style.footerTitleColor.color : Styles.color.black900 : style.footerTitleColor.color}
           rightTitleColor={style.footerTitleColor.color}
           addBookMark={true}
           isBookmarked={item.isBookmarked}
@@ -109,9 +113,9 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
   )
 
   const renderTitle = (title: string) => (
-    <View style={isTab ? style.titleContainer : style.titleStyle}>
+    <View style={isTab ? style.tabTitleContainer : style.titleStyle}>
       <Label
-        style={style.title}
+        style={isTab ? style.tabTitle : style.title}
         color={theme.themeData.primaryBlack}
         children={decodeHTMLTags(title)}
       />
@@ -122,7 +126,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
     <Label
       style={style.descriptionStyle}
       children={decodeHTMLTags(decode(body))}
-      numberOfLines={isTab ? 2 : 3}
+      numberOfLines={isTab ? 4 : 3}
     />
   )
 
@@ -132,14 +136,18 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark}: NewsFeed
         <FixedTouchable activeOpacity={0.8} onPress={() => onPress(item.nid)}>
           {
             isTab ?
-              <View style={style.tabSplitter}>
+              <View style = {style.tabNewsFeedContainer}>
+                <View style={style.tabSplitter}>
                 <View style={style.tabLeftContainer}>
-                  <ArticleLabel displayType={item.field_display_export} enableTopMargin />
+                  <ArticleLabel displayType={item.field_display_export} enableTopMargin labelContainer = {labelContainerStyle} />
                   {renderTitle(item.title)}
                   {renderDescription(item.body)}
-                  {renderArticleFooter(item, index)}
                 </View>
                 {renderArticleImage(item)}
+              </View>
+              <View style = {style.tabFooterContainer}>
+               {renderArticleFooter(item, index)}
+               </View>
               </View>
               :
               <>
@@ -188,7 +196,7 @@ export default NewsFeed;
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
-    paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+    paddingHorizontal: isTab ? 18 : normalize(0.04 * screenWidth),
     paddingTop: normalize(25),
   },
   listContainer: {},
@@ -207,6 +215,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingTop: normalize(5),
     lineHeight: normalize(18),
   },
+  tabDescriptionStyle: {
+    fontSize: 18,
+    color: theme.newsFeed,
+    textAlign: 'left',
+    paddingBottom: 20,
+    paddingTop: 5,
+    lineHeight: 29,
+  },
   divider: {
     height: 1.07,
     backgroundColor: theme.dividerColor
@@ -218,7 +234,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     marginTop:20
   },
   tabImageContainer: {
-    width: 153,
+    width: 268,
     height: 'auto',
     aspectRatio: 4/3,
   },
@@ -229,23 +245,32 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   titleContainer: {
     flex: 1,
     marginRight: normalize(10),
-    top: normalize(10),
+    top: isTab ? 0 : normalize(10),
+  },
+  tabTitleContainer: {
+    marginRight: 10,
   },
   tabSplitter: {
     flex: 1,
-    flexDirection: 'row',
-    paddingTop: normalize(15),
+    flexDirection: 'row-reverse',
+    paddingTop: 15,
   },
   tabLeftContainer: {
     flex: 1,
-    paddingRight: normalize(30),
+    paddingLeft: 20,
   },
   title: {
     textAlign: 'left',
     fontFamily: fonts.AwsatDigital_Bold,
-    fontSize: isTab ? normalize(20) : normalize(18),
-    lineHeight: isTab ? normalize(32) : normalize(29),
+    fontSize: normalize(18),
+    lineHeight: normalize(29),
     marginBottom: 10,
+  },
+  tabTitle: {
+    textAlign: 'left',
+    fontFamily: fonts.AwsatDigital_Bold,
+    fontSize: 20,
+    lineHeight: 33,
   },
   titleStyle: {
     marginRight: normalize(10),
@@ -266,5 +291,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   miniPlayerContainer: {
     height: normalize(60),
     paddingHorizontal: normalize(20),
+  },
+  tabNewsFeedContainer: {
+    flex: 1, 
+    flexDirection: 'column'
+  },
+  tabFooterContainer: {
+    marginTop: 10
   }
 });

@@ -6,7 +6,7 @@ describe('<GridviewItem />', () => {
   let instance: RenderAPI
   
   beforeEach(() => {
-    const component = <GridviewItem index={0} isAlbum={false}  />
+    const component = <GridviewItem />
     instance = render(component)
   })
 

@@ -2,17 +2,34 @@ import { storeAppTheme } from '../action'
 import {AppCommonState, ArticleFontSize, ServerEnvironment} from '../types'
 import appCommonReducer from '../reducer'
 import { Theme } from '../types'
-import { IS_APP_FIRST_SESSION, RESET_ARTICLE_FONT_SIZE, STORE_APP_THEME, STORE_FONT_SIZE, STORE_SERVER_ENVIRONMENT } from '../actionType'
+import { IS_APP_FIRST_SESSION, RESET_ARTICLE_FONT_SIZE, STORE_APP_THEME, STORE_BASE_URL_CONFIG, STORE_FONT_SIZE, STORE_SERVER_ENVIRONMENT } from '../actionType'
 import { normalize } from 'src/shared/utils';
 
 describe('App Common Reducer', () => {
     let initialState: AppCommonState;
+    let url: any;
     beforeEach(() => {
         initialState = {
             theme: Theme.LIGHT,
             isAppFirstSession: true,
             serverEnvironment: ServerEnvironment.PRODUCTION,
-            articleFontSize: normalize(16)
+            articleFontSize: normalize(16),
+            baseUrlConfig:{
+                baseUrl: 'https://aawsat.srpcdigital.com/',
+                umsUrl:  "https://awsatapi.srpcdigital.com/",
+                imageUrl: 'https://static.srpcdigital.com/',
+                profileImageUrl: "https://awsatapi.srpcdigital.com/storage/",
+                liveBlogUrl: "https://aawsat.srpcdigital.com/livenews/",
+            }
+        }
+        url = {
+            baseUrlConfig: {
+                baseUrl: 'https://aawsat.srpcdigital.com/baseUrl',
+                umsUrl:  "https://awsatapi.srpcdigital.com/umsUrl",
+                imageUrl: 'https://static.srpcdigital.com/imageUrl',
+                profileImageUrl: "https://awsatapi.srpcdigital.com/storage/profileImageUrl",
+                liveBlogUrl: "https://aawsat.srpcdigital.com/livenews/liveBlogUrl",
+            }
         }
         storeAppTheme(Theme.LIGHT)
     })
@@ -87,5 +104,17 @@ describe('App Common Reducer', () => {
         })
         expect(nextState.theme).toBe("light")
     })
+    test('Check base url', () => {
+        const nextState = appCommonReducer(initialState, {
+            type: STORE_BASE_URL_CONFIG,
+            payload: {baseUrlConfig:url.baseUrlConfig}
+        })
+        expect(nextState.baseUrlConfig).toEqual(url.baseUrlConfig)
+    })
+    test('Check default action to called', () => {
+        const nextState = appCommonReducer(initialState, {})
+        expect(nextState).toEqual(initialState)
+    })
+
 
 })

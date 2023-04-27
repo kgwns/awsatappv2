@@ -1,6 +1,6 @@
 import {all, call, put, takeLatest} from 'redux-saga/effects';
 import {SAVE_TOKEN_REQUEST, SAVE_TOKEN_AFTER_REGISTRATION_REQUEST} from './actionType';
-import {notificationSaveTokenReuqest, notificationSaveTokenAfterRegistraionReuqest} from '../../services/notificationSaveTokenService';
+import {notificationSaveTokenRequest, notificationSaveTokenAfterRegistrationRequest} from '../../services/notificationSaveTokenService';
 import {SaveTokenSuccess, SaveTokenFailed, SaveTokenAfterRegistrationSuccess, SaveTokenAfterRegistrationFailed} from './action';
 import {
   SaveTokenAfterRegistraionSuccessPayloadType,
@@ -13,7 +13,7 @@ import { AxiosError } from 'axios';
 export function* saveFCMtoken(action: SaveTokenType) {
   try {
     const payload: SaveTokenSuccessPayloadType = yield call(
-      notificationSaveTokenReuqest,
+      notificationSaveTokenRequest,
       action.payload,
     );
     yield put(SaveTokenSuccess(payload));
@@ -31,7 +31,7 @@ export function* saveFCMtoken(action: SaveTokenType) {
 export function* saveFCMtokenAfterRegistration(action: SaveTokenAfterRegistrationType) {
   try {
     const payload: SaveTokenAfterRegistraionSuccessPayloadType = yield call(
-      notificationSaveTokenAfterRegistraionReuqest,
+      notificationSaveTokenAfterRegistrationRequest,
       action.payload,
     );
     yield put(SaveTokenAfterRegistrationSuccess(payload));

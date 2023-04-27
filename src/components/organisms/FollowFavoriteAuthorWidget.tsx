@@ -12,6 +12,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
   const data = props.writersData;
   const style = useThemeAwareObject(customStyle);
   const scrollRef = useRef<ScrollView>(null);
+  const numColumns = 7;
 
   const renderItem = (item: any) => {
     return (
@@ -21,6 +22,7 @@ const FollowFavoriteAuthorWidget = (props: any) => {
         authorImage={getImageUrl(item.field_opinion_writer_photo_export) }
         isSelected={item.isSelected}
         onPress={selected => props.changeSelectedStatus(item, selected)}
+        numColumns={numColumns}
       />
     );
   };
@@ -31,38 +33,63 @@ const FollowFavoriteAuthorWidget = (props: any) => {
     }
     scrollRef.current?.scrollToEnd();
   }
-  return (
-    <ScrollView
-      ref={scrollRef}
-      horizontal
-      showsHorizontalScrollIndicator={false}
-      onContentSizeChange={()=> scrollToStart()}
-      bounces={false}
-      style={style.container}>
-        <FlatList
-        key={data ? Math.ceil(data.length / 3) : 3}
+  if (isTab) {
+    return (
+      <FlatList
+        key={'tabletFollowFavoriteAuthorFlatList'}
         listKey={flatListUniqueKey.FOLLOW_FAVORITE_AUTHOR_WIDGET}
         keyExtractor={(_, index) => index.toString()}
-        numColumns={data ? Math.ceil(data.length / 3) : 3}
+        numColumns={numColumns}
         data={data}
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-        renderItem={({item}) => renderItem(item)}
-        style={{ marginHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth) }}
+        renderItem={({ item }) => renderItem(item)}
+        contentContainerStyle={style.tabletBottomPadding}
         bounces={false}
-        scrollEnabled={false}
       />
-    </ScrollView>
-  );
+    )
+  } else {
+    return (
+      <ScrollView
+        ref={scrollRef}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+        onContentSizeChange={() => scrollToStart()}
+        bounces={false}
+        style={style.container}>
+        <FlatList
+          key={'mobileFollowFavoriteAuthorFlatList'}
+          listKey={flatListUniqueKey.FOLLOW_FAVORITE_AUTHOR_WIDGET}
+          keyExtractor={(_, index) => index.toString()}
+          numColumns={data ? Math.ceil(data.length / 3) : 3}
+          data={data}
+          showsHorizontalScrollIndicator={false}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => renderItem(item)}
+          style={style.mobileWideMargin}
+          bounces={false}
+          scrollEnabled={false}
+        />
+      </ScrollView>
+    );
+  }
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const FollowFavoriteAuthorWidgetStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.onBoardBackground,
       alignContent: 'center',
     },
+    tabletWideMargin: {
+      marginHorizontal: normalize(0.04 * screenWidth),
+    },
+    tabletBottomPadding: {
+      paddingBottom: 200
+    },
+    mobileWideMargin: {
+      marginHorizontal: normalize(0.04 * screenWidth)
+    }
   });
-  return FollowFavoriteAuthorWidgetStyle;
 };
 export default FollowFavoriteAuthorWidget;

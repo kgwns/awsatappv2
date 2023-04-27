@@ -1,10 +1,10 @@
 import React from 'react'
 import { View, StyleSheet, StyleProp, TextStyle, ViewStyle } from 'react-native'
-import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
+import { Label } from 'src/components/atoms/label/Label'
 import { decodeHTMLTags, normalize, screenWidth } from 'src/shared/utils'
 import { decode } from 'html-entities'
 
-interface captionWithImageProps {
+interface CaptionWithImageProps {
     title?: string,
     icon?: () => void,
     color?: string,
@@ -18,7 +18,7 @@ const CaptionWithImage = ({ title, icon,
     color, style, labelStyle,
     numberOfLine,
     labelContainerStyle,
- }: captionWithImageProps) => {
+ }: CaptionWithImageProps) => {
     return (
         <View style={style}>
             <View style={captionImageStyle.container}>

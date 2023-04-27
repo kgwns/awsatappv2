@@ -1,12 +1,13 @@
 import { View,StyleSheet } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
 import { FilterComponent, FilterDataType, PopulateWidgetType } from 'src/components/molecules'
-import { isArray, isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
+import { isArray, isInvalidOrEmptyArray, isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
 import { useBookmark } from 'src/hooks'
 import { DynamicWidget } from 'src/components/organisms'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
+import { colors } from 'src/shared/styles/colors'
 
 export const Archives = () => {
     const isFocused = useIsFocused()
@@ -20,27 +21,34 @@ export const Archives = () => {
     const filterData: FilterDataType[] = [
         {
             name: FAVORITE_FILTERS_EVERYONE,
-            isSelected: true
+            isSelected: true,
+            count: 0,
+            isVisible: isTab ? false : true,
         },
         {
             name: FAVORITE_FILTERS_ARTICLES,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_VIDEO,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_OPINION,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_PODCAST,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         },
         {
             name: FAVORITE_FILTERS_ALBUM,
-            isSelected: false
+            isSelected: false,
+            count: 0,
         }
     ]
 
@@ -59,6 +67,7 @@ export const Archives = () => {
     const {
         getBookmarkedId, removeBookmarkedInfo,
         getBookmarkDetailData, getSpecificBundleFavoriteDetail,
+        getSpecificBundleArticleCount,
         bookmarkDetail, bookmarkLoading,
         isAllBookmarkFetched, filterBookmarkDetailInfo,
         bookmarkIdInfo, canRefreshBookmarkDetail,
@@ -66,23 +75,46 @@ export const Archives = () => {
 
     //State
     const [filterItem, setFilterItem] = useState<FilterDataType[]>(filterData);
-    const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(0);
+    const [tabSelectedIndex, setTabSelectedIndex] = useState<number>(isTab ? 1 : 0);
     const selectedDataRef = useRef(true);
     const [filteredData, setFilteredData] = useState(bookmarkDetail)
     const [initialLoading, setInitialLoading] = useState(true)
 
     useEffect(() => {
         const isAllDataFetched = isArray(bookmarkIdInfo) && isArray(bookmarkDetail) && bookmarkIdInfo.length === bookmarkDetail.length
-        if (isFocused && canRefreshBookmarkDetail && !isAllDataFetched) {
-            updateFilterComponent(0) //We switch to all tab when bookmark add newly
-            getBookmarkedId()
-            setInitialLoading(isFocused)
+        if (isFocused && !isAllDataFetched) {
+            if (isTab && (canRefreshBookmarkDetail || isInvalidOrEmptyArray(filterBookmarkDetailInfo))) {
+                onPressFilterItem(tabSelectedIndex);
+                getBookmarkedId()
+                setInitialLoading(isFocused)
+            } else if (canRefreshBookmarkDetail) {
+                updateFilterComponent(0) //We switch to all tab when bookmark add newly
+                getBookmarkedId()
+                setInitialLoading(isFocused)
+            }
         }
     }, [isFocused])
 
     useEffect(() => {
-        if (isNonEmptyArray(bookmarkDetail) ||
-            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData) || isAllBookmarkFetched) {
+        if (isFocused) {
+            updateArticleCount([...filterItem]);
+        }
+    }, [isFocused, bookmarkIdInfo]);
+
+    const updateArticleCount = (data: FilterDataType[]) => {
+        if (isFocused) {
+            const updatedFilterData = data.map((item: FilterDataType, index: number) => ({
+                ...item,
+                count: index === 0 ? isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.length
+                    : 0 : getSpecificBundleArticleCount(widgetNameByIndex(index))
+            }));
+            setFilterItem([...updatedFilterData]);
+        }
+    };
+
+    useEffect(() => {
+        if ((isTab && isAllBookmarkFetched) || (!isTab && isNonEmptyArray(bookmarkDetail) ||
+            !isNonEmptyArray(bookmarkDetail) && isNonEmptyArray(filteredData) || isAllBookmarkFetched)) {
             updateBookmarkDetailInfo(tabSelectedIndex)
         }
     }, [bookmarkDetail])
@@ -133,7 +165,7 @@ export const Archives = () => {
         if (isNonEmptyArray(filterItemData) && typeof tabSelectedIndex == 'number') {
             filterItemData[tabSelectedIndex].isSelected = false;
             filterItemData[index].isSelected = true;
-            setFilterItem(filterItemData)
+            updateArticleCount(filterItemData);
             setTabSelectedIndex(index);
         }
     }
@@ -222,7 +254,12 @@ export const Archives = () => {
     return (
         <View style={styles.contentContainer}>
             <View style={styles.filterContainer}>
-                <FilterComponent data={filterItem} onPress={onPressFilterItem} />
+                <FilterComponent
+                    data={filterItem}
+                    selectedColor={isTab ? colors.greenishBlue : undefined}
+                    showSelectedBorder={false}
+                    onPress={onPressFilterItem}
+                />
             </View>
             {!initialLoading ?
                 <>

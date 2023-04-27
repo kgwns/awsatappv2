@@ -7,7 +7,6 @@ import {
   LatestOpinionDataType,
   LatestPodcastDataType,
   MainSectionBlockType,
-  RequestSpotlightArticleSectionType,
   SpotlightDataType
 } from './types';
 

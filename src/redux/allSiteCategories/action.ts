@@ -115,10 +115,10 @@ export const emptySendTopicsInfo = () => {
   };
 }
 
-export const deselectAllTopicsInfo = (payload:string[]) => {
+export const deselectAllTopicsInfo = (deselectPayload:string[]) => {
   return {
     type: DESELECT_ALL_TOPICS_INFO,
-    payload: payload
+    payload: deselectPayload
   };
 }
 

@@ -28,6 +28,7 @@ import HeaderLogo from 'src/assets/images/headerIcons/aaaNewLogo.svg'
 import HeaderLogoDark from 'src/assets/images/headerIcons/aaaNewLogoDark.svg'
 import LogoBlack from 'src/assets/images/logoBlack.svg'
 import PopupLogo from 'src/assets/images/popupNewLogo.svg'
+import TabPopupLogo from 'src/assets/images/tabPopupLogo.svg'
 
 //Tab Icons
 import NewsIcon from 'src/assets/images/tabIcons/newsIcon.svg'
@@ -54,6 +55,7 @@ import NotificationActiveIcon from 'src/assets/images/notifications/notification
 import NotificationIcon from 'src/assets/images/notifications/notificationIcon.svg'
 import NotificationActiveIconDark from 'src/assets/images/notifications/notificationActiveIconDark.svg'
 import NotificationIconDark from 'src/assets/images/notifications/notificationIconDark.svg'
+import AddAuthorIcon from 'src/assets/images/icons/addAuthorIcon.svg'
 
 //Social login
 import MailIcon from 'src/assets/images/socialButton/mailIcon.svg'
@@ -110,6 +112,7 @@ import PlusGreen from 'src/assets/images/icons/plusGreen.svg'
 import TickIcon from 'src/assets/images/icons/tickIcon.svg'
 import GreenArrowLeft from 'src/assets/images/icons/green_arrow_left.svg'
 import ReturnArrowWhite from 'src/assets/images/icons/returnArrow.svg'
+import PlayWithBg from 'src/assets/images/icons/play_with_bg.svg';
 
 import ArrowLeftFacedBlack from 'src/assets/images/icons/arrowLeftFacedBlack.svg'
 import ArrowLeftFacedWhite from 'src/assets/images/icons/arrowLeftFacedWhite.svg'
@@ -139,6 +142,9 @@ import HomeIconDark from 'src/assets/images/icons/homeIconDark.svg';
 import PopupImage from 'src/assets/images/popupImage.svg'
 import CalendarIcon from 'src/assets/images/icons/calendarIcon.svg';
 import CalendarIconLight from 'src/assets/images/icons/calendarIconLight.svg';
+import CalendarLightIcon from 'src/assets/images/icons/calendarLightIcon.svg';
+import CalendarDarkLightIcon from 'src/assets/images/icons/calendarDarkLightIcon.svg';
+import ShareIcon from 'src/assets/images/icons/union.svg';
 
 
 //Contact Us
@@ -152,7 +158,7 @@ import WeatherRainIcon from 'src/assets/images/icons/weather/weather_rain.svg'
 import WeatherIcon3 from 'src/assets/images/icons/weather/weather_Icon3.svg'
 import WeatherIcon4 from 'src/assets/images/icons/weather/weather_Icon4.svg'
 import WeatherIcon5 from 'src/assets/images/icons/weather/weather_Icon5.svg'
-import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon5.svg'
+import WeatherIcon6 from 'src/assets/images/icons/weather/weather_Icon6.svg'
 import WeatherDayIcon from 'src/assets/images/icons/weather/weather_Day_Icon.svg'
 import WeatherNightIcon from 'src/assets/images/icons/weather/weather_Night_Icon.svg'
 import CloudsIcon from 'src/assets/images/icons/weather/clouds.svg'
@@ -179,9 +185,17 @@ import SubscribeIconGreen from 'src/assets/images/subscribeIconGreen.svg';
 import ResetIcon from 'src/assets/images/icons/replayIcon.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { DARK_THEME_ID } from './colors'
+import { colors, DARK_THEME_ID } from './colors'
 
 import LiveIcon from 'src/assets/images/icons/liveIcon.svg';
+import BlackDownArrow from 'src/assets/images/icons/blackDownArrow.svg'
+
+import BookmarkBold from 'src/assets/images/icons/detail/bookmark_bold_icon.svg';
+import ShareBold from 'src/assets/images/icons/detail/share_bold_icon.svg';
+import FontScalingBold from 'src/assets/images/icons/detail/font_scaling_bold_icon.svg';
+import BookmarkBoldWhite from 'src/assets/images/icons/detail/bookmark_bold_white_icon.svg';
+import ShareBoldWhite from 'src/assets/images/icons/detail/share_bold_white_icon.svg';
+import FontScalingBoldWhite from 'src/assets/images/icons/detail/font_scaling_bold_white_icon.svg';
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -404,6 +418,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <PopupImage {...props} />    
         case ImagesName.calendarIcon:
             return isDark ? <CalendarIcon {...props} /> : <CalendarIconLight {...props} />
+        case ImagesName.calendarLightIcon:
+            return isDark ? <CalendarLightIcon {...props} /> : <CalendarDarkLightIcon {...props} />
         case ImagesName.videoCloseIcon:
             return <MenuCloseIconDark {...props} />
         case ImagesName.myNewsIcon:
@@ -432,6 +448,22 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ResetIcon {...props} />
         case ImagesName.liveIcon:
             return <LiveIcon {...props} />
+        case ImagesName.playWithBg:
+            return <PlayWithBg {...props} />
+        case ImagesName.tabPopupLogo:
+            return <TabPopupLogo {...props} />
+        case ImagesName.shareIcon:
+            return <ShareIcon {...props} />
+        case ImagesName.bookmarkBold:
+            return isDark ? <BookmarkBoldWhite {...props} /> : <BookmarkBold {...props} />;
+        case ImagesName.shareBold:
+            return isDark ? <ShareBoldWhite {...props} /> : <ShareBold {...props} />;
+        case ImagesName.fontScalingBold:
+            return isDark ? <FontScalingBoldWhite {...props} /> : <FontScalingBold {...props} />;
+        case ImagesName.tabletAuthorItem:
+            return <AddAuthorIcon {...props} />
+        case ImagesName.tabletDownArrowIcon:
+            return isDark ? <DownArrow {...props} /> : <BlackDownArrow {...props}/>
         default: return null
     }
 }

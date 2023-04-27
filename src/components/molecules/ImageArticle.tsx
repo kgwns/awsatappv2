@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, StyleProp, TextStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
-import  ArticleFooter,{ articleFooterProps, BookMarkColorType }  from 'src/components/molecules/articleFooter/ArticleFooter'
+import  ArticleFooter,{ ArticleFooterProps, BookMarkColorType }  from 'src/components/molecules/articleFooter/ArticleFooter'
 import { BannerImageWithOverlay, BannerImageWithOverlayProps } from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { Divider } from 'src/components/atoms/divider/Divider'
@@ -16,7 +16,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import FixedTouchable from 'src/shared/utils/FixedTouchable'
 import { DARK_THEME_ID } from '../../shared/styles/colors'
 
-const carouselFooterSample: articleFooterProps = {
+const carouselFooterSample: ArticleFooterProps = {
   leftTitleColor: Styles.color.white,
   rightIcon: () => {
     return getSvgImages({
@@ -28,7 +28,8 @@ const carouselFooterSample: articleFooterProps = {
   rightTitleColor: Styles.color.silverChalice,
   bookMarkColorType: BookMarkColorType.WHITE,
   leftTitleStyle: { fontWeight: 'bold' },
-  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20,}
+  rightTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20,},
+  hideBookmark: false
 }
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
@@ -50,6 +51,9 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
   showDivider?: boolean,
   contentStyle?: StyleProp<TextStyle>;
   displayType?: string,
+  tabTitleContainer?: StyleProp<ViewStyle>;
+  hideBookmark?: boolean,
+  carouselContainerStyle?: StyleProp<ViewStyle>;
 }
 
 const ImageArticle = ({
@@ -71,6 +75,9 @@ const ImageArticle = ({
   contentStyle,
   displayType,
   isAlbum,
+  tabTitleContainer,
+  hideBookmark,
+  carouselContainerStyle
 }: ImageArticleProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
 
@@ -85,14 +92,15 @@ const ImageArticle = ({
   const onPress = () => {
     if (nid) {
       const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN
-      navigation.navigate(screenName, { nid: nid })
+      navigation.navigate(screenName, { nid })
     }
   }
+  const timeFormat = dateTimeAgo(created);
+  carouselFooterSample.hideBookmark = hideBookmark;
 
-  const timeFormat = dateTimeAgo(created)
   return (
     <FixedTouchable onPress={onPress}>
-      <View>
+      <View style = {[carouselContainerStyle]}> 
         <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
           <BannerImageWithOverlay image={image}
             onImageLoadEnd={onImageLoadEnd}
@@ -103,7 +111,7 @@ const ImageArticle = ({
         </View>
         <View style={isTab ? [imageArticleStyle.tabArticleContent, contentStyle ] : imageArticleStyle.articleContent}>
           {isNotEmpty(title) &&
-            <View style={imageArticleStyle.titleContainer}>
+            <View style={[imageArticleStyle.titleContainer,tabTitleContainer]}>
               <Label labelType={LabelTypeProp.title1}
                 children={decodeHTMLTags(title)}
                 style={titleStyle}
@@ -120,7 +128,7 @@ const ImageArticle = ({
               isBookmarked={isBookmarked}
               onPress={onPressBookmark}
               leftTitleColor={leftTitleColor || Styles.color.greenishBlue}
-              rightTitleColor={isDark ? Styles.color.silverChalice : Styles.color.black}
+              rightTitleColor={isDark ? Styles.color.silverChalice : isTab ? Styles.color.black900 : Styles.color.black}
               bookMarkColorType={BookMarkColorType.BLACK}
               rightContainerStyle={rightContainerStyle}
               rightIcon={() => TimeIcon(timeFormat.icon)}

@@ -1,10 +1,10 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {View, StyleSheet, ViewStyle, Animated,StyleProp} from 'react-native';
-import { ShortArticle, NewsFeed } from '../../organisms';
-import {isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
+import { ShortArticle, NewsFeed, VideoContent } from '../../organisms';
+import {articleEventParameter, isTab, normalize, recordLogEvent, screenHeight, screenWidth} from '../../../shared/utils';
 import {SectionArticleItem, ImageArticle, FilterComponent, FilterDataType} from 'src/components/molecules';
 import {FlatList} from 'react-native-gesture-handler';
-import {colors, CustomThemeType} from 'src/shared/styles/colors';
+import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {NewsViewBodyGet, NewsViewListItemType} from 'src/redux/newsView/types';
@@ -16,12 +16,13 @@ import {
   dateTimeAgo,
   TimeIcon,
   getArticleImage,
+  isDarkTheme,
 } from 'src/shared/utils/utilities';
 import {ScreensConstants} from 'src/constants/Constants';
 import { useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import { Divider, LabelTypeProp, LoadingState} from 'src/components/atoms';
-import { useBookmark, useLogin } from 'src/hooks';
+import { useAppCommon, useBookmark, useLogin } from 'src/hooks';
 import { LatestArticleDataType } from 'src/redux/latestNews/types';
 import { fetchNewsViewApi, fetchSubArticleSectionApi } from 'src/services/newsViewService';
 import { AxiosError } from 'axios';
@@ -31,6 +32,11 @@ import { decode } from 'html-entities';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { TopMenuItemType } from 'src/redux/topMenu/types';
+import { VideoItemType } from 'src/redux/videoList/types';
+import { fetchVideoListApi } from 'src/services/videoListService';
+import { formatVideoData } from 'src/redux/videoList/sagas';
+import { Styles } from 'src/shared/styles';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -100,10 +106,11 @@ export const SectionStoryScreen = React.memo(({
   const [heroListDataInfo,setHeroListDataInfo] = useState<NewsViewListItemType[]>([])
   const [bottomListDataInfo,setBottomListDataInfo] = useState<NewsViewListItemType[]>([])
   const [topListDataInfo,setTopListDataInfo] = useState<any[]>([])
-  // const [videoListData,setVideoListData] = useState<VideoItemType[]>([])
+  const [videoListData,setVideoListData] = useState<VideoItemType[]>([])
   const [showupUp,setShowPopUp] = useState(false)
   const [isBottomListLoading, setIsBottomListLoading] = useState<boolean>(false)
-
+  const { theme } = useAppCommon();
+  const isDarkMode = isDarkTheme(theme);
   const isParentSection = useMemo(() => {
     return sectionId === currentSectionId
   }, [sectionId, currentSectionId])
@@ -145,7 +152,7 @@ export const SectionStoryScreen = React.memo(({
 
     getHeroListData();
     getTopListData();
-     // getVideoListData(); 
+    getVideoListData(); 
   }
 
   const getHeroListData = async() => {
@@ -196,7 +203,7 @@ export const SectionStoryScreen = React.memo(({
     }
   }
 
-  /* const getVideoListData = async() => {
+  const getVideoListData = async() => {
     try {
       const videoListInfo = await fetchVideoListApi()
       const videoList = formatVideoData(videoListInfo)
@@ -208,7 +215,7 @@ export const SectionStoryScreen = React.memo(({
         console.log("🚀 getVideoListData ~ errorMessage", errorMessage)
       }
     }
-  } */
+  }
 
   const formatFilterChildData = (childItem: TopMenuItemType[] | undefined): FilterDataType[] => {
     let childInfoData: FilterDataType[] = [];
@@ -243,7 +250,7 @@ export const SectionStoryScreen = React.memo(({
 
   const onPressArticle = (nid: string) => {
     nid &&
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid});
   };
 
   useEffect(() => {
@@ -315,9 +322,15 @@ export const SectionStoryScreen = React.memo(({
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
+      if (isBookmarked) {
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
+      } else {
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
+        removeBookmarkedInfo({ nid })
+      }
     } else {
       makeSignUpAlert()
     }
@@ -352,8 +365,16 @@ export const SectionStoryScreen = React.memo(({
   const updatedChangeBookmark = (data: NewsViewListItemType[], index: number) => { 
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
-    updatedData[index].isBookmarked = bookmarkStatus
-    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    updatedData[index].isBookmarked = bookmarkStatus;
+    const {title,body,field_publication_date_export} = updatedData[index];
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      ...articleEventParameter,
+      article_name: title,
+      article_length: decodeBody.split(' ').length,
+      article_publish_date: field_publication_date_export
+    }
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus,eventParameter)
     return updatedData
   }
 
@@ -367,10 +388,10 @@ export const SectionStoryScreen = React.memo(({
     setBottomListDataInfo(updatedData)
   }
 
-  // const onVideoItemPress = (item: VideoItemType) => {
-  //   navigation.navigate(ScreensConstants.VideoPlayerScreen,
-  //     { mediaID: item.mediaId, nid: item.nid })
-  // }
+  const onVideoItemPress = (item: VideoItemType) => {
+    navigation.navigate(ScreensConstants.VideoPlayerScreen,
+      { mediaID: item.mediaId, nid: item.nid, title: item.title })
+  }
 
 
   const onClickChildSection = (clickItemIndex: number) => {
@@ -419,7 +440,7 @@ export const SectionStoryScreen = React.memo(({
     setHeroListDataInfo([])
     setTopListDataInfo([])
     setBottomListDataInfo([])
-    // setVideoListData([])
+    setVideoListData([])
   }
 
   const renderFilterComponent = () => {
@@ -471,20 +492,21 @@ export const SectionStoryScreen = React.memo(({
     return (
       <View style={style.sectionStoryContainer}>
         <SectionArticleItem
-          headerTitle={articleData.title}
+          headerTitle={decodeHTMLTags(articleData.title)}
           body={decodeHTMLTags(articleData.body)}
           image={getArticleImage(articleData.field_image, articleData.field_new_photo)}
           imageStyle={style.storyImageStyle}
           nid={articleData.nid}
           isBookmarked={articleData.isBookmarked}
           onPressBookmark={() => updatedHeroBookmark(1)}
-          showDivider={isTab ? false : true}
+          showDivider={true}
           leftTitle={''} //Need to hide author name in UI
           rightTitle={timeFormat.time}
           leftTitleColor={themeData.primary}
           rightIcon={() => TimeIcon(timeFormat.icon)}
-          rightTitleColor={themeData.footerTextColor}
+          rightTitleColor={ themeData.footerTextColor}
           displayType={articleData.field_display_export}
+          articleTextStyle = {isTab ? style.articleTextStyle : {}}
         />
       </View>
     )
@@ -504,9 +526,13 @@ export const SectionStoryScreen = React.memo(({
             labelType={LabelTypeProp.title4}
             onUpdateBookmark={updateBookmarkInfo}
             showSignUpPopUp={makeSignUpAlert}
-            hideImage={!isTab}
+            hideImage={true}
             containerStyle={style.shortContainer}
             leftContainerStyle={isTab && style.leftContainerStyle}
+            titleColor = {isTab && themeData.primaryBlack}
+            rightTitleColor = {isTab && isDarkMode ? themeData.summaryColor : Styles.color.black900}
+            articleTextStyle = {isTab && style.articleTextStyle}
+            rightTitleStyle={isTab && style.rightTitleStyle}
           />
           </View>
         )}
@@ -516,23 +542,27 @@ export const SectionStoryScreen = React.memo(({
 
   const renderSectionWidget = () => (
     <>
-      {renderBannerArticle()}
-      {isTab ? <View style={style.storyAndTopArticle}>
+      { !isTab && renderBannerArticle()}
+      {isTab ? <> 
+        <View style={style.storyAndTopArticle}>
         <View style={[style.tabWidgetContainer]}>
-          {renderArticleStory()}
+          {/* {renderArticleStory()} */}
+          {renderBannerArticle()}
         </View>
-        <View style={style.verticalDivider} />
-        <View style={style.tabWidgetContainer}>
+        {/* <View style={style.verticalDivider} /> */}
+        <View style={[style.tabWidgetContainer,{width:'40%'}]}>
+          {renderArticleStory()}
           {renderTopArticle()}
         </View>
-      </View> :
+      </View> 
+        {isNonEmptyArray(videoListData) && <View style={style.videoContainer}>
+          <VideoContent data={videoListData} onPress={onVideoItemPress} />
+        </View>}
+      </>:
         <>
           {renderTopArticle()}
         </>
       }
-      {/* <View style={style.videoContainer}>
-        <VideoContent data={videoListData} onPress={onVideoItemPress} />
-      </View> */}
       {!isTab && <Divider style={style.divider} />}
       <View style={style.newsFeedContainer}>
         <NewsFeed
@@ -540,6 +570,7 @@ export const SectionStoryScreen = React.memo(({
           onScroll={() => gotoNextPage()}
           isLoading={isBottomListLoading}
           onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
+          labelContainerStyle = { style.labelContainerStyle}
         />
       </View>
     </>
@@ -547,9 +578,9 @@ export const SectionStoryScreen = React.memo(({
 
   const renderItem = () => {
     return (
-      <View style={{ backgroundColor: themeData.backgroundColor }}>
-        {renderFilterComponent()}
-        {initialLoading ? loadingView({ height: 0.60 * screenHeight }) : renderSectionWidget()}
+      <View style={{ backgroundColor: themeData.backgroundColor}}>
+          {renderFilterComponent()}
+          {initialLoading ? loadingView({ height: 0.60 * screenHeight }) : renderSectionWidget()}
       </View>
     );
   }
@@ -587,7 +618,7 @@ export const SectionStoryScreen = React.memo(({
 });
 
 const customStyle = (theme: CustomThemeType) => {
-  const sectionStoryStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
     },
@@ -600,7 +631,7 @@ const customStyle = (theme: CustomThemeType) => {
       flex: 1
     },
     tabWidgetContainer: {
-      flex: 0.47,
+      width: '60%',
       overflow: 'hidden',
     },
     storyImageStyle: {
@@ -612,13 +643,13 @@ const customStyle = (theme: CustomThemeType) => {
     storyAndTopArticle: {
       flex: 1,
       flexDirection: 'row',
-      paddingTop: normalize(15),
+      paddingTop: isTab ? 0 : normalize(15),
       justifyContent: 'space-between',
-      marginHorizontal: isTab ? 0.04 * screenWidth : 0,
+      marginHorizontal: isTab ? 30 : 0,
     },
     sectionStoryContainer: {
       paddingTop: isTab ? 0 : normalize(15), 
-      paddingHorizontal: isTab ? 5 : 0.04 * screenWidth,
+      paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
     },
     verticalDivider: {
       height: '100%',
@@ -637,46 +668,60 @@ const customStyle = (theme: CustomThemeType) => {
       paddingHorizontal: 0.04 * screenWidth,
     },
     shortContainer: {
-      paddingBottom: isTab ? 20 : 0
+      paddingBottom: 0
     },
     imageArticleContainerStyle: {
       width: '100%',
       height: 'auto',
       aspectRatio: 1.34,
-      paddingHorizontal: isTab ? 0.04 * screenWidth : 0,
+      paddingRight: isTab ? normalize(15) : 0,
     },
     imageArticleContentStyle: {
-      paddingHorizontal: isTab ? 0.04 * screenWidth : 0
+      paddingRight: isTab ? normalize(20) : 0
     },
     videoContainer: {
-      paddingLeft: isTab ? 0.02 * screenWidth : 0,
-      backgroundColor:theme.secondaryWhite
+      paddingLeft: isTab ? 30 : 0,
+      backgroundColor: isTab ? theme.sectionStoryVideo : theme.secondaryWhite
     },
     newsFeedContainer: {
-      paddingHorizontal: isTab ? 0.02 * screenWidth : 0
+      paddingHorizontal: isTab ? normalize(10) : 0
     },
     titleStyle:{
       textAlign:'center',
-      fontSize: isTab ? 33 : 24,
-      lineHeight: isTab ? 46 : 40,
+      fontSize: isTab ? 32 : 24,
+      lineHeight: isTab ? 47 : 40,
       fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
         textAlign:'left',
         writingDirection: 'rtl',
         fontSize: isTab ? 18 : 16,
-        lineHeight: isTab ? 33 : 28,
-        fontFamily: fonts.IBMPlexSansArabic_Regular,
+        lineHeight: isTab ? 29 : 28,
+        fontFamily: isTab ? fonts.Effra_Arbc_Regular : fonts.IBMPlexSansArabic_Regular,
         color: theme.summaryColor,
     },
     filterContainer: {
-      paddingHorizontal: 0.02 * screenWidth,
+      paddingHorizontal: isTab ? 30 : 0.02 * screenWidth,
       paddingVertical: 10,
       backgroundColor: theme.backgroundColor,
     },
     leftContainerStyle: {
       width: (screenWidth * 0.5 - 40) -  144,
+    },
+    articleTextStyle: {
+      fontFamily: fonts.AwsatDigital_Bold,
+      fontWeight: '700',
+      fontSize: 18,
+      lineHeight: 29,
+    },
+    rightTitleStyle: {
+      fontFamily: fonts.Effra_Arbc_Regular,
+      fontWeight: '400',
+      fontSize: 13,
+      lineHeight: 16
+    },
+    labelContainerStyle: {
+      marginBottom: isTab ? 10 : 0
     }
   });
-  return sectionStoryStyle;
 };

@@ -12,7 +12,7 @@ import {
   fetchFavouriteArticlesSuccess,
   fetchFavouriteArticlesFailed,
 } from './action';
-import {FETCH_FAVOURITE_OPINIONS, FETCH_FAVOURITE_ARTICLES, EMPTY_ALL_DATA} from './actionTypes';
+import {FETCH_FAVOURITE_OPINIONS, FETCH_FAVOURITE_ARTICLES} from './actionTypes';
 import {fetchFavouriteOpinionsApi,fetchFavouriteArticleApi} from 'src/services/contentForYouService';
 
 export function* fetchFavouriteOpinions(action: FetchFavouriteOpinionsType) {

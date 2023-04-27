@@ -4,15 +4,14 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
-  NativeModules
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { horizontalEdge, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
-import { ButtonImage, ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
+import { ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { ToggleWithLabel } from 'src/components/molecules';
@@ -27,6 +26,7 @@ import RNRestart from 'react-native-restart'
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { LoginManager } from "react-native-fbsdk-next";
+import { AnalyticsEvents, recordUserId } from 'src/shared/utils/analytics';
 
 export type SettingDataType = {
   iconName: ImagesName,
@@ -34,7 +34,6 @@ export type SettingDataType = {
   screenName: string,
 }
 
-const { ReactTheme } = NativeModules;
 export const ProfileSettings = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -49,6 +48,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const isDark = isDarkTheme(theme);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(isDark);
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const themToggleReference = useRef<any>(null)
 
   const CONST_MANAGE_NOTIFICATION = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION});
   const CONST_MANAGE_NEWS =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NEWS});
@@ -132,12 +132,20 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const { emptySelectedTopicsInfoData } = useAllSiteCategories();
   const { emptySelectedAuthorsInfoData } = useAllWriters();
 
-  const onPressToggle = (isOn: boolean) => {
-      const themeData = isOn ? Theme.LIGHT : Theme.DARK;
-      dispatch(storeAppTheme(themeData));
-      //ReactTheme.getReactTheme(themeData)
-      setIsDarkMode(!isOn);
-  };
+    const onPressToggle = (isOn: boolean) => {
+        requestAnimationFrame(() => {
+            setIsDarkMode(!isOn);
+            clearTimeout(themToggleReference.current)
+            themToggleReference.current = setTimeout(() => {
+                makeStoreTheme(isOn);
+            }, 500);
+        });
+    };
+
+    const makeStoreTheme = (isOn: boolean) => {
+        const themeData = isOn ? Theme.LIGHT : Theme.DARK;
+        dispatch(storeAppTheme(themeData));
+    };
 
     const onPressToggleServer = () => {
         const newServerType = serverEnvironment === ServerEnvironment.DEBUG ? ServerEnvironment.PRODUCTION : ServerEnvironment.DEBUG
@@ -176,9 +184,11 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
     }
   };
 
-  const logout = () => {
+  const logout = () => {;
     logoutFromfacebook()
-    recordLogEvent('Logout');
+    recordLogEvent(AnalyticsEvents.LOG_OUT);
+    const userId = userProfileData?.user?.id.toString();
+    recordUserId(userId);
     fetchLogoutRequest();
     unlinkFcmToken();
     removeBookmark()
@@ -257,8 +267,9 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
         </>
     )
 
-  const email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
-  const usernameStyle = isNotEmpty(email) && email!.length > 24 && {width: '100%'}  
+  const _email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
+  const email = _email !== undefined ? _email : '';
+  const usernameStyle = isNotEmpty(email) && email.length > 24 && {width: '100%'}  
   const welcomeView = () => (
       <View style={style.title}>
           <Label
@@ -347,7 +358,7 @@ const customStyle = (theme: CustomThemeType) =>
       },
       titleDivider: {
           backgroundColor: Styles.color.greenishBlue,
-          width: screenWidth,
+          width: '100%',
           height: 1,
           marginStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       },

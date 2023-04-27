@@ -5,16 +5,18 @@ import { PodcastProgramHeader } from 'src/components/molecules/podcast/PodcastPr
 import Share from 'react-native-share';
 import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { normalize, isNonEmptyArray, recordLogEvent, isTab, screenWidth } from 'src/shared/utils';
+import { normalize, isNonEmptyArray, recordLogEvent, isTab, screenWidth, podcastPlayEventParameter, podcastShareEvents } from 'src/shared/utils';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { useAppPlayer, useBookmark, useLogin, usePodcast } from 'src/hooks';
+import { useAppPlayer, useBookmark, useLogin, usePodcast, useFetchPodcastData } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
 import { useIsFocused } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { getPodcastUrl, horizontalEdge, isObjectNonEmpty } from 'src/shared/utils/utilities';
+import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, horizontalEdge, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { PodcastEpisodeModalInfo } from 'src/components/organisms/podcast/PodcastEpisodeModalInfo';
+import { PodcastDetailHeader } from 'src/components/molecules/podcastDetailHeader/PodcastDetailHeader';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 export interface PodcastEpisodeModalProps {
     route: any;
@@ -74,6 +76,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const isFocused = useIsFocused();
     const initialRef = useRef(0);
     const playbackState = usePlaybackState();
+    const { fetchPodcastDataAnalytics } = useFetchPodcastData();
 
     const nid = route.params.data.nid
 
@@ -99,7 +102,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const [podcastEpisodeDetailInfo, setPodcastEpisodeDetailInfo] = useState<PodcastListItemType[]>(podcastEpisodeData)
 
     const payload: PodcastEpisodeBodyGet = {
-        nid: nid
+        nid
     }
 
     useEffect(() => {
@@ -134,9 +137,15 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
         setPodcastEpisodeDetailInfo(podcastEpisodeDetail)
     }
 
-    const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+    const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter: EventParameterProps) => {
         if (isLoggedIn) {
-            isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST }) : removeBookmarkedInfo({ nid })
+            if (isBookmarked) {
+                recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
+                sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST })
+            } else {
+                recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
+                removeBookmarkedInfo({ nid })
+            }
         } else {
             setShowPopUp(true)
         }
@@ -149,8 +158,16 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
         if (isObjectNonEmpty(podcastItem)) {
             const newBookmarked = !podcastItem.isBookmarked
             data[index].isBookmarked = newBookmarked
-            setPodcastEpisodeDetailInfo(data)
-            updateBookmarkInfo(podcastItem.nid, newBookmarked)
+            setPodcastEpisodeDetailInfo(data);
+            const { title,body_export, type} = podcastItem;
+            const decodeBody = decodeHTMLTags(body_export);
+            const eventParameter = {
+                content_type: type,
+                article_name: title,
+                article_category: type,
+                article_length: decodeBody.split(' ').length
+              }
+            updateBookmarkInfo(podcastItem.nid, newBookmarked,eventParameter)
         }
     }
 
@@ -170,6 +187,9 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const podcastEpisodeInfo = podcastEpisodeDetailInfo ? podcastEpisodeDetailInfo[episodeIndex] : podcastEpisodeInitialData
 
     const onPressShare = async () => {
+        const decodeBody = decodeHTMLTags(podcastEpisodeInfo.body_export);
+        const eventName = AnalyticsEvents.SOCIAL_SHARE;
+        podcastShareEvents(podcastEpisodeInfo.type,podcastEpisodeInfo.title,decodeBody,eventName)
         await Share.open({
             title: podcastEpisodeInfo.title,
             url: podcastEpisodeInfo.view_node,
@@ -193,11 +213,17 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 id: podcastEpisodeInfo.nid,
                 url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export!),
                 title: podcastEpisodeInfo.title,
-                duration: duration,
+                duration,
                 artist: podcastEpisodeInfo.title,
                 artwork: podcastEpisodeInfo?.field_podcast_sect_export?.image
             }
-            recordLogEvent('Played_Podcast', { podcastid: podcastEpisodeInfo.nid });
+            const eventParameter = {
+                ...podcastPlayEventParameter,
+                content_title: podcastEpisodeInfo.title,
+                content_duration: convertSecondsToHMS(duration),
+            }
+            !showMiniPlayer && recordLogEvent(AnalyticsEvents.PODCAST_PLAY, eventParameter);
+            fetchPodcastDataAnalytics(eventParameter);
             if ((trackData && trackData.id !== trackPlayerData.id) || trackData == null) {
                 setPlayerTrack(trackPlayerData);
             }
@@ -209,9 +235,16 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const onGoBack = () => {
         onPressBack();
     }
+    const renderTabComponent = () => {
+        return (
+            <PodcastDetailHeader
+                onHomePress={onGoBack}
+                onBackPress={onGoBack} />
+        )
+    }
 
-    const renderItem = () => (
-        <View style={styles.headerStyle}>
+    const podcastMobileComponent = () => {
+        return (  
             <PodcastProgramHeader
                 headerShareIconTestId={'podcast_episode_share'}
                 headerBookmarkIconTestId={'podcast_episode_save'}
@@ -223,14 +256,29 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
                 isSaved={podcastEpisodeInfo ? podcastEpisodeInfo.isBookmarked ?? false : false}
                 isCloseIcon={true}
             />
-            <PodcastEpisodeModalInfo data={podcastEpisodeInfo} onListenPress={onListenPress} />
+        )
+    }
+    
+    const renderHeaderComponent = () =>
+    (
+        isTab ?
+            renderTabComponent()
+            :
+            podcastMobileComponent()
+    )
+
+    const renderItem = () => (
+        <View style={styles.headerStyle}>
+            {renderHeaderComponent()}
+            <PodcastEpisodeModalInfo isSaved={podcastEpisodeInfo ? podcastEpisodeInfo.isBookmarked ?? false : false}
+                data={podcastEpisodeInfo} onPressSave={onPressEpisodeBookmark} onPressShare={onPressShare} onListenPress={onListenPress} onGoBack={onGoBack} />
         </View>
     )
 
     return (
         <ScreenContainer edge={horizontalEdge} barStyle={'light-content'} isLoading={isLoading}
             statusbarColor={Styles.color.codGray}
-            isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert}>
+            isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={[isTab && {bottom: 100}]}>
             <View style={{ height: insets.top, backgroundColor: colors.black }} />
             {renderItem()}
         </ScreenContainer>

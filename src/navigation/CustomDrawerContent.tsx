@@ -12,15 +12,15 @@ import { DrawerActions, useNavigation } from '@react-navigation/native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { ScreensConstants } from 'src/constants/Constants';
 import { useLogin, useSideMenu, useWeatherDetails } from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ABOUT_US, ADVERTISE_INFO_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import { ABOUT_US, ADVERTISE_INFO_ID, PRIVACY_POLICY_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
 import { getProfileImageUrl, isNonEmptyArray, isObjectNonEmpty, isStringIncludes } from 'src/shared/utils/utilities';
 import {
+  ScreensConstants,
   FACEBOOK_APP_URL,
   INSTAGRAM_APP_URL,
   LINKEDIN_APP_URL,
@@ -29,13 +29,11 @@ import {
   INSTAGRAM_URL,
   LINKEDIN_URL,
   TWITTER_URL,
-} from 'src/constants/Constants';
-import { ScreenContainer } from 'src/components/screens';
-import { fonts } from 'src/shared/styles/fonts';
-import {
   TranslateConstants,
   TranslateKey,
 } from 'src/constants/Constants';
+import { ScreenContainer } from 'src/components/screens';
+import { fonts } from 'src/shared/styles/fonts';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
 import Geolocation from 'react-native-geolocation-service';
 import CelsiusIcon from 'src/assets/images/icons/weather/Celsius.svg'
@@ -45,6 +43,7 @@ import SunIcon from 'src/assets/images/icons/weather/sun.svg'
 import { weatherType } from 'src/components/screens/weatherDetail/WeatherDetailScreen';
 import { openSettings } from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export enum SocialMediaType {
   instagram = 'Instagram',
@@ -53,9 +52,8 @@ export enum SocialMediaType {
   linkedIn = 'LinkedIn',
 }
 
-interface CustomDrawerContentProps { }
 const JUSTIFY_CONTENT = 'space-between';
-const CustomDrawerContent = (props: CustomDrawerContentProps) => {
+const CustomDrawerContent = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const WEATHER_DETAILS_ENABLE_LOCATION = TranslateConstants({key:TranslateKey.WEATHER_DETAILS_ENABLE_LOCATION})
 
@@ -71,6 +69,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const ADVERTISE_WITH_US = TranslateConstants({key: TranslateKey.ADVERTISE_WITH_US});
   const ABOUT_THE_MIDDLE_EAST = TranslateConstants({key: TranslateKey.ABOUT_THE_MIDDLE_EAST});
   const TERMS_OF_USE = TranslateConstants({key: TranslateKey.TERMS_OF_USE});
+  const PRIVACY_POLICY = TranslateConstants({key: TranslateKey.PRIVACY_POLICY});
   const CALL_US = TranslateConstants({key: TranslateKey.DRAWER_CALL_US});
   const [latitude, setLatitude] = useState<number>();
   const [longitude, setLongitude] = useState<number>();
@@ -321,25 +320,25 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   const openSocialMedia = (type: string) => {
     switch (type) {
       case SocialMediaType.facebook:
-        recordLogEvent('Pressed_on_social_media_extensions', { socialMedia: SocialMediaType.facebook });
+        recordLogEvent(AnalyticsEvents.PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS, { socialMedia: SocialMediaType.facebook });
         Linking.openURL(FACEBOOK_APP_URL).catch(() => {
           Linking.openURL(FACEBOOK_URL)
         });
         return;
       case SocialMediaType.instagram:
-        recordLogEvent('Pressed_on_social_media_extensions', { socialMedia: SocialMediaType.instagram });
+        recordLogEvent(AnalyticsEvents.PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS, { socialMedia: SocialMediaType.instagram });
         Linking.openURL(INSTAGRAM_APP_URL).catch(() => {
           Linking.openURL(INSTAGRAM_URL)
         });
         return;
       case SocialMediaType.linkedIn:
-        recordLogEvent('Pressed_on_social_media_extensions', { socialMedia: SocialMediaType.linkedIn });
+        recordLogEvent(AnalyticsEvents.PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS, { socialMedia: SocialMediaType.linkedIn });
         Linking.openURL(LINKEDIN_APP_URL).catch(() => {
           Linking.openURL(LINKEDIN_URL)
         });
         return;
       case SocialMediaType.twitter:
-        recordLogEvent('Pressed_on_social_media_extensions', { socialMedia: SocialMediaType.twitter });
+        recordLogEvent(AnalyticsEvents.PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS, { socialMedia: SocialMediaType.twitter });
         Linking.openURL(TWITTER_APP_URL).catch(() => {
           Linking.openURL(TWITTER_URL)
         });
@@ -354,7 +353,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
 
     return (
       <View>
-        {buttonListItem({ isChild: true, item: item, index: index, icon, isSubChild: false, parentIndex })}
+        {buttonListItem({ isChild: true, item, index, icon, isSubChild: false, parentIndex })}
         {isNonEmptyArray(item.child) && item.showDropDown && <View>
           {item.child.map((subChildItem: any, subChildIndex: number) => {
             return buttonListItem({ isChild: false, item: subChildItem, index: subChildIndex, icon: null, isSubChild: true, parentIndex })
@@ -366,6 +365,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
   }
 
   const socialIconSize = isTab ? 33 : 23;
+  const contactUsTitleStyle = isTab ? styles.tabletTitleStyle : styles.nonBoldTitle; 
 
   return (
     <ScreenContainer showPlayer={false} backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
@@ -382,7 +382,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
         <View style={styles.menuContainer}>
           {sideMenuDataInfo.length > 0 &&
             sideMenuDataInfo.map((item: any, index: number) => {
-              const icon = isNonEmptyArray(item.child) ? ImagesName.downArrowIcon : null
+              const icon = isNonEmptyArray(item.child) ? isTab ? ImagesName.tabletDownArrowIcon : ImagesName.downArrowIcon : null
               return (
                 <View key={index}>
                   {buttonListItem({isChild: false, item, index, icon, isSubChild: false, parentIndex: index})}
@@ -396,21 +396,21 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               );
             })}
           <Divider style={styles.divider} />
-          <ButtonList
+          {/* <ButtonList //Removed for AMAR-1284 & AMAR-1277 and enable it when required.
             title={ADVERTISE_WITH_US}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: ADVERTISE_WITH_US, id: ADVERTISE_INFO_ID }
             )}
-            titleStyle={styles.nonBoldTitle}
-          />
+            titleStyle={contactUsTitleStyle}
+          /> */}
           {/* <ButtonList
             title={t('drawer.aboutTheEast')}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: t('drawer.aboutTheEast'), id: AWSATT_HISTORY_INFO_ID }
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
           /> */}
           <ButtonList
             title={ABOUT_THE_MIDDLE_EAST}
@@ -418,7 +418,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: ABOUT_THE_MIDDLE_EAST, id: ABOUT_US }
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
           />
           <ButtonList
             title={CALL_US}
@@ -426,7 +426,7 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               ScreensConstants.CONTACT_US_SCREEN, {}
 
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
           />
           <ButtonList
             title={TERMS_OF_USE}
@@ -434,7 +434,16 @@ const CustomDrawerContent = (props: CustomDrawerContentProps) => {
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: TERMS_OF_USE, id: TERMS_AND_CONDITION }
             )}
-            titleStyle={styles.nonBoldTitle}
+            titleStyle={contactUsTitleStyle}
+          />
+
+          <ButtonList
+            title={PRIVACY_POLICY}
+            onPress={() => onPressNavigation(
+              ScreensConstants.TERMS_AND_ABOUT_US,
+              { title: PRIVACY_POLICY, id: PRIVACY_POLICY_ID }
+            )}
+            titleStyle={contactUsTitleStyle}
           />
 
           <View style={styles.socialContainer}>
@@ -618,5 +627,12 @@ const createStyles = (theme: CustomThemeType) =>
     },
     screenBackgroundColor: {
       backgroundColor: theme.profileBackground
-    }
+    },
+    tabletTitleStyle: {
+      fontFamily: fonts.Effra_Arbc_Regular,
+      fontSize: 20,
+      lineHeight: 35,
+      fontWeight:"400",
+      color: theme.contactUsTitleColor,
+    },
   });

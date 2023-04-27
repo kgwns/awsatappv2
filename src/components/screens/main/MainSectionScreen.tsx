@@ -3,17 +3,23 @@ import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
-  EditorsPickSection, articleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
+  EditorsPickSection, ArticleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
   ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { heroSectionProperties, shortArticleWithTagProperties } from 'src/constants/Constants';
-import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
+import {
+  heroSectionProperties,
+  shortArticleWithTagProperties,
+  flatListUniqueKey,
+  ScreensConstants,
+  TranslateConstants,
+  TranslateKey,
+} from 'src/constants/Constants';
+import { articleEventParameter, horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, podcastPlayEventParameter, recordLogEvent, screenWidth } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer } from 'src/hooks';
-import { EditorsChoiceDataType, LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
+import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer, useAppCommon, useFetchPodcastData } from 'src/hooks';
+import { LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Styles } from 'src/shared/styles';
@@ -22,14 +28,15 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
-import AuthorSlider from 'src/components/organisms/AuthorsSlider';
+import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { Label } from 'src/components/atoms';
-import { getPodcastUrl, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
-import { SECTION_COMBO_SIX } from 'src/services/apiEndPoints';
+import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
+import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
@@ -42,7 +49,7 @@ const sectionComboOnePayload: RequestSectionComboBodyGet = {
 }
 
 const sectionComboTwoPayload: RequestSectionComboBodyGet = {
-  id: 11,
+  id: SECTION_COMBO_TWO,
   items_per_page: 10,
   page: 0
 }
@@ -91,7 +98,6 @@ export const MainSectionScreen = React.memo((
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle);
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
-
   const navigation = useNavigation<StackNavigationProp<any>>()
 
   const ref = React.useRef(null);
@@ -114,7 +120,8 @@ export const MainSectionScreen = React.memo((
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
   const playbackState = usePlaybackState();
-
+  const { theme } = useAppCommon();
+  const isDarkMode = isDarkTheme(theme);
   const {
     isLoading,
     // topList,  // enable when toplist is required
@@ -135,7 +142,7 @@ export const MainSectionScreen = React.memo((
     fetchEditorsChoice, fetchSpotlight, fetchInfoGraphicBlockData, fetchArchivedArticleSection,
   } = useLatestNewsTab()
   const { videoData, fetchVideoRequest } = useVideoList();
-  
+  const { fetchPodcastDataAnalytics } = useFetchPodcastData();
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
@@ -160,12 +167,20 @@ export const MainSectionScreen = React.memo((
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [selectedType, setSelectedType] = useState<any>(null);
   
-  const topViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(0, 2) : [];
-  const gridViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(2, 4) : [];
-  const topViewSectionDataTwo = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(6, 3) : [];
-  const topViewSectionDataThree = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(9, 2) : [];
+  const topViewCount = isTab ? 3: 2;
+  const gridViewCount = isTab ? 3 : 4;
+  const topViewTwoCount = 3;
+  const topViewThreeCount = 2;
+  const topViewTwoStartIndex = gridViewCount + topViewCount;
+  const topViewThreeStartIndex = topViewTwoCount + gridViewCount + topViewCount;
+
+  const topViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(0, topViewCount) : [];
+  const gridViewSectionData = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(topViewCount, gridViewCount) : [];
+  const topViewSectionDataTwo = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(topViewTwoStartIndex, topViewTwoCount) : [];
+  const topViewSectionDataThree = isNonEmptyArray(featuredArticle) ? [...featuredArticle].splice(topViewThreeStartIndex, topViewThreeCount) : [];
   const headlineNews = isNonEmptyArray(coverageInfo) ? [...coverageInfo].splice(1, 4) : []
   const [editorsChoiceInfo, setEditorsChoiceInfo] = useState(editorsChoice)
+  const videoPayload = {page: 0, items_per_page: 10}
 
   useFocusEffect(
     React.useCallback(() => {
@@ -176,7 +191,6 @@ export const MainSectionScreen = React.memo((
     }, [])
   );
 
-  
   const updateBookmark = (data: any[]): any => {
     return data.map((item: LatestArticleDataType) => (
       {
@@ -189,16 +203,34 @@ export const MainSectionScreen = React.memo((
   const updatedChangeBookmark = (data: LatestArticleDataType[], index: number) => {
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
-    updatedData[index].isBookmarked = bookmarkStatus
-    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    updatedData[index].isBookmarked = bookmarkStatus;
+    const {author,body,title,type} = updatedData[index];
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      ...articleEventParameter,
+      content_type: type,
+      article_name: title,
+      article_author: author,
+      article_length: decodeBody.split(' ').length
+    }
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus,eventParameter)
     return updatedData
   }
 
   const mainBlockUpdatedBookMark = (data: MainSectionBlockType[], index: number) => {
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
-    updatedData[index].isBookmarked = bookmarkStatus
-    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    updatedData[index].isBookmarked = bookmarkStatus;
+    const {author,body,title,type} = updatedData[index];
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      ...articleEventParameter,
+      content_type: type,
+      article_name: title,
+      article_author: author,
+      article_length: decodeBody.split(' ').length
+    }
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus,eventParameter)
     return updatedData
   }
 
@@ -233,7 +265,7 @@ export const MainSectionScreen = React.memo((
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
     const newData = [...opinionList]
-    const data = listPartition(newData, 4)
+    const data = listPartition(newData,4)
     setOpinionListData(data)
   }, [opinionList])
   useEffect(() => {
@@ -434,7 +466,7 @@ export const MainSectionScreen = React.memo((
     return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
-  const featuredArticleInfo: articleProps[] = topViewSectionData.map((item: MainSectionBlockType, index: number) => (
+  const featuredArticleInfo: ArticleProps[] = topViewSectionData.map((item: MainSectionBlockType, index: number) => (
     {
       ...item,
       ...heroSectionProperties,
@@ -450,7 +482,7 @@ export const MainSectionScreen = React.memo((
     }
   ))
 
-  const heroListInfoOne = [...featuredArticleInfo].splice(0, 2)
+  const heroListInfoOne = [...featuredArticleInfo].splice(0, 3)
   // const heroListInfoTwo = [...featuredArticleInfo].splice(2, 5)
   // ENABLE WHEN TOP LIST IS REQUIRED
   // const topListData = topList.map((item: LatestArticleDataType) => (
@@ -502,7 +534,7 @@ export const MainSectionScreen = React.memo((
 
   const loadMiddleWidgetAPI = () => {
     fetchOpinionTopList(opinionListPayload)
-    isTab && fetchVideoRequest();
+    isTab && fetchVideoRequest(videoPayload);
     fetchPodcastHome();
     fetchEditorsChoice();
   }
@@ -533,14 +565,20 @@ export const MainSectionScreen = React.memo((
   }, [opinionLoaded, podcastHomeLoaded, editorChoiceLoaded])
 
 
-  const onPressArticle = (nid: string, isAlbum: boolean = false) => {
+  const onPressArticle = (nid: string, isAlbum = false) => {
     const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
-    nid && navigation.navigate(screenName, { nid: nid })
+    nid && navigation.navigate(screenName, { nid })
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
+      if (isBookmarked) {
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE })
+      } else {
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
+        removeBookmarkedInfo({ nid })
+      }
     } else {
       setShowPopUp(true)
     }
@@ -573,7 +611,17 @@ export const MainSectionScreen = React.memo((
       if((trackData && trackData.id !== trackPlayerData.id) || trackData == null ) {
         setPlayerTrack(trackPlayerData);
       }
-      !showMiniPlayer && setShowMiniPlayer(true);
+
+      if(!showMiniPlayer) {
+        const eventParameter = {
+          ...podcastPlayEventParameter,
+          content_title: podcastData.title,
+          content_duration: convertSecondsToHMS(podcastData.duration),
+        }
+        recordLogEvent(AnalyticsEvents.PODCAST_PLAY, eventParameter);
+        fetchPodcastDataAnalytics(eventParameter);
+        setShowMiniPlayer(true);
+      } 
       showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
 
@@ -726,6 +774,7 @@ export const MainSectionScreen = React.memo((
             isFooterOutside={true}
             containerStyle={mainSectionStyle.shortArticleContainer}
             showLeftTitle={false}
+            imageStyleProp={mainSectionStyle.imageContainer}
           />
         </View>
       )}
@@ -764,54 +813,98 @@ export const MainSectionScreen = React.memo((
   )
 
   const renderTabItem = () => (
-    <View style={mainSectionStyle.mainContainer}>
-      <Divider style={mainSectionStyle.dividerTop} />
-      <View style={mainSectionStyle.heroContainer}>
-        <CarouselSlider coverageInfo={coverageInfo}
-          onUpdateHeroBookmark={updateCoverageBookMark}
-        />
-      </View>
-      <View style={mainSectionStyle.topNewsContainer}>
-        <TopHeadLineNews data={headlineNews} />
-      </View>
-      <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.sectionWidgetContainer}>
-          <ArticleSection data={heroListInfoOne}
-            numColumns={2}
-            showDivider={false}
-            onUpdateBookmark={updateBookmarkInfo}
-            listKey={flatListUniqueKey.TAB_ARTICLE_SECTION_ONE}
-          />
+    <View style={mainSectionStyle.tabletMainContainer}>
+      {/* <Divider style={mainSectionStyle.dividerTop} /> */}
+      <View style = {mainSectionStyle.topContainerSplit}>
+        <View style = {mainSectionStyle.topContainerWidget}>
+          <View style={mainSectionStyle.tabletHeroContainer}>
+            <CarouselSlider coverageInfo={coverageInfo}
+              onUpdateHeroBookmark={updateCoverageBookMark}
+            />
+          </View>
+          <View style={mainSectionStyle.tabletTopNewsContainer}>
+            <TopHeadLineNews data={headlineNews} tabContainerStyle={mainSectionStyle.tabTopNewsContainerStyle} />
+          </View>
+         <Divider style={mainSectionStyle.tabDividerTop} />
+
+           {/* <View>
+            {isNonEmptyArray(videoData) && (
+              <VideoContent data={[...videoData].splice(0, 3)}
+                onPress={onVideoItemPress}
+                isTabDesign={true}
+                isVideoList = {true}
+              />
+            )}
+           </View> */}
         </View>
-        {/* For future Reference */}
-        {/* <View style={mainSectionStyle.verticalDivider} />
+        {/* <View style = {mainSectionStyle.articleSectionWidget}>
+          <View style={mainSectionStyle.sectionWidgetContainer}>
+            <ArticleSection data={heroListInfoOne}
+              showDivider={true}
+              onUpdateBookmark={updateBookmarkInfo}
+              listKey={flatListUniqueKey.TAB_ARTICLE_SECTION_ONE}
+            />
+          </View>
+            {isNonEmptyArray(gridViewSectionData) && 
+              <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />
+            }
+        </View> */}
+      </View>
+      {/* For future Reference */}
+      {/* <View style={mainSectionStyle.verticalDivider} />
         <View style={mainSectionStyle.tabWidgetContainer}>
           <ArticleSection data={heroListInfoTwo}
             onUpdateBookmark={updateBookmarkInfo}
             listKey={flatListUniqueKey.TAB_ARTICLE_SECTION_TWO}
           />
         </View> */}
-      </View>
-      {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
-      {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
-      {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
       {/* AMAR-1097 - Hide Infographic for iPad and Tablet */}
       {/* {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
         title={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
       />} */}
-      <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} />
-      {isNonEmptyArray(opinionListData) && 
-      <AuthorSlider data={opinionListData} 
-      selectedType={selectedType} 
-      getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
-      onClose={onClose} 
-      />}
-      {isNonEmptyArray(podcastHome) &&
-        <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast} />
+      {/* <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} /> */}
+
+      {/* <View> */}
+          <View> 
+            <ArticleSection data={heroListInfoOne}
+              showDivider={false}
+              onUpdateBookmark={updateBookmarkInfo}
+              listKey={flatListUniqueKey.TAB_ARTICLE_SECTION_ONE}
+              numColumns={3}
+              addStyle={{marginTop: 30}}
+            />
+          </View> 
+            {isNonEmptyArray(gridViewSectionData) && 
+              <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />
+            }
+        {/* </View> */}
+
+      {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
+      {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
+      {isNonEmptyArray(podcastHome) && isNonEmptyArray(infoGraphicBlock) ?
+        <View style={mainSectionStyle.tabSplitterContainer}>
+          <View style={[mainSectionStyle.tabPodcastInfoWidget, isDarkMode && {paddingRight:10}]}>
+            {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
+              title={infoGraphicBlock[0].info}
+              htmlContent={infoGraphicBlock[0].body}
+            />}
+          </View>
+          <View style={mainSectionStyle.tabPodcastInfoWidget}>
+            {isNonEmptyArray(podcastHome) &&
+              <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast} />
+            }
+          </View>
+        </View> :
+        <View style = {mainSectionStyle.tabPodcastContainer}>
+          <View>
+            {isNonEmptyArray(podcastHome) &&
+              <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast} />
+            }
+          </View>
+        </View>
       }
-      <View style={mainSectionStyle.tabSplitter}>
-        {/* <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
+      {/* <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
             title={CONST_EDITOR_CHOICE_HEADER_TITLE}
             onPress={onPressArticle}
@@ -819,76 +912,8 @@ export const MainSectionScreen = React.memo((
             hideMore={true}
           />
         </View> */}
-        <View style={[mainSectionStyle.tabWidgetContainer, { alignItems: 'center', backgroundColor: themeData.secondaryWhite }]}>
-          {isNonEmptyArray(videoData) && (
-            <VideoContent data={[...videoData].splice(0, 3)}
-              onPress={onVideoItemPress}
-              isTabDesign={true}
-            />
-          )}
-        </View>
-        <View style={mainSectionStyle.tabWidgetContainer}>
-          <BannerArticleSection
-            data={sectionComboOneInfo}
-            title={_sectionComboOneTitle}
-            sectionId={'10'}
-            onPress={onPressArticle}
-            onUpdateBookmark={updatedSectionComboOneBookmark}
-          />
-        </View>
-      </View>
-      <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
-          <BannerArticleSection
-            data={sectionComboTwoInfo}
-            title={_sectionComboTwoTitle}
-            sectionId={'11'}
-            onPress={onPressArticle}
-            onUpdateBookmark={updatedSectionComboTwoBookmark}
-          />
-        </View>
-        <View style={mainSectionStyle.tabWidgetContainer}>
-          <BannerArticleSection
-            data={sectionComboThreeInfo}
-            title={_sectionComboThreeTitle}
-            sectionId={'97120'}
-            onPress={onPressArticle}
-            onUpdateBookmark={updatedSectionComboThreeBookmark}
-            containerStyle={mainSectionStyle.containerStyle}
-          />
-        </View>
-      </View>
-      {isNonEmptyArray(archivedArticleSection) && <ArchiveArticleSection
-        data={archivedArticleSection}
-        title={_archivedArticleTitle}
-        onPress={onPressArticle}
-        isDivider
-      />}
-      <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
-          <BannerArticleSection
-            data={sectionComboFourInfo}
-            title={_sectionComboFourTitle}
-            sectionId={'871'}
-            onPress={onPressArticle}
-            onUpdateBookmark={updatedSectionComboFourBookmark}
-          />
-        </View>
-        <View style={mainSectionStyle.tabWidgetContainer}>
-          <BannerArticleSection
-            data={sectionComboFive}
-            title={_sectionComboFiveTitle}
-            sectionId={'18'}
-            onPress={onPressArticle}
-            onUpdateBookmark={updatedSectionComboFourBookmark}
-          />
-        </View>
-
-      </View>
-      <View style={mainSectionStyle.tabSplitter}>
-        <View style={mainSectionStyle.tabWidgetContainer}>
-          {/* Enable below code when top list required */}
-          {/* {isNonEmptyArray(topListData) && (
+      {/* Enable below code when top list required */}
+      {/* {isNonEmptyArray(topListData) && (
             <View style={mainSectionStyle.articleContainer}>
               <View style={mainSectionStyle.articleTitleContainer}>
                 <Label
@@ -906,26 +931,106 @@ export const MainSectionScreen = React.memo((
               />
             </View>
           )} */}
-          {isNonEmptyArray(spotlight) && isNonEmptyArray(spotlightArticleSection) && (
-            <View style={mainSectionStyle.articleContainer}>
-              <View style={mainSectionStyle.articleTitleContainer}>
-                <Label
-                  children={spotlight[0].title}
-                  style={mainSectionStyle.articleTitleStyle}
-                />
-              </View>
-              <View style={mainSectionStyle.spotlightSectionContainer}>
-                <ShortArticle
-                  data={spotlightArticleSectionData}
-                  onPress={onPressArticle}
-                  onUpdateBookmark={updateBookmarkInfo}
-                  showSignUpPopUp={makeSignUpAlert}
-                  isFooterOutside={true}
-                  showLeftTitle={false}
-                />
-              </View>
-            </View>
-          )}
+      
+      <View style = {mainSectionStyle.opinionContainer}>
+      {isNonEmptyArray(opinionList) && 
+      <AuthorSlider data={[...opinionList].splice(0,9)} 
+      selectedType={selectedType} 
+      getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
+      onClose={onClose} 
+      />}
+      </View>
+      <View style = {mainSectionStyle.tabSplitterContainer}>
+        <View style = {mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboOneInfo}
+            title={_sectionComboOneTitle}
+            sectionId={'10'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboOneBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
+          />
+        </View>
+
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboTwoInfo}
+            title={_sectionComboTwoTitle}
+            sectionId={'11'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboTwoBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
+          />
+        </View>
+      </View>
+
+      <View style = {mainSectionStyle.tabSplitterContainer}>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboThreeInfo}
+            title={_sectionComboThreeTitle}
+            sectionId={'97120'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboThreeBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
+          />
+        </View>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboFourInfo}
+            title={_sectionComboFourTitle}
+            sectionId={'871'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboFourBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
+          />
+        </View>
+      </View>
+
+      {isNonEmptyArray(archivedArticleSection) &&
+      <View style = {mainSectionStyle.articleContainerStyle}>
+       <ArchiveArticleSection
+        data={archivedArticleSection}
+        title={_archivedArticleTitle}
+        onPress={onPressArticle}
+        isDivider
+      />
+      </View>
+      }
+
+      {isNonEmptyArray(spotlight) && isNonEmptyArray(spotlightArticleSection) && (
+        <View style={[mainSectionStyle.articleContainer,mainSectionStyle.mainShortArticleContainer]}>
+          <View style={mainSectionStyle.articleTitleContainer}>
+            <Label
+              children={spotlight[0].title}
+              style={mainSectionStyle.tabArticleTitleStyle}
+              color = {themeData.primaryBlack}
+            />
+          </View>
+          <View style={mainSectionStyle.spotlightSectionContainer}>
+            <MainSectionShortArticle
+              data={spotlightArticleSectionData}
+              onPress={onPressArticle}
+              onUpdateBookmark={updateBookmarkInfo}
+              showSignUpPopUp={makeSignUpAlert}
+              isFooterOutside={true}
+              showLeftTitle={false}
+              containerStyle={mainSectionStyle.shortArticleContainerStyle}
+            />
+          </View>
+        </View>
+      )}
+  
+      <View style = {mainSectionStyle.tabSplitterContainer}>
+        <View style={mainSectionStyle.tabWidgetContainer}>
+          <BannerArticleSection
+            data={sectionComboFiveInfo}
+            title={_sectionComboFiveTitle}
+            sectionId={'18'}
+            onPress={onPressArticle}
+            onUpdateBookmark={updatedSectionComboFiveBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
+          />
         </View>
         <View style={mainSectionStyle.tabWidgetContainer}>
           <BannerArticleSection
@@ -934,11 +1039,13 @@ export const MainSectionScreen = React.memo((
             sectionId={'29'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboSixBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
             isDivider
           />
         </View>
       </View>
-      <View style={mainSectionStyle.tabSplitter}>
+
+      <View style = {mainSectionStyle.tabSplitterContainer}>
         <View style={mainSectionStyle.tabWidgetContainer}>
           <BannerArticleSection
             data={sectionComboSevenInfo}
@@ -946,6 +1053,7 @@ export const MainSectionScreen = React.memo((
             sectionId={'36'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboSevenBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
             isDivider
           />
         </View>
@@ -956,10 +1064,13 @@ export const MainSectionScreen = React.memo((
             sectionId={'66'}
             onPress={onPressArticle}
             onUpdateBookmark={updatedSectionComboEightBookmark}
+            containerStyle={mainSectionStyle.containerStyle}
             isDivider
           />
         </View>
       </View>
+     
+      
       {showBottomSpinner()}
     </View>
   )
@@ -1021,24 +1132,26 @@ const customStyle = (theme: CustomThemeType) => {
     mainContainer: {
       backgroundColor: theme.mainBackground
     },
-    tabSplitter: {
-      flex: 1,
-      flexDirection: 'row',
-      paddingTop: normalize(30),
-      justifyContent: 'space-between',
-      marginHorizontal: isTab ? 0.04 * screenWidth : 0,
+    tabletMainContainer: {
+      backgroundColor: theme.mainBackground,
+      margin: 40
     },
     sectionWidgetContainer: {
-      flex: 1,
       overflow: 'hidden',
     },
     tabWidgetContainer: {
-      width: screenWidth * 0.435,
+      width: '50%',
       overflow: 'hidden',
+      padding: normalize(10)
     },
     dividerTop: {
       borderBottomWidth: 1,
       borderColor: theme.dividerColor,
+    },
+    tabDividerTop: {
+      height: 1,
+      backgroundColor: Styles.color.lightAlterGray,
+      marginTop:10
     },
     miniPlayerContainer: {
       width: '100%',
@@ -1073,6 +1186,10 @@ const customStyle = (theme: CustomThemeType) => {
     articleContainer: {
       backgroundColor: theme.secondaryWhite,
     },
+    mainShortArticleContainer: {
+      marginHorizontal:-40, 
+      marginBottom:20
+    },
     articleTitleContainer: {
       paddingVertical: normalize(20),
       alignItems: 'center'
@@ -1088,9 +1205,19 @@ const customStyle = (theme: CustomThemeType) => {
       marginHorizontal: 0.04 * screenWidth,
       overflow: 'hidden'
     },
+    tabletTopNewsContainer: {
+      overflow: 'hidden',
+      alignItems:'center'
+    },
+    tabTopNewsContainerStyle: {
+      width: '75%'
+    },
     heroContainer: {
       marginHorizontal: isTab ? 0.04 * screenWidth : 0,
       overflow: 'hidden'
+    },
+    tabletHeroContainer: {
+      overflow: 'hidden',
     },
     flatList: {
       flex: 1,
@@ -1121,6 +1248,55 @@ const customStyle = (theme: CustomThemeType) => {
     },
     loaderSyle: {
       margin: normalize(28) 
+    },
+    articleContainerStyle: {
+      alignItems: 'center',
+    },
+    imageContainer: {
+      width:'30%',
+    },
+    leftContainerStyle: {
+      width: '70%',
+    },
+    topContainerSplit: {
+      flexDirection:'row'
+    },
+    topContainerWidget: {
+      flex:1,
+      overflow: 'hidden',
+    },
+    articleSectionWidget: {
+      flex:0.47,
+    },
+    articleSectionWidgetList: {
+      flex:0.47
+    },
+    tabSplitterContainer:{
+      flexDirection:'row',
+      marginVertical:20,
+    },
+    tabPodcastInfoWidget: { 
+      width: '50%' ,
+    },
+    tabPodcastContainer: {
+      justifyContent:'center',
+      alignItems:'center',
+      marginHorizontal:100,
+      marginTop: 30,
+      marginBottom: 50,
+    },
+    tabArticleTitleStyle: {
+      fontSize: 25,
+      lineHeight: 36,
+      fontFamily: fonts.AwsatDigital_Black,
+      textAlign: 'center',
+      paddingTop: 22
+    },
+    shortArticleContainerStyle: {
+      marginBottom: 20
+    },
+    opinionContainer: {
+      marginBottom: 20
     }
   })
 }

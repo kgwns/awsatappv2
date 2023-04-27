@@ -11,7 +11,7 @@ import { getSelectedNewsLettersFailed,
     sendSelectedNewsLettersSuccess, 
     getMyNewsLettersSuccess, 
     getMyNewsLettersFailed } from './action';
-import { EMPTY_SELECTED_NEWS_LETTERS_INFO, GET_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS, GET_MY_NEWS_LETTERS } from './actionTypes';
+import { GET_SELECTED_NEWS_LETTERS, SEND_SELECTED_NEWS_LETTERS, GET_MY_NEWS_LETTERS } from './actionTypes';
 import { getSelectedNewsLettersApi, sendSelectedNewsLettersApi, getMyNewsLettersApi } from 'src/services/newsLettersService';
 
 export function* postSelectedNewsLetters(action: SendSelectedNewsLettersType) {

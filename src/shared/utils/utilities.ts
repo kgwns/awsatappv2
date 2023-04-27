@@ -9,7 +9,7 @@ import 'moment/locale/ar';
 import { getSvgImages } from "../styles/svgImages";
 import { normalize } from 'src/shared/utils';
 import { ImagesName } from "../styles";
-import { isIOS } from "./dimensions";
+import { isIOS, isTab } from "./dimensions";
 import { decode } from "html-entities";
 import DeviceInfo from 'react-native-device-info';
 import countries from "i18n-iso-countries";
@@ -48,8 +48,8 @@ export const isDarkTheme = (colorScheme: ColorSchemeName) => {
   return colorScheme === Theme.DARK;
 };
 
-export const testProps = (testID: string | undefined) => {
-  return { testID: testID, accessibilityLabel: testID };
+export const testProps = (testId: string | undefined) => {
+  return { testID: testId, accessibilityLabel: testId };
 };
 
 export const horizontalEdge: Edge[] = ['left', 'right'];
@@ -97,7 +97,7 @@ export const isNotEmpty = (value: string | null | undefined): boolean => {
   return typeof value === 'string' && value.trim().length > 0;
 };
 
-export const joinArray = (data: any, joinKey: string = ','): string => {
+export const joinArray = (data: any, joinKey = ','): string => {
   return isNonEmptyArray(data) ? data.join(joinKey) : ''
 }
 
@@ -130,7 +130,7 @@ export const timeAgo = (time: any) => {
   const threeHoursBefore = new Date(today.valueOf() - 1000 * 60 * 60 * 3);
   const isToday =   date.getDate() === today.getDate() &&  date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear();
   const isThreeHoursAgo = date.getHours() - threeHoursBefore.getHours() >= 3;
-  const fullDateFormat =  arabic.months[moment(time).get('month')] + ' ' + calculateDate(time) + ', ' + calculateYear(time);
+  const fullDateFormat =  `${arabic.months[moment(time).get('month')]} ${calculateDate(time)}, ${calculateYear(time)}`;
   const recentHoursFormat = arabic.timeSince.since + moment().fromNow(true);
   if (isToday && isThreeHoursAgo) {
     return recentHoursFormat;
@@ -179,7 +179,7 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
   const minuteValue = calculateMinutes(time)
   const minuteString = minuteValue  < 10 ? '0' + minuteValue : minuteValue
 
-  const timeAgoFormatInfo = `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  const timeAgoFormatInfo = isTab ?  `${calculateDateNumber(time)}/${calculateMothNumber(time)} - ${hourString}:${minuteString}` : `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
   const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
   return { icon: DateIcon.CALENDAR, time: fullDateFormat }
 };
@@ -211,8 +211,12 @@ export const calculateDate = (time: any) => {
   return moment(time).utcOffset(time).get('date');
 };
 
+export const calculateMonthNumber = (time: any) => {
+  return moment(time).utcOffset(time).get('month');
+};
+
 export const calculateMonth = (time: any) => {
-  return arabic.months[moment(time).utcOffset(time).get('month')];;
+  return arabic.months[moment(time).utcOffset(time).get('month')];
 };
 
 export const calculateYear = (time: any) => {
@@ -220,7 +224,7 @@ export const calculateYear = (time: any) => {
 };
 
 export const getFullDate = (time: any) => {
-  return calculateNonUtcDate(time) + ' ' + calculateNonUtcMonth(time) + ' ' + moment(time).get('year');
+  return `${calculateNonUtcDate(time)} ${calculateNonUtcMonth(time)} ${moment(time).get('year')}`;
 }
 
 export const calculateNonUtcDateNumber = (time: any) => {
@@ -233,7 +237,7 @@ export const calculateNonUtcDate = (time: any) => {
 };
 
 export const calculateNonUtcMonth = (time: any) => {
-  return arabic.months[moment(time).get('month')];;
+  return arabic.months[moment(time).get('month')];
 };
 
 export const calculateNonUtcYear = (time: any) => {
@@ -246,19 +250,19 @@ export const getFormattedDate = (time: any) => {
   const month = monthValue < 10 ? '0' + monthValue : monthValue
   const dateValue = calculateNonUtcDate(time);
   const date = dateValue < 10 ? '0' + dateValue : dateValue
-  return year + '-' + month + '-' + date
+  return `${year}-${month}-${date}`
 }
 
 export const getProfileImageUrl = (imageURL: string) => {
   return isValidHttpUrl(imageURL) ? imageURL : PROFILE_IMAGE_URL + imageURL;
 };
 
-export const getPodcastUrl = (episode_id: string) => {
-  return PODCAST_SPREAKER_URL + episode_id +PODCAST_URL_SUFFIX
+export const getPodcastUrl = (episodeId: string) => {
+  return PODCAST_SPREAKER_URL + episodeId +PODCAST_URL_SUFFIX
 }
 
 export const getPodcastDate = (time:any) => {
-  return isNotEmpty(time) ? calculateMonth(time) + ', ' + calculateDate(time) + ' ' + calculateMonth(time) : " "
+  return isNotEmpty(time) ? `${calculateMonth(time)}, ${calculateDate(time)} ${calculateMonth(time)}` : " "
 }
 
 export const getDay = (time:any) => {
@@ -267,7 +271,7 @@ export const getDay = (time:any) => {
   }
 
   const day =  calculateDay(time)
-  return arabic.day[day] + ', '+ calculateDate(time)  + ' ' + calculateMonth(time) + ' ' + moment(time).get('year')
+  return `${arabic.day[day]}, ${calculateDate(time)} ${calculateMonth(time)} ${moment(time).get('year')}`
 }
 
 export const  getSecondsToHms = (time:any): string => {
@@ -277,7 +281,7 @@ export const  getSecondsToHms = (time:any): string => {
   const s = Math.floor(time % 3600 % 60);
 
   const secondsDisplay = s > 0 ? s  : "";
-  const minutesDisplay = (m > 0) ? (secondsDisplay > 0) ? m < 10 ? '0' + m.toString() + ":" :  m.toString() +  ":"  : m.toString() : "";
+  const minutesDisplay = (m > 0) ? (secondsDisplay > 0) ? m < 10 ? `0${m.toString()}:` :  m.toString() +  ":"  : m.toString() : "";
   const hoursDisplay = h > 0 ? m > 0 ? h.toString() + ":" : h.toString() : ""; 
   return hoursDisplay + minutesDisplay + secondsDisplay; 
 }
@@ -310,14 +314,16 @@ export const convertSecondsToHMS = (seconds: number | string) => {
   return `${hrs}${mins}${scnds}`;
 };
 
-export const TimeIcon = (type: DateIcon) => (
-  getSvgImages({
-    name: type === DateIcon.CALENDAR ? ImagesName.calendarIcon : ImagesName.clock,
-    width: 12,
-    height: 12,
-    style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
-  })
-)
+export const TimeIcon = (type: DateIcon) => {
+  const calendarIcon = isTab ? ImagesName.calendarLightIcon : ImagesName.calendarIcon;
+  return(
+    getSvgImages({
+      name: type === DateIcon.CALENDAR ? calendarIcon : ImagesName.clock,
+      width: isTab ? 16 : 12,
+      height: isTab ? 16 : 12,
+      style: { marginRight: normalize(7), marginBottom: isIOS ? 2 : 5 }
+    })
+)}
 
 export const removeWhiteSpace = ( value: string) : string | any => {
   return typeof value === 'string' ? value.trim() : value;
@@ -325,8 +331,7 @@ export const removeWhiteSpace = ( value: string) : string | any => {
 
 
 export const getDeviceName = async () => {
-  const deviceName = await DeviceInfo.getDeviceName();
-  return deviceName
+  return await DeviceInfo.getDeviceName();
 };
 
 export const getConvertedTime = (time?: number, timezone?: number) => {
@@ -335,17 +340,46 @@ export const getConvertedTime = (time?: number, timezone?: number) => {
     const offsetTimezone = (timezone).toString();
     const timeWeatherSunriseData = new Date(time * 1000);
     const countrySpecificTimeSunrise = moment(new Date(timeWeatherSunriseData)).utcOffset(offsetTimezone).format('ddd MMM D Y hh:mm:ss A ')
-    const convertedCountrySpecificTime = moment(new Date(countrySpecificTimeSunrise)).format('HH:mm:ss')
-    return convertedCountrySpecificTime
+    return moment(new Date(countrySpecificTimeSunrise)).format('HH:mm:ss')
   } else {
     return ''
   }
 };
 
+const formatToTwoDigit = (num: number) => {
+  return num < 10 ? `0${num}` : num;
+}
+
+export const formatHijri = (value: string) => {
+  const day = formatToTwoDigit(calculateDate(value));
+  const month = formatToTwoDigit(calculateMonthNumber(value) + 1);
+  const year = formatToTwoDigit(calculateYear(value));
+  const formattedDate = `${year}-${month}-${day}`.toString();
+  let date = new Date(formattedDate);
+
+  let format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+  const parsedDate = format.format(date);
+  return parsedDate;
+}
+
+export const formatGregorian = (value: string) => {
+  const hour = formatToTwoDigit(calculateHour(value));
+  const minutes = formatToTwoDigit(calculateMinutes(value));
+
+  const day = formatToTwoDigit(calculateDate(value));
+  const month = calculateMonth(value);
+  const year = formatToTwoDigit(calculateYear(value));
+
+  return `${day}-${hour}:${minutes} ${month} ${year}`;
+}
+
 export const getCountryNameFromCode = ( countryCode: string) : string => {
   countries.registerLocale(arabicLang);
-  const countryName = countries.getName(countryCode, "ar");
-  return countryName
+  return countries.getName(countryCode, "ar");
 }
 
 export const isValidDate = (dateObject: any): boolean => {

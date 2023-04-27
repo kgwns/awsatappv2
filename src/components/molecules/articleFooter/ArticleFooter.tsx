@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { View, StyleSheet, TouchableOpacity, StyleProp, TextStyle, ViewStyle } from 'react-native'
 import { normalize } from 'src/shared/utils/dimensions'
 import { moleculesTestID } from 'src/constants/Constants'
@@ -11,10 +11,11 @@ import { useTheme } from 'src/shared/styles/ThemeProvider'
 
 export enum BookMarkColorType {
   WHITE = 'white',
-  BLACK = 'black'
+  BLACK = 'black',
+  PRIMARY = 'primary',
 }
 
-export interface articleFooterProps {
+export interface ArticleFooterProps {
   leftTitle?: string,
   leftIcon?: () => void,
   leftTitleColor?: string,
@@ -54,11 +55,11 @@ const ArticleFooter = ({
   favouriteIconHeight = 16,
   rightTitleStyle,
   isDetail = false
-}: articleFooterProps) => {
+}: ArticleFooterProps) => {
   let storySaveIcon=() => {
-    
+    const bookmarkActive = bookMarkColorType === BookMarkColorType.PRIMARY ? ImagesName.favoriteActiveIcon : ImagesName.bookMarkActiveSVG;
     return getSvgImages({
-          name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookMarkSVG,
+          name: isBookmarked ? bookmarkActive : ImagesName.bookMarkSVG,
           width: favouriteIconWidth,
           height: favouriteIconHeight
         })

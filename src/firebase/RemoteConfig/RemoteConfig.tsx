@@ -1,6 +1,5 @@
 import { firebase } from '@react-native-firebase/remote-config'
-import { useEffect } from 'react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import arabic from 'src/assets/locales/ar/arabic.json';
 import { useFetchArabicData } from '../../hooks/useFetchArabicData';
 export const FetchArabicData = () => {

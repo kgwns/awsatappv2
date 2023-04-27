@@ -16,7 +16,7 @@ import { Styles } from 'src/shared/styles';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { TranslateConstants, TranslateKey } from '../../constants/Constants';
 
-export interface myTopicsHorizontalSliderProps {
+export interface MyTopicsHorizontalSliderProps {
     topicsList: AllSiteCategoriesItemType[];
     onPress?: (item: any, index: number) => void;
     style?: StyleProp<ScrollViewProps>;
@@ -30,7 +30,7 @@ export const MyTopicsHorizontalSlider = ({
     style,
     showAll = true,
     selectedIndex,
-}: myTopicsHorizontalSliderProps) => {
+}: MyTopicsHorizontalSliderProps) => {
     const CONST_FAVORITE_FILTERS_EVERYONE = TranslateConstants({key:TranslateKey.FAVORITE_FILTERS_EVERYONE})
     const styles = useThemeAwareObject(customStyle);
     const scrollRef = useRef<ScrollView>(null);
@@ -104,12 +104,13 @@ export const MyTopicsHorizontalSlider = ({
 const customStyle = (theme: CustomThemeType) =>
     StyleSheet.create({
         container: {
-            width: screenWidth,
+            width: '100%',
             marginTop: normalize(10),
             paddingVertical: isTab ? 20 : 10,
         },
         contentStyle: {
             flexGrow: 1,
+            paddingLeft: isTab ? 0.03 * screenWidth : 0
         },
         filterItem: {
             marginRight: normalizeBy320(5),
@@ -138,4 +139,3 @@ const customStyle = (theme: CustomThemeType) =>
             paddingRight: normalize(5)
         }
     });
-    

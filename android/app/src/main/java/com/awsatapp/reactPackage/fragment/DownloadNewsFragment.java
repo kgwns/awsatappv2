@@ -35,6 +35,7 @@ import com.awsatapp.R;
 import com.awsatapp.reactPackage.Activity.PdfActivity;
 import com.awsatapp.reactPackage.Activity.PdfArchiveActivity;
 import com.awsatapp.reactPackage.Constant;
+import com.awsatapp.reactPackage.PDFViewListener;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
 import com.awsatapp.reactPackage.manager.CoreNetworkManager;
 import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
@@ -290,6 +291,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
                         protected void completed(BaseDownloadTask task) {
                             Log.v("Progress", "completed " + task.getPath());
                             pdf.setStatus(2);
+                            PDFViewListener.sendPdfInfo(mPdf);
                             button.setText(getString(R.string.read));
                             final String path = mContext.getFilesDir().getPath() + "/" + mPdf.getIssueNumber() + ".pdf";
                             String lang = CoreCacheManager.getInstance(mContext).get(Constant.CACHE_LANGUAGE,"ar");
@@ -339,6 +341,7 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
             case R.id.download_btn:
                 Button button = (Button) v;
                 if( null != mPdf) {
+                    PDFViewListener.sendPdfInfo(mPdf);
                     if (mPdf.getStatus() == 0 ) {
                         FileDownloader.setup(mContext);
                         downloadPdf(button, mPdf);

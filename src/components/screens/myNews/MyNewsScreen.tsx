@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ScreenContainer } from '..'
-import { horizontalEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils';
+import { horizontalEdge, isIOS, isNonEmptyArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import { Label } from 'src/components/atoms';
 import { Dimensions, View, StyleSheet, StatusBar } from 'react-native';
 import { Styles } from 'src/shared/styles';
@@ -10,11 +10,10 @@ import { TabBar, TabView } from 'react-native-tab-view';
 import { CustomTabBarItem, SignupAlertCard } from 'src/components/molecules';
 import { fonts } from 'src/shared/styles/fonts';
 import { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics';
-import { myNewsTopTabData, TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { myNewsTopTabData, TranslateConstants, TranslateKey, ScreensConstants } from 'src/constants/Constants';
 import { MyNewsWriters } from 'src/components/organisms';
-import { useLogin } from 'src/hooks';
+import { useLogin, useOrientation } from 'src/hooks';
 
-import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation } from '@react-navigation/native';
 
 export enum MyNewsTabType {
@@ -33,6 +32,7 @@ export const MyNewsScreen = () => {
   const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
   const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
   const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
+  const {isPortrait} = useOrientation()
 
   useEffect(() => {
     configData()
@@ -98,11 +98,6 @@ export const MyNewsScreen = () => {
     );
   };
 
-  const isPortrait = () => {
-    const dim = Dimensions.get('screen');
-    return dim.height >= dim.width;
-  };
-
   const _renderTabBar = (props: any) => {
     return (
       <TabBar
@@ -119,7 +114,7 @@ export const MyNewsScreen = () => {
           const number = item.key.match(/\d+/g) || '0';
           const tabIndex = isNonEmptyArray(number) ? parseInt(number[0]) : 0
 
-          return <View>
+          return <View style={{ width: Dimensions.get('window').width/2  }}>
             <CustomTabBarItem index={tabIndex}
               key={tabIndex}
               onPress={setIndex}
@@ -140,7 +135,7 @@ export const MyNewsScreen = () => {
       isSignUpAlertVisible={showPopUp.current}
       onCloseSignUpAlert={onCloseSignUpAlert}>
       {isLoggedIn ? (
-        <View style={(isPortrait() && isIOS) ? styles.orientationStyle : styles.scene} testID={'tabContent'}>
+        <View style={ styles.scene} testID={'tabContent'}>
           {routes.length > 0 && tabsView()}
         </View>
       ) : (
@@ -162,6 +157,7 @@ const orientationStyleWidth = Math.min(orientationHeight, orientationWidth);
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
     marginTop: isIOS ? StatusBar.currentHeight : 0,
+    width: '100%'
   },
   scene: {
     flex: 1,
@@ -169,7 +165,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   tabBar: {
     backgroundColor: theme.backgroundColor,
     paddingTop: 10,
-    width: screenWidth,
+    width: '100%',
   },
   indicator: {
     backgroundColor: Styles.color.greenishBlue,

@@ -7,6 +7,7 @@ import { keyExtractor } from '../MyNewsTopics';
 import { ArticlesListItemType } from 'src/redux/contentForYou/types';
 import { AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { useContentForYou } from 'src/hooks';
+import { useIsFocused } from '@react-navigation/native';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -149,8 +150,14 @@ const sampleData: ArticlesListItemType[] = [
     field_new_photo: 'abc'
   }
 ];
+jest.mock('@react-navigation/native', () => ({
+  ...jest.requireActual('@react-navigation/native'),
+  useIsFocused: jest.fn(),
+  useNavigation: jest.fn()
+}));
 
-describe('<MyNewsWriters>', () => {
+
+describe('<MyNewsTopics>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
   const setSelectedTopics = mockFunction;
@@ -179,8 +186,9 @@ describe('<MyNewsWriters>', () => {
     field_new_photo: 'string'
   }
 
-
+ 
   beforeEach(() => {
+    (useIsFocused as jest.Mock).mockReturnValue(true);
     (useState as jest.Mock).mockImplementation(() => [
       [],
       setSelectedTopics,
@@ -243,7 +251,7 @@ describe('<MyNewsWriters>', () => {
 
 });
 
-describe('<MyNewsWriters>', () => {
+describe('<MyNewsTopics>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
   const setSelectedTopics = mockFunction;
@@ -273,6 +281,7 @@ describe('<MyNewsWriters>', () => {
   }
 
   beforeEach(() => {
+    (useIsFocused as jest.Mock).mockReturnValue(false);
     (useState as jest.Mock).mockImplementation(() => [
       [],
       setSelectedTopics,
@@ -304,4 +313,93 @@ describe('<MyNewsWriters>', () => {
     expect(instance).toBeDefined();
   });
 
+});
+
+
+describe('<MyNewsTopics>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const setSelectedAuthors = mockFunction;
+  const setPageCount = mockFunction;
+  const setOpinionData = mockFunction;
+  const setSelectedIndex = mockFunction;
+  const useContentForYouMock = mockFunction;
+  const mockData = [
+    {
+      field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
+      name: 'الحكومة',
+    },
+  ];
+
+  beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = true;
+    (useState as jest.Mock).mockImplementation(() => [
+      null,
+      setSelectedAuthors,
+    ]);
+    (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
+    (useState as jest.Mock).mockImplementation(() => [[], setOpinionData]);
+    (useState as jest.Mock).mockImplementation(() => [3, setSelectedIndex]);
+    (useMemo as jest.Mock).mockReturnValue(mockData);
+    (useContentForYou as jest.Mock).mockImplementation(useContentForYouMock)
+    useContentForYouMock.mockReturnValueOnce({
+      isArticalLoading: false,
+      favouriteArticlesData: sampleData,
+      fetchFavouriteArticlesRequest: () => {
+        return [];
+      },
+    })
+    const component = <MyNewsTopics />;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  test('Should call MyTopicsHorizontalSlider onPress with sending index as 3', () => {
+    const element = instance.container.findByType(
+      MyTopicsHorizontalSlider as any,
+    );
+    fireEvent(element, 'onPress', mockData,3);
+    expect(setPageCount).toBeCalled();
+  });
+});
+describe('<MyNewsTopics>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const setPageCount = mockFunction;
+  const useContentForYouMock = mockFunction;
+  const mockData = [
+    {
+      field_opinion_writer_photo_export: 'https://picsum.photos/200/300',
+      name: 'الحكومة',
+    },
+  ];
+
+  beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = true;
+    (useState as jest.Mock).mockImplementation(() => [0, setPageCount]);
+    (useMemo as jest.Mock).mockReturnValue(mockData);
+    (useContentForYou as jest.Mock).mockImplementation(useContentForYouMock)
+    useContentForYouMock.mockReturnValueOnce({
+      isArticalLoading: false,
+      favouriteArticlesData: sampleData,
+      fetchFavouriteArticlesRequest: () => {
+        return [];
+      },
+    })
+    const component = <MyNewsTopics />;
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('should render component with page count as 0', () => {
+    expect(instance).toBeDefined();
+  });
 });

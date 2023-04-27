@@ -1,5 +1,5 @@
 import React from 'react';
-import { ActivityIndicator, FlatList, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, Dimensions, FlatList, StyleSheet, View } from 'react-native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -12,6 +12,7 @@ import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { fonts } from 'src/shared/styles/fonts';
 import { ArticleItem } from 'src/components/molecules';
 import { JournalistArticleData } from 'src/redux/journalist/types';
+import { useOrientation } from 'src/hooks';
 
 interface JournalistArticlesSectionProps {
   data: JournalistArticleData[];
@@ -26,6 +27,7 @@ export const JournalistSection = ({
   onScroll,
   onUpdateArticlesBookmark,
 }: JournalistArticlesSectionProps) => {
+  const {isPortrait} = useOrientation();
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
   const numberOfColumn = isTab ? 2 : 1;
@@ -41,6 +43,16 @@ export const JournalistSection = ({
     )
   }
 
+  const getTabImageStyle = () => {
+    const tabletStyle = {
+      width: Dimensions.get('window').width * 0.46,
+      height: 'auto',
+      aspectRatio: 1.34,
+    };
+
+    return isPortrait ? { ...tabletStyle } : { ...tabletStyle, aspectRatio: 1.33 };
+  };
+
   const renderItem = (item: JournalistArticleData, index: number) => {
     const timeFormat = dateTimeAgo(item.created)
     const articleItemStyle = isTab ? numberOfColumn > 1 && data.length > 1 ? (index % 2 === 0) ? style.evenStyle : style.oddStyle : {} : style.mobileArticleItem
@@ -51,7 +63,7 @@ export const JournalistSection = ({
           index={index}
           nid={item.nid}
           image={item.image || 'placeholderImg'}
-          imageStyle={isTab ? style.tabImageStyle : style.imageStyle}
+          imageStyle={isTab ? getTabImageStyle() : style.imageStyle}
           tagName={tagName}
           title={item.title}
           titleStyle={style.titleStyle}
@@ -84,6 +96,7 @@ export const JournalistSection = ({
         onEndReached={onScroll}
         onEndReachedThreshold={0.5}
         numColumns={numberOfColumn}
+        columnWrapperStyle={isTab && style.listColumn}
       />
     </View>
   );
@@ -111,7 +124,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     fontFamily: fonts.AwsatDigital_Bold,
   },
   itemContainer: {
-    flex: 1,
+    flex: isTab ? 0.49 : 1,
   },
   titleStyle: {
     fontFamily: fonts.AwsatDigital_Bold,
@@ -123,11 +136,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   imageStyle: {
     width: '100%',
-    height: 'auto',
-    aspectRatio: 1.34,
-  },
-  tabImageStyle: {
-    width: 0.5 * screenWidth,
     height: 'auto',
     aspectRatio: 1.34,
   },
@@ -145,6 +153,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   containerStyle: {
      paddingTop: normalize(20) 
-  }
+  },
+  listColumn: {
+    flex: 1, 
+    justifyContent: 'space-between'
+  },
 });
 

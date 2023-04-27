@@ -11,6 +11,7 @@ import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { VideoItemType } from 'src/redux/videoList/types';
 import Share from 'react-native-share';
 import { getVideoDetail } from 'src/services/videoDetailService';
+import { useLogin } from 'src/hooks';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -44,24 +45,28 @@ const sampleData: VideoItemType[] = [
     nid: '1',
     title: '123',
     isBookmarked: true,
-    mediaId: '11'
+    mediaId: '11',
+    field_video_media_id_export:'field_video_media_id_export'
   },
   {
     nid: '2',
     title: '124',
     isBookmarked: true,
-    mediaId: '12'
+    mediaId: '12',
+    field_video_media_id_export:'field_video_media_id_export'
   },
   {
     nid: '3',
     title: '124',
     isBookmarked: true,
-    mediaId: '13'
+    mediaId: '13',
+    field_video_media_id_export:'field_video_media_id_export'
   },
   {
     nid: '1',
     title: '123',
     isBookmarked: true,
+    field_video_media_id_export:'field_video_media_id_export'
   },
 ];
 
@@ -69,7 +74,7 @@ jest.mock("src/hooks/useVideoList", () => ({
   useVideoList: () => {
     return {
       isLoading: false,
-      videoData: [],
+      videoData: [{nid:'12'}],
       videoError: 'error',
       fetchVideoRequest: () => {
         return []
@@ -79,11 +84,7 @@ jest.mock("src/hooks/useVideoList", () => ({
 }));
 
 jest.mock("src/hooks/useLogin", () => ({
-  useLogin: () => {
-    return {
-      isLoggedIn: true,
-    }
-  },
+  useLogin: jest.fn()
 }));
 
 jest.mock("src/hooks/useBookmark", () => ({
@@ -136,12 +137,15 @@ describe('<VideoDetailScreen >', () => {
       (getVideoDetail as jest.Mock).mockImplementation(getVideoDetailMock);
       getVideoDetailMock.mockReturnValue([{response:true}]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      (useState as jest.Mock).mockImplementation(() => [[{nid:'2',title:'title'}],detailData]);
-      (useState as jest.Mock).mockImplementation(() => [{nid:'2',mediaId:3}, selectedVideo]);
+      (useState as jest.Mock).mockImplementation(() => [{nid:'2',mediaId:sampleData[0].mediaId}, selectedVideo]);
+      (useState as jest.Mock).mockImplementation(() => [[{nid:'2',title:'title',field_shorturl_export:'field_shorturl_export',view_node:'view_node'}],detailData]);
       (useState as jest.Mock).mockImplementation(() => [sampleData, videolistData]);
       (useState as jest.Mock).mockImplementation(() => [false, isBookmarked]);
       (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
       (useState as jest.Mock).mockImplementation(() => ['abc.com', videoUrl]);
+      (useLogin as jest.Mock).mockReturnValue({
+        isLoggedIn: true,
+    });
       const component = (
         <Provider store={storeSampleData}>
           <SafeAreaProvider>
@@ -207,5 +211,37 @@ describe('<VideoDetailScreen >', () => {
       const response = await getVideoDetail({nid:'2'});
       expect(response).toBeDefined();
     })
+  });
+  describe('when VideoDetailScreen  only', () => {
+    beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      (getVideoDetail as jest.Mock).mockImplementation(getVideoDetailMock);
+      getVideoDetailMock.mockReturnValue([{response:true}]);
+      (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+      (useLogin as jest.Mock).mockReturnValue({
+        isLoggedIn: false,
+    });
+      const component = (
+        <Provider store={storeSampleData}>
+          <SafeAreaProvider>
+            <VideoDetailScreen route={{ params: { data: data } }} />
+          </SafeAreaProvider>
+        </Provider>
+      );
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render VideoDetailScreen ', () => {
+      expect(instance).toBeDefined();
+    });
+    it('when onPressSave is pressed from header', () => {
+      const testID = instance.container.findByType(PodcastProgramHeader);
+      fireEvent(testID, 'onPressSave');
+      expect(mockFunction).toBeTruthy();
+    });
   });
 });

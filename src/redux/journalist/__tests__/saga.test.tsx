@@ -34,6 +34,17 @@ describe('<JournalistSaga >', () => {
             genObject.next()
             genObject.throw(errorResponse)
         })
+
+        it('check fetchJournalist failed', () => {
+            const genObject = fetchJournalistDetails({
+                type: FETCH_JOURNALIST_DETAIL,
+                payload: {
+                    tid: '1'
+                }
+            })
+            genObject.next()
+            genObject.throw({})
+        })
     })
 
     describe('Related getJournalistArticleInfo', () => {
@@ -61,5 +72,46 @@ describe('<JournalistSaga >', () => {
             genObject.next()
             genObject.throw(errorResponse)
         })
+        it('check getJournalistArticleInfo failed', () => {
+            const genObject = getJournalistArticleInfo({
+                type: GET_JOURNALIST_ARTICLE_INFO,
+                payload: {
+                    page: 0,
+                    nid: '1'
+                }
+            })
+            genObject.next()
+            genObject.throw({})
+        })
+    })
+
+    describe('Check journalistSaga sage method', () => {
+        const genObject = journalistSaga();
+        it('should test all journalistSaga', () => {
+            const generator = genObject.next();
+            expect(generator.value).toEqual(
+                all([
+                    takeLatest(GET_JOURNALIST_ARTICLE_INFO, getJournalistArticleInfo),
+                    takeLatest(FETCH_JOURNALIST_DETAIL, fetchJournalistDetails)
+                ])
+            );
+        });
+        it('should be done on next iteration', () => {
+            expect(genObject.next().done).toBeTruthy();
+        });
     })
 })
+
+describe('Test journalistSaga  saga', () => {
+    it('fire on journalistSaga', () => {
+      testSaga(journalistSaga)
+        .next()
+        .all([
+          takeLatest(GET_JOURNALIST_ARTICLE_INFO, getJournalistArticleInfo),
+          takeLatest(FETCH_JOURNALIST_DETAIL, fetchJournalistDetails)
+        ])
+        .finish()
+        .isDone();
+    });
+  });
+  

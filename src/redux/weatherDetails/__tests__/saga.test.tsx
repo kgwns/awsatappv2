@@ -71,6 +71,11 @@ describe('Test fetchWeatherDetailsService  error', () => {
     genObject.next();
     genObject.throw(errorResponse);
   });
+  it('check fetchWeatherDetailsService failed', () => {
+    const genObject =  getWeatherDetail(weatherType);
+    genObject.next();
+    genObject.throw({});
+  });
 });
 
 describe('Test fetchWeatherDetailVisibilityService success', () => {
@@ -90,5 +95,10 @@ describe('Test fetchWeatherDetailVisibilityService  error', () => {
     const genObject = getWeatherDetailVisibility(weatherVisibilityType);
     genObject.next();
     genObject.throw(errorResponse);
+  });
+  it('check fetchWeatherDetailVisibilityService failed', () => {
+    const genObject =  getWeatherDetailVisibility(weatherVisibilityType);
+    genObject.next();
+    genObject.throw({});
   });
 });

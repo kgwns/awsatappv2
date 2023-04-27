@@ -46,7 +46,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="daF-x6-XLQ">
                                 <rect key="frame" x="0.0" y="45" width="736" height="1021"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ICP-Ea-TcM">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ICP-Ea-TcM">
                                         <rect key="frame" x="0.0" y="0.0" width="736" height="1021"/>
                                     </imageView>
                                     <progressView hidden="YES" opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="bGX-7Q-Yzz">

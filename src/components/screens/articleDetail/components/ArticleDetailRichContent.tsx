@@ -256,14 +256,13 @@ export const RenderWebView = (htmlInfo: string, injectedStyle?: string, webViewR
     const style = useThemeAwareObject(customStyle)
 
     const updateWebViewRef = (ref: any) => {
-        if(webViewRef){
+        if (webViewRef) {
             webViewRef.current = ref
             return webViewRef.current;
-        }
-        else{
+        } else {
             return ref
         }
-         
+
     }
 
     return (
@@ -355,6 +354,16 @@ export const articleHtml = ({ body }: { body: string }) => `
       ${body}
       <script async=\"\" src=\"https://platform.instagram.com/en_US/embeds.js\"></script>
       <script async=\"\" src=\"https://if-cdn.com/embed.js"></script>
+      <script>
+      document.addEventListener('copy',function(){
+        const selectedText = window.getSelection().toString()
+        const copiedData = {
+            copiedText:selectedText,
+            isClipboard:true
+        }
+        window.ReactNativeWebView.postMessage(JSON.stringify(copiedData))
+      });
+      </script>
   </body>
   </html>
   `;
@@ -450,7 +459,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
     },
     itemContainer: {
-        padding: 0.04 * screenWidth 
+        padding: isTab ? 0 : 0.04 * screenWidth 
     },
     descriptionStyle: {
         paddingHorizontal: 40 

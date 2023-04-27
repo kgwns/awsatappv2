@@ -130,4 +130,3 @@ const customStyle = (theme: CustomThemeType) =>
             paddingBottom: normalize(20)
         }
     })
-    

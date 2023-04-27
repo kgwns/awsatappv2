@@ -11,6 +11,7 @@ import SwiftyJSON
 class TodayTabView: UIView, LoadingView {
   
     @objc var onItemClick: RCTBubblingEventBlock?
+    @objc var onDownloadComplete: RCTBubblingEventBlock?
     @objc var onArchiveButtonClick: RCTBubblingEventBlock?
     @objc var isActive: Bool = false {
         didSet {
@@ -59,6 +60,7 @@ class TodayTabView: UIView, LoadingView {
   
     deinit {
         //TODO: Need to remove observers
+      removeObservers()
     }
       
     // MARK: - Private
@@ -70,6 +72,17 @@ class TodayTabView: UIView, LoadingView {
         load(EndPoints.pdfArchive.endPoint)
     }
   
+    @objc private func handleDeviceOrientationChange() {
+      self.setNeedsLayout()
+      self.layoutIfNeeded()
+    }
+  
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        collectionView.collectionViewLayout.invalidateLayout()
+        collectionView.layoutIfNeeded()
+    }
+
     private func setUpLoadingIndicator() {
       activityIndicator.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
       activityIndicator.startAnimating()
@@ -87,6 +100,7 @@ class TodayTabView: UIView, LoadingView {
         flowLayout.scrollDirection = .vertical
         flowLayout.sectionInset = sectionInset
         flowLayout.headerReferenceSize = CGSize(width: self.frame.width, height: 40)
+        flowLayout.estimatedItemSize = .zero
 
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: flowLayout)
         collectionView.dataSource = self
@@ -110,7 +124,6 @@ class TodayTabView: UIView, LoadingView {
             guard let self = self else { return }
             self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
         }
-        
         downloadCompleteNotificationToken = NotificationCenter.default.addObserver(descriptor: PDFFileManager.downloadCompleteNotification) { [weak self] (pdfEditionNotificationInfoPayload) in
             
             guard let self = self else { return }
@@ -123,16 +136,19 @@ class TodayTabView: UIView, LoadingView {
             switch self.datasource.first {
                 case .largePDFEdition(let pdfEdition):
                     if pdfEdition.issueNumber == pdfEditionNotificationInfoPayload.pdfEditon.issueNumber {
+                      self.onDownloadComplete?(["DownloadedPdf": ["issueNumber": pdfEdition.issueNumber!, "issueDate": pdfEdition.issueDate!]])
                       self.showPDFEdition(pdfEditionNotificationInfoPayload.pdfEditon, pdfEditionNotificationInfoPayload.localPDFFilePath)
                     }
                 default:
                     break
             }
         }
-        
+
         showMobileDataAlertNotification =  NotificationCenter.default.addObserver(descriptor: UIApplication.userMobileDataAlertNotification) { _ in
             self.showMobileDataAlert()
         }
+      
+      NotificationCenter.default.addObserver(self, selector: #selector(handleDeviceOrientationChange), name: UIDevice.orientationDidChangeNotification, object: nil)
     }
   
     private func showPDFEdition(_ pdfEdition: PDFEdition, _ localFilePath: URL) {
@@ -168,6 +184,7 @@ class TodayTabView: UIView, LoadingView {
         readPDFEditionNotificationToken = nil
         downloadCompleteNotificationToken = nil
         showMobileDataAlertNotification = nil
+        NotificationCenter.default.removeObserver(self, name: UIDevice.orientationDidChangeNotification, object: nil)
     }
     
     // MARK: - Loading View Controller
@@ -231,13 +248,13 @@ extension TodayTabView: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
     }
     private var itemWidth: CGFloat {
         get {
-            let screenWidth = UIScreen.main.bounds.width
-            return screenWidth - collectionView!.contentInset.left - collectionView!.contentInset.right - sectionInset.left - sectionInset.right
+            let width = collectionView.bounds.width
+            return width - collectionView!.contentInset.left - collectionView!.contentInset.right - sectionInset.left - sectionInset.right
         }
     }
     private var itemHeight: CGFloat {
         get {
-          return UIScreen.main.bounds.height * 0.725
+          return collectionView.bounds.height * 0.825
         }
     }
   
@@ -248,4 +265,5 @@ extension TodayTabView: UICollectionViewDelegate, UICollectionViewDelegateFlowLa
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return sectionInset
     }
+
 }

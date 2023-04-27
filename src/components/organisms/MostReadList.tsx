@@ -1,12 +1,12 @@
 import {View, StyleSheet, FlatList, ActivityIndicator} from 'react-native';
 import React, { useEffect, useState } from 'react';
 import {flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
-import {ArticleItem, ArticleWithOutImageProps} from 'src/components/molecules';
+import {ArticleItem, ArticleWithOutImageProps, MostReadTabItem} from 'src/components/molecules';
 import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
-import {isTab, screenWidth, normalize} from 'src/shared/utils';
+import {isTab, screenWidth, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
 import { Styles } from 'src/shared/styles';
-import {dateTimeAgo, getArticleImage, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
+import {dateTimeAgo, decodeHTMLTags, getArticleImage, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, TimeIcon} from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useAppPlayer, useBookmark, useLogin } from 'src/hooks';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -15,8 +15,9 @@ import { fonts } from 'src/shared/styles/fonts';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from '../molecules/populateWidget/PopulateWidget';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
-export interface articleProps
+export interface ArticleProps
   extends ImageLabelProps,
     ArticleWithOutImageProps {
   image?: string;
@@ -82,8 +83,19 @@ const MostReadList = ({
   const onPressBookmark = (index: number) => {
     const articleDetailData = [...articleData]
     const isBookmarked = !articleDetailData[index].isBookmarked ?? true
-    articleDetailData[index].isBookmarked = isBookmarked
-    updateBookmarkInfo(articleDetailData[index].nid, isBookmarked)
+    articleDetailData[index].isBookmarked = isBookmarked;
+    const { title, author,field_publication_date_export,tagTopicsList,body,type} = articleDetailData[index];
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: type,
+      article_name: title,
+      article_category: type,
+      article_author: author,
+      article_publish_date: field_publication_date_export,
+      tags: tagTopicsList,
+      article_length: decodeBody.split(' ').length
+    }
+    updateBookmarkInfo(articleDetailData[index].nid, isBookmarked,eventParameter)
     setArticleData(articleDetailData)
   }
 
@@ -99,8 +111,14 @@ const MostReadList = ({
     });
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
-    isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE }) : removeBookmarkedInfo({ nid })
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
+    if(isBookmarked) {
+      recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter);
+      sendBookmarkInfo({ nid, bundle: PopulateWidgetType.ARTICLE });
+    } else {
+      recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter);
+      removeBookmarkedInfo({ nid });
+    }
   }
 
   const onClosePopUp = () => {
@@ -129,27 +147,44 @@ const MostReadList = ({
     }
     item.flagColor = Styles.color.greenishBlue;
     item.barColor = Styles.color.greenishBlue;
-    return (
-      <View>
-        <ArticleItem
-          {...item}
-          bodyStyle={style.bodyStyle}
-          showDivider={false}
-          index={index}
-          contentStyle={style.contentStyle}
-          footerInfo={footerData}
-          onPressBookmark={() => checkAndUpdateBookmark(index)}
-          titleStyle={style.titleStyle}
-          titleContainerStyle={style.titleContainerStyle}
-          articleItemStyle={style.articleItemStyle}
-        />
-        {isLoading && (data.length - 1 === index) && (
-          <View style={style.loaderStyle}>
-            <ActivityIndicator size={'small'} color={theme.themeData.primary} />
-          </View>
-        )}
-      </View>
-    );
+
+    if (isTab) {
+      return (
+        <View>
+          <MostReadTabItem
+            articleData={item}
+            index={index}
+            onPressBookmark={() => checkAndUpdateBookmark(index)} />
+          {isLoading && (data.length - 1 === index) && (
+            <View style={style.loaderStyle}>
+              <ActivityIndicator size={'small'} color={theme.themeData.primary} />
+            </View>
+          )}
+        </View>
+      )
+    } else {
+      return (
+        <View>
+          <ArticleItem
+            {...item}
+            bodyStyle={style.bodyStyle}
+            showDivider={false}
+            index={index}
+            contentStyle={style.contentStyle}
+            footerInfo={footerData}
+            onPressBookmark={() => checkAndUpdateBookmark(index)}
+            titleStyle={style.titleStyle}
+            titleContainerStyle={style.titleContainerStyle}
+            articleItemStyle={style.articleItemStyle}
+          />
+          {isLoading && (data.length - 1 === index) && (
+            <View style={style.loaderStyle}>
+              <ActivityIndicator size={'small'} color={theme.themeData.primary} />
+            </View>
+          )}
+        </View>
+      );
+    }
   };
 
   const listHeader = () => (
@@ -170,7 +205,7 @@ const MostReadList = ({
          onScrollBeginDrag={() => global.refFlatList = ref}
         keyExtractor={(_, index) => index.toString()}
         listKey={flatListUniqueKey.MOST_READ_LIST}
-        ListHeaderComponent={enableTag ? listHeader : <View/>}
+        ListHeaderComponent={enableTag ? listHeader : <View style={style.noTitleStyle}/>}
         data={articleData}
         showsVerticalScrollIndicator={false}
         renderItem={({item, index}) => renderItem(item, index)}
@@ -229,5 +264,8 @@ const mostReadListStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   loaderStyle: {
     margin: normalize(28)
-  }
+  },
+  noTitleStyle: {
+    marginTop: 40
+  },
 });

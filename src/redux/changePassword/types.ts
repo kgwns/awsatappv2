@@ -2,7 +2,7 @@ import {
   CHANGE_PASSWORD, CHANGE_PASSWORD_ERROR, CHANGE_PASSWORD_SUCCESS, EMPTY_PASSWORD_RESPONSE_INFO
 } from './actionTypes';
 
-export interface messageDataType {
+export interface MessageDataType {
   code?: number;
   message?: string;
 }
@@ -21,7 +21,7 @@ export interface SendNewPassword {
 }
 
 export type ChangePasswordState = {
-  response: messageDataType;
+  response: MessageDataType;
   error: string;
   isLoading: boolean;
 };

@@ -1,16 +1,22 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { FlatList, RefreshControl } from 'react-native';
-import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget, ShortArticle } from 'src/components/organisms';
+import { ArticleSection, BannerArticleSection, CarouselSlider, PodcastWidget } from 'src/components/organisms';
 import { EditorsChoiceDataType, HomePageArticleType, LatestArticleDataType, LatestPodcastDataType, MainSectionBlockType } from 'src/redux/latestNews/types';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { ScreenContainer } from '../../ScreenContainer/ScreenContainer';
 import { MainSectionScreen } from '../MainSectionScreen';
 import { useNavigation } from '@react-navigation/native';
-import AuthorSlider from 'src/components/organisms/AuthorsSlider';
+import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { useAppPlayer, useLogin } from 'src/hooks';
+import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
+}));
+
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
   isTab: false,
@@ -24,7 +30,8 @@ jest.mock('react', () => ({
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
-  useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn())
+  useFocusEffect: () => jest.fn().mockImplementation(() => jest.fn()),
+  useIsFocused: () => jest.fn()
 }));
 
 jest.mock('src/hooks/useLogin', () => ({ useLogin: jest.fn() }));
@@ -55,6 +62,10 @@ jest.mock("src/hooks/useVideoList", () => ({
     }
   },
 }));
+
+// jest.mock('src/shared/utils/utilities', () => ({ 
+//   ...jest.requireActual('react'),
+//   isNonEmptyArray: jest.fn().mockReturnValue(true) }));
 
 jest.mock("src/hooks/useUserProfileData", () => ({
   useUserProfileData: () => {
@@ -301,6 +312,7 @@ jest.mock("src/hooks/useLatestNewsTab", () => ({
       sectionComboFive: latestArticleData,
       sectionComboSix: latestArticleData,
       sectionComboSeven: latestArticleData,
+      sectionComboEight: latestArticleData,
       podcastHome: podCastData,
       infoGraphicBlock: latestArticleData,
       coverage: [],
@@ -904,19 +916,19 @@ describe('<MainSectionScreen>', () => {
   });
 
   it('when ShortArticle only When onPress', () => {
-    const testID = instance.container.findAllByType(ShortArticle)[0];
+    const testID = instance.container.findAllByType(MainSectionShortArticle)[0];
     fireEvent(testID, 'onPress', '2');
     expect(mockFunction).toBeTruthy();
   });
 
   it('when ShortArticle only When onUpdateBookmark', () => {
-    const testID = instance.container.findAllByType(ShortArticle)[0];
+    const testID = instance.container.findAllByType(MainSectionShortArticle)[0];
     fireEvent(testID, 'onUpdateBookmark', '2', true);
     expect(mockFunction).toBeTruthy();
   });
 
   it('when ShortArticle only When showSignUpPopUp', () => {
-    const testID = instance.container.findAllByType(ShortArticle)[0];
+    const testID = instance.container.findAllByType(MainSectionShortArticle)[0];
     fireEvent(testID, 'showSignUpPopUp');
     expect(mockFunction).toBeTruthy();
   });
@@ -933,7 +945,7 @@ describe('<MainSectionScreen>', () => {
   let instance: RenderAPI;
 
   const mockFunction = jest.fn();
-
+  
   const refreshing = mockFunction;
   const coverageInfo = mockFunction;
   const sectionComboOneInfo = mockFunction;
@@ -950,7 +962,6 @@ describe('<MainSectionScreen>', () => {
   const editorsChoiceInfo = mockFunction;
   const useLoginMock = mockFunction;
   const useAppPlayerMock = mockFunction;
-
   const navigation = {
     navigate: mockFunction,
   }
@@ -989,5 +1000,4 @@ describe('<MainSectionScreen>', () => {
   it('should render MainSectionScreen component', () => {
     expect(instance).toBeDefined();
   });
-
 });

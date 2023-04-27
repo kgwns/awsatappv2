@@ -88,4 +88,3 @@ export type AppCommonAction = StoreAppThemeType
   | StoreArticleFontType
   | ResetArticleFontSizeType
   | StoreBaseUrlConfigType
-  

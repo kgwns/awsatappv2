@@ -4,16 +4,17 @@ import {
   FlatList,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
 import React, { useEffect, useState } from 'react';
 import { isTab, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
-import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
+import { ArticleFooter, ArticleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
-import { useLogin } from 'src/hooks';
+import { useLogin, useOrientation } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
@@ -37,7 +38,7 @@ export interface ArticleSectionProps {
   headerLeft?: HeaderElementProps;
   onPress: (nid: string, isAlbum?: boolean) => void;
   labelType?: LabelTypeProp;
-  onUpdateBookmark: (nid: string, bookmarkStatus: boolean) => void,
+  onUpdateBookmark: (nid: string, bookmarkStatus: boolean,eventParameter: any) => void,
   showSignUpPopUp: () => void,
   listKey?: string,
   numColumns?: number,
@@ -50,10 +51,13 @@ export interface ArticleSectionProps {
   listStyle?: StyleProp<ViewStyle>
   hideImage?: boolean;
   showLeftTitle?: boolean;
-  containerStyle?: StyleProp<ViewStyle>
+  containerStyle?: StyleProp<ViewStyle>,
+  titleColor?: string,
+  articleTextStyle?: StyleProp<TextStyle>,
+  rightTitleColor?: string
 }
 
-export const shortArticleFooter: articleFooterProps = {
+export const shortArticleFooter: ArticleFooterProps = {
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
   leftTitleStyle: { fontSize: 13, lineHeight: 18, fontFamily: fonts.IBMPlexSansArabic_Regular },
@@ -76,6 +80,9 @@ const ShortArticle = ({ data, headerLeft, onPress,
   hideImage = false,
   showLeftTitle = true,
   containerStyle,
+  titleColor,
+  articleTextStyle,
+  rightTitleColor
 }: ArticleSectionProps) => {
   const { isLoggedIn } = useLogin()
   const style = useThemeAwareObject(customStyle);
@@ -93,9 +100,20 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const updatedData = [...articleData]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
     updatedData[index].isBookmarked = bookmarkStatus
-    setArticleData(updatedData)
-    onUpdateBookmark(updatedData[index].nid, bookmarkStatus)
+    setArticleData(updatedData);
+    const {title,body,author,type,} = updatedData[index];
+    const decodeBody = decodeHTMLTags(body);
+    const eventParameter = {
+      content_type: type,
+      article_name: title,
+      article_category: 'article',
+      article_author: author,
+      article_length: decodeBody.split(' ').length,
+
+    }
+    onUpdateBookmark(updatedData[index].nid, bookmarkStatus,eventParameter)
   }
+  const { isPortrait } = useOrientation();
 
   const checkAndUpdateBookmark = (index: number) => {
     isLoggedIn ? onPressBookmark(index) : showSignUpPopUp()
@@ -114,15 +132,16 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
     const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
     const isAlbum = isTypeAlbum(item.type);
+    const labelContainerStyle = isPortrait ? style.footerStyle : style.footerLandscapeStyle;
 
     return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid, isAlbum)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
         <View style={style.containerStyle}>
-          <View style={[style.footerStyle, leftContainerStyle, hideImage && style.hideImage]}>
+          <View style={[ labelContainerStyle, leftContainerStyle, hideImage && style.hideImage]}>
             <ArticleLabel displayType={item.displayType} enableBottomMargin />
             <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
-              <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
+              <TextWithFlag {...item} numberOfLines={0} labelType={labelType} titleColor = {titleColor} style = {articleTextStyle} />
             </View>
             
             {isNotEmpty(item.body) && showBody &&
@@ -135,7 +154,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
             {!isFooterOutside && <View style={[style.footerContainer]}>
               <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
                 onPress={() => checkAndUpdateBookmark(index)}
-                isBookmarked={item.isBookmarked}
+                isBookmarked={item.isBookmarked} rightTitleColor = {rightTitleColor}
               />
             </View>}
           </View>
@@ -208,7 +227,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   footerStyle: {
     width: footerWidth,
-    paddingRight: normalize(12)
+    paddingRight: normalize(12),
+  },
+  footerLandscapeStyle: {
+    width: '70%',
+    paddingRight: normalize(12),
   },
   cardContainer: {
     paddingBottom: normalize(20),
@@ -219,7 +242,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     height: isTab ? normalize(80) : normalize(65),
   },
   imageContainerLandscape: {
-    width: imageContainerWidth,
+    width: '30%',
   },
   hideImage: {
     flex: 1,
@@ -239,7 +262,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     color: theme.footerTextColor
   },
   containerStyle: {
-    flexDirection: 'row' 
+    flexDirection: 'row' ,
+    justifyContent:'space-between',
   },
   articleFooterStyle: {
     flex: 1 

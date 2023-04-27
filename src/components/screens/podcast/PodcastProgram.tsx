@@ -2,13 +2,14 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Animated, FlatList, Modal, StyleSheet, View } from 'react-native';
 import { PodcastEpisodeModal, ScreenContainer } from '..';
 import { PodcastProgramInfo, PodcastEpisodeList } from 'src/components/organisms';
-import { horizontalEdge, isIOS, isNonEmptyArray, screenHeight } from 'src/shared/utils';
+import { decodeHTMLTags, horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isTab, recordLogEvent, screenHeight } from 'src/shared/utils';
 import { useBookmark, usePodcast, useAppPlayer, useLogin } from 'src/hooks';
 import { PodcastListBodyGet, PodcastListItemType } from 'src/redux/podcast/types'
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -77,9 +78,15 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
   const [podcastEpisodeListInfo, setPodcastEpisodeListInfo] = useState<PodcastListItemType[]>(podcastListData)
 
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean, eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST }) : removeBookmarkedInfo({ nid })
+      if (isBookmarked) {
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.PODCAST })
+      } else {
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
+        removeBookmarkedInfo({ nid })
+      }
     } else {
       setShowPopUp(true)
     }
@@ -91,7 +98,15 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
     const newBookmarked = !item.isBookmarked
     data[index].isBookmarked = newBookmarked
     setPodcastEpisodeListInfo(data)
-    updateBookmarkInfo(item.nid, newBookmarked)
+    const { title,body_export, type} = data[index];
+    const decodeBody = decodeHTMLTags(body_export);
+    const eventParameter = {
+        content_type: type,
+        article_name: title,
+        article_category: type,
+        article_length: decodeBody.split(' ').length
+      }
+    updateBookmarkInfo(item.nid, newBookmarked,eventParameter)
   }
 
   const checkAndUpdateBookmark = (index: number) => {
@@ -121,7 +136,7 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
 
   const episodeModal = () => (
     <Modal visible={true} animationType={'slide'} onRequestClose = {() => setShowModal(false)}>
-      <View style={{ height: screenHeight - insets.top }}>
+      <View style={[isTab ? styles.tabModalStyle : { height: screenHeight - insets.top }]}>
         <PodcastEpisodeModal
           route={{ params: { data: selectedItem.current, podcastListData: podcastEpisodeListInfo } }}
           onPressBack={() => setShowModal(false)}
@@ -177,5 +192,12 @@ const createStyles = (theme: CustomThemeType) =>
     },
     screenBackgroundColor: {
       backgroundColor: theme.backgroundColor,
+    },
+    tabModalStyle: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      right: 0,
+      left: 0,
     }
   });

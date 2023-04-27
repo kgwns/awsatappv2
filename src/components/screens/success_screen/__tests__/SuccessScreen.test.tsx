@@ -10,6 +10,7 @@ import { AppState, NativeEventSubscription } from 'react-native';
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
   useNavigation: jest.fn(),
+  useIsFocused: () => jest.fn().mockImplementation(() => Boolean),
 }));
 
 jest.mock("src/hooks/useAllWriters", () => ({

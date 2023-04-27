@@ -1,9 +1,9 @@
 import { View, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { Divider, Label, TextWithFlag } from '../atoms';
-import { normalize } from 'src/shared/utils';
+import { isTab, normalize } from 'src/shared/utils';
 import { Styles } from '../../shared/styles';
-import { ArticleFooter, articleFooterProps } from 'src/components/molecules';
+import { ArticleFooter, ArticleFooterProps } from 'src/components/molecules';
 import { TextWithFlagProps } from 'src/components/atoms';
 import { decodeHTMLTags, isNotEmpty } from 'src/shared/utils/utilities';
 import { CustomThemeType } from 'src/shared/styles/colors';
@@ -11,10 +11,9 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { decode } from 'html-entities';
 import { ArticleLabel } from './articleLabel/ArticleLabel';
-
 export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
-    footerInfo?: articleFooterProps,
+    footerInfo?: ArticleFooterProps,
     contentStyle?: StyleProp<ViewStyle>,
     showDivider?: boolean,
     showFooterTitle?: boolean,
@@ -43,6 +42,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
 }) => {
     const style = useThemeAwareObject(customStyle)
     const bodyInfo = isNotEmpty(body) ? decodeHTMLTags(decode(body)) : ''
+    
     return (
     <FixedTouchable onPress={onPress}>
         <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>

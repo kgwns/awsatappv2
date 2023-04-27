@@ -4,6 +4,7 @@ import { fetchVideoListApi } from 'src/services/videoListService';
 import * as serviceApi from 'src/services/api';
 describe('Test VideoList Services', () => {
     const mock = new MockAdapter(axios);
+    const requestBody = {items_per_page: 10, page: 0}
     beforeEach(() => {
         jest.useFakeTimers('legacy');
     })
@@ -15,7 +16,7 @@ describe('Test VideoList Services', () => {
             result: true,
         });
 
-        return fetchVideoListApi().then(response => {
+        return fetchVideoListApi(requestBody).then(response => {
             expect(response).toBeInstanceOf(Object);
         });
     });
@@ -23,7 +24,7 @@ describe('Test VideoList Services', () => {
         const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
         getCacheApiRequest.mockImplementationOnce(() => { throw new Error('Not able to fetch api') });
 
-        return fetchVideoListApi().catch((error) => {
+        return fetchVideoListApi(requestBody).catch((error) => {
             expect(error.message).toEqual('Not able to fetch api');
         });
     });

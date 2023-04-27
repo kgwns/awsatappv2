@@ -25,6 +25,7 @@ export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home/topview/tghtyt_khast'
 export const EDITORS_CHOICE = 'api/v2/home/editorschoice';
 export const SPOTLIGHT_COMBO = 'api/v2/home/spotlight';
 export const INFO_GRAPHIC_BLOCK = 'api/block/v1/top';
+export const SECTION_COMBO_TWO = 'api/v2/user/articlesection/11+97115+97110';
 export const SECTION_COMBO_SIX = '/api/v2/home/thakafa';
 export const ARCHIVED_ARTICLE_ENDPOINT = 'api/v2/archivedarticle'
 
@@ -73,6 +74,7 @@ export const ADVERTISE_INFO_ID = 49
 export const AWSATT_HISTORY_INFO_ID = 153
 export const ABOUT_US = 56
 export const TERMS_AND_CONDITION = 57
+export const PRIVACY_POLICY_ID = 138
 export const CONTACT_US_END_POINT = 'api/ums/v1/sendContactUsMail'
 
 // Register

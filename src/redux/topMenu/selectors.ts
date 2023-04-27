@@ -9,4 +9,3 @@ export const getTopMenuData: Selector<TopMenuItemType[]> = (state: AppState) =>
 
 export const getTopMenuError: Selector<string> = (state: AppState) =>
   state.topMenu.error;
-  

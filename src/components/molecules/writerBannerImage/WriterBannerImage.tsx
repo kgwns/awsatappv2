@@ -1,9 +1,8 @@
-import { View, StyleSheet, TouchableOpacity, Dimensions, Linking } from 'react-native'
+import { View, StyleSheet, Dimensions, Linking } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { decodeHTMLTags, getImageUrl, isNotEmpty } from 'src/shared/utils/utilities'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ButtonImage} from 'src/components/atoms/button-image/ButtonImage'
-import {HomeButton} from 'src/components/atoms/homeButton/HomeButton'
 import {Image} from 'src/components/atoms/image/Image'
 import {Label } from 'src/components/atoms/label/Label'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -12,7 +11,6 @@ import { isAndroid, isIOS, isTab, normalize, screenWidth } from 'src/shared/util
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 import { ImageResize } from 'src/shared/styles/text-styles'
-import DeviceInfo from 'react-native-device-info';
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
 import { FACEBOOK_APP_URL, INSTAGRAM_APP_URL, TranslateConstants, TranslateKey, TWITTER_APP_URL } from 'src/constants/Constants'
 import { fonts } from 'src/shared/styles/fonts'
@@ -127,12 +125,12 @@ export const WriterBannerImage = ({
         <ReturnButton />
       </View> */}
       <View style={style.contentContainer}>
-        <View style={{ flex: isTab ? isWriter ? 0.15 : currentOrientation === 'PORTRAIT' ? 0.15 : 0.10 : isWriter ? 0.33 : currentOrientation === 'PORTRAIT' ? 0.33 : 0.15 }}>
+        <View style={!isTab && { flex: isWriter ? 0.33 : currentOrientation === 'PORTRAIT' ? 0.33 : 0.15 }}>
           <TouchableWithoutFeedback testID={'touchableImage'} onPress={onPressWriter}>
-            <View style={style.imageContainer}>
+            <View style={isTab ? style.imageTabContainer : style.imageContainer}>
               <Image url={getImageUrl(data.authorImage)}
                 type={'round'}
-                size={normalize(100)}
+                size={isTab ? 130 : normalize(100)}
                 resizeMode={ImageResize.COVER}
                 fallback={true}
                 fallbackName={ImagesName.authorDefault}
@@ -141,8 +139,7 @@ export const WriterBannerImage = ({
           </TouchableWithoutFeedback>
         </View>
         <View style={{ 
-          flex: isTab ? 
-          isWriter ? 0.85 : currentOrientation === 'PORTRAIT' ? 0.85 : 0.90 : 
+          flex: isTab ? 1 : 
           isWriter ? 0.67 :currentOrientation === 'PORTRAIT' ? 0.67 : 0.85, paddingStart: normalize(10) }}>
           <View style={style.authorSubscribeView}>
               <View style={style.authorNameView}>
@@ -207,6 +204,12 @@ const customStyle = (theme: CustomThemeType) => {
       width: normalize(100),
       height: normalize(100),
       borderRadius: normalize(50)
+    },
+    imageTabContainer: {
+      overflow: 'hidden',
+      width: 130,
+      height: 130,
+      borderRadius: 65,
     },
     authorSubscribeView:{
       flex: 1,

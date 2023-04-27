@@ -10,6 +10,7 @@ export const fetchPodcastListApi = async (body: PodcastListBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('podcastService - fetchPodcastListApi - error', error)
     throw error;
   }
 };
@@ -21,6 +22,7 @@ export const fetchPodcastEpisodeApi = async (body: PodcastEpisodeBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('podcastService - fetchPodcastEpisodeApi - error', error)
     throw error;
   }
 };
@@ -32,6 +34,7 @@ export const fetchSingleEpisodeSpreakerApi = async (body: any) => {
     );
     return response;
   } catch (error) {
+    console.log('podcastService - fetchSingleEpisodeSpreakerApi - error', error)
     throw error;
   }
 };

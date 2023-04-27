@@ -8,7 +8,7 @@ import {
   SectionStoryScreen,
   PhotoGalleryScreen,
 } from '..';
-import { isIOS, isNonEmptyArray, isStringIncludes, normalize } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isStringIncludes, isTab, normalize, screenWidth, recordCurrentScreen } from 'src/shared/utils';
 import {
   View,
   Dimensions,
@@ -117,8 +117,7 @@ export const SectionsScreen = () => {
         }
         return data
       }, [])
-    }
-    else {
+    } else {
       filterMenuData = menuData.filter((item: TopMenuItemType) => isStringIncludes(item.parentId, parentId))
     }
 
@@ -148,6 +147,7 @@ export const SectionsScreen = () => {
   const onPressTabItem = (selectedIndex: number) => {
     const routeData = [...routes]
     const selectedRoute = routeData[selectedIndex]
+    recordCurrentScreen(selectedRoute.keyName);
     let selectedRouteChild: TopMenuItemType[] = [];
 
     if(selectedRoute && selectedRoute.child) {
@@ -183,7 +183,7 @@ export const SectionsScreen = () => {
         {...props}
         scrollEnabled
         indicatorStyle={styles.indicator}
-        style={styles.tabBar}
+        style={[styles.tabBar, isTab && styles.tabBarLeftPadding]}
         tabStyle={styles.tabBarStyle}
         labelStyle={styles.label}
         contentContainerStyle={styles.contentContainer}
@@ -288,7 +288,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flex: 1,
   },
   sceneContainer: {
-    flex: 1
+    width: '100%', 
+    height: '100%',
+    flex: 1,
   },
   contentContainer: {
     flex: 1
@@ -296,4 +298,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   headerContainer: {
     backgroundColor: theme.tabBarBackground,
   },
+  tabBarLeftPadding: {
+    paddingLeft: 0.02 * screenWidth
+  }
 });

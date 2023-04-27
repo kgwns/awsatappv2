@@ -3,10 +3,11 @@ import { Dimensions, StyleSheet } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import { BottomSheetView } from 'src/components/molecules';
 import { isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
-import { colors, CustomThemeType } from 'src/shared/styles/colors';
+import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { AlertModal } from '../AlertModal/AlertModal';
 import { TranslateConstants,TranslateKey } from 'src/constants/Constants'
+import { TabletPopup } from '../tabletPopup/TabletPopup';
 
 export enum PopUpType {
     alertModal = 'alertModal',
@@ -41,10 +42,10 @@ export const PopUp = ({
 }: PopUpProp) => {
     let refRBSheet: RBSheet = useRef();
     const style = useThemeAwareObject(customStyle);
-    const [height, setheight] = useState(0.85 * screenHeight)
+    const [deviceHeight, setheight] = useState(0.85 * screenHeight)
 
     useEffect(() => {
-        if (type === PopUpType.rbSheet) { 
+        if (type === PopUpType.rbSheet && !isTab) { 
             (showPopUp) ? refRBSheet.open() : refRBSheet.close() 
         }
     }, [showPopUp])
@@ -69,14 +70,13 @@ export const PopUp = ({
     useEffect(() => {
         if (currentOrientation === 'PORTRAIT') {
             setheight(0.85 * screenHeight)
-        }
-        else {
+        } else {
             setheight(0.85 * screenWidth)
         }
     }, [currentOrientation]);
 
     const onPressSuccessButton = () => {
-        if (type === PopUpType.rbSheet) {
+        if (type === PopUpType.rbSheet && !isTab) {
             refRBSheet.close()
         }
         onPressButton()
@@ -95,13 +95,13 @@ export const PopUp = ({
         <RBSheet
             ref={ref => refRBSheet = ref}
             animationType={'none'}
-            height={height}
+            height={deviceHeight}
             closeOnDragDown={true}
             closeOnPressMask={true}
             closeOnDragAboveSheet={true}
             onClose={onClosePopUp}
             customStyles={{
-                container: StyleSheet.flatten([style.rbSheetContainer, {height: height}]),
+                container: StyleSheet.flatten([style.rbSheetContainer, {height: deviceHeight}]),
                 wrapper: style.popupBackground,
                 draggableIcon: style.rbDraggableIcon
             }}
@@ -122,9 +122,23 @@ export const PopUp = ({
             case PopUpType.alertModal:
                 return renderAlertModal()
             case PopUpType.rbSheet:
-                return renderRBSheet()
+                return choosePopup()
             default:
-                return renderRBSheet()
+                return choosePopup()
+        }
+    }
+
+    const renderTabletModal = () => (<TabletPopup
+        isVisible={showPopUp}
+        onButtonPress={onPressSuccessButton}
+        onClose={() => onClosePopUp()}
+    />)
+
+    const choosePopup = () => {
+        if (isTab) {
+            return renderTabletModal()
+        } else {
+            return renderRBSheet()
         }
     }
 
@@ -132,7 +146,7 @@ export const PopUp = ({
 }
 
 const customStyle = (theme: CustomThemeType) => {
-    const popUpStyle = StyleSheet.create({
+    return StyleSheet.create({
         container: {
             flex: 1,
         },
@@ -154,7 +168,6 @@ const customStyle = (theme: CustomThemeType) => {
             backgroundColor: theme.popupBackground
         }
     });
-    return popUpStyle
 }
 
 export default PopUp;

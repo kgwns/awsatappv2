@@ -19,6 +19,7 @@ import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAn
 import { isArray, isNonEmptyArray, joinArray, recordLogEvent,isNotEmpty, spliceArray } from 'src/shared/utils';
 import { getProfileUserDetails } from 'src/redux/profileUserDetail/selectors';
 import { PopulateWidgetType } from 'src/components/molecules';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 const filterNidInfoFromNodeList = (data: BookmarkIdSuccessDataFieldType[]) => {
   return data.reduce((prevValue: string[], item: BookmarkIdSuccessDataFieldType) => {
@@ -45,6 +46,7 @@ export interface UseBookMarkReturn {
   removeBookmark(): void
   getSpecificBundleFavoriteDetail: (bundle: PopulateWidgetType, startIndex?: number) => void;
   canRefreshBookmarkDetail: boolean;
+  getSpecificBundleArticleCount: (bundle: PopulateWidgetType) => number;
 }
 
 export const useBookmark = (): UseBookMarkReturn => {
@@ -61,7 +63,7 @@ export const useBookmark = (): UseBookMarkReturn => {
 
   const sendBookmarkInfo = (payload: SendBookMarkBodyGet) => {
     AdjustAnalyticsManager.trackEvent(AdjustEventID.BOOK_MARK_ARTICLE)
-    recordLogEvent('Add_Bookmark_to_Article', { userId: userProfileData.user?.id, articleId: payload.nid });
+    recordLogEvent(AnalyticsEvents.ADD_BOOKMARK_TO_ARTICLE, { userId: userProfileData.user?.id, articleId: payload.nid });
     const lastBookmarkInfo = [...bookmarkIdInfo]
     const newNidInfo: BookmarkIdSuccessDataFieldType[] = [{ nid: payload.nid, bundle: payload.bundle }]
     const updatedBookmarkIdDetail = newNidInfo.concat(lastBookmarkInfo)
@@ -98,7 +100,7 @@ export const useBookmark = (): UseBookMarkReturn => {
 
     updateBookDetailInfo(updatedBookmarkInfo, updatedBookmarkIdDetail, updatedFilterBookmarkDetail)
     dispatch(removeBookmarked(payload))
-    recordLogEvent('Remove_Bookmark', { id: nid });
+    recordLogEvent(AnalyticsEvents.REMOVE_BOOKMARK, { id: nid });
   }
 
   const updateBookDetailInfo = (bookmarkDetailData: BookmarkDetailDataType[], bookmarkIDDetail: BookmarkIdSuccessDataFieldType[], filteredBookmarkDetail: any[]) => {
@@ -126,6 +128,12 @@ export const useBookmark = (): UseBookMarkReturn => {
     }
   }
 
+  const getSpecificBundleArticleCount = (payload: PopulateWidgetType) => {
+    const bookmarkId = [...bookmarkIdInfo];
+    const bundleBookmarkList = bookmarkId.filter((item) => item.bundle === payload);
+    return isNonEmptyArray(bundleBookmarkList) ? bundleBookmarkList.length : 0;
+  };
+
   const getCurrentBatchNid = (selectedData: any[], startIndex: number) => {
     const selectedDataInfo = isArray(selectedData) ? [...selectedData] : []
     const nextPageIdInfo = spliceArray(selectedDataInfo, startIndex, 25)
@@ -152,5 +160,6 @@ export const useBookmark = (): UseBookMarkReturn => {
     getSpecificBundleFavoriteDetail,
     filterBookmarkDetailInfo,
     canRefreshBookmarkDetail,
+    getSpecificBundleArticleCount,
   };
 };

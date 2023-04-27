@@ -16,6 +16,7 @@ import { isIOS, isNonEmptyArray, isTab, normalize, recordCurrentScreen, screenWi
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { useNavigation, useNavigationState, DrawerActions } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants/Constants';
+import { useOrientation } from 'src/hooks';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -68,8 +69,9 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
 }) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
+    const {isPortrait} = useOrientation();
     return (
-        <View style={[style.bottomBar, { backgroundColor: themeData.primaryWhite }]}>
+        <View style={[style.bottomBar, { backgroundColor: themeData.primaryWhite }, isTab && !isPortrait && style.bottomBarLandscape]}>
             {state.routes.map((route, index) => {
                 const isFocused = state.index === index;
 
@@ -79,7 +81,6 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                     
                     if (!isFocused) {
                         navigation.navigate(route.name);
-                        recordCurrentScreen(route.name);
                     }else{
                         global.refFlatList.current?.scrollToOffset({ offset: -100 })
                     }
@@ -113,22 +114,22 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                     let tabIconStyle:any = style.tabIcon ;
                     switch (route.name) {
                         case TabConstants.LATEST_NEWS:
-                            tabIconStyle = style.latestNewsIcon
+                            tabIconStyle = isTab ? style.tabLatestNewsIcon : style.latestNewsIcon
                             break;
                         case TabConstants.SECTIONS:
-                            tabIconStyle = style.sectionsIcon
+                            tabIconStyle = isTab ? style.tabSectionsIcon : style.sectionsIcon
                             break;
                         case TabConstants.MOST_READ:
-                            tabIconStyle = style.mostReadIcon
+                            tabIconStyle = isTab ? style.tabMostReadIcon : style.mostReadIcon
                             break;
                         case TabConstants.FAVORITE:
-                            tabIconStyle = style.favoriteIcon
+                            tabIconStyle = isTab ? style.tabFavoriteIcon : style.favoriteIcon
                             break;
                         case TabConstants.DOWNLOAD_NEWS:
-                            tabIconStyle = style.newsIcon
+                            tabIconStyle = isTab ? style.tabNewsIcon : style.newsIcon
                             break;
                         case TabConstants.MY_NEWS:
-                            tabIconStyle = style.myNewsIconStyle
+                            tabIconStyle = isTab ? style.tabMyNewsIconStyle : style.myNewsIconStyle
                             break;
                     }
                     return tabIconStyle;
@@ -140,10 +141,10 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                         <TouchableOpacity
                             key={index}
                             onPress={() => onPress()}>
-                            <View style={style.tabIconContainer}>
+                            <View style={[style.tabIconContainer, isTab && !isPortrait && style.tabItemMargin]}>
                             {(getSvgImages({ name: getImageName(), width: iconStyle.width, height: iconStyle.height , style: iconStyle}))}
                             </View>
-                            <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} labelType={'label10'}>{route.name}</Label>
+                            <Label color={isFocused ? colors.greenishBlue : colors.lightToneGreen} style={[isTab && !isPortrait && style.tabItemMargin,style.labelStyle]} labelType={'label10'}>{route.name}</Label>
                         </TouchableOpacity>
                     </View>
                 );
@@ -153,7 +154,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-    const TabNavigatorStyle = StyleSheet.create({
+    return StyleSheet.create({
         bottomBar: {
             width: "100%",
             height: isTab ? 93 : 80,
@@ -166,6 +167,9 @@ const customStyle = (theme: CustomThemeType) => {
             shadowOpacity: .1,
             shadowRadius: 4,
             elevation: 15,
+        },
+        bottomBarLandscape: {
+            justifyContent: 'center'
         },
         tabIconContainer: {
             height: isTab ? 29 : 24,
@@ -215,7 +219,7 @@ const customStyle = (theme: CustomThemeType) => {
         search: {
             height: 19,
             width: 18,
-            marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+            marginHorizontal: isTab ? 0.05 * screenWidth : 0.04 * screenWidth,
         },
         logo: {
             height: 32,
@@ -225,10 +229,40 @@ const customStyle = (theme: CustomThemeType) => {
         menu: {
             height: 16,
             width: 19,
-            marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
+            marginHorizontal: isTab ? 0.05 * screenWidth : 0.04 * screenWidth,
+        },
+        labelStyle: {
+            alignSelf: 'center',
+        },
+        tabItemMargin: {
+            marginHorizontal: 50
+        },
+        tabFavoriteIcon: {
+            width: 12,
+            height: 17,
+            marginTop: isIOS ? 2 : 5
+        },
+        tabNewsIcon: {
+            width: 31,
+            height: 22,
+        },
+        tabMostReadIcon: {
+            width: 17,
+            height: 22
+        },
+        tabSectionsIcon: {
+            width: 20,
+            height: 20
+        },
+        tabLatestNewsIcon: {
+            width: 18,
+            height: 21
+        },
+        tabMyNewsIconStyle: {
+            width: 26,
+            height: 22
         },
     })
-    return TabNavigatorStyle;
 }
 
 export default TabNavigator;

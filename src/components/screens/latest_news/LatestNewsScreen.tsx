@@ -2,23 +2,28 @@ import React, { useCallback, useEffect, useState } from 'react';
 import { FlatList, StyleSheet, View, RefreshControl } from 'react-native';
 import {
   ArticleSection, CarouselSlider, PodcastWidget,
-  ShortArticle, StoryWidget, AuthorWidget, BannerArticleSection, SectionComboOne, StoryListProps, AlertModal
+  ShortArticle, AuthorWidget, BannerArticleSection, SectionComboOne,
+  //StoryWidget, StoryListProps,  // Will enable the Stories once required
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
-import { shortArticleWithTagProperties, storyWidgetData, TranslateConstants, TranslateKey } from 'src/constants/Constants';
-import { horizontalEdge, isNonEmptyArray, isTab, normalize, isIOS } from 'src/shared/utils';
+import {
+  shortArticleWithTagProperties,
+  //storyWidgetData, // Will enable the Stories once required and remove the above Divider
+  TranslateConstants,
+  TranslateKey,
+  ScreensConstants
+} from 'src/constants/Constants';
+import { horizontalEdge, isNonEmptyArray, isTab, normalize, } from 'src/shared/utils';
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData } from 'src/hooks';
 import { LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
-import { ScreensConstants } from 'src/constants/Constants';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 import { Styles } from 'src/shared/styles';
-import TrackPlayer, { State, usePlaybackState, RepeatMode, } from 'react-native-track-player';
+import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { getPodcastUrl } from 'src/shared/utils/utilities';
 import { PodCastMiniPlayer } from 'src/components/molecules';
-import { useFocusEffect } from '@react-navigation/native';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 
@@ -301,8 +306,8 @@ export const LatestNewsScreen = () => {
   }
 
 
-  const onPressArticle = (nid: string) => {
-    nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+  const onPressArticle = (Nid: string) => {
+    Nid && navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: Nid })
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {

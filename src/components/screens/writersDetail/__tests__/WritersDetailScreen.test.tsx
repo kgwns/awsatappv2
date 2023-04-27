@@ -13,6 +13,7 @@ import {useNavigation} from '@react-navigation/native';
 import { useLogin } from 'src/hooks'
 import { fetchWriterOpinionsApi } from 'src/services/opinionsService'
 import { AxiosError } from 'axios'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -236,9 +237,11 @@ describe('< Writer Detail >', () => {
             isLoggedIn: true,
         });
         const component =
-            <Provider store={storeSampleData}>
-                <WritersDetailScreen route={{params: {tid: '12345'}}}/>
-            </Provider>
+            <SafeAreaProvider>
+                <Provider store={storeSampleData}>
+                    <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                </Provider>
+            </SafeAreaProvider>
         instance = render(component)
     })
 
@@ -361,9 +364,11 @@ describe('< Writer Detail >', () => {
             isLoggedIn: true,
         });
         const component =
-            <Provider store={storeSampleData}>
-                <WritersDetailScreen route={{params: {tid: '12345'}}}/>
-            </Provider>
+            <SafeAreaProvider>
+                <Provider store={storeSampleData}>
+                    <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                </Provider>
+            </SafeAreaProvider>
         instance = render(component)
     })
 
@@ -439,9 +444,11 @@ describe('< Writer Detail >', () => {
             isLoggedIn: false,
         });
         const component =
-            <Provider store={storeSampleData}>
-                <WritersDetailScreen route={{params: {tid: '12345'}}}/>
-            </Provider>
+            <SafeAreaProvider>
+                <Provider store={storeSampleData}>
+                    <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                </Provider>
+            </SafeAreaProvider>
         instance = render(component)
     })
 

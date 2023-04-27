@@ -1,5 +1,6 @@
 import { ImagesName } from "../images";
 import { getSvgImages } from "../svgImages";
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 jest.mock('react', () => {
     const ActualReact = jest.requireActual('react')
@@ -9,8 +10,20 @@ jest.mock('react', () => {
     }
   })
 
+  jest.mock('src/shared/styles/ThemeProvider', () => {
+    const ActualReact = jest.requireActual('src/shared/styles/ThemeProvider')
+    return {
+      ...ActualReact,
+      useTheme: jest.fn(), 
+    }
+  })
+
 describe('SvgImages', () => {
+  const useThemeMock = jest.fn()
+
     test('svg', () => {
+      (useTheme as jest.Mock).mockImplementation(useThemeMock)
+       useThemeMock.mockReturnValue({themeData:{id:'dark'}})
 
         expect(getSvgImages({ name: ImagesName.fontScaling })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.themeChange })).toBeDefined();
@@ -130,4 +143,51 @@ describe('SvgImages', () => {
         expect(getSvgImages({ name: ImagesName.weatherNightIcon })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.weatherNightIcon })).toBeDefined(); 
     });
+    
+    test('svg Light Theme ', () => {
+      (useTheme as jest.Mock).mockImplementation(useThemeMock)
+      useThemeMock.mockReturnValue({themeData:{id:'light'}})
+      expect(getSvgImages({ name: ImagesName.themeChange })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.share })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.bookMarkSVG })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.bookMarkActiveSVG })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.applePodcast })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.googlePodcast })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.spotifyPodcast })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.anghamiPodcast })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.clock })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.searchIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.headerLogo })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.menuIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.newsIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.newsActiveIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.mostReadIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.mostReadActiveIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.notificationSelected })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.notification })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.notificationGrey })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.manageNews })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.newsLetter })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.profile })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.exit })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.pen })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.bookmark })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.returnSvg })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.returnGreenish })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.dropDownIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.returnBlackSvg })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.playerCloseIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.arrowLeftFacedBlack })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.facebookGray })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.instagramGray })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.twitterGray })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.shareGray })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.bookmarkGray })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.menuCloseIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.gridToggleIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.listToggleIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.calendarIcon })).toBeDefined();
+      expect(getSvgImages({ name: ImagesName.homeIcon })).toBeDefined();
+
+    })
 })

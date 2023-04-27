@@ -14,6 +14,7 @@ export const changePasswordApi = async (body: SendNewPassword) => {
             );
         return response;
     } catch (error) {
+        console.log('changePasswordService - changePasswordApi - error', error)
         throw error;
     }
 }

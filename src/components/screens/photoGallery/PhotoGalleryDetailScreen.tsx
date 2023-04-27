@@ -51,19 +51,20 @@ export const PhotoGalleryDetailScreen = ({
 
   const currentNId = route.params.nid;
 
-  useEffect(() => {
-    if (isFocused && isTab) {
-      Orientation.unlockAllOrientations();
-      Orientation.getDeviceOrientation(updateScreenEdge);
-      Orientation.addDeviceOrientationListener(updateScreenEdge);
-    }
+  //Disabled for iPad orientation
+  // useEffect(() => {
+  //   if (isFocused && isTab) {
+  //     Orientation.unlockAllOrientations();
+  //     Orientation.getDeviceOrientation(updateScreenEdge);
+  //     Orientation.addDeviceOrientationListener(updateScreenEdge);
+  //   }
 
-    return () => {
-      Orientation.lockToPortrait();
-      Orientation.removeDeviceOrientationListener(updateScreenEdge);
-      Orientation.removeAllListeners();
-    };
-  }, []);
+  //   return () => {
+  //     Orientation.lockToPortrait();
+  //     Orientation.removeDeviceOrientationListener(updateScreenEdge);
+  //     Orientation.removeAllListeners();
+  //   };
+  // }, []);
 
   useEffect(() => {
     fetchAlbumDetailData({nid: parseInt(currentNId)});
@@ -149,7 +150,7 @@ export const PhotoGalleryDetailScreen = ({
   };
 
   const onPressBack = () => {
-    Orientation.lockToPortrait();
+    // Orientation.lockToPortrait(); //Disabled for iPad orientation
     isTab && isIOS
       ? setTimeout(() => {
           navigation.goBack();
@@ -185,8 +186,9 @@ export const PhotoGalleryDetailScreen = ({
       isLandscape
       isSignUpAlertVisible={showPopUp}
       onCloseSignUpAlert={onCloseSignUpAlert}
+      isLoading={isDetailLoading}
       playerPosition={{
-        bottom: isIOS ? normalize(70) : normalize(60),
+        bottom: isTab ? 104 : isIOS ? normalize(70) : normalize(60),
       }}>
       {isDetailLoading ? (
         <View style={styles.centeredStyle}>
@@ -221,7 +223,7 @@ export const PhotoGalleryDetailScreen = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const styles = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       marginBottom: normalize(80),
@@ -260,5 +262,4 @@ const customStyle = (theme: CustomThemeType) => {
       paddingBottom: normalize(80)
     }
   });
-  return styles;
 };
