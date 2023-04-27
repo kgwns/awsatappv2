@@ -396,14 +396,14 @@ const CustomDrawerContent = () => {
               );
             })}
           <Divider style={styles.divider} />
-          <ButtonList
+          {/* <ButtonList //Removed for AMAR-1284 & AMAR-1277 and enable it when required.
             title={ADVERTISE_WITH_US}
             onPress={() => onPressNavigation(
               ScreensConstants.TERMS_AND_ABOUT_US,
               { title: ADVERTISE_WITH_US, id: ADVERTISE_INFO_ID }
             )}
             titleStyle={contactUsTitleStyle}
-          />
+          /> */}
           {/* <ButtonList
             title={t('drawer.aboutTheEast')}
             onPress={() => onPressNavigation(
