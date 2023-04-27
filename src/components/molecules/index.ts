@@ -68,3 +68,4 @@ export { DetailHeaderTablet } from 'src/components/molecules/detailHeader/Detail
 export { StepLineCircle } from 'src/components/molecules/stepLineCircle/StepLineCircle';
 export {default as MostReadTabItem} from './MostReadTabItem';
 export { OnBoardingBottom } from './onboarding-bottom/OnBoardingBottom';
+export { AuthHeader } from './auth-header/AuthHeader';

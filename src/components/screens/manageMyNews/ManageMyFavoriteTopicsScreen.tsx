@@ -304,20 +304,6 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
     screenBackgroundColor: {
       backgroundColor: theme.onBoardBackground
     },
-    bottomContainer: {
-      position: 'absolute',
-      bottom: 0,
-      right: 0,
-      left: 0,
-      height: 211,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    linearGradient: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%'
-    },
     tabContainer: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
