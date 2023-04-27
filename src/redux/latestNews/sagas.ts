@@ -513,7 +513,7 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
             displayType: getDisplayName(field_display_export),
           })
       );
-      responseData.spotlightArticleSectionData = responseData.spotlightArticleSectionData.splice(0, 4)
+      responseData.spotlightArticleSectionData = responseData.spotlightArticleSectionData.splice(0, 5)
     }
 
     if (response.pager) {

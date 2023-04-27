@@ -1253,7 +1253,7 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
     },
     imageContainer: {
-      width:'30%',
+      width: isTab ? '30%': 144,
     },
     leftContainerStyle: {
       width: '70%',
