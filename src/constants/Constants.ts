@@ -1383,53 +1383,6 @@ const weatherData = [
     },
 ];
 
-const searchResults: SearchResultsProps[] = [
-    {
-        id: '1',
-        label: ' تضارب ایرانی بعد انفجار قرب موقع تطير النووي',
-    },
-    {
-        id: '2',
-        label: 'ه فيروس الاوميكرون',
-    },
-    {
-        id: '3',
-        label: 'اثر انبار مدينة نيوم',
-    },
-    {
-        id: '4',
-        label: 'السراع بين فلسطین و اسرائیل',
-    },
-    {
-        id: '5',
-        label: 'عنوان لأخر المواضيع بوضع هنا',
-    },
-    {
-        id: '6',
-        label: 'عنوان الآخر المواضيع يوضع هنا',
-    },
-    {
-        id: '7',
-        label: 'عنوان الاخر المواضيع بوضع هنا',
-    },
-    {
-        id: '8',
-        label: 'أخر اخبار مدينه بيوم',
-    },
-    {
-        id: '9',
-        label: 'السراع بين فلسطین و اسرائیل',
-    },
-    {
-        id: '10',
-        label: 'عنوان لآخر المواضيع بوضع هنا',
-    },
-    {
-        id: '11',
-        label: 'عنوان لاخر المواضيع بوضع هنا',
-    },
-];
-
 const opinionItem = {
 
     name: 'غسان الإمام',
@@ -2174,7 +2127,6 @@ export {
     mostReadData,
     sectionTabItem,
     weatherData,
-    searchResults,
     opinionWritersData,
     opinionWritersArticlesData,
     podcastCardSectionData,
