@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Image as RNImage } from 'react-native';
-import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader } from '../atoms';
+import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -82,7 +82,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       title:PODCAST_WIDGET_HEADER_LEFT,
       color: themeData.primaryBlack,
       labelType: LabelTypeProp.title3,
-      textStyle: { fontFamily: fonts.AwsatDigital_Black }
+      textStyle: isTab ? style.tabHeaderTextStyle : { fontFamily: fonts.AwsatDigital_Black }
     },
     headerRight: {
       title:PODCAST_WIDGET_HEADER_RIGHT,
@@ -176,7 +176,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     const description = decodeHTMLTags(bodyInfo)
     return (
       <>
-        <View style={style.widgetHeaderContainer}>
+        <View style={isTab ? style.tabWidgetHeaderContainer : style.widgetHeaderContainer}>
           <WidgetHeader {...widgetHeaderData} onPress={onMorePress} />
         </View>
         <View style={style.podcastMobileContainer}>
@@ -409,9 +409,13 @@ const createStyles = (theme: CustomThemeType) => {
       paddingRight: normalize(15),
     },
     widgetHeaderContainer: {
-      paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
+      paddingHorizontal: 0.04 * screenWidth,
       paddingBottom: normalize(10),
-      paddingTop: normalize(15)
+      paddingTop: normalize(15),
+    },
+    tabWidgetHeaderContainer: {
+      paddingBottom: 10,
+      paddingTop: 15,
     },
     podcastMobileContainer: {
       backgroundColor: colors.limeGreen,
@@ -426,6 +430,11 @@ const createStyles = (theme: CustomThemeType) => {
     podcastTextContainer: {
       paddingHorizontal: 0.06 * screenWidth
     },
+    tabHeaderTextStyle: { 
+      fontFamily: fonts.AwsatDigital_Black, 
+      fontSize: 25, 
+      lineHeight: 36
+    }
   });
 };
 

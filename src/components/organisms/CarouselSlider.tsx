@@ -64,7 +64,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         width: '100%',
     },
     carouselContainerStyle: {
-        flex:1, 
         alignItems:'center'
     }
 })

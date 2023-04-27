@@ -92,7 +92,7 @@ export const ArticleGridView = ({
     }
 
     return (
-        <View style = { isTab ? style.tabContainer : style.container}>
+        <View style = {style.container}>
             { !isTab && renderItemSeparatorComponent()}
                     <FlatList
                         keyExtractor={(_, index) => index.toString()}
@@ -126,10 +126,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.dividerColor,
     },
     container: {
-        backgroundColor: theme.mainBackground,
-    },
-    tabContainer: {
-        flex:1,
         backgroundColor: theme.mainBackground,
     },
     dividerContainer: {

@@ -931,12 +931,15 @@ export const MainSectionScreen = React.memo((
               />
             </View>
           )} */}
+      
+      <View style = {mainSectionStyle.opinionContainer}>
       {isNonEmptyArray(opinionList) && 
       <AuthorSlider data={[...opinionList].splice(0,9)} 
       selectedType={selectedType} 
       getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
       onClose={onClose} 
       />}
+      </View>
       <View style = {mainSectionStyle.tabSplitterContainer}>
         <View style = {mainSectionStyle.tabWidgetContainer}>
           <BannerArticleSection
@@ -996,7 +999,7 @@ export const MainSectionScreen = React.memo((
       }
 
       {isNonEmptyArray(spotlight) && isNonEmptyArray(spotlightArticleSection) && (
-        <View style={[mainSectionStyle.articleContainer,{marginHorizontal:-40}]}>
+        <View style={[mainSectionStyle.articleContainer,mainSectionStyle.mainShortArticleContainer]}>
           <View style={mainSectionStyle.articleTitleContainer}>
             <Label
               children={spotlight[0].title}
@@ -1012,6 +1015,7 @@ export const MainSectionScreen = React.memo((
               showSignUpPopUp={makeSignUpAlert}
               isFooterOutside={true}
               showLeftTitle={false}
+              containerStyle={mainSectionStyle.shortArticleContainerStyle}
             />
           </View>
         </View>
@@ -1182,6 +1186,10 @@ const customStyle = (theme: CustomThemeType) => {
     articleContainer: {
       backgroundColor: theme.secondaryWhite,
     },
+    mainShortArticleContainer: {
+      marginHorizontal:-40, 
+      marginBottom:20
+    },
     articleTitleContainer: {
       paddingVertical: normalize(20),
       alignItems: 'center'
@@ -1199,7 +1207,6 @@ const customStyle = (theme: CustomThemeType) => {
     },
     tabletTopNewsContainer: {
       overflow: 'hidden',
-      flex: 1,
       alignItems:'center'
     },
     tabTopNewsContainerStyle: {
@@ -1243,7 +1250,6 @@ const customStyle = (theme: CustomThemeType) => {
       margin: normalize(28) 
     },
     articleContainerStyle: {
-      flex: 1,
       alignItems: 'center',
     },
     imageContainer: {
@@ -1253,13 +1259,11 @@ const customStyle = (theme: CustomThemeType) => {
       width: '70%',
     },
     topContainerSplit: {
-      flex:1,
       flexDirection:'row'
     },
     topContainerWidget: {
       flex:1,
       overflow: 'hidden',
-      // paddingRight: 20
     },
     articleSectionWidget: {
       flex:0.47,
@@ -1268,7 +1272,6 @@ const customStyle = (theme: CustomThemeType) => {
       flex:0.47
     },
     tabSplitterContainer:{
-      flex:1,
       flexDirection:'row',
       marginVertical:20,
     },
@@ -1276,11 +1279,11 @@ const customStyle = (theme: CustomThemeType) => {
       width: '50%' ,
     },
     tabPodcastContainer: {
-      flex:1,
       justifyContent:'center',
       alignItems:'center',
-      marginHorizontal:normalize(100),
-      marginVertical:normalize(20)
+      marginHorizontal:100,
+      marginTop: 30,
+      marginBottom: 50,
     },
     tabArticleTitleStyle: {
       fontSize: 25,
@@ -1289,5 +1292,11 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'center',
       paddingTop: 22
     },
+    shortArticleContainerStyle: {
+      marginBottom: 20
+    },
+    opinionContainer: {
+      marginBottom: 20
+    }
   })
 }

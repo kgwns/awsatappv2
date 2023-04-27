@@ -110,7 +110,7 @@ const ArticleSection = ({
             bodyStyle={isTab ? style.tabletBodyStyle : style.bodyStyle}
             isAlbum={item.isAlbum}
             mainContainerStyle = {style.mainContainerStyle}
-            tabletArticleContainerStyle = {style.tabletArticleContainer}
+            tabletArticleContainerStyle = { isTab ? style.tabletArticleContainer : {}}
             tabBodyLineCount={isTab ? 2 : 3}
         />
     }
@@ -179,7 +179,7 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontSize: 18,
         lineHeight: 28,
         textAlign: 'left', 
-        paddingVertical: normalize(8),
+        paddingVertical: 8,
         color: theme.primaryBlack,
         fontWeight: '700',
     },
@@ -205,8 +205,9 @@ const articleSectionStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 0.30
     },
     tabletArticleContainer: {
-        paddingBottom: normalize(20),
+        paddingBottom: 20,
         overflow: 'hidden',
+        flex: 0
     },
     tabWrapperStyle:{
         justifyContent:'space-between'

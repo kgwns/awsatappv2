@@ -204,9 +204,6 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
         renderItem={({ item, index }) => renderItem(item, index)}
         contentContainerStyle={style.contentContainer}
       />
-      {isTab && <View style={style.dividerContainer}>
-        <Divider style={style.divider} />
-      </View>}
     </View>
   );
 };
