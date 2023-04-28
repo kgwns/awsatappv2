@@ -201,7 +201,7 @@ const onPressPlay = () => {
               />
               <Label style={style.footerLabel}>{audioLabel}</Label> 
             </TouchableOpacity>
-            {timeDuration && <Label style={style.duration}>{timeDuration}</Label>}
+            {timeDuration && <Label style={style.duration} testID='durationId'>{timeDuration}</Label>}
           </>}
         </View>
         <View>

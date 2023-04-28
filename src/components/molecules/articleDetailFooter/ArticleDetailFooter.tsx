@@ -84,7 +84,7 @@ export const ArticleDetailFooter = ({
 
 
     return (
-        <View style={style.container}>
+        <View style={style.container} testID='containerId'>
             <ButtonImage icon={() => isTab ? fontScalingTab : fontScalingMobile}
                 onPress={onPressFontChange}
             />

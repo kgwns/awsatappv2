@@ -115,11 +115,7 @@
 		C33794B043E74D38ABE4376F /* Effra-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5437AF089D81496AB07BB20A /* Effra-Regular.ttf */; };
 		D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E528364E3F003B6457 /* Localizable.strings */; };
 		D7CB52E828366F63003B6457 /* colorPalatte.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E728366F63003B6457 /* colorPalatte.xcassets */; };
-		D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4927D9C9CE0028999D /* iAd.framework */; };
-		D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4B27D9C9D90028999D /* AdServices.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		D7D85B4E27D9C9E50028999D /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4D27D9C9E50028999D /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */; };
-		D7D85B5227D9C9FD0028999D /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5127D9C9FD0028999D /* StoreKit.framework */; };
 		D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D7F15A5F282BE9A7004368A7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A5E282BE9A7004368A7 /* LoadingView.swift */; };
 		D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F15A64282BED4A004368A7 /* libSwiftyJSON.a */; };
@@ -378,11 +374,7 @@
 				5E069400290C11E90081D016 /* AVFoundation.framework in Frameworks */,
 				D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */,
 				D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */,
-				D7D85B5227D9C9FD0028999D /* StoreKit.framework in Frameworks */,
 				D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */,
-				D7D85B4E27D9C9E50028999D /* AdSupport.framework in Frameworks */,
-				D7D85B4C27D9C9D90028999D /* AdServices.framework in Frameworks */,
-				D7D85B4A27D9C9CE0028999D /* iAd.framework in Frameworks */,
 				726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

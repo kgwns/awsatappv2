@@ -265,7 +265,7 @@ export const MainSectionScreen = React.memo((
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
     const newData = [...opinionList]
-    const data = listPartition(newData, 3)
+    const data = listPartition(newData,4)
     setOpinionListData(data)
   }, [opinionList])
   useEffect(() => {
@@ -1253,7 +1253,7 @@ const customStyle = (theme: CustomThemeType) => {
       alignItems: 'center',
     },
     imageContainer: {
-      width:'30%',
+      width: isTab ? '30%': 144,
     },
     leftContainerStyle: {
       width: '70%',

@@ -87,12 +87,12 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
 
             return (
                 <Animated.View style={{ width: widthStyle, height: heightStyle }}>
-                    {isDarkMode ? <HeaderDarkLogoSvg /> : <HeaderLogoSvg />}
+                    {isDarkMode ? <HeaderDarkLogoSvg testID='headerDarkLogoId' /> : <HeaderLogoSvg testID='headerLogoId' />}
                 </Animated.View>
             )
         } else {
             return (
-                <View style={styles.titleContainerWrapper}>
+                <View style={styles.titleContainerWrapper} testID='logoId'>
                     {getSvgImages({ name: ImagesName.headerLogo, width: IMAGE_WIDTH, height: IMAGE_HEIGHT })}
                 </View>
             )

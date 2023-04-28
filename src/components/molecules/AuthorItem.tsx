@@ -14,9 +14,9 @@ import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constant
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { convertSecondsToHMS, isDarkTheme } from 'src/shared/utils/utilities'
+import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
-import { useAppCommon, useAppPlayer } from 'src/hooks'
+import { useAppPlayer } from 'src/hooks'
 import { Divider } from '../atoms'
 import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion'
 import { AlignItemsTo, FlexDirectionTo, FlexWrapTo, JustifyContentTo } from 'src/shared/styles/styleProperties'
@@ -71,8 +71,6 @@ const AuthorItem = ({
     const[timeDuration, setTimeDuration] = useState<any>('');
     const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
     const [isBuffering, setIsBuffering] = useState<boolean>(false);
-    const {theme} = useAppCommon();
-    const isDarkMode = isDarkTheme(theme);
     const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
     const CONST_OPINION_LISTEN_TO_ARTICLE_LIST = TranslateConstants({key:TranslateKey.OPINION_LISTEN_TO_ARTICLE_LIST})
     useEffect(() => {
@@ -212,8 +210,6 @@ const AuthorItem = ({
                   }
                   onPress={onPressPlay} />
                 {isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.tabDurationLabel} testID={'mainScreenTimeDuration'} />}
-                <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} color={ isDarkMode ? themeData.summaryColor : Styles.color.green600}  
-                  style={style.tabArticleLabelSyle}  testID={'listenToArticleId'} />
               </TouchableOpacity>
 
             </View>}
@@ -323,12 +319,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
       fontFamily: fonts.AwsatDigital_Bold,
       fontWeight: '700',
       lineHeight: 26
-  },
-  tabArticleLabelSyle: {
-    fontFamily: fonts.AwsatDigital_Regular,
-    fontSize: 13,
-    fontWeight: '400',
-    lineHeight: 28,
   },
   tabMediaFooter: {
     flexDirection: FlexDirectionTo.ROW_REVERSE,

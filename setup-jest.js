@@ -118,6 +118,13 @@ jest.mock('react-native-adjust', () => {
       setEventTrackingFailedCallbackListener: jest.fn(),
       setSessionTrackingSucceededCallbackListener: jest.fn(),
       setSessionTrackingFailedCallbackListener: jest.fn(),
+      deactivateSKAdNetworkHandling: jest.fn(),
+      setDeviceKnown: jest.fn(),
+      setPreinstallTrackingEnabled: jest.fn(),
+      setAllowIdfaReading: jest.fn(),
+      setAllowiAdInfoReading: jest.fn(),
+      setAllowAdServicesInfoReading: jest.fn(),
+      setShouldLaunchDeeplink: jest.fn(),
     }),
     Adjust: {
       getSdkVersion: jest.fn().mockReturnValue(() => {}),
@@ -131,6 +138,7 @@ jest.mock('react-native-adjust', () => {
       getGoogleAdId: jest.fn(),
       getAmazonAdId: jest.fn(),
       getAttribution: jest.fn(),
+      sendFirstPackages: jest.fn()
     },
   };
 });
