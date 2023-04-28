@@ -19,9 +19,10 @@ export interface MostReadTabItemProps {
     articleData: any,
     index: number,
     onPressBookmark: () => void;
+    visibleNoTag?: boolean;
 }
 
-const MostReadTabItem: FunctionComponent<MostReadTabItemProps> = ({ articleData, index, onPressBookmark }) => {
+const MostReadTabItem: FunctionComponent<MostReadTabItemProps> = ({ articleData, index, onPressBookmark, visibleNoTag = false }) => {
 
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(MostReadTabItemStyle);
@@ -55,9 +56,9 @@ const MostReadTabItem: FunctionComponent<MostReadTabItemProps> = ({ articleData,
             <View style={style.tabContainer}>
                 <View style={style.tabImageContainer}>
                     <Image style={style.tabImageStyle} resizeMode={'cover'} url={articleImage} />
-                    <View style={style.tabTagContainer}>
+                    {visibleNoTag && <View style={style.tabTagContainer}>
                         <Label children={noTag} style={style.tagText} />
-                    </View>
+                    </View>}
                 </View>
                 <View style={[style.tabContentContainer, !isPortrait && style.tabContentContainerLandscape]}>
                     <Label children={title} style={style.tabTitleStyle} />
