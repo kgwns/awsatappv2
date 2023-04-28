@@ -95,6 +95,7 @@ const SectionArticleItem = ({
             children={body}
             color={ isDarkMode ? themeData.summaryColor : isTab ? Styles.color.green600 : themeData.summaryColor}
             numberOfLines={3}
+            testID={'bodyId'}
           />}
         </View>
       </TouchableWithoutFeedback>
@@ -105,7 +106,7 @@ const SectionArticleItem = ({
             : style.hideFooterContainer
         }>
         {!hideFooter && (
-          <View style={style.footerContainer}>
+          <View style={style.footerContainer} testID={'footerContainerId'}>
             {(leftIcon || isNotEmpty(leftTitle)) &&
               <CaptionWithImage
                 title={leftTitle}
@@ -114,7 +115,7 @@ const SectionArticleItem = ({
                 style={style.leftTitle}
               />}
             {((isNotEmpty(leftTitle) || leftIcon) && (isNotEmpty(rightTitle) || rightIcon)) &&
-              <Text children={'|'} style={style.verticalDivider} />}
+              <Text children={'|'} style={style.verticalDivider} testID={'verticalDividerId'} />}
             {(rightIcon || isNotEmpty(rightTitle)) &&
               <CaptionWithImage
                 title={rightTitle}

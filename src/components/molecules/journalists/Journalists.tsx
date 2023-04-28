@@ -65,13 +65,13 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
         <View style={[style.containerStyle, isTab && { flex: 1 }]}>
             {isNonEmptyArray(journalistId) && isNonEmptyArray(journalistName) && isNonEmptyArray(journalistCity) && journalistId.map((item: any, index: number) => {
                 return (
-                    <View key={index} style={[style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]}>
+                    <View key={index} testID={'containerId'} style={[style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]}>
                         {item[index] && <View style={style.rowViewStyle}>
                             <Label children={journalistCity[index] + ' : '} style={style.headerLabel} />
                             {isJournalist && <TouchableOpacity onPress={() => onPressJournalist(item)} disabled={activeJournalist[index]}>
                                 <Label children={journalistName[index]} style={style.authorLabel} />
                             </TouchableOpacity>}
-                            {index !== journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} />}
+                            {index !== journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} testID={'separatorId'} />}
                         </View>}
                     </View>
                 );
