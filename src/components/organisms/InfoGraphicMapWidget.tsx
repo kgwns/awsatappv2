@@ -9,12 +9,12 @@ import { generateAssetFontCss } from '../screens/articleDetail/components/Articl
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 type InfoGraphicMapWidgetProps = {
-    headerTitle: string
+    title: string
     htmlContent: string
 }
 
 const InfoGraphicMapWidget = ({
-    headerTitle = '', htmlContent
+    title = '', htmlContent
 }: InfoGraphicMapWidgetProps) => {
 
     const infoGraphicHTML = ({ body }: { body: string }) => `
@@ -61,7 +61,7 @@ const InfoGraphicMapWidget = ({
 
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
-          title: headerTitle,
+          title: title,
           color: themeData.primaryBlack,
           labelType: LabelTypeProp.title3,
           textStyle: { fontFamily: fonts.AwsatDigital_Black }
