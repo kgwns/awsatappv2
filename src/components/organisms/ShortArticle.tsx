@@ -54,7 +54,8 @@ export interface ArticleSectionProps {
   containerStyle?: StyleProp<ViewStyle>,
   titleColor?: string,
   articleTextStyle?: StyleProp<TextStyle>,
-  rightTitleColor?: string
+  rightTitleColor?: string;
+  showTabStyle?: boolean;
 }
 
 export const shortArticleFooter: ArticleFooterProps = {
@@ -82,7 +83,8 @@ const ShortArticle = ({ data, headerLeft, onPress,
   containerStyle,
   titleColor,
   articleTextStyle,
-  rightTitleColor
+  rightTitleColor,
+  showTabStyle = true
 }: ArticleSectionProps) => {
   const { isLoggedIn } = useLogin()
   const style = useThemeAwareObject(customStyle);
@@ -134,7 +136,7 @@ const ShortArticle = ({ data, headerLeft, onPress,
     const isAlbum = isTypeAlbum(item.type);
     const labelContainerStyle = isPortrait ? style.footerStyle : style.footerLandscapeStyle;
 
-    return <FixedTouchable style={isTab && {flex:1}} onPress={() => onPress(item.nid, isAlbum)}>
+    return <FixedTouchable style={(showTabStyle && isTab) && {flex:1}} onPress={() => onPress(item.nid, isAlbum)}>
       <View key={flatListUniqueKey.SHORT_ARTICLE + index}
         style={StyleSheet.flatten([!hideImage && isTab ? style.cardContainer : style.cardContainerStyle, cardStyle, containerStyle])}>
         <View style={style.containerStyle}>
