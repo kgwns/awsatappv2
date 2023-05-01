@@ -109,6 +109,7 @@ export const PopulateWidget = ({
                         favouriteIconHeight: 16,
                         favouriteIconWidth: 11,
                         bookMarkColorType: isTab && BookMarkColorType.PRIMARY,
+                        hideBookmark: false
                     }}
                     isBookmarked={true}
                     onPressBookmark={onPressBookmark}
