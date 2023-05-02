@@ -62,6 +62,7 @@ enum TranslateKey {
   CONTACT_US_EMAIL,
   CONTACT_US_LETTER,
   CONTACT_US_SEND,
+  CONTACT_US_ADDRESS,
   TEXT_ALERT,
   COMMON_OK,
   LISTEN_TO_ARTICLE,
@@ -577,6 +578,8 @@ const TranslateConstants = ({
             return arabic?.contactUs?.doYouHaveQuestions;
         case TranslateKey.CONTACT_US_DESCRIPTION:
             return arabic?.contactUs?.description;
+        case TranslateKey.CONTACT_US_ADDRESS:
+            return arabic?.contactUs?.address;
         case TranslateKey.FAVORITE_TAB_ITEM_ARCHIEVES:
             return arabic?.favorite?.tabItem?.archives;
         case TranslateKey.SIGN_UP_PH_SIGNUP:
