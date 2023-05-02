@@ -13,6 +13,7 @@ import { ImageResize } from "src/shared/styles/text-styles"
 import { screenWidth } from "src/shared/utils"
 import { fonts } from "src/shared/styles/fonts"
 import { useDeleteMyAccount } from "src/hooks/useDeleteMyAccount"
+import { DeleteMyAccountLabel } from "src/components/molecules"
 
 export const DMAIntroductionScreen = () => {
 
@@ -33,7 +34,7 @@ export const DMAIntroductionScreen = () => {
     const BUTTON_TITLE = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_PROCEED_BUTTON_TITLE });
 
     const handleOnPress = () => {
-        navigation.navigate(ScreensConstants.DMA_DELETE_ACCOUNT_LIST)
+        navigation.navigate(ScreensConstants.DMA_OPTIONS_LIST_SCREEN)
     }
     return (
         <ScreenContainer
@@ -41,8 +42,8 @@ export const DMAIntroductionScreen = () => {
             backgroundColor={styles.screenBackgroundColor?.backgroundColor}
             isLoading={isLoading}
         >
-            <View style={styles.container}>
-                <Label style={styles.titleStyle} children={TITLE} />
+            {!isLoading && <View style={styles.proceedContainer}>
+                <DeleteMyAccountLabel title={TITLE}/>
                 <View style={styles.imageContainer}>
                     <Image
                         style={styles.image}
@@ -50,7 +51,7 @@ export const DMAIntroductionScreen = () => {
                         resizeMode={ImageResize.COVER}
                     />
                 </View>
-                {!isLoading && <Label style={styles.descriptionStyle} children={decodeHTMLTags(DESCRIPTION)} />}
+                <Label style={styles.descriptionStyle} children={decodeHTMLTags(DESCRIPTION)} />
                 <View style={styles.buttonContainer}>
                     <ButtonOutline title={BUTTON_TITLE}
                         onPress={handleOnPress}
@@ -59,7 +60,7 @@ export const DMAIntroductionScreen = () => {
                         color={Styles.color.white}
                     />
                 </View>
-            </View>
+            </View>}
         </ScreenContainer>
     )
 }
@@ -69,18 +70,9 @@ const createStyles = (theme: CustomThemeType) => (
         screenBackgroundColor: {
             backgroundColor: theme.profileBackground
         },
-        container: {
+        proceedContainer: {
             flex: 1,
             marginHorizontal: 0.06 * screenWidth
-        },
-        titleStyle: {
-            fontSize: 22,
-            fontFamily: fonts.AwsatDigitalV2_Bold,
-            lineHeight: 38,
-            fontWeight: 'bold',
-            textAlign: 'center',
-            color: theme.primary,
-            marginTop: 30,
         },
         imageContainer: {
             marginTop: 30,

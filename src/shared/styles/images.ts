@@ -192,6 +192,7 @@ export enum ImagesName {
   tabletDownArrowIcon = 'tabletDownArrowIcon',
   deleteUserIcon = 'deleteUserIcon',
   deleteAccountImage = 'deleteAccountImage',
+  arrowLeftDimGrey = 'arrowLeftDimGrey',
 }
 
 export const images = {

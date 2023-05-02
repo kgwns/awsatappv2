@@ -48,4 +48,4 @@ export { PhotoGalleryDetailScreen } from 'src/components/screens/photoGallery/Ph
 export { JournalistDetail } from 'src/components/screens/journalistDetail/JournalistDetail'
 export { PodcastEpisodeModal } from 'src/components/screens/podcast/PodcastEpisodeModal';
 export { DMAIntroductionScreen } from 'src/components/screens/deleteMyAccount/DMAIntroductionScreen';
-export { DMADeleteAccountList } from 'src/components/screens/deleteMyAccount/DMADeleteAccountList';
+export { DMAOptionsListScreen } from 'src/components/screens/deleteMyAccount/DMAOptionsListScreen';

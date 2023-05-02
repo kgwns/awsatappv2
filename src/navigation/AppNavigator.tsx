@@ -295,8 +295,8 @@ const AppNavigator = () => {
         }}
       />
       <Stack.Screen
-        name={ScreensConstants.DMA_DELETE_ACCOUNT_LIST}
-        component={Routes.DMADeleteAccountList}
+        name={ScreensConstants.DMA_OPTIONS_LIST_SCREEN}
+        component={Routes.DMAOptionsListScreen}
         options={{
           headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),

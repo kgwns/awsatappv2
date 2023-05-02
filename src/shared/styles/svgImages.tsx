@@ -199,6 +199,7 @@ import FontScalingBoldWhite from 'src/assets/images/icons/detail/font_scaling_bo
 
 import DeleteUserIcon from 'src/assets/images/icons/deleteUserIcon.svg';
 import DeleteUserIconDark from 'src/assets/images/icons/deleteUserIconDark.svg';
+import ArrowLeftDimGrey from 'src/assets/images/icons/arrowLeftDimGrey.svg';
 
 export interface GetSVGProps {
     name: ImagesName,
@@ -469,6 +470,8 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return isDark ? <DownArrow {...props} /> : <BlackDownArrow {...props}/>
         case ImagesName.deleteUserIcon:
             return isDark ? <DeleteUserIconDark {...props} /> : <DeleteUserIcon {...props} />
+        case ImagesName.arrowLeftDimGrey:
+            return <ArrowLeftDimGrey {...props} />
         default: return null
     }
 }

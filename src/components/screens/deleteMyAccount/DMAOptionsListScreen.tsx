@@ -1,0 +1,119 @@
+import React from "react"
+import { FlatList, ListRenderItem, StyleSheet, TouchableOpacity, View } from "react-native"
+import { CustomThemeType } from "src/shared/styles/colors"
+import { useThemeAwareObject } from "src/shared/styles/useThemeAware"
+import { ScreenContainer } from "../ScreenContainer/ScreenContainer"
+import { ButtonList, Divider, Label } from "src/components/atoms"
+import { ImagesName } from "src/shared/styles/images"
+import { horizontalEdge } from "src/shared/utils/utilities"
+import { normalize, screenWidth } from "src/shared/utils"
+import { DeleteMyAccountLabel } from "src/components/molecules"
+import { TranslateConstants, TranslateKey } from "src/constants/Constants"
+import { useNavigation } from "@react-navigation/native"
+import { getSvgImages } from "src/shared/styles/svgImages"
+import { fonts } from "src/shared/styles/fonts"
+
+export type DMAOptionsListType = {
+    optionTitle: string,
+}
+
+export const DMAOptionsListScreen = () => {
+    const styles = useThemeAwareObject(createStyles);
+    const navigation = useNavigation();
+    const TITLE = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_LIST_TITLE });
+    const list = ['data1', 'data2', 'data3', 'data4', 'data5'];
+    const onPressToNavigate = (item: any) => {
+    }
+
+    const itemSeparator = () => <Divider style={styles.divider} />;
+
+    const ArrowIcon = () => (
+        <>
+            {getSvgImages({
+                name: ImagesName.arrowLeftDimGrey,
+                size: normalize(12),
+            })}
+        </>
+    )
+
+    const renderItem: ListRenderItem<DMAOptionsListType> = ({ item, index }) => {
+        return (
+            <TouchableOpacity activeOpacity={0.8} key={`DMAOption-${index}`} onPress={() => onPressToNavigate(item)}>
+                <View style={styles.itemContainer}>
+                    <View style={styles.itemLeftContainer}>
+                        <Label
+                            children={'لا أريد استخدام “الشرق الأوسط” بعد الآن'}
+                            style={styles.optionLabel}
+                        />
+                    </View>
+                    <ArrowIcon />
+                </View>
+            </TouchableOpacity>
+        );
+    };
+
+    return (
+        <ScreenContainer
+            edge={horizontalEdge}
+            backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
+            <View style={styles.listScreenContainer}>
+                <DeleteMyAccountLabel title={TITLE} />
+                <FlatList
+                    keyExtractor={(_, index) => index.toString()}
+                    style={styles.listContainer}
+                    data={list}
+                    showsVerticalScrollIndicator={false}
+                    renderItem={renderItem}
+                    ItemSeparatorComponent={itemSeparator}
+                    ListFooterComponent={itemSeparator}
+                    bounces={false}
+                />
+            </View>
+        </ScreenContainer>
+    )
+}
+
+const createStyles = (theme: CustomThemeType) => (
+    StyleSheet.create({
+        listScreenContainer: {
+            flex: 1,
+        },
+        listContainer: {
+            flex: 1,
+            marginTop: 25,
+            marginHorizontal: 0.06 * screenWidth
+        },
+        screenBackgroundColor: {
+            backgroundColor: theme.profileBackground
+        },
+        itemContainer: {
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingVertical: normalize(20),
+        },
+        itemLeftContainer: {
+            flexDirection: 'row',
+            alignItems: 'center',
+        },
+        label: {
+            marginLeft: normalize(20),
+            color: theme.secondaryMediumGrey,
+            fontFamily: fonts.AwsatDigital_Regular,
+            lineHeight: normalize(30)
+        },
+        divider: {
+            height: 1,
+            backgroundColor: theme.dividerColor,
+            marginTop: 0,
+        },
+        optionLabel: {
+            fontSize: 18,
+            lineHeight: 32,
+            fontFamily: fonts.AwsatDigitalV2_Bold,
+            color: theme.primaryBlack
+        }
+    })
+)
+
+
