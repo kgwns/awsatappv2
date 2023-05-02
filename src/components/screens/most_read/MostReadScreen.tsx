@@ -16,7 +16,7 @@ export const MostReadScreen = () => {
   }, []);
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
-      {!isLoading && <MostReadList data={mostReadData} enableTag={!isTab} />}
+      {!isLoading && <MostReadList data={mostReadData} enableTag={true} />}
     </ScreenContainer>
   )
 }
