@@ -36,6 +36,8 @@ const AppNavigator = () => {
   const ON_BOARD_COMMON_RETURN = TranslateConstants({key:TranslateKey.ON_BOARD_COMMON_RETURN})
   const PROFILE_SETTING_MY_NEWS_LETTER = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MY_NEWS_LETTER})
   const PROFILE_SETTING_MANAGE_MY_NOTIFICATION = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION})
+  const DELETE_MY_ACCOUNT = TranslateConstants({key:TranslateKey.PROFILE_SETTING_DELETE_MY_ACCOUNT})
+  
   const previousIconStyle = style.onBoardPrevIcon;
 
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
@@ -282,11 +284,23 @@ const AppNavigator = () => {
       />
       <Stack.Screen
         name={ScreensConstants.DMA_HOME_SCREEN}
-        component={Routes.UserDetailScreen}
+        component={Routes.DMAHomeScreen}
         options={{
           headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle(PROFILE_USER_DETAIL_TITLE),
+          headerTitle: () => HeaderTitle('How do I delete my account'),
+          headerTitleStyle: style.headerTitle,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.DMA_DELETE_ACCOUNT_LIST}
+        component={Routes.DMADeleteAccountList}
+        options={{
+          headerStyle: [style.container, style.profileBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(DELETE_MY_ACCOUNT),
           headerTitleStyle: style.headerTitle,
           headerTitleAlign: 'center',
           headerShadowVisible: false

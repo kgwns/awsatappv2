@@ -2063,6 +2063,7 @@ const PHOTO_GALLERY_DETAIL_SCREEN = 'PhotoGalleryDetailScreen' as ScreenName
 const JOURNALIST_DETAIL_SCREEN = 'JournalistDetail' as ScreenName
 const PODCAST_EPISODE_MODAL = 'PodcastEpisodeModal' as ScreenName;
 const DMA_HOME_SCREEN = 'DMAHomeScreen' as ScreenName;
+const DMA_DELETE_ACCOUNT_LIST = 'DMADeleteAccountList' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -2116,6 +2117,7 @@ const ScreensConstants = {
     JOURNALIST_DETAIL_SCREEN,
     PODCAST_EPISODE_MODAL,
     DMA_HOME_SCREEN,
+    DMA_DELETE_ACCOUNT_LIST,
 };
 enum notification {
     ARTICLE = 'article',

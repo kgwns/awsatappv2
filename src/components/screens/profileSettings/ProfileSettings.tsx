@@ -113,7 +113,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
       {
           iconName: ImagesName.profile,
           title: CONST_DELETE_MY_ACCOUNT,
-          screenName: ''
+          screenName: ScreensConstants.DMA_HOME_SCREEN
       },
       {
         iconName: ImagesName.themeChange,
