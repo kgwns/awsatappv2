@@ -225,6 +225,7 @@ enum TranslateKey {
   PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE,
   PROFILE_SETTING_DEBUG,
   PROFILE_SETTING_PRODUCTION,
+  PROFILE_SETTING_DELETE_MY_ACCOUNT,
   ON_BOARD_COMMON_SKIP,
   ON_BOARD_COMMON_RETURN,
   PROFILE_SETTING_ARITHMETIC,
@@ -654,6 +655,8 @@ const TranslateConstants = ({
             return arabic?.profileSetting?.myNewsLetter;
         case TranslateKey.PROFILE_SETTING_MY_ACCOUNT_DETAILS:
             return arabic?.profileSetting?.myAccountDetails;
+        case TranslateKey.PROFILE_SETTING_DELETE_MY_ACCOUNT:
+            return arabic?.profileSetting?.deleteMyAccount;
         case TranslateKey.PROFILE_SETTING_APP_APPEARANCE:
             return arabic?.profileSetting?.appAppearance;
         case TranslateKey.PROFILE_SETTING_EXIT:
@@ -2059,6 +2062,7 @@ const CONTACT_US_SCREEN = 'ContactUsScreen' as ScreenName
 const PHOTO_GALLERY_DETAIL_SCREEN = 'PhotoGalleryDetailScreen' as ScreenName
 const JOURNALIST_DETAIL_SCREEN = 'JournalistDetail' as ScreenName
 const PODCAST_EPISODE_MODAL = 'PodcastEpisodeModal' as ScreenName;
+const DMA_HOME_SCREEN = 'DMAHomeScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -2111,6 +2115,7 @@ const ScreensConstants = {
     PHOTO_GALLERY_DETAIL_SCREEN,
     JOURNALIST_DETAIL_SCREEN,
     PODCAST_EPISODE_MODAL,
+    DMA_HOME_SCREEN,
 };
 enum notification {
     ARTICLE = 'article',

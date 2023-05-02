@@ -67,6 +67,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE});
   const PROFILE_SETTING_DEBUG =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_DEBUG});
   const PROFILE_SETTING_PRODUCTION =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_PRODUCTION});
+  const CONST_DELETE_MY_ACCOUNT = TranslateConstants({key:TranslateKey.PROFILE_SETTING_DELETE_MY_ACCOUNT});
 
 
   const signOutAlertPayload : AlertPayloadType = {
@@ -108,6 +109,11 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
           iconName: ImagesName.profile,
           title: CONST_MY_ACCOUNT_DETAILS,
           screenName: ScreensConstants.USER_DETAIL_SCREEN
+      },
+      {
+          iconName: ImagesName.profile,
+          title: CONST_DELETE_MY_ACCOUNT,
+          screenName: ''
       },
       {
         iconName: ImagesName.themeChange,

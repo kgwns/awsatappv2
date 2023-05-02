@@ -41,6 +41,7 @@ import {
   PhotoGalleryDetailScreen,
   JournalistDetail,
   PodcastEpisodeModal,
+  DMAHomeScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -92,6 +93,7 @@ export const Routes = {
   PhotoGalleryDetailScreen,
   JournalistDetail,
   PodcastEpisodeModal,
+  DMAHomeScreen,
 };
 
 /**
@@ -161,6 +163,7 @@ const myNewsScreen = 'myNewsScreen' as ScreenName
 const photoGalleryDetailScreen = 'photoGalleryDetailScreen' as ScreenName
 const journalistDetail = 'journalistDetail' as ScreenName;
 const PodcastEpisodeModalScreen = 'PodcastEpisodeModalScreen' as ScreenName;
+const HomeScreen = 'DMAHomeScreen' as ScreenName;
 
 
 export const RoutesName = {
@@ -195,4 +198,5 @@ export const RoutesName = {
   photoGalleryDetailScreen,
   journalistDetail,
   PodcastEpisodeModalScreen,
+  DMAHomeScreen
 };

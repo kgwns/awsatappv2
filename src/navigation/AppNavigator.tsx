@@ -280,6 +280,18 @@ const AppNavigator = () => {
         component={Routes.PhotoGalleryDetailScreen}
         options={{ ...hideHeader, animationEnabled: isAndroid }}
       />
+      <Stack.Screen
+        name={ScreensConstants.DMA_HOME_SCREEN}
+        component={Routes.UserDetailScreen}
+        options={{
+          headerStyle: [style.container, style.profileBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(PROFILE_USER_DETAIL_TITLE),
+          headerTitleStyle: style.headerTitle,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false
+        }}
+      />
     </Stack.Navigator>
   );
 };
