@@ -1,0 +1,16 @@
+import { BASE_URL } from 'src/services/apiUrls';
+import { getCacheApiRequest } from 'src/services/api';
+import { DMA_INTRODUCTION_ENDPOINT } from './apiEndPoints';
+import { FetchDMAIntroductionSuccessPayloadType } from 'src/redux/deleteMyAccount/types';
+
+export const fetchDMAIntroductionApi = async () => {
+    try {
+        const response: FetchDMAIntroductionSuccessPayloadType = await getCacheApiRequest(
+            `${BASE_URL}${DMA_INTRODUCTION_ENDPOINT}`,
+        );
+        return response;
+    } catch (error) {
+        console.log('deleteMyAccountService-fetchDMAIntroductionApi - error', error)
+        throw error;
+    }
+};

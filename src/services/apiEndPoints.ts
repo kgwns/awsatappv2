@@ -81,7 +81,7 @@ export const CONTACT_US_END_POINT = 'api/ums/v1/sendContactUsMail'
 export const REGISTER_ENDPOINT = 'api/ums/v1/register';
 export const LOGIN_ENDPOINT = 'api/ums/v1/login';
 export const LOGOUT_ENDPOINT = 'api/ums/v1/logout';
-export const CHECK_EMAIL  = 'api/ums/v1/loginCheckEmail'
+export const CHECK_EMAIL = 'api/ums/v1/loginCheckEmail'
 
 //VideoList
 export const VIDEO_LIST_ENDPOINT = 'api/v2/videolist'
@@ -143,10 +143,10 @@ export const ALL_SELECTED_WRITERS_ENDPOINT = 'api/v2/sections/writer';
 export const DOCUMENTARY_VIDEO_ENDPOINT = 'api/v2/docvideolist';
 
 //Content for you
-export const CONTENT_FOR_YOU_ARTICLE_ENDPOINT = 'api/v2/user/articlesection' 
+export const CONTENT_FOR_YOU_ARTICLE_ENDPOINT = 'api/v2/user/articlesection'
 
 //Notification FCM token
-export const SAVE_FCM_TOKEN_ENDPOINT = 'api/ums/v1/saveToken' 
+export const SAVE_FCM_TOKEN_ENDPOINT = 'api/ums/v1/saveToken'
 
 //Photo Gallery
 export const PHOTO_GALLERY_LIST_ENDPOINT = 'api/v2/albumslist';
@@ -155,3 +155,9 @@ export const PHOTO_GALLERY_DETAIL_ENDPOINT = 'api/v2/albumnode/';
 //Journalist
 export const JOURNALIST_ARTICLE_ENDPOINT = 'api/v2/journalistsarticles/'
 export const GET_JOURNALIST_DETAIL_END_POINT = 'api/v2/jordetails/'
+
+//DeleteMyAccount
+export const DMA_INTRODUCTION_ENDPOINT = 'api/v2/info/4816'
+export const DMA_FEEDBACK_ENDPOINT = 'api/v2/info/4817'
+export const DMA_LIST_ENDPOINT = 'api/ums/v1/getDeleteAccountOptions'
+export const DMA_DELETE_CONFIRMATION_ENDPOINT = 'api/ums/v1/delete-user-account'

@@ -283,12 +283,12 @@ const AppNavigator = () => {
         options={{ ...hideHeader, animationEnabled: isAndroid }}
       />
       <Stack.Screen
-        name={ScreensConstants.DMA_HOME_SCREEN}
-        component={Routes.DMAHomeScreen}
+        name={ScreensConstants.DMA_INTRODUCTION_SCREEN}
+        component={Routes.DMAIntroductionScreen}
         options={{
           headerStyle: [style.container, style.profileBackground],
           headerLeft: () => onBoardReturn(),
-          headerTitle: () => HeaderTitle('How do I delete my account'),
+          headerTitle: () => HeaderTitle(DELETE_MY_ACCOUNT),
           headerTitleStyle: style.headerTitle,
           headerTitleAlign: 'center',
           headerShadowVisible: false

@@ -111,11 +111,6 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
           screenName: ScreensConstants.USER_DETAIL_SCREEN
       },
       {
-          iconName: ImagesName.profile,
-          title: CONST_DELETE_MY_ACCOUNT,
-          screenName: ScreensConstants.DMA_HOME_SCREEN
-      },
-      {
         iconName: ImagesName.themeChange,
         title: CONST_APP_APPEARANCE,
         screenName: ''
@@ -125,6 +120,11 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
     //       title: CONST_CHANGE_ENVIRONMENT,
     //       screenName: ''
     //   },
+      {
+          iconName: ImagesName.deleteUserIcon,
+          title: CONST_DELETE_MY_ACCOUNT,
+          screenName: ScreensConstants.DMA_INTRODUCTION_SCREEN
+      },
       {
           iconName: ImagesName.exit,
           title: CONST_EXIT,

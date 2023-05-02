@@ -47,5 +47,5 @@ export { PhotoGalleryScreen } from 'src/components/screens/photoGallery/PhotoGal
 export { PhotoGalleryDetailScreen } from 'src/components/screens/photoGallery/PhotoGalleryDetailScreen'
 export { JournalistDetail } from 'src/components/screens/journalistDetail/JournalistDetail'
 export { PodcastEpisodeModal } from 'src/components/screens/podcast/PodcastEpisodeModal';
-export { DMAHomeScreen } from 'src/components/screens/deleteMyAccount/DMAHomeScreen';
+export { DMAIntroductionScreen } from 'src/components/screens/deleteMyAccount/DMAIntroductionScreen';
 export { DMADeleteAccountList } from 'src/components/screens/deleteMyAccount/DMADeleteAccountList';

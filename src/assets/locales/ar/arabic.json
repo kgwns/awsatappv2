@@ -270,7 +270,7 @@
         "manageMyNews": "إدارة أخباري",
         "myNewsLetter": "نشراتي البريدية",
         "myAccountDetails": "تفاصيل حسابي",
-        "deleteMyAccount": "احذف حسابي",
+        "deleteMyAccount": "حذف حسابي",
         "appAppearance": "مظهر التطبيق",
         "exit": "خروج",
         "lightMode": "وضع فاتح",
@@ -503,5 +503,15 @@
           "id": 66,
           "title": "يوميات الشرق​"
         }
-      ]
+    ],
+    "deleteMyAccount": {
+        "introductionTitle": "كيف يمكنني حذف حسابي؟",
+        "listTitle": "لماذا ترغب في حذف حسابك؟",
+        "feedbackTitle": "أي شيء آخر تود إضافته؟",
+        "confirmationTitle": "انت على وشك حذف حسابك",
+        "proceedToDeleteTitle": "المواصلة لحذف الحساب",
+        "nextTitle": "التالي",
+        "confirmDeleteTitle": "تاكيد حذف",
+        "cancelTitle": "الغاء"
+    }
 }

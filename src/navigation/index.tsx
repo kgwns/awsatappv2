@@ -41,7 +41,7 @@ import {
   PhotoGalleryDetailScreen,
   JournalistDetail,
   PodcastEpisodeModal,
-  DMAHomeScreen,
+  DMAIntroductionScreen,
   DMADeleteAccountList,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
@@ -94,7 +94,7 @@ export const Routes = {
   PhotoGalleryDetailScreen,
   JournalistDetail,
   PodcastEpisodeModal,
-  DMAHomeScreen,
+  DMAIntroductionScreen,
   DMADeleteAccountList,
 };
 
@@ -165,7 +165,7 @@ const myNewsScreen = 'myNewsScreen' as ScreenName
 const photoGalleryDetailScreen = 'photoGalleryDetailScreen' as ScreenName
 const journalistDetail = 'journalistDetail' as ScreenName;
 const PodcastEpisodeModalScreen = 'PodcastEpisodeModalScreen' as ScreenName;
-const deleteHomeScreen = 'DMAHomeScreen' as ScreenName;
+const deleteHomeScreen = 'DMAIntroductionScreen' as ScreenName;
 const deleteAccountList = 'DMADeleteAccountList' as ScreenName;
 
 export const RoutesName = {
