@@ -4,6 +4,7 @@ import { CustomThemeType } from "src/shared/styles/colors";
 import { useThemeAwareObject } from "src/shared/styles/useThemeAware";
 import { fonts } from "src/shared/styles/fonts";
 import { Label } from "src/components/atoms";
+import { isTab } from "src/shared/utils";
 
 type DeleteMyAccountLabelProps = {
     title: string;
@@ -27,9 +28,9 @@ export const DeleteMyAccountLabel = ({
 const deleteMyAccountLabelStyle = (theme: CustomThemeType) => (
     StyleSheet.create({
         titleStyle: {
-            fontSize: 22,
+            fontSize: isTab ? 26 : 22,
             fontFamily: fonts.AwsatDigitalV2_Bold,
-            lineHeight: 38,
+            lineHeight: isTab ? 48 : 38,
             fontWeight: 'bold',
             textAlign: 'center',
             color: theme.primary,

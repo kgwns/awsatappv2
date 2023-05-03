@@ -6,7 +6,7 @@ import { ScreenContainer } from "../ScreenContainer/ScreenContainer"
 import { Divider, Label } from "src/components/atoms"
 import { ImagesName } from "src/shared/styles/images"
 import { horizontalEdge } from "src/shared/utils/utilities"
-import { normalize, screenWidth } from "src/shared/utils"
+import { isTab, normalize, screenWidth } from "src/shared/utils"
 import { DeleteMyAccountLabel } from "src/components/molecules"
 import { ScreensConstants, TranslateConstants, TranslateKey } from "src/constants/Constants"
 import { useNavigation } from "@react-navigation/native"
@@ -117,8 +117,8 @@ const createStyles = (theme: CustomThemeType) => (
             marginTop: 0,
         },
         optionLabel: {
-            fontSize: 18,
-            lineHeight: 32,
+            fontSize: isTab ? 28 : 18,
+            lineHeight: isTab ? 42 : 32,
             fontFamily: fonts.AwsatDigitalV2_Bold,
             color: theme.primaryBlack
         }
