@@ -143,7 +143,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: theme.profileBackground
   },
   container: {
-    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+    paddingHorizontal: isTab ? '4%' : (0.04) * screenWidth,
     flex: 1,
     width: '100%',
     height: '100%',
@@ -151,9 +151,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: theme.profileBackground
   },
   descriptionStyle: {
-    fontSize: 16,
+    fontSize: isTab ? 20 : 16,
     fontFamily: fonts.Effra_Arbc_Regular,
-    lineHeight: 28,
+    lineHeight: isTab ? 38 : 28,
     textAlign: 'left',
     color: theme.secondaryDavyGrey,
     marginTop: 50,
@@ -167,7 +167,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   inputStyle: {
     color: theme.primaryLightGray,
-    height: normalize(80),
+    height: isTab ? 150 : normalize(100),
     justifyContent: FLEX_START,
     paddingTop: isIOS ? 5 : 8,
     borderRadius: 15,
@@ -184,8 +184,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     bottom: '10%',
   },
   deleteButton: {
-    width: 0.80 * screenWidth,
-    marginBottom: 15,
+    marginBottom: 20,
     backgroundColor: theme.secondaryDavyGrey,
   },
   button: {
@@ -193,7 +192,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingVertical: 10,
   },
   buttonText: {
-    fontSize: 15,
-    lineHeight: 24,
+    fontSize: isTab ? 18 : 15,
+    lineHeight: isTab ? 30 : 24,
   },
 });

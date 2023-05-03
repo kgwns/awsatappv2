@@ -85,11 +85,11 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingBottom: 30,
   },
   textFieldContainer: {
-    marginTop: 20,
+    marginTop: isTab ? 50 : 30,
   },
   inputStyle: {
     color: theme.primaryLightGray,
-    height: normalize(180),
+    height: isTab ? 350 : normalize(180),
     justifyContent: FLEX_START,
     paddingTop: isIOS ? 5 : 8,
     borderRadius: 15,
@@ -97,8 +97,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   messageTextInput: {
     height: '92%',
     textAlignVertical: 'top',
-    fontSize: 12,
-    lineHeight: 20,
+    fontSize: isTab ? 18 : 12,
+    lineHeight: isTab ? 26 : 20,
   },
   placeHolder: {
     color: theme.secondaryMediumGrey,
@@ -112,7 +112,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     paddingVertical: 10,
   },
   buttonText: {
-    fontSize: 15,
-    lineHeight: 24,
+    fontSize: isTab ? 18 : 15,
+    lineHeight: isTab ? 30 : 24,
   },
 });
