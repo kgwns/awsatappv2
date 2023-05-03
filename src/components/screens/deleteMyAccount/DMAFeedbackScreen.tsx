@@ -9,6 +9,7 @@ import { FLEX_START } from 'src/shared/styles/item-alignment';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { DeleteMyAccountLabel } from 'src/components/molecules';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 export const DMAFeedbackScreen = () => {
   const navigation = useNavigation();
@@ -55,7 +56,13 @@ export const DMAFeedbackScreen = () => {
       backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
         <DeleteMyAccountLabel title={SUB_TITLE} />
-        {renderTextField()}
+        <KeyboardAwareScrollView
+          bounces={false}
+          extraHeight={230}
+          showsVerticalScrollIndicator={false}
+          scrollEnabled>
+          {renderTextField()}
+        </KeyboardAwareScrollView>
         <View style={style.footer}>
           <ButtonOnboard
             title={NEXT_BUTTON}
