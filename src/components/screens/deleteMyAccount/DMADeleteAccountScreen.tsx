@@ -13,6 +13,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useLogin } from 'src/hooks'
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 export const DMADeleteAccountScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -21,9 +22,9 @@ export const DMADeleteAccountScreen = () => {
   const style = useThemeAwareObject(customStyle);
   const { makeUserLogout } = useLogin();
 
-  const SUB_TITLE = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_FEEDBACK_TITLE });
+  const SUB_TITLE = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_CONFIRMATION_TITLE });
   const PLACE_HOLDER = TranslateConstants({ key: TranslateKey.DMA_CONFIRM_DELETE_PLACEHOLDER });
-  const CONFIRM_DELETE_TITLE = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_CONFIRMATION_TITLE });
+  const CONFIRM_DELETE_TITLE = TranslateConstants({ key: TranslateKey.DMA_TYPE_DELETE });
   const CONFIRM_DELETE = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_CONFIRM_DELETE_BUTTON_TITLE });
   const CANCEL = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_CANCEL_BUTTON_TITLE });
   const CONFIRM_TEXT_ENGLISH = TranslateConstants({ key: TranslateKey.DMA_DELETE_ACCOUNT_ENGLISH });
@@ -59,7 +60,7 @@ export const DMADeleteAccountScreen = () => {
   }, []);
 
   const onChangeText = (text: string) => {
-    const canEnableButton = (text === CONFIRM_TEXT_ARABIC || text === CONFIRM_TEXT_ENGLISH);
+    const canEnableButton = (text.trim() === CONFIRM_TEXT_ARABIC || text.trim() === CONFIRM_TEXT_ENGLISH);
     setIsButtonEnable(canEnableButton);
     setMessage(text);
   };
@@ -148,7 +149,13 @@ export const DMADeleteAccountScreen = () => {
         <DeleteMyAccountLabel title={SUB_TITLE} />
         {isNotEmpty(deleteAccountInfo) && <>
           <Label children={deleteAccountInfo} style={style.descriptionStyle} />
-          {renderTextField()}
+          <KeyboardAwareScrollView
+            bounces={false}
+            extraHeight={230}
+            showsVerticalScrollIndicator={false}
+            scrollEnabled>
+              {renderTextField()}
+          </KeyboardAwareScrollView>
           {renderFooter()}
         </>}
       </View>
