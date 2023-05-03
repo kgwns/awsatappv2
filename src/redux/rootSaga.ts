@@ -32,6 +32,7 @@ import ContactUsSaga from './contactUs/sagas'
 import WeatherDetailSaga from './weatherDetails/sagas'
 import albumListSaga from './photoGallery/sagas';
 import journalistSaga from './journalist/sagas';
+import deleteMyAccountSaga from './deleteMyAccount/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -68,5 +69,6 @@ export function* rootSaga() {
     fork(WeatherDetailSaga),
     fork(albumListSaga),
     fork(journalistSaga),
+    fork(deleteMyAccountSaga),
   ]);
 }

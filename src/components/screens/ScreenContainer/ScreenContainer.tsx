@@ -52,6 +52,7 @@ export interface ScreenContainerProps {
   showPlayer?: boolean;
   isLandscape?: boolean;
   backgroundColor?: string;
+  isAlertCloseIconVisible?: boolean;
 }
 
 export const ScreenContainer = ({
@@ -74,6 +75,7 @@ export const ScreenContainer = ({
   showPlayer = true,
   isLandscape = false,
   backgroundColor = '',
+  isAlertCloseIconVisible = true
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -184,6 +186,7 @@ export const ScreenContainer = ({
             isVisible={isAlertVisible}
             onPressSuccess={alertOnPress}
             onClose={() => setIsAlertVisible && setIsAlertVisible(false)}
+            isCloseIconVisible = {isAlertCloseIconVisible}
           />
         )}
 

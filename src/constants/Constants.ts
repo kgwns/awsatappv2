@@ -225,6 +225,7 @@ enum TranslateKey {
   PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE,
   PROFILE_SETTING_DEBUG,
   PROFILE_SETTING_PRODUCTION,
+  PROFILE_SETTING_DELETE_MY_ACCOUNT,
   ON_BOARD_COMMON_SKIP,
   ON_BOARD_COMMON_RETURN,
   PROFILE_SETTING_ARITHMETIC,
@@ -278,6 +279,19 @@ enum TranslateKey {
   TABLET_POPUP_BUTTON_TEXT,
   TABLET_SEARCH_PLACEHOLDER,
   PRIVACY_POLICY,
+  DELETE_MY_ACCOUNT_INTRODUCTION_TITLE,
+  DELETE_MY_ACCOUNT_LIST_TITLE,
+  DELETE_MY_ACCOUNT_FEEDBACK_TITLE,
+  DELETE_MY_ACCOUNT_CONFIRMATION_TITLE,
+  DELETE_MY_ACCOUNT_PROCEED_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_NEXT_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_CONFIRM_DELETE_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_CANCEL_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_COMMENT_PLACEHOLDER,
+  DMA_CONFIRM_DELETE_PLACEHOLDER,
+  DMA_TYPE_DELETE,
+  DMA_DELETE_ACCOUNT_ARABIC,
+  DMA_DELETE_ACCOUNT_ENGLISH,
   default
 }
 
@@ -654,6 +668,8 @@ const TranslateConstants = ({
             return arabic?.profileSetting?.myNewsLetter;
         case TranslateKey.PROFILE_SETTING_MY_ACCOUNT_DETAILS:
             return arabic?.profileSetting?.myAccountDetails;
+        case TranslateKey.PROFILE_SETTING_DELETE_MY_ACCOUNT:
+            return arabic?.profileSetting?.deleteMyAccount;
         case TranslateKey.PROFILE_SETTING_APP_APPEARANCE:
             return arabic?.profileSetting?.appAppearance;
         case TranslateKey.PROFILE_SETTING_EXIT:
@@ -788,6 +804,32 @@ const TranslateConstants = ({
             return arabic?.searchScreen?.tabPlaceholder;
         case TranslateKey.PRIVACY_POLICY:
             return arabic?.drawer?.privacyPolicy;
+        case TranslateKey.DELETE_MY_ACCOUNT_INTRODUCTION_TITLE:
+            return arabic?.deleteMyAccount?.introductionTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_LIST_TITLE:
+            return arabic?.deleteMyAccount?.listTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_FEEDBACK_TITLE:
+            return arabic?.deleteMyAccount?.commentFeedBackTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_CONFIRMATION_TITLE:
+            return arabic?.deleteMyAccount?.deleteConfirmationTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_PROCEED_BUTTON_TITLE:
+            return arabic?.deleteMyAccount?.proceedToDeleteTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_NEXT_BUTTON_TITLE:
+            return arabic?.deleteMyAccount?.nextTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_CONFIRM_DELETE_BUTTON_TITLE:
+            return arabic?.deleteMyAccount?.confirmDeleteTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_CANCEL_BUTTON_TITLE:
+            return arabic?.deleteMyAccount?.cancelTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_COMMENT_PLACEHOLDER:
+            return arabic?.deleteMyAccount?.commentsPlaceHolder;
+        case TranslateKey.DMA_CONFIRM_DELETE_PLACEHOLDER:
+            return arabic?.deleteMyAccount?.confirmDeletePlaceHolder;
+        case TranslateKey.DMA_TYPE_DELETE:
+            return arabic?.deleteMyAccount?.typeDeleteToConfirm;
+        case TranslateKey.DMA_DELETE_ACCOUNT_ARABIC:
+            return arabic?.deleteMyAccount?.deleteMyAccountArabic;
+        case TranslateKey.DMA_DELETE_ACCOUNT_ENGLISH:
+            return arabic?.deleteMyAccount?.deleteMyAccountEnglish;
         default: return ''
     }
 }
@@ -2059,6 +2101,10 @@ const CONTACT_US_SCREEN = 'ContactUsScreen' as ScreenName
 const PHOTO_GALLERY_DETAIL_SCREEN = 'PhotoGalleryDetailScreen' as ScreenName
 const JOURNALIST_DETAIL_SCREEN = 'JournalistDetail' as ScreenName
 const PODCAST_EPISODE_MODAL = 'PodcastEpisodeModal' as ScreenName;
+const DMA_INTRODUCTION_SCREEN = 'DMAIntroductionScreen' as ScreenName;
+const DMA_OPTIONS_LIST_SCREEN = 'DMAOptionsListScreen' as ScreenName;
+const DMA_FEED_BACK_SCREEN = 'FeedbackScreen' as ScreenName;
+const DMA_DELETE_ACCOUNT_SCREEN = 'DeleteAccountScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -2111,6 +2157,10 @@ const ScreensConstants = {
     PHOTO_GALLERY_DETAIL_SCREEN,
     JOURNALIST_DETAIL_SCREEN,
     PODCAST_EPISODE_MODAL,
+    DMA_INTRODUCTION_SCREEN,
+    DMA_OPTIONS_LIST_SCREEN,
+    DMA_FEED_BACK_SCREEN,
+    DMA_DELETE_ACCOUNT_SCREEN,
 };
 enum notification {
     ARTICLE = 'article',
