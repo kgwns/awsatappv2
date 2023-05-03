@@ -1,5 +1,6 @@
 //MostRead
 export const MOST_READ_ENDPOINT = 'api/v2/view/mostread';
+export const MOST_READ_ENDPOINT_NEW = 'sites/default/files/objects/ar/today/0.json';
 
 //articleSection
 const ARTICLE_SECTION_ENDPOINT = 'api/v2/articlesection';
