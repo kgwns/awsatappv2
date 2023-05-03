@@ -75,7 +75,7 @@ const createStyles = (theme: CustomThemeType) => (
         },
         proceedContainer: {
             flex: 1,
-            marginHorizontal: 0.06 * screenWidth
+            marginHorizontal: isTab ? '6%' : 0.06 * screenWidth
         },
         imageContainer: {
             marginTop: 30,
