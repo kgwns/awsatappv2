@@ -68,6 +68,11 @@ export type FetchDMAOptionsListFailedType = {
   payload: FetchDMAOptionsListFailedPayloadtype;
 };
 
+export interface DeleteRequestBodyPayload {
+  option_id: string;
+  comment: string;
+}
+
 export type DeleteMyAccountActions =
   | FetchDMAIntroductionType
   | FetchDMAIntroductionSuccessType

@@ -507,11 +507,18 @@
     "deleteMyAccount": {
         "introductionTitle": "كيف يمكنني حذف حسابي؟",
         "listTitle": "لماذا ترغب في حذف حسابك؟",
-        "feedbackTitle": "أي شيء آخر تود إضافته؟",
-        "confirmationTitle": "انت على وشك حذف حسابك",
+        "commentFeedBackTitle": "أي شيء آخر تود إضافته؟",
+        "deleteConfirmationTitle": "انت على وشك حذف حسابك",
         "proceedToDeleteTitle": "المواصلة لحذف الحساب",
         "nextTitle": "التالي",
         "confirmDeleteTitle": "تاكيد حذف",
-        "cancelTitle": "الغاء"
-    }
+        "cancelTitle": "الغاء",
+        "commentsPlaceHolder": "هل لديك أي أسئلة أو تعليقات؟ من فضلك شاركنا بتعليقاتك",
+        "deleteSubmissionTitle": "انت على وشك حذف حسابك",
+        "confirmDeleteButton": "تاكيد حذف",
+        "confirmDeletePlaceHolder": "حذف حسابي",
+        "typeDeleteToConfirm": "اكتب “حذف حسابي” للتأكيد",
+        "deleteMyAccountArabic": "حذف حسابي",
+        "deleteMyAccountEnglish": "Delete my account"
+      }
 }

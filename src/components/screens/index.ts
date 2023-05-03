@@ -49,3 +49,5 @@ export { JournalistDetail } from 'src/components/screens/journalistDetail/Journa
 export { PodcastEpisodeModal } from 'src/components/screens/podcast/PodcastEpisodeModal';
 export { DMAIntroductionScreen } from 'src/components/screens/deleteMyAccount/DMAIntroductionScreen';
 export { DMAOptionsListScreen } from 'src/components/screens/deleteMyAccount/DMAOptionsListScreen';
+export { DMAFeedbackScreen } from 'src/components/screens/deleteMyAccount/DMAFeedbackScreen';
+export { DMADeleteAccountScreen } from 'src/components/screens/deleteMyAccount/DMADeleteAccountScreen';

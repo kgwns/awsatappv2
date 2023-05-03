@@ -8,6 +8,12 @@ import {
 } from 'src/redux/login/selectors';
 import { fetchLogin, userLoginSkipped, userLogout,requestForgotPassword,emptyForgotPasswordResponse,emptyLoginData } from 'src/redux/login/action';
 import { FetchLoginPayloadType, ForgotPasswordRequestPayloadType } from 'src/redux/login/types';
+import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
+import { useNotificationSaveToken } from './useNotificationSaveToken';
+import { LoginManager } from 'react-native-fbsdk-next';
+import { recordLogEvent, recordUserId } from 'src/shared/utils';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { useAppCommon, useKeepNotified, useBookmark, useSearch, useAllWriters, useAllSiteCategories, useUserProfileData } from 'src/hooks';
 
 export interface UseLoginReturn {
   isLoading: boolean;
@@ -24,6 +30,7 @@ export interface UseLoginReturn {
   forgotPassworRequest(payload : ForgotPasswordRequestPayloadType): void
   emptyforgotPassworResponseInfo():void
   emptyLoginDataInfo():void
+  makeUserLogout(): void;
 }
 
 export const useLogin = (): UseLoginReturn => {
@@ -36,6 +43,16 @@ export const useLogin = (): UseLoginReturn => {
   const token = loginData?.token?.access_token ? loginData?.token?.access_token : null;
   const user = loginData?.user;
   const forgotPassswordResponse = useSelector(getForgotPasswordResponse);
+
+  const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
+  const { emptySearchHistory } = useSearch();
+  const { userProfileData,emptyUserProfileInfoData } = useUserProfileData();
+  const { emptySelectedTopicsInfoData } = useAllSiteCategories();
+  const { emptySelectedAuthorsInfoData } = useAllWriters();
+  const { removeBookmark } = useBookmark();
+  const { removeKeepNotificationInfo } = useKeepNotified()
+  const { resetFontSizeInfo  } = useAppCommon();
+
   const fetchLoginRequest = (payload: FetchLoginPayloadType) => {
     dispatch(fetchLogin(payload));
   };
@@ -54,6 +71,43 @@ export const useLogin = (): UseLoginReturn => {
   const emptyLoginDataInfo = () => {
     dispatch(emptyLoginData())
   }
+
+  const unlinkFcmToken = () => {
+    if(saveTokenData?.id){
+        const payload: SaveTokenAfterRegistraionBodyType = {
+          id: (saveTokenData?.id).toString(),
+          uid: -1,
+        };
+        saveTokenAfterRegistrationRequest(payload);
+      }
+    }
+    
+  const logoutFromfacebook = () => {
+    try {
+      if (userProfileData?.user?.provider === 'facebook') {
+        LoginManager.logOut();
+      }
+    } catch {
+      return;
+    }
+  };
+
+  const makeUserLogout = () => {
+    logoutFromfacebook()
+    recordLogEvent(AnalyticsEvents.LOG_OUT);
+    const userId = userProfileData?.user?.id.toString();
+    recordUserId(userId);
+    fetchLogoutRequest();
+    unlinkFcmToken();
+    removeBookmark()
+    removeKeepNotificationInfo()
+    emptyUserProfileInfoData();
+    emptySelectedTopicsInfoData()
+    emptySelectedAuthorsInfoData()
+    emptySearchHistory();
+    resetFontSizeInfo();
+  }
+
   return {
     isLoading,
     loginData,
@@ -68,6 +122,7 @@ export const useLogin = (): UseLoginReturn => {
     forgotPassswordResponse,
     forgotPassworRequest,
     emptyforgotPassworResponseInfo,
-    emptyLoginDataInfo
+    emptyLoginDataInfo,
+    makeUserLogout,
   };
 };

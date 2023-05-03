@@ -306,6 +306,28 @@ const AppNavigator = () => {
           headerShadowVisible: false
         }}
       />
+      <Stack.Screen
+        name={ScreensConstants.DMA_FEED_BACK_SCREEN}
+        component={Routes.DMAFeedbackScreen}
+        options={{
+          headerStyle: [style.container, style.profileBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(DELETE_MY_ACCOUNT),
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.DMA_DELETE_ACCOUNT_SCREEN}
+        component={Routes.DMADeleteAccountScreen}
+        options={{
+          headerStyle: [style.container, style.profileBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(DELETE_MY_ACCOUNT),
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
     </Stack.Navigator>
   );
 };

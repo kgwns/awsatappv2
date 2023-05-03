@@ -287,6 +287,11 @@ enum TranslateKey {
   DELETE_MY_ACCOUNT_NEXT_BUTTON_TITLE,
   DELETE_MY_ACCOUNT_CONFIRM_DELETE_BUTTON_TITLE,
   DELETE_MY_ACCOUNT_CANCEL_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_COMMENT_PLACEHOLDER,
+  DMA_CONFIRM_DELETE_PLACEHOLDER,
+  DMA_TYPE_DELETE,
+  DMA_DELETE_ACCOUNT_ARABIC,
+  DMA_DELETE_ACCOUNT_ENGLISH,
   default
 }
 
@@ -804,9 +809,9 @@ const TranslateConstants = ({
         case TranslateKey.DELETE_MY_ACCOUNT_LIST_TITLE:
             return arabic?.deleteMyAccount?.listTitle;
         case TranslateKey.DELETE_MY_ACCOUNT_FEEDBACK_TITLE:
-            return arabic?.deleteMyAccount?.feedBackTitle;
+            return arabic?.deleteMyAccount?.commentFeedBackTitle;
         case TranslateKey.DELETE_MY_ACCOUNT_CONFIRMATION_TITLE:
-            return arabic?.deleteMyAccount?.confirmationTitle;
+            return arabic?.deleteMyAccount?.deleteConfirmationTitle;
         case TranslateKey.DELETE_MY_ACCOUNT_PROCEED_BUTTON_TITLE:
             return arabic?.deleteMyAccount?.proceedToDeleteTitle;
         case TranslateKey.DELETE_MY_ACCOUNT_NEXT_BUTTON_TITLE:
@@ -815,6 +820,16 @@ const TranslateConstants = ({
             return arabic?.deleteMyAccount?.confirmDeleteTitle;
         case TranslateKey.DELETE_MY_ACCOUNT_CANCEL_BUTTON_TITLE:
             return arabic?.deleteMyAccount?.cancelTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_COMMENT_PLACEHOLDER:
+            return arabic?.deleteMyAccount?.commentsPlaceHolder;
+        case TranslateKey.DMA_CONFIRM_DELETE_PLACEHOLDER:
+            return arabic?.deleteMyAccount?.confirmDeletePlaceHolder;
+        case TranslateKey.DMA_TYPE_DELETE:
+            return arabic?.deleteMyAccount?.typeDeleteToConfirm;
+        case TranslateKey.DMA_DELETE_ACCOUNT_ARABIC:
+            return arabic?.deleteMyAccount?.deleteMyAccountArabic;
+        case TranslateKey.DMA_DELETE_ACCOUNT_ENGLISH:
+            return arabic?.deleteMyAccount?.deleteMyAccountEnglish;
         default: return ''
     }
 }
@@ -2088,6 +2103,8 @@ const JOURNALIST_DETAIL_SCREEN = 'JournalistDetail' as ScreenName
 const PODCAST_EPISODE_MODAL = 'PodcastEpisodeModal' as ScreenName;
 const DMA_INTRODUCTION_SCREEN = 'DMAIntroductionScreen' as ScreenName;
 const DMA_OPTIONS_LIST_SCREEN = 'DMAOptionsListScreen' as ScreenName;
+const DMA_FEED_BACK_SCREEN = 'FeedbackScreen' as ScreenName;
+const DMA_DELETE_ACCOUNT_SCREEN = 'DeleteAccountScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -2142,6 +2159,8 @@ const ScreensConstants = {
     PODCAST_EPISODE_MODAL,
     DMA_INTRODUCTION_SCREEN,
     DMA_OPTIONS_LIST_SCREEN,
+    DMA_FEED_BACK_SCREEN,
+    DMA_DELETE_ACCOUNT_SCREEN,
 };
 enum notification {
     ARTICLE = 'article',

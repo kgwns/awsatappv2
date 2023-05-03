@@ -36,7 +36,9 @@ export const DMAOptionsListScreen = () => {
     const styles = useThemeAwareObject(createStyles);
     const navigation = useNavigation();
     const TITLE = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_LIST_TITLE });
-    const onPressToNavigate = (item: any) => {
+
+    const onPressToNavigate = (item: DMAOptionsListType) => {
+        navigation.navigate(ScreensConstants.DMA_FEED_BACK_SCREEN, { optionId: item.id } as never)
     }
 
     const itemSeparator = () => <Divider style={styles.divider} />;
