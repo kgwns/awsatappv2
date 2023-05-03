@@ -171,7 +171,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   descriptionStyle: {
     fontSize: isTab ? 20 : 16,
     fontFamily: fonts.Effra_Arbc_Regular,
-    lineHeight: isTab ? 38 : 28,
+    lineHeight: isTab ? 40 : 28,
     textAlign: 'left',
     color: theme.secondaryDavyGrey,
     marginTop: 50,

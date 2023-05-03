@@ -73,7 +73,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: theme.profileBackground
   },
   container: {
-    paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
+    paddingHorizontal: isTab ? '4%' : 0.04 * screenWidth,
     flex: 1,
     width: '100%',
     height: '100%',

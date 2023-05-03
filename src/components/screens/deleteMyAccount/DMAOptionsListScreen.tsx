@@ -98,7 +98,7 @@ const createStyles = (theme: CustomThemeType) => (
         listContainer: {
             flex: 1,
             marginTop: 25,
-            marginHorizontal: 0.06 * screenWidth
+            marginHorizontal: isTab ? '6%' : 0.06 * screenWidth
         },
         screenBackgroundColor: {
             backgroundColor: theme.profileBackground
