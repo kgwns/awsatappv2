@@ -12,7 +12,7 @@ import { Image } from 'src/components/atoms/image/Image'
 import { ImageResize } from "src/shared/styles/text-styles"
 import { screenWidth } from "src/shared/utils"
 import { fonts } from "src/shared/styles/fonts"
-import { useDeleteMyAccount } from "src/hooks/useDeleteMyAccount"
+import { useDeleteMyAccount } from "src/hooks"
 import { DeleteMyAccountLabel } from "src/components/molecules"
 
 export const DMAIntroductionScreen = () => {

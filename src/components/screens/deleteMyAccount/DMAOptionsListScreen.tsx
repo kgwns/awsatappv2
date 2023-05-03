@@ -1,27 +1,41 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { FlatList, ListRenderItem, StyleSheet, TouchableOpacity, View } from "react-native"
 import { CustomThemeType } from "src/shared/styles/colors"
 import { useThemeAwareObject } from "src/shared/styles/useThemeAware"
 import { ScreenContainer } from "../ScreenContainer/ScreenContainer"
-import { ButtonList, Divider, Label } from "src/components/atoms"
+import { Divider, Label } from "src/components/atoms"
 import { ImagesName } from "src/shared/styles/images"
 import { horizontalEdge } from "src/shared/utils/utilities"
 import { normalize, screenWidth } from "src/shared/utils"
 import { DeleteMyAccountLabel } from "src/components/molecules"
-import { TranslateConstants, TranslateKey } from "src/constants/Constants"
+import { ScreensConstants, TranslateConstants, TranslateKey } from "src/constants/Constants"
 import { useNavigation } from "@react-navigation/native"
 import { getSvgImages } from "src/shared/styles/svgImages"
 import { fonts } from "src/shared/styles/fonts"
+import { useDeleteMyAccount } from "src/hooks"
+
 
 export type DMAOptionsListType = {
-    optionTitle: string,
+    id: number;
+    ar_option: string;
+    en_option: string;
 }
 
 export const DMAOptionsListScreen = () => {
+
+    const {
+        isLoading,
+        dmaOptionsListData,
+        fetchDMAOptionsListRequest
+    } = useDeleteMyAccount();
+
+    useEffect(() => {
+        fetchDMAOptionsListRequest();
+    }, []);
+
     const styles = useThemeAwareObject(createStyles);
     const navigation = useNavigation();
     const TITLE = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_LIST_TITLE });
-    const list = ['data1', 'data2', 'data3', 'data4', 'data5'];
     const onPressToNavigate = (item: any) => {
     }
 
@@ -42,7 +56,7 @@ export const DMAOptionsListScreen = () => {
                 <View style={styles.itemContainer}>
                     <View style={styles.itemLeftContainer}>
                         <Label
-                            children={'لا أريد استخدام “الشرق الأوسط” بعد الآن'}
+                            children={item.ar_option}
                             style={styles.optionLabel}
                         />
                     </View>
@@ -55,13 +69,14 @@ export const DMAOptionsListScreen = () => {
     return (
         <ScreenContainer
             edge={horizontalEdge}
-            backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
+            backgroundColor={styles.screenBackgroundColor?.backgroundColor}
+            isLoading={isLoading}>
             <View style={styles.listScreenContainer}>
                 <DeleteMyAccountLabel title={TITLE} />
                 <FlatList
                     keyExtractor={(_, index) => index.toString()}
                     style={styles.listContainer}
-                    data={list}
+                    data={dmaOptionsListData}
                     showsVerticalScrollIndicator={false}
                     renderItem={renderItem}
                     ItemSeparatorComponent={itemSeparator}
@@ -95,12 +110,6 @@ const createStyles = (theme: CustomThemeType) => (
         itemLeftContainer: {
             flexDirection: 'row',
             alignItems: 'center',
-        },
-        label: {
-            marginLeft: normalize(20),
-            color: theme.secondaryMediumGrey,
-            fontFamily: fonts.AwsatDigital_Regular,
-            lineHeight: normalize(30)
         },
         divider: {
             height: 1,
