@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { decodeHTMLTags, horizontalEdge, isIOS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { ScreenContainer } from '../ScreenContainer/ScreenContainer'
+import { AlertPayloadType, ScreenContainer } from '../ScreenContainer/ScreenContainer'
 import { FLEX_START } from 'src/shared/styles/item-alignment'
 import { CustomThemeType, colors } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -28,12 +28,20 @@ export const DMADeleteAccountScreen = () => {
   const CANCEL = TranslateConstants({ key: TranslateKey.DELETE_MY_ACCOUNT_CANCEL_BUTTON_TITLE });
   const CONFIRM_TEXT_ENGLISH = TranslateConstants({ key: TranslateKey.DMA_DELETE_ACCOUNT_ENGLISH });
   const CONFIRM_TEXT_ARABIC = TranslateConstants({ key: TranslateKey.DMA_DELETE_ACCOUNT_ARABIC });
+  const COMMON_OK = TranslateConstants({key:TranslateKey.COMMON_OK})
+
+  const deleteAccount: AlertPayloadType = {
+    title: '',
+    message: '',
+    buttonTitle: COMMON_OK,
+  };
 
   const [deleteAccountInfo, setDeleteAccountInfo] = useState('');
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState('');
   const [isButtonEnable, setIsButtonEnable] = useState(false);
-
+  const [isAlertVisible, setIsAlertVisible] = useState(false);
+  const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(deleteAccount);
   useEffect(() => {
     const fetchInfo = async () => {
       try {
@@ -64,6 +72,10 @@ export const DMADeleteAccountScreen = () => {
     });
   };
 
+  const alertOnPress = () => {
+    logout();
+  }
+
   const onPressConfirmDelete = async () => {
     setIsLoading(true);
     const payload = {
@@ -76,7 +88,11 @@ export const DMADeleteAccountScreen = () => {
       if (isObjectNonEmpty(response) && isObjectNonEmpty(response.message)
         && response.message.code && response.message.code === 200) {
         setIsLoading(false);
-        logout();
+        setIsAlertVisible(true);
+        setAlertPayload({
+          ...deleteAccount,
+          message: response.message.message
+        });
       }
     } catch (error) {
       console.log('Error DMADeleteAccountScreen Fetch :::, error')
@@ -125,7 +141,9 @@ export const DMADeleteAccountScreen = () => {
   return (
     <ScreenContainer edge={horizontalEdge}
       isLoading={isLoading}
-      backgroundColor={style.screenBackgroundColor?.backgroundColor}>
+      backgroundColor={style.screenBackgroundColor?.backgroundColor} 
+      isAlertVisible = {isAlertVisible} setIsAlertVisible={setIsAlertVisible}
+      alertPayload = {alertPayload} alertOnPress={alertOnPress} isAlertCloseIconVisible = {false}>
       <View style={style.container}>
         <DeleteMyAccountLabel title={SUB_TITLE} />
         {isNotEmpty(deleteAccountInfo) && <>
