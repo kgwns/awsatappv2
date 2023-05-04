@@ -121,7 +121,7 @@ const createStyles = (theme: CustomThemeType) => (
         optionLabel: {
             fontSize: isTab ? 28 : 18,
             lineHeight: isTab ? 42 : 32,
-            fontFamily: fonts.AwsatDigitalV2_Bold,
+            fontFamily: fonts.AwsatDigital_Bold,
             color: theme.primaryBlack
         }
     })
