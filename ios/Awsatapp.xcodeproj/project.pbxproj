@@ -32,6 +32,7 @@
 		87E5287E29C1BC2200298A3D /* splashscreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5287D29C1BC2200298A3D /* splashscreen.mp4 */; };
 		87E5288129C1C33000298A3D /* ipadhorizontal.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5287F29C1C33000298A3D /* ipadhorizontal.mp4 */; };
 		87E5288229C1C33000298A3D /* ipadvertical.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5288029C1C33000298A3D /* ipadvertical.mp4 */; };
+		87ED42982A0396470071AC50 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6F92F68DFA74CDC8DDDD536 /* AwsatDigitalBetav10-Bold.ttf */; };
 		8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E7BE3A7CC445D8BAB40327 /* subjectivity-medium.otf */; };
 		928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E412FC49EB497C9B8E3575 /* AwsatDigitalv2b-Black.ttf */; };
@@ -368,6 +369,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87ED42982A0396470071AC50 /* AppTrackingTransparency.framework in Frameworks */,
 				5E069404290C11FD0081D016 /* UIKit.framework in Frameworks */,
 				5E069402290C11F70081D016 /* AVKit.framework in Frameworks */,
 				5E069400290C11E90081D016 /* AVFoundation.framework in Frameworks */,
@@ -1473,7 +1475,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
@@ -1508,7 +1510,7 @@
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -1675,7 +1677,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1718,7 +1720,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1758,7 +1760,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1803,7 +1805,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 41;
+				CURRENT_PROJECT_VERSION = 42;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
