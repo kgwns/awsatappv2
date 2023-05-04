@@ -58,6 +58,7 @@ export const TermsAndAboutUs = ({
 
   const renderAboutUs = () => {
     return (
+      <ScrollView scrollEnabled={true}>
       <AutoHeightWebView
         style={style.aboutUsWebStyle}
         source={{uri: ABOUT_US_URL }}
@@ -73,6 +74,7 @@ export const TermsAndAboutUs = ({
         setBuiltInZoomControls={false}
         viewportContent={'width=device-width, user-scalable=no'}
       />
+      </ScrollView>
     )
   }
 
