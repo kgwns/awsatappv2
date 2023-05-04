@@ -101,6 +101,10 @@
     "redux-saga-test-plan": "^4.0.4",
     "toggle-switch-react-native": "^3.3.0"
   },
+  "reactNativePermissionsIOS": [
+    "LocationAlways",
+    "LocationWhenInUse"
+  ],
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",

@@ -23,10 +23,6 @@ export enum AdjustEventID {
 
 class AdjustAnalyticsManager {
     constructor() {
-        Adjust.getSdkVersion((sdkVersion) => {
-            console.log("Adjust SDK version: " + sdkVersion);
-        });
-
         const environment = __DEV__ ? AdjustConfig.EnvironmentSandbox : AdjustConfig.EnvironmentProduction
         const adjustConfig = new AdjustConfig(APP_TOKEN, environment);
         adjustConfig.setDelayStart(0);
