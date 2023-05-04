@@ -45,7 +45,7 @@ export const DMAIntroductionScreen = () => {
             backgroundColor={styles.screenBackgroundColor?.backgroundColor}
             isLoading={isLoading}
         >
-            {!isLoading && <View style={styles.proceedContainer}>
+            {!isLoading && <View style={styles.proceedContainer} testID={"containerId"}>
                 <DeleteMyAccountLabel title={TITLE}/>
                 <View style={imageContainerStyle}>
                     <Image
@@ -54,7 +54,7 @@ export const DMAIntroductionScreen = () => {
                         resizeMode={ImageResize.COVER}
                     />
                 </View>
-                <Label style={descriptionStyle} children={decodeHTMLTags(DESCRIPTION)} />
+                <Label style={descriptionStyle} children={decodeHTMLTags(DESCRIPTION)} testID={"descriptionId"} />
                 <View style={styles.buttonContainer}>
                     <ButtonOutline title={BUTTON_TITLE}
                         onPress={handleOnPress}

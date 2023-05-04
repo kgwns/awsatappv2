@@ -1,8 +1,8 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
 import BottomSheetView from '../BottomSheetView';
-import { Image } from 'src/components/atoms';
 import { getSvgImages } from 'src/shared/styles/svgImages';
+import { Dimensions, TouchableOpacity } from 'react-native';
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
@@ -16,6 +16,7 @@ describe('BottomSheetView', () => {
   const mockString = 'mockString';
 
   beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = true;
     const component = (
       <BottomSheetView onPressSignUp={mockFunction} title={mockString} subTitle={mockString} description={mockString} signUpLabel={'example'} logInLabel={''} />
     );
@@ -27,22 +28,45 @@ describe('BottomSheetView', () => {
     instance.unmount();
   });
 
-  it('should render BottomSheetView component', () => {
-    expect(instance).toBeDefined();
-  });
+  it('should click signUp button in Tab Portrait',() => {
+    const element = instance.container.findAllByType(TouchableOpacity)[0];
+    fireEvent.press(element);
+    expect(mockFunction).toHaveBeenCalled();
+  })
 
-  it('should render BottomSheetView component in Tab', () => {
-    DeviceTypeUtilsMock.isTab = true;
-    expect(instance).toBeDefined();
-  });
+  it('should click signUp button in Tab Landscape',() => {
+    jest.spyOn(Dimensions,'get').mockReturnValue({height: 400, width: 600, fontScale:2, scale:3});
+    const element = instance.container.findAllByType(TouchableOpacity)[0];
+    fireEvent.press(element);
+    expect(mockFunction).toHaveBeenCalled();
+  })
 
-  it('should render BottomSheetView component in iOS', () => {
+})
+describe('BottomSheetView', () => {
+
+  let instance: RenderAPI;
+  let mockFunction = jest.fn();
+  const mockString = 'mockString';
+
+  beforeEach(() => {
+    DeviceTypeUtilsMock.isTab = false;
     DeviceTypeUtilsMock.isIOS = true;
-    expect(instance).toBeDefined();
+    const component = (
+      <BottomSheetView onPressSignUp={mockFunction} title={mockString} subTitle={mockString} description={mockString} signUpLabel={'example'} logInLabel={''} />
+    );
+    instance = render(component);
   });
 
-  it('Should getSvgImages', () => {
-    expect(getSvgImages).toBeTruthy();
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
   });
+
+  it('should click signUp button in mobile',() => {
+    jest.spyOn(Dimensions,'get').mockReturnValue({height: 400, width: 600, fontScale:2, scale:3});
+    const element = instance.container.findAllByType(TouchableOpacity)[0];
+    fireEvent.press(element);
+    expect(mockFunction).toHaveBeenCalled();
+  })
 
 })
