@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, View } from 'react-native'
 import { HtmlRenderer } from 'src/components/atoms'
-import { horizontalAndBottomEdge, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils'
+import { horizontalAndBottomEdge, isIOS, isNonEmptyArray, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
 import { ScreenContainer } from '..'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -57,25 +57,45 @@ export const TermsAndAboutUs = ({
   }
 
   const renderAboutUs = () => {
-    return (
-      <ScrollView scrollEnabled={true}>
-      <AutoHeightWebView
-        style={style.aboutUsWebStyle}
-        source={{uri: ABOUT_US_URL }}
-        bounces={false}
-        originWhitelist={["*"]}
-        nestedScrollEnabled={false}
-        onLoadEnd={handleLoadEndRequest}
-        mediaPlaybackRequiresUserAction={false}
-        androidLayerType="hardware"
-        allowsFullscreenVideo={true}
-        scrollEnabled={false}
-        scalesPageToFit={false}
-        setBuiltInZoomControls={false}
-        viewportContent={'width=device-width, user-scalable=no'}
-      />
-      </ScrollView>
-    )
+    if (isIOS) {
+      return (
+        <AutoHeightWebView
+          style={style.aboutUsWebStyle}
+          source={{ uri: ABOUT_US_URL }}
+          bounces={false}
+          originWhitelist={["*"]}
+          nestedScrollEnabled={false}
+          onLoadEnd={handleLoadEndRequest}
+          mediaPlaybackRequiresUserAction={false}
+          androidLayerType="hardware"
+          allowsFullscreenVideo={true}
+          scrollEnabled={false}
+          scalesPageToFit={false}
+          setBuiltInZoomControls={false}
+          viewportContent={'width=device-width, user-scalable=no'}
+        />
+      )
+    } else {
+      return (
+        <ScrollView scrollEnabled={true}>
+          <AutoHeightWebView
+            style={style.aboutUsWebStyle}
+            source={{ uri: ABOUT_US_URL }}
+            bounces={false}
+            originWhitelist={["*"]}
+            nestedScrollEnabled={false}
+            onLoadEnd={handleLoadEndRequest}
+            mediaPlaybackRequiresUserAction={false}
+            androidLayerType="hardware"
+            allowsFullscreenVideo={true}
+            scrollEnabled={false}
+            scalesPageToFit={false}
+            setBuiltInZoomControls={false}
+            viewportContent={'width=device-width, user-scalable=no'}
+          />
+        </ScrollView>
+      )
+    }
   }
 
   const renderHTML = () => {
@@ -124,7 +144,8 @@ const customStyle = (theme: CustomThemeType) => (
       backgroundColor: theme.termsBackground
     },
     aboutUsWebStyle: {
-      width: '100%'
+      width: '100%',
+      opacity: 0.99,
     }
   })
 )
