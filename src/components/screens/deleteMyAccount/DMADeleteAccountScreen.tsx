@@ -148,7 +148,7 @@ export const DMADeleteAccountScreen = () => {
       <View style={style.container}>
         <DeleteMyAccountLabel title={SUB_TITLE} />
         {isNotEmpty(deleteAccountInfo) && <>
-          <Label children={deleteAccountInfo} style={style.descriptionStyle} />
+          <Label children={deleteAccountInfo} style={[style.descriptionStyle, style.descriptionSpaceStyle]} />
           <KeyboardAwareScrollView
             bounces={false}
             extraHeight={230}
@@ -178,11 +178,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   descriptionStyle: {
     fontSize: isTab ? 20 : 16,
     fontFamily: fonts.Effra_Arbc_Regular,
-    lineHeight: isTab ? 40 : 28,
+    lineHeight: isTab ? 40 : isIOS ? 28 : 32,
     textAlign: 'left',
     color: theme.secondaryDavyGrey,
-    marginTop: 50,
-    marginBottom: 10,
   },
   textFieldContainer: {
     marginTop: 60,
@@ -220,4 +218,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     fontSize: isTab ? 18 : 15,
     lineHeight: isTab ? 30 : 24,
   },
+  descriptionSpaceStyle: {
+    marginTop: 50,
+    marginBottom: 10,
+  }
 });
