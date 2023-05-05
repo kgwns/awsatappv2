@@ -1,9 +1,9 @@
 import React, {useEffect, useState, useRef, useMemo} from 'react';
-import { StyleSheet, View, FlatList, BackHandler, Animated } from 'react-native';
+import { StyleSheet, View, FlatList, Animated } from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize } from 'src/shared/utils';
-import {OpinionArticleDetailFooter, DetailHeader} from 'src/components/molecules';
+import { horizontalEdge, isIOS, isNonEmptyArray, isNotchDevice, isNotEmpty, isObjectNonEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
+import {OpinionArticleDetailFooter, DetailHeader, DetailHeaderTablet} from 'src/components/molecules';
 import {
   OpinionArticleDetailWidget,
   RelatedOpinionArticlesWidget,
@@ -12,7 +12,7 @@ import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useAppPlayer, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
 import Orientation, { OrientationType } from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
-import { useFocusEffect, useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
+import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants/Constants';
 import { sendUserEventTracking } from 'src/services'
@@ -20,7 +20,6 @@ import { TrackingEventType } from 'src/services/eventTrackService'
 import { ArticleFontSize } from 'src/redux/appCommon/types';
 import { Edge } from 'react-native-safe-area-context';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
-import { BackIcon } from 'src/components/atoms';
 import { Styles } from 'src/shared/styles';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 
@@ -96,11 +95,12 @@ export const OpinionArticleDetail = ({
 
     getSelectedAuthorsData()
     emptyRelatedOpinionData()
-    if (isTab) {
-      Orientation.unlockAllOrientations();
-      Orientation.getDeviceOrientation(updateScreenEdge);
-      Orientation.addDeviceOrientationListener(updateScreenEdge);
-    }
+    //Disabled for iPad orientation
+    // if (isTab) {
+    //   Orientation.unlockAllOrientations();
+    //   Orientation.getDeviceOrientation(updateScreenEdge);
+    //   Orientation.addDeviceOrientationListener(updateScreenEdge);
+    // }
     fetchOpinionArticleDetail({nid: route.params.nid});
     return () => {
       setOpinionArticle([]);
@@ -108,10 +108,11 @@ export const OpinionArticleDetail = ({
       setrelatedOpinioninfo([]);
       emptyRelatedOpinionData();
       emptyOpinionArticleData();
-      if (!route.params.isRelatedArticle) {
-        Orientation.lockToPortrait();
-        Orientation.removeOrientationListener(updateScreenEdge);
-      }
+      //Disabled for iPad orientation
+      // if (!route.params.isRelatedArticle) {
+      //   Orientation.lockToPortrait();
+      //   Orientation.removeOrientationListener(updateScreenEdge);
+      // }
     };
   }, []);
 
@@ -251,10 +252,10 @@ export const OpinionArticleDetail = ({
     setShowPopUp(false)
   }
 
-  const onPressRelatedOpinion = (nid: string) => {
-    if (nid && nid!==currentNId) {
+  const onPressRelatedOpinion = (nidProps: string) => {
+    if (nidProps && nidProps!==currentNId) {
       emptyRelatedOpinionData()
-      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nid, isRelatedArticle: true })
+      navigation.push(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, { nid: nidProps, isRelatedArticle: true })
     }
   }
 
@@ -279,10 +280,11 @@ export const OpinionArticleDetail = ({
   }
 
   const onPressBack = async () => {
-    if (!route.params.isRelatedArticle && isTab) {
-      Orientation.unlockAllOrientations()
-      Orientation.lockToPortrait()
-    }
+    //Disabled for iPad orientation
+    // if (!route.params.isRelatedArticle && isTab) {
+    //   Orientation.unlockAllOrientations()
+    //   Orientation.lockToPortrait()
+    // }
     navigation.goBack()
   }
 
@@ -290,11 +292,21 @@ export const OpinionArticleDetail = ({
     navigation.popToTop()
   }
 
-  const renderHeader = () => (
-    <View style={style.backContainer}>
-      <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
-    </View>
-  )
+  const renderHeader = () => {
+    const headerProps = {
+      visibleHome: noOfDetailRoutes > 1,
+      onHomePress: () => onPressHome(),
+      onBackPress: () => onPressBack(),
+      containerStyle: isTab && { paddingHorizontal: normalize(0.02 * screenWidth) },
+    }
+
+    return (
+      <View style={style.backContainer}>
+        {isTab ? <DetailHeaderTablet {...headerProps} /> : <DetailHeader {...headerProps} />}
+      </View>
+    );
+  };
+
   const renderItem = () => {
     const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
 
@@ -327,7 +339,7 @@ export const OpinionArticleDetail = ({
   return (
     <ScreenContainer edge={edge} isLoading={isLoading} isLandscape
       isSignUpAlertVisible={showupUp}
-      onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{ bottom : isIOS ? normalize(70) : normalize(60) }}>
+      onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{ bottom : isTab ? 104 : isIOS ? normalize(70) : normalize(60) }}>
         {renderHeader()}
         {!isLoading && isNonEmptyArray(opinionArticle) && <View style={style.containerBase}>
           <FlatList
@@ -355,7 +367,7 @@ export const OpinionArticleDetail = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionArticleDetailStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       marginBottom: normalize(80),
@@ -376,10 +388,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     backContainer: {
       width: '100%',
-      height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
+      height: isTab ? 100 : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
       backgroundColor: theme.secondaryWhite,
       justifyContent: 'center',
     }
   });
-  return OpinionArticleDetailStyle;
 };

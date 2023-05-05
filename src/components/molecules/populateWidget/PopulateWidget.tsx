@@ -18,6 +18,8 @@ import { Styles } from 'src/shared/styles'
 import { fonts } from 'src/shared/styles/fonts'
 import { PodcastEpisodeModal } from 'src/components/screens'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useOrientation } from 'src/hooks'
+import { BookMarkColorType } from '../articleFooter/ArticleFooter'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -65,17 +67,19 @@ export const PopulateWidget = ({
     const timeFormat = dateTimeAgo(props.created)
 
     const [showModal, setShowModal] = useState(false);
+    const {isPortrait} = useOrientation();
+    const videoThumbnailStyle = isTab ? isPortrait ? style.videoThumbnailPortrait : style.videoThumbnailLandscape : {}
     
-    const onPressAlbum = (nid: string) => {
-        nid &&
+    const onPressAlbum = (Nid: string) => {
+        Nid &&
           navigation.navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
-            nid: nid,
+            nid: Nid,
           });
       };
 
     const episodeModal = () => (
         <Modal visible={true} animationType={'slide'} onRequestClose = {() => setShowModal(false)}>
-            <View style={{ height: screenHeight - insets.top }}>
+            <View style={{ height: isTab ? '100%' :  screenHeight - insets.top }}>
                 <PodcastEpisodeModal
                     route={{ params: { data: { ...props } } }}
                     onPressBack={() => setShowModal(false)}
@@ -84,13 +88,15 @@ export const PopulateWidget = ({
         </Modal>
     )
 
+    const containerStyle = isTab ? style.widgetContainerTab : style.widgetContainer;
+    const podcastStyle = isTab ? style.podcastContainerTab : style.podcastContainer;
     switch (type) {
         case PopulateWidgetType.ARTICLE:
-            return <View style={style.widgetContainer}>
+            return <View style={containerStyle}>
                 <ArticleItem
                     index={0}
                     {...props}
-                    imageStyle={style.imageStyle}
+                    imageStyle={isTab ? style.tabletImageStyle : style.imageStyle}
                     flag={isObjectNonEmpty(props.news_categories) ? props.news_categories?.title : ''}
                     barColor={Styles.color.greenishBlue}
                     flagColor={Styles.color.greenishBlue}
@@ -102,15 +108,18 @@ export const PopulateWidget = ({
                         rightTitle: timeFormat.time,
                         favouriteIconHeight: 16,
                         favouriteIconWidth: 11,
+                        bookMarkColorType: isTab && BookMarkColorType.PRIMARY,
+                        hideBookmark: false
                     }}
                     isBookmarked={true}
                     onPressBookmark={onPressBookmark}
                     titleStyle={style.titleStyle}
                     bodyStyle={style.bodyStyle}
+                    showDivider={!isTab}
                 />
             </View>
         case PopulateWidgetType.OPINION:
-            return <View>
+            return <View style={isTab && style.opinionContainerTab}>
                 <OpinionWritersCardView {...props} 
                     mediaVisibility={props.field_jwplayer_id_opinion_export ? 
                         isNotEmpty(props.field_jwplayer_id_opinion_export) : 
@@ -121,11 +130,14 @@ export const PopulateWidget = ({
                     togglePlayback={props?.togglePlayback}
                     selectedTrack={props?.selectedTrack}
                     duration = {props.jwplayer_info ? getSecondsToHms(props.jwplayer_info.split('|')[1]) : null}
+                    showDivider={!isTab}
+                    addStyle={isTab && {paddingHorizontal: 0}}
+                    bookMarkColorType={isTab && BookMarkColorType.PRIMARY}
                 />
             </View>
         case PopulateWidgetType.VIDEO:
             return (
-                <View style={style.videoContainer}>
+                <View style={isTab && style.videoContainerTab}>
                     <VideoItem {...props}
                         isFirstItem={false}
                         testID='video_screen_id'
@@ -134,12 +146,14 @@ export const PopulateWidget = ({
                                 { data: props })
                         }}
                         onPressBookmark={onPressBookmark}
+                        videoThumbnailStyle={videoThumbnailStyle}
+                        bookMarkColorType={isTab && BookMarkColorType.PRIMARY}
                     />
                 </View>
             );
         case PopulateWidgetType.PODCAST:
             return (
-                <View style={style.podcastContainer}>
+                <View style={podcastStyle}>
                     {showModal && episodeModal()}
                     <ArticlePodCastWidget
                         {...props}
@@ -150,7 +164,7 @@ export const PopulateWidget = ({
             )
         case PopulateWidgetType.ALBUM:           
             return (
-              <View style={style.widgetContainer}>
+              <View style={containerStyle}>
                 <PhotoGalleryItem
                   {...props}
                   index={props.key}
@@ -161,7 +175,9 @@ export const PopulateWidget = ({
                   onPress={onPressAlbum}
                   onUpdateBookmark={onPressBookmark}
                   isBookmarked={true}
-                  showDivider
+                  showDivider={!isTab}
+                  bookMarkColorType={isTab && BookMarkColorType.PRIMARY}
+                  addBodyContentStyle={isTab && {paddingHorizontal: 0}}
                 />
               </View>
             );
@@ -172,13 +188,24 @@ export const PopulateWidget = ({
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     widgetContainer: {
-        paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
-        
+        paddingHorizontal: normalize(0.04 * screenWidth),
+    },
+    widgetContainerTab: {
+        flex: 0.485,
+    },
+    opinionContainerTab: {
+        flex: 0.485,
+        paddingBottom: 20,
     },
     podcastContainer: {
-        backgroundColor: theme.secondaryWhite
+        backgroundColor: theme.secondaryWhite,
     },
-    videoContainer: {
+    podcastContainerTab: {
+        flex: 0.485,
+        marginBottom: 40,
+    },
+    videoContainerTab: {
+        flex: 0.485,
     },
     titleStyle:{
         fontFamily: fonts.AwsatDigital_Bold,
@@ -199,4 +226,14 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         height: isTab ? 0.65 * screenWidth : normalize(230),
         aspectRatio: 1.5
     },
+    tabletImageStyle: {
+        width: '100%',
+        height: 'auto'
+    },
+    videoThumbnailPortrait: {
+        height: 350,
+    },
+    videoThumbnailLandscape: {
+        height: 450,
+    }
 })

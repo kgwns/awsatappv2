@@ -14,4 +14,3 @@ export const getIsSkipped: Selector<boolean> = (state: AppState) =>
 
 export const getForgotPasswordResponse: Selector<any> = (state: AppState) =>
   state.login.forgotPasswordResponse;
-  

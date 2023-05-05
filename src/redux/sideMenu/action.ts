@@ -39,4 +39,3 @@ import {
     fetchSideMenuSuccess,
     fetchSideMenuFailed,
   };
-  

@@ -1,7 +1,7 @@
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, StyleProp, ViewStyle } from 'react-native';
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { Label } from 'src/components/atoms/label/Label';
-import { isIOS, isNonEmptyArray, normalize } from 'src/shared/utils';
+import { isIOS, isInvalidOrEmptyArray, isNonEmptyArray, isTab, normalize } from 'src/shared/utils';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreensConstants } from 'src/constants/Constants';
@@ -18,12 +18,20 @@ export interface JournalistProps {
     journalistCity: string[]
 }
 
+type AuthorComponentPros = {
+    name: string;
+    id: string;
+    disabled: boolean;
+    addStyle?: StyleProp<ViewStyle>;
+}
+
 export const Journalist: FunctionComponent<JournalistProps> = ({
     journalistId, journalistName, journalistCity,
 }) => {
     const style = useThemeAwareObject(customStyle)
     const navigation = useNavigation<StackNavigationProp<any>>()
     const [activeJournalist, setActiveJournalist] = useState<boolean[]>([]);
+    const [isJournalist,setJournalist] = useState(false);
     const { emptyJournalistArticleInfo } = useJournalist();
 
     useEffect(() => {
@@ -33,6 +41,10 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     useEffect(() => {
         setActiveJournalist(activeJournalist);
     },[activeJournalist])
+
+     useEffect(() => {
+        setJournalist(true);
+    },[isJournalist])
 
     const getActiveJournalist = async (journalistIdProps: string[]) => {
         const activeJournalistArray: boolean[] = [];
@@ -49,29 +61,98 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
     };
 
     const onPressJournalist = (id: string) => {
+        setJournalist(false);
         emptyJournalistArticleInfo();
         navigation.push(ScreensConstants.JOURNALIST_DETAIL_SCREEN, { tid: id, isRelatedArticle: true })
     }
 
-    const journalistLength =  isNonEmptyArray(journalistId) ? journalistId.length : 0
+    const renderVerticalDivider = () => (
+        <Label children={'|'} style={style.separatorStyle} testID={'separatorId'} />
+    );
 
-    return (
-        <View style={style.containerStyle}>
-            {isNonEmptyArray(journalistId) && isNonEmptyArray(journalistName) && isNonEmptyArray(journalistCity) && journalistId.map((item: any, index: number) => {
-                return (
-                    <View key={index} style={[style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]}>
-                        {item[index] && <View style={style.rowViewStyle}>
-                            <Label children={journalistCity[index] + ' : '} style={style.headerLabel} />
-                            <TouchableOpacity onPress={() => onPressJournalist(item)} disabled={activeJournalist[index]}>
-                                <Label children={journalistName[index]} style={style.authorLabel} />
-                            </TouchableOpacity>
-                            {index !== journalistLength - 1 && <Label children={'|'} style={style.separatorStyle} />}
-                        </View>}
-                    </View>
-                );
-            })}
-        </View>
-    )
+    const renderCityName = (city: string) => (
+        <Label children={city + ' : '} style={style.headerLabel} />
+    );
+
+    const renderAuthorName = ({ name, id, disabled, addStyle }: AuthorComponentPros) => (
+        <TouchableOpacity onPress={() => onPressJournalist(id)}
+            disabled={disabled}>
+            <Label children={name} style={StyleSheet.flatten([style.authorLabel, addStyle])} />
+        </TouchableOpacity>
+    );
+
+    if (isInvalidOrEmptyArray(journalistCity) && isInvalidOrEmptyArray(journalistId) && isInvalidOrEmptyArray(journalistName)) {
+        return null;
+    }
+
+    const uniqueCityList = isNonEmptyArray(journalistCity) ? [...new Set(journalistCity)] : []
+    if (journalistCity.length === uniqueCityList.length) {
+        const journalistLength = isNonEmptyArray(journalistId) ? journalistId.length : 0
+        return (
+            <View style={[style.containerStyle, isTab && { flex: 1 }]}>
+                {journalistId.map((item: any, index: number) => {
+                    const mainViewStyle = [style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]
+                    const showDivider = (index !== journalistLength - 1);
+                    return (
+                        <View key={index} testID={'containerId'} style={mainViewStyle}>
+                            {item[index] && <View style={style.rowViewStyle}>
+                                {renderCityName(journalistCity[index])}
+                                <Label children={journalistCity[index] + ' : '} style={style.headerLabel} />
+                                {isJournalist && renderAuthorName(
+                                    {
+                                        name: journalistName[index],
+                                        disabled: activeJournalist[index],
+                                        id: item,
+                                    }
+                                )}
+                                {showDivider && renderVerticalDivider()}
+                            </View>}
+                        </View>
+                    );
+                })}
+            </View>
+        )
+    } else { // If city name common for both jName then we need to combine and separated by space.
+        const journalistLength = isNonEmptyArray(uniqueCityList) ? uniqueCityList.length : 0
+        return (
+            <View style={[style.containerStyle, isTab && { flex: 1 }]}>
+                {uniqueCityList.map((item: any, index: number) => {
+                    const showDivider = (index !== journalistLength - 1);
+                    const nameList = [];
+                    const idList: string[] = [];
+
+                    for (let i = 0; i < journalistCity.length; i++) {
+                        if (item === journalistCity[i]) {
+                            nameList.push(journalistName[i]);
+                            idList.push(journalistId[i]);
+                        }
+                    }
+
+                    const mainViewStyle = [style.container, index % 2 === 0 ? style.rowViewStyle : style.columnViewStyle]
+                    return (
+                        <View key={index} testID={'containerId'} style={mainViewStyle}>
+                            {item[index] && <View style={style.rowViewStyle}>
+                                {renderCityName(uniqueCityList[index])}
+                                {isJournalist && nameList.map((nameItem, nameIndex) => {
+                                    const currentIndex = journalistName.findIndex((jItem) => jItem === nameItem);
+                                    const canDisable = activeJournalist[currentIndex];
+                                    return renderAuthorName(
+                                        {
+                                            name: nameItem,
+                                            disabled: canDisable,
+                                            id: idList[nameIndex],
+                                            addStyle: { marginRight: 5 }
+                                        }
+                                    );
+                                })}
+                                {showDivider && renderVerticalDivider()}
+                            </View>}
+                        </View>
+                    );
+                })}
+            </View>
+        )
+    }
 }
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
@@ -82,7 +163,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     containerStyle: {
         flexDirection: 'row', 
         flexWrap: 'wrap', 
-        paddingHorizontal: normalize(15)
+        paddingHorizontal: isTab ? 0 : normalize(15)
     },
     headerLabel: {
         lineHeight: isIOS ? 20 : 26,

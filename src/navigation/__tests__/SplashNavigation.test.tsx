@@ -1,11 +1,17 @@
 import {render, RenderAPI} from '@testing-library/react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import SplashNavigation from '../SplashNavigation';
 import {useDispatch, useSelector} from 'react-redux';
+import * as serviceApi from 'src/services/api';
 
 jest.mock('react-redux', () => ({
   useDispatch: jest.fn(),
   useSelector: jest.fn(),
+}));
+
+jest.mock('react', () => ({
+  ...jest.requireActual('react'),
+  useState: jest.fn().mockImplementation(() => [false,jest.fn()]),
 }));
 
 const mockString = 'example';
@@ -138,6 +144,7 @@ jest.mock("src/hooks/useAppCommon", () => ({
     return {
       theme: {},
       isFirstSession: true,
+      storeBaseUrlConfigInfo: jest.fn(),
     }
   },
 }));
@@ -150,14 +157,36 @@ jest.mock("src/hooks/useEmailCheck", () => ({
   },
 }));
 
+jest.mock("src/hooks/useFetchPodcastData", () => ({
+  useFetchPodcastData: () => {
+    return {
+      podcastData: {
+        content_title: '',
+        content_duration: '',
+        content_type: ''
+      }
+    }
+  },
+}));
+
 describe('<SplashNavigation>', () => {
   let instance: RenderAPI;
   const dispatchMock = jest.fn();
   const theme = true;
   const useColorScheme = jest.fn().mockReturnValueOnce(theme);
+  const setLoading = jest.fn()
 
   describe('when SplashNavigation only', () => {
     beforeEach(() => {
+      jest.useFakeTimers('legacy');
+      jest.spyOn(serviceApi,'getCacheApiRequest').mockReturnValue({
+        base_url: 'https://aawsat.srpcdigital.com/',
+        ums_base_url:  "https://awsatapi.srpcdigital.com/",
+        image_url: 'https://static.srpcdigital.com/',
+        profile_image_url: "https://awsatapi.srpcdigital.com/storage/",
+        live_blog_url: "https://aawsat.srpcdigital.com/livenews/",
+      });
+      (useState as jest.Mock).mockImplementation(() => [false,setLoading]);
       (useSelector as jest.Mock).mockImplementationOnce(useColorScheme);
       (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
       const component = <SplashNavigation />
@@ -170,5 +199,74 @@ describe('<SplashNavigation>', () => {
     it('Should render SplashNavigation', () => {
       expect(instance).toBeDefined();
     });
+    it('Should call setTimeout',async () => {
+      const spyon = jest.spyOn(global,'setTimeout');
+      expect(spyon).toHaveBeenCalled();
+      jest.runAllTimers();
+      expect(setLoading).toHaveBeenCalled();
+    });
+  });
+});
+
+describe("SplashNavigation",() => {
+  let instance: RenderAPI;
+  const dispatchMock = jest.fn();
+  const theme = true;
+  const useColorScheme = jest.fn().mockReturnValueOnce(theme);
+  const setLoading = jest.fn()
+  let spyon:any;
+  beforeEach(() => {
+    jest.useFakeTimers('legacy');
+    spyon = jest.spyOn(console,'log');
+    jest.spyOn(serviceApi,'getCacheApiRequest').mockImplementation(() => {throw new Error('error message')});
+    (useState as jest.Mock).mockImplementation(() => [false,setLoading]);
+    (useSelector as jest.Mock).mockImplementationOnce(useColorScheme);
+    (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
+    const component = <SplashNavigation />
+    instance = render(component);
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+  it('Should throw error', async() => {
+    try{
+      await serviceApi.getCacheApiRequest('');
+    }
+    catch(error){
+      expect(spyon).toHaveBeenCalled();
+      expect(console.log).toHaveBeenCalledWith("getBaseURL - Error",error)
+
+    }
+  });
+});
+
+describe('when SplashNavigation only', () => {
+  let instance: RenderAPI;
+  const dispatchMock = jest.fn();
+  const theme = true;
+  const useColorScheme = jest.fn().mockReturnValueOnce(theme);
+  const setLoading = jest.fn()
+  beforeEach(() => {
+    jest.useFakeTimers('legacy');
+    jest.spyOn(serviceApi,'getCacheApiRequest').mockReturnValue({
+      base_url: '',
+      ums_base_url:  '',
+      image_url: '',
+      profile_image_url: '',
+      live_blog_url: '',
+    });
+    (useState as jest.Mock).mockImplementation(() => [false,setLoading]);
+    (useSelector as jest.Mock).mockImplementationOnce(useColorScheme);
+    (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
+    const component = <SplashNavigation />
+    instance = render(component);
+  });
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+  it('Should call getCacheApiRequest with empty response url', () => {
+    expect(serviceApi.getCacheApiRequest).toHaveBeenCalled();
   });
 });

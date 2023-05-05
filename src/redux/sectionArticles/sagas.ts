@@ -8,7 +8,7 @@ import {
   fetchSectionArticlesFailed,
   fetchSectionArticlesSuccess,
 } from './action';
-import {EMPTY_SECTION_ARTICLES, FETCH_SECTION_ARTICLES} from './actionTypes';
+import {FETCH_SECTION_ARTICLES} from './actionTypes';
 import {fetchSectionArticlesApi} from 'src/services/sectionArticlesService';
 
 export function* fetchSectionArticles(action: FetchSectionArticlesType) {

@@ -1,11 +1,12 @@
 import React from 'react'
 import { View, StyleSheet, ScrollView } from 'react-native'
-import { isIOS, isNotEmpty } from 'src/shared/utils'
+import { isIOS, isNotEmpty, isTab, screenWidth } from 'src/shared/utils'
 import { fonts } from 'src/shared/styles/fonts'
-import { Label } from '../atoms'
+import { Label, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { colors } from 'src/shared/styles/colors'
 import { generateAssetFontCss } from '../screens/articleDetail/components/ArticleDetailRichContent'
+import { useTheme } from 'src/shared/styles/ThemeProvider';
 
 type InfoGraphicMapWidgetProps = {
     title: string
@@ -44,6 +45,7 @@ const InfoGraphicMapWidget = ({
         </html>`;
 
     const htmlSource = { html: isNotEmpty(htmlContent) ? infoGraphicHTML({body: htmlContent}) : '<div></div>' , baseUrl:''}
+    const { themeData } = useTheme();
 
     const renderWebview = () => (
         <AutoHeightWebView
@@ -53,18 +55,31 @@ const InfoGraphicMapWidget = ({
             source={htmlSource}
             scalesPageToFit={false}
             viewportContent={'width=device-width, user-scalable=no'}
+            style={isTab && styles.tabWebViewContainer}
         />
     )
 
-    return (
-        <View style={styles.widgetContainer}>
-            <View style={styles.headerContainer}>
-                <Label
-                    children={title}
-                    style={styles.titleStyle}
-                />
-            </View>
+    const widgetHeaderData: WidgetHeaderProps = {
+        headerLeft: {
+          title: title,
+          color: themeData.primaryBlack,
+          labelType: LabelTypeProp.title3,
+          textStyle: { fontFamily: fonts.AwsatDigital_Black }
+        },
+      };
 
+    return (
+            <View style={isTab ? styles.tabWidgetContainer : styles.widgetContainer}>
+            
+            {isTab ? <View style={styles.widgetHeaderContainer}>
+                <WidgetHeader {...widgetHeaderData} />
+            </View> :
+                <View style={styles.headerContainer}>
+                    <Label
+                        children={title}
+                        style={styles.titleStyle}
+                    />
+                </View>}
             {isIOS ? renderWebview() : <ScrollView scrollEnabled={true} style={styles.scrollViewStyle}>
                 {renderWebview()}
             </ScrollView>}
@@ -80,9 +95,20 @@ const styles = StyleSheet.create({
         width: '100%',
         backgroundColor: colors.aliceDimBlue
     },
+    tabWidgetContainer: {
+        width: '100%',
+        height:'100%',
+        backgroundColor: colors.aliceDimBlue
+    },
     headerContainer: {
         width: '100%',
-        marginLeft: 15
+        marginLeft: 15,
+    },
+    tabHeaderContainer: {
+        width: '95%',
+        height: '13.5%',
+        marginLeft: 5,
+        justifyContent: 'center'
     },
     titleStyle: {
         marginTop: 10,
@@ -90,9 +116,25 @@ const styles = StyleSheet.create({
         fontFamily: fonts.AwsatDigitalV2_Black,
         fontSize: 24,
         lineHeight: 36,
-        color: colors.black
+        color: colors.black,
+        fontWeight: 'normal',
+    },
+    tabTitleStyle: {
+        textAlign: 'left',
+        fontFamily: fonts.AwsatDigitalV2_Black,
+        fontSize: 25,
+        lineHeight: 36,
+        color: colors.black,
+        fontWeight: '500',
     },
     scrollViewStyle: {
         overflow: 'hidden',
-    }
+    },
+    tabWebViewContainer: {
+        width: '100%',
+    },
+    widgetHeaderContainer: {
+        paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
+        paddingVertical: isIOS ? 20 : 21,
+    },
 })

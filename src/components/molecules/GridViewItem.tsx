@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleProp, StyleSheet, TextStyle, View, ViewStyle } from 'react-native';
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
 import {  Image} from 'src/components/atoms/image/Image';
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
@@ -9,6 +9,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { fonts } from 'src/shared/styles/fonts';
 import { ArticleLabel } from './articleLabel/ArticleLabel';
+import { ArticleFooterProps } from './articleFooter/ArticleFooter';
+import ArticleWithOutImage from './ArticleWithOutImage';
 
 export interface GridViewItemProps {
     imageUrl?: string;
@@ -18,6 +20,13 @@ export interface GridViewItemProps {
     index: number;
     isAlbum: boolean;
     displayType: string;
+    showDivider?: boolean;
+    showFooterTitle?: boolean,
+    titleStyle?: StyleProp<ViewStyle>,
+    containerStyle?: StyleProp<ViewStyle>,
+    footerData?: ArticleFooterProps
+    bodyStyle?: StyleProp<TextStyle>,
+    tabBodyLineCount?:number
 }
 
 export const GridViewItem = ({
@@ -28,14 +37,22 @@ export const GridViewItem = ({
     index,
     isAlbum = false,
     displayType,
+    showDivider,
+    showFooterTitle,
+    titleStyle,
+    containerStyle,
+    footerData,
+    bodyStyle,
+    tabBodyLineCount,
+    ...props
 }: GridViewItemProps) => {
     const style = useThemeAwareObject(customStyle);
     const isOdd = (index + 1) % 2 === 0;
 
     return (
-        <View style={[style.container, !isOdd && style.borderStyle]}>
+        <View style={[ !isTab && style.container, !isOdd && !isTab && style.borderStyle]}>
             {imageUrl &&
-                <View style={isTab ? style.tabImageStyle : style.imageContainerStyle} >
+                <View style={ style.imageContainerStyle} >
                     <Image url={imageUrl} style={style.image}
                         resizeMode={ImageResize.COVER} fallback
                         defaultImageStyle={style.image}
@@ -48,6 +65,16 @@ export const GridViewItem = ({
             {title &&
                 <Label style={style.title} children={title} numberOfLines={3} />
             }
+            {
+            isTab &&  <View>
+                <ArticleWithOutImage isBookmarked={false} showDivider={showDivider} 
+                showFooterTitle={showFooterTitle} {...props}
+                 footerInfo={footerData} bodyStyle={bodyStyle} bodyLineCount={tabBodyLineCount}
+                displayType={undefined} //DisplayType with display in ImageWithLabel itself
+                />
+            </View>
+            }
+            
             <View style={style.dividerContainer} />
         </View>
     );
@@ -66,15 +93,15 @@ const customStyle = (theme: CustomThemeType) => {
             height: '100%'
         },
         highlightedTitle: {
-            fontSize: isTab ? 14 : 12,
-            lineHeight: isTab ? 20 : 18,
+            fontSize: isTab ? 13 : 12,
+            lineHeight: isTab ? 16 : 18,
             marginTop: normalize(10),
             color: theme.primary,
             fontFamily: fonts.Effra_Arbc_Regular,
         },
         title: {
-            fontSize: isTab ? 20 : 14,
-            lineHeight: isTab ? 32 : 22,
+            fontSize: isTab ? 18 : 14,
+            lineHeight: isTab ? 29 : 22,
             marginTop: normalize(8),
             color: theme.primaryBlack,
             textAlign: 'left',
@@ -92,11 +119,6 @@ const customStyle = (theme: CustomThemeType) => {
         dividerContainer: {
             height: 0.01
         },
-        tabImageStyle: {
-            width: '100%',
-            aspectRatio: 4/3,
-            height: 'auto'
-        }
     });
 };
 

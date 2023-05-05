@@ -1,18 +1,23 @@
 import { StyleSheet, ScrollView, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { isIOS, isTab, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, EventsValue, isIOS, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
 import AutoHeightWebView, { SizeUpdate } from 'react-native-autoheight-webview'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/Constants'
+import { AnalyticsEvents } from 'src/shared/utils/analytics'
 
 type ArticleDetailBodyProps = {
     body: string;
     index: number;
     articleFontSize: number;
     orientation: string;
+    title: string;
+    author: string;
+    publishedDate: string;
+    tagTopicsList: string
 }
 
 export const ArticleDetailBody = React.memo(({
@@ -20,6 +25,10 @@ export const ArticleDetailBody = React.memo(({
     index,
     articleFontSize,
     orientation,
+    title,
+    author,
+    publishedDate,
+    tagTopicsList
 }: ArticleDetailBodyProps) => {
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
@@ -104,6 +113,7 @@ export const ArticleDetailBody = React.memo(({
           if(imageElement && imageElement.length > 0) {
             for(i=0; i < imageElement.length; i++) {
               imageElement[i].style["max-width"] = "100%"; 
+              imageElement[i].style["min-width"] = "100%"; 
               imageElement[i].style["height"] = "auto"; 
             } 
           }
@@ -149,8 +159,7 @@ export const ArticleDetailBody = React.memo(({
                 browserOptions(URL);
                 return false
             }
-        }
-        else {
+        } else {
             if (!URL.includes(HTML_URL)) {
                 browserOptions(URL);
                 return false
@@ -168,6 +177,29 @@ export const ArticleDetailBody = React.memo(({
             return
         }
         setDynamicHeight(size.height + 2)
+    }
+
+    const storeCopiedTextInAnalytics = (data:string) => {
+        try {
+            const copiedData = JSON.parse(data);
+            const { copiedText, isClipboard } = copiedData;
+            if(isClipboard) {
+                const decodeBody = decodeHTMLTags(body);
+                const eventParameter = {
+                    copied_text: copiedText,
+                    copied_text_length: copiedText.split(' ').length,
+                    article_name: title,
+                    article_category: EventsValue.article,
+                    article_author: author,
+                    article_length: decodeBody.split(' ').length,
+                    article_publish_date: publishedDate,
+                    tags: tagTopicsList
+                }
+                recordLogEvent(AnalyticsEvents.TEXT_COPY,eventParameter)
+            }
+        } catch(error) {
+            console.log(error)
+        }
     }
 
     const renderWebView = () => (
@@ -190,6 +222,7 @@ export const ArticleDetailBody = React.memo(({
             allowsFullscreenVideo={true}
             scrollEnabled={false}
             onSizeUpdated={onSizeUpdated}
+            onMessage={(event) => storeCopiedTextInAnalytics(event.nativeEvent?.data)}
         />
     )
 
@@ -212,12 +245,12 @@ export const ArticleDetailBody = React.memo(({
 
 const customStyle = () => StyleSheet.create({
     scrollViewStyle: {
-        marginHorizontal: 0.04 * screenWidth,
+        marginHorizontal: isTab ? 0 : 0.04 * screenWidth,
         overflow: 'hidden',
         marginTop: 20,
     },
     iosContainerViewStyle: {
-        marginHorizontal: 0.04 * screenWidth,
+        marginHorizontal: isTab ? 0 : 0.04 * screenWidth,
         marginTop: 20,
     },
     webView: {

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import {View, StyleSheet, FlatList, ListRenderItem, Animated} from 'react-native';
+import {View, StyleSheet, FlatList, ListRenderItem, Animated, ActivityIndicator} from 'react-native';
 
-import {VideoItem, VideoItemProps} from 'src/components/molecules';
-import {horizontalEdge, isNonEmptyArray, isTab, normalize} from 'src/shared/utils';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {VideoItem} from 'src/components/molecules';
+import {decodeHTMLTags, EventsValue, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent} from 'src/shared/utils';
+import {useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants/Constants';
 import { useBookmark, useLogin, useVideoList, useDocumentaryVideo, useAppPlayer } from 'src/hooks';
@@ -13,6 +13,8 @@ import { RequestDocumentaryVideoPayload } from 'src/redux/documentaryVideo/types
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -25,12 +27,15 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   const styles = useThemeAwareObject(customStyle);
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
-  const {isLoading,videoData,fetchVideoRequest} = useVideoList();
+  const {isVideoLoading: isLoading,videoPaginationData, fetchVideoWithPagination} = useVideoList();
   const {isVideoLoading, videoDocumentaryData, fetchDocumentaryVideoRequest} = useDocumentaryVideo();
   const [showupUp,setShowPopUp] = useState(false)
   const navigation = useNavigation<StackNavigationProp<any>>()
   const [isShowPlayer, setIsShowPlayer] = useState(false)
+  const [page, setPage] = useState<number>(0)
   const { showMiniPlayer } = useAppPlayer()
+  const { themeData } = useTheme()
+  const VIDEO_ITEMS_PER_PAGE = isTab ? 9 : 10;
 
   const ref = React.useRef(null);
   useEffect(() => {
@@ -53,16 +58,16 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   useEffect(() => {
     updateVideoData()
-  }, [videoData,bookmarkIdInfo])
+  }, [videoPaginationData,bookmarkIdInfo])
 
   useEffect(() => {
     updateDocumentaryVideoData()
   }, [videoDocumentaryData,bookmarkIdInfo])
 
   const updateVideoData = () => {
-    if(isNonEmptyArray(videoData)) {
-      const videos = updateBookmark(videoData)
-      setVideoDataInfo(videos)
+    if(isNonEmptyArray(videoPaginationData)) {
+      const videos = updateBookmark(videoPaginationData)
+      setVideoDataInfo((data: any) => [...data, ...videos as any])
     }
   }
 
@@ -87,14 +92,28 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   const updatedChangeBookmark = (data: VideoItemType[], index: number) => {
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
-    updatedData[index].isBookmarked = bookmarkStatus
-    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus)
+    updatedData[index].isBookmarked = bookmarkStatus;
+    const { title,body_export } = updatedData[index];
+    const decodeBody = decodeHTMLTags(body_export);
+    const eventParameter = {
+      content_type: EventsValue.video,
+      article_name: title,
+      article_category: EventsValue.video,
+      article_length: decodeBody?.split(' ').length
+    }
+    updateBookmarkInfo(updatedData[index].nid, bookmarkStatus, eventParameter)
     return updatedData
   }
 
-  const updateBookmarkInfo = (nid: string, isBookmarked: boolean) => {
+  const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {
     if (isLoggedIn) {
-      isBookmarked ? sendBookmarkInfo({ nid, bundle: PopulateWidgetType.VIDEO }) : removeBookmarkedInfo({ nid })
+      if (isBookmarked) {
+        recordLogEvent(AnalyticsEvents.ARTICLE_SAVE, eventParameter)
+        sendBookmarkInfo({ nid, bundle: PopulateWidgetType.VIDEO })
+      } else {
+        recordLogEvent(AnalyticsEvents.ARTICLE_UNSAVE, eventParameter)
+        removeBookmarkedInfo({ nid })
+      }
     } else {
       setShowPopUp(true)
     }
@@ -117,17 +136,40 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
       setVideoDocumentaryInfo(updatedData);
     }
   }
-  useEffect(() => { 
+  useEffect(() => {
+    setPage(0);
+    setVideoDataInfo([]);
     fetchDocumentaryVideoRequest(documentaryVideoPayload);
-    fetchVideoRequest();
+    fetchVideoWithPagination({page: 0, items_per_page: VIDEO_ITEMS_PER_PAGE});
    }, []);
 
-  const onPressItem = (item:VideoItemType, isDocumentary:boolean)=>{
-    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isDocumentary})
+  useEffect(() => { 
+    if(page != 0) fetchVideoWithPagination({page, items_per_page: VIDEO_ITEMS_PER_PAGE});
+   }, [page]);
+
+  const onPressItem = (item:VideoItemType, isVideoDocumentary:boolean)=>{
+    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isVideoDocumentary})
   }
 
-  const [videoDataInfo, setVideoDataInfo] = useState(videoData)
+  const [videoDataInfo, setVideoDataInfo] = useState(videoPaginationData)
   const [videoDocumentaryInfo, setVideoDocumentaryInfo] = useState(videoDocumentaryData)
+
+  const onLoadMore = () => {
+    if(!isLoading){
+      setPage(page+1)
+    }
+  }
+
+  const renderFooterComponent = () => {
+    if (!isLoading || isVideoLoading) {
+      return null;
+    }
+    return (
+      <View style={styles.loaderStyle}>
+        <ActivityIndicator size={'small'} color={themeData.primary} />
+      </View>
+    )
+  }
 
   const renderItem = () => (
     <View>
@@ -141,12 +183,15 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
         />
       <FlatList
           data={videoDataInfo}
-          numColumns={isTab? 2 : 1}
+          numColumns={isTab? 3 : 1}
           testID='video_Item_FlatList1'
           listKey={'videoList'+ new Date().getTime().toString()}
           keyExtractor={(_, index) => index.toString()}
           renderItem={renderVideoItem}
+          onEndReachedThreshold={0.5}
+          onEndReached={onLoadMore}
           showsVerticalScrollIndicator={false}
+          ListFooterComponent={renderFooterComponent()}
         />
     </View>
   );
@@ -166,6 +211,10 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
         videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
         onPressBookmark={() => {updateVideosBookmark(index, videoDocumentaryInfo)}}
         isDocumentary={true}
+        index={index}
+        subTitle={''}
+        showShare
+        link_node={item.link_node}
       />
     );
   };
@@ -184,13 +233,16 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
         videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
         isVideoContents={true} 
         onPressBookmark={() => {updateVideosBookmark(index, videoDataInfo)}}
+        index={index}
+        showShare
+        link_node={item.link_node}
       />
     );
   };
   
 
   return (
-    <ScreenContainer edge={horizontalEdge} isLoading={isLoading || isVideoLoading}
+    <ScreenContainer edge={horizontalEdge} isLoading={isVideoLoading}
       isSignUpAlertVisible={showupUp}
       onCloseSignUpAlert={onCloseSignUpAlert} showPlayer={isShowPlayer}
       backgroundColor={styles.screenBackgroundColor?.backgroundColor} >
@@ -216,7 +268,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 });
 
 const customStyle = (theme: CustomThemeType) => {
-  const videoScreenStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       marginBottom: normalize(10)
     },
@@ -225,7 +277,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     screenBackgroundColor: {
       backgroundColor: theme.backgroundColor,
+    },
+    loaderStyle: {
+      margin: normalize(28) 
     }
   });
-  return videoScreenStyle;
 }

@@ -8,7 +8,7 @@ import {
   changePasswordSuccess,
   changePasswordFailed,
 } from './action';
-import { CHANGE_PASSWORD, EMPTY_PASSWORD_RESPONSE_INFO } from './actionTypes';
+import { CHANGE_PASSWORD } from './actionTypes';
 import { changePasswordApi  } from 'src/services/changePasswordService'
 
 export function* postNewPassword(action: SendChangePasswordType) {

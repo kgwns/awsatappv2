@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Image as RNImage } from 'react-native';
-import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader } from '../atoms';
+import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -82,7 +82,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       title:PODCAST_WIDGET_HEADER_LEFT,
       color: themeData.primaryBlack,
       labelType: LabelTypeProp.title3,
-      textStyle: { fontFamily: fonts.AwsatDigital_Black }
+      textStyle: isTab ? style.tabHeaderTextStyle : { fontFamily: fonts.AwsatDigital_Black }
     },
     headerRight: {
       title:PODCAST_WIDGET_HEADER_RIGHT,
@@ -96,7 +96,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       color: Styles.color.smokeyGrey,
       labelType: LabelTypeProp.h3,
       clickable: true,
-      textStyle: { fontFamily: fonts.Effra_Arbc_Medium }
+      textStyle: { fontFamily: fonts.Effra_Arbc_Regular }
     },
   };
 
@@ -161,6 +161,10 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     </View>
   )
 
+  const onPressPodcast = () => {
+    onPress(episodeData[0]);
+  }
+
   const renderMobile = (podcastData: any, index: number) => {
     if (!isObjectNonEmpty(podcastData)) {
       return null;
@@ -172,7 +176,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     const description = decodeHTMLTags(bodyInfo)
     return (
       <>
-        <View style={style.widgetHeaderContainer}>
+        <View style={isTab ? style.tabWidgetHeaderContainer : style.widgetHeaderContainer}>
           <WidgetHeader {...widgetHeaderData} onPress={onMorePress} />
         </View>
         <View style={style.podcastMobileContainer}>
@@ -198,84 +202,87 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
           </View>
           <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
             style={style.buttonStyle}
-            labelStyle={style.buttonLabel}
+            labelStyle={isTab ? style.tabTextStyle : style.buttonLabel}
             titleType={LabelTypeProp.h1}
-            onPress={() => onPress(podcastData)}
+            onPress={() => onPressPodcast()}
             rightIcon={() => playPauseIcon(podcastData)}
+            color={Styles.color.white}
           />
         </View>
       </>
     )
   }
+  // Enable when required Podcast List data which is displayed in Tab
+  // const renderPodcastItem = (podcastData: any, index: number) => {
+  //   if (!isObjectNonEmpty(podcastData)) {
+  //     return null;
+  //   }
+  //   const bodyInfo = isNotEmpty(podcastData?.body_export) ? 
+  //     podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? 
+  //     podcastData.field_podcast_sect_export.description : ''
+  //   const description = decodeHTMLTags(bodyInfo)
+  //   return (
+  //     <View style={style.podcastContainer}>
+  //         <View style={style.podcastItemContainer}>
+  //           <View style={style.podcastContentContainer}>
+  //             <Label
+  //               color={themeData.primary}
+  //               style={style.title}
+  //               children={podcastData?.title}
+  //             />
+  //             <Label
+  //               color={themeData.secondaryDavyGrey}
+  //               style={style.body}
+  //               children={description}
+  //               numberOfLines={2}
+  //             />
+  //           </View>
+  //           <View style={style.podcastImageContainer}>
+  //             <View style={style.imageWrapper}>
+  //               <Image
+  //                 fallback
+  //                 resizeMode="stretch"
+  //                 url={podcastData?.field_podcast_sect_export?.image}
+  //                 style={style.image}
+  //               />
+  //             </View>
+  //           </View>
+  //         </View>
+  //         <View style={style.podcastBottomContainer}>
+  //           <View style={style.listenCardContainer}>
+  //             <ListenToPodcast podcastData={podcastData} index={index} />
+  //           </View>
+  //           <View style={style.labelContainer}>
+  //             {/* <AllEpisodesCard/> enable when list of episodes available */}
+  //           </View>
+  //         </View>
+  //     </View>
+  //   )
+  // }
 
-  const renderPodcastItem = (podcastData: any, index: number) => {
-    if (!isObjectNonEmpty(podcastData)) {
-      return null;
-    }
-    const bodyInfo = isNotEmpty(podcastData?.body_export) ? 
-      podcastData?.body_export : isNotEmpty(podcastData.field_podcast_sect_export.description) ? 
-      podcastData.field_podcast_sect_export.description : ''
-    const description = decodeHTMLTags(bodyInfo)
-    return (
-      <View style={style.podcastContainer}>
-          <View style={style.podcastItemContainer}>
-            <View style={style.podcastContentContainer}>
-              <Label
-                color={themeData.primary}
-                style={style.title}
-                children={podcastData?.title}
-              />
-              <Label
-                color={themeData.secondaryDavyGrey}
-                style={style.body}
-                children={description}
-                numberOfLines={2}
-              />
-            </View>
-            <View style={style.podcastImageContainer}>
-              <View style={style.imageWrapper}>
-                <Image
-                  fallback
-                  resizeMode="stretch"
-                  url={podcastData?.field_podcast_sect_export?.image}
-                  style={style.image}
-                />
-              </View>
-            </View>
-          </View>
-          <View style={style.podcastBottomContainer}>
-            <View style={style.listenCardContainer}>
-              <ListenToPodcast podcastData={podcastData} index={index} />
-            </View>
-            <View style={style.labelContainer}>
-              {/* <AllEpisodesCard/> enable when list of episodes available */}
-            </View>
-          </View>
-      </View>
-    )
-  }
-
-  const tabletData = isNonEmptyArray(episodeData) && (episodeData.length > 2) ? episodeData.slice(0, 2) : episodeData
-  const renderTablet = () => (
-    <View style={style.tabletContainer}>
-      <FlatList
-        data={tabletData}
-        numColumns={2}
-        style={style.flatList}
-        listKey={flatListUniqueKey.TAB_PODCAST_HOME}
-        keyExtractor={(_, index) => index.toString()}
-        renderItem={({ item, index }) => renderPodcastItem(item, index)}
-      />
-    </View>
-  )
+  // const tabletData = isNonEmptyArray(episodeData) && (episodeData.length > 2) ? episodeData.slice(0, 2) : episodeData
+  // const renderTablet = () => (
+  //   <View style={style.tabletContainer}>
+  //     <FlatList
+  //       data={tabletData}
+  //       numColumns={2}
+  //       style={style.flatList}
+  //       listKey={flatListUniqueKey.TAB_PODCAST_HOME}
+  //       keyExtractor={(_, index) => index.toString()}
+  //       renderItem={({ item, index }) => renderPodcastItem(item, index)}
+  //     />
+  //   </View>
+  // )
 
   const podcastMobileData = isNonEmptyArray(episodeData) ? data[0] : {};
-  return isTab ? renderTablet() : renderMobile(podcastMobileData, 0)
 
+  // Enable when required
+  // return isTab ? renderTablet() : renderMobile(podcastMobileData, 0)
+  return renderMobile(podcastMobileData, 0)
 };
 
 const createStyles = (theme: CustomThemeType) => {
-  const podcastWidgetStyle = StyleSheet.create({
+  return StyleSheet.create({
     title: {
       textAlign: 'left',
       fontSize: 16,
@@ -284,9 +291,9 @@ const createStyles = (theme: CustomThemeType) => {
     },
     mobileTitle: {
       textAlign: 'center',
-      fontSize: 27,
+      fontSize: isTab ? 25 : 27,
       lineHeight: 36,
-      fontFamily: fonts.AwsatDigital_Bold,
+      fontFamily: isTab ? fonts.AwsatDigital_Black : fonts.AwsatDigital_Bold,
     },
     body: {
       textAlign: 'left',
@@ -296,9 +303,9 @@ const createStyles = (theme: CustomThemeType) => {
     },
     mobileBody: {
       textAlign: 'center',
-      fontSize: 14,
-      lineHeight: isIOS ? 20 : 24,
-      fontFamily: fonts.Effra_Regular,
+      fontSize: isTab ? 16 : 14,
+      lineHeight: isTab ? 24 : isIOS ? 20 : 24,
+      fontFamily: isTab ? fonts.Effra_Arbc_Regular : fonts.Effra_Regular,
     },
     image: {
       width: '100%',
@@ -392,13 +399,23 @@ const createStyles = (theme: CustomThemeType) => {
       lineHeight: 26,
       marginLeft: 3
     },
+    tabTextStyle: {
+      fontSize: 16,
+      lineHeight: 26,
+      fontFamily:fonts.AwsatDigital_Bold,
+      fontWeight:'700'
+    },
     rightIconStyle: {
       paddingRight: normalize(15),
     },
     widgetHeaderContainer: {
       paddingHorizontal: 0.04 * screenWidth,
       paddingBottom: normalize(10),
-      paddingTop: normalize(15)
+      paddingTop: normalize(15),
+    },
+    tabWidgetHeaderContainer: {
+      paddingBottom: 10,
+      paddingTop: 15,
     },
     podcastMobileContainer: {
       backgroundColor: colors.limeGreen,
@@ -408,13 +425,17 @@ const createStyles = (theme: CustomThemeType) => {
     podcastAlbumContainer: {
       width: 166,
       height: 158,
-      marginVertical: 30
+      marginVertical: 30,
     },
     podcastTextContainer: {
       paddingHorizontal: 0.06 * screenWidth
     },
+    tabHeaderTextStyle: { 
+      fontFamily: fonts.AwsatDigital_Black, 
+      fontSize: 25, 
+      lineHeight: 36
+    }
   });
-  return podcastWidgetStyle;
 };
 
 export default PodcastWidget;

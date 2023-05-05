@@ -9,11 +9,12 @@ interface ButtonOnboardProps {
     onPress?: () => void;
     titleStyle?: StyleProp<TextStyle>;
     buttonStyle?: StyleProp<ViewStyle>;
+    disabled?: boolean;
 }
 
 export const ButtonOnboard = (props: ButtonOnboardProps) => {
     return (
-        <TouchableOpacity onPress={props.onPress}>
+        <TouchableOpacity onPress={props.onPress} disabled={props.disabled ?? false}>
             <View
                 style={StyleSheet.flatten([styles.container, props.buttonStyle])}>
                 <Text style={StyleSheet.flatten([styles.titleStyle, props.titleStyle])}>

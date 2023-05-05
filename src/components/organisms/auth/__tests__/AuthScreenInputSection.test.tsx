@@ -61,4 +61,27 @@ describe('<AuthScreenInputSection>', () => {
       expect(mockFunction).toHaveBeenCalled;
     });
   });
+  describe('when AuthScreenInputSection only', () => {
+    beforeEach(() => {
+      const component = <AuthScreenInputSection
+        setChangeText={mockFunction}
+        navigateToSection={mockFunction}
+        setChangePassword={mockFunction}
+        onPressSignup={mockFunction}
+        goToPasswordScreen={mockFunction}
+        isPassword={false}
+        passwordTestID={'testid'}
+        showAlertNoInternet={mockFunction}
+      />;
+      instance = render(component);
+    });
+
+    afterEach(() => {
+      jest.clearAllMocks();
+      instance.unmount();
+    });
+    it('Should render AuthScreenInputSection', () => {
+      expect(instance).toBeDefined();
+    });
+  });
 });

@@ -23,6 +23,10 @@ jest.mock("src/hooks/useAppCommon", () => ({
   useAppCommon: jest.fn()
 }));
 
+jest.mock('react',() => ({
+  ...jest.requireActual('react'),
+  useCallBack:jest.fn(),
+}))
 describe('<ThemeProvider> with dark theme ', () => {
   let instance: RenderAPI;
   

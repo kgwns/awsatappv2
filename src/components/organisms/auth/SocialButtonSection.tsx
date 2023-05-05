@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleProp, ViewStyle, StyleSheet, Alert, Platform } from 'react-native';
+import { View, StyleProp, ViewStyle, StyleSheet, Alert, } from 'react-native';
 import { SocialLoginButton } from '../../atoms/social-login-button/SocialLoginButton';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {appleAuth} from '@invertase/react-native-apple-authentication';
@@ -7,7 +7,7 @@ import DeviceInfo from 'react-native-device-info';
 import FaceBookIcon from 'src/assets/images/icons/facebook_icon.svg';
 import GoogleIcon from 'src/assets/images/icons/google_icon.svg';
 import AppleIcon from 'src/assets/images/icons/apple_icon.svg';
-import { isIOS, normalize, recordLogEvent } from 'src/shared/utils';
+import { isIOS, isTab, normalize, recordLogEvent, recordLogLogin, recordLogSignUp, recordUserId } from 'src/shared/utils';
 import {LoginFactory,Connection}  from 'src/shared/utils/loginFactory';
 import {NavigateTypes} from 'src/components/screens';
 import {RegisterBodyType} from 'src/redux/register/types';
@@ -20,7 +20,7 @@ import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constant
 import { appleSignin } from 'src/shared/utils/appleSignin';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
-import { AccessToken } from 'react-native-fbsdk-next';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 interface SocialButtonSectionProps {
   onButtonPress?: (type: string) => void;
@@ -46,27 +46,27 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
 
   const { emptySearchHistory } = useSearch();
 
-  const onSuccessSocialLogin = (userInfo:any,provider='google')=>{
+  const onSuccessSocialLogin = (userInfo:any,loginProvider='google')=>{
     const userDetails = userInfo.user
     const payload: RegisterBodyType = {
       email: userDetails.email,
       device_name:deviceName,
       first_name:userDetails.givenName,
       last_name:userDetails.familyName,
-      provider: provider,
+      provider: loginProvider,
       provider_id:userDetails.id,
     };
-    if(provider === 'facebook' && userDetails.profile_url){
+    if(loginProvider === 'facebook' && userDetails.profile_url){
       payload.profile_url = userDetails.profile_url
     }   
-    if (provider === 'google' && userInfo) {
+    if (loginProvider === 'google' && userInfo) {
       payload.profile_url = userInfo.user.photo
     }
-    console.log(payload, userInfo);
+    recordLogSignUp({method: payload.provider})
     createUserRequest(payload);
   }
 
-  const onResult = (userInfo:any,success:boolean, provider:string, message?:String)=>{
+  const onResult = (userInfo:any,success:boolean, provider:string, message?:string)=>{
     if(success){
       onSuccessSocialLogin(userInfo,provider)
     }else{
@@ -115,6 +115,8 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
     const message = registerUserInfo?.message;
     if (message) {
       if (message.code === 200) {
+        const userId = registerUserInfo?.user?.id?.toString();
+        recordUserId(userId);
         emptySearchHistory();
         dispatch(fetchLoginSuccess({ loginData: registerUserInfo }));
         navigation.reset({
@@ -134,20 +136,22 @@ export const SocialButtonSection: FunctionComponent<SocialButtonSectionProps> =(
       fullName,
     } = response;
     const payload: RegisterBodyType = {
-      email: email ,
+      email,
       provider_id: user,
       provider: 'apple',
       device_name: deviceName,
       first_name: fullName.givenName,
       last_name: fullName.familyName,
     };
+    recordLogSignUp({method: payload.provider});
     createUserRequest(payload);
   };
 
   //-------end AppleSignin--
 
   const buttonPressAction = (type: string) => {
-    recordLogEvent('Login');
+    recordLogEvent(AnalyticsEvents.LOGIN);
+    recordLogLogin({method: type});
     switch (type) {
       case NavigateTypes.google:
         const googleSignIn = LoginFactory.getInstance(Connection.Google,onResult);
@@ -208,10 +212,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   labelStyle: {
-    fontSize: normalize(16)
+    fontSize: isTab ? 16 : normalize(16)
   },
   labelContainer: {
     justifyContent:'flex-start',
+    height: isIOS ? 48 : 45,
+    borderRadius: 25,
+    paddingHorizontal: 15,
+    paddingVertical: 8,
+    marginVertical: 7
   },
   textContainer:{
     alignItems:'flex-start',

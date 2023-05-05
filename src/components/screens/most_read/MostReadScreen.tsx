@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { MostReadList } from 'src/components/organisms';
 import { ScreenContainer } from '..'
-import { horizontalEdge } from 'src/shared/utils';
+import { horizontalEdge, isTab } from 'src/shared/utils';
 import { useMostRead } from 'src/hooks';
 
 export const MostReadScreen = () => {
@@ -16,7 +16,7 @@ export const MostReadScreen = () => {
   }, []);
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={isLoading}>
-      {!isLoading && <MostReadList data={mostReadData} enableTag />}
+      {!isLoading && <MostReadList data={mostReadData} enableTag={true} />}
     </ScreenContainer>
   )
 }

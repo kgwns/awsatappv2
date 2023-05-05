@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   StyleProp,
   ViewStyle,
-  Dimensions,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
@@ -19,15 +18,13 @@ import {useNavigation} from '@react-navigation/native';
 import {ImagesName} from 'src/shared/styles';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {AlertModal, PopUp} from 'src/components/organisms';
-import {ScreensConstants} from 'src/constants/Constants';
+import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
 import { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import TrackPlayer from 'react-native-track-player';
 import { PodCastMiniPlayer } from 'src/components/molecules';
 import  { useAppPlayer } from 'src/hooks/useAppPlayer';
 import { fonts } from 'src/shared/styles/fonts';
-import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
-
 
 export interface AlertPayloadType {
   title: string;
@@ -55,6 +52,7 @@ export interface ScreenContainerProps {
   showPlayer?: boolean;
   isLandscape?: boolean;
   backgroundColor?: string;
+  isAlertCloseIconVisible?: boolean;
 }
 
 export const ScreenContainer = ({
@@ -77,6 +75,7 @@ export const ScreenContainer = ({
   showPlayer = true,
   isLandscape = false,
   backgroundColor = '',
+  isAlertCloseIconVisible = true
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -147,7 +146,6 @@ export const ScreenContainer = ({
   return (
       <SafeAreaView
         style={[style.container,
-          !isLandscape && {width: screenWidth, height: screenHeight},
           isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor}
         ]} // Intensively added inline style to update screen size when rotate
         edges={edge ? edge : ['left', 'right', 'top']}>
@@ -188,6 +186,7 @@ export const ScreenContainer = ({
             isVisible={isAlertVisible}
             onPressSuccess={alertOnPress}
             onClose={() => setIsAlertVisible && setIsAlertVisible(false)}
+            isCloseIconVisible = {isAlertCloseIconVisible}
           />
         )}
 
@@ -204,7 +203,7 @@ export const ScreenContainer = ({
 };
 
 const createStyles = (theme: CustomThemeType) => {
-  const styles = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
@@ -260,5 +259,4 @@ const createStyles = (theme: CustomThemeType) => {
       right: 15
     }
   });
-  return styles;
 };

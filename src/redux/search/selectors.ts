@@ -12,4 +12,3 @@ export const getSearchError: Selector<string> = (state: AppState) =>
 
 export const getSearchHistory: Selector<string[]> = (state: AppState) =>
   state.search.searchHistory;
-  

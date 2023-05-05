@@ -20,7 +20,7 @@ export interface ImageLabelProps {
     tagLabelType?: LabelType,
     imageStyle?: ImageStyle,
     onPressImage?: () => void,
-    isAlbum: boolean,
+    isAlbum?: boolean,
     displayType?: string;
 }
 

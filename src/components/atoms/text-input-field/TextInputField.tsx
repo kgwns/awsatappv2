@@ -82,6 +82,9 @@ interface TextInputfieldProps {
   leftIconStyle?: StyleProp<ViewStyle>;
   multiline?: boolean;
   textInputStyle?: StyleProp<TextInputProps>;
+  tabErrorTextStyle?: StyleProp<TextStyle>;
+  tabStarLabelStyle?: StyleProp<TextStyle>;
+  placeholderTextColor?: string;
 }
 export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   placeholder,
@@ -106,6 +109,9 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   leftIconStyle,
   multiline = false,
   textInputStyle,
+  tabErrorTextStyle,
+  tabStarLabelStyle,
+  placeholderTextColor,
   ...props
 }) => {
   const { themeData } = useTheme();
@@ -137,9 +143,9 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
               accessibilityLabel={testID}
               autoFocus={autoFocus}
               placeholder={placeholder}
-              placeholderTextColor={themeData.textColor}
+              placeholderTextColor={placeholderTextColor ?? themeData.textColor}
               value={value.toString()}
-              style={StyleSheet.flatten([styles.textInputStyle, textInputStyle])}
+              style={StyleSheet.flatten([styles.textInputStyle, textInputStyle,placeholderStyle])}
               underlineColorAndroid="transparent"
               onFocus={handleFocus}
               onBlur={handleBlur}
@@ -169,10 +175,10 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
           </TouchableOpacity>
           }
         </View>
-        {isMandatory && <View style={styles.starContainer}><Label children={'*'} color={colors.greenishBlue} style={styles.starLabelStyle} /></View>}
+        {isMandatory && <View style={styles.starContainer}><Label children={'*'} color={colors.greenishBlue} style={[styles.starLabelStyle,tabStarLabelStyle]} /></View>}
       </View>
       <View style={[styles.errorTextContainer, errorStyle]}>
-        <Label style={styles.errorTextStyle}>{error}</Label>
+        <Label style={[styles.errorTextStyle,tabErrorTextStyle]}>{error}</Label>
       </View>
     </View>
   );

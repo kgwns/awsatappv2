@@ -10,7 +10,7 @@ interface NextButtonProps {
   onPress: () => void;
   style: {
     nextButtonContainer: {};
-    nextButtonIconContainer: {};
+    nextButtonIconContainer?: {};
     nextButtonText: {};
   };
   icon?:boolean
@@ -31,7 +31,7 @@ export const NextButton: FunctionComponent<NextButtonProps> = ({
       disabled={disabled}
       onPress={onPress}
       testID={testID}
-      style={style.nextButtonContainer}>
+      style={[style.nextButtonContainer, disabled && {opacity: 0.6}]}>
     {  icon && <View style={style.nextButtonIconContainer}>
         {getSvgImages({
           name: ImagesName.arrowNext,

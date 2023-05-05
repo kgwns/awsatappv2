@@ -30,7 +30,7 @@ export const ArticleImageView = ({
     const onPress = (nid: string, isAlbum: boolean) => {
         if (isNotEmpty(nid)) {
             const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
-            navigation.navigate(screenName, { nid: nid });
+            navigation.navigate(screenName, { nid });
         }
     }
     
@@ -78,12 +78,12 @@ export const ArticleImageView = ({
                     new Date().getTime().toString()
                 }
                 showsVerticalScrollIndicator={false}
-                contentContainerStyle={style.contentContainer}
+                contentContainerStyle={ !isTab && style.contentContainer}
                 data={data}
                 ItemSeparatorComponent={() => renderItemSeparatorComponent()}
                 renderItem={({ item, index }) => renderItem(item, index)}
             />
-            <View style={style.dividerContainer}>
+            <View style={!isTab && style.dividerContainer}>
                 <Divider style={style.divider} />
             </View>
         </View>

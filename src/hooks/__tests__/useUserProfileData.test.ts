@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import { EMPTY_USER_PROFILE_DATA, FETCH_PROFILE_USER_DETAILS } from 'src/redux/profileUserDetail/actionTypes';
 import {
   useUserProfileData,
-  useUserProfileDetail,
+  UseUserProfileDetail,
 } from '../useUserProfileData';
 
 jest.mock('react-redux', () => ({
@@ -12,14 +12,14 @@ jest.mock('react-redux', () => ({
 }));
 
 describe('#useUserProfileData', () => {
-  let result: RenderHookResult<undefined, useUserProfileDetail>;
+  let result: RenderHookResult<undefined, UseUserProfileDetail>;
 
   const dispatchMock = jest.fn();
 
   beforeAll(() => {
     (useDispatch as jest.Mock).mockReturnValueOnce(dispatchMock);
 
-    result = renderHook<undefined, useUserProfileDetail>(() =>
+    result = renderHook<undefined, UseUserProfileDetail>(() =>
       useUserProfileData(),
     );
   });

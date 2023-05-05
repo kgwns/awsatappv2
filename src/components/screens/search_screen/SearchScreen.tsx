@@ -3,7 +3,7 @@ import { ScreenContainer } from '..';
 import {useNavigation} from '@react-navigation/native';
 import {View, StyleSheet, TouchableOpacity } from 'react-native';
 import { SearchList } from 'src/components/organisms/';
-import { isNotEmpty, normalize } from 'src/shared/utils';
+import { isNotEmpty, isTab, normalize } from 'src/shared/utils';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { useSearch } from 'src/hooks';
 import { SearchItemType } from 'src/redux/search/types';
@@ -44,18 +44,18 @@ export const SearchScreen = () => {
     const newHistoryArray: string[] = [text , ...filterHistoryArray];
     setSearchHistory(newHistoryArray.length > 15 ? newHistoryArray.slice(0, 15) : newHistoryArray);
   }
-
-  
-
   return (
     <ScreenContainer backgroundColor={styles.screenBackgroundColor?.backgroundColor}>
-        <View style={styles.container}>
-          <View style={styles.headerContainer}>
+        <View style={isTab ? styles.tabContainer : styles.container}>
+          <View style={isTab ? styles.tabHeaderContainer : styles.headerContainer}>
             <TouchableOpacity
               testID='search_goBack'
               accessibilityLabel='search_goBack'
               onPress={() => navigation.goBack()}>
-              <CloseIcon fill={themeData.secondaryDarkSlate} />
+              {
+                isTab ? <CloseIcon fill={themeData.primaryBlack} width={23} height={23} /> :
+                  <CloseIcon fill={themeData.secondaryDarkSlate} />
+              }
             </TouchableOpacity>
           </View>
           <SearchList
@@ -71,8 +71,6 @@ export const SearchScreen = () => {
               onSearchTextChange(text)
             }}
           />
-          
-          
         </View>
     </ScreenContainer>
   );
@@ -91,8 +89,18 @@ StyleSheet.create({
     justifyContent: 'center',
   },
   screenBackgroundColor: {
-    backgroundColor: theme.profileBackground
-  }
+    backgroundColor: isTab ? theme.mainBackground  : theme.profileBackground
+  },
+  tabContainer: {
+    flex: 1,
+  },
+  tabHeaderContainer: {
+    alignItems: 'flex-end',
+    height: 55,
+    justifyContent: 'center',
+    marginBottom: 30,
+    padding: 50
+  },
 })
 
 

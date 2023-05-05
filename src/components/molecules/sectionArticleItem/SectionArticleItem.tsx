@@ -3,12 +3,14 @@ import {
   Text,
   StyleSheet,
   ImageStyle,
+  StyleProp,
+  ViewStyle,
 } from 'react-native';
 import React from 'react';
 import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
 import { ImageWithLabel} from 'src/components/atoms/imageWithLabel/ImageWithLabel';
 import { Label, LabelTypeProp} from 'src/components/atoms/label/Label';
-import {isNotEmpty, isTab, normalize} from 'src/shared/utils';
+import {isDarkTheme, isNotEmpty, isTab, normalize} from 'src/shared/utils';
 import {moleculesTestID, ScreensConstants} from '../../../constants/Constants';
 import {Styles} from '../../../shared/styles';
 import {ImagesName} from '../../../shared/styles/images';
@@ -22,6 +24,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { decode } from 'html-entities';
+import { useAppCommon } from 'src/hooks';
 
 export interface SectionArticleItemProps {
   headerTitle?: string;
@@ -41,7 +44,8 @@ export interface SectionArticleItemProps {
   isBookmarked: boolean
   onPressBookmark: () => void
   showDivider?: boolean
-  displayType?: string;
+  displayType?: string,
+  articleTextStyle?: StyleProp<ViewStyle>
 }
 const SectionArticleItem = ({
     headerTitle,
@@ -62,32 +66,37 @@ const SectionArticleItem = ({
     onPressBookmark,
     showDivider = true,
     displayType,
+    articleTextStyle
 }: SectionArticleItemProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const onPress = () => {
     if (nid) {
-      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: nid});
+      navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid});
     }
   };
   const style = useThemeAwareObject(customStyle);
   const {themeData} = useTheme();
+  const { theme } = useAppCommon();
+  const isDarkMode = isDarkTheme(theme)
   return (
     <View style={style.sectionArticleItem}>
       <TouchableWithoutFeedback testID={'onPressTestID'} onPress={onPress}>
-        {image && <ImageWithLabel url={image} imageStyle={imageStyle} displayType={displayType}/>}
+        {image && !isTab && <ImageWithLabel url={image} imageStyle={imageStyle} displayType={displayType}/>}
         <View style={style.sectionContent}>
           <Label
-            labelType={LabelTypeProp.h2}
+            labelType={ isTab ? LabelTypeProp.title4 : LabelTypeProp.h2}
             children={decode(headerTitle)}
             color={themeData.primaryBlack}
+            style = {articleTextStyle}
           />
-          <Label
+         { !isTab && <Label
             labelType={LabelTypeProp.p3}
             children={body}
-            color={themeData.summaryColor}
+            color={ isDarkMode ? themeData.summaryColor : isTab ? Styles.color.green600 : themeData.summaryColor}
             numberOfLines={3}
-          />
+            testID={'bodyId'}
+          />}
         </View>
       </TouchableWithoutFeedback>
       <View
@@ -97,7 +106,7 @@ const SectionArticleItem = ({
             : style.hideFooterContainer
         }>
         {!hideFooter && (
-          <View style={style.footerContainer}>
+          <View style={style.footerContainer} testID={'footerContainerId'}>
             {(leftIcon || isNotEmpty(leftTitle)) &&
               <CaptionWithImage
                 title={leftTitle}
@@ -106,7 +115,7 @@ const SectionArticleItem = ({
                 style={style.leftTitle}
               />}
             {((isNotEmpty(leftTitle) || leftIcon) && (isNotEmpty(rightTitle) || rightIcon)) &&
-              <Text children={'|'} style={style.verticalDivider} />}
+              <Text children={'|'} style={style.verticalDivider} testID={'verticalDividerId'} />}
             {(rightIcon || isNotEmpty(rightTitle)) &&
               <CaptionWithImage
                 title={rightTitle}
@@ -144,7 +153,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: normalize(20),
+    paddingTop: isTab ? 10 : normalize(20),
   },
   hideFooterContainer: {
     flexDirection: 'row',
@@ -163,10 +172,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     backgroundColor: theme.dividerColor
   },
   sectionContent: {
-    paddingTop: isTab ? normalize(15) : normalize(10)
+    paddingTop: isTab ? 0 : normalize(10)
   },
   sectionArticleItem: {
-    paddingBottom: normalize(20),
+    paddingBottom: isTab ? 0 : normalize(20),
     backgroundColor: theme.backgroundColor,
     overflow: 'hidden'
   },

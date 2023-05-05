@@ -41,6 +41,10 @@ import {
   PhotoGalleryDetailScreen,
   JournalistDetail,
   PodcastEpisodeModal,
+  DMAIntroductionScreen,
+  DMAOptionsListScreen,
+  DMAFeedbackScreen,
+  DMADeleteAccountScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
@@ -92,6 +96,10 @@ export const Routes = {
   PhotoGalleryDetailScreen,
   JournalistDetail,
   PodcastEpisodeModal,
+  DMAIntroductionScreen,
+  DMAOptionsListScreen,
+  DMAFeedbackScreen,
+  DMADeleteAccountScreen,
 };
 
 /**
@@ -161,7 +169,8 @@ const myNewsScreen = 'myNewsScreen' as ScreenName
 const photoGalleryDetailScreen = 'photoGalleryDetailScreen' as ScreenName
 const journalistDetail = 'journalistDetail' as ScreenName;
 const PodcastEpisodeModalScreen = 'PodcastEpisodeModalScreen' as ScreenName;
-
+const dmaIntroductionScreen = 'DMAIntroductionScreen' as ScreenName;
+const dmaOptionsList = 'DMAOptionsListScreen' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -195,4 +204,6 @@ export const RoutesName = {
   photoGalleryDetailScreen,
   journalistDetail,
   PodcastEpisodeModalScreen,
+  dmaIntroductionScreen,
+  dmaOptionsList,
 };

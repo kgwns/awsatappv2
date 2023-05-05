@@ -11,20 +11,37 @@ import AppPlayer from 'src/shared/utils/appPlayer';
 import { GetFCMToken } from 'src/firebase/notification/notification';
 import TrackPlayer from 'react-native-track-player';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
-import { isIOS } from 'src/shared/utils';
+import { isIOS, isTab } from 'src/shared/utils';
 import { FetchArabicData } from 'src/firebase/RemoteConfig/RemoteConfig';
+import { Adjust } from 'react-native-adjust';
 
 const App = () => {
 
   const permissionDelay = isIOS ? 4000 : 5500;
   
   useEffect(() => {
-    Orientation.lockToPortrait()
+    isTab ? Orientation.unlockAllOrientations : Orientation.lockToPortrait()
   }, [])
 
   useEffect(() => {
     setTimeout(() => {
       checkPermission()
+      Adjust.requestTrackingAuthorizationWithCompletionHandler(function (status) {
+        switch (status) {
+          case 0:
+            // ATTrackingManagerAuthorizationStatusNotDetermined case   //  The user hasn't been asked yet
+            break;
+          case 1:
+            // ATTrackingManagerAuthorizationStatusRestricted case     //  The user device is restricted
+            break;
+          case 2:
+            // ATTrackingManagerAuthorizationStatusDenied case    //  The user denied access to IDFA
+            break;
+          case 3:
+            // ATTrackingManagerAuthorizationStatusAuthorized case  //  The user authorized access to IDFA
+            break;
+        }
+      });
     }, permissionDelay)
   }, [])
 

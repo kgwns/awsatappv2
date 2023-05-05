@@ -1,6 +1,5 @@
 import React, {FunctionComponent} from 'react';
 import {TouchableOpacity, View, StyleSheet} from 'react-native';
-import {Image} from 'src/components/atoms';
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -12,7 +11,7 @@ import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import CloseIcon from 'src/assets/images/icons/close.svg';
 import { fonts } from 'src/shared/styles/fonts';
-import { TranslateConstants,TranslateKey } from 'src/constants/Constants';
+import {  TranslateConstants,TranslateKey } from 'src/constants/Constants';
 
 export interface PodcastProgramHeaderProps {
   headerBackIconTestId?: string;
@@ -77,7 +76,7 @@ export const PodcastProgramHeader: FunctionComponent<PodcastProgramHeaderProps> 
     );
   };
   return (
-    <View style={[styles.containerStyle,]}>
+    <View style={styles.containerStyle}>
       {renderLeftComponent()}
       <View style={styles.titleContainerWrapper}>
         {showLogo && getSvgImages({

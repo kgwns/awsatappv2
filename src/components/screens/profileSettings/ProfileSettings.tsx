@@ -4,29 +4,26 @@ import {
   FlatList,
   ListRenderItem,
   TouchableOpacity,
-  NativeModules
 } from 'react-native';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { horizontalEdge, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth } from 'src/shared/utils';
-import { ButtonImage, ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
+import { horizontalEdge, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTab, normalize, screenWidth } from 'src/shared/utils';
+import { ButtonOutline, Divider, Label, LabelTypeProp } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { ToggleWithLabel } from 'src/components/molecules';
 import { useDispatch } from 'react-redux';
 import { storeAppTheme } from 'src/redux/appCommon/action';
 import { ServerEnvironment, Theme } from 'src/redux/appCommon/types';
-import { useAppCommon, useBookmark, useKeepNotified, useLogin, useUserProfileData, useAllSiteCategories, useAllWriters, useSearch, useNotificationSaveToken  } from 'src/hooks';
+import { useAppCommon, useLogin, useUserProfileData } from 'src/hooks';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { AlertPayloadType } from 'src/components/screens/ScreenContainer/ScreenContainer';
 import RNRestart from 'react-native-restart'
 import { fonts } from 'src/shared/styles/fonts';
-import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
-import { LoginManager } from "react-native-fbsdk-next";
 
 export type SettingDataType = {
   iconName: ImagesName,
@@ -34,21 +31,20 @@ export type SettingDataType = {
   screenName: string,
 }
 
-const { ReactTheme } = NativeModules;
 export const ProfileSettings = () => {
   const dispatch = useDispatch()
   const navigation = useNavigation<StackNavigationProp<any>>();
 
   const style = useThemeAwareObject(customStyle);
 
-const { theme, serverEnvironment, storeServerEnvironmentInfo, resetFontSizeInfo  } = useAppCommon();
-const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSaveToken();
+    const { theme, serverEnvironment, storeServerEnvironmentInfo } = useAppCommon();
+    const { makeUserLogout, isLoggedIn } = useLogin();
+    const { userProfileData } = useUserProfileData();
 
-  const { removeBookmark } = useBookmark()
-  const { removeKeepNotificationInfo } = useKeepNotified()
   const isDark = isDarkTheme(theme);
   const [isDarkMode, setIsDarkMode] = useState<boolean>(isDark);
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const themToggleReference = useRef<any>(null)
 
   const CONST_MANAGE_NOTIFICATION = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION});
   const CONST_MANAGE_NEWS =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NEWS});
@@ -67,6 +63,7 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
   const PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE});
   const PROFILE_SETTING_DEBUG =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_DEBUG});
   const PROFILE_SETTING_PRODUCTION =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_PRODUCTION});
+  const CONST_DELETE_MY_ACCOUNT = TranslateConstants({key:TranslateKey.PROFILE_SETTING_DELETE_MY_ACCOUNT});
 
 
   const signOutAlertPayload : AlertPayloadType = {
@@ -120,24 +117,31 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
     //       screenName: ''
     //   },
       {
+          iconName: ImagesName.deleteUserIcon,
+          title: CONST_DELETE_MY_ACCOUNT,
+          screenName: ScreensConstants.DMA_INTRODUCTION_SCREEN
+      },
+      {
           iconName: ImagesName.exit,
           title: CONST_EXIT,
           screenName: ''
       }
   ]
 
-  const { fetchLogoutRequest, isLoggedIn } = useLogin();
-  const { emptySearchHistory } = useSearch();
-  const { userProfileData,emptyUserProfileInfoData } = useUserProfileData();
-  const { emptySelectedTopicsInfoData } = useAllSiteCategories();
-  const { emptySelectedAuthorsInfoData } = useAllWriters();
+    const onPressToggle = (isOn: boolean) => {
+        requestAnimationFrame(() => {
+            setIsDarkMode(!isOn);
+            clearTimeout(themToggleReference.current)
+            themToggleReference.current = setTimeout(() => {
+                makeStoreTheme(isOn);
+            }, 500);
+        });
+    };
 
-  const onPressToggle = (isOn: boolean) => {
-      const themeData = isOn ? Theme.LIGHT : Theme.DARK;
-      dispatch(storeAppTheme(themeData));
-      //ReactTheme.getReactTheme(themeData)
-      setIsDarkMode(!isOn);
-  };
+    const makeStoreTheme = (isOn: boolean) => {
+        const themeData = isOn ? Theme.LIGHT : Theme.DARK;
+        dispatch(storeAppTheme(themeData));
+    };
 
     const onPressToggleServer = () => {
         const newServerType = serverEnvironment === ServerEnvironment.DEBUG ? ServerEnvironment.PRODUCTION : ServerEnvironment.DEBUG
@@ -156,38 +160,8 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
       }
   }
 
-  const unlinkFcmToken = () => {
-    if(saveTokenData?.id){
-        const payload: SaveTokenAfterRegistraionBodyType = {
-          id: (saveTokenData?.id).toString(),
-          uid: -1,
-        };
-        saveTokenAfterRegistrationRequest(payload);
-      }
-    }
-    
-  const logoutFromfacebook = () => {
-    try {
-      if (userProfileData?.user?.provider === 'facebook') {
-        LoginManager.logOut();
-      }
-    } catch {
-      return;
-    }
-  };
-
   const logout = () => {
-    logoutFromfacebook()
-    recordLogEvent('Logout');
-    fetchLogoutRequest();
-    unlinkFcmToken();
-    removeBookmark()
-    removeKeepNotificationInfo()
-    emptyUserProfileInfoData();
-    emptySelectedTopicsInfoData()
-    emptySelectedAuthorsInfoData()
-    emptySearchHistory();
-    resetFontSizeInfo();
+    makeUserLogout();
     navigation.reset({
         index: 0,
         routes: [{ name: ScreensConstants.AuthNavigator }],
@@ -257,8 +231,9 @@ const { saveTokenAfterRegistrationRequest, saveTokenData } = useNotificationSave
         </>
     )
 
-  const email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
-  const usernameStyle = isNotEmpty(email) && email!.length > 24 && {width: '100%'}  
+  const _email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
+  const email = _email !== undefined ? _email : '';
+  const usernameStyle = isNotEmpty(email) && email.length > 24 && {width: '100%'}  
   const welcomeView = () => (
       <View style={style.title}>
           <Label
@@ -347,7 +322,7 @@ const customStyle = (theme: CustomThemeType) =>
       },
       titleDivider: {
           backgroundColor: Styles.color.greenishBlue,
-          width: screenWidth,
+          width: '100%',
           height: 1,
           marginStart: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
       },

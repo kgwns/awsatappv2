@@ -28,4 +28,6 @@ export { useContactUs } from 'src/hooks/useContactUs'
 export { useWeatherDetails } from 'src/hooks/useWeatherDetails'
 export { usePhotoGallery } from 'src/hooks/usePhotoGallery'
 export { useJournalist } from 'src/hooks/useJournalist';
-
+export { useOrientation } from 'src/hooks/useOrientation';
+export { useFetchPodcastData } from 'src/hooks/useFetchPodcastData';
+export { useDeleteMyAccount } from 'src/hooks/useDeleteMyAccount';

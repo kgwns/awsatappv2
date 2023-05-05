@@ -15,7 +15,6 @@ export const registerUser = async (body: RegisterBodyType) => {
     );
     return response;
   } catch (error) {
-    const errorResponse = error as AxiosError;
-    throw errorResponse;
+    throw error as AxiosError;
   }
 };

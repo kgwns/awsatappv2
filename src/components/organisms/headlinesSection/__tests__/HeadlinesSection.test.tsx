@@ -15,13 +15,13 @@ const videoTabInfo: LatestArticleDataType[] = [
     created: 'أمريكا',
     body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
     isBookmarked: true,
-    news_categories: {
+    news_categories: [{
       id: 'example',
       title: 'example',
       url: 'example',
       bundle: 'example',
       name: 'example',
-    },
+    }],
   },
   {
     title:
@@ -65,40 +65,6 @@ const videoTabInfo1: LatestArticleDataType[] = [
       'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
     image: 'https://picsum.photos/300/200',
     nid: null,
-    author: 'أمريكا',
-    created: 'أمريكا',
-    body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    isBookmarked: true,
-    news_categories: {
-      id: 'example',
-      title: 'example',
-      url: 'example',
-      bundle: 'example',
-      name: 'example',
-    },
-  },
-  {
-    title:
-      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-    image: 'https://picsum.photos/300/200',
-    nid: null,
-    author: 'أمريكا',
-    created: 'أمريكا',
-    body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
-    isBookmarked: true,
-    news_categories: {
-      id: 'example',
-      title: 'example',
-      url: 'example',
-      bundle: 'example',
-      name: 'example',
-    },
-  },
-  {
-    title:
-      'غرق عشرات المهاجرين بالقنال الإنجليزي… لندن وباريس يتبادلات الاتهامات',
-    image: 'https://picsum.photos/300/200',
-    nid: '2',
     author: 'أمريكا',
     created: 'أمريكا',
     body: 'تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، اليوم الأربعاء، بدعم مجموعة من المخترقين نفذوا هجمات ببرامج فدية تستهدف أشخاصًا في الولايات المتحدة وأستراليا.',
@@ -164,7 +130,6 @@ describe('<Favorite Video Component >', () => {
 describe('<HeadlinesSection >', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
-  
   beforeEach(() => {
     const component = <HeadlinesSection tickerData={videoTabInfo1} loop={false} headlineTitle={'المهاجرين'} headlineDescription={'أمريكا'} duration = {3000} />
     instance = render(component)
@@ -197,4 +162,22 @@ describe('<HeadlinesSection >', () => {
     fireEvent(testItemId, 'onLayout', { nativeEvent: { layout: { width: 20 } } });
     expect(mockFunction).toBeTruthy();
   });
+})
+
+describe('<Favorite Video Component >', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  beforeEach(() => {
+    jest.useFakeTimers();
+    (useState as jest.Mock).mockImplementation(() => [810,mockFunction]);
+
+    const component = <HeadlinesSection tickerData={videoTabInfo} barColor={'red'} headlineDescriptionColor={'red'} repeatSpacer={20} marqueeDelay={10} loop={true} headlineTitle={'المهاجرين'} headlineTitleColor={'red'} headlineDescription={'أمريكا'} />
+    instance = render(component)
+  })
+
+  it('Should render the component', () => {
+    jest.useFakeTimers();
+    expect(instance).toBeDefined()
+    expect(mockFunction).toHaveBeenCalled();
+  })
 })

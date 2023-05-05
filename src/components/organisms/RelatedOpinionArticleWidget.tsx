@@ -49,7 +49,7 @@ export const RelatedOpinionArticlesWidget = ({ data, onScroll, isLoading, onPres
 
   return (
     <View>
-      <View style={style.conatiner}>
+      <View style={style.container}>
         {headerComponent()}
         <FlatList
           data={data}
@@ -66,8 +66,8 @@ export const RelatedOpinionArticlesWidget = ({ data, onScroll, isLoading, onPres
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const RelatedOpinionArticlesWidgetStyle = StyleSheet.create({
-    conatiner: {
+  return StyleSheet.create({
+    container: {
       backgroundColor: theme.backgroundColor,
       paddingTop: 0.03 * screenWidth,
       paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
@@ -94,5 +94,4 @@ const customStyle = (theme: CustomThemeType) => {
        margin: normalize(28) 
     }
   });
-  return RelatedOpinionArticlesWidgetStyle;
 };

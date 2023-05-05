@@ -93,6 +93,14 @@ describe('Test Album List  error', () => {
         genObject.next();
         genObject.throw(errorResponse);
     });
+    it('check Album List failed', () => {
+        const genObject = fetchAlbumList({
+            type: FETCH_ALBUM_LIST,
+            payload: { page: mockPage },
+        });
+        genObject.next();
+        genObject.throw({});
+    });
 });
 
 describe('Test Album Detail success', () => {
@@ -115,5 +123,13 @@ describe('Test Album Detail  error', () => {
         });
         genObject.next();
         genObject.throw(errorResponse);
+    });
+    it('check  Album Detail failed', () => {
+        const genObject = fetchAlbumDetail({
+            type: FETCH_ALBUM_DETAIL,
+            payload: { nid: mockPage },
+        });
+        genObject.next();
+        genObject.throw({});
     });
 });

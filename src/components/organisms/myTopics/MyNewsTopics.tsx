@@ -1,7 +1,7 @@
 import { View, StyleSheet, FlatList } from 'react-native'
 import React, { useEffect, useMemo, useState } from 'react'
 import { MyTopicsHorizontalSlider, ArticleItem } from 'src/components/molecules'
-import { isNonEmptyArray, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils'
+import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useAllSiteCategories, useContentForYou } from 'src/hooks'
 import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
@@ -248,9 +248,10 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         aspectRatio: 1.34,
     },
     tabImageStyle: {
-        width: 0.5 * screenWidth,
-        height: 'auto',
-        aspectRatio: 1.34,
+        // Enable when New UI change requested
+        // width: 0.5 * screenWidth,
+        // height: 'auto',
+        // aspectRatio: 1.34,
     },
     listContainer: {
         flex: 1,
@@ -277,6 +278,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     itemContainer: {
         flex: 1,
+        marginHorizontal: (isTab ? 0.03 : 0) * screenWidth
     },
     articleContainer: {
         paddingHorizontal: (isTab ? 0.02 : 0.04) * screenWidth

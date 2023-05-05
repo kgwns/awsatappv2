@@ -39,17 +39,15 @@ export const NewPassword = () => {
     const [confirmPasswordError, setonfirmPasswordError] = useState('');
 
     const navigateToSection = (type: string) => {
-        switch (type) {
-          case NavigateTypes.termsAndConditions:
+        if (type === NavigateTypes.termsAndConditions) {
             navigation.navigate(ScreensConstants.TERMS_AND_ABOUT_US, {
                 title: CONST_TERMS_AND_CONDITION,
                 id: TERMS_AND_CONDITION,
-              });
-            return;
-          default:
+            });
+        } else {
             navigation.reset({
-              index: 0,
-              routes: [{ name: ScreensConstants.OnBoardNavigator }],
+                index: 0,
+                routes: [{ name: ScreensConstants.OnBoardNavigator }],
             });
         }
       };

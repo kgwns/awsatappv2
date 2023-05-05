@@ -116,7 +116,7 @@ export const ArticleRectangleCard = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const ArticleRectangelCardStyle = StyleSheet.create({
+  return StyleSheet.create({
     mainContainer: {
       width: normalize(314),
       height: normalize(76),
@@ -176,7 +176,6 @@ const customStyle = (theme: CustomThemeType) => {
       marginStart: normalize(4)
     }
   });
-  return ArticleRectangelCardStyle;
 };
 
 export default ArticleRectangleCard;

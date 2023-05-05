@@ -2,7 +2,7 @@ import { AppState, Selector } from 'src/redux/rootReducer';
 import { ResponseMessage, SelectedNewsLettersDataType } from './types';
 
 export const getIsLoading: Selector<boolean> = (state: AppState) =>
-    state.allWriters.isLoading;
+    state.newsLetters.isLoading;
 
 export const getSentNewsLettersInfoData: Selector<ResponseMessage> = (
     state: AppState,

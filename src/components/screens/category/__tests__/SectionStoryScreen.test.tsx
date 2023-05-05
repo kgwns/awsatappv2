@@ -3,8 +3,8 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { SectionStoryScreen } from '../SectionStoryScreen'
 import { Provider } from 'react-redux'
 import { storeSampleData } from 'src/constants/Constants'
-import { PopUp } from 'src/components/organisms'
-import {useNavigation} from '@react-navigation/native';
+import { NewsFeed, PopUp } from 'src/components/organisms'
+import { useNavigation } from '@react-navigation/native';
 import { FlatList } from 'react-native'
 import { FilterComponent } from 'src/components/molecules'
 import { fetchSubArticleSectionApi } from 'src/services/newsViewService'
@@ -399,3 +399,35 @@ describe('<SectionStoryScreen> should call fetchSubArticleSectionApi', () => {
         }
     });
 });
+
+describe("SectionStoryScreen", () => {
+    let instance: RenderAPI
+
+    const mockFunction = jest.fn();
+    const setState = jest.fn();
+    beforeEach(() => {
+        (useState as jest.Mock).mockImplementationOnce(() => [[{res:true}],setState]).mockImplementationOnce(() => [false,setState]).mockImplementationOnce(() => [[{child:[]}],setState])
+        const component = <Provider store={storeSampleData}>
+            <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
+        </Provider>
+        instance = render(component)
+    });
+
+    afterEach(() => {
+        jest.clearAllMocks()
+        instance.unmount()
+    })
+
+    it("should render NewsFeed onScroll",() => {
+        const element = instance.container.findByType(NewsFeed);
+        fireEvent(element,'onScroll');
+        expect(setState).toHaveBeenCalled();
+    })
+    
+    it("should render NewsFeed onUpdateNewsFeedBookmark",() => {
+        const element = instance.container.findByType(NewsFeed);
+        fireEvent(element,'onUpdateNewsFeedBookmark',0);
+        expect(setState).toHaveBeenCalled();
+    })
+
+})

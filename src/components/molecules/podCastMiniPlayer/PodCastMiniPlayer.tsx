@@ -68,16 +68,19 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
             await TrackPlayer.seekTo(0)
         }
     }
+
+    const iconStyleWidth = isTab ? 20 : normalize(17);
+    const iconStyleHeight = isTab ? 20 : normalize(17);
     
     const Pause = () => (
         <>
-            {getSvgImages({ name: ImagesName.pauseIcon, width: normalize(17), height: normalize(17) })}
+            {getSvgImages({ name: ImagesName.pauseIcon, width: iconStyleWidth, height: iconStyleHeight })}
         </>
     )
 
     const Play = () => (
         <>
-            {getSvgImages({ name: ImagesName.playIconSVG, width: normalize(15), height: normalize(17) })}
+            {getSvgImages({ name: ImagesName.playIconSVG, width: iconStyleWidth, height: iconStyleHeight })}
         </>
     )
 
@@ -215,7 +218,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
                     </TouchableOpacity>
                     <TouchableOpacity testID={'closeIcon'} onPress={onClose} style={style.closeContainer}>
                         <View style={style.closeIcon}>
-                            {getSvgImages({ name: ImagesName.playerCloseIcon, width: normalize(12), height: normalize(12) })}
+                            {getSvgImages({ name: ImagesName.playerCloseIcon, width: isTab ? 15 : normalize(12), height: isTab ? 15 : normalize(12) })}
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -229,7 +232,7 @@ const customStyle = (theme: CustomThemeType) => {
     return StyleSheet.create({
         container: {
             width: '100%',
-            height: normalize(80),
+            height: isTab ? 100 : normalize(80),
             position: 'absolute',
             bottom: 0,
         },
@@ -253,8 +256,8 @@ const customStyle = (theme: CustomThemeType) => {
             padding: normalize(12)
         },
         imageContainer: {
-            width: isTab ? normalize(70) : normalize(46),
-            height: isTab ? normalize(52) : normalize(41),
+            width: isTab ? 70 : normalize(46),
+            height: isTab ? 52 : normalize(41),
             backgroundColor: 'black'
         },
         image: {
@@ -271,7 +274,7 @@ const customStyle = (theme: CustomThemeType) => {
             textAlign: 'left',
             fontSize: isTab ? 16 : 13,
             lineHeight: isTab ? 19 : 16,
-            marginTop: normalize(10),
+            marginTop: isTab ? 16 : normalize(10),
             color: theme.primaryBlack
         },
         buttonBackground: {
@@ -281,7 +284,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         buttonContainer: {
             alignItems: 'center',
-            marginTop: normalize(10),
+            marginTop: isTab ? 16 : normalize(10),
         },
         buttonContainerPortrait: {
             marginLeft: isTab? normalize(60) : normalize(10)
@@ -297,7 +300,7 @@ const customStyle = (theme: CustomThemeType) => {
         },
         closeIcon: {
             alignItems: 'center',
-            margin: normalize(24)
+            margin: isTab ? 32 : normalize(24)
         },
         rbSheetContainer: {
             borderTopLeftRadius: normalize(20),

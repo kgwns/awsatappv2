@@ -9,11 +9,11 @@ import {ArticleRectangleCard} from '../molecules';
 import {SectionHeader} from '../molecules/podcast/SectionHeader';
 import {ArticleRectangleCardProps} from '../molecules/podcast/ArticleRectangleCard';
 
-interface mostPlayedSectionProps {
+interface MostPlayedSectionProps {
   data: ArticleRectangleCardProps[];
 }
 
-const MostPlayedSection = ({data}: mostPlayedSectionProps) => {
+const MostPlayedSection = ({data}: MostPlayedSectionProps) => {
   const style = useThemeAwareObject(customStyle);
   const SECTION_HEADER_LEFT = TranslateConstants({key:TranslateKey.SECTION_HEADER_LEFT});
   const SECTION_HEAER_RIGHT = TranslateConstants({key:TranslateKey.SECTION_HEAER_RIGHT});
@@ -71,7 +71,7 @@ const MostPlayedSection = ({data}: mostPlayedSectionProps) => {
 export default MostPlayedSection;
 
 const customStyle = (theme: CustomThemeType) => {
-  const MostPlayedSectionStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.backgroundColor,
       width: '100%',
@@ -81,5 +81,4 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.dividerColor
   },
   });
-  return MostPlayedSectionStyle;
 };

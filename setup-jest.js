@@ -88,8 +88,6 @@ jest
 
 jest.mock('react-native-video', () => 'Video');
 
-jest.mock('react-native-track-player', () => 'TrackPlayer');
-
 jest.mock('react-native-track-player', () => {
   return {
     usePlaybackState: jest.fn().mockImplementation(() => jest.fn()),
@@ -97,6 +95,13 @@ jest.mock('react-native-track-player', () => {
     useProgress: jest.fn().mockImplementation(() => jest.fn()),
     useTrackPlayerEvents: jest.fn().mockImplementation(() => jest.fn()),
     Event: jest.fn().mockImplementation(() => jest.fn()),
+    reset: jest.fn(),
+    stop: jest.fn(),
+    setupPlayer: jest.fn(),
+    play: jest.fn(),
+    add: jest.fn(),
+    updateOptions: jest.fn(),
+    getState: jest.fn()
   };
 });
 jest.mock('react-native-adjust', () => {
@@ -113,6 +118,13 @@ jest.mock('react-native-adjust', () => {
       setEventTrackingFailedCallbackListener: jest.fn(),
       setSessionTrackingSucceededCallbackListener: jest.fn(),
       setSessionTrackingFailedCallbackListener: jest.fn(),
+      deactivateSKAdNetworkHandling: jest.fn(),
+      setDeviceKnown: jest.fn(),
+      setPreinstallTrackingEnabled: jest.fn(),
+      setAllowIdfaReading: jest.fn(),
+      setAllowiAdInfoReading: jest.fn(),
+      setAllowAdServicesInfoReading: jest.fn(),
+      setShouldLaunchDeeplink: jest.fn(),
     }),
     Adjust: {
       getSdkVersion: jest.fn().mockReturnValue(() => {}),
@@ -126,6 +138,7 @@ jest.mock('react-native-adjust', () => {
       getGoogleAdId: jest.fn(),
       getAmazonAdId: jest.fn(),
       getAttribution: jest.fn(),
+      sendFirstPackages: jest.fn()
     },
   };
 });
@@ -205,3 +218,29 @@ jest.mock('@react-native-firebase/app', () => {
 jest.mock('react-native-permissions', () =>
   require('react-native-permissions/mock'),
 );
+
+jest.mock('@invertase/react-native-apple-authentication',()=> ({
+  ...jest.requireActual('@invertase/react-native-apple-authentication'),
+  appleAuth:{
+    isSupported:true,
+    performRequest: jest.fn().mockReturnValue({response:true}),
+    Operation:{
+      LOGIN: 'LOGIN'
+    },
+    Scope:{
+      EMAIL: 'EMAIL',
+      FULL_NAME: 'FULL_NAME'
+    }
+  }
+}))
+
+jest.mock('react-native-orientation-locker',() => {
+  return {
+    addDeviceOrientationListener: jest.fn(),
+    removeDeviceOrientationListener: jest.fn(),
+    lockToPortrait: jest.fn(),
+    lockToLandscape: jest.fn(),
+    unlockAllOrientations: jest.fn(),
+    getDeviceOrientation: jest.fn()
+  }
+})

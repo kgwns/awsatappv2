@@ -30,4 +30,3 @@ export const getFilteredBookmarkDetailInfo: Selector<BookmarkDetailDataType[]> =
 
 export const getRefreshBookmarkDetail: Selector<boolean> =
   (state: AppState) => state.bookmark.refreshBookmarkDetail;
-  

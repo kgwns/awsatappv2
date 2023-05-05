@@ -1,10 +1,10 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {StyleSheet, View, TouchableOpacity} from 'react-native';
+import {StyleSheet, View, TouchableOpacity, StyleProp, ViewStyle} from 'react-native';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {ButtonImage, Label, Image, Divider} from 'src/components/atoms';
 import {isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenWidth, isNotEmpty, isIOS} from 'src/shared/utils';
-import {ImagesName, Styles} from 'src/shared/styles';
+import {ImagesName} from 'src/shared/styles';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useNavigation, useNavigationState } from '@react-navigation/native';
@@ -12,10 +12,10 @@ import { StackNavigationProp } from '@react-navigation/stack';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
-import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
-import { AxiosError } from 'axios';
 import { useAppPlayer } from 'src/hooks';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
+import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion';
+import { BookMarkColorType } from '../articleFooter/ArticleFooter';
 
 
 export interface OpinionWritersCardViewProps {
@@ -34,6 +34,9 @@ export interface OpinionWritersCardViewProps {
   togglePlayback?: (nid: string, mediaData: any)=> void,
   selectedTrack?: string,
   authorId:string
+  showDivider?: boolean;
+  addStyle?: StyleProp<ViewStyle>;
+  bookMarkColorType?: string;
 }
 
 const OpinionWritersCardView = ({
@@ -42,16 +45,16 @@ const OpinionWritersCardView = ({
   headLine,
   subHeadLine,
   audioLabel,
-  duration,
   nid,
   isBookmarked,
   mediaVisibility,
   onPressBookmark,
   hideImageView = false,
   jwPlayerID = null,
-  togglePlayback,
-  selectedTrack,
-  authorId
+  authorId,
+  showDivider = true,
+  addStyle,
+  bookMarkColorType,
 }: OpinionWritersCardViewProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const routes = useNavigationState(state => state.routes)
@@ -71,7 +74,7 @@ const OpinionWritersCardView = ({
 
   useEffect(() => {
     if(jwPlayerID){
-      getNarratedOpinion()
+      getNarratedOpinion(jwPlayerID,setMediaData,setTimeDuration);
     }
   }, [])
 
@@ -84,30 +87,10 @@ const OpinionWritersCardView = ({
     setPrevPlayBackState(playbackState);
   }, [playbackState])
 
-  const getNarratedOpinion = async() => {
-      try {
-        const opinionData = await fetchNarratedOpinionArticleApi({jwPlayerID: jwPlayerID})
-        if(isObjectNonEmpty(opinionData)){
-          setMediaData(opinionData);
-          const playList = isNonEmptyArray(opinionData.playlist) ? opinionData.playlist[0] : null;
-          if(playList){
-            const time = playList.duration? convertSecondsToHMS(playList.duration) : null;
-            setTimeDuration(time)
-          } 
-        }
-      } catch (error) {
-        const errorResponse: AxiosError = error as AxiosError;
-        if (errorResponse.response) {
-          const errorMessage: { message: string } = errorResponse.response.data;
-          console.log(errorMessage,'errorMessage');
-        }
-      }
-  }
-
   const onPress = () => {
     if (nid) {
       const screenName = ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN
-      const params = { nid: nid }
+      const params = { nid }
       noOfWriterRoutes > 0 ? navigation.push(screenName, params) : navigation.navigate(screenName, params)
     }
   }
@@ -162,13 +145,29 @@ const onPressPlay = () => {
   //   togglePlayback(nid, mediaData)
   // }
 }
+  
+  const renderDivider = () => {
+    if(!showDivider) {
+      return null
+    };
+
+    return(
+      <Divider style={[style.divider, mediaVisibility && { marginTop: normalize(10) }]} />
+    );
+  };
+  
+  const playIconMobile = getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) });
+  const playIconTab = getSvgImages({ name: ImagesName.playWithBg, width: 35, height: 35 });
+  const playIconWidget = isTab ? playIconTab : playIconMobile;
+  const bookmarkActive = bookMarkColorType === BookMarkColorType.PRIMARY ? ImagesName.favoriteActiveIcon : ImagesName.bookMarkActiveSVG;
 
   return (
-    <FixedTouchable style={style.container} onPress={()=>onPress()}>
+    <FixedTouchable style={[style.container, addStyle]}
+      onPress={() => onPress()}>
       {!hideImageView && <View style={style.topImageWithLabelContainer}>
         <TouchableOpacity onPress={() => onPressWriter(authorId)}>
           <Image
-            size={normalize(43)}
+            size={isTab ? 53 : normalize(43)}
             url={imageUrl}
             type="round"
             resizeMode="cover"
@@ -195,15 +194,14 @@ const onPressPlay = () => {
                   trackData && trackData.id === (nid+'opinion') && 
                   playbackState === State.Playing || isBuffering   ? 
                   getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
-                  getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
+                  playIconWidget
                 }
-                style={style.playIcon}
                 onPress={() => onPressPlay()}
                 testId={'playIconTestId'}
               />
               <Label style={style.footerLabel}>{audioLabel}</Label> 
             </TouchableOpacity>
-            {timeDuration && <Label style={style.duration}>{timeDuration}</Label>}
+            {timeDuration && <Label style={style.duration} testID='durationId'>{timeDuration}</Label>}
           </>}
         </View>
         <View>
@@ -212,7 +210,7 @@ const onPressPlay = () => {
             icon={() => {
               return isBookmarked
                 ? getSvgImages({
-                    name: ImagesName.bookMarkActiveSVG,
+                    name: bookmarkActive,
                     width: 11,
                     height: 16
                   })
@@ -226,13 +224,13 @@ const onPressPlay = () => {
           />
         </View>
       </View>
-      <Divider style={[style.divider, mediaVisibility && { marginTop: normalize(10) }]} />
+      {renderDivider()}
     </FixedTouchable>
   );
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionWritersCardViewStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       width: '100%',
       paddingHorizontal: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
@@ -282,10 +280,6 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row',
       alignItems: 'center',
     },
-    playIcon: {
-      width: normalize(13),
-      height: normalize(13),
-    },
     footerLabel: {
       fontSize: 12,
       lineHeight: 24,
@@ -306,7 +300,6 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.dividerColor
     }
   });
-  return OpinionWritersCardViewStyle;
 };
 
 export default OpinionWritersCardView;

@@ -9,7 +9,7 @@ import { fetchUserProfileDetail, sendUserData, updateUserImage, emptyUserProfile
 import {ProfileUserDataType, SendUserData, UpdateUserImageBodyType,
 } from 'src/redux/profileUserDetail/types';
 
-export interface useUserProfileDetail {
+export interface UseUserProfileDetail {
   isLoading: boolean;
   userProfileData: ProfileUserDataType;
   userProfileError: string;
@@ -20,7 +20,7 @@ export interface useUserProfileDetail {
   emptyUserProfileInfoData(): void;
 }
 
-export const useUserProfileData = (): useUserProfileDetail => {
+export const useUserProfileData = (): UseUserProfileDetail => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const userProfileData = useSelector(getProfileUserDetails);

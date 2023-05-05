@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { ArchiveArticle, articleFooterProps } from 'src/components/molecules'
+import { ArchiveArticle, ArticleFooterProps } from 'src/components/molecules'
 import { ArchivedArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { Label, Image } from '../atoms';
@@ -11,7 +11,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { dateTimeAgo, isDarkTheme, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities'
 import { useAppCommon } from 'src/hooks'
 
-export const archiveArticleFooter: articleFooterProps = {
+export const archiveArticleFooter: ArticleFooterProps = {
     leftTitleColor: Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
     leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
@@ -45,9 +45,10 @@ const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
                 {...archiveData}
                 containerStyle={isTab ? style.tabletImageStyle : {}}
                 titleStyle={style.titleStyle}
-                leftTitleColor={Styles.color.silverChalice}
+                leftTitleColor={ isTab ? Styles.color.black900 : Styles.color.silverChalice}
                 showDivider={false}
                 isAlbum={isTypeAlbum(archiveData.type)}
+                rightTitleStyle = {style.rightTitleStyle}
             />
         </View>
     )
@@ -59,7 +60,7 @@ const ArchiveArticleSection = (props: ArchiveArticleSectionProps) => {
     const ArchiveHeader = () => (
         <View style={style.headerView}>
             <View style={style.headerLogoContainer}>
-                <Image name={isDarkMode ? ImagesName.archiveIconDarkImage : ImagesName.archiveIconLightImage} style={style.headerLogo} />
+                {!isTab && <Image name={isDarkMode ? ImagesName.archiveIconDarkImage : ImagesName.archiveIconLightImage} style={style.headerLogo} />}
             </View>
             <Label children={props.title} style={style.headerTitle} />
         </View>
@@ -90,9 +91,10 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         paddingHorizontal: 0.04 * screenWidth,
     },
     tabletImageStyle: {
-        width: screenWidth,
+        width: '100%',
         height: 'auto',
         aspectRatio: 1.34,
+        padding: normalize(30)
     },
     divider: {
         height: 1,
@@ -107,9 +109,10 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         marginTop: isTab ? 0 : 5,
     },
     titleStyle: {
-        fontSize: 20,
-        lineHeight: 32,
-        fontFamily: fonts.AwsatDigital_Black,
+        fontSize: isTab ? 25 : 20,
+        lineHeight: isTab ? 35 : 32,
+        fontFamily: isTab ? fonts.AwsatDigital_Bold : fonts.AwsatDigital_Black,
+        fontWeight: isTab ? '700' : 'normal'
     },
     listArticleTitle: {
         fontSize: normalize(17),
@@ -151,10 +154,16 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         height: 22
     },
     headerTitle: {
-        fontSize: 20,
-        fontFamily: fonts.AwsatDigitalV2_Regular,
-        lineHeight: 38,
-        color: theme.primaryBlack
+        fontSize: isTab ? 25 : 20,
+        fontFamily: isTab ? fonts.AwsatDigital_Black : fonts.AwsatDigitalV2_Regular,
+        lineHeight: isTab ? 36 : 38,
+        color: theme.primaryBlack,
+    },
+    rightTitleStyle: {
+        fontFamily:fonts.Effra_Arbc_Regular,
+        fontSize:13,
+        lineHeight:16,
+        fontWeight:'400',
     }
 
 })

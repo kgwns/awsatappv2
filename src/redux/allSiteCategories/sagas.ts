@@ -13,7 +13,7 @@ import { fetchAllSiteCategoriesFailed,
   sendSelectedTopicSuccess,
   getSelectedTopicsFailed, 
   getSelectedTopicsSuccess,  } from './action';
-import { FETCH_ALL_SITE_CATEGORIES, SEND_SELECTED_TOPIC,GET_SELECTED_TOPICS, EMPTY_SELECTED_TOPICS_INFO } from './actionTypes';
+import { FETCH_ALL_SITE_CATEGORIES, SEND_SELECTED_TOPIC,GET_SELECTED_TOPICS } from './actionTypes';
 import { fetchAllSiteCategoriesApi, sendSelectedTopicsApi,getSelectedTopicsApi } from 'src/services/allSiteCategoriesService';
 
 export function* fetchAllSiteCategories(action: FetchAllSiteCategoriesType) {

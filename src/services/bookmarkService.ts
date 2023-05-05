@@ -16,6 +16,7 @@ export const sendBookMarkInfo = async (body: SendBookMarkBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('bookmarkService - sendBookMarkInfo - error', error)
     throw error;
   }
 };
@@ -27,6 +28,7 @@ export const getBookMarkInfo = async () => {
     );
     return response;
   } catch (error) {
+    console.log('bookmarkService - getBookMarkInfo - error', error)
     throw error;
   }
 };
@@ -38,6 +40,7 @@ export const removeBookMarkInfo = async (body: RemoveBookmarkDetailDataBody) => 
     );
     return response;
   } catch (error) {
+    console.log('bookmarkService - removeBookMarkInfo - error', error)
     throw error;
   }
 };
@@ -49,6 +52,7 @@ export const getBookMarkDetailInfoService = async (body: GetBookmarkDetailBodyGe
     );
     return response;
   } catch (error) {
+    console.log('bookmarkService - getBookMarkDetailInfoService - error', error)
     throw error;
   }
 };

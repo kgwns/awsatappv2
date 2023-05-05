@@ -6,7 +6,7 @@ import { SaveTokenAfterRegistraionBodyType,
   SaveTokenBodyType, 
   SaveTokenSuccessPayloadType } from 'src/redux/notificationSaveToken/types';
 
-export const notificationSaveTokenReuqest = async (body: SaveTokenBodyType) => {
+export const notificationSaveTokenRequest = async (body: SaveTokenBodyType) => {
   try {
     const response: SaveTokenSuccessPayloadType = await postApiRequest(
       `${UMS_BASE_URL}${SAVE_FCM_TOKEN_ENDPOINT}`,
@@ -14,11 +14,12 @@ export const notificationSaveTokenReuqest = async (body: SaveTokenBodyType) => {
     );
     return response;
   } catch (error) {
+    console.log('notificationSaveTokenService - notificationSaveTokenRequest - error', error)
     throw error;
   }
 };
 
-export const notificationSaveTokenAfterRegistraionReuqest = async (body: SaveTokenAfterRegistraionBodyType) => {
+export const notificationSaveTokenAfterRegistrationRequest = async (body: SaveTokenAfterRegistraionBodyType) => {
   try {
     const response: SaveTokenAfterRegistraionSuccessPayloadType = await postApiRequest(
       `${UMS_BASE_URL}${SAVE_FCM_TOKEN_ENDPOINT}`,
@@ -26,6 +27,7 @@ export const notificationSaveTokenAfterRegistraionReuqest = async (body: SaveTok
     );
     return response;
   } catch (error) {
+    console.log('notificationSaveTokenService - notificationSaveTokenAfterRegistrationRequest - error', error)
     throw error;
   }
 };

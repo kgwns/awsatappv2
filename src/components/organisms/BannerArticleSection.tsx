@@ -1,7 +1,7 @@
 import React from 'react'
 import { FlatList, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
-import { articleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
+import { ArticleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { LatestArticleDataType } from 'src/redux/latestNews/types'
 import { ImagesName, Styles } from 'src/shared/styles'
@@ -15,10 +15,10 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import { dateTimeAgo, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities'
 
-export const sectionComboArticleFooter: articleFooterProps = {
-    leftTitleColor: Styles.color.silverChalice,
+export const sectionComboArticleFooter: ArticleFooterProps = {
+    leftTitleColor: isTab ? Styles.color.black900 : Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
+    leftTitleStyle: isTab ? {fontFamily: fonts.Effra_Arbc_Regular, fontSize: 13,lineHeight: 16,fontWeight: '400'} : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
 }
 
 interface BannerArticleSectionProps {
@@ -63,9 +63,9 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const widgetHeaderData: WidgetHeaderProps = {
         headerLeft: {
             title: props.title,
-            color: themeData.primary,
+            color: isTab ? themeData.primaryBlack : themeData.primary,
             labelType: LabelTypeProp.title3,
-            textStyle: { fontFamily: fonts.AwsatDigital_Bold }
+            textStyle: isTab ? style.tabTextStyle : { fontFamily: fonts.AwsatDigital_Bold }
         },
         headerRight: props.hideMore ? {} : {
             title: SECTION_COMBO_ONE_HEADER_RIGHT,
@@ -86,7 +86,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const listHeaderSection = () => (
-            <View style={isTab && style.listHeaderstyle}>
+            <View>
                 {bannerData.map((item: LatestArticleDataType, index: number) => {
                     if (index === 0) {
                         return <ImageArticle key={index} {...item}
@@ -106,7 +106,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
 
 
     const onPressMore = () => {
-        navigation.navigate(ScreensConstants.SectionArticlesScreen, { sectionId: sectionId, title: props.title });
+        navigation.navigate(ScreensConstants.SectionArticlesScreen, { sectionId, title: props.title });
     }
 
     if (!isNonEmptyArray(data)) {
@@ -167,8 +167,8 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     titleStyle: { 
         fontSize: 20, 
-        lineHeight: 32, 
-        fontFamily: fonts.AwsatDigital_Black,
+        lineHeight: isTab ? 28 : 32, 
+        fontFamily: isTab ? fonts.AwsatDigital_Bold : fonts.AwsatDigital_Black,
     },
     listArticleTitle: {
         fontSize: normalize(17), 
@@ -177,8 +177,8 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
     },
     articleTitleStyle:{
         fontFamily: fonts.AwsatDigital_Bold,
-        fontSize: isTab ? 20 : 17,
-        lineHeight: isTab ? 32 : 28,
+        fontSize: isTab ? 18 : 17,
+        lineHeight: 28,
         textAlign: 'left', 
         paddingVertical: normalize(8),
         color: theme.primaryBlack
@@ -189,10 +189,12 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight:26,
         textAlign: 'left' 
     },
-    listHeaderstyle: { 
-        flex: 1 
-    },
     footerTitleColor: {
         color: theme.footerTextColor
     },
+    tabTextStyle : {
+        fontFamily: fonts.AwsatDigital_Black,
+        fontSize: 25,
+        lineHeight: 36,
+    }
 })

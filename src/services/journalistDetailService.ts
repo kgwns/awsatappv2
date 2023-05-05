@@ -10,6 +10,7 @@ export const fetchJournalistDetailInfo = async (payload: JournalistDetailBodyGet
         );
         return response;
     } catch (error) {
+        console.log('journalistDetailService - fetchJournalistDetailInfo - error', error)
         throw error;
     }
 };

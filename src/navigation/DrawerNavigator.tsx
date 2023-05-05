@@ -42,6 +42,7 @@ const DrawerNavigator = () => {
   return (
     <Drawer.Navigator
       drawerContent={(props) => <CustomDrawerContent {...props} />}
+      useLegacyImplementation
       screenOptions={{
         headerShown: false,
         headerStyle: style.container,
@@ -50,7 +51,7 @@ const DrawerNavigator = () => {
         headerTitleAlign: 'center',
         headerRight: Search,
         drawerStyle: {
-          width: '100%',
+          width: isTab ? '50%' :'100%',
           backgroundColor: themeData.backgroundColor
         }
       }}>
@@ -62,7 +63,7 @@ const DrawerNavigator = () => {
 export default DrawerNavigator;
 
 const customStyle = (theme: CustomThemeType) => {
-  const headerStyles = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       backgroundColor: theme.tabBarBackground,
       shadowColor: colors.transparent,
@@ -83,5 +84,4 @@ const customStyle = (theme: CustomThemeType) => {
       marginHorizontal: isTab ? 0.02 * screenWidth : 0.04 * screenWidth,
     },
   });
-  return headerStyles
 }

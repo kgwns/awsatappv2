@@ -6,6 +6,7 @@ import { normalize, recordLogEvent } from 'src/shared/utils';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { StoryListProps } from 'src/components/organisms';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export interface StoryWidgetProps {
   testID?: string;
@@ -32,7 +33,7 @@ const StoryWidget: FunctionComponent<StoryWidgetProps> = ({
         <View style={style.circleContainer}>
           <StoryCircle testID={`${testID}_${index}`} storyImageUrl={item.data[0]?.imageUrl}
               onPress={() => {
-                recordLogEvent('Viewed_Story', {storyId: item.id});
+                recordLogEvent(AnalyticsEvents.VIEWED_STORY, {storyId: item.id});
                 handleOnItemPressAction(item,index);
               }}
           />
@@ -62,7 +63,7 @@ const StoryWidget: FunctionComponent<StoryWidgetProps> = ({
 export default StoryWidget;
 
 const storyWidgetStyle = (theme: CustomThemeType) => {
-  const style = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       width: '100%',
       height: normalize(170),
@@ -82,5 +83,4 @@ const storyWidgetStyle = (theme: CustomThemeType) => {
       marginTop: normalize(24)
     }
   })
-  return style
 }

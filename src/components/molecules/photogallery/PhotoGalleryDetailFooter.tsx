@@ -3,13 +3,12 @@ import React from 'react';
 import {ButtonImage} from 'src/components/atoms/button-image/ButtonImage';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import {ImagesName} from 'src/shared/styles';
-import {isIOS, normalize} from 'src/shared/utils';
+import {isIOS, isTab, normalize} from 'src/shared/utils';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
-import Share from 'react-native-share';
 import {AlbumDetailType} from 'src/redux/photoGallery/types';
-import { getShareUrl } from 'src/shared/utils/utilities';
+import { onPressShare } from 'src/shared/utils/onPressShare';
 
 export const PhotoGalleryDetailFooter = ({
   albumData,
@@ -22,67 +21,67 @@ export const PhotoGalleryDetailFooter = ({
   onPressSave: () => void;
   onPressFontChange: () => void;
 }) => {
-  const articleSaveIcon = isBookmarked
-    ? ImagesName.bookMarkActiveSVG
-    : ImagesName.bookmark;
-
-  const onPressShare = async () => {
-    const {title, link_node, field_shorturl} = albumData;
-    await Share.open({
-      title,
-      url: getShareUrl(field_shorturl,link_node),
-      failOnCancel: true,
-      subject: title,
-    })
-      .then(response => {
-        console.log('Shared successfully :::', response);
-      })
-      .catch(error => {
-        console.log('Cancelled share request :::', error);
-      });
-  };
 
   const {themeData} = useTheme();
-  const style = useThemeAwareObject(customStyle);
+  const style = useThemeAwareObject(galleryCustomStyle);
+
+  const galleryShareTab = getSvgImages({
+    name: ImagesName.shareBold,
+    width: 37,
+    height: 36,
+  });
+
+  const galleryFontScalingTab = getSvgImages({
+    name: ImagesName.fontScalingBold,
+    width: 40,
+    height: 28,
+    fill: themeData.primaryBlack
+  });
+
+  const gallerySaveTab = getSvgImages({
+    name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmarkBold,
+    width: 19,
+    height: 33,
+  });
+
+  const galleryShareMobile = getSvgImages({
+    name: ImagesName.share,
+    size: normalize(18),
+  });
+
+  const galleryFontScalingMobile = getSvgImages({
+    name: ImagesName.fontScaling,
+    size: normalize(21),
+    fill: themeData.primaryBlack
+  });
+
+  const gallerySaveMobile = getSvgImages({
+    name: isBookmarked ? ImagesName.bookMarkActiveSVG : ImagesName.bookmark,
+    size: normalize(18),
+  });
+
+
   return (
-    <View style={style.container}>
-      <ButtonImage
-        icon={() => {
-          return getSvgImages({
-            name: ImagesName.fontScaling,
-            size: normalize(21),
-            fill: themeData.primaryBlack,
-          });
-        }}
+    <View style={style.galleryContainer}>
+      <ButtonImage icon={() => isTab ? galleryFontScalingTab : galleryFontScalingMobile}
         onPress={onPressFontChange}
       />
       <ButtonImage
-        icon={() => {
-          return getSvgImages({
-            name: ImagesName.share,
-            size: normalize(18),
-          });
-        }}
-        onPress={onPressShare}
+        icon={() => isTab ? galleryShareTab : galleryShareMobile}
+        onPress={() => onPressShare(albumData)}
       />
-      <ButtonImage
-        icon={() => {
-          return getSvgImages({
-            name: articleSaveIcon,
-            size: normalize(18),
-          });
-        }}
+      <ButtonImage icon={() => isTab ? gallerySaveTab : gallerySaveMobile}
         onPress={onPressSave}
       />
     </View>
   );
 };
 
-const customStyle = (theme: CustomThemeType) => {
+const galleryCustomStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
-    container: {
+    galleryContainer: {
       width: '100%',
-      height: isIOS ? normalize(70) : normalize(60),
+      height: isTab ? 104 : isIOS ? normalize(70) : normalize(60),
       paddingBottom: isIOS ? normalize(15) : 0,
       flexDirection: 'row',
       justifyContent: 'space-around',
@@ -90,6 +89,7 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryWhite,
       position: 'absolute',
       bottom: 0,
+      paddingHorizontal: isTab ? '20%' : 0,
     },
   });
 };

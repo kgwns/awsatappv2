@@ -4,7 +4,7 @@ import { fonts } from 'src/shared/styles/fonts'
 import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
 import { normalize } from '../../../shared/utils'
 
-interface footerCaptionWithImageProps {
+interface FooterCaptionWithImageProps {
     title?: string,
     icon?: () => void,
     color?: string,
@@ -12,7 +12,7 @@ interface footerCaptionWithImageProps {
     subTitleColor?: string
     labelStyle?: StyleProp<TextStyle>
 }
-const FooterCaptionWithImage = ({ title, icon, color, subTitle, subTitleColor,labelStyle }: footerCaptionWithImageProps) => {
+const FooterCaptionWithImage = ({ title, icon, color, subTitle, subTitleColor,labelStyle }: FooterCaptionWithImageProps) => {
     return (
         <View style={captionImageStyle.container}>
             {icon && icon()

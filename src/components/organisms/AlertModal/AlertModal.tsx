@@ -14,14 +14,16 @@ export const AlertModal = ({
     isVisible = false,
     buttonText,
     onClose,
-    onPressSuccess
+    onPressSuccess,
+    isCloseIconVisible = true
 }: {
     title: string;
     message: string;
     buttonText: string;
     isVisible?: boolean;
     onClose: (isVisible: boolean) => void;
-    onPressSuccess?: () => void
+    onPressSuccess?: () => void;
+    isCloseIconVisible?: boolean;
 }) => {
     const [modalVisible, setModalVisibility] = useState(isVisible)
     const styles = useThemeAwareObject(customStyle)
@@ -41,13 +43,15 @@ export const AlertModal = ({
                 <Modal visible={modalVisible} transparent={true} >
                     <View style={styles.container}>
                         <View style={styles.innerContainer}>
-                            <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => {
-                                onClose(!modalVisible)
-                                setModalVisibility(!modalVisible)
+                            {
+                                isCloseIconVisible && <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => {
+                                    onClose(!modalVisible)
+                                    setModalVisibility(!modalVisible)
+                                }
+                                }>
+                                    <CloseIcon fill={isDarkMode ? colors.white : colors.darkSlateGray} />
+                                </TouchableOpacity>
                             }
-                            }>
-                                <CloseIcon fill={isDarkMode ? colors.white : colors.darkSlateGray} />
-                            </TouchableOpacity>
                             <Label
                                 children={title}
                                 style={styles.titleTextStyle}
@@ -130,4 +134,3 @@ const customStyle = (theme: CustomThemeType) =>
             paddingBottom: normalize(20)
         }
     })
-    

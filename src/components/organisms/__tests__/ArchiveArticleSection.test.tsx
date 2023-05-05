@@ -1,6 +1,7 @@
 import ArchiveArticleSection from "../ArchiveArticleSection";
 import { render, RenderAPI } from '@testing-library/react-native';
 import React from 'react';
+import { isDarkTheme } from "src/shared/utils";
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
     ...jest.requireActual('src/shared/utils/dimensions'),
@@ -12,6 +13,10 @@ jest.mock('src/shared/utils/utilities', () => ({
     TimeIcon: jest.fn(),
     isDarkMode: false
 }))
+jest.mock("src/shared/utils/utilities", () => ({
+    ...jest.requireActual('src/shared/utils/utilities'),
+        isDarkTheme:jest.fn(),
+  }));
 const data = [{
     title: 'title',
     type: 'HomePageArticleType',
@@ -25,9 +30,12 @@ const data = [{
 }]
 
 describe('ArchiveArticleSection', () => {
+    const isDarkThemeMock = jest.fn();
     let instance: RenderAPI;
     const mockFunction = jest.fn();
     beforeEach(() => {
+        (isDarkTheme as jest.Mock).mockImplementation(isDarkThemeMock);
+        isDarkThemeMock.mockReturnValue(true);
         const component = (
             <ArchiveArticleSection data={data} onPress={mockFunction} />
         )
@@ -63,6 +71,23 @@ describe('ArchiveArticleSection returns null', () => {
     beforeEach(() => {
         const component = (
             <ArchiveArticleSection data={dataAsObject} onPress={mockFunction} />
+        )
+        instance = render(component)
+    })
+    it('should render component', () => {
+        expect(instance).toBeDefined();
+    })
+})
+
+describe('ArchiveArticleSection', () => {
+    const isDarkThemeMock = jest.fn();
+    let instance: RenderAPI;
+    const mockFunction = jest.fn();
+    beforeEach(() => {
+        (isDarkTheme as jest.Mock).mockImplementation(isDarkThemeMock);
+        isDarkThemeMock.mockReturnValue(false);
+        const component = (
+            <ArchiveArticleSection data={data} onPress={mockFunction} />
         )
         instance = render(component)
     })

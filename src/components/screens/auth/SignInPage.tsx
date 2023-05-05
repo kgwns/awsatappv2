@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation,useIsFocused} from '@react-navigation/native';
 import {ScreenContainer} from '..';
 import {
   View,
@@ -8,7 +8,7 @@ import {
   Alert,
   Keyboard,
 } from 'react-native';
-import {isIOS, isObjectNonEmpty, normalize, recordLogEvent} from 'src/shared/utils';
+import {isIOS, isObjectNonEmpty, isTab, normalize, recordLogEvent, recordLogLogin, recordUserId} from 'src/shared/utils';
 import {Label} from '../../atoms';
 import {AuthScreenInputSection} from 'src/components/organisms/';
 import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
@@ -38,15 +38,14 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
-import { useIsFocused } from '@react-navigation/native';
-import { AccessToken } from 'react-native-fbsdk-next';
 import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
 import { RegisterBodyType } from 'src/redux/register/types';
 import { getDeviceName as getDeviceType } from 'src/shared/utils/utilities';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const onSuccessSocialLogin = async (
   userInfo: any,
-  provider = SocialProviders.facebook,
+  loginProvider = SocialProviders.facebook,
 ) => {
   const userDetails = userInfo.user;
   const deviceType = await getDeviceType();
@@ -55,13 +54,13 @@ export const onSuccessSocialLogin = async (
     device_name: deviceType,
     first_name: userDetails.givenName,
     last_name: userDetails.familyName,
-    provider: provider,
+    provider: loginProvider,
     provider_id: userDetails.id,
   };
-  if (provider === SocialProviders.facebook && userDetails.profile_url) {
+  if (loginProvider === SocialProviders.facebook && userDetails.profile_url) {
     payload.profile_url = userDetails.profile_url;
   }
-  if (provider === SocialProviders.google && userInfo) {
+  if (loginProvider === SocialProviders.google && userInfo) {
     payload.profile_url = userInfo.user.photo;
   }
   return payload
@@ -85,7 +84,7 @@ export interface SignInPageProps {
 export const SignInPage = ({route}: SignInPageProps) => {
   const navigation = useNavigation();
   const {themeData} = useTheme();
-  const styles = useThemeAwareObject(createStyles);
+  const styles = useThemeAwareObject(signInStyles);
   const [email, setEmail] = useState(route.params.email);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -174,6 +173,8 @@ export const SignInPage = ({route}: SignInPageProps) => {
         getBookmarkedId();
         AdjustAnalyticsManager.trackEvent(AdjustEventID.LOGIN);
         fetchProfileDataRequest();
+        const userId = loginData.user?.id.toString();
+        recordUserId(userId);      
         navigation.reset({
           index: 0,
           routes: [
@@ -255,7 +256,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     };
   }, []);
 
-  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders, message?:String) => {
+  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders, message?:string) => {
     if(success){
       fbLoginRef.current = false
       const payload = await onSuccessSocialLogin(userInfo,provider)
@@ -291,11 +292,12 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const onPressSignIn = () => {
     setPasswordError(emptyPasswordValidation(password));
 
-    recordLogEvent('Login');
+    recordLogEvent(AnalyticsEvents.LOGIN);
+    recordLogLogin({method: AnalyticsEvents.EMAIL})
 
     const payload: FetchLoginPayloadType = {
-      email: email,
-      password: password,
+      email,
+      password,
       device_name: deviceName,
     };
 
@@ -351,7 +353,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
               setChangeText={setEmail}
               setChangePassword={setPassword}
               navigateToSection={navigateToSection}
-              goToPasswordScreen={() => forgotPassworRequest({email: email})}
+              goToPasswordScreen={() => forgotPassworRequest({email})}
               onPressSignup={onPressSignIn}
               socialButtonBoldStyle={true}
               isSignInScreen={true}
@@ -366,12 +368,12 @@ export const SignInPage = ({route}: SignInPageProps) => {
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const signInStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
-      paddingVertical: normalize(20),
-      marginHorizontal: normalize(20),
+      paddingVertical: isTab ? 20 : normalize(20),
+      marginHorizontal: isTab ? 20 : normalize(20),
       justifyContent: 'space-between',
       backgroundColor: theme.backgroundColor,
     },
@@ -379,8 +381,8 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
       justifyContent: 'center',
       flex: 0.1,
-      marginBottom: normalize(35),
-      marginTop: normalize(20)
+      marginBottom: isTab ? 35 : normalize(35),
+      marginTop: isTab ? 20 : normalize(20)
     },
     headerStyle: {
       flex: 0.05,
@@ -395,14 +397,14 @@ const createStyles = (theme: CustomThemeType) =>
     },
     headerLabelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
-      fontSize: normalize(12),
+      fontSize: isTab ? 12 : normalize(12),
       color: theme.backIconColor,
-      lineHeight: normalize(16),
-      marginLeft: normalize(5),
+      lineHeight: isTab ? 16 : normalize(16),
+      marginLeft: isTab ? 5 : normalize(5),
     },
     containerStyle: {
       flex: 0.8,
-      paddingHorizontal: normalize(30),
+      paddingHorizontal: isTab ? 30 : normalize(30),
       backgroundColor: theme.secondaryWhite,
     },
     footerStyle: {
@@ -411,7 +413,7 @@ const createStyles = (theme: CustomThemeType) =>
       alignItems: 'center',
     },
     logo: {
-      width: normalize(150),
-      height: normalize(37),
+      width: isTab ? 150 : normalize(150),
+      height: isTab ? 37 : normalize(37),
     },
   });

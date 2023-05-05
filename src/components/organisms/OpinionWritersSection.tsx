@@ -55,8 +55,8 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
     );
   };
   return (
-    <View style={style.container}>
-      <Label style={style.headerStyle}>{OPINION_WRITERS}</Label>
+    <View style={[style.container, isTab && style.containerLeftMargin]}>
+      <Label style={[style.headerStyle, isTab && style.headerTablet]} children={OPINION_WRITERS} />
       {/* seted initialNumToRender = data.length to fix auto scrolling issue - this is open bug, added link below */}
       {/* https://github.com/facebook/react-native/issues/26436 */}
       <FlatList
@@ -79,7 +79,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const OpinionWritersSectionStyle = StyleSheet.create({
+  return StyleSheet.create({
     container: {
       width: '100%',
       backgroundColor: theme.mainBackground,
@@ -89,10 +89,14 @@ const customStyle = (theme: CustomThemeType) => {
       lineHeight: 42,
       color: theme.primary,
       textAlign: 'left',
-      marginLeft: isTab ? normalize(0.02 * screenWidth) : normalize(0.04 * screenWidth),
+      marginLeft: normalize(0.04 * screenWidth),
       marginTop: normalize(16),
       marginBottom: normalize(8),
       fontFamily: fonts.AwsatDigital_Bold,
+    },
+    headerTablet: {
+      marginLeft: normalize(0.02 * screenWidth),
+      color: theme.primaryBlack,
     },
     writerContainer: {
       marginRight: normalize(20),
@@ -119,8 +123,10 @@ const customStyle = (theme: CustomThemeType) => {
     },
     imageContainer: {
       overflow: 'hidden'
+    },
+    containerLeftMargin: {
+      marginLeft: 0.02 * screenWidth
     }
   });
-  return OpinionWritersSectionStyle;
 };
 export default OpinionWritersSection;

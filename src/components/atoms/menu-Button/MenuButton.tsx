@@ -1,8 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {View, TouchableOpacity} from 'react-native';
-import {Image} from 'src/components/atoms/image/Image';
+import {Image, ImageName} from 'src/components/atoms/image/Image';
 import {Label} from 'src/components/atoms/label/Label'
-import {ImageName} from 'src/components/atoms/image/Image';
 import {normalize} from 'src/shared/utils/dimensions';
 import {menuButtonStyle} from 'src/components/atoms/menu-Button/MenuButton.style';
 

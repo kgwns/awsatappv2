@@ -65,3 +65,20 @@ describe('Check ArticleImageView returns null when passing empty data', () => {
         expect(instance).toBeDefined();
     })
 })
+
+describe('Check ArticleImageView when props are undefined', () => {
+    let instance: RenderAPI
+    beforeEach(() => {
+        const component = (
+            <ArticleImageView data={{}} showHighlightTitle={undefined} showImage={undefined} />
+        )
+        instance = render(component)
+    });
+    afterEach(() => {
+        jest.clearAllMocks();
+        instance.unmount();
+    })
+    it('should render a component', () => {
+        expect(instance).toBeDefined();
+    })
+})

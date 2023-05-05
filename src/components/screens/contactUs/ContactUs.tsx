@@ -1,7 +1,7 @@
-import { View, StyleSheet, TouchableOpacity, ScrollView, Keyboard } from 'react-native'
+import { View, StyleSheet, TouchableOpacity, Keyboard } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { AlertPayloadType, ScreenContainer } from '../ScreenContainer/ScreenContainer'
-import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, normalize, screenWidth, testProps } from 'src/shared/utils'
+import { horizontalAndBottomEdge, isIOS, isNotEmpty, isObjectNonEmpty, isTab, normalize, recordLogEvent, screenWidth, testProps } from 'src/shared/utils'
 import { StaticPageHeader } from 'src/components/molecules'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { Label, TextInputField } from 'src/components/atoms'
@@ -15,6 +15,7 @@ import { emailValidation } from 'src/shared/validators'
 import { useNavigation } from '@react-navigation/native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 import { FLEX_START } from 'src/shared/styles/item-alignment'
+import { AnalyticsEvents } from 'src/shared/utils/analytics'
 
 export type ContactUsModal = {
     name: string;
@@ -40,6 +41,7 @@ export const ContactUs = () => {
     const CONST_OK = TranslateConstants({ key: TranslateKey.COMMON_OK })
     const CONST_DO_YOU_HAVE_QUESTION = TranslateConstants({key:TranslateKey.CONTACT_US_DO_YOU_HAVE_QUESTIONS});
     const CONST_CONTACT_US_DESCRIPTION = TranslateConstants({key:TranslateKey.CONTACT_US_DESCRIPTION});
+    const CONST_CONTACT_US_ADDRESS = TranslateConstants({key:TranslateKey.CONTACT_US_ADDRESS});
 
     //Hooks
     const style = useThemeAwareObject(customStyle)
@@ -93,7 +95,8 @@ export const ContactUs = () => {
                 setIsAlertVisible(true);
                 return
             }
-            Keyboard.dismiss()
+            Keyboard.dismiss();
+            recordLogEvent(AnalyticsEvents.CONTACT_FORM_SUBMIT);
             sendContactUsInfo({
                 name: name.trim(),
                 email: email.trim(),
@@ -204,6 +207,17 @@ export const ContactUs = () => {
         )
     }
 
+    const renderContactAddress = () => {
+        return (
+            <View style={style.contactAddressContainer}>
+                <Label
+                    style={style.contactAddressText}
+                    children={CONST_CONTACT_US_ADDRESS}
+                />
+            </View>
+        )
+    }
+
     return (
         <ScreenContainer edge={horizontalAndBottomEdge}
             isLoading={isLoading}
@@ -222,6 +236,7 @@ export const ContactUs = () => {
                 <View style={style.mainContainer}>
                     {renderAboutScreen()}
                     {renderFormFields()}
+                    {renderContactAddress()}
                 </View>
             </KeyboardAwareScrollView>
         </ScreenContainer>
@@ -289,5 +304,16 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     formContainer: {
         width: '100%'
-    }
+    },
+    contactAddressContainer: {
+        alignItems: 'flex-start',
+        marginVertical: 50
+    },
+    contactAddressText: {
+        fontSize: isTab ? 20 : 15,
+        lineHeight: isTab ? 25 : 20,
+        fontFamily: fonts.Effra_Regular,
+        textAlign: 'left',
+        color: theme.primaryBlack
+    },
 })

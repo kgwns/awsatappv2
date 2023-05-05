@@ -171,8 +171,8 @@ const parseRichHTML = (htmlContent: []): any[] => {
   return element
 }
 
-const parseImageData = (field_image: string, newPhoto: string) => {
-  const image = isNonEmptyArray(field_image) ? field_image[0] : isNotEmpty(field_image) ? field_image : ''
+const parseImageData = (fieldImage: string, newPhoto: string) => {
+  const image = isNonEmptyArray(fieldImage) ? fieldImage[0] : isNotEmpty(fieldImage) ? fieldImage : ''
   return getArticleImage(image, newPhoto)
 }
 
@@ -195,7 +195,16 @@ const formatRelatedArticleData = (response: any): RelatedArticleDataType[] => {
   return formattedData
 }
 
-
+const getTagTopicsList = (tagTopics: any) => {
+  let tagNames = '';
+  if(isNonEmptyArray(tagTopics)){
+    const tag = tagTopics.map((tag:any) => tag.name);
+    tagNames = tag.toString();
+  } else if(isObjectNonEmpty(tagTopics)){
+    tagNames = tagTopics?.name;
+  } 
+  return tagNames;
+}
 
 export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPayload => {
   const responseData: ArticleDetailSuccessPayload = {
@@ -210,7 +219,8 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
         ({ title, body_export, nid_export, field_image_export, view_node,
           field_news_categories_export, author_resource, field_tags_topics_export, field_new_sub_title_export,
           field_new_photo_export, field_new_photo_titles, field_jwplayer_id_export,
-          field_paragraph_export, jor_city, jor_id, jor_name, field_shorturl, field_scribblelive_id, field_display_export,changed, link_node
+          field_paragraph_export, jor_city, jor_id, jor_name, field_shorturl, field_scribblelive_id, field_display_export,changed, link_node,
+          field_publication_date_export,
          }: any) => ({
             body: body_export,
             title: isNotEmpty(title) ? decode(title) : '',
@@ -231,7 +241,9 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
             shortUrl: field_shorturl,
             scribbleLiveId: field_scribblelive_id,
             displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
-            link_node: link_node
+            link_node: link_node,
+            publishedDate: field_publication_date_export,
+            tagTopicsList: getTagTopicsList(field_tags_topics_export)
           })
       );
     }
@@ -245,7 +257,7 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
 
 type ImageAndCaptionType = { image: string, caption: string}
 
-const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPhotoTitle: any) : ImageAndCaptionType => {
+export const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPhotoTitle: any) : ImageAndCaptionType => {
   let image = ''
   let caption = ''
 
@@ -263,7 +275,7 @@ const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPho
 }
 
 
-export const parseArticleSectionSuccess = (response: any, current_nid: number): ArticleSectionSuccessPayload => {
+export const parseArticleSectionSuccess = (response: any, currentNid: number): ArticleSectionSuccessPayload => {
   const responseData: ArticleSectionSuccessPayload = {
     articleSectionData: [],
     pager: {}
@@ -276,7 +288,8 @@ export const parseArticleSectionSuccess = (response: any, current_nid: number): 
             ({ title, body, nid, field_image, view_node,
               field_news_categories_export, author_resource, field_tags_topics_export, created_export,
               field_new_photo_export, field_new_photo_titles,
-              jor_city, jor_id, jor_name, field_display_export, }: any) => ({
+              jor_city, jor_id, jor_name, field_display_export,
+              field_publication_date_export, }: any) => ({
                 body: body,
                 title: isNotEmpty(title) ? decode(title) : '',
                 nid: nid,
@@ -291,9 +304,11 @@ export const parseArticleSectionSuccess = (response: any, current_nid: number): 
                 journalistCity: jor_city,
                 journalistName: jor_name,
                 displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
+                publishedDate: field_publication_date_export,
+                tagTopicsList: getTagTopicsList(field_tags_topics_export)
               })
           );
-       responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== current_nid)
+       responseData.articleSectionData=responseData.articleSectionData.filter((item)=> parseInt(item.nid) !== currentNid)
        responseData.articleSectionData = responseData.articleSectionData.splice(0,4)
     }
 
@@ -309,7 +324,7 @@ export const parseRelatedArticleSuccess = (response: any): RelatedArticleSuccess
   const responseData: RelatedArticleSuccessPayload = {
     relatedArticleData: []
   }
-  responseData.relatedArticleData = formattedData.splice(0, 20)
+  responseData.relatedArticleData = formattedData.splice(0, 30)
   return responseData
 }
 

@@ -15,9 +15,14 @@ import {
 
 const mockString = 'mockString';
 const mockValue = '12';
+const requestObject = {
+  items_per_page: 10,
+  page: 0
+}
 
 const requestAction: FetchVideoType = {
   type: FETCH_VIDEO,
+  payload: requestObject
 };
 
 const reposnseObject = {
@@ -54,9 +59,9 @@ describe('test videoListSaga  saga', () => {
 
 describe('Test fetchVideoList success', () => {
   it('fire on FETCH_VIDEO', () => {
-    testSaga(fetchVideoList)
+    testSaga(fetchVideoList, requestAction)
       .next()
-      .call(fetchVideoListApi)
+      .call(fetchVideoListApi, requestObject)
       .next(reposnseObject)
       .put(fetchVideoListSuccess({videoData:[]}))
       .finish()
@@ -66,9 +71,9 @@ describe('Test fetchVideoList success', () => {
 
 describe('Test fetchVideoList success', () => {
   it('fire on FETCH_VIDEO', () => {
-    testSaga(fetchVideoList)
+    testSaga(fetchVideoList, requestAction)
       .next()
-      .call(fetchVideoListApi)
+      .call(fetchVideoListApi, requestObject)
       .next({})
       .put(fetchVideoListSuccess({videoData:[]}))
       .finish()
@@ -76,13 +81,13 @@ describe('Test fetchVideoList success', () => {
   });
 
   it('check SaveToken success', () => {
-    const genObject = fetchVideoList();
+    const genObject = fetchVideoList(requestAction);
     genObject.next();
     genObject.next();
   });
 
   it('check SaveToken success', () => {
-    const genObject = fetchVideoList();
+    const genObject = fetchVideoList(requestAction);
     genObject.next({rows: [
       {
         title: 'mockString',
@@ -98,7 +103,7 @@ describe('Test fetchVideoList success', () => {
   });
 
   it('check SaveToken success', () => {
-    const genObject = fetchVideoList();
+    const genObject = fetchVideoList(requestAction);
     genObject.next({rows: [
       {
         title: '',
@@ -116,9 +121,9 @@ describe('Test fetchVideoList success', () => {
 
 describe('Test fetchVideoList success', () => {
   it('fire on FETCH_VIDEO', () => {
-    testSaga(fetchVideoList)
+    testSaga(fetchVideoList, requestAction)
       .next()
-      .call(fetchVideoListApi)
+      .call(fetchVideoListApi, requestObject)
       .next({rows: []})
       .put(fetchVideoListSuccess({videoData:[]}))
       .finish()
@@ -129,9 +134,9 @@ describe('Test fetchVideoList success', () => {
 describe('test fetchVideoList  error', () => {
   const error = new Error('error');
   it('fire on FETCH_VIDEO', () => {
-    testSaga(fetchVideoList)
+    testSaga(fetchVideoList, requestAction)
       .next()
-      .call(fetchVideoListApi)
+      .call(fetchVideoListApi, requestObject)
       .throw(error)
       .put(fetchVideoListFailed({error: error.message}))
       .finish()

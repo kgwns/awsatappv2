@@ -46,7 +46,7 @@ import {useUserProfileData} from 'src/hooks/useUserProfileData';
 import ImagePicker from 'react-native-image-crop-picker';
 import {UpdateUserImageBodyType} from 'src/redux/profileUserDetail/types';
 import {isDarkTheme,SystemPermissions} from 'src/shared/utils';
-import {useAppCommon, useLogin} from 'src/hooks';
+import {useAppCommon, useOrientation} from 'src/hooks';
 import {
   DEFAULT_MINIMUM_DATE,
   DEFAULT_ALERT_TITLE,
@@ -65,6 +65,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
   const {themeData} = useTheme();
+  const { isPortrait } = useOrientation();
 
   const CONST_NAME_PLACE_HOLDER = TranslateConstants({key:TranslateKey.NAME_PLACE_HOLDER});
   const passwordChangedSuccessfully = TranslateConstants({key:TranslateKey.PASSWORD_CHANGED_SUCCESSFULLY});
@@ -160,19 +161,19 @@ export const UserDetailScreen: FunctionComponent = () => {
     {
       setOccupation(
         userProfileData.user?.occupation
-          ? (userProfileData.user?.occupation as string)
+          ? ((userProfileData.user?.occupation).toString())
           : occupation,
       );
     }
     {
       userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
-        setName(userProfileData.user?.name as string);
+        setName((userProfileData.user?.name).toString());
     }
     {
       userProfileData.user?.image &&
         setUserProfileImage(
-          getProfileImageUrl(userProfileData.user?.image as string),
+          getProfileImageUrl((userProfileData.user?.image).toString()),
         );
     }
     if (userProfileData.user?.birthday) {
@@ -186,7 +187,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     {
       userProfileData.user?.display_name && userProfileData.user?.display_name !== ' ' ?  setUserName(userProfileData.user?.display_name as string) : userProfileData.user?.name &&
         userProfileData.user?.name !== ' ' &&
-        setUserName(userProfileData.user?.name as string);
+        setUserName((userProfileData.user?.name).toString());
     }
     if(userProfileData.user?.image == null){
       userProfileData.user?.profile_url &&
@@ -203,16 +204,14 @@ export const UserDetailScreen: FunctionComponent = () => {
   }, []);
 
   useEffect(()=>{
-    if(isNotEmpty(name)){
-      setDisableName(!(userProfileData.user?.display_name === name))
-    }
-    else{
+    if (isNotEmpty(name)) {
+      setDisableName(userProfileData.user?.display_name !== name)
+    } else {
       setDisableName(false)
     }
-    if(isNotEmpty(occupation)){
-      setDisableOccupation(!(userProfileData.user?.occupation === occupation))
-    }
-    else{
+    if (isNotEmpty(occupation)) {
+      setDisableOccupation((userProfileData.user?.occupation !== occupation))
+    } else {
       setDisableOccupation(false)
     }
 
@@ -297,11 +296,10 @@ export const UserDetailScreen: FunctionComponent = () => {
   );
 
   const tabContent = () => {
-    switch (tabSelectedIndex) {
-      case 1:
-        return renderPassword();
-      default:
-        return renderUserDetails();
+    if (tabSelectedIndex === 1) {
+      return renderPassword();
+    } else {
+      return renderUserDetails();
     }
   };
 
@@ -367,9 +365,9 @@ export const UserDetailScreen: FunctionComponent = () => {
   };
 
   const renderUserDetails = () => (
-      <View style={styles.userContainerStyle}>
+      <View style={ isPortrait ? styles.userContainerStyle : styles.userContainerLandscapeStyle}>
         <View style={styles.userContainer}>
-          <View style={styles.dpContainer}>
+          <View style={isTab ? styles.tabDpContainer : styles.dpContainer}>
             <TouchableOpacity testID='render_Option_Modal' onPress={() => 
               isIOS? renderOptionModalIOS() :  setModalVisible(true)}>
               <View style={styles.dpEditContainer}>
@@ -396,7 +394,7 @@ export const UserDetailScreen: FunctionComponent = () => {
             <Label style={styles.email} children={email} />
           </View>
         </View>
-        <View style={styles.fieldContainer}>
+        <View style={ isPortrait ? styles.fieldContainer : styles.fieldContainerLandscape}>
           <View style={styles.nameInputContainer}>
             <Label
               style={styles.nameTitle}
@@ -411,12 +409,13 @@ export const UserDetailScreen: FunctionComponent = () => {
               style={styles.nameInputStyle}
               isMandatory
               maxLength={20}
+              placeholderStyle = {isTab && styles.placeholderStyle}
               leftIcon={() => <UserTextFieldIcon fill={themeData.textColor} />}
             />
           </View>
           <View style={styles.spaceStyle}>
             <Label
-              style={styles.birthdayTitle}
+              style={[styles.birthdayTitle, !isPortrait && {marginTop:0}]}
               color={colors.greenishBlue}
               children={USER_DETAIL_BIRTHDAY_TITLE}
             />
@@ -454,6 +453,7 @@ export const UserDetailScreen: FunctionComponent = () => {
                     }
                     style={[
                       styles.dropDownLabel,
+                      !isPortrait && {marginLeft: '2%'},
                       selectedDate.toString() ===
                        USER_DETAIL_SELECT_BIRTHDAY_TEXT &&
                         styles.dropDownLabelPlaceholder,
@@ -466,7 +466,7 @@ export const UserDetailScreen: FunctionComponent = () => {
           </View>
           <View style={styles.spaceStyle}>
             <Label
-              style={styles.occupationTitle}
+              style={[styles.occupationTitle, !isPortrait && { marginTop: '3%' }]}
               color={colors.greenishBlue}
               children={USER_DETAIL_OCCUPATION_TITLE}
             />
@@ -477,6 +477,7 @@ export const UserDetailScreen: FunctionComponent = () => {
               maxLength={20}
               value={occupation}
               style={styles.occupationInputStyle}
+              placeholderStyle = { isTab && styles.placeholderStyle}
             />
           </View>
         </View>
@@ -491,7 +492,7 @@ export const UserDetailScreen: FunctionComponent = () => {
   );
 
   const renderPassword = () => (
-    <View style={styles.container}>
+    <View style={ isPortrait ? styles.container : styles.containerLandscape}>
       <TextInputField
         placeholder={USER_DETAIL_OLD_PASSWORD}
         testID={'old_password'}
@@ -723,9 +724,20 @@ const createStyles = (theme: CustomThemeType) =>
       marginStart: '10%', 
       marginEnd: '15%'
     },
+    containerLandscape: {
+      flex: 1,
+      marginVertical: '7%',
+      marginStart: '10%', 
+      marginEnd: '15%'
+    },
     userContainerStyle: {
       flex: 1,
-      marginVertical: '20%',
+      marginVertical: isTab ? '10%' : '20%',
+    },
+    userContainerLandscapeStyle: {
+      flex: 1,
+      marginVertical: 8,
+      justifyContent:'center'
     },
     userContainer: {
       flexDirection: 'row',
@@ -739,27 +751,33 @@ const createStyles = (theme: CustomThemeType) =>
       height: normalize(76),
       borderRadius: normalize(76) / 2,
     },
+    tabDpContainer: {
+      backgroundColor: colors.cyanGreen,
+      width: 76,
+      height: 76,
+      borderRadius: 76/2,
+    },
     dpEditContainer: {
       zIndex: 999,
       backgroundColor: 'white',
       position: 'absolute',
       left: 2,
       top: 0,
-      width: normalize(21),
-      height: normalize(21),
-      borderRadius: normalize(21) / 2,
+      width: isTab ? 21 : normalize(21),
+      height: isTab ? 21 : normalize(21),
+      borderRadius: isTab ? 21/2 : normalize(21) / 2,
       alignItems: 'center',
       justifyContent: 'center',
     },
     dpEditIcon: {
-      width: normalize(11),
-      height: normalize(11),
+      width: isTab ? 11 : normalize(11),
+      height: isTab ? 11 : normalize(11),
     },
     dpDefaultIcon: {
       zIndex: -4,
-      width: normalize(76),
-      height: normalize(76),
-      borderRadius: normalize(76) / 2,
+      width: isTab ? 76 : normalize(76),
+      height: isTab ? 76 : normalize(76),
+      borderRadius: isTab ? 76/2 : normalize(76) / 2,
     },
     emailContainer: {
       flex: 0.8,
@@ -769,13 +787,13 @@ const createStyles = (theme: CustomThemeType) =>
     emailTitle: {
       fontSize: 14,
       lineHeight: 20,
-      marginBottom: '6%',
+      marginBottom: isTab ? '4%' : '6%',
       textAlign: 'left',
       fontFamily: fonts.IBMPlexSansArabic_Bold,
     },
     email: {
-      fontSize: normalize(12),
-      lineHeight: normalize(17),
+      fontSize: isTab ? 12 : normalize(12),
+      lineHeight: isTab ? 17 : normalize(17),
       textAlign: 'left',
       color: theme.textInputColor,
       fontFamily: fonts.IBMPlexSansArabic_Regular,
@@ -783,16 +801,19 @@ const createStyles = (theme: CustomThemeType) =>
     fieldContainer: {
       marginVertical: '10%',
     },
+    fieldContainerLandscape: {
+      marginVertical: 6,
+    },
     nameTitle: {
-      fontSize: normalize(13),
-      lineHeight: normalize(17),
+      fontSize: isTab ? 13 : normalize(13),
+      lineHeight: isTab ? 17 : normalize(17),
       marginBottom: '2%',
       textAlign: 'left',
       fontFamily: fonts.AwsatDigital_Bold,
     },
     birthdayTitle: {
-      fontSize: normalize(13),
-      lineHeight: normalize(17),
+      fontSize: isTab ? 13 : normalize(13),
+      lineHeight: isTab ? 17 : normalize(17),
       marginBottom: '2%',
       marginTop: '2%',
       textAlign: 'left',
@@ -807,17 +828,17 @@ const createStyles = (theme: CustomThemeType) =>
       borderWidth: 1,
       borderRadius: normalize(25),
       borderColor: colors.greyLight1,
-      paddingHorizontal: normalize(10),
+      paddingHorizontal: isTab ? isIOS ? 0 : 15 : normalize(10),
     },
     dropDownLabel: {
-      fontSize: normalize(14),
+      fontSize: isTab ? 14 : normalize(14),
       lineHeight: 21,
       marginLeft: '3%',
       color: theme.textInputColor,
     },
     dropDownIcon: {
-      width: normalize(15),
-      height: normalize(15),
+      width: isTab ? 20 : normalize(15),
+      height: isTab ? 20 : normalize(15),
       position: 'absolute',
       right: 15,
     },
@@ -825,20 +846,26 @@ const createStyles = (theme: CustomThemeType) =>
       color: theme.dropDownLabelColor,
     },
     occupationTitle: {
-      fontSize: normalize(13),
-      lineHeight: normalize(17),
-      marginTop: '10%',
+      fontSize: isTab ? 13 : normalize(13),
+      lineHeight: isTab ? 17 : normalize(17),
+      marginTop: isTab ? '6%' : '10%',
       marginBottom: '2%',
       textAlign: 'left',
       fontFamily: fonts.AwsatDigital_Bold,
     },
     nameInputStyle: {
-      width: '94%',
+      width: isTab ? '96%' : '94%',
       color: theme.primaryLightGray,
     },
     occupationInputStyle: {
       width: '100%',
       color: theme.primaryLightGray,
+      paddingHorizontal: 2
+    },
+    placeholderStyle: {
+      fontSize: 14,
+      paddingVertical: 5,
+      paddingHorizontal: 5
     },
     inputStyle: {
       width: '100%',
@@ -855,7 +882,7 @@ const createStyles = (theme: CustomThemeType) =>
     },
     updateButtonLabel: {
       color: colors.white,
-      fontSize: normalize(16),
+      fontSize: isTab ? 16 : normalize(16),
       lineHeight: isTab ? 36 :26,
       fontFamily: fonts.AwsatDigital_Bold,
     },
@@ -904,13 +931,14 @@ const createStyles = (theme: CustomThemeType) =>
       height: screenHeight,
     },
     spaceStyle: {
-      paddingHorizontal: 0.1 * screenWidth
+      paddingHorizontal: isTab ? '10%' : 0.1 * screenWidth
     },
     nameInputContainer: {
       paddingStart: '10%', 
-      paddingEnd: 0.05 * screenWidth
+      paddingEnd: isTab ? '7%' : 0.05 * screenWidth,
     },
     screenBackgroundColor: {
       backgroundColor: theme.profileBackground
     }
-  });
+  }
+  );

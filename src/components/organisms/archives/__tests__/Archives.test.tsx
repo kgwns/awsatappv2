@@ -28,6 +28,49 @@ jest.mock("src/hooks/useBookmark", () => ({
     useBookmark: jest.fn()
 }));
 
+const bookmarkIdData = [
+    {
+        nid: '1',
+        bundle: 'string'
+    },
+    {
+        nid: '2',
+        bundle: 'string'
+    }
+];
+
+const bookmarkData = [
+    {
+        nid: '1',
+        bundle: 'string',
+        tid: '2'
+    },
+    {
+        nid: '2',
+        bundle: 'string',
+        tid: '1'
+    }
+];
+
+const defaultBookmarkValue = {
+    isLoading: false,
+    bookmarkLoading: false,
+    isAllBookmarkFetched: false,
+    canRefreshBookmarkDetail: true,
+    filterBookmarkDetailInfo: [],
+    bookMarkSuccessInfo: {},
+    bookmarkDetail: [],
+    error: 'example',
+    bookmarkIdInfo: bookmarkIdData,
+    sendBookmarkInfo: () => [],
+    getBookmarkedId: () => [],
+    getSpecificBundleFavoriteDetail: () => [],
+    removeBookmarkedInfo: () => [],
+    getBookmarkDetailData: () => [],
+    removeBookmark: () => [],
+    getSpecificBundleArticleCount: () => jest.fn(),
+};
+
 const filterData: FilterDataType[] = [
     {
         name: 'favorite.filters.everyone',
@@ -73,32 +116,7 @@ describe('Testing widgetNameByIndex method in <Archives>', () => {
     const setFilteredData = jest.fn();
     const useBookmarkMock = jest.fn();
     const useRefMock = jest.fn();
-    const bookmarkReturnValue = {
-        isLoading: false,
-        bookmarkLoading: false,
-        isAllBookmarkFetched: false,
-        canRefreshBookmarkDetail: true,
-        filterBookmarkDetailInfo: [],
-        bookMarkSuccessInfo: {},
-        bookmarkDetail: [],
-        error: 'example',
-        bookmarkIdInfo: [
-            {
-                nid: '1',
-                bundle: 'string'
-            },
-            {
-                nid: '2',
-                bundle: 'string'
-            }
-        ],
-        sendBookmarkInfo: () => [],
-        getBookmarkedId: () => [],
-        getSpecificBundleFavoriteDetail: () => [],
-        removeBookmarkedInfo: () => [],
-        getBookmarkDetailData: () => [],
-        removeBookmark: () => [],
-    }
+    const bookmarkReturnValue = { ...defaultBookmarkValue };
 
     beforeEach(() => {
         (useState as jest.Mock).mockImplementation(() => [false, setInitialLoading]);
@@ -167,39 +185,14 @@ describe('Testing filter component renders in <Archives>', () => {
     const useRefMock = jest.fn();
 
     const bookmarkReturnValue = {
+        ...defaultBookmarkValue,
         isLoading: false,
         bookmarkLoading: true,
         isAllBookmarkFetched: true,
         canRefreshBookmarkDetail: true,
         filterBookmarkDetailInfo: [],
         bookMarkSuccessInfo: {},
-        bookmarkDetail: [
-            {
-                nid: '1',
-                bundle: 'string'
-            },
-            {
-                nid: '2',
-                bundle: 'string'
-            }
-        ],
-        error: 'example',
-        bookmarkIdInfo: [
-            {
-                nid: '1',
-                bundle: 'string'
-            },
-            {
-                nid: '2',
-                bundle: 'string'
-            }
-        ],
-        sendBookmarkInfo: () => [],
-        getBookmarkedId: () => [],
-        getSpecificBundleFavoriteDetail: () => [],
-        removeBookmarkedInfo: () => [],
-        getBookmarkDetailData: () => [],
-        removeBookmark: () => [],
+        bookmarkDetail: bookmarkData,
     }
 
     beforeEach(() => {
@@ -281,6 +274,7 @@ describe('Test returnItems', () => {
     const useRefMock = jest.fn();
 
     const bookmarkReturnValue = {
+        ...defaultBookmarkValue,
         isLoading: false,
         bookmarkLoading: true,
         isAllBookmarkFetched: true,
@@ -288,39 +282,12 @@ describe('Test returnItems', () => {
         filterBookmarkDetailInfo: [],
         bookMarkSuccessInfo: {},
         bookmarkDetail: {
-            data: [
-                {
-                    nid: '1',
-                    bundle: 'string',
-                    tid:'2'
-                },
-                {
-                    nid: '2',
-                    bundle: 'string',
-                    tid:'1'
-                }
-            ]
+            data: bookmarkData
         },
-        error: 'example',
-        bookmarkIdInfo: [
-            {
-                nid: '1',
-                bundle: 'string'
-            },
-            {
-                nid: '2',
-                bundle: 'string'
-            }
-        ],
-        sendBookmarkInfo: () => [],
-        getBookmarkedId: () => [],
-        getSpecificBundleFavoriteDetail: () => [],
-        removeBookmarkedInfo: () => [],
-        getBookmarkDetailData: () => [],
-        removeBookmark: () => [],
     }
 
     beforeEach(() => {
+        DeviceTypeUtilsMock.isTab = true;
         (useState as jest.Mock).mockImplementation(() => [true, setInitialLoading]);
         (useState as jest.Mock).mockImplementation(() => [0, tabSelectedIndex]);
         (useState as jest.Mock).mockImplementation(() => [filterData, filterItemData]);
@@ -345,9 +312,35 @@ describe('Test returnItems', () => {
     })
 
     it('should render component', () => {
-        DeviceTypeUtilsMock.isTab = false;
         expect(instance).toBeDefined()
     })
 
+
+})
+
+
+describe("should call Dynamic Widget", () => {
+    let instance: RenderAPI;
+    const mockFunction = jest.fn();
+    const useRefMock = jest.fn();
+    beforeEach(() => {
+        DeviceTypeUtilsMock.isTab = false;
+        (useRef as jest.Mock).mockImplementation(useRefMock);
+        useRefMock.mockReturnValueOnce({
+            current: false
+        });
+        const component =
+            <Provider store={storeSampleData}>
+                <Archives />
+            </Provider>
+        instance = render(component)
+    })
+    afterEach(() => {
+        jest.clearAllMocks();
+    })
+    it("should render component", () => {
+        (useState as jest.Mock).mockImplementationOnce(() => [filteredData, mockFunction]).mockImplementationOnce(() => [false, mockFunction]);
+        expect(instance).toBeDefined();
+    })
 
 })

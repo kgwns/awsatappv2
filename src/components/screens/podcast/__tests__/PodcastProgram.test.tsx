@@ -7,6 +7,7 @@ import { PodcastListItemType } from 'src/redux/podcast/types';
 import { FlatList } from 'react-native';
 import { PodcastEpisodeList } from 'src/components/organisms';
 import { useNavigation } from '@react-navigation/native';
+import { useLogin } from 'src/hooks';
 
 jest.mock('react-native-safe-area-context', () => {
   const inset = {top: 0, right: 0, bottom: 0, left: 0};
@@ -25,6 +26,11 @@ jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
   useRef: jest.fn(),
+}));
+
+jest.mock('src/hooks/useLogin', () => ({
+  ...jest.requireActual('src/hooks/useLogin'),
+  useLogin: jest.fn(),
 }));
 
 jest.mock('@react-navigation/native', () => ({
@@ -118,6 +124,7 @@ describe('<<< PodcastProgram >>>', () => {
         return []
       },
     });
+    (useLogin as jest.Mock).mockReturnValueOnce({ isLoggedIn: false })
     const element = <PodcastProgram tabIndex={0} currentIndex={0} />;
     instance = render(element);
   });
@@ -127,6 +134,7 @@ describe('<<< PodcastProgram >>>', () => {
   });
 
   it('### Check Render Method of PodcastProgram different index', () => {
+    (useLogin as jest.Mock).mockReturnValueOnce({ isLoggedIn: true })
     expect(render(<PodcastProgram tabIndex={3} currentIndex={2} />)).toBeDefined();
   });
 
@@ -169,3 +177,38 @@ describe('<<< PodcastProgram >>>', () => {
 });
 
 
+describe('<<< PodcastProgram >>>', () => {
+  let instance: RenderAPI;
+  const mockFunction = jest.fn();
+  const usePodcastMock = mockFunction;
+  const podcastEpisodeListInfo = mockFunction;
+  const showModal = mockFunction;
+  const selectedItem = mockFunction;
+
+  const navigation = {
+    navigate: mockFunction,
+  }
+
+  beforeEach(() => {
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (usePodcast as jest.Mock).mockImplementation(usePodcastMock);
+    (useState as jest.Mock).mockImplementation(() => [mockData, podcastEpisodeListInfo]);
+    (useState as jest.Mock).mockImplementation(() => [false, showModal]);
+    (useRef as jest.Mock).mockImplementation(() => [selectedItemData, selectedItem]);
+    usePodcastMock.mockReturnValue({
+      isLoading: false,
+      podcastListData: [],
+      fetchPodcastListRequest: () => {
+        return []
+      },
+    });
+    (useLogin as jest.Mock).mockReturnValueOnce({ isLoggedIn: false })
+    const element = <PodcastProgram tabIndex={0} currentIndex={0} />;
+    instance = render(element);
+  });
+
+  it('### Check Render Method of PodcastProgram', () => {
+    expect(instance).toBeDefined();
+  });
+
+});

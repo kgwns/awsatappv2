@@ -4,12 +4,14 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { ImagesName } from 'src/shared/styles';
-import { isDarkTheme, screenWidth } from 'src/shared/utils';
+import { isDarkTheme, recordLogEvent, screenWidth } from 'src/shared/utils';
 import HeaderDarkLogoSvg from 'src/assets/images/headerIcons/aaaNewLogoDarkStretch.svg';
 import HeaderLogoSvg from 'src/assets/images/headerIcons/aaaNewLogoStretch.svg';
 import { useNavigation, DrawerActions } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useAppCommon } from 'src/hooks';
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { sideMenuEventParameter } from 'src/shared/utils/analyticsEvents';
 
 export interface HeaderProps {
     scrollY?: any;
@@ -33,7 +35,10 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
     const { theme } = useAppCommon();
     const isDarkMode = isDarkTheme(theme);
 
-    const onPressRightIcon = () => navigation.dispatch(DrawerActions.toggleDrawer());
+    const onPressRightIcon = () => {
+        recordLogEvent(AnalyticsEvents.MENU_VIEW,sideMenuEventParameter)
+        navigation.dispatch(DrawerActions.toggleDrawer());
+    }
 
     const onPressLeftIcon = () => navigation.navigate(ScreensConstants.SearchScreen);
 
@@ -69,25 +74,25 @@ export const AnimatedHeader: FunctionComponent<HeaderProps> = ({
     const renderHeaderLogo = () => {
         if (animated) {
             const inputRange = [-100, 0, 100]
-            const width = scrollY.interpolate({
+            const widthStyle = scrollY.interpolate({
                 inputRange,
                 outputRange: [ANIMATE_IMAGE_WIDTH, ANIMATE_IMAGE_WIDTH, 130],
                 extrapolate: 'clamp'
             })
-            const height = scrollY.interpolate({
+            const heightStyle = scrollY.interpolate({
                 inputRange,
                 outputRange: [ANIMATE_IMAGE_HEIGHT, ANIMATE_IMAGE_HEIGHT, 32],
                 extrapolate: 'clamp'
             })
 
             return (
-                <Animated.View style={{ width: width, height: height }}>
-                    {isDarkMode ? <HeaderDarkLogoSvg /> : <HeaderLogoSvg />}
+                <Animated.View style={{ width: widthStyle, height: heightStyle }}>
+                    {isDarkMode ? <HeaderDarkLogoSvg testID='headerDarkLogoId' /> : <HeaderLogoSvg testID='headerLogoId' />}
                 </Animated.View>
             )
         } else {
             return (
-                <View style={styles.titleContainerWrapper}>
+                <View style={styles.titleContainerWrapper} testID='logoId'>
                     {getSvgImages({ name: ImagesName.headerLogo, width: IMAGE_WIDTH, height: IMAGE_HEIGHT })}
                 </View>
             )

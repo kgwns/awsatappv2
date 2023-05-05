@@ -2,20 +2,23 @@ import { StyleSheet, View, ViewStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants'
 import { ImageWithLabel } from '../atoms'
-import { articleProps } from '../organisms'
+import { ArticleProps } from '../organisms'
 import { ArticleWithOutImage } from '../molecules'
 import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 
-export interface ArticleItemProps extends articleProps {
+export interface ArticleItemProps extends ArticleProps {
     index: number,
     articleItemStyle?: ViewStyle,
     showDivider?: boolean,
     showFooterTitle?: boolean,
     containerStyle?: ViewStyle,
-    isJournalist?: boolean
+    isJournalist?: boolean,
+    mainContainerStyle?: ViewStyle,
+    tabletArticleContainerStyle?: ViewStyle,
+    tabBodyLineCount?: number
 }
 
 const ArticleItem: FunctionComponent<ArticleItemProps> = ({
@@ -28,6 +31,9 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     hideImage,
     containerStyle,
     isJournalist = false,
+    mainContainerStyle,
+    tabletArticleContainerStyle,
+    tabBodyLineCount,
     ...props
 }) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
@@ -43,14 +49,14 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     }
 
     return (
-        <FixedTouchable onPress={onPress} style={style.mainContainer}>
+        <FixedTouchable onPress={onPress} style={[style.mainContainer,mainContainerStyle]}>
             <View key={flatListUniqueKey.ARTICLE_SECTION + props.index}
-                style={StyleSheet.flatten([style.container, articleItemStyle])}>
+                style={StyleSheet.flatten([style.container, articleItemStyle,tabletArticleContainerStyle])}>
                 {!hideImage && isNotEmpty(image) && <ImageWithLabel url={image} {...props} onPressImage={onPress} imageStyle={imageStyle} />}
                 <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                         onPressBookmark={onPressBookmark} titleStyle={props.titleStyle} bodyStyle={props.bodyStyle}
-                        displayType={undefined} //DisplayType with display in ImageWithLabel itself
+                        bodyLineCount={tabBodyLineCount} displayType={undefined} //DisplayType with display in ImageWithLabel itself
                     />
                 </View>
             </View>

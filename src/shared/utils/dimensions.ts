@@ -2,8 +2,8 @@ import { Dimensions, Platform, PixelRatio } from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 
 const { width, height } = Dimensions.get('window');
-const screenWidth = Math.min(width, height);
-const screenHeight = Math.max(width, height);
+const screenWidth = width
+const screenHeight = height
 
 const isIOS = Platform.OS === 'ios';
 const isAndroid = Platform.OS === 'android'
@@ -32,8 +32,7 @@ const isPortrait = () => {
   return dim.height >= dim.width;
 };
 
-const deviceScreenWidth = width;
-
-const deviceScreenHeight = height;
+const deviceScreenWidth =  Dimensions.get('screen').width;
+const deviceScreenHeight =  Dimensions.get('screen').height;
   
 export { screenWidth, screenHeight, isIOS, isAndroid, isNotchDevice, normalize, normalizeBy320, deviceScreenWidth, deviceScreenHeight, isPortrait  };

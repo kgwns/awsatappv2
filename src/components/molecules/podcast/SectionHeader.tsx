@@ -35,7 +35,7 @@ export const SectionHeader = ({
 };
 
 const customStyle = (theme: CustomThemeType) => {
-  const PodcastHeader = StyleSheet.create({
+  return StyleSheet.create({
     headerContainer: {
       width: '100%',
       flexDirection: 'row',
@@ -62,7 +62,6 @@ const customStyle = (theme: CustomThemeType) => {
       marginEnd: normalize(5),
     },
   });
-  return PodcastHeader;
 };
 
 export default SectionHeaderProps;

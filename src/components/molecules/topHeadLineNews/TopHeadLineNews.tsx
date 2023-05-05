@@ -1,4 +1,4 @@
-import { View, FlatList, ListRenderItem, StyleSheet } from 'react-native'
+import { View, FlatList, ListRenderItem, StyleSheet, StyleProp, ViewStyle } from 'react-native'
 import React from 'react'
 import { Label } from 'src/components/atoms/label/Label'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
@@ -15,18 +15,20 @@ import { ArticleLabel } from '../articleLabel/ArticleLabel'
 
 
 export type TopHeadLineNewsProps = {
-    data: MainSectionBlockType[]
+    data: MainSectionBlockType[],
+    tabContainerStyle?: StyleProp<ViewStyle>
 }
 
 export const TopHeadLineNews = ({
-    data
+    data,
+    tabContainerStyle
 }: TopHeadLineNewsProps) => {
     const navigation = useNavigation<StackNavigationProp<any>>()
     const style = useThemeAwareObject(customStyle)
 
-    const onPress = (nid: string) => {
-        if (isNotEmpty(nid)) {
-            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nid })
+    const onPress = (nId: string) => {
+        if (isNotEmpty(nId)) {
+            navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: nId })
         }
     }
 
@@ -42,7 +44,7 @@ export const TopHeadLineNews = ({
                         <View style={{ paddingRight: normalize(8) }}>
                             <ArticleLabel displayType={item.displayType} />
                         </View>
-                        <Label children={decode(item.title)} style={style.title} />
+                        <Label children={decode(item.title)} style={isTab ? style.tabTitle : style.title} />
                     </View>
                 </View>
             </FixedTouchable>
@@ -50,7 +52,7 @@ export const TopHeadLineNews = ({
 
     }
     return (
-        <View style={[style.container]}>
+        <View style={[style.container,tabContainerStyle]}>
             <FlatList
                 keyExtractor={(_, index) => index.toString()}
                 data={data}
@@ -64,7 +66,6 @@ export const TopHeadLineNews = ({
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingBottom: isTab ? 0 : normalize(15),
-        paddingTop: isTab ? normalize(10) : 0,
     },
     rowItem: {
         justifyContent: 'center',
@@ -86,6 +87,16 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontFamily: fonts.AwsatDigital_Bold,
         flex: 1,
         flexWrap: 'wrap',
+    },
+    tabTitle: {
+        fontSize: 18,
+        lineHeight: 29,
+        textAlign: 'left',
+        color: theme.primaryBlack,
+        fontFamily: fonts.AwsatDigital_Bold,
+        flex: 1,
+        flexWrap: 'wrap',
+        fontWeight: '700'
     },
     circleContainer: {
         width: isTab ? 'auto' :'5%'

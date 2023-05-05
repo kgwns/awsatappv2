@@ -58,4 +58,3 @@ import {
     | FetchDocumentaryVideoType
     | FetchDocumentaryVideoSuccessType
     | FetchDocumentaryVideoFailedType;
-    

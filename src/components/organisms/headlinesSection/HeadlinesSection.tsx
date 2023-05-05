@@ -55,7 +55,6 @@ const HeadlinesSection = ({
         setHeadNews(tickerData[0].title as any ?? '')
         setHeaderNews(title)
         setIndexValue(1)
-        return
     }, [])
 
     const getTitle = (data: LatestArticleDataType[], index: number): string => {
@@ -70,8 +69,7 @@ const HeadlinesSection = ({
         nextIndex = indexValue + 1
         if (nextIndex === tickerData.length) {
             { setIndexValue(0) }
-        }
-        else {
+        } else {
             setIndexValue(nextIndex)
         }
         const title = getTitle(tickerData, indexValue)

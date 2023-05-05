@@ -7,9 +7,9 @@ import { ScreenContainer } from '..';
 import { useAllWriters, useBookmark, useLogin, useWriterDetail, useJournalist } from 'src/hooks';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { WriterBannerImage, DetailHeader } from 'src/components/molecules';
+import { WriterBannerImage, DetailHeader, DetailHeaderTablet } from 'src/components/molecules';
 import { JournalistSection } from 'src/components/organisms';
-import { horizontalEdge, isNotEmpty } from 'src/shared/utils/utilities';
+import { horizontalEdge, } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { ScreensConstants } from 'src/constants/Constants'
 import Orientation from 'react-native-orientation-locker';
@@ -26,7 +26,7 @@ export const JournalistDetail = ({
     const routes = useNavigationState(state => state.routes)
     const isFocused = useIsFocused();
 
-    const style = useThemeAwareObject(customStyle);
+    const style = useThemeAwareObject(journalistCustomStyle);
 
     const {
         bookmarkIdInfo,
@@ -69,8 +69,8 @@ export const JournalistDetail = ({
         if (isFocused) {
             getJournalistDetailInfo({ tid: jId })
             getSelectedAuthorsData()
-            Orientation.lockToPortrait()
-
+            // enable when orientation required for mobile
+            // Orientation.lockToPortrait()
             return () => {
                 emptyWriterDetailData()
             }
@@ -94,7 +94,7 @@ export const JournalistDetail = ({
     }
 
     useEffect(() => {
-        getJournalistArticleInfo({ nid: jId, page: page });
+        getJournalistArticleInfo({ nid: jId, page });
     }, [page]);
 
     useEffect(() => {
@@ -189,11 +189,19 @@ export const JournalistDetail = ({
         navigation.popToTop()
     }
 
-    const renderHeader = () => (
-        <View style={style.backContainer}>
-            <DetailHeader visibleHome={noOfDetailRoutes > 1} onHomePress={onPressHome} onBackPress={onPressBack} />
-        </View>
-    )
+    const renderHeader = () => {
+        const headerProps = {
+            visibleHome: noOfDetailRoutes > 1,
+            onHomePress: () => onPressHome(),
+            onBackPress: () => onPressBack(),
+        }
+
+        return (
+            <View style={style.backContainer}>
+                {isTab ? <DetailHeaderTablet {...headerProps} /> : <DetailHeader {...headerProps} />}
+            </View>
+        );
+    };
 
     const renderItem = () => {
         const hideBackArrow = (Number.parseInt(JSON.stringify(scrollY)) > 50)
@@ -244,7 +252,7 @@ export const JournalistDetail = ({
     );
 };
 
-const customStyle = (theme: CustomThemeType) => StyleSheet.create({
+const journalistCustomStyle = (theme: CustomThemeType) => StyleSheet.create({
     container: {
         paddingBottom: normalize(80),
         backgroundColor: theme.backgroundColor,
@@ -258,7 +266,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     backContainer: {
         width: '100%',
-        height: isTab ? normalize(100) : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
+        height: isTab ? 100 : isIOS ? isNotchDevice ? normalize(98) : normalize(92) : normalize(72),
         backgroundColor: theme.secondaryWhite,
         justifyContent: 'center',
     }

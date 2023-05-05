@@ -4,7 +4,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {colors} from 'src/shared/styles/colors';
 import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import {Edge} from 'react-native-safe-area-context';
-import {horizontalEdge, isAndroid, isNotEmpty} from 'src/shared/utils';
+import {horizontalEdge, isAndroid, isNotEmpty, isTab} from 'src/shared/utils';
 import {ScreenContainer} from 'src/components/screens';
 import SystemNavigationBar from 'react-native-system-navigation-bar';
 import VideoPlayerFullScreen from './VideoPlayerFullScreen';
@@ -14,11 +14,13 @@ export interface VideoPlayerProps {
   goBack?: () => void;
   testID?: string;
   url: string;
+  title: string;
 }
 export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   goBack,
   testID,
   url,
+  title,
 }) => {
   const styles = useThemeAwareObject(createStyles);
   const [isPaused, setIsPaused] = useState(false);
@@ -33,10 +35,14 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
           deviceOrientation === OrientationType['LANDSCAPE-LEFT'] ||
           deviceOrientation === OrientationType['LANDSCAPE-RIGHT']
         ) {
-          Orientation.lockToLandscape();
+          if(!isTab) {
+            Orientation.lockToPortrait();
+          }
           setFullScreen(true);
         } else if (deviceOrientation === OrientationType['PORTRAIT']) {
-          Orientation.lockToPortrait();
+          if(!isTab) {
+            Orientation.lockToPortrait();
+          }
           setFullScreen(false);
         }
       }
@@ -46,7 +52,9 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
   const goBackToScreen = () => {
     if (goBack) {
       if(fullScreen){
-        Orientation.lockToPortrait();
+        if(!isTab) {
+          Orientation.lockToPortrait();
+        }
         setFullScreen(false);
       }
       setIsPaused(true);
@@ -77,14 +85,16 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
     Orientation.addDeviceOrientationListener(changeOrientation);
     return () => {
       Orientation.removeDeviceOrientationListener(changeOrientation);
-      Orientation.lockToPortrait();
+      if(!isTab) {
+        Orientation.lockToPortrait();
+      }
       StatusBar.setHidden(false);
       isAndroid && SystemNavigationBar.navigationShow();
     };
   }, []);
 
   const changeFullScreen = () => {
-    fullScreen ? Orientation.lockToPortrait() : Orientation.lockToLandscape();
+    fullScreen ? isTab ? Orientation.unlockAllOrientations() : Orientation.lockToPortrait() : Orientation.lockToLandscape();
     setFullScreen(!fullScreen);
   };
 
@@ -97,6 +107,7 @@ export const VideoPlayerComponent: FunctionComponent<VideoPlayerProps> = ({
       isLandscape >
       <View style={styles.videoStyles}>
         <VideoPlayerFullScreen
+          title={title}
           url={videoUrl}
           isPaused={isPaused}
           isFullScreen={fullScreen}

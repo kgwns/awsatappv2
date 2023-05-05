@@ -10,6 +10,7 @@ export const sendContactUsService = async (body: SendContactUsInfoPayload) => {
         );
         return response;
     } catch (error) {
+        console.log('contactUsService - sendContactUsService - error', error)
         throw error;
     }
 };

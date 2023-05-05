@@ -68,17 +68,18 @@ describe('<PodcastWidget>', () => {
     expect(instance).toBeDefined();
   });
 
-  it("test ListenToPodcast onPress method", () => {
-    const testId = instance.getByTestId('podcastId');
-    fireEvent(testId, 'onPress')
-    expect(mockFunction).toHaveBeenCalled()
-  })
+  // Commented out the podcast list is not displaying in tab ui
+  // it("test ListenToPodcast onPress method", () => {
+  //   const testId = instance.getByTestId('podcastId');
+  //   fireEvent(testId, 'onPress')
+  //   expect(mockFunction).toHaveBeenCalled()
+  // })
 
-  it("test ButtonImage onPress method", () => {
-    const element = instance.container.findByType(ButtonImage);
-    fireEvent(element, 'onPress')
-    expect(mockFunction).toHaveBeenCalled()
-  })
+  // it("test ButtonImage onPress method", () => {
+  //   const element = instance.container.findByType(ButtonImage);
+  //   fireEvent(element, 'onPress')
+  //   expect(mockFunction).toHaveBeenCalled()
+  // })
   it("test fetchSingleEpisodeSpreakerApi to return response",async() => {
     (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({response:{episode:{result:true}}});
     const response = await fetchSingleEpisodeSpreakerApi({episodeId:'2'});

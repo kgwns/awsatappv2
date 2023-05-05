@@ -10,6 +10,7 @@ import { getCacheApiRequest } from 'src/services/api'
 import { AAA_LIVE_BLOG_URL, AAA_PROFILE_IMAGE_URL, AAA_UMS_BASE_URL, BASE_URL_CONFIG, PROD_BASE_URL } from 'src/services/apiUrls'
 import { isNotEmpty, isObjectNonEmpty } from 'src/shared/utils'
 import Video from 'react-native-video'
+import { PodcastAnalyticsManager } from 'src/shared/utils/PodcastAnalyticsManager'
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
@@ -95,7 +96,9 @@ const SplashNavigation = () => {
     };
 
     return (
-        Platform.OS === 'android' ?
+        <>
+            <PodcastAnalyticsManager />
+           {(Platform.OS === 'android') ?
             (loading ?
                 <Video
                     source={require('../assets/video/splashscreen.mp4')}
@@ -107,7 +110,8 @@ const SplashNavigation = () => {
                 </>)
             : <>
                 {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
-            </>
+            </>}
+        </>
     );
 }
 

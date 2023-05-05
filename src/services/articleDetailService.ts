@@ -11,6 +11,7 @@ export const requestArticleDetail = async (body: ArticleDetailBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('articleDetailService - requestArticleDetail - error', error)
     throw error;
   }
 };
@@ -24,6 +25,7 @@ export const requestRelatedArticle = async (body: RelatedArticleBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('articleDetailService - requestRelatedArticle - error', error)
     throw error;
   }
 };
@@ -35,6 +37,7 @@ export const requestArticleSection = async (body: ArticleSectionBodyGet) => {
     );
     return response;
   } catch (error) {
+    console.log('articleDetailService - requestArticleSection - error', error)
     throw error;
   }
 };
@@ -46,6 +49,7 @@ export const requestJournalistDetail = async (body: JournalistDetailBodyGet) => 
     );
     return response;
   } catch (error) {
+    console.log('articleDetailService - requestJournalistDetail - error', error)
     throw error;
   }
 };
