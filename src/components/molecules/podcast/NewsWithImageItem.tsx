@@ -24,6 +24,7 @@ export interface NewsWithImageItemProps {
   isAlbum: boolean;
   displayType?: string;
   tabImageStyle?: StyleProp<ViewStyle>;
+  tabContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export const NewsWithImageItem = ({
@@ -40,6 +41,7 @@ export const NewsWithImageItem = ({
   isAlbum,
   displayType,
   tabImageStyle,
+  tabContainerStyle
 }: NewsWithImageItemProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -49,9 +51,16 @@ export const NewsWithImageItem = ({
       <ArticleLabel displayType={displayType} />
     </View>
   );
-  const getContainerWidth = () => {
+  const getImageWidth = () => {
     if (isTab && tabImageStyle) {
       return tabImageStyle
+    } else {
+      return { width: ((isTab ? 0.5 : 0.92) * screenWidth - 15) }
+    }
+  }
+  const getContainerWidth = () => {
+    if (isTab && tabContainerStyle) {
+      return tabContainerStyle
     } else {
       return { width: ((isTab ? 0.5 : 0.92) * screenWidth - 15) }
     }
@@ -60,7 +69,7 @@ export const NewsWithImageItem = ({
   return (
     <View style={StyleSheet.flatten([style.container, getContainerWidth(), containerStyle])}>
       {imageUrl &&
-        <View style={[isTab ? style.tabImage : style.image,getContainerWidth()]}>
+        <View style={[isTab ? style.tabImage : style.image,getImageWidth()]}>
           <Image url={imageUrl}
             resizeMode={ImageResize.COVER} fallback
             style={style.imageStyle}

@@ -887,7 +887,7 @@ export const MainSectionScreen = React.memo((
       {isNonEmptyArray(topViewSectionDataThree) && <View style={mainSectionStyle.horizontalStyle}> 
         <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />
       </View>}
-      <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} tabTitleStyle={mainSectionStyle.tabTitleStyle} tabImageStyle={mainSectionStyle.tabImageStyle} />
+      <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} tabTitleStyle={mainSectionStyle.tabTitleStyle} tabContainerStyle={mainSectionStyle.tabContainerStyle} tabImageStyle={mainSectionStyle.tabImageStyle} />
       {isNonEmptyArray(podcastHome) && isNonEmptyArray(infoGraphicBlock) ?
         <View style={mainSectionStyle.tabSplitterContainer}>
           <View style={[mainSectionStyle.tabPodcastInfoWidget, isDarkMode && {paddingRight:10}]}>
@@ -1310,6 +1310,9 @@ const customStyle = (theme: CustomThemeType) => {
       width: 335 ,
       height: 252,
       aspectRatio: 4/3,
+    },
+    tabContainerStyle: {
+      width: 335 ,
     },
     tabTitleStyle: {
       color: theme.primaryBlack,

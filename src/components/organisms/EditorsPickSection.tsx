@@ -19,6 +19,7 @@ interface EditorsPickSectionProps {
   showHighlightTitle?: boolean;
   tabTitleStyle?: StyleProp<TextStyle>;
   tabImageStyle?: StyleProp<ViewStyle>;
+  tabContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export const EditorsPickSection = ({
@@ -27,7 +28,8 @@ export const EditorsPickSection = ({
   headerRight,
   showHighlightTitle=true,
   tabTitleStyle,
-  tabImageStyle
+  tabImageStyle,
+  tabContainerStyle
 }: EditorsPickSectionProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const style = useThemeAwareObject(customStyle)
@@ -54,6 +56,7 @@ export const EditorsPickSection = ({
           isAlbum={isAlbum}
           displayType={item.displayType}
           tabImageStyle={tabImageStyle}
+          tabContainerStyle={tabContainerStyle}
         />
       </TouchableOpacity>
     );
