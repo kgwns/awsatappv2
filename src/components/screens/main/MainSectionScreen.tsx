@@ -863,7 +863,6 @@ export const MainSectionScreen = React.memo((
         title={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
       />} */}
-      {/* <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} /> */}
 
       {/* <View> */}
           <View style={mainSectionStyle.horizontalStyle}> 
@@ -888,6 +887,7 @@ export const MainSectionScreen = React.memo((
       {isNonEmptyArray(topViewSectionDataThree) && <View style={mainSectionStyle.horizontalStyle}> 
         <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />
       </View>}
+      <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} tabTitleStyle={mainSectionStyle.tabTitleStyle} tabImageStyle={mainSectionStyle.tabImageStyle} />
       {isNonEmptyArray(podcastHome) && isNonEmptyArray(infoGraphicBlock) ?
         <View style={mainSectionStyle.tabSplitterContainer}>
           <View style={[mainSectionStyle.tabPodcastInfoWidget, isDarkMode && {paddingRight:10}]}>
@@ -1190,10 +1190,10 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.dividerColor,
     },
     articleContainer: {
-      backgroundColor: theme.mainBackground,
+      backgroundColor: theme.secondaryWhite,
     },
     mainShortArticleContainer: {
-      marginStart: 40, 
+      paddingHorizontal: 40, 
       marginBottom:20
     },
     articleTitleContainer: {
@@ -1293,7 +1293,7 @@ const customStyle = (theme: CustomThemeType) => {
       fontSize: 25,
       lineHeight: 36,
       fontFamily: fonts.AwsatDigital_Black,
-      textAlign: 'left',
+      textAlign: 'center',
       paddingTop: 22
     },
     shortArticleContainerStyle: {
@@ -1305,6 +1305,18 @@ const customStyle = (theme: CustomThemeType) => {
     },
     horizontalStyle: {
       marginHorizontal: 40,
+    },
+    tabImageStyle: {
+      width: 335 ,
+      height: 252,
+      aspectRatio: 4/3,
+    },
+    tabTitleStyle: {
+      color: theme.primaryBlack,
+      fontSize: 25,
+      lineHeight: 36,
+      fontFamily: fonts.AwsatDigital_Black,
+      paddingTop: 15,
     }
   })
 }

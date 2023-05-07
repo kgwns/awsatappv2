@@ -23,6 +23,7 @@ export interface NewsWithImageItemProps {
   containerStyle?: StyleProp<ViewStyle>;
   isAlbum: boolean;
   displayType?: string;
+  tabImageStyle?: StyleProp<ViewStyle>;
 }
 
 export const NewsWithImageItem = ({
@@ -38,6 +39,7 @@ export const NewsWithImageItem = ({
   containerStyle,
   isAlbum,
   displayType,
+  tabImageStyle,
 }: NewsWithImageItemProps) => {
   const style = useThemeAwareObject(customStyle);
   const theme = useTheme();
@@ -47,11 +49,18 @@ export const NewsWithImageItem = ({
       <ArticleLabel displayType={displayType} />
     </View>
   );
+  const getContainerWidth = () => {
+    if (isTab && tabImageStyle) {
+      return tabImageStyle
+    } else {
+      return { width: ((isTab ? 0.5 : 0.92) * screenWidth - 15) }
+    }
+  }
 
   return (
-    <View style={StyleSheet.flatten([style.container, containerStyle])}>
+    <View style={StyleSheet.flatten([style.container, getContainerWidth(), containerStyle])}>
       {imageUrl &&
-        <View style={isTab ? style.tabImage : style.image}>
+        <View style={[isTab ? style.tabImage : style.image,getContainerWidth()]}>
           <Image url={imageUrl}
             resizeMode={ImageResize.COVER} fallback
             style={style.imageStyle}
@@ -106,17 +115,14 @@ export const NewsWithImageItem = ({
 const customStyle = (theme: CustomThemeType) => {
   return StyleSheet.create({
     container: {
-      width: ((isTab ? 0.5  : 0.92) * screenWidth - 15),
       alignItems: 'flex-start',
       marginStart: normalize(15),
     },
     image: {
-      width: (0.92 * screenWidth - 15),
       height: 'auto',
       aspectRatio: 4/3,
     },
     tabImage: {
-      width: (0.5 * screenWidth - 15),
       height: 'auto',
       aspectRatio: 4/3,
     },
