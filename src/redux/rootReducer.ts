@@ -37,6 +37,7 @@ import journalistReducer from 'src/redux/journalist/reducer';
 import arabicWordsReducer from 'src/redux/arabicWords/reducer';
 import podcastDataReducer from 'src/redux/podcastAnalytics/reducer';
 import deleteMyAccountReducer from 'src/redux/deleteMyAccount/reducer';
+import cartoonReducer from 'src/redux/cartoon/reducer';
 
 export const RESET_STORE = 'RESET_STORE';
 
@@ -79,6 +80,7 @@ const rootReducer = combineReducers({
   arabicWords:arabicWordsReducer,
   podcastData: podcastDataReducer,
   deleteMyAccount: deleteMyAccountReducer,
+  cartoon: cartoonReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
