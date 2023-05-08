@@ -85,6 +85,7 @@ interface TextInputfieldProps {
   tabErrorTextStyle?: StyleProp<TextStyle>;
   tabStarLabelStyle?: StyleProp<TextStyle>;
   placeholderTextColor?: string;
+  blurOnSubmit?: boolean;
 }
 export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   placeholder,

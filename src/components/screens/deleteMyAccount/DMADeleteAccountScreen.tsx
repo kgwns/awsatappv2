@@ -117,6 +117,7 @@ export const DMADeleteAccountScreen = () => {
         multiline={true}
         textInputStyle={style.messageTextInput}
         placeholderTextColor={style.placeHolder.color}
+        blurOnSubmit={true}
       />
     </View>
   );
