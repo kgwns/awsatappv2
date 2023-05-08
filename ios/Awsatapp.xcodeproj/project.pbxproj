@@ -73,7 +73,6 @@
 		AF14A16B2836D0C700E6311D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1432836D0C600E6311D /* Strings.swift */; };
 		AF14A16C2836D0C700E6311D /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1442836D0C600E6311D /* DefaultKeys.swift */; };
 		AF14A16D2836D0C700E6311D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1452836D0C600E6311D /* Colors.swift */; };
-		AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1472836D0C600E6311D /* AuthenticationData.swift */; };
 		AF14A16F2836D0C700E6311D /* PDFArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1482836D0C600E6311D /* PDFArchiveData.swift */; };
 		AF14A1702836D0C700E6311D /* UserBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1492836D0C600E6311D /* UserBase.swift */; };
 		AF14A1712836D0C700E6311D /* PDFEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A14A2836D0C600E6311D /* PDFEdition.swift */; };
@@ -274,7 +273,6 @@
 		AF14A1432836D0C600E6311D /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		AF14A1442836D0C600E6311D /* DefaultKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
 		AF14A1452836D0C600E6311D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		AF14A1472836D0C600E6311D /* AuthenticationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationData.swift; sourceTree = "<group>"; };
 		AF14A1482836D0C600E6311D /* PDFArchiveData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveData.swift; sourceTree = "<group>"; };
 		AF14A1492836D0C600E6311D /* UserBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBase.swift; sourceTree = "<group>"; };
 		AF14A14A2836D0C600E6311D /* PDFEdition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEdition.swift; sourceTree = "<group>"; };
@@ -675,7 +673,6 @@
 		AF14A1462836D0C600E6311D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AF14A1472836D0C600E6311D /* AuthenticationData.swift */,
 				AF14A1482836D0C600E6311D /* PDFArchiveData.swift */,
 				AF14A1492836D0C600E6311D /* UserBase.swift */,
 				AF14A14A2836D0C600E6311D /* PDFEdition.swift */,
@@ -1285,7 +1282,6 @@
 			files = (
 				AF14A1612836D0C700E6311D /* PDFArchiveViewManager.m in Sources */,
 				AF694E6428F6831B00DAECDF /* AppDelegate+WatchDelegate.swift in Sources */,
-				AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */,
 				AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */,
 				AF14A16B2836D0C700E6311D /* Strings.swift in Sources */,
 				AF14A1702836D0C700E6311D /* UserBase.swift in Sources */,

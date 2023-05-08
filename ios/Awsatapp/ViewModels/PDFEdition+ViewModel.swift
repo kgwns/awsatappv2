@@ -46,14 +46,6 @@ extension PDFEdition {
             if PDFFileManager.isPDFFileExisitForIssueNumber(self.issueNumber) {
                 center.post(descriptor: PDFEdition.readPDFEditionNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
             } else {
-                
-                let useMobileDataSetting = Defaults[.useMobileDataSetting] ?? true
-                let shouldCheckBeforeNetworkRequest = ReachibilityManager.shouldCheckBeforeNetworkRequest
-                if useMobileDataSetting == false && shouldCheckBeforeNetworkRequest == true {
-                    center.post(descriptor: UIApplication.userMobileDataAlertNotification, value: SuccessNotificationPayload(sucess: "Success"))
-                    return
-                }
-                
                 let destination: DownloadRequest.DownloadFileDestination = { _, _ in
                     let baseURL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                     let editionsURL = baseURL.appendingPathComponent("Editions")
@@ -116,14 +108,6 @@ extension PDFEdition {
             if PDFFileManager.isPDFFileExisitForIssueNumber(self.issueNumber) {
                 center.post(descriptor: PDFEdition.readPDFEditionNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
             } else {
-                
-                let useMobileDataSetting = Defaults[.useMobileDataSetting] ?? true
-                let shouldCheckBeforeNetworkRequest = ReachibilityManager.shouldCheckBeforeNetworkRequest
-                if useMobileDataSetting == false && shouldCheckBeforeNetworkRequest == true {
-                    center.post(descriptor: UIApplication.userMobileDataAlertNotification, value: SuccessNotificationPayload(sucess: "Success"))
-                    return
-                }
-                
                 let destination: DownloadRequest.DownloadFileDestination = { _, _ in
                     let baseURL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                     let editionsURL = baseURL.appendingPathComponent("Editions")
@@ -188,14 +172,6 @@ extension PDFEdition {
             if PDFFileManager.isPDFFileExisitForIssueNumber(self.issueNumber) {
                 center.post(descriptor: PDFEdition.readPDFEditionNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
             } else {
-                
-                let useMobileDataSetting = Defaults[.useMobileDataSetting] ?? true
-                let shouldCheckBeforeNetworkRequest = ReachibilityManager.shouldCheckBeforeNetworkRequest
-                if useMobileDataSetting == false && shouldCheckBeforeNetworkRequest == true {
-                    center.post(descriptor: UIApplication.userMobileDataAlertNotification, value: SuccessNotificationPayload(sucess: "Success"))
-                    return
-                }
-                
                 let destination: DownloadRequest.DownloadFileDestination = { _, _ in
                     let baseURL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                     let editionsURL = baseURL.appendingPathComponent("Editions")
