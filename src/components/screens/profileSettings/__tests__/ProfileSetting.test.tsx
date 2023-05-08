@@ -156,7 +156,8 @@ describe('<ProfileSettings>', () => {
     (useState as jest.Mock).mockImplementation(() => [true, isAlertVisible]);
     useLoginMock.mockReturnValue({
       isLoggedIn: true,
-      fetchLogoutRequest: () => { }
+      fetchLogoutRequest: () => { },
+      makeUserLogout: jest.fn()
     });
     const component = (
       <Provider store={storeSampleData}>
@@ -254,7 +255,8 @@ describe('<ProfileSettings>', () => {
     (useState as jest.Mock).mockImplementation(() => [true, isAlertVisible]);
     useLoginMock.mockReturnValue({
       isLoggedIn: false,
-      fetchLogoutRequest: () => { }
+      fetchLogoutRequest: () => { },
+      makeUserLogout: jest.fn()
     });
     const component = (
       <Provider store={storeSampleData}>
