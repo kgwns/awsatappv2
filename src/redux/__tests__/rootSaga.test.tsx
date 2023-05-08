@@ -35,6 +35,7 @@ import WeatherDetailSaga from 'src/redux/weatherDetails/sagas'
 import albumListSaga from 'src/redux/photoGallery/sagas';
 import journalistSaga from 'src/redux/journalist/sagas';
 import deleteMyAccountSaga from '../deleteMyAccount/sagas';
+import cartoonSaga from '../cartoon/sagas';
 
 describe('Test rootSaga  saga', () => {
   it('fire on rootSaga', () => {
@@ -75,6 +76,7 @@ describe('Test rootSaga  saga', () => {
         fork(albumListSaga),
         fork(journalistSaga),
         fork(deleteMyAccountSaga),
+        fork(cartoonSaga),
       ])
       .finish()
       .isDone();
