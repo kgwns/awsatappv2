@@ -133,10 +133,7 @@ export const CartoonList = () => {
         <ScreenContainer edge={horizontalAndTop} showHeader headerTitle={title} textStyle={styles.textStyle}>
             {initialLoader && renderLoader()}
             {showFullScreen && selectedItem && <ImageFullView
-                listData={[
-                    { uri: selectedItem.image },
-                ]}
-                visible={showFullScreen}
+                uri={selectedItem.image}
                 onClose={() => setFullScreen(!showFullScreen)}
             />}
             <FlatList
