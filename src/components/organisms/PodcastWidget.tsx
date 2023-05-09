@@ -389,7 +389,7 @@ const createStyles = (theme: CustomThemeType) => {
     buttonStyle: {
       backgroundColor: colors.black,
       borderWidth: 0,
-      width: 175,
+      width: 200,
       marginTop: normalize(30),
     },
     buttonLabel: {

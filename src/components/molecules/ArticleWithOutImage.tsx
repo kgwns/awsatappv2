@@ -15,6 +15,8 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     body?: string,
     footerInfo?: ArticleFooterProps,
     contentStyle?: StyleProp<ViewStyle>,
+    footerContainerStyle?: StyleProp<ViewStyle>,
+    viewStyle?: StyleProp<ViewStyle>,
     showDivider?: boolean,
     showFooterTitle?: boolean,
     onPress?: () => void
@@ -38,6 +40,8 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     showBody= true,
     titleStyle,
     bodyStyle,
+    footerContainerStyle,
+    viewStyle,
     ...props
 }) => {
     const style = useThemeAwareObject(customStyle)
@@ -45,7 +49,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     
     return (
     <FixedTouchable onPress={onPress}>
-        <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}])}>
+        <View style={StyleSheet.flatten([props.contentStyle, !showDivider && {paddingBottom: normalize(10)}, viewStyle])}>
                 <ArticleLabel displayType={props.displayType} enableBottomMargin/>
                 <TextWithFlag {...props} style={titleStyle}/>
                 {isNotEmpty(bodyInfo) && showBody && <Label 
@@ -55,7 +59,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
                     style={bodyStyle}
                 />
                 }
-            <View style={style.footerContainer}>
+            <View style={[style.footerContainer,footerContainerStyle]}>
                 <ArticleFooter showFooterTitle={showFooterTitle} {...props.footerInfo}
                     onPress={onPressBookmark}
                     isBookmarked={isBookmarked}

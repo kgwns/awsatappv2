@@ -292,6 +292,7 @@ enum TranslateKey {
   DMA_TYPE_DELETE,
   DMA_DELETE_ACCOUNT_ARABIC,
   DMA_DELETE_ACCOUNT_ENGLISH,
+  CARICATURE,
   default
 }
 
@@ -830,6 +831,8 @@ const TranslateConstants = ({
             return arabic?.deleteMyAccount?.deleteMyAccountArabic;
         case TranslateKey.DMA_DELETE_ACCOUNT_ENGLISH:
             return arabic?.deleteMyAccount?.deleteMyAccountEnglish;
+        case TranslateKey.CARICATURE:
+            return arabic?.drawer?.caricature;
         default: return ''
     }
 }
@@ -2105,6 +2108,7 @@ const DMA_INTRODUCTION_SCREEN = 'DMAIntroductionScreen' as ScreenName;
 const DMA_OPTIONS_LIST_SCREEN = 'DMAOptionsListScreen' as ScreenName;
 const DMA_FEED_BACK_SCREEN = 'FeedbackScreen' as ScreenName;
 const DMA_DELETE_ACCOUNT_SCREEN = 'DeleteAccountScreen' as ScreenName;
+const CartoonListScreen = 'CartoonListScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -2161,6 +2165,7 @@ const ScreensConstants = {
     DMA_OPTIONS_LIST_SCREEN,
     DMA_FEED_BACK_SCREEN,
     DMA_DELETE_ACCOUNT_SCREEN,
+    CartoonListScreen,
 };
 enum notification {
     ARTICLE = 'article',

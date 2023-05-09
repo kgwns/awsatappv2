@@ -49,6 +49,7 @@ import {
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
 import OnBoardNavigator from './OnBoardNavigator';
+import { CartoonList } from 'src/components/screens/cartoonList/CartoonList';
 
 export const Routes = {
   FavoriteScreen,
@@ -100,6 +101,7 @@ export const Routes = {
   DMAOptionsListScreen,
   DMAFeedbackScreen,
   DMADeleteAccountScreen,
+  CartoonList,
 };
 
 /**
@@ -171,6 +173,7 @@ const journalistDetail = 'journalistDetail' as ScreenName;
 const PodcastEpisodeModalScreen = 'PodcastEpisodeModalScreen' as ScreenName;
 const dmaIntroductionScreen = 'DMAIntroductionScreen' as ScreenName;
 const dmaOptionsList = 'DMAOptionsListScreen' as ScreenName;
+const cartoonList = 'CartoonList' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -206,4 +209,5 @@ export const RoutesName = {
   PodcastEpisodeModalScreen,
   dmaIntroductionScreen,
   dmaOptionsList,
+  cartoonList,
 };

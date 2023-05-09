@@ -132,7 +132,7 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
     const isAlbum = isTypeAlbum(item.type);
     const labelContainerStyle = isPortrait ? style.footerStyle : style.footerLandscapeStyle;
 
-    return <FixedTouchable key={flatListUniqueKey.SHORT_ARTICLE + index} onPress={() => onPress(item.nid, isAlbum)} style={index === 0 && isTab && { marginStart: 0.02 * screenWidth }}>
+    return <FixedTouchable key={flatListUniqueKey.SHORT_ARTICLE + index} onPress={() => onPress(item.nid, isAlbum)} >
       <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={StyleSheet.flatten([style.container, containerStyle])}>
 
         {/* <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>

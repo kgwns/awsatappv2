@@ -162,3 +162,6 @@ export const DMA_INTRODUCTION_ENDPOINT = 'api/v2/info/4816'
 export const DMA_FEEDBACK_ENDPOINT = 'api/v2/info/4817'
 export const DMA_LIST_ENDPOINT = 'api/ums/v1/getDeleteAccountOptions'
 export const DMA_DELETE_CONFIRMATION_ENDPOINT = 'api/ums/v1/delete-user-account'
+
+//Cartoon
+export const CARTOON_LIST_END_POINT = 'api/v2/cartoonlist';
