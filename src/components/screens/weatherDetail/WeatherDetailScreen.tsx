@@ -62,6 +62,7 @@ export enum weatherType {
   fog = 'fog',
 }
 
+
 export const WeatherDetailScreen: FunctionComponent = () => {
 const CONST_SUNRISE = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNRISE })
 const CONST_SUNSET = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNSET })

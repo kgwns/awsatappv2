@@ -13,7 +13,7 @@ import {
 } from 'src/components/atoms';
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
-import {isTab, normalize, recordLogEvent} from 'src/shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, getShareUrl, isNotEmpty} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';

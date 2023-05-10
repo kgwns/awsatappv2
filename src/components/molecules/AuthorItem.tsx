@@ -19,13 +19,14 @@ import { fonts } from 'src/shared/styles/fonts'
 import { useAppPlayer } from 'src/hooks'
 import { Divider } from '../atoms'
 import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion'
+import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment'
 import { AlignItemsTo, FlexDirectionTo, FlexWrapTo, JustifyContentTo } from 'src/shared/styles/styleProperties'
 
 enum LabelsType  {
     title = 'title',
     authorName = 'authorName'
 }
-
+ 
 export interface AuthorItemProps {
     author: string,
     authorId: string,
