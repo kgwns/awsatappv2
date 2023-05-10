@@ -7,12 +7,10 @@ import {
 
 export const changePasswordApi = async (body: SendNewPassword) => {
     try {
-        const response: SendNewPasswordFailedPayloadtype =
-            await postApiRequest(
-                `${UMS_BASE_URL}${CHANGE_PASSWORD}${body.password}?old_password=${body.old_password}`,
-                body
-            );
-        return response;
+        return await postApiRequest(
+            `${UMS_BASE_URL}${CHANGE_PASSWORD}${body.password}?old_password=${body.old_password}`,
+            body
+        );
     } catch (error) {
         console.log('changePasswordService - changePasswordApi - error', error)
         throw error;

@@ -16,7 +16,7 @@ const videoData = [
         description: 'example',
         body_export: 'example',
         isBookmarked: true,
-        field_jwplayerinfo_export: 'example',
+        field_jwplayerinfo_export: "Sys74y7K|44|https://cdn.jwplayer.com/videos/Sys74y7K-9mPGCDe7.mp4",
         mediaId: 'example',
   },
   {
@@ -26,11 +26,9 @@ const videoData = [
     field_image_upload_export: 'example',
     field_mp4_link_export: 'example',
     field_multimedia_section_export: {},
-    field_thumbnil_multimedia_export: 'example',
     description: 'example',
     body_export: 'example',
     isBookmarked: true,
-    field_jwplayerinfo_export: 'example',
     mediaId: 'example',
 },
 ]
@@ -51,20 +49,41 @@ describe('<VideosList>', () => {
       jest.clearAllMocks();
       instance.unmount();
     });
-    it('Should render VideosList', () => {
-      expect(instance).toBeDefined();
-    });
-    
-    test('Should call FlatList onPress', () => {
+
+    test('Should display the video and the time', () => {
       const element = instance.container.findByType(FlatList)
       fireEvent(element, 'renderItem', {item: videoData[0], index: 0});
-      expect(mockFunction).toBeTruthy()
+      const videoVerticalList = instance.container.findAllByType(VideosVerticalList)[0];
+      expect(videoVerticalList.props.imageUrl).toBe('https://aawsat.srpcdigital.com/example');
+      expect(videoVerticalList.props.time).toBe('00:44');
+    });
+
+    test('Should not display the video and the time', () => {
+      const element = instance.container.findByType(FlatList)
+      fireEvent(element, 'renderItem', {item: videoData[1], index: 1});
+      const videoVerticalList = instance.container.findAllByType(VideosVerticalList)[1];
+      expect(videoVerticalList.props.imageUrl).toBeUndefined();
+      expect(videoVerticalList.props.time).toBeUndefined();
     });
 
     test('Should call VideosVerticalList itemOnPress', () => {
+      const component = (
+        <VideosList data={videoData} onItemActionPress={mockFunction}/>
+      );
+      instance = render(component);
       const element = instance.container.findAllByType(VideosVerticalList)[0]
       fireEvent(element, 'itemOnPress', {item: videoData[0]});
-      expect(mockFunction).toBeTruthy()
+      expect(mockFunction).toHaveBeenCalled()
+    });
+
+    test('Should not call VideosVerticalList itemOnPress', () => {
+      const component = (
+        <VideosList data={videoData} />
+      );
+      instance = render(component);
+      const element = instance.container.findAllByType(VideosVerticalList)[0]
+      fireEvent(element, 'itemOnPress', {item: videoData[0]});
+      expect(mockFunction).not.toHaveBeenCalled()
     });
 
   });

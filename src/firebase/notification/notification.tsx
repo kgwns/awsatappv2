@@ -100,7 +100,7 @@ export const GetFCMToken = () => {
   }
 
   const notifeeEvents = (type: EventType, detail: EventDetail) => {
-    const { notification, pressAction } = detail;
+    const { notification } = detail;
     switch (type) {
       case EventType.DISMISSED:
         break;

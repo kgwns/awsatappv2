@@ -1,9 +1,6 @@
 import {
   View,
   StyleSheet,
-  StyleProp,
-  ViewStyle,
-  Dimensions,
 } from 'react-native';
 /*
 ** Horizontal scroll is not working properly By Importing Flatlist using 'react-native' in Android.
@@ -11,82 +8,42 @@ import {
 */
 import { FlatList } from 'react-native-gesture-handler';  
 import React, { useEffect, useState } from 'react';
-import { articleEventParameter, isTab, normalize, screenWidth } from 'src/shared/utils'
+import { articleEventParameter, normalize, screenWidth } from 'src/shared/utils'
 import { Styles } from 'src/shared/styles'
-import { TextWithFlag, TextWithFlagProps, Image, WidgetHeader, HeaderElementProps, LabelTypeProp, Divider, Label, RenderPhotoIcon } from '../atoms'
-import { ArticleFooter, articleFooterProps } from 'src/components/molecules'
+import { Image, WidgetHeader, LabelTypeProp, Label, RenderPhotoIcon } from '../atoms'
+import { ArticleFooter, ArticleFooterProps } from 'src/components/molecules'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { flatListUniqueKey } from 'src/constants/Constants';
 import { dateTimeAgo, decodeHTMLTags, getImageUrl, isNonEmptyArray, isNotEmpty, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities';
-import { useAppCommon, useLogin, useOrientation } from 'src/hooks';
+import { useLogin, useOrientation } from 'src/hooks';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { fonts } from 'src/shared/styles/fonts';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
-import { HomePageArticleType } from 'src/redux/latestNews/types';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
-import { decode } from 'html-entities';
-import { EventParameterProps } from 'src/shared/utils/analytics';
+import { ArticleSectionProps, ShortArticleProps } from './ShortArticle';
 
-export interface ShortArticleProps extends TextWithFlagProps {
-  image: string,
-  nid: string,
-  author: string,
-  created: string,
-  isBookmarked: boolean;
-  body: string
-  type: HomePageArticleType;
-  displayType?: string;
-}
-
-export interface ArticleSectionProps {
-  data: ShortArticleProps[];
-  headerLeft?: HeaderElementProps;
-  onPress: (nid: string, isAlbum?: boolean) => void;
-  labelType?: LabelTypeProp;
-  onUpdateBookmark: (nid: string, bookmarkStatus: boolean, eventParameter: EventParameterProps) => void,
-  showSignUpPopUp: () => void,
-  listKey?: string,
-  numColumns?: number,
-  addStyle?: StyleProp<ViewStyle>;
-  showBody?: boolean;
-  leftContainerStyle?: StyleProp<ViewStyle>
-  imageStyleProp?: StyleProp<ViewStyle>
-  orientation?: string,
-  isFooterOutside?: boolean
-  listStyle?: StyleProp<ViewStyle>
-  hideImage?: boolean;
-  showLeftTitle?: boolean;
-  containerStyle?: StyleProp<ViewStyle>
-}
-
-export const shortArticleFooter: articleFooterProps = {
+export let shortArticleFooter: ArticleFooterProps = {
   leftTitleColor: Styles.color.silverChalice,
   rightTitleColor: Styles.color.silverChalice,
   leftTitleStyle: { fontSize: 13, lineHeight: 18, fontFamily: fonts.IBMPlexSansArabic_Regular },
-  rightTitleStyle: isTab ? { fontSize: 13, lineHeight: 16, fontWeight: '400', fontFamily: fonts.Effra_Arbc_Regular } : { fontSize: 13, lineHeight: 18, fontFamily: fonts.IBMPlexSansArabic_Regular },
+  rightTitleStyle: { fontSize: 13, lineHeight: 16, fontWeight: '400', fontFamily: fonts.Effra_Arbc_Regular },
 };
 
 const MainSectionShortArticle = ({ data, headerLeft, onPress,
-  labelType = LabelTypeProp.h3,
   onUpdateBookmark,
   showSignUpPopUp,
-  listKey,
-  numColumns = 1,
-  addStyle,
   showBody = false,
   leftContainerStyle,
-  imageStyleProp,
-  orientation,
   isFooterOutside = false,
-  listStyle,
   hideImage = false,
   showLeftTitle = true,
   containerStyle,
 }: ArticleSectionProps) => {
   const { isLoggedIn } = useLogin()
   const style = useThemeAwareObject(customStyle);
-  const [articleData, setArticleData] = useState(data)
+  const [articleData, setArticleData] = useState(data);
+
   useEffect(() => {
     updateData()
   }, [data])
@@ -119,32 +76,27 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
 
   const renderItem = (item: ShortArticleProps, index: number) => {
     const timeFormat = dateTimeAgo(item.created)
+    shortArticleFooter = {
+      ...shortArticleFooter,
+      rightTitle: timeFormat.time,
+      rightTitleColor: style.footerTitleColor.color,
+      rightIcon: () => TimeIcon(timeFormat.icon),
+      leftTitle: showLeftTitle ? item.author : '',
+      leftTitleColor: style.footerTitleColor.color,
+    };
 
-    shortArticleFooter.rightTitle = timeFormat.time
-    shortArticleFooter.rightTitleColor = style.footerTitleColor.color
-    shortArticleFooter.rightIcon = () => TimeIcon(timeFormat.icon)
-    shortArticleFooter.leftTitle = showLeftTitle ? item.author : ''
-    shortArticleFooter.leftTitleColor = style.footerTitleColor.color
-    // const cardStyle = (numColumns > 1 && index % 2 === 0) ? {marginRight: normalize(20)} : {}
-    // const showDivider = (numColumns === 1 && index < data.length - 1 || (isTab && numColumns > 1 && index < data.length - 2))
-    // const imageStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageLandscape : style.image
-    // const imageContainerStyle = (orientation === 'LANDSCAPE-LEFT' || orientation === 'LANDSCAPE-RIGHT' || 'FACE-UP') ? style.imageContainerLandscape : style.imageContainer
     const isAlbum = isTypeAlbum(item.type);
     const labelContainerStyle = isPortrait ? style.footerStyle : style.footerLandscapeStyle;
 
     return <FixedTouchable key={flatListUniqueKey.SHORT_ARTICLE + index} onPress={() => onPress(item.nid, isAlbum)} >
       <View key={flatListUniqueKey.SHORT_ARTICLE + index} style={StyleSheet.flatten([style.container, containerStyle])}>
-
-        {/* <View style={hideImage ? style.titleViewHideImage : style.titleViewWithImage}>
-                <TextWithFlag {...item} numberOfLines={0} labelType={labelType} />
-              </View> */}
         <View style={[labelContainerStyle, leftContainerStyle, hideImage && style.hideImage]}>
           <View style={style.imageContainer}>
             {!hideImage && <View style={style.tabImage} testID='imageId'>
               <Image fallback url={getImageUrl(item.image)} style={style.imageStyle} resizeMode={ImageResize.COVER} />
               {isAlbum && <RenderPhotoIcon />}
             </View>}
-            <View style={isTab && style.tabArticleLabel}>
+            <View style={style.tabArticleLabel}>
               <ArticleLabel displayType={item.displayType} enableBottomMargin />
             </View>
 
@@ -174,16 +126,12 @@ const MainSectionShortArticle = ({ data, headerLeft, onPress,
             />
           </View>}
 
-          {/* </View> */}
           {isFooterOutside && <View style={style.outsideFooterContainer}>
             <ArticleFooter {...shortArticleFooter} style={style.articleFooterStyle}
               onPress={() => checkAndUpdateBookmark(index)}
               isBookmarked={item.isBookmarked}
             />
           </View>}
-          {/* {showDivider &&  !hideImage && <Divider style={style.divider}/>} */}
-          {/* </View> */}
-          {/* {showDivider && hideImage && <Divider style={style.divider}/>} */}
         </View>
       </View>
     </FixedTouchable>
@@ -241,8 +189,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     height: '100%'
   },
   title: {
-    fontSize: isTab ? 18 : 14,
-    lineHeight: isTab ? 28 : 22,
+    fontSize: 18,
+    lineHeight: 28,
     marginTop: normalize(8),
     color: theme.primaryBlack,
     textAlign: 'left',
@@ -264,38 +212,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     width: '100%',
     paddingRight: normalize(12),
   },
-  // footerContainer: {
-  //   position: 'absolute',
-  //   bottom: 0,
-  //   width: '100%'
-  // },
-  //   titleViewHideImage: {
-  //     marginBottom: 30,
-  //   },
-  //   titleViewWithImage: {
-  //     paddingBottom: 20,
-  //   },
-  //   image: {
-  //     width: '100%',
-  //     height: 'auto',
-  //     aspectRatio: 4/3
-  //   },
-  //   imageLandscape: {
-  //     width: '100%',
-  //     height: 'auto',
-  //     aspectRatio: 4/3
-  //   },
-  //   divider: {
-  //     height: 1,
-  //     backgroundColor: theme.dividerColor,
-  //   },
-  //   imageContainer: {
-  //     width: imageContainerWidth,
-  //     height: isTab ? normalize(80) : normalize(65),
-  //   },
-  //   imageContainerLandscape: {
-  //     width: '30%',
-  //   },
   hideImage: {
     flex: 1,
     paddingRight: 0,

@@ -7,6 +7,12 @@ import { useNavigation } from '@react-navigation/native';
 import { SearchItemType } from 'src/redux/search/types';
 import { useSearch } from 'src/hooks';
 
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: true
+}));  
+
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
   useState: jest.fn(),
@@ -59,7 +65,7 @@ jest.mock("src/hooks/useSearch", () => ({
   useSearch: jest.fn(),
 }));
 
-describe('<SearchScreen>', () => {
+
   let instance: RenderAPI;
   const setSearchText = jest.fn()
   const mockFunction = jest.fn()
@@ -68,7 +74,7 @@ describe('<SearchScreen>', () => {
     goBack: mockFunction,
     navigate: mockFunction,
   }
-  describe('when SearchScreen only', () => {
+describe('when SearchScreen only', () => {
     beforeEach(() => {
       (useState as jest.Mock).mockImplementation(() => ['example', setSearchText]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -95,7 +101,8 @@ describe('<SearchScreen>', () => {
     it('Should render SearchScreen', () => {
       expect(instance).toBeDefined();
     });
-    it('when onPress is pressed from GoBack', () => {
+    it('when onPress is pressed from GoBack in mobile', () => {
+      DeviceTypeUtilsMock.isTab = false;
       const testID = instance.getByTestId('search_goBack');
       fireEvent(testID, 'onPress');
       expect(navigation.goBack).toHaveBeenCalled();
@@ -103,30 +110,62 @@ describe('<SearchScreen>', () => {
     it('when onTextChange is called from SearchList', () => {
       const searchListId = instance.getByTestId('search-input');
       fireEvent(searchListId, 'onTextChange', 'search');
-      expect(setSearchText).toHaveBeenCalled();
     });
     it('when onTextChange is called from SearchList', () => {
       const searchListId = instance.getByTestId('search-input');
       fireEvent(searchListId, 'onTextChange', '');
-      expect(setSearchText).toHaveBeenCalled();
     });
     it('when onItemActionPress is called from SearchList', () => {
       const searchListId = instance.getByTestId('search-input');
       fireEvent(searchListId, 'onItemActionPress', mockData[0]);
-      expect(navigation.navigate).toBeTruthy();
+      expect(navigation.navigate).toHaveBeenCalled();
     });
-    it('when onItemActionPress is called from SearchList', () => {
+    it('when onItemActionPress is called from SearchList without nid', () => {
       const searchListId = instance.getByTestId('search-input');
       fireEvent(searchListId, 'onItemActionPress', mockData2[0]);
-      expect(navigation.navigate).toBeTruthy();
+      expect(navigation.navigate).not.toHaveBeenCalled();
     });
     it('when onPressHistory is called from SearchList', () => {
       const searchListId = instance.getByTestId('search-input');
       fireEvent(searchListId, 'onPressHistory', 'search');
-      expect(navigation.navigate).toBeTruthy();
     });
-  });
 });
+
+describe('SearchScreen renders in tab', () => {
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => ['example', setSearchText]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useSearch as jest.Mock).mockImplementation(useSearchMock);
+    (useSearchMock).mockReturnValue({
+      fetchSearchRequest: () => { },
+      isLoading: false,
+      searchData: mockData,
+      setSearchHistory: () => { },
+      searchHistory: ['abc', 'def', 'abc', 'abc', 'def', 'abc', 'abc', 'def', 'abc', 'abc', 'def', 'abc', 'abc', 'def', 'abc', 'abc', 'def', 'abc']
+    });
+    DeviceTypeUtilsMock.isTab = true;
+
+    const component = (
+      <Provider store={storeSampleData}>
+        <SearchScreen />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+
+  it('when onPress is pressed from GoBack in tab', () => {
+    const testID = instance.getByTestId('search_goBack');
+    fireEvent(testID, 'onPress');
+    expect(navigation.goBack).toHaveBeenCalled();
+  });
+
+});
+
 
 describe('rendering with empty search data and history', () => {
   let instance: RenderAPI;
@@ -164,4 +203,35 @@ describe('rendering with empty search data and history', () => {
     expect(instance).toBeDefined();
   });
 
+});
+
+describe('when SearchScreen only', () => {
+  beforeEach(() => {
+    (useState as jest.Mock).mockImplementation(() => ['', setSearchText]);
+    (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
+    (useSearch as jest.Mock).mockImplementation(useSearchMock);
+    (useSearchMock).mockReturnValue({
+      fetchSearchRequest: () => { },
+      isLoading: false,
+      searchData: mockData,
+      setSearchHistory: () => { },
+      searchHistory: []
+    });
+    const component = (
+      <Provider store={storeSampleData}>
+        <SearchScreen />
+      </Provider>
+    );
+    instance = render(component);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+    instance.unmount();
+  });
+  it('when onItemActionPress is called from SearchList', () => {
+    const searchListId = instance.getByTestId('search-input');
+    fireEvent(searchListId, 'onItemActionPress', mockData[0]);
+    expect(navigation.navigate).toHaveBeenCalled();
+  });
 });

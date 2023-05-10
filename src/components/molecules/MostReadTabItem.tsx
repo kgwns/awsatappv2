@@ -1,8 +1,8 @@
-import { Dimensions, StyleSheet, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { Image, Label } from 'src/components/atoms';
 import { ArticleFooter } from '../molecules'
-import { dateTimeAgo, decodeHTMLTags, getArticleImage, isNotEmpty, isTab, screenWidth } from 'src/shared/utils'
+import { dateTimeAgo, decodeHTMLTags, getArticleImage, isNotEmpty, screenWidth } from 'src/shared/utils'
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { decode } from 'html-entities';
 import { TimeIcon, isTypeAlbum } from 'src/shared/utils/utilities';

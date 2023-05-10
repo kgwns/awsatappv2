@@ -547,7 +547,6 @@ export const SectionStoryScreen = React.memo(({
       {isTab ? <> 
         <View style={[style.storyAndTopArticle, !isTab && { flex: 1 }]}>
         <View style={[style.tabWidgetContainer]}>
-          {/* {renderArticleStory()} */}
           {renderBannerArticle()}
         </View>
         {/* <View style={style.verticalDivider} /> */}
