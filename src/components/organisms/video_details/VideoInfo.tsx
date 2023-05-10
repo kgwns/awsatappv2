@@ -70,7 +70,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
               />
             </View>
             {isDocumentary && <View style={styles.titleContainer} >
-                <Label style={styles.titleStyle} numberOfLines={2} >{decode(data.title)}</Label>
+                <Label style={styles.titleStyle} numberOfLines={2} testID={'titleId'}>{decode(data.title)}</Label>
             </View>}
             <View style={styles.containerSpace} />
             <ButtonOutline title={VIDEO_DETAIL_EMPLOYMENT}
@@ -90,10 +90,10 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
             }
             <View style={styles.headerLeftStyle}>
               {data.views&&
-              <ViewIcon fill={colors.white} />
+              <ViewIcon fill={colors.white} testID='viewIconId'/>
               }
               {data.views&&
-              <Label style={styles.footerRightTextStyle} numberOfLines={1}>
+              <Label style={styles.footerRightTextStyle} numberOfLines={1} testID='viewLabelId'>
                 {data.views}
               </Label>
               }
@@ -101,7 +101,7 @@ export const VideoInfo: FunctionComponent<VideoInfoProps> = ({
                 {VIDEO_DETAIL_WATCH}
               </Label>}
               {data.views&&<Label color={colors.white} style={styles.textStyle}>|</Label>}
-              {timeFormat.icon === DateIcon.CALENDAR ? <CalendarIcon fill={colors.white} /> : <ClockIconWhite />}
+              {timeFormat.icon === DateIcon.CALENDAR ? <CalendarIcon fill={colors.white} testID={'calendarIconId'} /> : <ClockIconWhite testID={'clockIconId'} />}
               <Label style={[styles.footerRightTextStyle,{color: colors.white}]} numberOfLines={1}>
                 {monthDate}
               </Label>

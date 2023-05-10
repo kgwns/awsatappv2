@@ -92,6 +92,7 @@ const ArchiveArticle = ({
               <Label labelType={LabelTypeProp.title1}
                 children={decodeHTMLTags(title)}
                 style={titleStyle}
+                testID={'titleTestId'}
               />
             </View>
           }
