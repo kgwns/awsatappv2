@@ -5,6 +5,7 @@ import { FetchDMAIntroductionSuccessPayloadType } from "src/redux/deleteMyAccoun
 import { FetchDMAOptionsListSuccessPayloadType } from "src/redux/deleteMyAccount/types";
 import * as serviceApi from 'src/services/api';
 import { DeleteRequestBodyPayload } from "src/redux/deleteMyAccount/types";
+const cachedAxiosMock = new MockAdapter(serviceApi.api);
 
 describe('Test deleteMyAccount Services', () => {
     const mock = new MockAdapter(axios);
@@ -25,15 +26,14 @@ describe('Test deleteMyAccount Services', () => {
     })
     afterEach(() => {
         mock.reset();
+        cachedAxiosMock.reset();
     });
     it('Should return fetchDMAIntroductionApi Response while fetching Data from API', () => {
-        mock.onGet().reply(200, {
-            result: true,
-        });
+        cachedAxiosMock.onGet().reply(200, introApiResponse);
 
         return fetchDMAIntroductionApi().then(response => {
             expect(response).toBeInstanceOf(Object);
-            expect(response).toEqual(introApiResponse.dmaIntroductionData)
+            expect(response).toEqual(introApiResponse)
         });
     });
     it('Should fetchDMAIntroductionApi Throw error while fetching data from API', () => {
@@ -88,16 +88,15 @@ describe('Test deleteMyAccount Services', () => {
     })
     afterEach(() => {
         mock.reset();
+        cachedAxiosMock.reset();
     });
 
     it('Should return fetchDMAOptionsListApi Response while fetching data from API', () => {
-        mock.onGet().reply(200, {
-            result: true,
-        });
+        cachedAxiosMock.onGet().reply(200, optionsListApiResponse);
 
         return fetchDMAOptionsListApi().then(response => {
             expect(response).toBeInstanceOf(Object);
-            expect(response).toEqual(optionsListApiResponse.dmaOptionsListData)
+            expect(response).toEqual(optionsListApiResponse)
         });
     });
 
@@ -127,11 +126,10 @@ describe('Test deleteMyAccount Services', () => {
     })
     afterEach(() => {
         mock.reset();
+        cachedAxiosMock.reset();
     });
     it('Should Return fetchDMAConfirmInfo response while fetching Data from API', () => {
-        mock.onGet().reply(200, {
-            result: true,
-        });
+        cachedAxiosMock.onGet().reply(200,confirmDeleteApiResponse);
 
         return fetchDMAConfirmInfo().then(response => {
             expect(response).toBeInstanceOf(Object);
