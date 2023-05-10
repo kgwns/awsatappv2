@@ -10,7 +10,7 @@ const cache = setupCache({
 }
 })
 const APPLICATION_JSON = 'application/json';
-const api = axios.create({
+export const api = axios.create({
   adapter: cache.adapter
 })
 

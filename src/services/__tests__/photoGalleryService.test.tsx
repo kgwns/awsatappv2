@@ -5,6 +5,8 @@ import { AlbumListBodyGet, AlbumDetailBodyGet } from 'src/redux/photoGallery/typ
 import * as serviceApi from 'src/services/api';
 describe('Test Photo Gallery Screen', () => {
     const mock = new MockAdapter(axios);
+    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+
     const body: AlbumListBodyGet = {
         page: 1,
         items_per_page: 10,
@@ -18,6 +20,7 @@ describe('Test Photo Gallery Screen', () => {
     });
     afterEach(() => {
         mock.reset();
+        cachedAxiosMock.reset();
     });
 
     it('test fetchAlbumListApi when response code is 200', () => {
@@ -42,7 +45,7 @@ describe('Test Photo Gallery Screen', () => {
     });
 
     it('test fetchAlbumDetailApi when response code is 200', () => {
-        mock.onGet().reply(200, {
+        cachedAxiosMock.onGet().reply(200, {
             result: true,
         });
 

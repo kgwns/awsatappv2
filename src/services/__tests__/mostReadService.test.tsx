@@ -1,17 +1,17 @@
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { fetchMostReadApi } from 'src/services/mostReadService';
 import * as serviceApi from 'src/services/api';
 describe('Test Most Read Services', () => {
-    const mock = new MockAdapter(axios);
+    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+
     beforeEach(() => {
         jest.useFakeTimers('legacy');
     })
     afterEach(() => {
-        mock.reset();
+        cachedAxiosMock.reset();
     });
     it('test when response code is 200', () => {
-        mock.onGet().reply(200, {
+        cachedAxiosMock.onGet().reply(200, {
             result: true,
         });
 

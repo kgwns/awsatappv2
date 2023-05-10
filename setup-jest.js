@@ -244,3 +244,8 @@ jest.mock('react-native-orientation-locker',() => {
     getDeviceOrientation: jest.fn()
   }
 })
+
+jest.mock('axios-cache-adapter',() => ({
+  ...jest.requireActual('axios-cache-adapter'),
+  setupCache: jest.fn().mockReturnValue({adapter: jest.fn()})   
+}))
