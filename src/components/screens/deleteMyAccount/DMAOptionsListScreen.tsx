@@ -60,6 +60,7 @@ export const DMAOptionsListScreen = () => {
                         <Label
                             children={item.ar_option}
                             style={styles.optionLabel}
+                            testID={"optionLabelId"}
                         />
                     </View>
                     <ArrowIcon />
