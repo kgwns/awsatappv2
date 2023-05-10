@@ -197,6 +197,10 @@ import BookmarkBoldWhite from 'src/assets/images/icons/detail/bookmark_bold_whit
 import ShareBoldWhite from 'src/assets/images/icons/detail/share_bold_white_icon.svg';
 import FontScalingBoldWhite from 'src/assets/images/icons/detail/font_scaling_bold_white_icon.svg';
 
+import DeleteUserIcon from 'src/assets/images/icons/deleteUserIcon.svg';
+import DeleteUserIconDark from 'src/assets/images/icons/deleteUserIconDark.svg';
+import ArrowLeftDimGrey from 'src/assets/images/icons/arrowLeftDimGrey.svg';
+
 export interface GetSVGProps {
     name: ImagesName,
     size?: number,
@@ -464,6 +468,10 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <AddAuthorIcon {...props} />
         case ImagesName.tabletDownArrowIcon:
             return isDark ? <DownArrow {...props} /> : <BlackDownArrow {...props}/>
+        case ImagesName.deleteUserIcon:
+            return isDark ? <DeleteUserIconDark {...props} /> : <DeleteUserIcon {...props} />
+        case ImagesName.arrowLeftDimGrey:
+            return <ArrowLeftDimGrey {...props} />
         default: return null
     }
 }

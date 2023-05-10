@@ -44,7 +44,16 @@ export const ArticleGridView = ({
             })
         },
         rightTitleColor: Styles.color.silverChalice,
-        leftTitleStyle: isTab ? { fontFamily: fonts.Effra_Arbc_Regular, fontWeight: '400', fontSize: 13, lineHeight: 16,} : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight:20 }
+        leftTitleStyle: isTab ? { 
+            fontFamily: fonts.Effra_Arbc_Regular,
+            fontWeight: '400',
+            fontSize: 13,
+            lineHeight: 16,
+        } : { 
+            fontFamily: fonts.IBMPlexSansArabic_Regular,
+            fontSize: 12,
+            lineHeight:20 
+        }
     };
 
     const renderItem = (item: MainSectionBlockType, index: number) => {
@@ -56,7 +65,7 @@ export const ArticleGridView = ({
         articleFooterDataSet.leftTitle = timeFormat.time
         articleFooterDataSet.leftTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftIcon = () => TimeIcon(timeFormat.icon) 
-        articleFooterDataSet.hideBookmark = isTab && true
+        articleFooterDataSet.hideBookmark = isTab
 
         return (
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_GRID_VIEW + index}
@@ -85,14 +94,14 @@ export const ArticleGridView = ({
 
     const renderItemSeparatorComponent = () => {
         return (
-            <View style={ isTab ? style.tabDividerContainer : style.dividerContainer}>
+            <View style={ isTab ? style.tabDividerContainer : style.dividerContainer} testID={'dividerId'}>
                 <Divider style={style.divider} />
             </View>
         )
     }
 
     return (
-        <View style = { isTab ? style.tabContainer : style.container}>
+        <View style = {style.container}>
             { !isTab && renderItemSeparatorComponent()}
                     <FlatList
                         keyExtractor={(_, index) => index.toString()}
@@ -108,6 +117,7 @@ export const ArticleGridView = ({
                         renderItem={({ item, index }) => renderItem(item, index)}
                         numColumns={isTab ? 3 : 2}
                         columnWrapperStyle={ isTab && style.tabWrapperStyle}
+                        testID={'flatListId'}
                     />
             
             <View style={style.spaceStyle}>
@@ -125,10 +135,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.dividerColor,
     },
     container: {
-        backgroundColor: theme.mainBackground,
-    },
-    tabContainer: {
-        flex:1,
         backgroundColor: theme.mainBackground,
     },
     dividerContainer: {

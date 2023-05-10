@@ -59,7 +59,9 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   };
 
   const onSubmit = () => {
-    recordLogEvent(AnalyticsEvents.SEARCH, {query: searchText, results_length: data.length});
+    if(isNonEmptyArray(data)){
+      recordLogEvent(AnalyticsEvents.SEARCH, {query: searchText, results_length: data.length});
+    }
   }
 
   const renderItem = (item:SearchItemType,index:number) => {

@@ -4,18 +4,14 @@ import {ScreenContainer} from '..';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   Alert,
   Keyboard,
 } from 'react-native';
-import {isIOS, isObjectNonEmpty, isTab, normalize, recordLogEvent, recordLogLogin, recordUserId} from 'src/shared/utils';
-import {Label} from '../../atoms';
+import {isObjectNonEmpty, isTab, normalize, recordLogEvent, recordLogLogin, recordUserId} from 'src/shared/utils';
 import {AuthScreenInputSection} from 'src/components/organisms/';
 import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
-import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {
   useBookmark,
   useLogin,
@@ -34,14 +30,12 @@ import AdjustAnalyticsManager, {
 } from 'src/shared/utils/AdjustAnalyticsManager';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view';
-import {getSvgImages} from 'src/shared/styles/svgImages';
-import { ImagesName } from 'src/shared/styles/images';
-import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { Connection, LoginFactory } from 'src/shared/utils/loginFactory';
 import { RegisterBodyType } from 'src/redux/register/types';
 import { getDeviceName as getDeviceType } from 'src/shared/utils/utilities';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { AuthHeader } from 'src/components/molecules';
 
 export const onSuccessSocialLogin = async (
   userInfo: any,
@@ -83,8 +77,7 @@ export interface SignInPageProps {
 
 export const SignInPage = ({route}: SignInPageProps) => {
   const navigation = useNavigation();
-  const {themeData} = useTheme();
-  const styles = useThemeAwareObject(createStyles);
+  const styles = useThemeAwareObject(signInStyles);
   const [email, setEmail] = useState(route.params.email);
   const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
@@ -124,8 +117,6 @@ export const SignInPage = ({route}: SignInPageProps) => {
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(
     incorrectCredentialPayload,
   );
-
-  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
 
   const {
     fetchLoginRequest,
@@ -256,7 +247,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
     };
   }, []);
 
-  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders, message?:string) => {
+  const onResult = async (userInfo:any,success:boolean, provider: SocialProviders) => {
     if(success){
       fbLoginRef.current = false
       const payload = await onSuccessSocialLogin(userInfo,provider)
@@ -321,25 +312,10 @@ export const SignInPage = ({route}: SignInPageProps) => {
         scrollEnabled>
        <View>
           <View style={styles.container}>
-            <View style={styles.headerStyle}>
-              <TouchableOpacity
-                testID="signin_back"
-                accessibilityLabel="signin_back"
-                onPress={() => navigateToSection('')}>
-                <View style={styles.headerContainer}>
-                  <BackIcon fill={themeData.backIconColor} style={{marginBottom: isIOS ? 5 : 0}} />
-                  <Label
-                    children={SIGNIN_RETURN}
-                    style={styles.headerLabelStyle}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.logoContainer}>
-              {HeaderLogo()}
-            </View>
-
+            <AuthHeader backTitle={SIGNIN_RETURN}
+              onPressBack={() => navigateToSection('')}
+              testId={'signin_back'}
+            />
           <View style={styles.containerStyle}>
             <AuthScreenInputSection
               emailTestID="signIn_email"
@@ -368,7 +344,7 @@ export const SignInPage = ({route}: SignInPageProps) => {
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const signInStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -376,31 +352,6 @@ const createStyles = (theme: CustomThemeType) =>
       marginHorizontal: isTab ? 20 : normalize(20),
       justifyContent: 'space-between',
       backgroundColor: theme.backgroundColor,
-    },
-    logoContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 0.1,
-      marginBottom: isTab ? 35 : normalize(35),
-      marginTop: isTab ? 20 : normalize(20)
-    },
-    headerStyle: {
-      flex: 0.05,
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-    },
-    headerContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'row',
-    },
-    headerLabelStyle: {
-      fontFamily: fonts.AwsatDigital_Regular,
-      fontSize: isTab ? 12 : normalize(12),
-      color: theme.backIconColor,
-      lineHeight: isTab ? 16 : normalize(16),
-      marginLeft: isTab ? 5 : normalize(5),
     },
     containerStyle: {
       flex: 0.8,
@@ -411,9 +362,5 @@ const createStyles = (theme: CustomThemeType) =>
       flex: 0.05,
       justifyContent: 'center',
       alignItems: 'center',
-    },
-    logo: {
-      width: isTab ? 150 : normalize(150),
-      height: isTab ? 37 : normalize(37),
     },
   });

@@ -390,7 +390,7 @@ export const SectionStoryScreen = React.memo(({
 
   const onVideoItemPress = (item: VideoItemType) => {
     navigation.navigate(ScreensConstants.VideoPlayerScreen,
-      { mediaID: item.mediaId, nid: item.nid })
+      { mediaID: item.mediaId, nid: item.nid, title: item.title })
   }
 
 
@@ -533,6 +533,7 @@ export const SectionStoryScreen = React.memo(({
             rightTitleColor = {isTab && isDarkMode ? themeData.summaryColor : Styles.color.black900}
             articleTextStyle = {isTab && style.articleTextStyle}
             rightTitleStyle={isTab && style.rightTitleStyle}
+            showTabStyle={!isTab}
           />
           </View>
         )}
@@ -544,9 +545,8 @@ export const SectionStoryScreen = React.memo(({
     <>
       { !isTab && renderBannerArticle()}
       {isTab ? <> 
-        <View style={style.storyAndTopArticle}>
+        <View style={[style.storyAndTopArticle, !isTab && { flex: 1 }]}>
         <View style={[style.tabWidgetContainer]}>
-          {/* {renderArticleStory()} */}
           {renderBannerArticle()}
         </View>
         {/* <View style={style.verticalDivider} /> */}
@@ -641,7 +641,6 @@ const customStyle = (theme: CustomThemeType) => {
       aspectRatio: 1.78,
     },
     storyAndTopArticle: {
-      flex: 1,
       flexDirection: 'row',
       paddingTop: isTab ? 0 : normalize(15),
       justifyContent: 'space-between',

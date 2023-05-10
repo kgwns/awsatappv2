@@ -43,7 +43,7 @@ import FogImageIcon from 'src/assets/images/icons/weather/Images/Fog.svg'
 import RainImageIcon from 'src/assets/images/icons/weather/Images/Rain.svg'
 import SunCloudsImageIcon from 'src/assets/images/icons/weather/Images/SunClouds.svg'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
-import { FLEX_START } from 'src/shared/styles/item-alignment';
+import { AlignItemsTo, AlignSelfTo, FlexDirectionTo, JustifyContentTo } from 'src/shared/styles/styleProperties';
 
 interface WeatherDate {
   date: string,
@@ -64,18 +64,18 @@ export enum weatherType {
 
 
 export const WeatherDetailScreen: FunctionComponent = () => {
-  const CONST_SUNRISE = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNRISE })
-  const CONST_SUNSET = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNSET })
-  const CONST_HUMIDITY = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_HUMIDITY })
-  const CONST_SPEED = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SPEED })
-  const CONST_KMH = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_KMH })
-  const CONST_VISIBILITY = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_VISIBILITY })
-  const CONST_PRESSURE = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_PRESSURE })
-  const CONST_SEA_CONDITION = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SEA_CONDITION })
-  const CONST_KM = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_KM })
-  const CONST_MBAR = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MBAR })
-  const CONST_MAX = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MAX })
-  const NO_INFORMATION_TEXT = TranslateConstants({ key: TranslateKey.WEATHER_NO_INFORMATION_TEXT })
+const CONST_SUNRISE = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNRISE })
+const CONST_SUNSET = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SUNSET })
+const CONST_HUMIDITY = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_HUMIDITY })
+const CONST_SPEED = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SPEED })
+const CONST_KMH = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_KMH })
+const CONST_VISIBILITY = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_VISIBILITY })
+const CONST_PRESSURE = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_PRESSURE })
+const CONST_SEA_CONDITION = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_SEA_CONDITION })
+const CONST_KM = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_KM })
+const CONST_MBAR = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MBAR })
+const CONST_MAX = TranslateConstants({ key: TranslateKey.WEATHER_DETAILS_MAX })
+const NO_INFORMATION_TEXT = TranslateConstants({ key: TranslateKey.WEATHER_NO_INFORMATION_TEXT })
 
   const { fetchWeatherDetailsSuccessInfo, fetchWeatherDetailsVisibilitySuccessInfo } = useWeatherDetails();
   const styles = useThemeAwareObject(createStyles);
@@ -359,7 +359,7 @@ export const WeatherDetailScreen: FunctionComponent = () => {
             keyExtractor={(_, index) => index.toString()}
             renderItem={({ item, index }) => renderItem(item, index)}
             bounces={false}
-            style={!isIOS && {alignSelf: FLEX_START}}
+            style={!isIOS && {alignSelf: AlignSelfTo.FLEX_START}}
           />
         </View>
         {weatherDescription()}
@@ -391,9 +391,9 @@ const createStyles = (theme: CustomThemeType) =>
       paddingRight: normalize(10)
     },
     weatherDescriptionView: {
-      flexDirection: 'row',
+      flexDirection: FlexDirectionTo.ROW,
       flex: 1,
-      justifyContent: 'space-between'
+      justifyContent: JustifyContentTo.SPACE_BETWEEN
     },
     locationLabel: {
       fontFamily: fonts.AwsatDigital_Regular,
@@ -435,7 +435,7 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: 70,
       color: colors.white,
       lineHeight: 85,
-      alignSelf: 'center',
+      alignSelf: AlignSelfTo.CENTER,
       paddingTop: 10
     },
     weatherLabelStyle: {
@@ -449,11 +449,11 @@ const createStyles = (theme: CustomThemeType) =>
       fontSize: 8,
       color: colors.white,
       fontFamily: fonts.Effra_Regular,
-      alignSelf: FLEX_START
+      alignSelf: AlignSelfTo.FLEX_START
     },
     dayContainerNotSelected: {
-      justifyContent: 'space-around',
-      alignItems: 'center',
+      justifyContent: JustifyContentTo.SPACE_AROUND,
+      alignItems: AlignItemsTo.CENTER,
       backgroundColor: colors.white,
       padding: normalize(10),
       marginHorizontal: normalize(5),
@@ -479,8 +479,8 @@ const createStyles = (theme: CustomThemeType) =>
     },
     temperatureViewStyle: {
       paddingHorizontal: normalize(10),
-      flexDirection: 'row',
-      justifyContent: 'space-between'
+      flexDirection: FlexDirectionTo.ROW,
+      justifyContent: JustifyContentTo.SPACE_BETWEEN
     },
     weatherDescriptionContainer: {
       marginHorizontal: normalize(20),
@@ -493,7 +493,7 @@ const createStyles = (theme: CustomThemeType) =>
       marginBottom: normalize(15)
     },
     labelsListContainer: {
-      flexDirection: 'row'
+      flexDirection: FlexDirectionTo.ROW
     },
     fieldTextStyle: {
       fontFamily: fonts.Effra_Regular,
@@ -511,23 +511,23 @@ const createStyles = (theme: CustomThemeType) =>
       marginTop: normalize(5)
     },
     timeZoneLabelStyle: {
-      flexDirection: 'column'
+      flexDirection: FlexDirectionTo.COLUMN
     },
     sunStateLabelStyle: {
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: 15,
       color: colors.white,
       lineHeight: 33,
-      justifyContent: 'center',
-      alignSelf: FLEX_START
+      justifyContent: JustifyContentTo.CENTER,
+      alignSelf: AlignSelfTo.FLEX_START
     },
     timeZoneStyle: {
-      flexDirection: 'row',
-      alignItems: 'center',
+      flexDirection: FlexDirectionTo.ROW,
+      alignItems: AlignItemsTo.CENTER,
       paddingHorizontal: normalize(10),
       paddingBottom: normalize(10),
     },
     temperatureIconStyle: {
-      flexDirection: 'column' 
+      flexDirection: FlexDirectionTo.COLUMN 
     }
   });

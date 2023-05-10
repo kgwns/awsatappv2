@@ -27,7 +27,8 @@ const CaptionWithImage = ({ title, icon,
                 }
                 <View style={StyleSheet.flatten([captionImageStyle.labelContainer, labelContainerStyle])}>
                     <Label children={decodeHTMLTags(decode(title))} color={color} numberOfLines={numberOfLine ? numberOfLine :1}
-                        style={StyleSheet.flatten([captionImageStyle.textLabel, labelStyle])}
+                        style={StyleSheet.flatten([captionImageStyle.textLabel, labelStyle])} 
+                        testID={'titleID'}
                     />
                 </View>
             </View>

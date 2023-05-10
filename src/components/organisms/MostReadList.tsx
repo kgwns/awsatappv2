@@ -154,7 +154,8 @@ const MostReadList = ({
           <MostReadTabItem
             articleData={item}
             index={index}
-            onPressBookmark={() => checkAndUpdateBookmark(index)} />
+            onPressBookmark={() => checkAndUpdateBookmark(index)}
+            visibleNoTag={enableTag}/>
           {isLoading && (data.length - 1 === index) && (
             <View style={style.loaderStyle}>
               <ActivityIndicator size={'small'} color={theme.themeData.primary} />

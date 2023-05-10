@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet, FlatList, TouchableOpacity, Image as RNImage } from 'react-native';
-import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader } from '../atoms';
+import { View, StyleSheet, TouchableOpacity, Image as RNImage } from 'react-native';
+import { ButtonImage, ButtonOutline, Image, Label, LabelTypeProp, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { isIOS, isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -8,7 +8,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { decodeHTMLTags, convertSecondsToHMS, isNonEmptyArray, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
-import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 import PlayIcon from 'src/assets/images/icons/Play_black.svg';
@@ -82,7 +82,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       title:PODCAST_WIDGET_HEADER_LEFT,
       color: themeData.primaryBlack,
       labelType: LabelTypeProp.title3,
-      textStyle: { fontFamily: fonts.AwsatDigital_Black }
+      textStyle: isTab ? style.tabHeaderTextStyle : { fontFamily: fonts.AwsatDigital_Black }
     },
     headerRight: {
       title:PODCAST_WIDGET_HEADER_RIGHT,
@@ -127,7 +127,8 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
       />
     </TouchableOpacity>
   )
-
+  
+  // Enable when required Podcast List data which is displayed in Tab
   /* const AllEpisodesCard = () => (
     <View style={style.allEpisodeContainer}>
       <Label
@@ -165,6 +166,19 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     onPress(episodeData[0]);
   }
 
+  const renderListenToArticleButton = (podcastData: any) => (
+    <TouchableOpacity onPress={() => onPressPodcast()}>
+      <View style={style.buttonContainer}>
+        <View style={style.iconContainer}>
+          {playPauseIcon(podcastData)}
+        </View>
+        <Label color={Styles.color.white} style={[isTab ? style.tabTextStyle : style.buttonLabel]} labelType={LabelTypeProp.h1}>
+          {PODCAST_EPISODE_LISTEN_TO_EPISODE}
+        </Label>
+      </View>
+    </TouchableOpacity>
+  )
+
   const renderMobile = (podcastData: any, index: number) => {
     if (!isObjectNonEmpty(podcastData)) {
       return null;
@@ -176,7 +190,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     const description = decodeHTMLTags(bodyInfo)
     return (
       <>
-        <View style={style.widgetHeaderContainer}>
+        <View style={isTab ? style.tabWidgetHeaderContainer : style.widgetHeaderContainer}>
           <WidgetHeader {...widgetHeaderData} onPress={onMorePress} />
         </View>
         <View style={style.podcastMobileContainer}>
@@ -200,14 +214,8 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               children={description}
             />
           </View>
-          <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
-            style={style.buttonStyle}
-            labelStyle={isTab ? style.tabTextStyle : style.buttonLabel}
-            titleType={LabelTypeProp.h1}
-            onPress={() => onPressPodcast()}
-            rightIcon={() => playPauseIcon(podcastData)}
-            color={Styles.color.white}
-          />
+          {renderListenToArticleButton(podcastData)}
+          
         </View>
       </>
     )
@@ -386,22 +394,16 @@ const createStyles = (theme: CustomThemeType) => {
     flatList: {
       width: '50%'
     },
-    buttonStyle: {
-      backgroundColor: colors.black,
-      borderWidth: 0,
-      width: 175,
-      marginTop: normalize(30),
-    },
     buttonLabel: {
       color: colors.white,
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: 14,
-      lineHeight: 26,
+      lineHeight: 46,
       marginLeft: 3
     },
     tabTextStyle: {
       fontSize: 16,
-      lineHeight: 26,
+      lineHeight: 46,
       fontFamily:fonts.AwsatDigital_Bold,
       fontWeight:'700'
     },
@@ -409,9 +411,13 @@ const createStyles = (theme: CustomThemeType) => {
       paddingRight: normalize(15),
     },
     widgetHeaderContainer: {
-      paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
+      paddingHorizontal: 0.04 * screenWidth,
       paddingBottom: normalize(10),
-      paddingTop: normalize(15)
+      paddingTop: normalize(15),
+    },
+    tabWidgetHeaderContainer: {
+      paddingBottom: 10,
+      paddingTop: 15,
     },
     podcastMobileContainer: {
       backgroundColor: colors.limeGreen,
@@ -426,6 +432,24 @@ const createStyles = (theme: CustomThemeType) => {
     podcastTextContainer: {
       paddingHorizontal: 0.06 * screenWidth
     },
+    tabHeaderTextStyle: { 
+      fontFamily: fonts.AwsatDigital_Black, 
+      fontSize: 25, 
+      lineHeight: 36
+    },
+    buttonContainer: {
+      marginTop: 30,
+      height: 46,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      borderRadius: 25,
+      paddingHorizontal: 25,
+      backgroundColor: colors.black,
+    },
+    iconContainer: {
+      height: '100%',
+      justifyContent: 'center'
+    }
   });
 };
 

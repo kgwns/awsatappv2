@@ -144,8 +144,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
    }, []);
 
   useEffect(() => { 
-    if (page != 0) {
-      fetchVideoWithPagination({ page, items_per_page: VIDEO_ITEMS_PER_PAGE })
+    if (page !== 0) {
+      fetchVideoWithPagination({ page, items_per_page: VIDEO_ITEMS_PER_PAGE });
     }
    }, [page]);
 
@@ -164,7 +164,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   const renderFooterComponent = () => {
     if (!isLoading || isVideoLoading) {
-      return null
+      return null;
     }
     return (
       <View style={styles.loaderStyle}>

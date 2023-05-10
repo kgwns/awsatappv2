@@ -2,7 +2,6 @@ export {ScreenContainer} from './ScreenContainer/ScreenContainer';
 export {FavoriteScreen} from './favorite/FavoriteScreen';
 export {MostReadScreen} from './most_read/MostReadScreen';
 export {SectionsScreen} from './sections/SectionsScreen';
-export {LatestNewsScreen} from './latest_news/LatestNewsScreen';
 export {AuthPage, NavigateTypes} from './auth/AuthPage';
 export {SearchScreen} from './search_screen/SearchScreen';
 export {FollowFavoriteAuthorScreen} from 'src/components/screens/followFavoriteAuthorScreen/FollowFavoriteAuthorScreen';
@@ -47,3 +46,7 @@ export { PhotoGalleryScreen } from 'src/components/screens/photoGallery/PhotoGal
 export { PhotoGalleryDetailScreen } from 'src/components/screens/photoGallery/PhotoGalleryDetailScreen'
 export { JournalistDetail } from 'src/components/screens/journalistDetail/JournalistDetail'
 export { PodcastEpisodeModal } from 'src/components/screens/podcast/PodcastEpisodeModal';
+export { DMAIntroductionScreen } from 'src/components/screens/deleteMyAccount/DMAIntroductionScreen';
+export { DMAOptionsListScreen } from 'src/components/screens/deleteMyAccount/DMAOptionsListScreen';
+export { DMAFeedbackScreen } from 'src/components/screens/deleteMyAccount/DMAFeedbackScreen';
+export { DMADeleteAccountScreen } from 'src/components/screens/deleteMyAccount/DMADeleteAccountScreen';

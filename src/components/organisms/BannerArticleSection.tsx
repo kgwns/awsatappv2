@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, View, StyleSheet, StyleProp, ViewStyle } from 'react-native'
+import { FlatList, View, StyleSheet, StyleProp, ViewStyle, ListRenderItem } from 'react-native'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ArticleFooterProps, ArticleWithOutImage, ImageArticle } from 'src/components/molecules'
 import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants'
@@ -18,7 +18,16 @@ import { dateTimeAgo, isTypeAlbum, TimeIcon } from 'src/shared/utils/utilities'
 export const sectionComboArticleFooter: ArticleFooterProps = {
     leftTitleColor: isTab ? Styles.color.black900 : Styles.color.silverChalice,
     rightTitleColor: Styles.color.silverChalice,
-    leftTitleStyle: isTab ? {fontFamily: fonts.Effra_Arbc_Regular, fontSize: 13,lineHeight: 16,fontWeight: '400'} : { fontFamily: fonts.IBMPlexSansArabic_Regular, fontSize: 12, lineHeight: 20 }
+    leftTitleStyle: isTab ? {
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontSize: 13,
+        lineHeight: 16,
+        fontWeight: '400'
+    } : {
+        fontFamily: fonts.IBMPlexSansArabic_Regular,
+        fontSize: 12,
+        lineHeight: 20
+    }
 }
 
 interface BannerArticleSectionProps {
@@ -40,7 +49,8 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
     const verticalArticleData = isTab ? [...data].splice(1, 4) : [...data].splice(1, 5)
     const style = useThemeAwareObject(createStyles);
     const SECTION_COMBO_ONE_HEADER_RIGHT = TranslateConstants({key:TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT})
-    const articleNewsItem = (item: LatestArticleDataType, index: number) => {
+    
+    const articleNewsItem: ListRenderItem<LatestArticleDataType> = ({ item, index }) => {
         const timeFormat = dateTimeAgo(item.created)
 
         sectionComboArticleFooter.leftTitle = timeFormat.time
@@ -125,7 +135,7 @@ const BannerArticleSection = (props: BannerArticleSectionProps) => {
                 listKey={flatListUniqueKey.BANNER_ARTICLE_LIST + new Date().getTime().toString()}
                 horizontal={false}
                 showsVerticalScrollIndicator={false}
-                renderItem={({ item, index }) => articleNewsItem(item, index)}
+                renderItem={articleNewsItem}
             />
         </View>
     )

@@ -14,12 +14,13 @@ import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constant
 import { CustomThemeType } from 'src/shared/styles/colors'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
-import { convertSecondsToHMS, isDarkTheme } from 'src/shared/utils/utilities'
+import { convertSecondsToHMS } from 'src/shared/utils/utilities'
 import { fonts } from 'src/shared/styles/fonts'
-import { useAppCommon, useAppPlayer } from 'src/hooks'
+import { useAppPlayer } from 'src/hooks'
 import { Divider } from '../atoms'
 import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion'
 import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment'
+import { AlignItemsTo, FlexDirectionTo, FlexWrapTo, JustifyContentTo } from 'src/shared/styles/styleProperties'
 
 enum LabelsType  {
     title = 'title',
@@ -71,8 +72,6 @@ const AuthorItem = ({
     const[timeDuration, setTimeDuration] = useState<any>('');
     const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
     const [isBuffering, setIsBuffering] = useState<boolean>(false);
-    const {theme} = useAppCommon();
-    const isDarkMode = isDarkTheme(theme);
     const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
     const CONST_OPINION_LISTEN_TO_ARTICLE_LIST = TranslateConstants({key:TranslateKey.OPINION_LISTEN_TO_ARTICLE_LIST})
     useEffect(() => {
@@ -108,7 +107,6 @@ const AuthorItem = ({
     };
     
     const onPressPlay = () => {
-      console.log('onPressPlay');
       if (nid && isObjectNonEmpty(mediaData)) {
         const playList = isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
     
@@ -180,9 +178,9 @@ const AuthorItem = ({
     return (
         showInMainScreen ? 
         <View style = {style.tabAuthorContainer}>
-          <View testID='AutherItemTO1' key={index} style={[style.tabContainer]} >
+          <View testID='MainScreenAuthorId' key={index} style={[style.tabContainer]} >
             <View style={style.tabContentContainer}>
-              <TouchableOpacity key={`indexKey${index}`} onPress={onPress} testID = "titleId">
+              <TouchableOpacity key={`indexKey${index}`} onPress={onPress} testID = "authorId">
                   <Label
                     children={body}
                     numberOfLines={2}
@@ -192,7 +190,7 @@ const AuthorItem = ({
                 </TouchableOpacity>
             </View>
             <View>
-                <TouchableOpacity testID='AutherItemTO3' onPress={() => onPressWriter(authorId)}>
+                <TouchableOpacity testID='mainScreenAuthorItemId' onPress={() => onPressWriter(authorId)}>
                     <Image url={image} size={58} resizeMode={'cover'} type={'round'}
                         fallback={true}
                         fallbackName={ImagesName.authorDefault} 
@@ -203,7 +201,7 @@ const AuthorItem = ({
         <View style = {style.tabFooterContainer}>
           {mediaVisibility && <View style={style.tabMediaFooter}>
 
-              <TouchableOpacity testID={'AutherItemTO2'} onPress={onPressPlay} style={style.tabMediaFooter}>
+              <TouchableOpacity testID={'mainScreenMediaId'} onPress={onPressPlay} style={style.tabMediaFooter}>
                 <ButtonImage
                   icon={() =>
                     trackData && trackData.id === (nid + 'opinion') &&
@@ -212,9 +210,7 @@ const AuthorItem = ({
                       getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12) })
                   }
                   onPress={onPressPlay} />
-                {isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.tabDurationLabel} />}
-
-                <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} color={ isDarkMode ? themeData.summaryColor : Styles.color.green600}  style={style.tabArticleLabelSyle} />
+                {isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.tabDurationLabel} testID={'mainScreenTimeDuration'} />}
               </TouchableOpacity>
 
             </View>}
@@ -223,7 +219,7 @@ const AuthorItem = ({
               key={`title${index}`}
               children={author}
               style={style.tabAuthorTitle}
-              testID={'AutherItemLabel1'}
+              testID={'mainScreenAuthorLabelId'}
               color={themeData.primary}
               numberOfLines={1}
               onPress={() => onPressWriter(authorId)}
@@ -250,7 +246,7 @@ const AuthorItem = ({
                         <Label children={CONST_OPINION_LISTEN_TO_ARTICLE_LIST} style={style.articleLabelSyle}
                         labelType={LabelTypeProp.h3} color={themeData.primary} />
                     </TouchableOpacity>
-                    { isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.durationLabel} /> }
+                    { isNotEmpty(timeDuration) && <Label children={timeDuration} style={style.durationLabel} testID={'authorTimeDuration'} /> }
                 </View>}
             </View>
             <View>
@@ -272,7 +268,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         flex: 1,
         width: '95%',
         flexDirection: 'row',
-        justifyContent: SPACE_BETWEEN,
+        justifyContent: JustifyContentTo.SPACE_BETWEEN,
     },
     body: {
         paddingVertical: normalize(10),
@@ -293,8 +289,8 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight: 36,
     },
     mediaFooter: {
-        flexDirection: 'row',
-        alignItems: 'center' 
+        flexDirection: FlexDirectionTo.ROW,
+        alignItems: AlignItemsTo.CENTER,
     },
     authorTitle: {
       fontSize: 14,
@@ -312,12 +308,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     },
     tabContainer:{
       flex: 1,
-      flexDirection: 'row',
-      alignItems:'flex-start',
+      flexDirection: FlexDirectionTo.ROW,
+      alignItems:AlignItemsTo.FLEX_START,
     },
     tabContentContainer: {
       flex: 1,
-      alignItems:'flex-start',
+      alignItems:AlignItemsTo.FLEX_START,
     },
     tabletBody: {
       fontSize: 16,
@@ -325,15 +321,9 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
       fontWeight: '700',
       lineHeight: 26
   },
-  tabArticleLabelSyle: {
-    fontFamily: fonts.AwsatDigital_Regular,
-    fontSize: 13,
-    fontWeight: '400',
-    lineHeight: 28,
-  },
   tabMediaFooter: {
-    flexDirection: 'row-reverse',
-    alignItems: 'center',
+    flexDirection: FlexDirectionTo.ROW_REVERSE,
+    alignItems: AlignItemsTo.CENTER,
     flexWrap:'wrap'
   },
   tabDurationLabel: {
@@ -348,15 +338,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   },
   tabAuthorContainer: {
     flex:1,
-    flexDirection:'column',
-    justifyContent:SPACE_BETWEEN,
+    flexDirection:FlexDirectionTo.COLUMN,
+    justifyContent:JustifyContentTo.SPACE_BETWEEN,
   },
   tabFooterContainer: {
     marginTop:10,
-    alignItems:'center',
-    justifyContent:SPACE_BETWEEN,
-    flexDirection:'row-reverse',
-    flexWrap:'wrap',
+    alignItems:AlignItemsTo.CENTER,
+    justifyContent:JustifyContentTo.SPACE_BETWEEN,
+    flexDirection:FlexDirectionTo.ROW_REVERSE,
+    flexWrap:FlexWrapTo.WRAP,
   },
   tabDivider:{
     marginBottom:10,

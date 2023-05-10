@@ -49,40 +49,36 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
           {isTab && <>
             <View style={styles.rowContainerStyle}>
               <View style={styles.rowStyle}>
-                <TouchableOpacity 
-                  disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)}
+                {isNotEmpty(podcastSectionData?.apple_podcasts?.url) && <TouchableOpacity 
                   onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.apple)}
                   testID = "tabApplePodcastsUrl"
                 >
                   {getSvgImages({ name: ImagesName.applePodcast, width: normalize(110), height: normalize(50), })}
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </View>
               <View style={styles.rowStyle}>
-                <TouchableOpacity
-                  disabled={!isNotEmpty(podcastSectionData.google_podcast.url)}
+              {isNotEmpty(podcastSectionData?.google_podcast?.url) && <TouchableOpacity
                   onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.google)}
                   testID = "tabGooglePodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(110), height: normalize(50), })}
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </View>
               <View style={styles.rowStyle}>
-                <TouchableOpacity
-                  disabled={!isNotEmpty(podcastSectionData.spotify.url)}
+                {isNotEmpty(podcastSectionData?.spotify?.url) && <TouchableOpacity
                   onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.spotify)}
                   testID = "tabSpotifyPodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(70), height: normalize(50), })}
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </View>
               <View style={styles.rowStyle}>
-                <TouchableOpacity
-                  disabled={!isNotEmpty(podcastSectionData.anghami.url)}
+              {isNotEmpty(podcastSectionData?.anghami?.url) && <TouchableOpacity
                   onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.anghami)}
                   testID = "tabAnghamiPodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.anghamiPodcast, width: normalize(80), height: normalize(50), })}
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </View>
             </View>
           </>}
@@ -90,40 +86,36 @@ export const PodcastProgramInfo: FunctionComponent<PodcastProgramProps> = ({
           {!isTab && <>
             <View style={styles.topRowContainerStyle}>
               <View style={styles.rowStyle}>
-                <TouchableOpacity 
-                  disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)}
+                {isNotEmpty(podcastSectionData?.apple_podcasts?.url) && <TouchableOpacity 
                   onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.apple)}
                   testID = "applePodcastsUrl"
                 >
                   {getSvgImages({ name: ImagesName.applePodcast, width: normalize(110), height: normalize(50), })}
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 <View style={styles.topRowImage} />
-                <TouchableOpacity
-                  disabled={!isNotEmpty(podcastSectionData.google_podcast.url)}
+                {isNotEmpty(podcastSectionData?.google_podcast?.url) && <TouchableOpacity
                   onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.google)}
                   testID = "googlePodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.googlePodcast, width: normalize(110), height: normalize(50), })}
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </View>
             </View>
             <View style={styles.BottomRowContainerStyle}>
               <View style={styles.rowStyle}>
-                <TouchableOpacity
-                  disabled={!isNotEmpty(podcastSectionData.spotify.url)}
+                {isNotEmpty(podcastSectionData?.spotify?.url) && <TouchableOpacity
                   onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.spotify)}
                   testID = "spotifyPodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.spotifyPodcast, width: normalize(70), height: normalize(50), })}
-                </TouchableOpacity>
+                </TouchableOpacity>}
                 <View style={styles.bottomRowImage} />
-                <TouchableOpacity
-                  disabled={!isNotEmpty(podcastSectionData.anghami.url)}
+                {isNotEmpty(podcastSectionData?.anghami?.url) && <TouchableOpacity
                   onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.anghami)}
                   testID = "anghamiPodcastUrl"
                 >
                   {getSvgImages({ name: ImagesName.anghamiPodcast, width: normalize(80), height: normalize(50), })}
-                </TouchableOpacity>
+                </TouchableOpacity>}
               </View>
             </View>
           </>}

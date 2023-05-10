@@ -4,7 +4,6 @@ import {ScreenContainer} from '..';
 import {
   View,
   StyleSheet,
-  TouchableOpacity,
   Alert,
   Keyboard,
 } from 'react-native';
@@ -16,7 +15,6 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {SocialLoginButton, TextInputField, Label} from '../../atoms';
 import EmailIcon from 'src/assets/images/icons/email_icon.svg';
-import BackIcon from 'src/assets/images/icons/back_icon.svg';
 import {
   loginPasswordValidation,
   reTypePasswordValidation,
@@ -31,26 +29,25 @@ import AdjustAnalyticsManager, {
 } from 'src/shared/utils/AdjustAnalyticsManager';
 import {AlertPayloadType} from '../ScreenContainer/ScreenContainer';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import {getSvgImages} from 'src/shared/styles/svgImages';
-import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
 import { SaveTokenAfterRegistraionBodyType } from 'src/redux/notificationSaveToken/types';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { AuthHeader } from 'src/components/molecules';
 export interface SignUpPageProps {
   route: any;
 }
 
 export const SignUpPage = ({route}: SignUpPageProps) => {
-  const navigation = useNavigation();
   const {themeData} = useTheme();
-  const styles = useThemeAwareObject(createStyles);
+  const navigation = useNavigation();
+  const styles = useThemeAwareObject(signUpStyles);
   const [email, setEmail] = useState(route.params.email);
-  const [password, setPassword] = useState('');
   const [passwordError, setPasswordError] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [password, setPassword] = useState('');
   const [confirmPasswordError, setonfirmPasswordError] = useState('');
-  const [deviceName, setDeviceName] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [isAlertVisible, setIsAlertVisible] = useState<boolean>(false);
+  const [deviceName, setDeviceName] = useState('');
   const {
     createUserRequest,
     registerUserInfo,
@@ -68,7 +65,6 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
 
   const { emptySearchHistory } = useSearch();
 
-  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
   const CONST_OK = TranslateConstants({key:TranslateKey.COMMON_OK});
   const CONST_ALERT = TranslateConstants({key:TranslateKey.COMMON_ALERT});
   const COMMON_NO_INTERNET_CONNECTION = TranslateConstants({key:TranslateKey.COMMON_NO_INTERNET_CONNECTION})
@@ -186,27 +182,10 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
         scrollEnabled>
         <View>
           <View style={styles.container}>
-            <View style={styles.headerStyle}>
-              <TouchableOpacity
-                testID="signUp_back"
-                accessibilityLabel="signUp_back"
-                onPress={() => {
-                  navigation.goBack();
-                }}>
-                <View style={styles.headerContainer}>
-                  <BackIcon fill={themeData.backIconColor} style={{marginBottom: isIOS ? 5 : 0}}/>
-                  <Label
-                    children={SIGNUP_RETURN}
-                    style={styles.headerLabelStyle}
-                  />
-                </View>
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.logoContainer}>
-              {HeaderLogo()}
-            </View>
-
+            <AuthHeader backTitle={SIGNUP_RETURN}
+              onPressBack={() => navigation.goBack()}
+              testId={'signUp_back'}
+            />
             <View style={styles.containerStyle}>
               <View style={styles.topContainerStyle}>
                 <Label
@@ -286,7 +265,7 @@ export const SignUpPage = ({route}: SignUpPageProps) => {
   );
 };
 
-const createStyles = (theme: CustomThemeType) =>
+const signUpStyles = (theme: CustomThemeType) =>
   StyleSheet.create({
     container: {
       flex: 1,
@@ -294,31 +273,6 @@ const createStyles = (theme: CustomThemeType) =>
       marginHorizontal: isTab ? 20 : normalize(20),
       justifyContent: 'space-between',
       backgroundColor: theme.onBoardBackground,
-    },
-    logoContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 0.1,
-      marginBottom: isTab ? 35 : normalize(35),
-      marginTop: isTab ? 20 : normalize(20)
-    },
-    headerStyle: {
-      flex: 0.05,
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-    },
-    headerContainer: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center',
-      flexDirection: 'row',
-    },
-    headerLabelStyle: {
-      fontFamily: fonts.AwsatDigital_Regular,
-      fontSize: isTab ? 12 : normalize(12),
-      color: theme.backIconColor,
-      lineHeight: isTab ? 16 : normalize(16),
-      marginLeft: isTab ? 5 : normalize(5),
     },
     containerStyle: {
       flex: 0.8,
@@ -340,10 +294,6 @@ const createStyles = (theme: CustomThemeType) =>
       flex: 0.05,
       justifyContent: 'center',
       alignItems: 'center',
-    },
-    logo: {
-      width: isTab ? 150 : normalize(150),
-      height: isTab ? 37 : normalize(37),
     },
     spaceStyle: {
       marginHorizontal: normalize(10),

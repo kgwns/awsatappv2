@@ -45,7 +45,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     titleStyle:{
         textAlign:'center',
         fontSize: isTab ? 39 : 24,
-        lineHeight: isTab ? 54 : 40,
+        lineHeight: isTab ? 60 : 40,
         fontFamily: fonts.AwsatDigital_Black,
     },
     textStyle:{
@@ -64,7 +64,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         width: '100%',
     },
     carouselContainerStyle: {
-        flex:1, 
         alignItems:'center'
     }
 })

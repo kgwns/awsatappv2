@@ -2,11 +2,16 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, {useState}  from 'react';
 import { DynamicWidget } from 'src/components/organisms';
 import { PopulateWidget } from 'src/components/molecules';
-import { FlatList } from 'react-native';
+import { ActivityIndicator, FlatList } from 'react-native';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
     useState: jest.fn(),
+}));
+const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
+jest.mock('src/shared/utils/dimensions', () => ({
+  ...jest.requireActual('src/shared/utils/dimensions'),
+  isTab: false,
 }));
 
 jest.mock('react-native-safe-area-context', () => ({
@@ -54,7 +59,7 @@ const sampleData = [
       author: 'example',
       created: 'example',
       isBookmarked: true,
-      type: 'example',
+      type: 'multimedia',
       blockName: 'example',
       position: 'example',
     },
@@ -84,19 +89,17 @@ describe('<Dynamic Widget>', () => {
 
     const mockFunction = jest.fn();
     const setSelectedTrack = jest.fn();
-    const selectedTrack = jest.fn();
     const sampleArticleData: any = {
         image: 'image',
         nid: 'nid',
         author: 'author',
         created: 'created',
-        type: 'article'
+        type: 'multimedia'
     }
 
     describe('Check with empty data', () => {
         beforeEach(() => {
             (useState as jest.Mock).mockImplementation(() => [null, setSelectedTrack]);
-            (useState as jest.Mock).mockImplementation(() => [2, selectedTrack]);
             const component = <DynamicWidget data={[]} onPressBookmark={mockFunction} onEndReached={mockFunction} isLoading={false}/>
             instance = render(component)
         })
@@ -113,6 +116,7 @@ describe('<Dynamic Widget>', () => {
 
     describe('Check with article data', () => {
         beforeEach(() => {
+            DeviceTypeUtilsMock.isTab = true;
             (useState as jest.Mock).mockImplementation(() => ['2', setSelectedTrack]);
             const component = <DynamicWidget data={[sampleArticleData]} onPressBookmark={mockFunction} onEndReached={mockFunction} isLoading={true}/>
             instance = render(component)
@@ -122,52 +126,51 @@ describe('<Dynamic Widget>', () => {
             jest.clearAllMocks()
             instance.unmount()
         })
-        
-        it('should render component', () => {
-            expect(instance).toBeDefined()
-        })
 
         test('Should call button image onPress', () => {
             const element = instance.container.findByType(PopulateWidget)
             fireEvent(element, 'onPressBookmark');
-            expect(mockFunction).toBeTruthy();
-        })
-
-        test('Should call button image onPress', () => {
-            const element = instance.container.findByType(PopulateWidget)
-            fireEvent(element, 'togglePlayback', '2', mediaData);
-            expect(mockFunction).toBeTruthy();
-        })
-
-        test('Should call button image onPress with different NID', () => {
-            const element = instance.container.findByType(PopulateWidget)
-            fireEvent(element, 'togglePlayback', '1', mediaData);
-            expect(mockFunction).toBeTruthy();
-        })
-
-        test('Should call button image onPress with empty Data', () => {
-            const element = instance.container.findByType(PopulateWidget)
-            fireEvent(element, 'togglePlayback', '2', {});
-            expect(mockFunction).toBeTruthy();
+            expect(mockFunction).toHaveBeenCalled();
         })
 
         test('Should call FlatList ListFooterComponent', () => {
             const element = instance.container.findByType(FlatList)
             fireEvent(element, 'ListFooterComponent');
-            expect(mockFunction).toBeTruthy()
-        });
-
-        test('Should call FlatList keyExtractor', () => {
-            const element = instance.container.findByType(FlatList)
-            fireEvent(element, 'keyExtractor', '', 2);
-            expect(mockFunction).toBeTruthy()
+            const loadingElement = instance.container.findByType(ActivityIndicator);
+            expect(loadingElement).not.toBeNull();
         });
 
         test('Should call FlatList onPress', () => {
             const element = instance.container.findByType(FlatList)
             fireEvent(element, 'renderItem', {item: sampleData[0], index: 0});
-            expect(mockFunction).toBeTruthy()
+            const testId = instance.getByTestId('video_screen_id');
+            expect(testId).not.toBeNull();
         });
+
+        test('should have 2 columns in Tab',() => {
+            const element = instance.container.findByType(FlatList);
+            expect(element.props.numColumns).toEqual(2);
+        })
+
+    })
+    describe('Check with article data', () => {
+        beforeEach(() => {
+            DeviceTypeUtilsMock.isTab = false;
+            (useState as jest.Mock).mockImplementation(() => ['2', setSelectedTrack]);
+            const component = <DynamicWidget data={[sampleArticleData]} onPressBookmark={mockFunction} onEndReached={mockFunction} isLoading={true}/>
+            instance = render(component)
+        })
+    
+        afterEach(() => {
+            jest.clearAllMocks()
+            instance.unmount()
+        })
+
+        test('should have 1 columns in mobile',() => {
+            DeviceTypeUtilsMock.isTab = false;
+            const element = instance.container.findByType(FlatList);
+            expect(element.props.numColumns).toEqual(1);
+        })
 
     })
 
@@ -186,8 +189,8 @@ describe('<Dynamic Widget>', () => {
             instance.unmount()
         })
         
-        it('should render component', () => {
-            expect(instance).toBeDefined()
+        it('should not display loading indicator', () => {
+            expect(instance.queryByTestId('loadingId')).toBeNull()
         })
     })
 

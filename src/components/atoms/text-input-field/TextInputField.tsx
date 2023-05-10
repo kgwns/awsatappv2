@@ -84,6 +84,8 @@ interface TextInputfieldProps {
   textInputStyle?: StyleProp<TextInputProps>;
   tabErrorTextStyle?: StyleProp<TextStyle>;
   tabStarLabelStyle?: StyleProp<TextStyle>;
+  placeholderTextColor?: string;
+  blurOnSubmit?: boolean;
 }
 export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   placeholder,
@@ -110,6 +112,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
   textInputStyle,
   tabErrorTextStyle,
   tabStarLabelStyle,
+  placeholderTextColor,
   ...props
 }) => {
   const { themeData } = useTheme();
@@ -141,7 +144,7 @@ export const TextInputField: FunctionComponent<TextInputfieldProps> = ({
               accessibilityLabel={testID}
               autoFocus={autoFocus}
               placeholder={placeholder}
-              placeholderTextColor={themeData.textColor}
+              placeholderTextColor={placeholderTextColor ?? themeData.textColor}
               value={value.toString()}
               style={StyleSheet.flatten([styles.textInputStyle, textInputStyle,placeholderStyle])}
               underlineColorAndroid="transparent"

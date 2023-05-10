@@ -11,5 +11,5 @@ interface DividerProps {
 }
 
 export const Divider: FunctionComponent<DividerProps> = ({style}) => {
-  return <View style={[container, style]} />;
+  return <View style={[container, style]} testID={'dividerLineId'} />;
 };

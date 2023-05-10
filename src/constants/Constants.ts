@@ -62,6 +62,7 @@ enum TranslateKey {
   CONTACT_US_EMAIL,
   CONTACT_US_LETTER,
   CONTACT_US_SEND,
+  CONTACT_US_ADDRESS,
   TEXT_ALERT,
   COMMON_OK,
   LISTEN_TO_ARTICLE,
@@ -224,6 +225,7 @@ enum TranslateKey {
   PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE,
   PROFILE_SETTING_DEBUG,
   PROFILE_SETTING_PRODUCTION,
+  PROFILE_SETTING_DELETE_MY_ACCOUNT,
   ON_BOARD_COMMON_SKIP,
   ON_BOARD_COMMON_RETURN,
   PROFILE_SETTING_ARITHMETIC,
@@ -277,6 +279,20 @@ enum TranslateKey {
   TABLET_POPUP_BUTTON_TEXT,
   TABLET_SEARCH_PLACEHOLDER,
   PRIVACY_POLICY,
+  DELETE_MY_ACCOUNT_INTRODUCTION_TITLE,
+  DELETE_MY_ACCOUNT_LIST_TITLE,
+  DELETE_MY_ACCOUNT_FEEDBACK_TITLE,
+  DELETE_MY_ACCOUNT_CONFIRMATION_TITLE,
+  DELETE_MY_ACCOUNT_PROCEED_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_NEXT_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_CONFIRM_DELETE_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_CANCEL_BUTTON_TITLE,
+  DELETE_MY_ACCOUNT_COMMENT_PLACEHOLDER,
+  DMA_CONFIRM_DELETE_PLACEHOLDER,
+  DMA_TYPE_DELETE,
+  DMA_DELETE_ACCOUNT_ARABIC,
+  DMA_DELETE_ACCOUNT_ENGLISH,
+  CARICATURE,
   default
 }
 
@@ -577,6 +593,8 @@ const TranslateConstants = ({
             return arabic?.contactUs?.doYouHaveQuestions;
         case TranslateKey.CONTACT_US_DESCRIPTION:
             return arabic?.contactUs?.description;
+        case TranslateKey.CONTACT_US_ADDRESS:
+            return arabic?.contactUs?.address;
         case TranslateKey.FAVORITE_TAB_ITEM_ARCHIEVES:
             return arabic?.favorite?.tabItem?.archives;
         case TranslateKey.SIGN_UP_PH_SIGNUP:
@@ -651,6 +669,8 @@ const TranslateConstants = ({
             return arabic?.profileSetting?.myNewsLetter;
         case TranslateKey.PROFILE_SETTING_MY_ACCOUNT_DETAILS:
             return arabic?.profileSetting?.myAccountDetails;
+        case TranslateKey.PROFILE_SETTING_DELETE_MY_ACCOUNT:
+            return arabic?.profileSetting?.deleteMyAccount;
         case TranslateKey.PROFILE_SETTING_APP_APPEARANCE:
             return arabic?.profileSetting?.appAppearance;
         case TranslateKey.PROFILE_SETTING_EXIT:
@@ -785,6 +805,34 @@ const TranslateConstants = ({
             return arabic?.searchScreen?.tabPlaceholder;
         case TranslateKey.PRIVACY_POLICY:
             return arabic?.drawer?.privacyPolicy;
+        case TranslateKey.DELETE_MY_ACCOUNT_INTRODUCTION_TITLE:
+            return arabic?.deleteMyAccount?.introductionTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_LIST_TITLE:
+            return arabic?.deleteMyAccount?.listTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_FEEDBACK_TITLE:
+            return arabic?.deleteMyAccount?.commentFeedBackTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_CONFIRMATION_TITLE:
+            return arabic?.deleteMyAccount?.deleteConfirmationTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_PROCEED_BUTTON_TITLE:
+            return arabic?.deleteMyAccount?.proceedToDeleteTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_NEXT_BUTTON_TITLE:
+            return arabic?.deleteMyAccount?.nextTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_CONFIRM_DELETE_BUTTON_TITLE:
+            return arabic?.deleteMyAccount?.confirmDeleteTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_CANCEL_BUTTON_TITLE:
+            return arabic?.deleteMyAccount?.cancelTitle;
+        case TranslateKey.DELETE_MY_ACCOUNT_COMMENT_PLACEHOLDER:
+            return arabic?.deleteMyAccount?.commentsPlaceHolder;
+        case TranslateKey.DMA_CONFIRM_DELETE_PLACEHOLDER:
+            return arabic?.deleteMyAccount?.confirmDeletePlaceHolder;
+        case TranslateKey.DMA_TYPE_DELETE:
+            return arabic?.deleteMyAccount?.typeDeleteToConfirm;
+        case TranslateKey.DMA_DELETE_ACCOUNT_ARABIC:
+            return arabic?.deleteMyAccount?.deleteMyAccountArabic;
+        case TranslateKey.DMA_DELETE_ACCOUNT_ENGLISH:
+            return arabic?.deleteMyAccount?.deleteMyAccountEnglish;
+        case TranslateKey.CARICATURE:
+            return arabic?.drawer?.caricature;
         default: return ''
     }
 }
@@ -1154,6 +1202,11 @@ const storeInfo = [
             error: '',
             isDetailLoading: false,
         },
+        podcastData: {
+            contentTitle: 'podcastTitle',
+            contentDuration: 'podcastDuration',
+            contentType: 'podcast'
+        }
     },
 ];
 
@@ -1378,193 +1431,112 @@ const weatherData = [
     },
 ];
 
-const searchResults: SearchResultsProps[] = [
-    {
-        id: '1',
-        label: ' تضارب ایرانی بعد انفجار قرب موقع تطير النووي',
-    },
-    {
-        id: '2',
-        label: 'ه فيروس الاوميكرون',
-    },
-    {
-        id: '3',
-        label: 'اثر انبار مدينة نيوم',
-    },
-    {
-        id: '4',
-        label: 'السراع بين فلسطین و اسرائیل',
-    },
-    {
-        id: '5',
-        label: 'عنوان لأخر المواضيع بوضع هنا',
-    },
-    {
-        id: '6',
-        label: 'عنوان الآخر المواضيع يوضع هنا',
-    },
-    {
-        id: '7',
-        label: 'عنوان الاخر المواضيع بوضع هنا',
-    },
-    {
-        id: '8',
-        label: 'أخر اخبار مدينه بيوم',
-    },
-    {
-        id: '9',
-        label: 'السراع بين فلسطین و اسرائیل',
-    },
-    {
-        id: '10',
-        label: 'عنوان لآخر المواضيع بوضع هنا',
-    },
-    {
-        id: '11',
-        label: 'عنوان لاخر المواضيع بوضع هنا',
-    },
-];
+const opinionItem = {
+
+    name: 'غسان الإمام',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+        'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+    tid: '92570',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+        'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+    parent_target_id_export: [],
+};
  
 const opinionData = [
     {
+        ...opinionItem,
         name: 'غسان الإمام',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
         tid: '92570',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'إياد أبو شقرا',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
         tid: '92571',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'عبد الرحمن الراشد',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
         tid: '92572',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'أونا هاثاواي وسكوت شابيرو',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
         tid: '92573',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'صالح القلاب',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
         tid: '92574',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'زين العابدين الركابي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
         tid: '92575',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'ألبرتو تشيروتي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
         tid: '92576',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'صالح بن علي الحمادي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
         tid: '92577',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'موفق النويصر',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
         tid: '92578',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'محمد السلمي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
         tid: '92579',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
-        parent_target_id_export: [],
     },
 ]
 
@@ -1625,54 +1597,36 @@ const mostPlayedSectionData: ArticleRectangleCardProps[] = [
     },
 ];
 
+const latestNewsSummaryItem: NewsWithImageItemProps = {
+    imageUrl: mediaSampleImageUrl,
+    title: summarySampleTitle,
+    description: summarySampleDescription,
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+    isAlbum: false
+};
+
 const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
 ];
 
@@ -1683,6 +1637,7 @@ const editPickData: NewsWithImageItemProps = {
     title: 'عنوان حلثه البودكاست',
     footerRightLabel: 'الخميس',
     footerLeftLabel: '45 دقيقه',
+    isAlbum: false
 }
 
 const EditorsPickSectionData: NewsWithImageItemProps[] = Array(5).fill(editPickData)
@@ -1703,30 +1658,30 @@ const podcastOpinionData: ArticleRectangleCardProps = {
 }
 const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = Array(3).fill(podcastOpinionData)
 
+
+const storyWidgetItem: StoryListItemProps = {
+    id: '1',
+    imageUrl: 'https://picsum.photos/500',
+    title: 'كوفيد-19',
+    description: storyWidgetSampleDescription,
+    buttonTitle: storyWidgetSampleButtonTitle,
+    thumbNail: storyWidgetSampleThumbnail,
+};
+
 const storyWidgetItemData: StoryListItemProps[] = [
     {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'كوفيد-19',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
+        ...storyWidgetItem,
     },
     {
+        ...storyWidgetItem,
         id: '2',
         imageUrl: 'https://picsum.photos/400',
         title: 'رحلة إلى المريخ',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
     },
     {
+        ...storyWidgetItem,
         id: '3',
         imageUrl: 'https://picsum.photos/600',
-        title: 'كوفيد-19',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
     },
 ];
 
@@ -1785,7 +1740,8 @@ const videoTabInfo: VideoItemProps = {
     views: '1374',
     shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
     isBookmarked: false,
-    onPressBookmark: () => ({})
+    onPressBookmark: () => ({}),
+    showShare: false
 }
 
 const videoTabData: VideoItemProps[] = Array(5).fill(videoTabInfo)
@@ -1884,37 +1840,29 @@ const articleSampleData = {
     body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
     tagName: 'الحكومة',
 };
+
+const videoArchiveItem: VideoItemProps = {
+    title: sampleVideoTitle,
+    imageUrl: mediaSampleImageUrl,
+    videoLabel: 'أمريكا',
+    des: sampleVideoDescription,
+    isBookmarked: true,
+    onPressBookmark: () => ({}),
+    showShare: false,
+}
 const videoArchiveData: VideoItemProps[] = [
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
-        des: sampleVideoDescription,
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
+        ...videoArchiveItem,
     },
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
+        ...videoArchiveItem,
         time: '05:22',
-        des: sampleVideoDescription,
         date: '7 ديسمبر ',
         views: '1374',
         toWatchTitle: 'ديسمبر',
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
     },
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
-        des: sampleVideoDescription,
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
+        ...videoArchiveItem,
     },
 ];
 
@@ -2051,6 +1999,11 @@ const CONTACT_US_SCREEN = 'ContactUsScreen' as ScreenName
 const PHOTO_GALLERY_DETAIL_SCREEN = 'PhotoGalleryDetailScreen' as ScreenName
 const JOURNALIST_DETAIL_SCREEN = 'JournalistDetail' as ScreenName
 const PODCAST_EPISODE_MODAL = 'PodcastEpisodeModal' as ScreenName;
+const DMA_INTRODUCTION_SCREEN = 'DMAIntroductionScreen' as ScreenName;
+const DMA_OPTIONS_LIST_SCREEN = 'DMAOptionsListScreen' as ScreenName;
+const DMA_FEED_BACK_SCREEN = 'FeedbackScreen' as ScreenName;
+const DMA_DELETE_ACCOUNT_SCREEN = 'DeleteAccountScreen' as ScreenName;
+const CartoonListScreen = 'CartoonListScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -2103,6 +2056,11 @@ const ScreensConstants = {
     PHOTO_GALLERY_DETAIL_SCREEN,
     JOURNALIST_DETAIL_SCREEN,
     PODCAST_EPISODE_MODAL,
+    DMA_INTRODUCTION_SCREEN,
+    DMA_OPTIONS_LIST_SCREEN,
+    DMA_FEED_BACK_SCREEN,
+    DMA_DELETE_ACCOUNT_SCREEN,
+    CartoonListScreen,
 };
 enum notification {
     ARTICLE = 'article',
@@ -2227,7 +2185,6 @@ export {
     mostReadData,
     sectionTabItem,
     weatherData,
-    searchResults,
     opinionWritersData,
     opinionWritersArticlesData,
     podcastCardSectionData,

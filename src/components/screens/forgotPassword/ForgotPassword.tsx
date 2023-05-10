@@ -3,7 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 import { ScreenContainer } from '..';
 import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { colors } from '../../../shared/styles/colors';
-import { CustomAlert, isIOS, isTab, normalize } from '../../../shared/utils';
+import { CustomAlert, isTab, normalize } from '../../../shared/utils';
 import { Label } from '../../atoms';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -15,11 +15,9 @@ import { NavigateTypes } from '../auth/AuthPage';
 import { useLogin } from 'src/hooks';
 import { openInbox } from "react-native-email-link";
 import { TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
-import BackIcon from 'src/assets/images/icons/back_icon.svg';
-import {getSvgImages} from 'src/shared/styles/svgImages';
-import { ImagesName } from 'src/shared/styles/images';
 import { fonts } from 'src/shared/styles/fonts';
 import { LottieViewAnimation } from 'src/shared/utils/LottieViewAnimation'
+import { AuthHeader } from 'src/components/molecules';
 
 
 export const ForgotPassword: FunctionComponent = () => {
@@ -37,7 +35,6 @@ export const ForgotPassword: FunctionComponent = () => {
 
   const styles = useThemeAwareObject(createStyles);
   const {emptyforgotPassworResponseInfo} = useLogin();
-  const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: styles.logo.width, height: styles.logo.height });
 
   useEffect(() => {
     emptyforgotPassworResponseInfo()
@@ -75,23 +72,10 @@ export const ForgotPassword: FunctionComponent = () => {
   return (
     <ScreenContainer>
       <View style={styles.container}>
-        <View style={styles.backContainer}>
-          <TouchableOpacity
-            testID="signin_skip"
-            accessibilityLabel="signin_skip"
-            onPress={onPressBack}>
-            <View style={styles.returnStyle}>
-              <BackIcon fill={themeData.backIconColor} style={styles.backIconStyle} />
-              <Label
-                children={CONST_RETURN}
-                style={styles.prevTitleStyle}
-              />
-            </View>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.logoContainer}>
-          {HeaderLogo()}
-        </View>
+        <AuthHeader backTitle={CONST_RETURN}
+          onPressBack={onPressBack}
+          testId={'forgot_back'}
+        />
         <View style={styles.containerStyle}>
           <View style={styles.topContainerStyle}>
             <LottieViewAnimation 
@@ -162,11 +146,6 @@ const createStyles = (theme: CustomThemeType) =>
       justifyContent: 'space-between',
       backgroundColor: theme.backgroundColor,
     },
-    logoContainer: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      flex: 0.1,
-    },
     containerStyle: {
       flex: 0.7,
       paddingHorizontal: normalize(30),
@@ -185,10 +164,6 @@ const createStyles = (theme: CustomThemeType) =>
     footerLabelContainer: {
       flexDirection: 'row',
       justifyContent: 'center',
-    },
-    logo: {
-      width: normalize(150),
-      height: normalize(37),
     },
     spaceStyle: {
       marginHorizontal: normalize(10),
@@ -228,13 +203,6 @@ const createStyles = (theme: CustomThemeType) =>
       color: colors.spanishGray,
       paddingHorizontal: normalize(10)
     },
-    prevTitleStyle: {
-      fontFamily: fonts.AwsatDigital_Regular,
-      fontSize: normalize(12),
-      color: theme.backIconColor,
-      lineHeight: normalize(16),
-      marginLeft: normalize(5),
-    },
     buttonLabelStyle: {
       paddingHorizontal: normalize(30),
       fontSize: 16,
@@ -266,12 +234,4 @@ const createStyles = (theme: CustomThemeType) =>
     rightsStyle: {
       fontSize: normalize(12),
     },
-    backContainer: {
-      flex: 0.05,
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-    },
-    backIconStyle: {
-      marginBottom: isIOS ? 5 : 0
-    }
   })

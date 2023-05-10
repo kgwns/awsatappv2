@@ -36,7 +36,6 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
 import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
-import MainSectionAuthorSlider from 'src/components/organisms/MainSectionAuthorSlider';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
 const opinionListPayload: LatestArticleBodyGet = {
@@ -266,7 +265,7 @@ export const MainSectionScreen = React.memo((
       return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
     }
     const newData = [...opinionList]
-    const data = listPartition(newData, 3)
+    const data = listPartition(newData,4)
     setOpinionListData(data)
   }, [opinionList])
   useEffect(() => {
@@ -662,7 +661,7 @@ export const MainSectionScreen = React.memo((
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
       {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget 
-        title={infoGraphicBlock[0].info}
+        headerTitle={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
       />}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
@@ -861,13 +860,12 @@ export const MainSectionScreen = React.memo((
         </View> */}
       {/* AMAR-1097 - Hide Infographic for iPad and Tablet */}
       {/* {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
-        title={infoGraphicBlock[0].info}
+        headerTitle={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
       />} */}
-      {/* <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} /> */}
 
       {/* <View> */}
-          <View> 
+          <View style={mainSectionStyle.horizontalStyle}> 
             <ArticleSection data={heroListInfoOne}
               showDivider={false}
               onUpdateBookmark={updateBookmarkInfo}
@@ -877,17 +875,24 @@ export const MainSectionScreen = React.memo((
             />
           </View> 
             {isNonEmptyArray(gridViewSectionData) && 
-              <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />
+              <View style={mainSectionStyle.horizontalStyle}> 
+                <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />
+              </View>
             }
         {/* </View> */}
 
-      {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
-      {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
+      {isNonEmptyArray(topViewSectionDataTwo) && <View style={mainSectionStyle.horizontalStyle}> 
+        <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />
+        </View>}
+      {isNonEmptyArray(topViewSectionDataThree) && <View style={mainSectionStyle.horizontalStyle}> 
+        <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />
+      </View>}
+      <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} tabTitleStyle={mainSectionStyle.tabTitleStyle} tabContainerStyle={mainSectionStyle.tabContainerStyle} tabImageStyle={mainSectionStyle.tabImageStyle} />
       {isNonEmptyArray(podcastHome) && isNonEmptyArray(infoGraphicBlock) ?
         <View style={mainSectionStyle.tabSplitterContainer}>
           <View style={[mainSectionStyle.tabPodcastInfoWidget, isDarkMode && {paddingRight:10}]}>
             {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
-              title={infoGraphicBlock[0].info}
+              headerTitle={infoGraphicBlock[0].info}
               htmlContent={infoGraphicBlock[0].body}
             />}
           </View>
@@ -932,12 +937,15 @@ export const MainSectionScreen = React.memo((
               />
             </View>
           )} */}
+      
+      <View style = {mainSectionStyle.opinionContainer}>
       {isNonEmptyArray(opinionList) && 
-      <MainSectionAuthorSlider data={[...opinionList].splice(0,9)} 
+      <AuthorSlider data={[...opinionList].splice(0,9)} 
       selectedType={selectedType} 
       getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
       onClose={onClose} 
       />}
+      </View>
       <View style = {mainSectionStyle.tabSplitterContainer}>
         <View style = {mainSectionStyle.tabWidgetContainer}>
           <BannerArticleSection
@@ -986,7 +994,7 @@ export const MainSectionScreen = React.memo((
       </View>
 
       {isNonEmptyArray(archivedArticleSection) &&
-      <View style = {mainSectionStyle.articleContainerStyle}>
+      <View style = {[mainSectionStyle.articleContainerStyle, mainSectionStyle.horizontalStyle]}>
        <ArchiveArticleSection
         data={archivedArticleSection}
         title={_archivedArticleTitle}
@@ -997,7 +1005,7 @@ export const MainSectionScreen = React.memo((
       }
 
       {isNonEmptyArray(spotlight) && isNonEmptyArray(spotlightArticleSection) && (
-        <View style={[mainSectionStyle.articleContainer,{marginHorizontal:-40}]}>
+        <View style={[mainSectionStyle.articleContainer,mainSectionStyle.mainShortArticleContainer]}>
           <View style={mainSectionStyle.articleTitleContainer}>
             <Label
               children={spotlight[0].title}
@@ -1005,7 +1013,7 @@ export const MainSectionScreen = React.memo((
               color = {themeData.primaryBlack}
             />
           </View>
-          <View style={mainSectionStyle.spotlightSectionContainer}>
+          <View>
             <MainSectionShortArticle
               data={spotlightArticleSectionData}
               onPress={onPressArticle}
@@ -1013,6 +1021,7 @@ export const MainSectionScreen = React.memo((
               showSignUpPopUp={makeSignUpAlert}
               isFooterOutside={true}
               showLeftTitle={false}
+              containerStyle={mainSectionStyle.shortArticleContainerStyle}
             />
           </View>
         </View>
@@ -1131,7 +1140,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     tabletMainContainer: {
       backgroundColor: theme.mainBackground,
-      margin: 40
+      marginVertical: 40
     },
     sectionWidgetContainer: {
       overflow: 'hidden',
@@ -1183,9 +1192,12 @@ const customStyle = (theme: CustomThemeType) => {
     articleContainer: {
       backgroundColor: theme.secondaryWhite,
     },
+    mainShortArticleContainer: {
+      paddingHorizontal: 40, 
+      marginBottom:20
+    },
     articleTitleContainer: {
       paddingVertical: normalize(20),
-      alignItems: 'center'
     },
     articleTitleStyle: {
       fontSize: 33,
@@ -1200,7 +1212,6 @@ const customStyle = (theme: CustomThemeType) => {
     },
     tabletTopNewsContainer: {
       overflow: 'hidden',
-      flex: 1,
       alignItems:'center'
     },
     tabTopNewsContainerStyle: {
@@ -1219,9 +1230,6 @@ const customStyle = (theme: CustomThemeType) => {
     },
     editorChoiceContainer: {
       marginBottom: normalize(25),
-    },
-    spotlightSectionContainer: {
-      marginHorizontal: 20
     },
     labelStyle: {
       lineHeight: isIOS ? 30 : 33,
@@ -1244,23 +1252,21 @@ const customStyle = (theme: CustomThemeType) => {
       margin: normalize(28) 
     },
     articleContainerStyle: {
-      flex: 1,
       alignItems: 'center',
     },
     imageContainer: {
-      width:'30%',
+      width: isTab ? '30%': 144,
     },
     leftContainerStyle: {
       width: '70%',
     },
     topContainerSplit: {
-      flex:1,
-      flexDirection:'row'
+      flexDirection:'row',
+      marginHorizontal: 40,
     },
     topContainerWidget: {
       flex:1,
       overflow: 'hidden',
-      // paddingRight: 20
     },
     articleSectionWidget: {
       flex:0.47,
@@ -1269,19 +1275,19 @@ const customStyle = (theme: CustomThemeType) => {
       flex:0.47
     },
     tabSplitterContainer:{
-      flex:1,
       flexDirection:'row',
       marginVertical:20,
+      marginHorizontal: 40,
     },
     tabPodcastInfoWidget: { 
       width: '50%' ,
     },
     tabPodcastContainer: {
-      flex:1,
       justifyContent:'center',
       alignItems:'center',
-      marginHorizontal:normalize(100),
-      marginVertical:normalize(20)
+      marginHorizontal:100,
+      marginTop: 30,
+      marginBottom: 50,
     },
     tabArticleTitleStyle: {
       fontSize: 25,
@@ -1290,5 +1296,30 @@ const customStyle = (theme: CustomThemeType) => {
       textAlign: 'center',
       paddingTop: 22
     },
+    shortArticleContainerStyle: {
+      marginBottom: 20
+    },
+    opinionContainer: {
+      marginBottom: 20,
+      marginHorizontal: 40,
+    },
+    horizontalStyle: {
+      marginHorizontal: 40,
+    },
+    tabImageStyle: {
+      width: 335 ,
+      height: 252,
+      aspectRatio: 4/3,
+    },
+    tabContainerStyle: {
+      width: 335 ,
+    },
+    tabTitleStyle: {
+      color: theme.primaryBlack,
+      fontSize: 25,
+      lineHeight: 36,
+      fontFamily: fonts.AwsatDigital_Black,
+      paddingTop: 15,
+    }
   })
 }

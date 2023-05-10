@@ -329,7 +329,7 @@ export const ArticleDetailScreen = ({
     }
   },[dimensions,isEdgeUpdated,isEdgePortrait])
 
-  const updateScreenEdge = (deviceOrientation: OrientationType) => {
+  /* const updateScreenEdge = (deviceOrientation: OrientationType) => {
     setOrientation(deviceOrientation);
     if(!isEdgeUpdated && (deviceOrientation === 'LANDSCAPE-RIGHT' || deviceOrientation === 'LANDSCAPE-LEFT') && !isEdgePortrait){
       setIsEdgeUpdated(true)
@@ -349,7 +349,7 @@ export const ArticleDetailScreen = ({
       case 'FACE-UP': return []
       default: return horizontalEdge
     }
-  }
+  }*/
 
   const stopVideoPlayer = (showReplayProps = false) => {
     try {

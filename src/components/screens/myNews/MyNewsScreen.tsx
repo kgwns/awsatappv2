@@ -12,7 +12,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { MyNewsTopics } from 'src/components/organisms/myTopics/MyNewsTopics';
 import { myNewsTopTabData, TranslateConstants, TranslateKey, ScreensConstants } from 'src/constants/Constants';
 import { MyNewsWriters } from 'src/components/organisms';
-import { useLogin, useOrientation } from 'src/hooks';
+import { useLogin } from 'src/hooks';
 
 import { useNavigation } from '@react-navigation/native';
 
@@ -32,7 +32,6 @@ export const MyNewsScreen = () => {
   const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
   const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
   const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
-  const {isPortrait} = useOrientation()
 
   useEffect(() => {
     configData()

@@ -92,7 +92,7 @@ export const MyNewsWriters = () => {
       if (isAuthorTidData.includes(selectedTid)) {
         const indexValue = isAuthorTidData.indexOf(selectedTid)
         const authorSelected = selectedAuthorsData.data.filter((item: any) => { 
-          return item.tid.toString() == selectedTid && item 
+          return item.tid.toString() === selectedTid && item 
         });
         onPress(authorSelected[0], indexValue)
       } else {
@@ -127,6 +127,9 @@ export const MyNewsWriters = () => {
       const selectedAuthorsString = getSelectedData().join('+')
       requestAllSelectedWritersDetailsData({ tid: selectedAuthorsString, items_per_page: 100 })
     } else {
+      setPageCount(0);
+      setOpinionData([]);
+      setShowEmpty(true);
       emptySelectedAuthorsData();
     }
   };

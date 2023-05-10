@@ -49,7 +49,6 @@ const textWithFlagStyle = StyleSheet.create({
     dividerStyle: {
         fontSize: isIOS ? normalize(15) : normalize(17),
         fontWeight: 'bold',
-        lineHeight: 17,
         fontFamily: 'arial'
     }
 })
