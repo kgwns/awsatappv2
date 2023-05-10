@@ -166,7 +166,7 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
   }
 
   const renderListenToArticleButton = (podcastData: any) => (
-    <TouchableOpacity onPress={() => onPressPodcast()}>
+    <TouchableOpacity onPress={() => onPressPodcast()} testID='listenToArticleButtonHome'>
       <View style={style.buttonContainer}>
         <View style={style.iconContainer}>
           {playPauseIcon(podcastData)}
