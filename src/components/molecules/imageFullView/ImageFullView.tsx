@@ -1,74 +1,88 @@
-import React, { useEffect } from 'react';
-import ImageView from 'react-native-image-viewing-rtl';
-import Orientation from 'react-native-orientation-locker';
-import { isTab } from 'src/shared/utils';
-import { ButtonImage } from 'src/components/atoms';
-import { ImagesName } from 'src/shared/styles';
-import { getSvgImages } from 'src/shared/styles/svgImages';
+import React from 'react';
 import { colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, View, Modal, Dimensions, TouchableOpacity } from 'react-native';
+import ImageViewer from "react-native-reanimated-image-viewer";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { Label } from 'src/components/atoms';
+import { useOrientation } from 'src/hooks';
+import { isTab } from 'src/shared/utils';
 
-interface ImageProps {
-    uri: string;
-}
 interface ImageFullView {
-    listData: ImageProps[];
-    visible: boolean;
+    uri: string;
     onClose: () => void;
-    imageIndex?: number;
 }
+
+const HIT_SLOP = { top: 16, left: 16, bottom: 16, right: 16 };
 
 export const ImageFullView = (props: ImageFullView) => {
-    const { visible, listData, onClose, imageIndex } = props;
+    const { uri, onClose } = props;
     const styles = useThemeAwareObject(imageFullViewStyle);
-
-    useEffect(() => {
-        if (isTab && visible) {
-            Orientation.lockToPortrait();
-        }
-        return (() => {
-            if (isTab) {
-                Orientation.unlockAllOrientations();
-            }
-        })
-    }, [visible])
+    const { isPortrait } = useOrientation();
 
     const renderHeaderComponent = () => {
         return (
             <View style={styles.buttonContainer}>
-                <ButtonImage icon={() => {
-                    return getSvgImages({
-                        name: ImagesName.videoCloseIcon,
-                        width: 20,
-                        height: 20,
-                        fill: colors.white
-                    })
-                }}
-                    onPress={onClose}
-                />
+                <TouchableOpacity style={styles.closeButton} onPress={onClose} hitSlop={HIT_SLOP}>
+                    <Label style={styles.closeText}>✕</Label>
+                </TouchableOpacity>
             </View>
         )
     }
 
+    const getWindowWidth = () => {
+        const { width } = Dimensions.get('window');
+        if (!isTab) {
+            return width
+        }
+        return isPortrait ? width : width * 0.8;
+    }
+
+    const getWindowHeight = () => {
+        const { width } = Dimensions.get('window');
+        const height = width * 3 / 4;
+        if (!isTab) {
+            return height
+        }
+        return isPortrait ? (width * 0.8) * 3 / 4 : height * 0.6;
+    }
+
     return (
-        <ImageView
-            images={listData}
-            imageIndex={imageIndex ? imageIndex : 0}
-            visible={visible}
-            onRequestClose={onClose}
-            HeaderComponent={renderHeaderComponent}
-            doubleTapToZoomEnabled={false}
-        />
+        <Modal supportedOrientations={["portrait", "portrait-upside-down", "landscape", "landscape-left", "landscape-right"]}>
+            {renderHeaderComponent()}
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <ImageViewer
+                    imageUrl={uri} width={getWindowWidth()} height={getWindowHeight()} onRequestClose={onClose}
+                />
+            </GestureHandlerRootView>
+        </Modal>
     );
 };
 
 const imageFullViewStyle = () => {
     return StyleSheet.create({
         buttonContainer: {
-            height: 60,
-            marginTop: 50,
-            marginLeft: 20,
+            position: 'absolute',
+            top: 40,
+            left: 20,
+            backgroundColor: colors.black,
+            width: 45,
+            height: 45,
+            borderRadius: 22.5,
+            zIndex: 9999,
+        },
+        closeButton: {
+            width: '100%',
+            height: '100%',
+            alignItems: "center",
+            justifyContent: "center",
+        },
+        closeText: {
+            lineHeight: 45,
+            fontSize: 25,
+            textAlign: "center",
+            color: colors.white,
+            includeFontPadding: false,
         },
     });
 }
