@@ -49,7 +49,7 @@ const AuthorSlider = ({
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState<any>(isIOS ? 0 : data.length - 1);
 
-  const renderSepartor = () => {
+  const renderSeparator = () => {
     if (isTab) {
       return null
     }
