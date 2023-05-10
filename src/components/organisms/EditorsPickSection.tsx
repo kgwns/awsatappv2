@@ -92,6 +92,7 @@ export const EditorsPickSection = ({
         data={data}
         renderItem={({ item, index }) => renderItem(item, index)}
         contentContainerStyle={style.contentContainer}
+        testID={'editorContainerId'}
       />
       {isTab && <View style={style.dividerContainer}>
         <Divider style={style.divider} />

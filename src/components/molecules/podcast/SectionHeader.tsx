@@ -22,7 +22,7 @@ export const SectionHeader = ({
   const style = useThemeAwareObject(customStyle);
   return (
     <View style={style.headerContainer}>
-      {headerRight && <Label style={[style.header, tabTitleStyle]}>{headerRight}</Label>}
+      {headerRight && <Label style={[style.header, tabTitleStyle]} testID={'headerRightId'}>{headerRight}</Label>}
       {headerLeft && (
         <TouchableOpacity
           style={style.moreContainer}
