@@ -200,14 +200,16 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               children={description}
             />
           </View>
-          <ButtonOutline title={PODCAST_EPISODE_LISTEN_TO_EPISODE}
-            style={style.buttonStyle}
-            labelStyle={isTab ? style.tabTextStyle : style.buttonLabel}
-            titleType={LabelTypeProp.h1}
-            onPress={() => onPressPodcast()}
-            rightIcon={() => playPauseIcon(podcastData)}
-            color={Styles.color.white}
-          />
+          <TouchableOpacity onPress={() => onPressPodcast()}>
+            <View style={style.buttonContainer}>
+              <View style={style.iconContainer}>
+                {playPauseIcon(podcastData)}
+              </View>
+              <Label color={Styles.color.white} style={[isTab ? style.tabTextStyle : style.buttonLabel]} labelType={LabelTypeProp.h1}>
+                {PODCAST_EPISODE_LISTEN_TO_EPISODE}
+              </Label>
+            </View>
+          </TouchableOpacity>
         </View>
       </>
     )
@@ -386,22 +388,16 @@ const createStyles = (theme: CustomThemeType) => {
     flatList: {
       width: '50%'
     },
-    buttonStyle: {
-      backgroundColor: colors.black,
-      borderWidth: 0,
-      width: 200,
-      marginTop: normalize(30),
-    },
     buttonLabel: {
       color: colors.white,
       fontFamily: fonts.AwsatDigital_Regular,
       fontSize: 14,
-      lineHeight: 26,
+      lineHeight: 46,
       marginLeft: 3
     },
     tabTextStyle: {
       fontSize: 16,
-      lineHeight: 26,
+      lineHeight: 46,
       fontFamily:fonts.AwsatDigital_Bold,
       fontWeight:'700'
     },
@@ -434,6 +430,19 @@ const createStyles = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigital_Black, 
       fontSize: 25, 
       lineHeight: 36
+    },
+    buttonContainer: {
+      marginTop: 30,
+      height: 46,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      borderRadius: 25,
+      paddingHorizontal: 25,
+      backgroundColor: colors.black,
+    },
+    iconContainer: {
+      height: '100%',
+      justifyContent: 'center'
     }
   });
 };
