@@ -257,7 +257,7 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
 
 type ImageAndCaptionType = { image: string, caption: string}
 
-const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPhotoTitle: any) : ImageAndCaptionType => {
+export const getArticleImageAndType = (fieldImage: any, detailPhotoList: any, detailPhotoTitle: any) : ImageAndCaptionType => {
   let image = ''
   let caption = ''
 

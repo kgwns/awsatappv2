@@ -79,7 +79,7 @@ export const PopulateWidget = ({
 
     const episodeModal = () => (
         <Modal visible={true} animationType={'slide'} onRequestClose = {() => setShowModal(false)}>
-            <View style={{ height: screenHeight - insets.top }}>
+            <View style={{ height: isTab ? '100%' :  screenHeight - insets.top }}>
                 <PodcastEpisodeModal
                     route={{ params: { data: { ...props } } }}
                     onPressBack={() => setShowModal(false)}
@@ -109,6 +109,7 @@ export const PopulateWidget = ({
                         favouriteIconHeight: 16,
                         favouriteIconWidth: 11,
                         bookMarkColorType: isTab && BookMarkColorType.PRIMARY,
+                        hideBookmark: false
                     }}
                     isBookmarked={true}
                     onPressBookmark={onPressBookmark}

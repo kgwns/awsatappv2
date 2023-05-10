@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import { FlatList } from 'react-native-gesture-handler';
 import { flatListUniqueKey, ScreensConstants } from 'src/constants/Constants';
 import { SectionHeader } from '../molecules/podcast/SectionHeader';
@@ -17,6 +17,9 @@ interface EditorsPickSectionProps {
   headerLeft?: string;
   headerRight?: string;
   showHighlightTitle?: boolean;
+  tabTitleStyle?: StyleProp<TextStyle>;
+  tabImageStyle?: StyleProp<ViewStyle>;
+  tabContainerStyle?: StyleProp<ViewStyle>;
 }
 
 export const EditorsPickSection = ({
@@ -24,6 +27,9 @@ export const EditorsPickSection = ({
   headerLeft,
   headerRight,
   showHighlightTitle=true,
+  tabTitleStyle,
+  tabImageStyle,
+  tabContainerStyle
 }: EditorsPickSectionProps) => {
   const navigation = useNavigation<StackNavigationProp<any>>()
   const style = useThemeAwareObject(customStyle)
@@ -49,6 +55,8 @@ export const EditorsPickSection = ({
           showHighlightTitle={showHighlightTitle}
           isAlbum={isAlbum}
           displayType={item.displayType}
+          tabImageStyle={tabImageStyle}
+          tabContainerStyle={tabContainerStyle}
         />
       </TouchableOpacity>
     );
@@ -58,7 +66,7 @@ export const EditorsPickSection = ({
     return (
       <>
         {(headerLeft || headerRight) && <View style={style.header}>
-          <SectionHeader headerLeft={headerLeft} headerRight={headerRight} />
+          <SectionHeader headerLeft={headerLeft} headerRight={headerRight} tabTitleStyle={tabTitleStyle} />
         </View>
         }
       </>

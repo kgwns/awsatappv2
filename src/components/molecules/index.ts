@@ -69,3 +69,4 @@ export { StepLineCircle } from 'src/components/molecules/stepLineCircle/StepLine
 export {default as MostReadTabItem} from './MostReadTabItem';
 export { OnBoardingBottom } from './onboarding-bottom/OnBoardingBottom';
 export { AuthHeader } from './auth-header/AuthHeader';
+export { DeleteMyAccountLabel } from 'src/components/molecules/deleteMyAccount/DeleteMyAccountLabel';

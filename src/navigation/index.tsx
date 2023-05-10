@@ -40,10 +40,15 @@ import {
   PhotoGalleryDetailScreen,
   JournalistDetail,
   PodcastEpisodeModal,
+  DMAIntroductionScreen,
+  DMAOptionsListScreen,
+  DMAFeedbackScreen,
+  DMADeleteAccountScreen,
 } from '../components/screens';
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
 import OnBoardNavigator from './OnBoardNavigator';
+import { CartoonList } from 'src/components/screens/cartoonList/CartoonList';
 
 export const Routes = {
   FavoriteScreen,
@@ -90,6 +95,11 @@ export const Routes = {
   PhotoGalleryDetailScreen,
   JournalistDetail,
   PodcastEpisodeModal,
+  DMAIntroductionScreen,
+  DMAOptionsListScreen,
+  DMAFeedbackScreen,
+  DMADeleteAccountScreen,
+  CartoonList,
 };
 
 /**
@@ -159,7 +169,9 @@ const myNewsScreen = 'myNewsScreen' as ScreenName
 const photoGalleryDetailScreen = 'photoGalleryDetailScreen' as ScreenName
 const journalistDetail = 'journalistDetail' as ScreenName;
 const PodcastEpisodeModalScreen = 'PodcastEpisodeModalScreen' as ScreenName;
-
+const dmaIntroductionScreen = 'DMAIntroductionScreen' as ScreenName;
+const dmaOptionsList = 'DMAOptionsListScreen' as ScreenName;
+const cartoonList = 'CartoonList' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -193,4 +205,7 @@ export const RoutesName = {
   photoGalleryDetailScreen,
   journalistDetail,
   PodcastEpisodeModalScreen,
+  dmaIntroductionScreen,
+  dmaOptionsList,
+  cartoonList,
 };

@@ -70,38 +70,7 @@ public final class Webservice {
         var request = URLRequest(endpoint: endpoint)
         
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let systemToken = Defaults[.systemToken]
-        let userToken = Defaults[.authenticationData]?.token
-        
-        let sessionID = Defaults[.authenticationData]?.sessid
-        let sessionName = Defaults[.authenticationData]?.sessionName
-        
-        var cookie: String?
-        
-        if sessionID != nil && sessionName != nil  {
-            cookie = sessionName! + "=" + sessionID!
-        }
-        
-        if systemToken != nil && userToken == nil {
-            request.addValue(systemToken!, forHTTPHeaderField: "X-CSRF-Token")
-        } else if userToken != nil && cookie != nil {
-            request.addValue(userToken!, forHTTPHeaderField: "X-CSRF-Token")
-            request.addValue(cookie!,    forHTTPHeaderField: "Cookie")
-        }
-        
-        #if DEBUG
-            print("--")
-            print(endpoint.url)
-            print("--")
-        #endif
-        
-        if let fields = request.allHTTPHeaderFields {
-            #if DEBUG
-                print(fields)
-            #endif
-        }
-        
+                
         session.dataTask(with: request) { data, _, _ in
             let result: Result<A>
             #if DEBUG
@@ -251,21 +220,6 @@ final class CachedWebservice {
             update(.success(result), true)
         }
         
-        let useMobileDataSetting = Defaults[.useMobileDataSetting] ?? true
-        let shouldCheckBeforeNetworkRequest = ReachibilityManager.shouldCheckBeforeNetworkRequest
-        var isGET = true
-        switch endpoint.method {
-        case .get:
-            isGET = true
-        case .post(_):
-            isGET = false
-        }
-        if useMobileDataSetting == false && shouldCheckBeforeNetworkRequest == true && isGET == true {
-            print("Request not allowed since the user has switched off use mobile data")
-            update(Result(nil, or: WebserviceError.other), false)
-            return
-        }
-    
         let dataEndpoint = Endpoint<Data>(url: endpoint.url, parse: { $0 }, method: endpoint.method)
         webservice.load(dataEndpoint, completion: { result in
             switch result {

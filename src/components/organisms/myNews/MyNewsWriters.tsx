@@ -127,6 +127,9 @@ export const MyNewsWriters = () => {
       const selectedAuthorsString = getSelectedData().join('+')
       requestAllSelectedWritersDetailsData({ tid: selectedAuthorsString, items_per_page: 100 })
     } else {
+      setPageCount(0);
+      setOpinionData([]);
+      setShowEmpty(true);
       emptySelectedAuthorsData();
     }
   };

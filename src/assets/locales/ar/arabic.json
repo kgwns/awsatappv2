@@ -34,7 +34,8 @@
         "pdfArchive": "الأرشيف",
         "informationAboutUs": "معلومات عنا",
         "aboutTheMiddleEast": " عن \"الشرق الأوسط\"",
-        "privacyPolicy": "سياسة الخصوصية"
+        "privacyPolicy": "سياسة الخصوصية",
+        "caricature": "caricature"
     },
     "onBoard": {
         "common": {
@@ -270,6 +271,7 @@
         "manageMyNews": "إدارة أخباري",
         "myNewsLetter": "نشراتي البريدية",
         "myAccountDetails": "تفاصيل حسابي",
+        "deleteMyAccount": "حذف حسابي",
         "appAppearance": "مظهر التطبيق",
         "exit": "خروج",
         "lightMode": "وضع فاتح",
@@ -402,7 +404,8 @@
         "yourLetter": "رسالتك",
         "send": "ارسل",
         "doYouHaveQuestions": "هل لديك سؤال؟راسلنا",
-        "description": "سنتواصل معك و نجيب على سؤالك خلال يومين"
+        "description": "سنتواصل معك و نجيب على سؤالك خلال يومين",
+        "address": "10th Floor, Building 7\n\nChiswick Business Park\n\n566 Chiswick High Road\n\nLondon W4 5YG\n\nUnited Kingdom\n\nTel: +442078318181\n\nFax: +442078312310\n\nwww.aawsat.com\n\neditorial@aawsat.com"
     },
     "articleDetail": {
         "contentBundleWidgetTitle": "اقرأ أيضاً",
@@ -501,5 +504,22 @@
           "id": 66,
           "title": "يوميات الشرق​"
         }
-      ]
+    ],
+    "deleteMyAccount": {
+        "introductionTitle": "يؤسفنا أن تتركنا!",
+        "listTitle": "لماذا تريد حذف حسابك؟",
+        "commentFeedBackTitle": "هل لديك أي شيء آخر تود إضافته؟",
+        "deleteConfirmationTitle": "انت على وشك حذف حسابك",
+        "proceedToDeleteTitle": "المتابعة للحذف",
+        "nextTitle": "التالي",
+        "confirmDeleteTitle": "تاكيد حذف",
+        "cancelTitle": "إلغاء الطلب",
+        "commentsPlaceHolder": "هل لديك أي أسئلة أو تعليقات؟ يرجى مشاركة تعليقاتك معنا.",
+        "deleteSubmissionTitle": "انت على وشك حذف حسابك",
+        "confirmDeleteButton": "تأكيد الحذف",
+        "confirmDeletePlaceHolder": "حذف حسابي",
+        "typeDeleteToConfirm": "اكتب “حذف حسابي” لتأكيد الحذف.",
+        "deleteMyAccountArabic": "حذف حسابي",
+        "deleteMyAccountEnglish": "Delete my account"
+      }
 }

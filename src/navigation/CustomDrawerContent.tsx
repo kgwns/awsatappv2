@@ -71,6 +71,8 @@ const CustomDrawerContent = () => {
   const TERMS_OF_USE = TranslateConstants({key: TranslateKey.TERMS_OF_USE});
   const PRIVACY_POLICY = TranslateConstants({key: TranslateKey.PRIVACY_POLICY});
   const CALL_US = TranslateConstants({key: TranslateKey.DRAWER_CALL_US});
+  const CARICATURE = TranslateConstants({key: TranslateKey.CARICATURE});
+  
   const [latitude, setLatitude] = useState<number>();
   const [longitude, setLongitude] = useState<number>();
   const [locationEnabled, setLocationEnabled] = useState<boolean>(false);
@@ -311,6 +313,10 @@ const CustomDrawerContent = () => {
   }
 
   const onPressNavigationDynamicMenu = (isChild: boolean, menuInfo: any) => {
+    if(menuInfo.field_app_key_name_export === CARICATURE){
+      onPressNavigation(ScreensConstants.CartoonListScreen, {title: menuInfo.title});
+      return;
+    }
     const screenName = isChild ? ScreensConstants.SectionArticlesScreen : ScreensConstants.SectionArticlesParentScreen
     const defaultParams = { sectionId: menuInfo.field_sections, title: menuInfo.title }
     const params = isChild ? defaultParams : { ...defaultParams, keyName: menuInfo.field_app_key_name_export }

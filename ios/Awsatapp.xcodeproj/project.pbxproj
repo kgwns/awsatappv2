@@ -32,6 +32,7 @@
 		87E5287E29C1BC2200298A3D /* splashscreen.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5287D29C1BC2200298A3D /* splashscreen.mp4 */; };
 		87E5288129C1C33000298A3D /* ipadhorizontal.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5287F29C1C33000298A3D /* ipadhorizontal.mp4 */; };
 		87E5288229C1C33000298A3D /* ipadvertical.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 87E5288029C1C33000298A3D /* ipadvertical.mp4 */; };
+		87ED42982A0396470071AC50 /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		8B3BA46F3B5548999CD39890 /* AwsatDigitalBetav10-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E6F92F68DFA74CDC8DDDD536 /* AwsatDigitalBetav10-Bold.ttf */; };
 		8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E7BE3A7CC445D8BAB40327 /* subjectivity-medium.otf */; };
 		928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E412FC49EB497C9B8E3575 /* AwsatDigitalv2b-Black.ttf */; };
@@ -72,7 +73,6 @@
 		AF14A16B2836D0C700E6311D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1432836D0C600E6311D /* Strings.swift */; };
 		AF14A16C2836D0C700E6311D /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1442836D0C600E6311D /* DefaultKeys.swift */; };
 		AF14A16D2836D0C700E6311D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1452836D0C600E6311D /* Colors.swift */; };
-		AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1472836D0C600E6311D /* AuthenticationData.swift */; };
 		AF14A16F2836D0C700E6311D /* PDFArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1482836D0C600E6311D /* PDFArchiveData.swift */; };
 		AF14A1702836D0C700E6311D /* UserBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1492836D0C600E6311D /* UserBase.swift */; };
 		AF14A1712836D0C700E6311D /* PDFEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A14A2836D0C600E6311D /* PDFEdition.swift */; };
@@ -116,7 +116,6 @@
 		D7CB52E628364E3F003B6457 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E528364E3F003B6457 /* Localizable.strings */; };
 		D7CB52E828366F63003B6457 /* colorPalatte.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D7CB52E728366F63003B6457 /* colorPalatte.xcassets */; };
 		D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B4F27D9C9F10028999D /* CoreTelephony.framework */; };
-		D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D7D85B5327D9CA080028999D /* AppTrackingTransparency.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		D7F15A5F282BE9A7004368A7 /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7F15A5E282BE9A7004368A7 /* LoadingView.swift */; };
 		D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D7F15A64282BED4A004368A7 /* libSwiftyJSON.a */; };
 		D7FDC0AF2837E1BC003F33E9 /* ThemeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7FDC0AE2837E1BC003F33E9 /* ThemeManager.swift */; };
@@ -274,7 +273,6 @@
 		AF14A1432836D0C600E6311D /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		AF14A1442836D0C600E6311D /* DefaultKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
 		AF14A1452836D0C600E6311D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		AF14A1472836D0C600E6311D /* AuthenticationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationData.swift; sourceTree = "<group>"; };
 		AF14A1482836D0C600E6311D /* PDFArchiveData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveData.swift; sourceTree = "<group>"; };
 		AF14A1492836D0C600E6311D /* UserBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBase.swift; sourceTree = "<group>"; };
 		AF14A14A2836D0C600E6311D /* PDFEdition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEdition.swift; sourceTree = "<group>"; };
@@ -369,11 +367,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				87ED42982A0396470071AC50 /* AppTrackingTransparency.framework in Frameworks */,
 				5E069404290C11FD0081D016 /* UIKit.framework in Frameworks */,
 				5E069402290C11F70081D016 /* AVKit.framework in Frameworks */,
 				5E069400290C11E90081D016 /* AVFoundation.framework in Frameworks */,
 				D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */,
-				D7D85B5427D9CA080028999D /* AppTrackingTransparency.framework in Frameworks */,
 				D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */,
 				726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */,
 			);
@@ -675,7 +673,6 @@
 		AF14A1462836D0C600E6311D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AF14A1472836D0C600E6311D /* AuthenticationData.swift */,
 				AF14A1482836D0C600E6311D /* PDFArchiveData.swift */,
 				AF14A1492836D0C600E6311D /* UserBase.swift */,
 				AF14A14A2836D0C600E6311D /* PDFEdition.swift */,
@@ -1285,7 +1282,6 @@
 			files = (
 				AF14A1612836D0C700E6311D /* PDFArchiveViewManager.m in Sources */,
 				AF694E6428F6831B00DAECDF /* AppDelegate+WatchDelegate.swift in Sources */,
-				AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */,
 				AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */,
 				AF14A16B2836D0C700E6311D /* Strings.swift in Sources */,
 				AF14A1702836D0C700E6311D /* UserBase.swift in Sources */,
@@ -1475,7 +1471,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
@@ -1484,7 +1480,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1510,7 +1506,7 @@
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -1520,7 +1516,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1677,7 +1673,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1687,7 +1683,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
@@ -1720,7 +1716,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1731,7 +1727,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1760,7 +1756,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "Apple Development";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1775,7 +1771,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
@@ -1805,7 +1801,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 34;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1821,7 +1817,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";

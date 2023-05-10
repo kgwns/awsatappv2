@@ -41,6 +41,8 @@ import sudokuImage from 'src/assets/images/sudoku_.png'
 import crosswordImageDark from 'src/assets/images/cross_word_dark.png'
 import sudokuImageDark from 'src/assets/images/sudoku_dark.png'
 
+import deleteAccountImage from 'src/assets/images/deleteAccountImage.png'
+
 export enum ImagesName {
   newsIcon = 'newsIcon',
   newsActiveIcon = 'newsActiveIcon',
@@ -188,6 +190,9 @@ export enum ImagesName {
   fontScalingBold = 'fontScalingBold',
   tabletAuthorItem = 'tabletAuthorItem',
   tabletDownArrowIcon = 'tabletDownArrowIcon',
+  deleteUserIcon = 'deleteUserIcon',
+  deleteAccountImage = 'deleteAccountImage',
+  arrowLeftDimGrey = 'arrowLeftDimGrey',
 }
 
 export const images = {
@@ -222,6 +227,7 @@ export const images = {
   sudokuImageDark,
   archiveIconLight,
   archiveIconDark,
+  deleteAccountImage,
 };
 
 export const darkImages = {

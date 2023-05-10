@@ -36,6 +36,8 @@ const AppNavigator = () => {
   const ON_BOARD_COMMON_RETURN = TranslateConstants({key:TranslateKey.ON_BOARD_COMMON_RETURN})
   const PROFILE_SETTING_MY_NEWS_LETTER = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MY_NEWS_LETTER})
   const PROFILE_SETTING_MANAGE_MY_NOTIFICATION = TranslateConstants({key:TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION})
+  const DELETE_MY_ACCOUNT = TranslateConstants({key:TranslateKey.PROFILE_SETTING_DELETE_MY_ACCOUNT})
+  
   const previousIconStyle = style.onBoardPrevIcon;
 
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
@@ -279,6 +281,57 @@ const AppNavigator = () => {
         name={ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN}
         component={Routes.PhotoGalleryDetailScreen}
         options={{ ...hideHeader, animationEnabled: isAndroid }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.DMA_INTRODUCTION_SCREEN}
+        component={Routes.DMAIntroductionScreen}
+        options={{
+          headerStyle: [style.container, style.profileBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(DELETE_MY_ACCOUNT),
+          headerTitleStyle: style.headerTitle,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.DMA_OPTIONS_LIST_SCREEN}
+        component={Routes.DMAOptionsListScreen}
+        options={{
+          headerStyle: [style.container, style.profileBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(DELETE_MY_ACCOUNT),
+          headerTitleStyle: style.headerTitle,
+          headerTitleAlign: 'center',
+          headerShadowVisible: false
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.DMA_FEED_BACK_SCREEN}
+        component={Routes.DMAFeedbackScreen}
+        options={{
+          headerStyle: [style.container, style.profileBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(DELETE_MY_ACCOUNT),
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.DMA_DELETE_ACCOUNT_SCREEN}
+        component={Routes.DMADeleteAccountScreen}
+        options={{
+          headerStyle: [style.container, style.profileBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle(DELETE_MY_ACCOUNT),
+          headerTitleAlign: 'center',
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.CartoonListScreen}
+        component={Routes.CartoonList}
+        options={hideHeader}
       />
     </Stack.Navigator>
   );

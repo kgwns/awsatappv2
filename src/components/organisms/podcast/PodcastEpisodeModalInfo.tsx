@@ -118,7 +118,7 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
                     testID = "googleUrl"
                 >
                     <GooglePodcastIcon width={isTab ? 40 : 23} height={isTab ? 40 : 23} />
-                </TouchableOpacity>
+                </TouchableOpacity>}
             </View>
         </View>
     )
