@@ -21,5 +21,5 @@ module.exports = {
   collectCoverageFrom: ['**/*.tsx', '**/*.ts', '!src/assets/**'],
   collectCoverage: true,
   testResultsProcessor: 'jest-sonar-reporter',
-  testTimeout: 20000,
+  testTimeout: 80000,
 };

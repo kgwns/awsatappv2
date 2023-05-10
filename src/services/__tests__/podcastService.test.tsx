@@ -1,10 +1,10 @@
-import axios, { AxiosError } from 'axios';
+import { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { PodcastEpisodeBodyGet, PodcastListBodyGet } from 'src/redux/podcast/types';
 import { fetchPodcastEpisodeApi, fetchPodcastListApi, fetchSingleEpisodeSpreakerApi } from '../podcastService';
 import * as serviceApi from 'src/services/api';
 describe('Test Podcast Services', () => {
-    const mock = new MockAdapter(axios);
+    const cachedAxiosMock = new MockAdapter(serviceApi.api);
 
     const body: PodcastListBodyGet = {
         tid: 12345,
@@ -23,11 +23,11 @@ describe('Test Podcast Services', () => {
     });
 
     afterEach(() => {
-        mock.reset();
+        cachedAxiosMock.reset();
     });
 
     it('test when fetchPodcastListApi response code is 200', () => {
-        mock.onGet().reply(200, {
+        cachedAxiosMock.onGet().reply(200, {
             result: true,
         });
 
@@ -46,7 +46,7 @@ describe('Test Podcast Services', () => {
     });
 
     it('test when fetchPodcastEpisodeApi response code is 200', () => {
-        mock.onGet().reply(200, {
+        cachedAxiosMock.onGet().reply(200, {
             result: true,
         });
 
@@ -65,7 +65,7 @@ describe('Test Podcast Services', () => {
     });
 
     it('test when fetchSingleEpisodeSpreakerApi response code is 200',() => {
-        mock.onGet().reply(200, {
+        cachedAxiosMock.onGet().reply(200, {
             result: true,
         });
         const getCacheApiRequest = jest.spyOn(serviceApi, 'getCacheApiRequest');
@@ -77,7 +77,7 @@ describe('Test Podcast Services', () => {
     })
 
     it('test when fetchSingleEpisodeSpreakerApi response code is 404', () => {
-        mock.onGet().reply(404, {
+        cachedAxiosMock.onGet().reply(404, {
             error: 'Something Went Wrong',
         });
 
