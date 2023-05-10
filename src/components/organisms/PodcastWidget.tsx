@@ -165,6 +165,19 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
     onPress(episodeData[0]);
   }
 
+  const renderListenToArticleButton = (podcastData: any) => (
+    <TouchableOpacity onPress={() => onPressPodcast()}>
+      <View style={style.buttonContainer}>
+        <View style={style.iconContainer}>
+          {playPauseIcon(podcastData)}
+        </View>
+        <Label color={Styles.color.white} style={[isTab ? style.tabTextStyle : style.buttonLabel]} labelType={LabelTypeProp.h1}>
+          {PODCAST_EPISODE_LISTEN_TO_EPISODE}
+        </Label>
+      </View>
+    </TouchableOpacity>
+  )
+
   const renderMobile = (podcastData: any, index: number) => {
     if (!isObjectNonEmpty(podcastData)) {
       return null;
@@ -200,16 +213,8 @@ const PodcastWidget: FunctionComponent<PodcastWidgetProps> = ({
               children={description}
             />
           </View>
-          <TouchableOpacity onPress={() => onPressPodcast()}>
-            <View style={style.buttonContainer}>
-              <View style={style.iconContainer}>
-                {playPauseIcon(podcastData)}
-              </View>
-              <Label color={Styles.color.white} style={[isTab ? style.tabTextStyle : style.buttonLabel]} labelType={LabelTypeProp.h1}>
-                {PODCAST_EPISODE_LISTEN_TO_EPISODE}
-              </Label>
-            </View>
-          </TouchableOpacity>
+          {renderListenToArticleButton(podcastData)}
+          
         </View>
       </>
     )
