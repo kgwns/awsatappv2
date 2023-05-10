@@ -37,7 +37,7 @@ export const TabletPopup = ({
     } else {
         return (
             <>
-                <Modal visible={modalVisible} transparent={true} >
+                <Modal visible={modalVisible} transparent={true} testID={'modalId'}>
                     <View style={styles.container}>
                         <View style={styles.innerContainer}>
                             <TouchableOpacity testID="AlertModalTO1" style={styles.iconStyle} onPress={() => {
