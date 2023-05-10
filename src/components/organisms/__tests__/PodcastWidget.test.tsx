@@ -1,7 +1,6 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { PodcastWidget } from 'src/components/organisms';
-import { ButtonImage, ButtonOutline } from 'src/components/atoms';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 
 jest.mock('src/services/podcastService');
@@ -112,8 +111,8 @@ describe('<PodcastWidget>', () => {
     expect(instance).toBeDefined();
   });
 
-  it("test ButtonOutline onPress method", () => {
-    const element = instance.container.findByType(ButtonOutline);
+  it("test ListentoArticle onPress method", () => {
+    const element = instance.getByTestId('listenToArticleButtonHome');
     fireEvent(element, 'onPress')
     expect(mockFunction).toHaveBeenCalled()
   })
