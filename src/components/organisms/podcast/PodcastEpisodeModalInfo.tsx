@@ -91,31 +91,27 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
         <View style={styles.mainContainer}>
             <Label children={PODCAST_EPISODE_LISTEN_TO} style={styles.listToText} />
             <View style={styles.podcastContainer}>
-                <TouchableOpacity 
-                    disabled={!isNotEmpty(podcastSectionData.spotify.url)}
-                    onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.spotify)}
-                    testID = "spotifyUrl"
+                {isNotEmpty(podcastSectionData?.spotify?.url) && <TouchableOpacity
+                    onPress={() => onPodcastServicePress(podcastSectionData, podcastServices.spotify)}
+                    testID="spotifyUrl"
                 >
                     <SpotifyIcon width={isTab ? 40 : 25} height={isTab ? 40 : 25} />
-                </TouchableOpacity>
-                <TouchableOpacity  
-                    disabled={!isNotEmpty(podcastSectionData.anghami.url)}
-                    onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.anghami)}
-                    testID = "anghamiUrl"
+                </TouchableOpacity>}
+                {isNotEmpty(podcastSectionData?.anghami?.url) && <TouchableOpacity
+                    onPress={() => onPodcastServicePress(podcastSectionData, podcastServices.anghami)}
+                    testID="anghamiUrl"
                 >
                     <AnghamiPodcastIcon width={isTab ? 40 : 24} height={isTab ? 40 : 24} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    disabled={!isNotEmpty(podcastSectionData.apple_podcasts.url)}
-                    onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.apple)}
-                    testID = "appleUrl"
+                </TouchableOpacity>}
+                {isNotEmpty(podcastSectionData?.apple_podcasts?.url) && <TouchableOpacity
+                    onPress={() => onPodcastServicePress(podcastSectionData, podcastServices.apple)}
+                    testID="appleUrl"
                 >
                     <ApplePodcastIcon width={isTab ? 40 : 23} height={isTab ? 40 : 23} />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    disabled={!isNotEmpty(podcastSectionData.google_podcast.url)}
-                    onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.google)}
-                    testID = "googleUrl"
+                </TouchableOpacity>}
+                {isNotEmpty(podcastSectionData?.google_podcast?.url) && <TouchableOpacity
+                    onPress={() => onPodcastServicePress(podcastSectionData, podcastServices.google)}
+                    testID="googleUrl"
                 >
                     <GooglePodcastIcon width={isTab ? 40 : 23} height={isTab ? 40 : 23} />
                 </TouchableOpacity>}

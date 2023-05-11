@@ -50,7 +50,7 @@ export const CartoonList = () => {
     }, [cartoonList]);
 
     useEffect(() => {
-        if (page != 0) {
+        if (page !== 0) {
             getCartoonList();
         }
     }, [page]);

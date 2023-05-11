@@ -44,16 +44,7 @@ export const ArticleGridView = ({
             })
         },
         rightTitleColor: Styles.color.silverChalice,
-        leftTitleStyle: isTab ? { 
-            fontFamily: fonts.Effra_Arbc_Regular,
-            fontWeight: '400',
-            fontSize: 13,
-            lineHeight: 16,
-        } : { 
-            fontFamily: fonts.IBMPlexSansArabic_Regular,
-            fontSize: 12,
-            lineHeight:20 
-        }
+        leftTitleStyle: isTab ? style.tabLeftTitleStyle : style.leftTitleStyle
     };
 
     const renderItem = (item: MainSectionBlockType, index: number) => {
@@ -167,4 +158,15 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         fontWeight:'400',
         color: theme.summaryColor
     },
+    tabLeftTitleStyle: {
+        fontFamily: fonts.Effra_Arbc_Regular,
+        fontWeight: '400',
+        fontSize: 13,
+        lineHeight: 16,
+    },
+    leftTitleStyle: {
+        fontFamily: fonts.IBMPlexSansArabic_Regular,
+        fontSize: 12,
+        lineHeight: 20
+    }
 });
