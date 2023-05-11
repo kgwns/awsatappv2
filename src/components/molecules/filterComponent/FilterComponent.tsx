@@ -66,7 +66,7 @@ export const FilterComponent = ({
         >
             {
                 data.map((item: FilterDataType, index: number) => {
-                    if (!item.isVisible) {
+                    if (item.isVisible === false) {
                         return null
                     };
 
