@@ -1,10 +1,9 @@
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { SectionArticlesBodyGet } from 'src/redux/sectionArticles/types';
 import { fetchSectionArticlesApi } from '../sectionArticlesService';
 import * as serviceApi from 'src/services/api';
 describe('Test Section Articles Services', () => {
-    const mock = new MockAdapter(axios);
+    const cachedAxiosMock = new MockAdapter(serviceApi.api);
 
     const body: SectionArticlesBodyGet = {
         sectionId: '12345',
@@ -15,11 +14,11 @@ describe('Test Section Articles Services', () => {
     });
 
     afterEach(() => {
-        mock.reset();
+        cachedAxiosMock.reset();
     });
 
     it('test when response code is 200', () => {
-        mock.onGet().reply(200, {
+        cachedAxiosMock.onGet().reply(200, {
             result: true,
         });
 

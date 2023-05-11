@@ -8,7 +8,7 @@ import { isNonEmptyArray, isNotEmpty } from 'src/shared/utils';
 import { getArticleImageAndType } from '../articleDetail/sagas';
 
 const parseMostReadData = (payload: any) => {
-  let responseData: any = [];
+  const responseData: any = [];
 
   if (isNonEmptyArray(payload)) {
     for (const [_, item] of payload.entries()) {

@@ -28,7 +28,7 @@ export const DynamicWidget = ({
             return null
         }
         return (
-            <View style={styles.loaderContainer}>
+            <View style={styles.loaderContainer} testID={'loadingId'}>
                 <ActivityIndicator size={'small'} color={themeData.primary} />
             </View>
         )

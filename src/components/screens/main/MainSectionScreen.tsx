@@ -661,7 +661,7 @@ export const MainSectionScreen = React.memo((
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
       {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget 
-        title={infoGraphicBlock[0].info}
+        headerTitle={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
       />}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
@@ -860,7 +860,7 @@ export const MainSectionScreen = React.memo((
         </View> */}
       {/* AMAR-1097 - Hide Infographic for iPad and Tablet */}
       {/* {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
-        title={infoGraphicBlock[0].info}
+        headerTitle={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
       />} */}
 
@@ -892,7 +892,7 @@ export const MainSectionScreen = React.memo((
         <View style={mainSectionStyle.tabSplitterContainer}>
           <View style={[mainSectionStyle.tabPodcastInfoWidget, isDarkMode && {paddingRight:10}]}>
             {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
-              title={infoGraphicBlock[0].info}
+              headerTitle={infoGraphicBlock[0].info}
               htmlContent={infoGraphicBlock[0].body}
             />}
           </View>

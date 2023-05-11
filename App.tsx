@@ -20,7 +20,11 @@ const App = () => {
   const permissionDelay = isIOS ? 4000 : 5500;
   
   useEffect(() => {
-    isTab ? Orientation.unlockAllOrientations : Orientation.lockToPortrait()
+    if (isTab) {
+      Orientation.unlockAllOrientations()
+    } else {
+      Orientation.lockToPortrait()
+    }
   }, [])
 
   useEffect(() => {

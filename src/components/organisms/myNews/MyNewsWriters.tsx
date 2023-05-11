@@ -92,7 +92,7 @@ export const MyNewsWriters = () => {
       if (isAuthorTidData.includes(selectedTid)) {
         const indexValue = isAuthorTidData.indexOf(selectedTid)
         const authorSelected = selectedAuthorsData.data.filter((item: any) => { 
-          return item.tid.toString() == selectedTid && item 
+          return item.tid.toString() === selectedTid && item 
         });
         onPress(authorSelected[0], indexValue)
       } else {

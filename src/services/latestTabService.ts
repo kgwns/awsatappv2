@@ -169,10 +169,9 @@ export const infoGraphicBlockApi = async () => {
 
 export const archivedArticleApi = async () => {
   try {
-    const response: any = await getCacheApiRequest(
+    return await getCacheApiRequest(
       `${BASE_URL}${ARCHIVED_ARTICLE_ENDPOINT}`,
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - archivedArticleApi - error', error)
     throw error;

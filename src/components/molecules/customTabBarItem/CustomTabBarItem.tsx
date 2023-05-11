@@ -1,4 +1,4 @@
-import { View, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
+import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import React, { FunctionComponent } from 'react'
 import { Label } from 'src/components/atoms/label/Label'
 import { isAndroid, isTab, normalize, normalizeBy320, screenHeight, screenWidth, testProps } from 'src/shared/utils'

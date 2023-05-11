@@ -1431,193 +1431,112 @@ const weatherData = [
     },
 ];
 
-const searchResults: SearchResultsProps[] = [
-    {
-        id: '1',
-        label: ' تضارب ایرانی بعد انفجار قرب موقع تطير النووي',
-    },
-    {
-        id: '2',
-        label: 'ه فيروس الاوميكرون',
-    },
-    {
-        id: '3',
-        label: 'اثر انبار مدينة نيوم',
-    },
-    {
-        id: '4',
-        label: 'السراع بين فلسطین و اسرائیل',
-    },
-    {
-        id: '5',
-        label: 'عنوان لأخر المواضيع بوضع هنا',
-    },
-    {
-        id: '6',
-        label: 'عنوان الآخر المواضيع يوضع هنا',
-    },
-    {
-        id: '7',
-        label: 'عنوان الاخر المواضيع بوضع هنا',
-    },
-    {
-        id: '8',
-        label: 'أخر اخبار مدينه بيوم',
-    },
-    {
-        id: '9',
-        label: 'السراع بين فلسطین و اسرائیل',
-    },
-    {
-        id: '10',
-        label: 'عنوان لآخر المواضيع بوضع هنا',
-    },
-    {
-        id: '11',
-        label: 'عنوان لاخر المواضيع بوضع هنا',
-    },
-];
+const opinionItem = {
+
+    name: 'غسان الإمام',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+        'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+    tid: '92570',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+        'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+    parent_target_id_export: [],
+};
  
 const opinionData = [
     {
+        ...opinionItem,
         name: 'غسان الإمام',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
         tid: '92570',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'إياد أبو شقرا',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
         tid: '92571',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'عبد الرحمن الراشد',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
         tid: '92572',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'أونا هاثاواي وسكوت شابيرو',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
         tid: '92573',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'صالح القلاب',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
         tid: '92574',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'زين العابدين الركابي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
         tid: '92575',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'ألبرتو تشيروتي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
         tid: '92576',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'صالح بن علي الحمادي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
         tid: '92577',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'موفق النويصر',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
         tid: '92578',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'محمد السلمي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
         tid: '92579',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
-        parent_target_id_export: [],
     },
 ]
 
@@ -1678,54 +1597,36 @@ const mostPlayedSectionData: ArticleRectangleCardProps[] = [
     },
 ];
 
+const latestNewsSummaryItem: NewsWithImageItemProps = {
+    imageUrl: mediaSampleImageUrl,
+    title: summarySampleTitle,
+    description: summarySampleDescription,
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+    isAlbum: false
+};
+
 const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
 ];
 
@@ -1736,6 +1637,7 @@ const editPickData: NewsWithImageItemProps = {
     title: 'عنوان حلثه البودكاست',
     footerRightLabel: 'الخميس',
     footerLeftLabel: '45 دقيقه',
+    isAlbum: false
 }
 
 const EditorsPickSectionData: NewsWithImageItemProps[] = Array(5).fill(editPickData)
@@ -1756,30 +1658,30 @@ const podcastOpinionData: ArticleRectangleCardProps = {
 }
 const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = Array(3).fill(podcastOpinionData)
 
+
+const storyWidgetItem: StoryListItemProps = {
+    id: '1',
+    imageUrl: 'https://picsum.photos/500',
+    title: 'كوفيد-19',
+    description: storyWidgetSampleDescription,
+    buttonTitle: storyWidgetSampleButtonTitle,
+    thumbNail: storyWidgetSampleThumbnail,
+};
+
 const storyWidgetItemData: StoryListItemProps[] = [
     {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'كوفيد-19',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
+        ...storyWidgetItem,
     },
     {
+        ...storyWidgetItem,
         id: '2',
         imageUrl: 'https://picsum.photos/400',
         title: 'رحلة إلى المريخ',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
     },
     {
+        ...storyWidgetItem,
         id: '3',
         imageUrl: 'https://picsum.photos/600',
-        title: 'كوفيد-19',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
     },
 ];
 
@@ -1838,7 +1740,8 @@ const videoTabInfo: VideoItemProps = {
     views: '1374',
     shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
     isBookmarked: false,
-    onPressBookmark: () => ({})
+    onPressBookmark: () => ({}),
+    showShare: false
 }
 
 const videoTabData: VideoItemProps[] = Array(5).fill(videoTabInfo)
@@ -1937,37 +1840,29 @@ const articleSampleData = {
     body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
     tagName: 'الحكومة',
 };
+
+const videoArchiveItem: VideoItemProps = {
+    title: sampleVideoTitle,
+    imageUrl: mediaSampleImageUrl,
+    videoLabel: 'أمريكا',
+    des: sampleVideoDescription,
+    isBookmarked: true,
+    onPressBookmark: () => ({}),
+    showShare: false,
+}
 const videoArchiveData: VideoItemProps[] = [
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
-        des: sampleVideoDescription,
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
+        ...videoArchiveItem,
     },
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
+        ...videoArchiveItem,
         time: '05:22',
-        des: sampleVideoDescription,
         date: '7 ديسمبر ',
         views: '1374',
         toWatchTitle: 'ديسمبر',
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
     },
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
-        des: sampleVideoDescription,
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
+        ...videoArchiveItem,
     },
 ];
 
@@ -2290,7 +2185,6 @@ export {
     mostReadData,
     sectionTabItem,
     weatherData,
-    searchResults,
     opinionWritersData,
     opinionWritersArticlesData,
     podcastCardSectionData,

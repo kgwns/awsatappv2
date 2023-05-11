@@ -19,7 +19,7 @@ export interface BannerImageWithOverlayProps {
 }
 
 export const RenderPhotoIcon = () => (
-    <View style={isTab ? bannerImageWithOverlayStyle.tabPhotoIconContainer : bannerImageWithOverlayStyle.photoIconContainer}>
+    <View style={isTab ? bannerImageWithOverlayStyle.tabPhotoIconContainer : bannerImageWithOverlayStyle.photoIconContainer} testID={'photoIconId'}>
         {getSvgImages({
             name: ImagesName.photoIcon,
             width: isTab ? 17 : 27,

@@ -3,7 +3,7 @@ import { View, StyleSheet } from 'react-native';
 ** Horizontal scroll is not working properly By Importing Flatlist using 'react-native' in Android.
 ** So, We have fixed this by Importing Flatlist from 'react-native-gesture-handler'
 */
-import { FlatList } from 'react-native-gesture-handler';
+import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { Label, LabelTypeProp, ImageWithIcon, Divider } from '../atoms';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -14,7 +14,6 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { getImageUrl, convertSecondsToHMS, getShareUrl, isNotEmpty } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
 import { getVideoDetail } from 'src/services/videoDetailService';

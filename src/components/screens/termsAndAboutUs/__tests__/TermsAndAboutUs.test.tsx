@@ -1,10 +1,12 @@
 import React from 'react'
-import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
+import { fireEvent, render } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/Constants'
 import { TermsAndAboutUs } from '../TermsAndAboutUs'
-import { ButtonIconWithLabel } from 'src/components/atoms'
+import { HtmlRenderer } from 'src/components/atoms'
 import {useNavigation} from '@react-navigation/native';
+import { ABOUT_US, TERMS_AND_CONDITION } from 'src/services/apiEndPoints'
+import AutoHeightWebView from 'react-native-autoheight-webview'
 
 jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
@@ -31,8 +33,6 @@ jest.mock("src/hooks/useTermsAndAboutUs", () => ({
 }));
 
 describe('<TermsAndAboutUs>', () => {
-    let instance: RenderAPI
-    const mockFunction= jest.fn();
 
     const navigation = {
         reset: jest.fn(),
@@ -42,25 +42,30 @@ describe('<TermsAndAboutUs>', () => {
     
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValue(navigation);
-        const component = 
-            <Provider store={storeSampleData}>
-                <TermsAndAboutUs route={{params: {id: 56}}} />
-            </Provider> 
-        instance = render(component)
     })
 
     afterEach(() => {
         jest.clearAllMocks()
-        instance.unmount()
     })
 
-    test('Should render component', () => {
-        expect(instance).toBeDefined()
+    test('Should render HTMLRenderer Component', () => {
+        const { container } = render(
+            <Provider store={storeSampleData}>
+                <TermsAndAboutUs route={{params: {id: TERMS_AND_CONDITION}}} />
+            </Provider> 
+        )
+        const element = container.findByType(HtmlRenderer);
+        expect(element).not.toBeNull();
     })
 
-    test('Should call ButtonIconWithLabel onPress', () => {
-        const element = instance.container.findAllByType(ButtonIconWithLabel)[0]
-        fireEvent(element, 'onPress');
-        expect(navigation.goBack).toBeTruthy();
+    test('Should render webView for AboutUs page', () => {
+        const { container } = render(
+            <Provider store={storeSampleData}>
+                <TermsAndAboutUs route={{params: {id: ABOUT_US}}} />
+            </Provider> 
+        )
+        const element = container.findByType(AutoHeightWebView);
+        fireEvent(element,'onLoadEnd');
+        expect(element).not.toBeNull();
     })
 })

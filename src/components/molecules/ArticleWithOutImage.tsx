@@ -1,7 +1,7 @@
 import { View, StyleSheet, StyleProp, ViewStyle, TextStyle } from 'react-native';
 import React, { FunctionComponent } from 'react';
 import { Divider, Label, TextWithFlag } from '../atoms';
-import { isTab, normalize } from 'src/shared/utils';
+import { normalize } from 'src/shared/utils';
 import { Styles } from '../../shared/styles';
 import { ArticleFooter, ArticleFooterProps } from 'src/components/molecules';
 import { TextWithFlagProps } from 'src/components/atoms';

@@ -52,7 +52,7 @@ export const ArticleDetailBody = React.memo(({
     }
 
     useEffect(() => {
-        webviewRef && webviewRef.injectJavaScript(script());
+        updateWebViewStyle();
     }, [articleFontSize])
 
     const iFrameInjectCss = () => {
@@ -150,20 +150,17 @@ export const ArticleDetailBody = React.memo(({
             console.log('InAppBrowser ERROR', error.message)
         }
     }
+    
     const onShouldStartLoadWithRequest = (event: any) => {
         const HTML_URL = isIOS ? IOS_WEBVIEW_URL : ANDROID_WEBVIEW_URL; // "file:///" : "about:blank"
         const URL = event.url
 
-        if (isIOS) {
-            if (event.navigationType === 'click') {
-                browserOptions(URL);
-                return false
-            }
-        } else {
-            if (!URL.includes(HTML_URL)) {
-                browserOptions(URL);
-                return false
-            }
+        if (isIOS && event.navigationType === 'click') {
+            browserOptions(URL);
+            return false
+        } else if (!URL.includes(HTML_URL)) {
+            browserOptions(URL);
+            return false
         }
         return true
     }

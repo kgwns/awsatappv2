@@ -1,10 +1,10 @@
-import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { WritersDetailBodyGet } from 'src/redux/writersDetail/types';
 import { fetchWriterDetailInfo } from '../writerDetailService';
 import * as serviceApi from 'src/services/api';
 describe('Test Writer Detail Services', () => {
-    const mock = new MockAdapter(axios);
+    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+
     const payload: WritersDetailBodyGet = {
         tid: '12345'
     }
@@ -14,11 +14,11 @@ describe('Test Writer Detail Services', () => {
     });
 
     afterEach(() => {
-        mock.reset();
+        cachedAxiosMock.reset();
     });
 
     it('test when response code is 200', () => {
-        mock.onGet().reply(200, {
+        cachedAxiosMock.onGet().reply(200, {
             result: true,
         });
 

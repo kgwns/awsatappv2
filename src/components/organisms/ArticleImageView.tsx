@@ -42,7 +42,9 @@ export const ArticleImageView = ({
             <TouchableOpacity activeOpacity={0.8} key={flatListUniqueKey.ARTICLE_IMAGE_VIEW + index} onPress={() => onPress(item.nid, isAlbum)} testID = "articleImageView">
                 <View style={style.rowContainer}>
                     <View style={style.labelContainer}>
-                        {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightTitle} labelType={LabelTypeProp.h5} />}
+                        {showHighlightTitle && <Label style={style.highlightedTitle} children={highlightTitle} 
+                            labelType={LabelTypeProp.h5} testID={'highlightTitleId'} />
+                        }
                         <ArticleLabel displayType={item.displayType} enableBottomMargin />
                         <Label children={item.title} numberOfLines={3} style={[style.labelStyle, isNotEmpty(item.displayType) && { marginTop: 10 }]} />
                     </View>
@@ -82,6 +84,7 @@ export const ArticleImageView = ({
                 data={data}
                 ItemSeparatorComponent={() => renderItemSeparatorComponent()}
                 renderItem={({ item, index }) => renderItem(item, index)}
+                testID={'flatlistId'}
             />
             <View style={!isTab && style.dividerContainer}>
                 <Divider style={style.divider} />

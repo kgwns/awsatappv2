@@ -91,16 +91,28 @@ export const PodcastEpisodeModalInfo: FunctionComponent<any> = ({
         <View style={styles.mainContainer}>
             <Label children={PODCAST_EPISODE_LISTEN_TO} style={styles.listToText} />
             <View style={styles.podcastContainer}>
-                {isNotEmpty(podcastSectionData?.spotify?.url) && <TouchableOpacity  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.spotify)} testID = "spotifyUrl">
+                {isNotEmpty(podcastSectionData?.spotify?.url) && <TouchableOpacity
+                    onPress={() => onPodcastServicePress(podcastSectionData, podcastServices.spotify)}
+                    testID="spotifyUrl"
+                >
                     <SpotifyIcon width={isTab ? 40 : 25} height={isTab ? 40 : 25} />
                 </TouchableOpacity>}
-                {isNotEmpty(podcastSectionData?.anghami?.url) && <TouchableOpacity onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.anghami)} testID = "anghamiUrl">
+                {isNotEmpty(podcastSectionData?.anghami?.url) && <TouchableOpacity
+                    onPress={() => onPodcastServicePress(podcastSectionData, podcastServices.anghami)}
+                    testID="anghamiUrl"
+                >
                     <AnghamiPodcastIcon width={isTab ? 40 : 24} height={isTab ? 40 : 24} />
                 </TouchableOpacity>}
-                {isNotEmpty(podcastSectionData?.apple_podcasts?.url) && <TouchableOpacity  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.apple)} testID = "appleUrl">
+                {isNotEmpty(podcastSectionData?.apple_podcasts?.url) && <TouchableOpacity
+                    onPress={() => onPodcastServicePress(podcastSectionData, podcastServices.apple)}
+                    testID="appleUrl"
+                >
                     <ApplePodcastIcon width={isTab ? 40 : 23} height={isTab ? 40 : 23} />
                 </TouchableOpacity>}
-                {isNotEmpty(podcastSectionData?.google_podcast?.url) && <TouchableOpacity  onPress={() => onPodcastServicePress(podcastSectionData,podcastServices.google)} testID = "googleUrl">
+                {isNotEmpty(podcastSectionData?.google_podcast?.url) && <TouchableOpacity
+                    onPress={() => onPodcastServicePress(podcastSectionData, podcastServices.google)}
+                    testID="googleUrl"
+                >
                     <GooglePodcastIcon width={isTab ? 40 : 23} height={isTab ? 40 : 23} />
                 </TouchableOpacity>}
             </View>
@@ -286,9 +298,6 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         lineHeight: 21,
         color: colors.greenishBlue,
     },
-    horizontalLine:{
-        width: 30,
-    },
     announcerTextTabStyle: {
         fontSize: 20,
         lineHeight: 24,
@@ -432,32 +441,23 @@ const createStyles = (theme: CustomThemeType) => StyleSheet.create({
         marginHorizontal: 8,
     },
     image: {
-        width: '100%',
-        height: '100%' 
+        width: '100%', height: '100%' 
     },
     tabImage: {
-        width: 490,
-        height: 250,
+        width: 490, height: 250,
         alignSelf:'center'
     },
     mainContainer: {
-        alignItems: 'center', 
-        paddingTop: normalize(20),
+        alignItems: 'center', paddingTop: normalize(20),
     },
     timeTabContainer:{
-        justifyContent: 'center', 
-        flexDirection: 'row',
-        alignItems:'center',
+        justifyContent: 'center', flexDirection: 'row', alignItems:'center',
     },
     bottomTabContainer: {
-        marginTop: normalize(60),
-        alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: normalize(60), alignItems: 'center', justifyContent: 'center',
     },
     bottomStyleTabContainer:{
-        marginTop: normalize(60),
-        alignItems: 'center',
-        justifyContent: 'center',
+        marginTop: normalize(60), alignItems: 'center', justifyContent: 'center',
     },
     tabContainerStyle: {
         flex: 1,

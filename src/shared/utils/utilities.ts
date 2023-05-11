@@ -179,7 +179,10 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
   const minuteValue = calculateMinutes(time)
   const minuteString = minuteValue  < 10 ? '0' + minuteValue : minuteValue
 
-  const timeAgoFormatInfo = isTab ?  `${calculateDateNumber(time)}/${calculateMothNumber(time)} - ${hourString}:${minuteString}` : `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  const timeAgoFormatInfo = isTab ?
+    `${calculateDateNumber(time)}/${calculateMothNumber(time)} - ${hourString}:${minuteString}` : 
+    `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  
   const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
   return { icon: DateIcon.CALENDAR, time: fullDateFormat }
 };
@@ -355,9 +358,9 @@ export const formatHijri = (value: string) => {
   const month = formatToTwoDigit(calculateMonthNumber(value) + 1);
   const year = formatToTwoDigit(calculateYear(value));
   const formattedDate = `${year}-${month}-${day}`.toString();
-  let date = new Date(formattedDate);
+  const date = new Date(formattedDate);
 
-  let format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
+  const format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',

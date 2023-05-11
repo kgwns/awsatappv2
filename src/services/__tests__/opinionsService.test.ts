@@ -1,10 +1,10 @@
-import axios, {AxiosError} from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { fetchHomeOpinionsListApi, fetchOpinionsApi, fetchOpinionsListApi, fetchWriterOpinionsApi } from 'src/services/opinionsService';
 import { OpinionsBodyGet, WriterOpinionsBodyGet } from 'src/redux/opinions/types';
 import * as serviceApi from 'src/services/api';
 describe('Test Opinions Services', () => {
-  const mock = new MockAdapter(axios);
+  const cachedAxiosMock = new MockAdapter(serviceApi.api);
+
   const body: OpinionsBodyGet = {
     page: 0,
   };
@@ -16,10 +16,10 @@ describe('Test Opinions Services', () => {
     jest.useFakeTimers('legacy');
   });
   afterEach(() => {
-    mock.reset();
+    cachedAxiosMock.reset();
   });
   it('test when response code is 200', () => {
-    mock.onGet().reply(200, {
+    cachedAxiosMock.onGet().reply(200, {
       result: true,
     });
 
@@ -38,7 +38,7 @@ describe('Test Opinions Services', () => {
   });
 
   it('test when response code is 200', () => {
-    mock.onGet().reply(200, {
+    cachedAxiosMock.onGet().reply(200, {
       result: true,
     });
 
@@ -57,7 +57,7 @@ describe('Test Opinions Services', () => {
   });
 
   it('test when response code is 200', () => {
-    mock.onGet().reply(200, {
+    cachedAxiosMock.onGet().reply(200, {
       result: true,
     });
 
@@ -70,7 +70,7 @@ describe('Test Opinions Services', () => {
   });
 
   it('test when response code is 200', () => {
-    mock.onGet().reply(200, {
+    cachedAxiosMock.onGet().reply(200, {
       result: true,
     });
 
@@ -96,7 +96,7 @@ describe('Test Opinions Services', () => {
   });
 
   it('test when response code is 200', () => {
-    mock.onGet().reply(200, {
+    cachedAxiosMock.onGet().reply(200, {
       result: true,
     });
 

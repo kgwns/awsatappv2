@@ -10,6 +10,7 @@ describe('< Filter Component >', () => {
         {
             name: 'filter_one',
             isSelected: true,
+            isVisible: true,
             child: [
                 {
                     name: 'abc',
@@ -20,6 +21,7 @@ describe('< Filter Component >', () => {
         {
             name: 'filter_two',
             isSelected: false,
+            isVisible: true,
             child: [
                 {
                     name: 'abc',
@@ -42,7 +44,7 @@ describe('< Filter Component >', () => {
     it('When MenuButton Press', () => {
         const listButton = instance.container.findAllByType(TouchableOpacity)[0];
         fireEvent(listButton, 'onPress', 2);
-        expect(mockFunction).toHaveBeenCalled;
+        expect(mockFunction).toHaveBeenCalled();
     });
 
     it('should press childitem', () =>{

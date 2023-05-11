@@ -6,7 +6,7 @@ import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabe
 import {isTab, screenWidth, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
 import { Styles } from 'src/shared/styles';
-import {dateTimeAgo, decodeHTMLTags, getArticleImage, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, TimeIcon} from 'src/shared/utils/utilities';
+import {dateTimeAgo, decodeHTMLTags, getArticleImage, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useAppPlayer, useBookmark, useLogin } from 'src/hooks';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
