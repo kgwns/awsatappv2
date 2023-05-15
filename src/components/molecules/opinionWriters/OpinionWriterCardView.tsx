@@ -172,7 +172,7 @@ const onPressPlay = () => {
             type="round"
             resizeMode="cover"
             fallback={true}
-            fallbackName={ImagesName.authorDefault}
+            fallbackName={ImagesName.authorDefaultName}
           />
         </TouchableOpacity>
         <Label testID='onPressWriter01' suppressHighlighting={true} style={style.writerLabel} onPress={() => onPressWriter(authorId)}>{writerTitle}</Label>

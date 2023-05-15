@@ -296,7 +296,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ClockIconWhite {...props} />
         case ImagesName.arrowLeftFaced:
             return <ArrowLeftFaced {...props} />
-        case ImagesName.returnIcon:
+        case ImagesName.returnIconName:
             return <ReturnArrowBlack {...props} />
         case ImagesName.searchIcon:
             return isDark ? <SearchIconDark {...props} /> : <SearchIcon {...props} />

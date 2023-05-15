@@ -15,7 +15,7 @@ export interface BannerImageWithOverlayProps {
     showOverlay?: boolean;
     isAlbum?: boolean;
     displayType?: string;
-    renderTagName?: JSX.Element | null;
+    renderTagName?: React.JSX.Element | null;
 }
 
 export const RenderPhotoIcon = () => (

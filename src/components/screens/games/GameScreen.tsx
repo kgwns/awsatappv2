@@ -38,7 +38,7 @@ export const GameScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabInd
     const crossWordInfo: GameIntroCardProps = {
         type: GameType.CROSS_WORD,
         imageBackgroundColor: style.imageBackgroundColor.backgroundColor,
-        image: isDarkMode ? ImagesName.crosswordImageDark : ImagesName.crosswordImage,
+        image: isDarkMode ? ImagesName.crosswordImageDarkName : ImagesName.crosswordImageName,
         title: TranslateConstants({ key: TranslateKey.CROSSWORD }),
         description: TranslateConstants({ key: TranslateKey.CROSS_WORD_DESCRIPTION }),
         buttonTitle: TranslateConstants({ key: TranslateKey.SOLVING_CROSS_PUZZLES }),
@@ -48,7 +48,7 @@ export const GameScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabInd
     const sudokuInfo: GameIntroCardProps = {
         type: GameType.SUDOKU,
         imageBackgroundColor: style.imageBackgroundColor.backgroundColor,
-        image: isDarkMode ? ImagesName.sudokuImageDark : ImagesName.sudokuImage,
+        image: isDarkMode ? ImagesName.sudokuImageDarkName : ImagesName.sudokuImageName,
         title: TranslateConstants({ key: TranslateKey.SUDOKU }),
         description: TranslateConstants({ key: TranslateKey.SUDOKU_DESCRIPTION }),
         buttonTitle: TranslateConstants({ key: TranslateKey.SOLVING_SUDOKU }),

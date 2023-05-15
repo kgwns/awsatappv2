@@ -71,7 +71,7 @@ export const RichHTMLOpinonWidget = ({
                                 resizeMode={'cover'}
                                 type={'round'}
                                 fallback={true}
-                                fallbackName={ImagesName.authorDefault}
+                                fallbackName={ImagesName.authorDefaultName}
                             />
                         </TouchableOpacity>
                         <Label testID='RichHTMLOpinonWidgetLabel1' children={data.name} labelType={LabelTypeProp.p4}

@@ -5,10 +5,9 @@ import { BASE_URL } from './apiUrls';
 
 export const fetchWriterDetailInfo = async (payload: WritersDetailBodyGet) => {
     try {
-        const response = await getCacheApiRequest(
+        return await getCacheApiRequest(
             `${BASE_URL}${GET_WRITER_DETAIL_END_POINT}${payload.tid}`,
         );
-        return response;
     } catch (error) {
         console.log('writerDetailService - fetchWriterDetailInfo - error', error)
         throw error;

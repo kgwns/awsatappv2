@@ -5,10 +5,9 @@ import { BASE_URL } from './apiUrls';
 
 export const fetchJournalistDetailInfo = async (payload: JournalistDetailBodyGet) => {
     try {
-        const response = await getCacheApiRequest(
+        return await getCacheApiRequest(
             `${BASE_URL}${GET_JOURNALIST_DETAIL_END_POINT}${payload.tid}`,
         );
-        return response;
     } catch (error) {
         console.log('journalistDetailService - fetchJournalistDetailInfo - error', error)
         throw error;

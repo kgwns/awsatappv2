@@ -12,7 +12,6 @@ import configureStore from 'redux-mock-store';
 import {
     ArticleProps,
     ShortArticleProps,
-    SearchResultsProps,
     StoryListItemProps,
     StoryListProps,
     PodcastProgramInfoProps,
@@ -2134,7 +2133,7 @@ const TABICONS = {
     MOST_READ_ACTIVE: 'mostReadActiveIcon' as ImageName,
     FAVORITE: 'favoriteIcon' as ImageName,
     FAVORITE_ACTIVE: 'favoriteActiveIcon' as ImageName,
-    DOWNLOAD_PDF: 'pdfIcon' as ImageName,
+    DOWNLOAD_PDF: 'pdfIconName' as ImageName,
     MY_NEWS: 'myNewsIcon' as ImageName,
     MY_NEWS_ACTIVE: 'myNewsActiveIcon' as ImageName,
 }

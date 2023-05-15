@@ -7,11 +7,9 @@ import {
 
 export const fetchNewsViewApi = async (body: NewsViewBodyGet) => {
   try {
-    const response: any = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${NEWS_VIEW_ENDPOINT}/${body.sectionId}?items_per_page=${body.items_per_page}&page=${body.page}&offset=${body.offset}`,
     );
-
-    return response;
   } catch (error) {
     console.log('newsViewService - fetchNewsViewApi - error', error)
     throw error;
@@ -20,10 +18,9 @@ export const fetchNewsViewApi = async (body: NewsViewBodyGet) => {
 
 export const fetchSubArticleSectionApi = async (body: NewsViewBodyGet) => {
   try {
-    const response: any = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${ARTICLE_SUB_SECTION_ENDPOINT}/${body.sectionId}?items_per_page=${body.items_per_page}&page=${body.page}&offset=${body.offset}`,
     );
-    return response;
   } catch (error) {
     console.log('newsViewService - fetchSubArticleSectionApi - error', error)
     throw error;

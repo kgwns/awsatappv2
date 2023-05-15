@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
-  EditorsPickSection, ArticleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
+  EditorsPickSection, ArticleProps, PodcastWidget, ArticleGridView, ArticleImageView,
   ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
@@ -30,7 +30,7 @@ import { TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { Label } from 'src/components/atoms';
-import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
+import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, isDarkTheme, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';

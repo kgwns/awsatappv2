@@ -69,14 +69,14 @@ export const Image: FunctionComponent<ImageProps> = ({
   }
 
   if (!isNotEmpty(name) && !isValidImageUrl) {
-    name = fallback && fallbackName ? fallbackName : ImagesName.placeholderImg
+    name = fallback && fallbackName ? fallbackName : ImagesName.placeholderImgName
   }
 
   const onLoadEnd = () => setIsLoadEnd(true)
 
   return (
     <>
-      {!isLoadEnd && fallback && fallbackName === ImagesName.placeholderImg && <DefaultImage
+      {!isLoadEnd && fallback && fallbackName === ImagesName.placeholderImgName && <DefaultImage
         source={images.placeholderImg}
         style={[imageStyle, borderStyle,styles.defaultImage, defaultImageStyle]}
       />}

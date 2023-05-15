@@ -1,6 +1,6 @@
 import analytics from '@react-native-firebase/analytics';
 
-interface logSignUpLoginprops {
+interface LogSignUpLoginProps {
   method: string
 }
 
@@ -69,14 +69,14 @@ export const recordUserId = async (params: string | null) => {
   await analytics().setUserId(params);
 }
 
-export const recordLogSignUp = async (params: logSignUpLoginprops) => {
+export const recordLogSignUp = async (params: LogSignUpLoginProps) => {
   await analytics().logSignUp(params);
 }
 
-export const recordLogLogin = async (params: logSignUpLoginprops) => {
+export const recordLogLogin = async (params: LogSignUpLoginProps) => {
   await analytics().logLogin(params);
 }
 
 export const recordUserProperty = async (key: string, value: string) => {
   await analytics().setUserProperty(key,value);
-} 
+}

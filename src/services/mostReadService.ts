@@ -23,8 +23,7 @@ export const fetchMostReadApi = async () => {
         response.articles.list.map(async (item: any) => {
             const nid = item.url.split('/')[2];
             if(isNotEmpty(nid)){
-              const detailResponse = await requestArticleDetail({nid});
-              return detailResponse;
+              return await requestArticleDetail({nid});
             }
         })
       ).then((data: any) => {

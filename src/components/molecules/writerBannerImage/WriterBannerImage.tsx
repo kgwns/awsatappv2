@@ -133,7 +133,7 @@ export const WriterBannerImage = ({
                 size={isTab ? 130 : normalize(100)}
                 resizeMode={ImageResize.COVER}
                 fallback={true}
-                fallbackName={ImagesName.authorDefault}
+                fallbackName={ImagesName.authorDefaultName}
               />
             </View>
           </TouchableWithoutFeedback>

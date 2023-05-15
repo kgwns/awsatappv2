@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { decodeHTMLTags, EventsValue, isIOS, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, EventsValue, isAndroid, isIOS, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
@@ -155,10 +155,7 @@ export const ArticleDetailBody = React.memo(({
         const HTML_URL = isIOS ? IOS_WEBVIEW_URL : ANDROID_WEBVIEW_URL; // "file:///" : "about:blank"
         const URL = event.url
 
-        if (isIOS && event.navigationType === 'click') {
-            browserOptions(URL);
-            return false
-        } else if (!URL.includes(HTML_URL)) {
+        if((isIOS && event.navigationType === 'click') || (isAndroid && !URL.includes(HTML_URL))) {
             browserOptions(URL);
             return false
         }

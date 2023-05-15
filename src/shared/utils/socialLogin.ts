@@ -1,6 +1,6 @@
 export default abstract class SocialLogin {
 
-    private _callBack: Function;
+    private readonly _callBack: Function;
 
     constructor(value: Function) {
         this._callBack = value

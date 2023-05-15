@@ -4,10 +4,9 @@ import { NarratedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 
 export const fetchNarratedOpinionArticleApi = async (body: NarratedOpinionBodyGet) => {
   try {
-    const response: any = await getApiRequest(
+    return await getApiRequest(
       `${GET_JW_MEDIA_PLAYER_URL}${body.jwPlayerID}`
     );
-    return response;
   } catch (error) {
     console.log('narratedOpinionArticleService - fetchNarratedOpinionArticleApi - error', error)
     throw error;

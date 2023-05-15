@@ -158,7 +158,7 @@ const onPressPlay = () => {
             resizeMode={ImageResize.COVER}
             type={'round'}
             fallback={true}
-            fallbackName={ImagesName.authorDefault}
+            fallbackName={ImagesName.authorDefaultName}
           />
         </TouchableOpacity>
       </View>

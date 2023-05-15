@@ -5,7 +5,7 @@ import { CartoonListBodyType } from 'src/redux/cartoon/types';
 
 export const fetchCartoonListApi = async (body: CartoonListBodyType) => {
     try {
-        const response = await getCacheApiRequest(
+        return await getCacheApiRequest(
             `${BASE_URL}${CARTOON_LIST_END_POINT}`,
             {
                 params: {
@@ -14,7 +14,6 @@ export const fetchCartoonListApi = async (body: CartoonListBodyType) => {
                 },
             },
         );
-        return response;
     } catch (error) {
         console.log('cartoonService - fetchCartoonListApi - error', error)
         throw error;

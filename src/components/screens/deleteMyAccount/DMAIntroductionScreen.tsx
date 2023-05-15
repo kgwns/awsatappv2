@@ -50,7 +50,7 @@ export const DMAIntroductionScreen = () => {
                 <View style={imageContainerStyle}>
                     <Image
                         style={styles.image}
-                        name={ImagesName.deleteAccountImage}
+                        name={ImagesName.deleteAccountImageName}
                         resizeMode={ImageResize.COVER}
                     />
                 </View>

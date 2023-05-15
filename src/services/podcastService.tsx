@@ -1,14 +1,13 @@
 import { BASE_URL, PODCAST_SPREAKER_URL} from 'src/services/apiUrls';
 import { getCacheApiRequest } from 'src/services/api';
 import { PODCAST_LIST_ENDPOINT, PODCAST_NODE_ENDPOINT } from './apiEndPoints';
-import { FetchPodcastListSuccessPayloadtype, FetchPodcastEpisodeSuccessPayloadtype, PodcastListBodyGet, PodcastEpisodeBodyGet } from 'src/redux/podcast/types';
+import { FetchPodcastEpisodeSuccessPayloadtype, PodcastListBodyGet, PodcastEpisodeBodyGet } from 'src/redux/podcast/types';
 
 export const fetchPodcastListApi = async (body: PodcastListBodyGet) => {
   try {
-    const response: FetchPodcastListSuccessPayloadtype = await getCacheApiRequest(
+    return await getCacheApiRequest(
       `${BASE_URL}${PODCAST_LIST_ENDPOINT}${body.tid}`,
     );
-    return response;
   } catch (error) {
     console.log('podcastService - fetchPodcastListApi - error', error)
     throw error;
@@ -17,10 +16,9 @@ export const fetchPodcastListApi = async (body: PodcastListBodyGet) => {
 
 export const fetchPodcastEpisodeApi = async (body: PodcastEpisodeBodyGet) => {
   try {
-    const response: FetchPodcastEpisodeSuccessPayloadtype = await getCacheApiRequest(
+    return await getCacheApiRequest(
       `${BASE_URL}${PODCAST_NODE_ENDPOINT}${body.nid}`,
     );
-    return response;
   } catch (error) {
     console.log('podcastService - fetchPodcastEpisodeApi - error', error)
     throw error;

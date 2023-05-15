@@ -19,7 +19,6 @@ import { fonts } from 'src/shared/styles/fonts'
 import { useAppPlayer } from 'src/hooks'
 import { Divider } from '../atoms'
 import { getNarratedOpinion } from 'src/shared/utils/getNarratedOpinion'
-import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment'
 import { AlignItemsTo, FlexDirectionTo, FlexWrapTo, JustifyContentTo } from 'src/shared/styles/styleProperties'
 
 enum LabelsType  {
@@ -193,7 +192,7 @@ const AuthorItem = ({
                 <TouchableOpacity testID='mainScreenAuthorItemId' onPress={() => onPressWriter(authorId)}>
                     <Image url={image} size={58} resizeMode={'cover'} type={'round'}
                         fallback={true}
-                        fallbackName={ImagesName.authorDefault} 
+                        fallbackName={ImagesName.authorDefaultName} 
                     />
                 </TouchableOpacity>
             </View>
@@ -253,7 +252,7 @@ const AuthorItem = ({
                 <TouchableOpacity testID='AutherItemTO3' onPress={() => onPressWriter(authorId)}>
                     <Image url={image} size={normalize(80)} resizeMode={'cover'} type={'round'}
                         fallback={true}
-                        fallbackName={ImagesName.authorDefault} 
+                        fallbackName={ImagesName.authorDefaultName} 
                     />
                 </TouchableOpacity>
             </View>

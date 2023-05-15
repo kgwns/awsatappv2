@@ -3,20 +3,16 @@ import {getCacheApiRequest} from 'src/services/api';
 import {GET_RELATED_OPINION_ENDPOINT, OPINION_ARTICLE_DETAIL} from './apiEndPoints';
 import {
   OpinionArticleDetailBodyGet,
-  OpinionArticleDetailSuccessPayload,
   RelatedOpinionBodyGet,
-  FetchRelatedOpinionSuccessPayloadType
 } from 'src/redux/opinionArticleDetail/types';
 
 export const requestOpinionArticleDetailAPI = async (
   body: OpinionArticleDetailBodyGet,
 ) => {
-  try {
-    const response: OpinionArticleDetailSuccessPayload = await getCacheApiRequest(
+  try {    
+    return await getCacheApiRequest(
       `${BASE_URL}${OPINION_ARTICLE_DETAIL}${body.nid}`,
     );
-    
-    return response;
   } catch (error) {
     console.log('opinionArticleDetailService - requestOpinionArticleDetailAPI - error', error)
     throw error;
@@ -26,12 +22,10 @@ export const requestOpinionArticleDetailAPI = async (
 export const fetchRelatedOpinionAPI = async (
   body: RelatedOpinionBodyGet,
 ) => {
-  try {
-    const response:FetchRelatedOpinionSuccessPayloadType  = await getCacheApiRequest(
+  try {   
+    return await getCacheApiRequest(
       `${BASE_URL}${GET_RELATED_OPINION_ENDPOINT}?page=${body.page}`,
     );
-    
-    return response;
   } catch (error) {
     console.log('opinionArticleDetailService - fetchRelatedOpinionAPI - error', error)
     throw error;

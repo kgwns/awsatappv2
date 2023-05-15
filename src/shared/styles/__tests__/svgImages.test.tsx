@@ -61,7 +61,7 @@ describe('SvgImages', () => {
         expect(getSvgImages({ name: ImagesName.mailIcon })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.clock })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.arrowLeftFaced })).toBeDefined();
-        expect(getSvgImages({ name: ImagesName.returnIcon })).toBeDefined();
+        expect(getSvgImages({ name: ImagesName.returnIconName })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.searchIcon })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.headerLogo })).toBeDefined();
         expect(getSvgImages({ name: ImagesName.headerLogoDark })).toBeDefined();

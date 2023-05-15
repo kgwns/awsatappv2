@@ -1,19 +1,15 @@
 import { UMS_BASE_URL } from 'src/services/apiUrls';
 import { postApiRequest, getApiRequest } from 'src/services/api';
 import { SEND_SELECTED_NEWS_LETTERS_ENDPOINT, GET_SELECTED_NEWS_LETTERS_ENDPOINT, GET_MY_NEWS_LETTERS_ENDPOINT } from './apiEndPoints';
-import { GetSelectedNewsLettersSuccessPayloadType, SendSelectedNewsLettersBody, SendSelectedNewsLettesrsSuccessPayloadType } from 'src/redux/newsLetter/types';
+import { SendSelectedNewsLettersBody } from 'src/redux/newsLetter/types';
 
 export const sendSelectedNewsLettersApi = async (body: SendSelectedNewsLettersBody) => {
 
     try {
-        const response: SendSelectedNewsLettesrsSuccessPayloadType =
-            await postApiRequest(
-                `${UMS_BASE_URL}${SEND_SELECTED_NEWS_LETTERS_ENDPOINT}${body.tid}`,
-                body
-            );
-        console.log(`${UMS_BASE_URL}${SEND_SELECTED_NEWS_LETTERS_ENDPOINT}${body.tid}`,body);
-        
-        return response;
+        return await postApiRequest(
+            `${UMS_BASE_URL}${SEND_SELECTED_NEWS_LETTERS_ENDPOINT}${body.tid}`,
+            body
+        );
     } catch (error) {
         console.log('newsLettersService - sendSelectedNewsLettersApi - error', error)
         throw error;
@@ -21,12 +17,10 @@ export const sendSelectedNewsLettersApi = async (body: SendSelectedNewsLettersBo
 };
 
 export const getSelectedNewsLettersApi = async () => {
-    try {
-        const response: GetSelectedNewsLettersSuccessPayloadType =
-            await getApiRequest(
-                `${UMS_BASE_URL}${GET_SELECTED_NEWS_LETTERS_ENDPOINT}`,
-            );
-        return response;
+    try {            
+        return await getApiRequest(
+            `${UMS_BASE_URL}${GET_SELECTED_NEWS_LETTERS_ENDPOINT}`,
+        );
     } catch (error) {
         console.log('newsLettersService - getSelectedNewsLettersApi - error', error)
         throw error;
@@ -34,12 +28,10 @@ export const getSelectedNewsLettersApi = async () => {
 };
 
 export const getMyNewsLettersApi = async () => {
-    try {
-        const response: GetSelectedNewsLettersSuccessPayloadType =
-            await postApiRequest(
-                `${UMS_BASE_URL}${GET_MY_NEWS_LETTERS_ENDPOINT}`,
-            );
-        return response;
+    try {            
+        return await postApiRequest(
+            `${UMS_BASE_URL}${GET_MY_NEWS_LETTERS_ENDPOINT}`,
+        );
     } catch (error) {
         console.log('newsLettersService - getMyNewsLettersApi - error', error)
         throw error;

@@ -28,10 +28,9 @@ const parseVideoDetailData = (response: any) => {
 
 export const fetchVideoDetail = async (payload: FetchVideoDetailPayload) => {
     try {
-        const response: any = await getCacheApiRequest(
+        return await getCacheApiRequest(
             `${BASE_URL}${VIDEO_DETAIL_ENDPOINT}${payload.nid}`
         );
-        return response;
     } catch (error) {
         console.log('videoDetailService - fetchVideoDetail - error', error)
         throw error;

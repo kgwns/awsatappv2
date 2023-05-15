@@ -8,14 +8,14 @@ import { Label } from 'src/components/atoms';
 import { useOrientation } from 'src/hooks';
 import { isTab } from 'src/shared/utils';
 
-interface ImageFullView {
+interface ImageFullViewProps {
     uri: string;
     onClose: () => void;
 }
 
 const HIT_SLOP = { top: 16, left: 16, bottom: 16, right: 16 };
 
-export const ImageFullView = (props: ImageFullView) => {
+export const ImageFullView = (props: ImageFullViewProps) => {
     const { uri, onClose } = props;
     const styles = useThemeAwareObject(imageFullViewStyle);
     const { isPortrait } = useOrientation();
