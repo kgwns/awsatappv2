@@ -19,7 +19,7 @@ import { articleEventParameter, horizontalEdge, isIOS, isNonEmptyArray, isTab, n
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useBookmark, useLatestNewsTab, useLogin, useUserProfileData, useVideoList, useAppPlayer, useAppCommon, useFetchPodcastData } from 'src/hooks';
-import { LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
+import { LatestArticleBodyGet, LatestArticleDataType, MainSectionBlockType, RequestSectionComboBodyGet } from 'src/redux/latestNews/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { Styles } from 'src/shared/styles';
@@ -38,7 +38,11 @@ import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints'
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 
-
+const opinionListPayload: LatestArticleBodyGet = {
+  items_per_page: 20,
+  page: 0,
+  offset: 0
+} 
 const sectionComboOnePayload: RequestSectionComboBodyGet = {
   id: 10
 }
@@ -528,7 +532,7 @@ export const MainSectionScreen = React.memo((
   }
 
   const loadMiddleWidgetAPI = () => {
-    fetchOpinionTopList()
+    fetchOpinionTopList(opinionListPayload)
     isTab && fetchVideoRequest(videoPayload);
     fetchPodcastHome();
     fetchEditorsChoice();

@@ -1,4 +1,4 @@
-import { BASE_URL, OPINION_TODAY, OPINION_WRITERS_SORT } from 'src/services/apiUrls';
+import { BASE_URL, HOME_OPINIONS_GET } from 'src/services/apiUrls';
 import { getApiRequest, getCacheApiRequest } from 'src/services/api';
 import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   COVERAGE_ARTICLE_END_POINT,
@@ -51,10 +51,10 @@ export const requestSectionCombo = async(body: RequestSectionComboBodyGet) => {
   }
 }
 
-export const writerOpinionSortApi = async () => {
+export const writerOpinionApi = async (body: LatestArticleBodyGet) => {
   try {
     return await getApiRequest(
-      OPINION_WRITERS_SORT,
+      `${BASE_URL}${HOME_OPINIONS_GET}?items_per_page=${body.items_per_page}&page=${body.page}&offset=${body.offset}`
     );
   } catch (error) {
     console.log('latestTabService - writerOpinionSortApi - error', error)
@@ -62,16 +62,6 @@ export const writerOpinionSortApi = async () => {
   }
 };
 
-export const writerOpinionTodayApi = async () => {
-  try {
-    return await getApiRequest(
-      OPINION_TODAY,
-    );
-  } catch (error) {
-    console.log('latestTabService - writerOpinionTodayApi - error', error)
-    throw error;
-  }
-};
 
 export const podcastHomeApi = async () => {
   try {
