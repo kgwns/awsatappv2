@@ -42,13 +42,17 @@ describe('<ArticleDetailVideo />', () => {
   const mockVideodetailinfo = fetchVideoDetailInfo as jest.Mock<any>;
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useRef as jest.Mock).mockReturnValueOnce(videoRefs);
     (useState as jest.Mock).mockImplementation(() => ['https://cdn.jwplayer.com/videos/DscUrCZ5-9mPGCDe7.mp4', setPlayerUrl]);
     const component = <ArticleDetailVideo paused={false} mediaId={'DscUrCZ5'} currentTime={'10:00:56'} playerVisible={true} isFullScreen={true} videoRefs={videoRefs} />
     instance = render(component)
-    jest.useFakeTimers();
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   })
 
   afterEach(() => {
@@ -86,7 +90,9 @@ describe('<ArticleDetailVideo without mediaId />', () => {
     (useState as jest.Mock).mockImplementation(() => ['https://cdn.jwplayer.com/videos/DscUrCZ5-9mPGCDe7.mp4', setPlayerUrl]);
     const component = <ArticleDetailVideo paused={false} currentTime={'10:00:56'} playerVisible={true} isFullScreen={true} videoRefs={videoRefs} />
     instance = render(component)
-    jest.useFakeTimers();
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   })
 
   afterEach(() => {

@@ -75,7 +75,9 @@ describe('<OpinionArticleDetailWidget>', () => {
   }
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
     fetchNarratedOpinionArticleApiMock.mockReturnValue({
       playlist: [
@@ -278,7 +280,9 @@ describe('<OpinionArticleDetailWidget>', () => {
   }
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
     (fetchNarratedOpinionArticleApiMock).mockRejectedValue({response:{data:"error"}});
     (useState as jest.Mock).mockImplementation(() => [{
@@ -367,7 +371,9 @@ describe('<OpinionArticleDetailWidget>', () => {
   }
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
     (useState as jest.Mock).mockImplementation(() => [{
       playlist: [

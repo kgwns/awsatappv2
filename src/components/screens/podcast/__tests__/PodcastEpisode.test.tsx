@@ -264,7 +264,9 @@ describe('<PodcastEpisode >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       (useState as jest.Mock).mockImplementation(() => ["29", nid]);

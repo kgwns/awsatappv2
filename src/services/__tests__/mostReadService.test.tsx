@@ -5,7 +5,9 @@ describe('Test Most Read Services', () => {
     const cachedAxiosMock = new MockAdapter(serviceApi.api);
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         cachedAxiosMock.reset();

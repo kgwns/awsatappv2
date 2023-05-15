@@ -33,7 +33,9 @@ describe('<VideoPlayerFullScreen>',() => {
   const mockFunction = jest.fn();
   const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4';
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     const component = <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
     instance = render(component)
@@ -154,7 +156,9 @@ describe('<VideoPlayerFullScreen>', () => {
   const url = 'https://content.jwplatform.com/videos/nzSJqVya-9mPGCDe7.mp4';
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     const component = <VideoPlayerFullScreen url={url} title={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
     instance = render(component)
@@ -263,7 +267,9 @@ describe('<VideoPlayerFullScreen>', () => {
   const tapActionTimeout = mockFunction;
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useState as jest.Mock).mockImplementationOnce(() => [false, tapActionTimeout]);
     const component = <VideoPlayerFullScreen title = {'title'} url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
@@ -290,7 +296,9 @@ describe('<VideoPlayerFullScreen>', () => {
   const isLoading = mockFunction;
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [true, isLoading]);
     const component = <VideoPlayerFullScreen title = {'title'} url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
     instance = render(component)

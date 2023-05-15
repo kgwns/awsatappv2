@@ -6,7 +6,9 @@ describe('Check video Detail Service', () => {
         nid: '10',
     }
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         jest.clearAllMocks();

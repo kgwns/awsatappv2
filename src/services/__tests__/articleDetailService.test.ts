@@ -11,7 +11,9 @@ describe('Test Article Detail Services', () => {
     const cachedAxiosMock = new MockAdapter(serviceApi.api);
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();
@@ -19,7 +21,9 @@ describe('Test Article Detail Services', () => {
     });
     describe('Check requestLatestArticle method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
@@ -53,7 +57,9 @@ describe('Test Article Detail Services', () => {
 
     describe('Check requestSectionCombo method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
@@ -85,7 +91,9 @@ describe('Test Article Detail Services', () => {
 
     describe('Check requestArticleDetail method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
@@ -116,7 +124,9 @@ describe('Test Article Detail Services', () => {
 
     describe('Check requestLatestArticle method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
@@ -159,7 +169,9 @@ describe('Test Article Detail Services', () => {
 
     describe('Check requestArticleSection method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
@@ -192,7 +204,9 @@ describe('Test Article Detail Services', () => {
     });
     describe('Check requestJournalistDetail method',()=>{
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();

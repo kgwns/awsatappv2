@@ -16,7 +16,9 @@ describe('Test Photo Gallery Screen', () => {
     }
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
     afterEach(() => {
         mock.reset();

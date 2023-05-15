@@ -12,7 +12,9 @@ describe('Test Change Password Services', () => {
     }
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+        legacyFakeTimers: true
+});
     });
 
     afterEach(() => {

@@ -7,7 +7,9 @@ import { HomePageArticleType } from "src/redux/latestNews/types"
 describe('<Utilities>', () => {
 
     beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        })
     })
 
     global.afterEach(() => {
@@ -171,7 +173,9 @@ describe('<Utilities>', () => {
 
 describe("check methods in utilities",() => {
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         jest.clearAllMocks();

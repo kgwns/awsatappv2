@@ -7,7 +7,9 @@ jest.mock('src/services/narratedOpinionArticleService', () => ({
 }));
 describe("test getNarratedOpinion", () => {
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         jest.clearAllMocks();
@@ -34,7 +36,9 @@ describe("test getNarratedOpinion", () => {
 })
 describe("test getNarratedOpinion", () => {
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         jest.clearAllMocks();

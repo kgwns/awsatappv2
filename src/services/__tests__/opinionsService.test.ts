@@ -13,7 +13,9 @@ describe('Test Opinions Services', () => {
     page: 1,
   }
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   });
   afterEach(() => {
     cachedAxiosMock.reset();

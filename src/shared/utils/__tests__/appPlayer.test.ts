@@ -2,7 +2,9 @@ import AppPlayer from "../appPlayer"
 
 describe("AppPlayer",() => {
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         jest.clearAllMocks();

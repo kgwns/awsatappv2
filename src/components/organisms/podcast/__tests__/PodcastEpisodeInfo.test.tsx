@@ -44,7 +44,9 @@ describe('<PodcastEpisodeInfo>', () => {
   const fetchSingleEpisodeSpreakerApiMock = jest.fn();
   describe('PodcastEpisodeInfo with props data ', () => {
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
       const component = (
         <PodcastEpisodeInfo data={PodcastEpisodeData} onListenPress={mockFunction} />

@@ -81,7 +81,9 @@ describe('<RelatedOpinionCard>', () => {
     const setPlayerTrackMock = jest.fn();
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [{
       playlist: [
         {

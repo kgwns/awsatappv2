@@ -49,7 +49,9 @@ describe('<PodcastWidget>', () => {
   const setEpisodeData = jest.fn();
   const fetchSingleEpisodeSpreakerApiMock = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
     DeviceTypeUtilsMock.isTab = true;
     DeviceTypeUtilsMock.isIOS = false;

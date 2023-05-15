@@ -2,7 +2,9 @@ import { recordCurrentScreen, recordLogEvent } from "../analytics";
 
 describe("test analytics",() => {
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         jest.clearAllMocks();

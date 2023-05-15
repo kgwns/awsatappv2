@@ -9,7 +9,9 @@ const errorResponse = {
 
 describe('<JournalistSaga >', () => {
     beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        })
     })
 
     describe('Related fetchJournalist', () => {

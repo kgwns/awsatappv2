@@ -36,7 +36,9 @@ describe('<Journalist />', () => {
   }
   beforeEach(() => {
 
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigation as jest.Mock).mockReturnValue(navigation);
     (requestJournalistDetail as jest.Mock).mockImplementation(() =>Promise.resolve({rows:[{not_clickable: '1'}]}));
     const component = <Journalist
@@ -76,7 +78,9 @@ describe('<Journalist />', () => {
 
   }
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     DeviceTypeUtilsMock.isTab = true;
     (useNavigation as jest.Mock).mockReturnValue(navigation);
     (requestJournalistDetail as jest.Mock).mockImplementation(() =>Promise.resolve({rows:[{not_clickable: '1'}]}));

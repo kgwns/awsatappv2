@@ -5,7 +5,9 @@ describe('Test Side Menu Services', () => {
     const cachedAxiosMock = new MockAdapter(serviceApi.api);
     const journalistPayload = { tid: '1' };
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
 
     afterEach(() => {

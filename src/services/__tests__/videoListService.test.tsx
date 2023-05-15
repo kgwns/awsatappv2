@@ -6,7 +6,9 @@ describe('Test VideoList Services', () => {
 
     const requestBody = {items_per_page: 10, page: 0}
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         cachedAxiosMock.reset();

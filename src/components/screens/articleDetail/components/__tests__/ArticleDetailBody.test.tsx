@@ -67,7 +67,9 @@ describe('<ArticleDetailBody> renders in Android', () => {
     const webViewHeight = mockFunction;
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         DeviceTypeUtilsMock.isIOS = false;
         (useRef as jest.Mock).mockImplementation(() => [sampleData, myTimeOutReference]);
         (useState as jest.Mock).mockImplementation(() => [20, dynamicHeight]);
@@ -137,7 +139,9 @@ describe('<ArticleDetailBody> renders in IOS', () => {
     const webViewHeight = mockFunction;
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         DeviceTypeUtilsMock.isIOS = true;
         (useRef as jest.Mock).mockImplementation(() => [sampleData, myTimeOutReference]);
         (useState as jest.Mock).mockImplementation(() => [20, dynamicHeight]);

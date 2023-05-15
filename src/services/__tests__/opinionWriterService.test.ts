@@ -8,7 +8,9 @@ describe('Test OpinionWriters Services', () => {
     items_per_page: 10,
   };
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   });
   afterEach(() => {
     cachedAxiosMock.reset();

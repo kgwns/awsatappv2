@@ -173,7 +173,9 @@ describe('<FollowFavoriteAuthor /> ', () => {
   const testID = 'FollowFavoriteAuthorTestId';
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [true,setFallBack]);
     const component = (
       <FollowFavoriteAuthor

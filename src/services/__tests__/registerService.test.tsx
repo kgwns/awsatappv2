@@ -14,7 +14,9 @@ describe('Test register Services', () => {
       device_name: mockString,
     };
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();

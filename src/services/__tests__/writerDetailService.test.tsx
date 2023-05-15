@@ -10,7 +10,9 @@ describe('Test Writer Detail Services', () => {
     }
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
 
     afterEach(() => {

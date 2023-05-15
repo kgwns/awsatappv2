@@ -9,7 +9,9 @@ describe('Test Search Services', () => {
       searchText: 'search-text',
     };
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();

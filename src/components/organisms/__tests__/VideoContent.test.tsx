@@ -56,7 +56,9 @@ describe('<VideoContent>', () => {
   const setState = jest.fn();
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     DeviceTypeUtilsMock.isTab = true;
     (useState as jest.Mock).mockImplementation(() => [false,setState])
     const component = (
@@ -135,7 +137,9 @@ describe('<VideoContent>', () => {
   const setState = jest.fn();
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     DeviceTypeUtilsMock.isTab = true;
     jest.spyOn(Share,'open').mockRejectedValueOnce({response: false} as any);
     (useState as jest.Mock).mockImplementation(() => [false,setState])

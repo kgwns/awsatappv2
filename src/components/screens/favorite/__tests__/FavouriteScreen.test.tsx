@@ -35,7 +35,9 @@ describe('<FavoriteScreen>', () => {
 
     
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useLogin as jest.Mock).mockReturnValue({isLoggedIn: false});
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         const component =
@@ -77,7 +79,9 @@ describe('<FavoriteScreen>', () => {
     }
     
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useLogin as jest.Mock).mockReturnValue({isLoggedIn: true});
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useState as jest.Mock).mockImplementation(() => [false,mockFunction]);

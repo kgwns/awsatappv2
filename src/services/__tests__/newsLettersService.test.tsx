@@ -12,7 +12,9 @@ describe('Test News Letters Services', () => {
     }
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
 
     afterEach(() => {

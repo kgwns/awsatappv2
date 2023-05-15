@@ -77,7 +77,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useState as jest.Mock).mockImplementation(() => [{
             playlist: [
                 {
@@ -179,7 +181,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useState as jest.Mock).mockImplementation(() => [{
             playlist: [
                 {
@@ -245,7 +249,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockReturnValue({playList:{duration:'duration'}});
         (useState as jest.Mock).mockImplementation(() => [{
@@ -351,7 +357,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         DeviceTypeUtilsMock.isIOS = true;
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockReturnValue({playList:{duration:'duration'}});
@@ -418,7 +426,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockReturnValue({playList:{duration:'duration'}});
         (useState as jest.Mock).mockImplementation(() => [{
@@ -484,7 +494,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockReturnValue({playList:{duration:'duration'}});
         (useState as jest.Mock).mockImplementation(() => [{
@@ -539,7 +551,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockReturnValue({playList:{duration:'duration'}});
         (useState as jest.Mock).mockImplementation(() => [{
@@ -606,7 +620,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockReturnValue({playList:{duration:'duration'}});
         (useState as jest.Mock).mockImplementation(() => [{
@@ -689,7 +705,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockReturnValue({playList:{duration:'duration'}});
         (useState as jest.Mock).mockImplementation(() => ['15:30', timeDuration]);
@@ -751,7 +769,9 @@ describe('<Author Item>', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockReturnValue({playList:{duration:'duration'}});
         (useState as jest.Mock).mockImplementation(() => [false, isBuffering]);
@@ -817,7 +837,9 @@ describe('<Author Item> should call fetchNarratedOpinionArticleApi', () => {
     const setPlayerTrackMock = jest.fn();
     const fetchNarratedOpinionArticleApiMock = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
         (fetchNarratedOpinionArticleApiMock).mockRejectedValue({response:{data:"error"}});
         (useState as jest.Mock).mockImplementation(() => [{

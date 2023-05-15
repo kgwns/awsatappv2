@@ -13,7 +13,9 @@ describe('Test OpinionArticleDetail Services', () => {
   };
   console.log = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   });
 
   afterEach(() => {

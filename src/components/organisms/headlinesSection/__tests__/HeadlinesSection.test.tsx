@@ -89,7 +89,9 @@ describe('<Favorite Video Component >', () => {
   const mockFunction = jest.fn();
   const setIndexValue = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers();
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [0,setIndexValue]);
 
     const component = <HeadlinesSection tickerData={videoTabInfo} barColor={'red'} headlineDescriptionColor={'red'} repeatSpacer={20} marqueeDelay={10} loop={true} headlineTitle={'المهاجرين'} headlineTitleColor={'red'} headlineDescription={'أمريكا'} />
@@ -97,7 +99,9 @@ describe('<Favorite Video Component >', () => {
   })
 
   it('Should render the component', () => {
-    jest.useFakeTimers();
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     expect(instance).toBeDefined()
   })
 
@@ -168,7 +172,9 @@ describe('<Favorite Video Component >', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers();
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [810,mockFunction]);
 
     const component = <HeadlinesSection tickerData={videoTabInfo} barColor={'red'} headlineDescriptionColor={'red'} repeatSpacer={20} marqueeDelay={10} loop={true} headlineTitle={'المهاجرين'} headlineTitleColor={'red'} headlineDescription={'أمريكا'} />
@@ -176,7 +182,9 @@ describe('<Favorite Video Component >', () => {
   })
 
   it('Should render the component', () => {
-    jest.useFakeTimers();
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     expect(instance).toBeDefined()
     expect(mockFunction).toHaveBeenCalled();
   })

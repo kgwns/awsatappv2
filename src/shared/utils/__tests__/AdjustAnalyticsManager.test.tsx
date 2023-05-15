@@ -11,7 +11,9 @@ jest.mock('react-native-adjust',() => ({
 describe("test facebookSignIn",() => {
   let instance: RenderAPI;
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+        legacyFakeTimers: true
+    });
     instance = <AdjustAnalyticsManager/>
   });
   afterEach(() => {

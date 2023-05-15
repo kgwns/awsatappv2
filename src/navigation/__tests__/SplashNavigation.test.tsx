@@ -178,7 +178,9 @@ describe('<SplashNavigation>', () => {
 
   describe('when SplashNavigation only', () => {
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       jest.spyOn(serviceApi,'getCacheApiRequest').mockReturnValue({
         base_url: 'https://aawsat.srpcdigital.com/',
         ums_base_url:  "https://awsatapi.srpcdigital.com/",
@@ -216,7 +218,9 @@ describe("SplashNavigation",() => {
   const setLoading = jest.fn()
   let spyon:any;
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     spyon = jest.spyOn(console,'log');
     jest.spyOn(serviceApi,'getCacheApiRequest').mockImplementation(() => {throw new Error('error message')});
     (useState as jest.Mock).mockImplementation(() => [false,setLoading]);
@@ -248,7 +252,9 @@ describe('when SplashNavigation only', () => {
   const useColorScheme = jest.fn().mockReturnValueOnce(theme);
   const setLoading = jest.fn()
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     jest.spyOn(serviceApi,'getCacheApiRequest').mockReturnValue({
       base_url: '',
       ums_base_url:  '',

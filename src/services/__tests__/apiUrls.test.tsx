@@ -3,7 +3,9 @@ import { DEBUG_BASE_URL, getBaseUrl, PROD_BASE_URL } from "../apiUrls";
 
 describe('Check apiUrls',()=>{
     beforeEach(()=>{
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(()=>{
         jest.clearAllMocks();

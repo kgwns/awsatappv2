@@ -6,7 +6,9 @@ describe('Test Side Menu Services', () => {
 
     const journalistPayload = { nid: '1', page: 1 };
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
 
     afterEach(() => {

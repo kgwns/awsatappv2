@@ -47,7 +47,9 @@ describe('<VideoPlayerScreen> without nid params', () => {
   const fetchVideoDetailInfoMock = jest.fn();
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [route.params.videoUrl, playerUrl]);
     (fetchVideoDetailInfo as jest.Mock).mockImplementation(fetchVideoDetailInfoMock);

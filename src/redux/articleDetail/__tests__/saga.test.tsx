@@ -336,7 +336,9 @@ const errorResponse = {
 
 describe('<Article Detail Saga >', () => {
     beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        })
     })
     describe('Check ArticleDetail sage method', () => {
         const genObject = articleDetailSaga();

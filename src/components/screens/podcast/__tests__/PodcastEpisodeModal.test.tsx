@@ -332,7 +332,9 @@ describe('<PodcastEpisode >', () => {
     const useLoginMock = mockFunction;
     const usePodcastMock = mockFunction;
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       jest.spyOn(Share,'open').mockResolvedValueOnce({response:true} as any);
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -409,7 +411,9 @@ describe('<PodcastEpisode >', () => {
     const useLoginMock = mockFunction;
  
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       jest.spyOn(Share,'open').mockRejectedValueOnce({error:'error'});
       (useLogin as jest.Mock).mockImplementation(useLoginMock);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);

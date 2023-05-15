@@ -1448,7 +1448,9 @@ describe("OpinionArticleDetail", () => {
   const setState = jest.fn();
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useOpinionArticleDetail as jest.Mock).mockReturnValue({
       isLoading: false,
       opinionArticleDetailData: opinionArticleDetailData,
@@ -1558,7 +1560,9 @@ describe("OpinionArticleDetail", () => {
   }
   const setState = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useOpinionArticleDetail as jest.Mock).mockReturnValue({
       isLoading: false,
       opinionArticleDetailData: opinionArticleDetailData,

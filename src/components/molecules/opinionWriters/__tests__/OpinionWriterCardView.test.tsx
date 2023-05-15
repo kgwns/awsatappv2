@@ -60,7 +60,9 @@ describe('<OpinionWritersCardView>', () => {
   const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigationState as jest.Mock).mockReturnValue([]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [data, mediaData]);
@@ -182,7 +184,9 @@ describe('<OpinionWritersCardView>', () => {
   const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigationState as jest.Mock).mockReturnValue([]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [data, mediaData]);
@@ -263,7 +267,9 @@ describe('<OpinionWritersCardView>', () => {
   const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigationState as jest.Mock).mockReturnValue([]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [data, mediaData]);
@@ -343,7 +349,9 @@ describe('<OpinionWritersCardView>', () => {
   const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigationState as jest.Mock).mockReturnValue([]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [data, mediaData]);
@@ -455,7 +463,9 @@ describe("OpinionWriterCardView",() => {
   const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useNavigationState as jest.Mock).mockReturnValue([]);
     const component = (
@@ -505,7 +515,9 @@ describe("OpinionWriterCardView",() => {
   const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useNavigationState as jest.Mock).mockReturnValue([{name:ScreensConstants.WRITERS_DETAIL_SCREEN}]);
     const component = (
@@ -556,7 +568,9 @@ describe("OpinionWriterCardView",() => {
   const audioLabel = 'إستمع إلى المقالة ';
   const duration = '3:22';
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useNavigationState as jest.Mock).mockReturnValue([{name:ScreensConstants.WRITERS_DETAIL_SCREEN}]);
     const component = (

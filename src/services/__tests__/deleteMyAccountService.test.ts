@@ -22,7 +22,9 @@ describe('Test deleteMyAccount Services', () => {
        }
     }
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();
@@ -84,7 +86,9 @@ describe('Test deleteMyAccount Services', () => {
     }
   
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();
@@ -122,7 +126,9 @@ describe('Test deleteMyAccount Services', () => {
       }
   
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();
@@ -166,7 +172,9 @@ describe('Test deleteMyAccount Services', () => {
     }
   
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();

@@ -221,7 +221,9 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);
@@ -351,7 +353,9 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [[], writerDetailInfo]);
@@ -431,7 +435,9 @@ describe('< Writer Detail >', () => {
     const useLoginMock = mockFunction;
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useLogin as jest.Mock).mockImplementation(useLoginMock);
         (useState as jest.Mock).mockImplementation(() => [sampleData, writerDetailInfo]);

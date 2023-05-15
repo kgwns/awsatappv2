@@ -6,7 +6,9 @@ import { AllSelectedWritersDetailsBodyGet, AllWritersBodyGet, RemoveAuthorBody, 
 describe('Test All Writers Services', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();

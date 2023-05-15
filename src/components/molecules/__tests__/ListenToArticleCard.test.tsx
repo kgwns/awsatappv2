@@ -51,7 +51,9 @@ describe('<ListenToArticleCard>', () => {
   const prevPlayBackState = jest.fn();
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [null, prevPlayBackState]);
     (useAppPlayer as jest.Mock).mockImplementation(useAppPlayerMock);
     useAppPlayerMock.mockReturnValue({

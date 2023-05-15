@@ -38,7 +38,9 @@ describe('<ArticlePodCastWidgetSection>', () => {
         } ,
     }
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
       (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({response:{episode:{result:true}}});
 
@@ -90,7 +92,9 @@ describe('<ArticlePodCastWidgetSection>', () => {
         } ,
     }
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
       (fetchSingleEpisodeSpreakerApiMock).mockImplementation(() => {throw new Error('error message')});
       (useState as jest.Mock).mockImplementation(() => [0,setDuration]);
@@ -142,7 +146,9 @@ describe('<ArticlePodCastWidgetSection>', () => {
       } ,
   }
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (useState as jest.Mock).mockImplementation(() => [0,setDuration]);
 
       const component = (
@@ -188,7 +194,9 @@ describe('<ArticlePodCastWidgetSection>', () => {
     }
     const setDuration = jest.fn();
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
       (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({episode:{result:true}});
       (useState as jest.Mock).mockImplementation(() => [0,setDuration]);

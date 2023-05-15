@@ -15,7 +15,9 @@ jest.mock('react-native//Libraries/PermissionsAndroid/PermissionsAndroid', () =>
 
 describe('<Utilities>', () => {
     beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        })
     })
 
     afterEach(() => {

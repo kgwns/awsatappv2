@@ -10,7 +10,9 @@ describe('Test Narrated Opinion Article Services', () => {
     }
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
 
     afterEach(() => {

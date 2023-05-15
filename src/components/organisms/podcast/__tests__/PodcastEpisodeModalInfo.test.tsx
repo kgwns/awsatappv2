@@ -56,7 +56,9 @@ describe("rendering PodcastEpisodeModalInfo", () => {
     const fetchSingleEpisodeSpreakerApiMock = jest.fn();
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
         (fetchSingleEpisodeSpreakerApiMock).mockReturnValue({response:{episode:{result:true}}});
         (useState as jest.Mock).mockImplementation(() => [1, setDuration])

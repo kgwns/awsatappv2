@@ -12,7 +12,9 @@ describe('Test LatestNews Tab Services', () => {
     const cachedAxiosMock = new MockAdapter(serviceApi.api);
     beforeEach(() => {
         NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() } 
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();

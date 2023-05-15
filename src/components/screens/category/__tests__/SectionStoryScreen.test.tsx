@@ -106,7 +106,9 @@ describe('<SectionStoryScreen>', () => {
     }
     
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
@@ -240,7 +242,9 @@ describe('should render FilterComponent', () => {
     }
     
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         (useState as jest.Mock).mockImplementation(() => [[], setHeroListDataInfo]);
         (useState as jest.Mock).mockImplementation(() => [[], setBottomListDataInfo]);
@@ -310,7 +314,9 @@ describe('<SectionStoryScreen> should call fetchSubArticleSectionApi', () => {
     }
     
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchSubArticleSectionApi as jest.Mock).mockImplementation(fetchSubArticleSectionApiMock);
 
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -364,7 +370,9 @@ describe('<SectionStoryScreen> should call fetchSubArticleSectionApi', () => {
     }
     
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (fetchSubArticleSectionApi as jest.Mock).mockImplementation(fetchSubArticleSectionApiMock);
         fetchSubArticleSectionApiMock.mockImplementation(() => Promise.reject({response:{data:"error"}}));
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);

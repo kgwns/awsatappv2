@@ -60,7 +60,9 @@ describe('<Screen Container>', () => {
     }
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useNavigation as jest.Mock).mockReturnValue(navigation);
         useAppPlayerMock.mockReturnValue({
             showMiniPlayer: true,

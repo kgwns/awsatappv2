@@ -90,7 +90,9 @@ describe('<VideoPlayerControl>', () => {
   describe('<VideoPlayerControl> with miniPlayer true', () => {
 
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (useRef as jest.Mock).mockImplementation(() => [sampleData, videoPlayer]);
       (useState as jest.Mock).mockImplementation(() => [0, setCurrentTime]);
       (useState as jest.Mock).mockImplementation(() => [0, setDuration]);
@@ -297,7 +299,9 @@ describe("test videoPlayerControl onLoad",() => {
   const mockFunction = jest.fn();
   const setState = mockFunction;
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [false,setState]);
   })
   afterEach(() => {
@@ -339,7 +343,9 @@ describe("test videoPlayerControl renderPlaypauseID onPaused function",() => {
 
   it("should call setTimeout",() => {
     const setPaused = jest.fn();
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [false, setPaused]);
     (useRef as jest.Mock).mockImplementation(() => ({current:{seek: jest.fn()}}));
     render(
