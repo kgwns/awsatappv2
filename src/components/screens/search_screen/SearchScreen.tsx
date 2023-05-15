@@ -32,7 +32,7 @@ export const SearchScreen = () => {
     setSearchText(searchTextProps);
 
     {/* User Need to type minimum four char to enable search*/}
-    if (searchTextProps && isNotEmpty(searchTextProps.toString()) && searchTextProps.trim().length >= 4) {
+    if (searchTextProps && isNotEmpty(searchTextProps.toString()) && searchTextProps.trim().length >= 3) {
       fetchSearchRequest({
         searchText: searchTextProps,
       });
