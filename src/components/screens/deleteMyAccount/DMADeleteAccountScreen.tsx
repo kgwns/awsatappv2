@@ -14,6 +14,7 @@ import { RouteProp, useNavigation, useRoute } from '@react-navigation/native'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { useLogin } from 'src/hooks'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { ScreenTestId } from 'src/constants/TestConstant'
 
 export const DMADeleteAccountScreen = () => {
   const navigation = useNavigation<StackNavigationProp<any>>();
@@ -43,6 +44,7 @@ export const DMADeleteAccountScreen = () => {
   const [isButtonEnable, setIsButtonEnable] = useState(false);
   const [isAlertVisible, setIsAlertVisible] = useState(false);
   const [alertPayload, setAlertPayload] = useState<AlertPayloadType>(deleteAccount);
+  
   useEffect(() => {
     const fetchInfo = async () => {
       try {
@@ -96,7 +98,7 @@ export const DMADeleteAccountScreen = () => {
         });
       }
     } catch (error) {
-      console.log('Error DMADeleteAccountScreen Fetch :::, error')
+      console.log('Error DMADeleteAccountScreen Delete :::, error')
     }
   }
 
@@ -118,6 +120,7 @@ export const DMADeleteAccountScreen = () => {
         textInputStyle={style.messageTextInput}
         placeholderTextColor={style.placeHolder.color}
         blurOnSubmit={true}
+        testID={ScreenTestId.dmaDeleteAccount.typeDeleteLabel}
       />
     </View>
   );
