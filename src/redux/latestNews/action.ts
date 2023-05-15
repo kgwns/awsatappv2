@@ -146,9 +146,11 @@ export const requestHeroListTopList = (
 }
 
 export const requestOpinionList = (
+  payload: LatestArticleBodyGet
 ): RequestOpinionListType => {
   return {
     type: REQUEST_OPINION_LIST_DATA,
+    payload
   }
 }
 

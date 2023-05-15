@@ -52,7 +52,7 @@ export interface UseLatestNewsReturn {
     heroList: LatestArticleDataType[];
     topList: LatestArticleDataType[];
     opinionList: LatestOpinionDataType[]
-    fetchOpinionTopList(): void
+    fetchOpinionTopList(payload: LatestArticleBodyGet): void
     sectionComboOne: LatestArticleDataType[];
     sectionComboTwo: LatestArticleDataType[];
     sectionComboThree: LatestArticleDataType[];
@@ -144,8 +144,8 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const fetchHeroListTopList = (payload: LatestArticleBodyGet) => {
         dispatch(requestHeroListTopList(payload));
     };
-    const fetchOpinionTopList = () => {
-        dispatch(requestOpinionList());
+    const fetchOpinionTopList = (payload: LatestArticleBodyGet) => {
+        dispatch(requestOpinionList(payload));
     };
     const fetchSectionComboOne = (payload: RequestSectionComboBodyGet) => {
         dispatch(requestSectionComboOne(payload));
