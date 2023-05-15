@@ -521,5 +521,10 @@
         "typeDeleteToConfirm": "اكتب “حذف حسابي” لتأكيد الحذف.",
         "deleteMyAccountArabic": "حذف حسابي",
         "deleteMyAccountEnglish": "Delete my account"
+      },
+      "updatePopUp": {
+        "title": "مطلوب التحديث",
+        "description": "لقد أطلقنا إصدارًا جديدًا ومحسّنًا من التطبيق. يرجى التحديث لمواصلة استخدام التطبيق",
+        "updateButtonLabel": "تحديث"
       }
 }
