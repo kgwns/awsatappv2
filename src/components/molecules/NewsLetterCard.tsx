@@ -31,7 +31,7 @@ export const NewsLetterCard = ({
   const buttonLogoName = selected ? ImagesName.tickIcon : ImagesName.subscribeIconWhite;
   const buttonText = selected ? CONST_ONBOARD_NEWSLETTER_SUBSCRIBED : CONST_ONBOARD_NEWSLETTER_NOT_SUBSCRIBED;
   const buttonBackground = selected ? colors.greenishBlue : colors.black;
-  const buttonLogoStyle = selected ? {width: 20, height:17, marginRight: 5, marginBottom: 5} : {width: 14, height:11, marginRight: 10}
+  const buttonLogoStyle = selected ? style.selectedButtonLogoStyle : style.buttonLogoStyle;
 
   const changeStatus = () => {
     onPress(!selected);
@@ -140,7 +140,7 @@ const customStyle = (theme: CustomThemeType) => {
       marginRight: normalize(3),
     },
     buttonView: {
-      height: 38, width:'32%',
+      height: 48, width:'32%',
       marginRight: normalize(15),
       borderRadius: 28
     },
@@ -148,7 +148,7 @@ const customStyle = (theme: CustomThemeType) => {
       flexDirection: 'row',
       justifyContent: 'center',
       paddingHorizontal: 15,
-      paddingVertical: isIOS ? 7 : 5,
+      paddingVertical: isIOS ? 6 : 5,
       marginVertical: 7,
     },
     buttonLogo: {
@@ -156,11 +156,24 @@ const customStyle = (theme: CustomThemeType) => {
     },
     buttonLabel: {
       fontSize:16,
-      lineHeight:18,
-      fontFamily: fonts.AwsatDigitalV2_Bold,
+      lineHeight:26,
+      fontFamily: fonts.AwsatDigital_Bold,
     },
     logoContainer: {
-      justifyContent: 'center'
+      justifyContent: 'center',
+      marginTop: 4
+    },
+    selectedButtonLogoStyle: {
+      width: 20,
+      height:17,
+      marginRight: 5,
+      marginBottom: 5
+    },
+    buttonLogoStyle: {
+      width: 14,
+      height:11,
+      marginRight: 10,
+      marginBottom: 2
     }
   });
 };
