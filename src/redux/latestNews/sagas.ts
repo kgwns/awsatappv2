@@ -12,7 +12,7 @@ import {
   RequestSectionComboEightSuccessPayload,
   RequestSectionComboType,
   RequestTickerAndHeroType, TickerHeroSuccessPayload,
-  OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType,
+  OpinionSuccessPayload, LatestOpinionDataType,
   LatestPodcastDataType, PodcastHomeSuccessPayload,
   MainSectionBlockType, MainSectionBlockName,
   RequestCoverageBlockSuccessPayloadType,
@@ -23,6 +23,8 @@ import {
   InfoGraphicBlockType,
   RequestArchivedArticleSectionSuccessPayloadType,
   ArchivedArticleDataType,
+  OpinionIdSortDataType,
+  OpinionTodayDataType,
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -71,7 +73,6 @@ import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, isTypeAlbum 
 import {
   requestLatestArticle,
   requestSectionCombo,
-  writerOpinionApi,
   podcastHomeApi,
   mainCoverageBlockApi,
   mainHorizontalArticleApi,
@@ -81,6 +82,8 @@ import {
   requestSpotlightArticleSection,
   infoGraphicBlockApi,
   archivedArticleApi,
+  writerOpinionSortApi,
+  writerOpinionTodayApi,
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
@@ -212,20 +215,28 @@ const formatLatestArticle = (response: any): LatestArticleDataType[] => {
   return formattedData
 }
 
-const formatOpinion = (response: any): LatestOpinionDataType[] => {
+const formatOpinion = (opinionSortData: OpinionIdSortDataType, opinionTodayData: OpinionTodayDataType): LatestOpinionDataType[] => {
   let formattedOpinionData: LatestOpinionDataType[] = []
-    if (response && isNonEmptyArray(response.rows)) {
-      const rows = response.rows
-      formattedOpinionData = rows.map(
-        ({ title, body, nid, field_opinion_writer_node_export, jwplayer, jwplayer_info }: any) => ({
-          body,
-          title: isNotEmpty(title) ? decode(title) : '',
-          nid,
-          field_opinion_writer_node_export,
-          field_jwplayer_id_opinion_export:jwplayer,
-          jwplayer_info: jwplayer_info
-        })
-      );
+  const opinionSortDataRows = isNonEmptyArray(opinionSortData.rows) ? opinionSortData.rows : [];
+  if (opinionTodayData && isNonEmptyArray(opinionTodayData.rows)) {
+    const opinionTodayDataRows = opinionTodayData.rows;
+    const opinionArray = opinionTodayDataRows.filter((o1) => opinionSortDataRows.some((o2) => o1.term_node_tid === o2.tid));
+    const opinionId = opinionSortDataRows.map(({ tid }) => tid);
+    const resultedOpinionArray = opinionArray.sort((a, b) => opinionId.indexOf(a.term_node_tid) - opinionId.indexOf(b.term_node_tid));
+    const remainingOpinionData = opinionTodayDataRows.filter((todayData) => !resultedOpinionArray.some(
+      (resultedOpinionArrayData) => todayData.term_node_tid === resultedOpinionArrayData.term_node_tid));
+
+    const combinedOpinionArray = isNonEmptyArray(remainingOpinionData) ? resultedOpinionArray.concat(remainingOpinionData) : resultedOpinionArray;
+    formattedOpinionData = combinedOpinionArray.map(
+      ({ title, body, nid, field_opinion_writer_node_export, jwplayer, jwplayer_info }: any) => ({
+        body,
+        title: isNotEmpty(title) ? decodeHTMLTags(title) : '',
+        nid,
+        field_opinion_writer_node_export,
+        field_jwplayer_id_opinion_export: jwplayer,
+        jwplayer_info: jwplayer_info
+      }))
+
   }
   return formattedOpinionData
 }
@@ -452,8 +463,8 @@ const parseSectionComboEight = (response: payloadType) => {
   return responseData
 }
 
-const parseOpinionDataSuccess = (response: any): OpinionSuccessPayload => {
-  const formattedData = formatOpinion(response)
+const parseOpinionDataSuccess = (opinionSortData: OpinionIdSortDataType, opinionTodayData: OpinionTodayDataType): OpinionSuccessPayload => {
+  const formattedData = formatOpinion(opinionSortData, opinionTodayData)
   const responseData: OpinionSuccessPayload = {
     opinionList: []
   }
@@ -539,13 +550,15 @@ export function* fetchTickerAndHeroWidgetData(action: RequestTickerAndHeroType) 
     }
   }
 }
-export function* fetchOpinionWidgetData(action: RequestOpinionListType) {
+export function* fetchOpinionWidgetData() {
   try {
-    const payload: payloadType = yield call(
-      writerOpinionApi,
-      action.payload
+    const opinionSortData: payloadType = yield call(
+      writerOpinionSortApi,
     );
-    const response = parseOpinionDataSuccess(payload)
+    const opinionTodayData: payloadType = yield call(
+      writerOpinionTodayApi
+    );
+    const response = parseOpinionDataSuccess(opinionSortData,opinionTodayData)
     yield put(requestOpinionSuccess(response));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;

@@ -84,3 +84,7 @@ export const SCRIBBLE_LIVE_TOKEN_PARAM = '/?Token='
 export const SCRIBBLE_LIVE_JSON_PARAM = '&format=Json'
 //Scribble auth_token
 export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required.
+
+//Opinion Article in HomeScreen
+export const OPINION_WRITERS_SORT = 'https://aawsat.com/api/v2/writers-sort'
+export const OPINION_TODAY = 'https://aawsat.com/api/v2/homeview/opinion/today'

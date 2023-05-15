@@ -94,7 +94,8 @@ export interface EditorsChoiceDataType extends LatestArticleDataType {
 
 interface PagerType {
   current_page?: number | null | undefined,
-  items_per_page?: number
+  items_per_page?: number,
+  total_pages?: number
 }
 
 export interface SpotlightDataType {
@@ -122,6 +123,37 @@ export interface LatestOpinionDataType {
   body: string,
   nid: string,
   field_opinion_writer_node_export: OpinionWriterType[] | OpinionWriterType;
+}
+
+export interface OpinionWriterNodeExportType extends OpinionWriterType {
+  type: string,
+  description: string
+}
+
+export interface OpinionTodayDataRowsType {
+  title: string,
+  created: string,
+  jwplayer: string,
+  field_opinion_writer_node: string,
+  field_opinion_writer_node_export: OpinionWriterNodeExportType[],
+  jwplayer_info: string,
+  nid: string,
+  term_node_tid: string
+}
+
+export interface OpinionIdSortRowsType {
+  name: string,
+  tid: string
+}
+
+export interface OpinionIdSortDataType {
+  rows: OpinionIdSortRowsType[],
+  pager: PagerType
+}
+
+export interface OpinionTodayDataType {
+  rows: OpinionTodayDataRowsType[],
+  pager: PagerType 
 }
 
 export interface InfoGraphicBlockType {
@@ -219,7 +251,6 @@ export interface RequestHeroListTopList {
 
 export interface RequestOpinionListType {
   type: typeof REQUEST_OPINION_LIST_DATA,
-  payload: LatestArticleBodyGet
 }
 
 export type HeroListTopListSuccessPayload = {
