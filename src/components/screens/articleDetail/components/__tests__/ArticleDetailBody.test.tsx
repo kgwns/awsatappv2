@@ -16,6 +16,7 @@ const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
   isIOS: false,
+  isAndroid: false,
   isTab: true
 }));
 
@@ -70,7 +71,7 @@ describe('<ArticleDetailBody> renders in Android', () => {
         jest.useFakeTimers({
             legacyFakeTimers: true
         });
-        DeviceTypeUtilsMock.isIOS = false;
+        DeviceTypeUtilsMock.isAndroid = true;
         (useRef as jest.Mock).mockImplementation(() => [sampleData, myTimeOutReference]);
         (useState as jest.Mock).mockImplementation(() => [20, dynamicHeight]);
         (useState as jest.Mock).mockImplementation(() => [30, webViewHeight]);
