@@ -37,7 +37,6 @@ enum TranslateKey {
   CROSS_WORD_DESCRIPTION,
   SUDOKU_DESCRIPTION,
   GAMES,
-  SECTION_MAIN,
   SECTION_COMBO_ONE,
   SECTION_COMBO_TWO,
   SECTION_COMBO_THREE,
@@ -48,7 +47,6 @@ enum TranslateKey {
   SECTION_COMBO_EIGHT,
   EDITOR_CHOICE_HEADER_TITLE,
   DRAWER_PDF_ARCHIVE,
-  OPINION_COMBO_TITLE,
   OPINION_ARTICLE_TITLE,
   RICH_HTML_FACTS,
   CONST_MORE,
@@ -73,7 +71,6 @@ enum TranslateKey {
   ADVERTISE_WITH_US,
   ABOUT_THE_MIDDLE_EAST,
   TERMS_OF_USE,
-  EDITORS_PICK_HEADER_TITLE,
   WEATHER_DETAILS_SUNRISE,
   WEATHER_DETAILS_SUNSET,
   WEATHER_DETAILS_SIDEBAR,
@@ -156,7 +153,6 @@ enum TranslateKey {
   VIDEO_DETAIL_WATCH,
   COMMON_ALERT,
   COMMON_NO_INTERNET_CONNECTION,
-  COMMON_SOMETHING_WENT_WRONG,
   TERMS_AND_CONDITION,
   SIGNIN_SKIP,
   SIGNIN_AGREE_TO,
@@ -199,11 +195,6 @@ enum TranslateKey {
   MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS,
   MANAGE_MY_NEWS_MY_FAVORITE_TOPICS,
   MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS,
-  NEW_PASSWORD_CREATE_NEW_PASSWORD,
-  NEW_PASSWORD_DESCRIPTION,
-  NEW_PASSWORD_WARNING,
-  NEW_PASSWORD_MATCH_WARNING,
-  NEW_PASSWORD_SET_NEW_PASSWORD,
   ONBOARD_NEWSLETTER_TITLE,
   ONBOARD_NEWSLETTER_DESCRIPTION,
   PHOTO_GALLERY_TITLE,
@@ -216,14 +207,11 @@ enum TranslateKey {
   PROFILE_SETTING_DARK_MODE,
   PROFILE_SETTING_LIGHT_MODE,
   PROFILE_SETTING_WELCOME,
-  PROFILE_SETTING_CHANGE_ENVIRONMENT,
   PROFILE_SETTING_NOT_SUBSCRIBED,
   PROFILE_SETTING_LOGIN_FEATURE,
   PROFILE_SETTING_SIGN_UP,
   PROFILE_SETTING_ALERT,
   PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE,
-  PROFILE_SETTING_DEBUG,
-  PROFILE_SETTING_PRODUCTION,
   PROFILE_SETTING_DELETE_MY_ACCOUNT,
   ON_BOARD_COMMON_SKIP,
   ON_BOARD_COMMON_RETURN,
@@ -248,24 +236,8 @@ enum TranslateKey {
   FOLLOWER,
   PODCAST_WIDGET_HEADER_LEFT,
   PODCAST_WIDGET_HEADER_RIGHT,
-  ARCHIVES_PODCAST_TITLE,
-  ARCHIVES_PODCAST_ALL_EPISODES,
-  ARCHIVES_PODCAST_BODY,
-  SECTION_HEADER_LEFT,
-  SECTION_HEAER_RIGHT,
-  STORY_WIDGET_HEADER_TITLE,
   SHORT_ARTICLE_TITLE,
-  RELATED_ARTICLE_HEADER_LEFT,
-  RELATED_ARTICLE_TITLE,
-  RELATED_ARTICLE_RIGHT_TITLE,
-  RELATED_ARTICLE_LEFT_TITLE,
-  RELATED_ARTICLE_FLAG,
   ARTICLE_DETAIL_WIDGET_UPDATED,
-  LATEST_NEWS_SUMMARY_HEADER_LEFT,
-  LATEST_NEWS_SUMMARY_HEADER_RIGHT,
-  CONTENT_FOR_YOU_EMPTY_DATA_LABEL,
-  PODCAST_OPINION_ARTICLE_HEADER_LEFT,
-  PODCAST_OPINION_ARTICLE_HEADER_RIGHT,
   TABLET_NOT_SUBSCRIBED_POP_UP,
   TABLET_CREATE_ACCOUNT_DESCRIPTION,
   VIDEO_SHARE,
@@ -292,6 +264,8 @@ enum TranslateKey {
   DMA_DELETE_ACCOUNT_ARABIC,
   DMA_DELETE_ACCOUNT_ENGLISH,
   CARICATURE,
+  NO_SECTION_ARTICLE,
+  PODCAST_TITLE,
   APP_UPDATE_TITLE,
   APP_UPDATE_DESCRIPTION,
   APP_UPDATE_BUTTON_LABEL,
@@ -325,8 +299,6 @@ const TranslateConstants = ({
             return arabic?.games?.sudokuDescription;
         case TranslateKey.GAMES:
             return arabic?.games?.games;
-        case TranslateKey.SECTION_MAIN:
-            return arabic?.sectionTab?.main;
         case TranslateKey.SECTION_COMBO_ONE:
             return arabic?.latestNewsTab?.sectionComboOne?.headerLeft;
         case TranslateKey.SECTION_COMBO_TWO:
@@ -345,10 +317,12 @@ const TranslateConstants = ({
             return arabic?.latestNewsTab?.sectionComboEight?.headerLeft;
         case TranslateKey.EDITOR_CHOICE_HEADER_TITLE:
             return arabic?.latestNewsTab?.editorsChoice?.headerLeft;
+        case TranslateKey.PODCAST_TITLE:
+            return arabic?.latestNewsTab?.podcastTitle?.title;
+        case TranslateKey.NO_SECTION_ARTICLE:
+            return arabic?.sectionArticles?.noArticles;
         case TranslateKey.DRAWER_PDF_ARCHIVE:
             return arabic?.drawer?.pdfArchive;
-        case TranslateKey.OPINION_COMBO_TITLE:
-            return arabic?.latestNewsTab?.sectionWriters?.headerLeft;
         case TranslateKey.OPINION_ARTICLE_TITLE:
             return arabic?.opinion?.opinionArticles;
         case TranslateKey.RICH_HTML_FACTS:
@@ -391,8 +365,6 @@ const TranslateConstants = ({
             return arabic?.weatherDetail?.sunrise;
         case TranslateKey.WEATHER_DETAILS_SUNSET:
             return arabic?.weatherDetail?.sunset;
-        case TranslateKey.WEATHER_DETAILS_SIDEBAR:
-            return arabic?.weatherDetail?.sidebarTitle;
         case TranslateKey.WEATHER_DETAILS_MAX:
             return arabic?.weatherDetail?.max;
         case TranslateKey.WEATHER_DETAILS_HUMIDITY:
@@ -421,8 +393,6 @@ const TranslateConstants = ({
             return arabic?.drawer?.aboutTheMiddleEast;
         case TranslateKey.TERMS_OF_USE:
             return arabic?.drawer?.termsOfUse;
-        case TranslateKey.EDITORS_PICK_HEADER_TITLE:
-            return arabic?.latestNewsTab?.editorsPick?.headerRight;
         case TranslateKey.WEATHER_NO_INFORMATION_TEXT:
             return arabic?.weatherDetail?.noInformation;
         case TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE:
@@ -491,8 +461,6 @@ const TranslateConstants = ({
             return arabic?.searchScreen?.placeholder;
         case TranslateKey.VIDEO_DETAIL_EMPLOYMENT:
             return arabic?.videoDetail?.employement;
-        case TranslateKey.OPINION_ARTICLE_RETURN:
-            return arabic?.opinionArticleDetail?.return;
         case TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT:
             return arabic?.latestNewsTab?.sectionComboOne?.headerRight;
         case TranslateKey.PODCAST_HOME_LISTEN_TO_PODCAST:
@@ -561,8 +529,6 @@ const TranslateConstants = ({
             return arabic?.common?.alert;
         case TranslateKey.COMMON_NO_INTERNET_CONNECTION:
             return arabic?.common?.noInternetConnection;
-        case TranslateKey.COMMON_SOMETHING_WENT_WRONG:
-            return arabic?.common?.somthingWentWrong;
         case TranslateKey.TERMS_AND_CONDITION:
             return arabic?.terms_and_condition;
         case TranslateKey.SIGNIN_SKIP:
@@ -651,16 +617,6 @@ const TranslateConstants = ({
             return arabic?.manageMyNews?.myFavoriteTopics;
         case TranslateKey.MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS:
             return arabic?.manageMyNews?.followMoreTopics;
-        case TranslateKey.NEW_PASSWORD_CREATE_NEW_PASSWORD:
-            return arabic?.profile?.newPassword?.createNewPassword;
-        case TranslateKey.NEW_PASSWORD_DESCRIPTION:
-            return arabic?.profile?.newPassword?.passwordDescription;
-        case TranslateKey.NEW_PASSWORD_WARNING:
-            return arabic?.profile?.newPassword?.passwordWarning;
-        case TranslateKey.NEW_PASSWORD_MATCH_WARNING:
-            return arabic?.profile?.newPassword?.passwordMatchWarning;
-        case TranslateKey.NEW_PASSWORD_SET_NEW_PASSWORD:
-            return arabic?.profile?.newPassword?.setNewPassword;
         case TranslateKey.PHOTO_GALLERY_TITLE:
             return arabic?.photoGallery?.title;
         case TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION:
@@ -683,8 +639,6 @@ const TranslateConstants = ({
             return arabic?.profileSetting?.lightMode;
         case TranslateKey.PROFILE_SETTING_WELCOME:
             return arabic?.profileSetting?.welcome;
-        case TranslateKey.PROFILE_SETTING_CHANGE_ENVIRONMENT:
-            return arabic?.profileSetting?.changeEnvironment;
         case TranslateKey.PROFILE_SETTING_NOT_SUBSCRIBED:
             return arabic?.profileSetting?.notSubscribed;
         case TranslateKey.PROFILE_SETTING_LOGIN_FEATURE:
@@ -695,10 +649,6 @@ const TranslateConstants = ({
             return arabic?.profileSetting?.logoutAlertMessage;
         case TranslateKey.PROFILE_SETTING_ALERT:
             return arabic?.profileSetting?.alert;
-        case TranslateKey.PROFILE_SETTING_DEBUG:
-            return arabic?.profileSetting?.debug;
-        case TranslateKey.PROFILE_SETTING_PRODUCTION:
-            return arabic?.profileSetting?.production;
         case TranslateKey.ON_BOARD_COMMON_SKIP:
             return arabic?.onBoard?.common?.skip;
         case TranslateKey.ON_BOARD_COMMON_RETURN:
@@ -749,42 +699,10 @@ const TranslateConstants = ({
             return arabic?.podcastWidget?.headerLeft;
         case TranslateKey.PODCAST_WIDGET_HEADER_RIGHT:
             return arabic?.podcastWidget?.headerRight;
-        case TranslateKey.ARCHIVES_PODCAST_TITLE:
-            return arabic?.archivesPodcast?.title;
-        case TranslateKey.ARCHIVES_PODCAST_BODY:
-            return arabic?.archivesPodcast?.body;
-        case TranslateKey.ARCHIVES_PODCAST_ALL_EPISODES:
-            return arabic?.archivesPodcast?.allEpisodes;
-        case TranslateKey.SECTION_HEADER_LEFT:
-            return arabic?.mostPlayedSection?.sectionHeader?.headerLeft;
-        case TranslateKey.SECTION_HEAER_RIGHT:
-            return arabic?.mostPlayedSection?.sectionHeader?.headerRight;
-        case TranslateKey.STORY_WIDGET_HEADER_TITLE:
-            return arabic?.storyWidget?.headerTitle;
         case TranslateKey.SHORT_ARTICLE_TITLE:
             return arabic?.articleDetailScreen?.shortArticle?.title;
-        case TranslateKey.RELATED_ARTICLE_HEADER_LEFT:
-            return arabic?.relatedArticles?.headerLeft;
-        case TranslateKey.RELATED_ARTICLE_TITLE:
-            return arabic?.relatedArticles?.title;
-        case TranslateKey.RELATED_ARTICLE_RIGHT_TITLE:
-            return arabic?.relatedArticles?.rightTitle;
-        case TranslateKey.RELATED_ARTICLE_LEFT_TITLE:
-            return arabic?.relatedArticles?.leftTitle;
-        case TranslateKey.RELATED_ARTICLE_FLAG:
-            return arabic?.relatedArticles?.flag;
         case TranslateKey.ARTICLE_DETAIL_WIDGET_UPDATED:
             return arabic?.articleDetailScreen?.articleDetailWidget?.updated;
-        case TranslateKey.LATEST_NEWS_SUMMARY_HEADER_LEFT:
-            return arabic?.podcastScreen?.latestNewsSummarySection?.sectionHeader?.headerLeft;
-        case TranslateKey.LATEST_NEWS_SUMMARY_HEADER_RIGHT:
-            return arabic?.podcastScreen?.latestNewsSummarySection?.sectionHeader?.headerRight;
-        case TranslateKey.CONTENT_FOR_YOU_EMPTY_DATA_LABEL:
-            return arabic?.contentForYou?.emptyDataLabel;
-        case TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_LEFT:
-            return arabic?.podcastOpinionArticle?.sectionHeader?.headerLeft;
-        case TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_RIGHT:
-            return arabic?.podcastOpinionArticle?.sectionHeader?.headerRight;
         case TranslateKey.TABLET_NOT_SUBSCRIBED_POP_UP: 
             return arabic?.tabletPopUp?.notSubscribedTitle;
         case TranslateKey.TABLET_CREATE_ACCOUNT_DESCRIPTION: 
