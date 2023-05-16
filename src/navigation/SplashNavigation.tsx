@@ -16,10 +16,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { fonts } from 'src/shared/styles/fonts'
 import { CustomThemeType, colors } from 'src/shared/styles/colors'
 import VersionCheck from 'react-native-version-check'
-import { openBrowserURL } from 'src/shared/utils/utilities'
+import { APP_STORE_ID, openBrowserURL } from 'src/shared/utils/utilities'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
-
-const STORE_ID = '470905035';
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
@@ -42,9 +40,9 @@ const SplashNavigation = () => {
 
     const { isFirstSession, baseUrlConfig, storeBaseUrlConfigInfo } = useAppCommon()
 
-    const UPDATE_TITLE = TranslateConstants({ key: TranslateKey.UPDATE_TITLE });
-    const UPDATE_DESCRIPTION = TranslateConstants({ key: TranslateKey.UPDATE_DESCRIPTION });
-    const UPDATE_BUTTON_LABEL = TranslateConstants({ key: TranslateKey.UPDATE_BUTTON_LABEL });
+    const APP_UPDATE_TITLE = TranslateConstants({ key: TranslateKey.APP_UPDATE_TITLE });
+    const APP_UPDATE_DESCRIPTION = TranslateConstants({ key: TranslateKey.APP_UPDATE_DESCRIPTION });
+    const APP_UPDATE_BUTTON_LABEL = TranslateConstants({ key: TranslateKey.APP_UPDATE_BUTTON_LABEL });
 
     useEffect(() => {
         getBaseURL();
@@ -104,7 +102,7 @@ const SplashNavigation = () => {
 
     const checkUpdate = async () => {
         try {
-            const appInfo = {appID: STORE_ID}
+            const appInfo = {appID: APP_STORE_ID}
             const storeUrl = await VersionCheck.getStoreUrl(appInfo);
             const currentVersion = VersionCheck.getCurrentVersion();
             const minimumVersion = getMinimumVersion()
@@ -187,17 +185,17 @@ const SplashNavigation = () => {
                     <View style={styles.modalContainer}>
                         <View style={styles.modalView}>
                             <Label
-                                children={UPDATE_TITLE}
+                                children={APP_UPDATE_TITLE}
                                 style={styles.titleStyle}
                             />
                             <Label
-                                children={UPDATE_DESCRIPTION}
+                                children={APP_UPDATE_DESCRIPTION}
                                 style={styles.descriptionStyle}
                             />
                             <TouchableOpacity testID="updatePopupSplash" onPress={onPressUpdate}>
                                 <View style={styles.buttonContainer}>
                                     <Label style={styles.buttonLabelStyle}
-                                        children={UPDATE_BUTTON_LABEL} />
+                                        children={APP_UPDATE_BUTTON_LABEL} />
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -246,25 +244,6 @@ const SplashNavigation = () => {
     }
 
     return renderContent();
-
-    return (
-        <>
-            <PodcastAnalyticsManager />
-           {(Platform.OS === 'android') ?
-            (loading ?
-                <Video
-                    source={require('../assets/video/splashscreen.mp4')}
-                    resizeMode={'cover'}
-                    controls={false}
-                    style={{ width: "100%", height: '100%' }} />
-                : <>
-                    {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
-                </>)
-            : <>
-                {isObjectNonEmpty(baseUrlConfig) && <AppStackContainer />}
-            </>}
-        </>
-    );
 }
 
 export default SplashNavigation

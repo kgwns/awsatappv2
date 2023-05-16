@@ -293,9 +293,9 @@ enum TranslateKey {
   DMA_DELETE_ACCOUNT_ARABIC,
   DMA_DELETE_ACCOUNT_ENGLISH,
   CARICATURE,
-  UPDATE_TITLE,
-  UPDATE_DESCRIPTION,
-  UPDATE_BUTTON_LABEL,
+  APP_UPDATE_TITLE,
+  APP_UPDATE_DESCRIPTION,
+  APP_UPDATE_BUTTON_LABEL,
   default
 }
 
@@ -836,12 +836,12 @@ const TranslateConstants = ({
             return arabic?.deleteMyAccount?.deleteMyAccountEnglish;
         case TranslateKey.CARICATURE:
             return arabic?.drawer?.caricature;
-        case TranslateKey.UPDATE_TITLE:
-            return arabic?.updatePopUp?.title;
-        case TranslateKey.UPDATE_DESCRIPTION:
-            return arabic?.updatePopUp?.description;
-        case TranslateKey.UPDATE_BUTTON_LABEL:
-            return arabic?.updatePopUp?.updateButtonLabel;
+        case TranslateKey.APP_UPDATE_TITLE:
+            return arabic?.appUpdatePopUp?.appUpdateTitle;
+        case TranslateKey.APP_UPDATE_DESCRIPTION:
+            return arabic?.appUpdatePopUp?.appUpdateDescription;
+        case TranslateKey.APP_UPDATE_BUTTON_LABEL:
+            return arabic?.appUpdatePopUp?.appUpdateButtonLabel;
         default: return ''
     }
 }

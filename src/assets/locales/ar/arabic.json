@@ -522,9 +522,9 @@
         "deleteMyAccountArabic": "حذف حسابي",
         "deleteMyAccountEnglish": "Delete my account"
       },
-      "updatePopUp": {
-        "title": "مطلوب التحديث",
-        "description": "لقد أطلقنا إصدارًا جديدًا ومحسّنًا من التطبيق. يرجى التحديث لمواصلة استخدام التطبيق",
-        "updateButtonLabel": "تحديث"
+      "appUpdatePopUp": {
+        "appUpdateTitle": "مطلوب التحديث",
+        "appUpdateDescription": "لقد أطلقنا إصدارًا جديدًا ومحسّنًا من التطبيق. يرجى التحديث لمواصلة استخدام التطبيق",
+        "appUpdateButtonLabel": "تحديث"
       }
 }

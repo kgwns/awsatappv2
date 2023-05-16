@@ -407,3 +407,5 @@ export const openBrowserURL = async (url: string, callback?: () => void) => {
     callback && callback();
   }
 };
+
+export const APP_STORE_ID = '470905035';
