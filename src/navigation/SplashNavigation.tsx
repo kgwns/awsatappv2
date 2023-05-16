@@ -19,6 +19,8 @@ import VersionCheck from 'react-native-version-check'
 import { openBrowserURL } from 'src/shared/utils/utilities'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 
+const STORE_ID = '470905035';
+
 const SplashNavigation = () => {
     const dispatch = useDispatch()
     const subscription = useRef<NativeEventSubscription>(null).current
@@ -102,7 +104,8 @@ const SplashNavigation = () => {
 
     const checkUpdate = async () => {
         try {
-            const storeUrl = await VersionCheck.getStoreUrl();
+            const appInfo = {appID: STORE_ID}
+            const storeUrl = await VersionCheck.getStoreUrl(appInfo);
             const currentVersion = VersionCheck.getCurrentVersion();
             const minimumVersion = getMinimumVersion()
             setStoreURL(storeUrl)
