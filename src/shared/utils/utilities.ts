@@ -1,4 +1,4 @@
-import { Alert, ColorSchemeName, Insets } from "react-native"
+import { Alert, ColorSchemeName, Insets, Linking } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX, CONST_OK } from "src/constants/Constants"
 import { Edge } from "react-native-safe-area-context";
@@ -396,3 +396,16 @@ export const getShareUrl = (shortUrl: string, linkNodeUrl:string): string => {
 export const isTypeAlbum = (type: HomePageArticleType): boolean => {
   return isNotEmpty(type) && type === HomePageArticleType.ALBUM;
 }
+
+export const openBrowserURL = async (url: string, callback?: () => void) => {
+  try {
+    const isSupported = await Linking.canOpenURL(url);
+    if (isSupported) {
+      await Linking.openURL(url);
+    }
+  } catch {
+    callback && callback();
+  }
+};
+
+export const APP_STORE_ID = '470905035';
