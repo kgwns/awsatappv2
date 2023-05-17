@@ -63,7 +63,7 @@ describe('<VideoPlayerFullScreen>',() => {
   it("should click close button and call onClose function to close the video",() => {
     const closeId = instance.getByTestId('renderCloseButtonID');
     fireEvent.press(closeId);
-    expect(instance.container.props.onClose).toHaveBeenCalled();
+    expect(instance.container.props.children.props.onClose).toHaveBeenCalled();
   })
 
   it("Should Display expand icon when the screen is not in full screen and calls toggleFullScreen",() => {
