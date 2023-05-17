@@ -26,9 +26,7 @@ export interface FetchMostReadSuccessPayloadType {
   mostReadData: any;
 }
 export interface FetchMostReadArticlesSuccessPayloadType {
-  articles: any;
-  is_mediabox?: boolean;
-  now?: string;
+  articleId: string;
 }
 
 export interface FetchMostReadFailedPayloadtype {

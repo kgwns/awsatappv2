@@ -9,12 +9,13 @@ import { Label, LabelTypeProp } from 'src/components/atoms';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
+import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 
 export const SectionArticlesScreen = () => {
   const {params} = useRoute<RouteProp<any>>();
   const [page, setPage] = useState(0);
   const styles = useThemeAwareObject(createStyles);
-
+  const NO_ARTICLES = TranslateConstants({key: TranslateKey.NO_SECTION_ARTICLE});
   const { themeData } = useTheme()
   const {
     isLoading,
@@ -61,7 +62,7 @@ export const SectionArticlesScreen = () => {
             }
           </>:
           <View style={styles.container}>
-            <Label children={'لا يوجد مقالات تحت هذه الخانة'} labelType={LabelTypeProp.h1} style={styles.labelStyle} />
+            <Label children={NO_ARTICLES} labelType={LabelTypeProp.h1} style={styles.labelStyle} />
           </View>
       }
     </ScreenContainer>

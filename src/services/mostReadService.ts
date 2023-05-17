@@ -1,8 +1,6 @@
-import { BASE_URL } from 'src/services/apiUrls';
 import { getCacheApiRequest } from 'src/services/api';
 import { MOST_READ_ENDPOINT_NEW } from './apiEndPoints';
 import { FetchMostReadArticlesSuccessPayloadType } from 'src/redux/mostRead/types';
-import moment from "moment";
 import { isNonEmptyArray, isNotEmpty } from 'src/shared/utils';
 import { requestArticleDetail } from './articleDetailService';
 
@@ -12,19 +10,24 @@ export enum PromiseType {
 }
 
 export const fetchMostReadApi = async () => {
-  const today = moment(new Date()).locale('en').format('YYYYMMDD');
+  const config = {
+    headers: {
+      origin: 'https://aawsat.com/',
+      referer: 'https://aawsat.com/',
+    }
+  }
   try {
-    const response: FetchMostReadArticlesSuccessPayloadType = await getCacheApiRequest(
-      `${BASE_URL}${MOST_READ_ENDPOINT_NEW}?${today}`,
+    const response: FetchMostReadArticlesSuccessPayloadType[] = await getCacheApiRequest(
+      `${MOST_READ_ENDPOINT_NEW}?`, config
     );
-    const returnResponse:any = [];
-    if(response.articles && isNonEmptyArray(response.articles.list)){
+    const returnResponse: any = [];
+    if (response && isNonEmptyArray(response)) {
       await Promise.allSettled(
-        response.articles.list.map(async (item: any) => {
-            const nid = item.url.split('/')[2];
-            if(isNotEmpty(nid)){
-              return await requestArticleDetail({nid});
-            }
+        response.map(async (item: any) => {
+          const nid = item.articleId;
+          if (isNotEmpty(nid)) {
+            return await requestArticleDetail({ nid });
+          }
         })
       ).then((data: any) => {
         data.forEach((item: any) => {

@@ -116,6 +116,7 @@ export const MainSectionScreen = React.memo((
   const _sectionComboEightTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_EIGHT})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
   const _archivedArticleTitle = TranslateConstants({key: TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE})
+  const PODCAST_TITLE = TranslateConstants({key: TranslateKey.PODCAST_TITLE});
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
   const playbackState = usePlaybackState();
@@ -629,7 +630,7 @@ export const MainSectionScreen = React.memo((
   }
 
   const goToPodcast = () => {
-    const params = { sectionId: "", title: "بودكاست", keyName: "podcast" }
+    const params = { sectionId: "", title: PODCAST_TITLE, keyName: "podcast" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 

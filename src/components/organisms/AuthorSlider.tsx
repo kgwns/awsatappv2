@@ -139,7 +139,7 @@ const AuthorSlider = ({
   };
 
   const onPressMore = () => {
-    const params = { sectionId: null, title: "الرأي", keyName: "opinion" }
+    const params = { sectionId: null, title: CONST_OPINION_COMBO_TITLE, keyName: "opinion" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 
