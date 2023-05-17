@@ -9,6 +9,7 @@ import { Linking } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import * as permission from 'react-native-permissions';
 import DeviceInfo from 'react-native-device-info';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const mockString = 'example';
 const mockNumber = 1234;
 
@@ -119,7 +120,9 @@ describe('<CustomDrawerContent>', () => {
         (useNavigation as jest.Mock).mockReturnValue(navigation);
         const component = 
             <Provider store={storeSampleData}>
-                <CustomDrawerContent />
+                <GestureHandlerRootView>
+                    <CustomDrawerContent />
+                </GestureHandlerRootView>
             </Provider> 
         instance = render(component)
     })
@@ -264,7 +267,9 @@ describe('<CustomDrawerContent> when the location is not enabled', () => {
         (useNavigation as jest.Mock).mockReturnValue(navigation);
         const component = 
             <Provider store={storeSampleData}>
-                <CustomDrawerContent />
+                <GestureHandlerRootView>
+                    <CustomDrawerContent />
+                </GestureHandlerRootView>
             </Provider> 
         instance = render(component)
     });

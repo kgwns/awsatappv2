@@ -1,6 +1,7 @@
 import React from 'react';
 import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {SectionHeader} from 'src/components/molecules/podcast/SectionHeader';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 describe('<SectionHeader/>', () => {
   let instance: RenderAPI;
@@ -11,7 +12,9 @@ describe('<SectionHeader/>', () => {
 
   beforeEach(() => {
     const component = (
-      <SectionHeader headerLeft={headerLeft} headerRight={headerRight} />
+      <GestureHandlerRootView>
+          <SectionHeader headerLeft={headerLeft} headerRight={headerRight} />
+      </GestureHandlerRootView>
     );
     instance = render(component);
   });

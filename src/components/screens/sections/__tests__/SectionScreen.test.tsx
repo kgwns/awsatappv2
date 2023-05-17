@@ -5,6 +5,7 @@ import { storeSampleData } from '../../../../constants/Constants'
 import { SectionsScreen } from '../SectionsScreen'
 import { useTopMenu } from 'src/hooks';
 import { TabWithBarItem } from 'src/components/molecules/tabWithBarItem/TabWithBarItem';
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -98,9 +99,11 @@ describe('<SectionsScreen>', () => {
         });
         
         const component =
-        <Provider store={storeSampleData}>
-                <SectionsScreen />
-            </Provider>
+          <Provider store={storeSampleData}>
+            <GestureHandlerRootView>
+              <SectionsScreen />
+            </GestureHandlerRootView>
+          </Provider>
         instance = render(component)
     })
     
@@ -128,9 +131,11 @@ describe('<SectionsScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [[{result:true},{result:false}],scrollY]);
 
         const component =
-            <Provider store={storeSampleData}>
-                <SectionsScreen />
-            </Provider>
+          <Provider store={storeSampleData}>
+            <GestureHandlerRootView>
+              <SectionsScreen />
+            </GestureHandlerRootView>
+          </Provider>
         instance = render(component)
     })
 
@@ -169,9 +174,11 @@ describe('<SectionsScreen>', () => {
         });
 
         const component =
-            <Provider store={storeSampleData}>
-                <SectionsScreen />
-            </Provider>
+          <Provider store={storeSampleData}>
+            <GestureHandlerRootView>
+              <SectionsScreen />
+            </GestureHandlerRootView>
+          </Provider>
         instance = render(component)
     })
 

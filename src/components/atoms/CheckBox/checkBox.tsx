@@ -1,6 +1,5 @@
 import React, {useState, FunctionComponent} from 'react';
-import {StyleProp, View, ViewStyle} from 'react-native';
-import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
+import {StyleProp, View, ViewStyle, TouchableWithoutFeedback} from 'react-native';
 import {Image, ImageName} from 'src/components/atoms/image/Image';
 import {Label} from 'src/components/atoms/label/Label'
 import {checkBoxStyle} from './CheckBox.style';

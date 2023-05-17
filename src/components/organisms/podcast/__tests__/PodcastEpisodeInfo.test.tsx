@@ -4,6 +4,7 @@ import { PodcastEpisodeInfo } from '../PodcastEpisodeInfo';
 import { ButtonOutline } from 'src/components/atoms';
 import { Linking } from 'react-native';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const PodcastEpisodeData: any = {
   nid: '12',
   title: 'example',
@@ -49,7 +50,9 @@ describe('<PodcastEpisodeInfo>', () => {
       });
       (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
       const component = (
-        <PodcastEpisodeInfo data={PodcastEpisodeData} onListenPress={mockFunction} />
+        <GestureHandlerRootView>
+          <PodcastEpisodeInfo data={PodcastEpisodeData} onListenPress={mockFunction} />
+        </GestureHandlerRootView>
       );
       instance = render(component);
     });
@@ -100,7 +103,9 @@ describe('<PodcastEpisodeInfo>', () => {
     beforeEach(() => {
       DeviceTypeUtilsMock.isTab = true;
       const component = (
-        <PodcastEpisodeInfo data={PodcastEpisodeData} onListenPress={mockFunction} />
+        <GestureHandlerRootView>
+          <PodcastEpisodeInfo data={PodcastEpisodeData} onListenPress={mockFunction} />
+        </GestureHandlerRootView>
       );
       instance = render(component);
     });

@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { VideoPlayerComponent } from 'src/components/molecules';
 import { useAppPlayer } from 'src/hooks';
 import { fetchVideoDetailInfo } from '../../../../services/VideoServices';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -58,7 +59,11 @@ describe('<VideoPlayerScreen> without nid params', () => {
       setShowMiniPlayer: setShowMiniPlayerMock,
       setPlayerTrack: setPlayerTrackMock,
     });
-    const component = <VideoPlayerScreen route={route} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerScreen route={route} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 
@@ -129,7 +134,11 @@ describe('<VideoPlayerScreen>', () => {
       setShowMiniPlayer: setShowMiniPlayerMock,
       setPlayerTrack: setPlayerTrackMock,
     });
-    const component = <VideoPlayerScreen route={route} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerScreen route={route} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 
@@ -179,7 +188,11 @@ describe('<VideoPlayerScreen> with nid params', () => {
       setShowMiniPlayer: setShowMiniPlayerMock,
       setPlayerTrack: setPlayerTrackMock,
     });
-    const component = <VideoPlayerScreen route={route} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerScreen route={route} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 

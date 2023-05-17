@@ -10,6 +10,7 @@ import { FilterComponent } from 'src/components/molecules'
 import { fetchSubArticleSectionApi } from 'src/services/newsViewService'
 import { NewsViewBodyGet } from 'src/redux/newsView/types'
 import { AxiosError } from 'axios'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
@@ -121,7 +122,9 @@ describe('<SectionStoryScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [[], setChildSection]);
         
         const component = <Provider store={storeSampleData}>
-            <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
+            <GestureHandlerRootView>
+                <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
+            </GestureHandlerRootView>
         </Provider>
         instance = render(component)
     })
@@ -206,7 +209,9 @@ describe('<SectionStoryScreen> with childInfo data props', () => {
         (useState as jest.Mock).mockImplementation(() => [childInfoData, setChildSection]);
         
         const component = <Provider store={storeSampleData}>
-            <SectionStoryScreen sectionId={'1'} childInfo={childInfoData} onUpdateChildSection={mockFunction} />
+            <GestureHandlerRootView>
+                <SectionStoryScreen sectionId={'1'} childInfo={childInfoData} onUpdateChildSection={mockFunction} />
+            </GestureHandlerRootView>
         </Provider>
         instance = render(component)
     })
@@ -257,7 +262,9 @@ describe('should render FilterComponent', () => {
         (useState as jest.Mock).mockImplementation(() => [childInfoData, setChildSection]);
         
         const component = <Provider store={storeSampleData}>
-            <SectionStoryScreen sectionId={'1'} childInfo={childInfoData} onUpdateChildSection={mockFunction} />
+            <GestureHandlerRootView>
+                <SectionStoryScreen sectionId={'1'} childInfo={childInfoData} onUpdateChildSection={mockFunction} />
+            </GestureHandlerRootView>
         </Provider>
         instance = render(component)
     })
@@ -331,7 +338,9 @@ describe('<SectionStoryScreen> should call fetchSubArticleSectionApi', () => {
         (useState as jest.Mock).mockImplementation(() => [[], setChildSection]);
         
         const component = <Provider store={storeSampleData}>
-            <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
+            <GestureHandlerRootView>
+                <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
+            </GestureHandlerRootView>
         </Provider>
         instance = render(component)
     })
@@ -387,7 +396,9 @@ describe('<SectionStoryScreen> should call fetchSubArticleSectionApi', () => {
         (useState as jest.Mock).mockImplementation(() => [[], setChildSection]);
         
         const component = <Provider store={storeSampleData}>
-            <SectionStoryScreen sectionId={'12'} childInfo={[]} onUpdateChildSection={mockFunction} />
+            <GestureHandlerRootView>
+                <SectionStoryScreen sectionId={'12'} childInfo={[]} onUpdateChildSection={mockFunction} />
+            </GestureHandlerRootView>
         </Provider>
         instance = render(component)
     })
@@ -416,7 +427,9 @@ describe("SectionStoryScreen", () => {
     beforeEach(() => {
         (useState as jest.Mock).mockImplementationOnce(() => [[{res:true}],setState]).mockImplementationOnce(() => [false,setState]).mockImplementationOnce(() => [[{child:[]}],setState])
         const component = <Provider store={storeSampleData}>
-            <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
+            <GestureHandlerRootView>
+                <SectionStoryScreen sectionId={'1'} childInfo={[]} onUpdateChildSection={mockFunction} />
+            </GestureHandlerRootView>
         </Provider>
         instance = render(component)
     });

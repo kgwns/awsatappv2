@@ -7,6 +7,7 @@ import { MainSectionBlockType } from "src/redux/latestNews/types";
 import { HomePageArticleType } from "src/redux/latestNews/types";
 import { Image } from "src/components/atoms";
 import * as svgImages from 'src/shared/styles/svgImages'
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 jest.mock('@react-navigation/native', () => ({
     ...jest.requireActual('@react-navigation/native'),
@@ -76,7 +77,9 @@ describe('Check ArticleImageView', () => {
     beforeEach(() => {
         (useNavigation as jest.Mock).mockReturnValue(navigation);
         const component = render(
-            <ArticleImageView {...props} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} />
+            </GestureHandlerRootView>
         );
         instance = component;
     });
@@ -103,14 +106,18 @@ describe('Check ArticleImageView', () => {
 describe('ArticleImageView', () => {
     it('should not display articles, when the data is empty', () => {
         const { queryByTestId } = render(
-            <ArticleImageView data={[] as any} />
+            <GestureHandlerRootView>
+                <ArticleImageView data={[] as any} />
+            </GestureHandlerRootView>
         )
         expect(queryByTestId('flatlistId')).toBeNull();
     })
     it('By default, it should show highlight title', () => {
         DeviceTypeUtilsMock.isTab = false;
         const { queryAllByTestId } = render(
-            <ArticleImageView {...props} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} />
+            </GestureHandlerRootView>
         )
         const highlightTitleId = queryAllByTestId('highlightTitleId')[0];
         expect(highlightTitleId).not.toBeNull();
@@ -119,7 +126,9 @@ describe('ArticleImageView', () => {
     it('it should show highlight title in Tab', () => {
         DeviceTypeUtilsMock.isTab = true;
         const { queryAllByTestId } = render(
-            <ArticleImageView {...props} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} />
+            </GestureHandlerRootView>
         )
         const highlightTitleId = queryAllByTestId('highlightTitleId')[0];
         expect(highlightTitleId).not.toBeNull();
@@ -127,28 +136,36 @@ describe('ArticleImageView', () => {
     })
     it('it should not display highlight title', () => {
         const { queryAllByTestId } = render(
-            <ArticleImageView {...props} showHighlightTitle = {false} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} showHighlightTitle = {false} />
+            </GestureHandlerRootView>
         )
         const highlightTitleId = queryAllByTestId('highlightTitleId')[0];
         expect(highlightTitleId).toBeUndefined();
     })
     it('By Default, Should display article image', () => {
         const { container } = render(
-            <ArticleImageView {...props} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} />
+            </GestureHandlerRootView>
         )
         const articleImage = container.findAllByType(Image)[0];
         expect(articleImage).not.toBeNull();
     })
     it('Should display article image', () => {
         const { container } = render(
-            <ArticleImageView {...props} showImage = {true} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} showImage = {true} />
+            </GestureHandlerRootView>
         )
         const articleImage = container.findAllByType(Image)[0];
         expect(articleImage).not.toBeNull();
     })
     it('Should not display article image', () => {
         const { container } = render(
-            <ArticleImageView {...props} showImage = {false} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} showImage = {false} />
+            </GestureHandlerRootView>
         )
         const articleImage = container.findAllByType(Image)[0];
         expect(articleImage).toBeUndefined();
@@ -157,7 +174,9 @@ describe('ArticleImageView', () => {
         DeviceTypeUtilsMock.isTab = false
         const svg = jest.spyOn(svgImages,'getSvgImages');
         const { container } = render(
-            <ArticleImageView {...props} showImage = {true} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} showImage = {true} />
+            </GestureHandlerRootView>
         )
         const articleImage = container.findAllByType(Image)[0];
         expect(articleImage).not.toBeNull();
@@ -168,7 +187,9 @@ describe('ArticleImageView', () => {
         DeviceTypeUtilsMock.isTab = true
         const svg = jest.spyOn(svgImages,'getSvgImages');
         const { container } = render(
-            <ArticleImageView {...props} showImage = {true} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} showImage = {true} />
+            </GestureHandlerRootView>
         )
         const articleImage = container.findAllByType(Image)[0];
         expect(articleImage).not.toBeNull();
@@ -177,7 +198,9 @@ describe('ArticleImageView', () => {
     })
     it('Should click on article, and it navigates to PHOTO_GALLERY_DETAIL_SCREEN',() => {
         const { getAllByTestId } = render(
-            <ArticleImageView {...props} />
+            <GestureHandlerRootView>
+                <ArticleImageView {...props} />
+            </GestureHandlerRootView>
         );
         (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
         const testId = getAllByTestId('articleImageView')[0];

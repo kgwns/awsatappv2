@@ -1,5 +1,6 @@
 import { render, RenderAPI } from '@testing-library/react-native'
 import React from 'react'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import StoryCircle from 'src/components/molecules/Story/StoryCircle/StoryCircle'
 
 describe('<StoryCircle />', () => {
@@ -8,7 +9,11 @@ describe('<StoryCircle />', () => {
     const mockOnPress = jest.fn()
 
     beforeEach(() => {
-        const component = <StoryCircle storyImageUrl={imageUrl} onPress={mockOnPress} />
+        const component = (
+            <GestureHandlerRootView>
+                <StoryCircle storyImageUrl={imageUrl} onPress={mockOnPress} />
+            </GestureHandlerRootView>
+        )
         instance = render(component)
     })
 

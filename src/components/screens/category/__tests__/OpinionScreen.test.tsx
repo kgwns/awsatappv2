@@ -5,6 +5,7 @@ import { FlatList } from 'react-native';
 import { OpinionWritersArticlesSection, OpinionWritersSection, PopUp } from 'src/components/organisms';
 import {useNavigation} from '@react-navigation/native';
 import { useBookmark, useLogin } from 'src/hooks';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -164,7 +165,7 @@ describe('<OpinionScreen>', () => {
             sendBookmarkInfo: () => [],
             removeBookmarkedInfo: () => [],
         });
-        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        const component = <GestureHandlerRootView><OpinionScreen tabIndex={0} currentIndex={0}/></GestureHandlerRootView>
         instance = render(component)
     })
 
@@ -231,7 +232,7 @@ describe('<OpinionScreen>', () => {
             sendBookmarkInfo: () => [],
             removeBookmarkedInfo: () => [],
         });
-        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        const component = <GestureHandlerRootView><OpinionScreen tabIndex={0} currentIndex={0}/></GestureHandlerRootView>
         instance = render(component)
     })
 
@@ -300,7 +301,7 @@ describe('<OpinionWritersArticlesSection> when the user is not logged in', () =>
             sendBookmarkInfo: () => [],
             removeBookmarkedInfo: () => [],
         });
-        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        const component = <GestureHandlerRootView><OpinionScreen tabIndex={0} currentIndex={0}/></GestureHandlerRootView>
         instance = render(component)
     })
 
@@ -352,7 +353,7 @@ describe('<OpinionWritersArticlesSection> when the user is logged in', () => {
             sendBookmarkInfo: () => [],
             removeBookmarkedInfo: () => [],
         });
-        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        const component = <GestureHandlerRootView><OpinionScreen tabIndex={0} currentIndex={0}/></GestureHandlerRootView>
         instance = render(component)
     })
 

@@ -7,6 +7,7 @@ import { useLogin } from 'src/hooks';
 import { FlatList } from 'react-native';
 import MainSectionShortArticle from '../MainSectionShortArticle';
 import '@testing-library/jest-dom';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
@@ -25,7 +26,11 @@ describe('<ShortArticle>', () => {
     DeviceTypeUtilsMock.isTab = false;
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     useLoginMock.mockReturnValue({ isLoggedIn: true })
-    const component = <MainSectionShortArticle data={shortArticleData} onPress={mockFunction} onUpdateBookmark={mockFunction} showSignUpPopUp={mockFunction} isFooterOutside={true} hideImage={true} showBody={true} />;
+    const component = (
+      <GestureHandlerRootView>
+        <MainSectionShortArticle data={shortArticleData} onPress={mockFunction} onUpdateBookmark={mockFunction} showSignUpPopUp={mockFunction} isFooterOutside={true} hideImage={true} showBody={true} />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 
@@ -70,7 +75,11 @@ describe('<MainSectionShortArticle> renders when the user is in guest mode', () 
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true;
     (useLogin as jest.Mock).mockReturnValueOnce({ isLoggedIn: false })
-    const component = <MainSectionShortArticle data={shortArticleData} onPress={mockFunction} onUpdateBookmark={mockFunction} showSignUpPopUp={mockFunction} isFooterOutside={false} hideImage={false} showBody={true} />;
+    const component = (
+      <GestureHandlerRootView>
+        <MainSectionShortArticle data={shortArticleData} onPress={mockFunction} onUpdateBookmark={mockFunction} showSignUpPopUp={mockFunction} isFooterOutside={false} hideImage={false} showBody={true} />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 
@@ -107,29 +116,36 @@ describe("MainSectionShortArticle, user Logged in",() => {
     })
     it("should render WidgetHeaderElement and display title in screen",() => {
         const instance = render(
-            <MainSectionShortArticle headerLeft={{ title: 'title' }} data={[]} 
+          <GestureHandlerRootView>
+             <MainSectionShortArticle headerLeft={{ title: 'title' }} data={[]} 
                 onPress={mockFunction} onUpdateBookmark={mockFunction} 
                 showSignUpPopUp={mockFunction} 
             />
+          </GestureHandlerRootView>
         );
         waitFor(() => expect(instance.container.props.headerLeft.title).toBeInTheDocument());
     });
 
     it("should not render WidgetHeaderElement in screen",() => {
         const instance = render(
-            <MainSectionShortArticle data={[]} 
-                onPress={mockFunction} onUpdateBookmark={mockFunction} 
-                showSignUpPopUp={mockFunction} 
+          <GestureHandlerRootView>
+            <MainSectionShortArticle data={[]}
+              onPress={mockFunction} onUpdateBookmark={mockFunction}
+              showSignUpPopUp={mockFunction}
             />
+          </GestureHandlerRootView>
+
         );
         expect(instance.queryByTestId('widgetHeaderButton')).toBe(null)
     });
 
     it("should call renderItem and display title in the screen",() => {
         const instance = render(
+          <GestureHandlerRootView>
             <MainSectionShortArticle data = {shortArticleData} onPress={mockFunction} 
                 onUpdateBookmark={mockFunction} showSignUpPopUp={mockFunction} 
             />
+          </GestureHandlerRootView>
         );
         const element = instance.container.findByType(FlatList);
         fireEvent(element,'renderItem',{item: shortArticleData[0],index: 0});
@@ -139,9 +155,11 @@ describe("MainSectionShortArticle, user Logged in",() => {
     it("should call renderItem and display body in the screen",() => {
         DeviceTypeUtilsMock.isTab = true;
         const instance = render(
+          <GestureHandlerRootView>
             <MainSectionShortArticle data = {shortArticleData} onPress={mockFunction} 
                 onUpdateBookmark={mockFunction} showSignUpPopUp={mockFunction} 
             />
+          </GestureHandlerRootView>
         );
         const element = instance.container.findByType(FlatList);
         fireEvent(element,'renderItem',{item: shortArticleData[0],index: 0});
@@ -150,9 +168,11 @@ describe("MainSectionShortArticle, user Logged in",() => {
 
     it("should call renderItem and check image is rendered ",() => {
         const instance = render(
+          <GestureHandlerRootView>
             <MainSectionShortArticle data = {shortArticleData} onPress={mockFunction} 
                 onUpdateBookmark={mockFunction} showSignUpPopUp={mockFunction} hideImage = {true}
             />
+          </GestureHandlerRootView>
         );
         const element = instance.container.findByType(FlatList);
         fireEvent(element,'renderItem',{item: shortArticleData[0],index: 0});
@@ -161,9 +181,11 @@ describe("MainSectionShortArticle, user Logged in",() => {
 
     it("should call renderItem and check image is not rendered ",() => {
         const instance = render(
+          <GestureHandlerRootView>
             <MainSectionShortArticle data = {shortArticleData} onPress={mockFunction} 
                 onUpdateBookmark={mockFunction} showSignUpPopUp={mockFunction} hideImage = {false}
             />
+          </GestureHandlerRootView>
         );
         const element = instance.container.findByType(FlatList);
         fireEvent(element,'renderItem',{item: shortArticleData[0],index: 0});

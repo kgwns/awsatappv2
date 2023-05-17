@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../constants/Constants';
 import {LatestNewsSummarySection} from 'src/components/organisms/LatestNewsSummarySection';
 import {LatestNewsSummarySectionData} from 'src/constants/Constants';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 describe('<LatestNewsSummarySection>', () => {
   let instance: RenderAPI;
@@ -11,7 +12,9 @@ describe('<LatestNewsSummarySection>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <LatestNewsSummarySection data={LatestNewsSummarySectionData} />
+        <GestureHandlerRootView>
+          <LatestNewsSummarySection data={LatestNewsSummarySectionData} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);

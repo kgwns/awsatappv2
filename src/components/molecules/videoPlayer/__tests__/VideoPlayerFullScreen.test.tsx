@@ -5,6 +5,7 @@ import Slider from '@react-native-community/slider';
 import Video from 'react-native-video';
 import { AppState } from 'react-native';
 import { images } from 'src/shared/styles/images';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -37,7 +38,11 @@ describe('<VideoPlayerFullScreen>',() => {
       legacyFakeTimers: true
     });
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
-    const component = <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   });
 
@@ -63,7 +68,11 @@ describe('<VideoPlayerFullScreen>',() => {
 
   it("Should Display expand icon when the screen is not in full screen and calls toggleFullScreen",() => {
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
-    const component = <VideoPlayerFullScreen isFullScreen={false} url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen isFullScreen={false} url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+      </GestureHandlerRootView>
+    )
     instance = render(component)
     DeviceTypeUtilsMock.isTab = false;
     const toggleFullScreenId = instance.getByTestId('toggleFullscreenID01');
@@ -74,7 +83,11 @@ describe('<VideoPlayerFullScreen>',() => {
 
   it("Should Display shrink icon when the screen is in full screen and calls toggleFullScreen",() => {
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
-    const component = <VideoPlayerFullScreen isFullScreen={true} url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen isFullScreen={true} url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+      </GestureHandlerRootView>
+    )
     instance = render(component)
     DeviceTypeUtilsMock.isTab = false;
     const toggleFullScreenId = instance.getByTestId('toggleFullscreenID01');
@@ -107,7 +120,11 @@ describe('<VideoPlayerFullScreen> in tab',() => {
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true;
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
-    const component = <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   });
 
@@ -130,7 +147,11 @@ describe('<VideoPlayerFullScreen>',() => {
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useState as jest.Mock).mockImplementationOnce(() => [true, setState]).mockImplementationOnce(() => [false, setState]).mockImplementationOnce(() => [false, setState]).mockImplementationOnce(() => [false, setState]);
     DeviceTypeUtilsMock.isTab = true;
-    const component = <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+    const component =(
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen url={url} title ={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'}/>
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   });
 
@@ -160,7 +181,11 @@ describe('<VideoPlayerFullScreen>', () => {
       legacyFakeTimers: true
     });
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
-    const component = <VideoPlayerFullScreen url={url} title={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen url={url} title={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+      </GestureHandlerRootView>  
+    )
     instance = render(component)
   })
 
@@ -226,7 +251,11 @@ describe.each([{ analyticsValue: 5, currentTime: 15, seekableDuration: 100 },
       (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
       (useRef as jest.Mock).mockReturnValue({ current: results.analyticsValue });
       (useState as jest.Mock).mockImplementation(() => [false, setState]);
-      const component = <VideoPlayerFullScreen url={'url'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+      const component =(
+        <GestureHandlerRootView>
+          <VideoPlayerFullScreen url={'url'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+        </GestureHandlerRootView>
+      )
       instance = render(component);
     })
     afterEach(() => {
@@ -247,7 +276,11 @@ describe("<VideoPlayerFullScreen>", () => {
   beforeEach(() => {
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useState as jest.Mock).mockImplementation(() => [false,setState]);
-    const component = <VideoPlayerFullScreen url={'url'} title={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen url={'url'} title={'title'} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   })
   afterEach(() => {
@@ -272,7 +305,11 @@ describe('<VideoPlayerFullScreen>', () => {
     });
     (useRef as jest.Mock).mockReturnValueOnce(videoPlayer);
     (useState as jest.Mock).mockImplementationOnce(() => [false, tapActionTimeout]);
-    const component = <VideoPlayerFullScreen title = {'title'} url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen title = {'title'} url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 
@@ -300,7 +337,11 @@ describe('<VideoPlayerFullScreen>', () => {
       legacyFakeTimers: true
     });
     (useState as jest.Mock).mockImplementation(() => [true, isLoading]);
-    const component = <VideoPlayerFullScreen title = {'title'} url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerFullScreen title = {'title'} url={url} isPaused={false} onChangeFullScreen={mockFunction} onClose={mockFunction} testID={'id'} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 
