@@ -1,6 +1,6 @@
 //MostRead
 export const MOST_READ_ENDPOINT = 'api/v2/view/mostread';
-export const MOST_READ_ENDPOINT_NEW = 'sites/default/files/objects/ar/today/0.json';
+export const MOST_READ_ENDPOINT_NEW = 'https://c.aawsat.com/list/Daily/aawsat.com/10/1/web';
 
 //articleSection
 const ARTICLE_SECTION_ENDPOINT = 'api/v2/articlesection';
