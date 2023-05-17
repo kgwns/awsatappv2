@@ -27,11 +27,7 @@ describe('<FollowFavoriteAuthorWidget>', () => {
   beforeEach(() => {
     DeviceTypeUtilsMock.isTab = true
     DeviceTypeUtilsMock.isIOS = true
-    const component = (
-    <GestureHandlerRootView>
-      <FollowFavoriteAuthorWidget writersData={sampleData} changeSelectedStatus={mockFunction} />;
-    </GestureHandlerRootView>
-    )
+    const component = <FollowFavoriteAuthorWidget writersData={sampleData} changeSelectedStatus={mockFunction} />;
     instance = render(component);
   });
 

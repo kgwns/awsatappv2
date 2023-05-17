@@ -343,7 +343,6 @@ describe("test videoPlayerControl renderPlaypauseID onPaused function",() => {
   const mockFunction = jest.fn();
   it("test onPaused function",() => {
     const instance = render(
-      <GestureHandlerRootView>
         <VideoPlayerControl
           url={'url'} paused={false}
           isMiniPlayer={false}
@@ -351,7 +350,6 @@ describe("test videoPlayerControl renderPlaypauseID onPaused function",() => {
           setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
           onChangeFullScreen={mockFunction} setReset={mockFunction}
         />
-      </GestureHandlerRootView>
     )      
     const element = instance.container.findByType(Video);
     fireEvent(element,'onEnd');

@@ -8,6 +8,7 @@ import { NewsLetterItemType } from 'src/redux/newsLetter/types';
 import { NewsLettersWidget } from 'src/components/organisms';
 import { NextButton } from 'src/components/atoms';
 import { Styles } from 'src/shared/styles';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -303,7 +304,9 @@ describe('<NewsLettersScreen> when the user is Signed in', () => {
     signedInMockWithNewsLettersDataInfo();
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLetterScreen route={{ params: { nid: 123, canGoBack: true } }}/>
+        <GestureHandlerRootView>
+          <NewsLetterScreen route={{ params: { nid: 123, canGoBack: true } }}/>
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -341,7 +344,9 @@ describe('<NewsLettersScreen> when the user is in onBoard Flow', () => {
     onBoardMockWithoutNewsLettersDataInfo();
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLetterScreen route={{ params: { nid: 123, canGoBack: false } }} navigation = {navigation} />
+        <GestureHandlerRootView>
+          <NewsLetterScreen route={{ params: { nid: 123, canGoBack: false } }} navigation = {navigation} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -381,7 +386,9 @@ describe('<NewsLettersScreen> when the user is Signed in', () => {
     signedInMockWithoutNewsLettersDataInfo();
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLetterScreen route={{ params: { nid: 123, canGoBack: true } }} navigation = {navigation} />
+        <GestureHandlerRootView>
+          <NewsLetterScreen route={{ params: { nid: 123, canGoBack: true } }} navigation = {navigation} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -410,7 +417,9 @@ describe('<NewsLettersScreen> when the user is Signed in', () => {
     profileSettingContentStyleMock();
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLetterScreen route={{ params: { nid: 123, canGoBack: true } }} navigation = {navigation} />
+        <GestureHandlerRootView>
+          <NewsLetterScreen route={{ params: { nid: 123, canGoBack: true } }} navigation = {navigation} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -436,7 +445,9 @@ describe('<NewsLettersScreen> when the user is in onBoardFlow', () => {
     newsLetterDataSelectedFlow();
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLetterScreen route={{ params: { nid: 123, canGoBack: false } }} navigation = {navigation} />
+        <GestureHandlerRootView>
+          <NewsLetterScreen route={{ params: { nid: 123, canGoBack: false } }} navigation = {navigation} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -477,7 +488,9 @@ describe('<NewsLettersScreen> when the user is in onBoardFlow', () => {
     selectedNewsLetterDataOnboardFlowMock();
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLetterScreen route={{ params: { nid: 123, canGoBack: false } }} navigation = {navigation} />
+        <GestureHandlerRootView>
+          <NewsLetterScreen route={{ params: { nid: 123, canGoBack: false } }} navigation = {navigation} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);

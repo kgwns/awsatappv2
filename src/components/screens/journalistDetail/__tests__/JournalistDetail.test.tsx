@@ -12,6 +12,7 @@ import { WriterBannerImage } from 'src/components/molecules';
 import { useNavigation } from '@react-navigation/native';
 import { Animated, FlatList } from 'react-native';
 import { JournalistSection } from 'src/components/organisms';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const authorTID = '12345'
 const JID = '12345'
@@ -181,7 +182,9 @@ describe('< Journalist Detail Screen', () => {
         const routeProps = { params: { tid: '12345' } };
         const component = (
             <Provider store={storeSampleData}>
-                <JournalistDetail route={routeProps} />
+                <GestureHandlerRootView>
+                    <JournalistDetail route={routeProps} />
+                </GestureHandlerRootView>
             </Provider>
         );
         instance = render(component);

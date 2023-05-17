@@ -14,6 +14,7 @@ import { useLogin } from 'src/hooks'
 import { fetchWriterOpinionsApi } from 'src/services/opinionsService'
 import { AxiosError } from 'axios'
 import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -241,7 +242,9 @@ describe('< Writer Detail >', () => {
         const component =
             <SafeAreaProvider>
                 <Provider store={storeSampleData}>
-                    <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                    <GestureHandlerRootView>
+                        <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                    </GestureHandlerRootView>
                 </Provider>
             </SafeAreaProvider>
         instance = render(component)
@@ -370,7 +373,9 @@ describe('< Writer Detail >', () => {
         const component =
             <SafeAreaProvider>
                 <Provider store={storeSampleData}>
-                    <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                    <GestureHandlerRootView>
+                        <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                    </GestureHandlerRootView>
                 </Provider>
             </SafeAreaProvider>
         instance = render(component)
@@ -452,7 +457,9 @@ describe('< Writer Detail >', () => {
         const component =
             <SafeAreaProvider>
                 <Provider store={storeSampleData}>
-                    <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                    <GestureHandlerRootView>
+                        <WritersDetailScreen route={{params: {tid: '12345'}}}/>
+                    </GestureHandlerRootView>
                 </Provider>
             </SafeAreaProvider>
         instance = render(component)
