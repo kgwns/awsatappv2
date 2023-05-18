@@ -55,7 +55,8 @@ export const JournalistDetail = ({
     const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
         detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
         detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-        detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+        detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.JOURNALIST_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
     const jId = route.params.tid
