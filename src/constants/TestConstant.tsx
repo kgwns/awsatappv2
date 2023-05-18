@@ -8,6 +8,7 @@ export const ScreenTestId = {
   },
   dmaDeleteAccount: {
     typeDeleteLabel: 'type-delete-label',
+    description: 'description-label',
   },
 };
 

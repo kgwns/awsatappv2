@@ -98,7 +98,7 @@ export const DMADeleteAccountScreen = () => {
         });
       }
     } catch (error) {
-      console.log('Error DMADeleteAccountScreen Delete :::, error')
+      console.log('Error DMADeleteAccountScreen Delete :::', error)
     }
   }
 
@@ -152,7 +152,10 @@ export const DMADeleteAccountScreen = () => {
       <View style={style.container}>
         <DeleteMyAccountLabel title={SUB_TITLE} />
         {isNotEmpty(deleteAccountInfo) && <>
-          <Label children={deleteAccountInfo} style={[style.descriptionStyle, style.descriptionSpaceStyle]} />
+          <Label children={deleteAccountInfo}
+            style={[style.descriptionStyle, style.descriptionSpaceStyle]}
+            testID={ScreenTestId.dmaDeleteAccount.description}
+          />
           <KeyboardAwareScrollView
             bounces={false}
             extraHeight={230}
