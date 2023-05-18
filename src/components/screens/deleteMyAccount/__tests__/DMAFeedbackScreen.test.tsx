@@ -52,9 +52,10 @@ describe("<<< DMAFeedbackScreen Mobile version >>>", () => {
     });
 
     it('Should call onChange method when type', () => {
+        const changeText = 'test';
         const element = instance.getByTestId(ScreenTestId.dmaFeedback.commentLabel);
-        fireEvent(element, 'onChangeText', 'test');
-        expect(jest.fn()).toHaveBeenCalled();
+        fireEvent(element, 'onChangeText', changeText);
+        expect(element.props.value).toBe(changeText);
     });
 });
 
@@ -90,7 +91,8 @@ describe("<<< DMAFeedbackScreen Android version >>>", () => {
         jest.clearAllMocks();
     });
 
-    it("should display comment label with size 18 in android", () => {
-        expect(instance).toBeDefined();
+    it("should display comment label with size 18 in tab", () => {
+        const labelElement = instance.getByTestId(ScreenTestId.dmaFeedback.commentLabel);
+        expect(labelElement.props.style.fontSize).toBe(18);
     });
 });
