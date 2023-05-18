@@ -75,12 +75,14 @@ export const PodcastVerticalList = ({
       <View style={style.cardContainer}>
         <View style={[style.headerStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
           <View style={[style.headerLeftStyle, isTitleLineCount > 2 && style.headerTitleStyle]}>
-            <View style={style.imageContainerStyle}> 
+            <View style={isTab ? style.tabImageContainerStyle : style.imageContainerStyle}> 
               <Image fallback resizeMode='cover' url={imageUrl} style={style.imageStyle} />
             </View>
-            <Label testID='PodcastVerticalList01' style={style.title} onTextLayout={onTextLayout}>
-              {title}
-            </Label>
+            <View style = {style.titleContainer}>
+              <Label testID='PodcastVerticalList01' style={style.title} onTextLayout={onTextLayout}>
+                {title}
+              </Label>
+            </View>
           </View>
           {/* Removed Play Icon as per AMAR-1052
           <View style={style.headerRightStyle}>
@@ -144,6 +146,11 @@ const customStyle = (theme: CustomThemeType) => {
       height: normalize(36),
       alignItems: 'center',
     },
+    tabImageContainerStyle: {
+      width: 56,
+      height: 56,
+      alignItems: 'center',
+    },
     imageStyle: {
       width: '100%',
       height: '100%'
@@ -185,6 +192,9 @@ const customStyle = (theme: CustomThemeType) => {
     },
     footerRightLabelStyle: {
       fontSize:12
+    },
+    titleContainer: {
+     flex:1
     }
   });
 };
