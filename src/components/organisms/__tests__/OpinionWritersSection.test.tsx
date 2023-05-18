@@ -6,6 +6,7 @@ import {
   storeSampleData,
 } from '../../../constants/Constants';
 import {OpinionWritersSection} from '..';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
@@ -19,7 +20,9 @@ describe('<OpinionWritersSection>', () => {
     DeviceTypeUtilsMock.isTab = true
     const component = (
       <Provider store={storeSampleData}>
-        <OpinionWritersSection data={opinionWritersData} onPressWriter={ mockFunction } />
+        <GestureHandlerRootView>
+          <OpinionWritersSection data={opinionWritersData} onPressWriter={ mockFunction } />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -48,7 +51,9 @@ describe('<OpinionWritersSection> with isTab as false', () => {
     DeviceTypeUtilsMock.isTab = false
     const component = (
       <Provider store={storeSampleData}>
-        <OpinionWritersSection data={opinionWritersData} onPressWriter={ mockFunction } />
+        <GestureHandlerRootView>
+          <OpinionWritersSection data={opinionWritersData} onPressWriter={ mockFunction } />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);

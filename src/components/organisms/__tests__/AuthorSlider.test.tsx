@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { Divider, WidgetHeader } from 'src/components/atoms';
 import { FlatList, ScrollView } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
@@ -71,7 +72,11 @@ describe('<AuthorSlider>', () => {
     DeviceTypeUtilsMock.isTab = false;
     (useState as jest.Mock).mockImplementation(() => [1, setActiveIndex]);
     (useState as jest.Mock).mockImplementation(() => ['', setSelectedTrack]);
-    const component = <AuthorSlider data={sampleData} widgetHeader={'widgetHeader'} getSelectedTrack={mockFunction} />;
+    const component = (
+      <GestureHandlerRootView>
+        <AuthorSlider data={sampleData} widgetHeader={'widgetHeader'} getSelectedTrack={mockFunction} />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 
@@ -85,7 +90,11 @@ describe('<AuthorSlider>', () => {
   });
 
   it('should render AuthorSlider component', () => {
-    expect(render(<AuthorSlider data={sampleData} />)).toBeDefined();
+    expect(render(
+    <GestureHandlerRootView>
+      <AuthorSlider data={sampleData} />
+    </GestureHandlerRootView>
+    )).toBeDefined();
   });
 
   test('Should call FixedTouchable onPress', () => {
@@ -164,7 +173,11 @@ describe('<AuthorSlider>', () => {
     (useState as jest.Mock).mockImplementation(() => ['', setSelectedTrack]);
     DeviceTypeUtilsMock.isIOS = false;
     DeviceTypeUtilsMock.isTab = true;
-    const component = <AuthorSlider data={sampleData} widgetHeader={'widgetHeader'} />;
+    const component = (
+      <GestureHandlerRootView>
+        <AuthorSlider data={sampleData} widgetHeader={'widgetHeader'} />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 

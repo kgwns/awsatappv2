@@ -2,8 +2,15 @@ import React from 'react'
 import { render, RenderAPI } from '@testing-library/react-native'
 import { Provider } from 'react-redux'
 import { storeSampleData } from '../../../../constants/Constants'
-import { SectionArticlesParentScreen } from '../SectionArticlesParentScreen'
+import { SectionArticlesParentScreen as SAPScreen } from '../SectionArticlesParentScreen'
 import { useRoute } from '@react-navigation/native'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+
+const SectionArticlesParentScreen = () => (
+    <GestureHandlerRootView>
+        <SAPScreen/>
+    </GestureHandlerRootView>
+)
 
 jest.mock('@react-navigation/native', () => ({
     useRoute: jest.fn(),

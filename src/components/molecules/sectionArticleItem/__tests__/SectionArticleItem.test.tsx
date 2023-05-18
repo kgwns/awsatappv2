@@ -6,7 +6,7 @@ import {moleculesTestID, ScreensConstants} from 'src/constants/Constants';
 import { Image, Label, LabelTypeProp } from 'src/components/atoms';
 import { isDarkTheme } from 'src/shared/utils';
 import { Styles } from 'src/shared/styles';
-import { Text } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -45,19 +45,31 @@ describe('<SectionArticleItem/>', () => {
       instance.unmount();
     });
     it('Should render SectionVideoFooter', () => {
-      const component = <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       expect(instance).toBeDefined();
     });
 
     it('Should Press bookMark', () => {
-      const component = <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const element = instance.getByTestId(moleculesTestID.storySaveBtn);
       fireEvent.press(element);
     });
     it('Should go Article Detail Screen when the user clicks article', () => {
-      const component = <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const element = instance.getByTestId('onPressTestID');
       fireEvent.press(element);
@@ -65,7 +77,11 @@ describe('<SectionArticleItem/>', () => {
       expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: '2'});
     });
     it('Should not go to Article Detail Screen when the nid is empty', () => {
-      const component = <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} />;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const element = instance.getByTestId('onPressTestID');
       fireEvent.press(element);
@@ -73,28 +89,44 @@ describe('<SectionArticleItem/>', () => {
     });
     it('Should display image in mobile', () => {
       DeviceTypeUtilsMock.isTab = false;
-      const component = <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const element = instance.container.findByType(Image);
       expect(element.props.url).toBe('imageUrl');
     });
     it('Should display title in h2 type in mobile', () => {
       DeviceTypeUtilsMock.isTab = false;
-      const component = <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const element = instance.container.findAllByType(Label)[0];
       expect(element.props.labelType).toBe(LabelTypeProp.h2);
     });
     it('Should display title in title4 type in tab', () => {
       DeviceTypeUtilsMock.isTab = true;
-      const component = <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const element = instance.container.findAllByType(Label)[0];
       expect(element.props.labelType).toBe(LabelTypeProp.title4);
     });
     it('Should display body in mobile', () => {
       DeviceTypeUtilsMock.isTab = false;
-      const component = <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const bodyId = instance.getByTestId('bodyId');
       expect(bodyId).not.toBeNull();
@@ -102,27 +134,43 @@ describe('<SectionArticleItem/>', () => {
     });
     it('Should not display body in tab', () => {
       DeviceTypeUtilsMock.isTab = true;
-      const component = <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem image = {'imageUrl'} leftTitle={'test'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       expect(instance.queryByTestId('bodyId')).toBeNull();
     });
     it('should display vertical divider', () => {
       DeviceTypeUtilsMock.isTab = true;
-      const component = <SectionArticleItem image = {'imageUrl'} hideFooter = {false} leftTitle={'test'} rightTitle={'rightTitleTest'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem image = {'imageUrl'} hideFooter = {false} leftTitle={'test'} rightTitle={'rightTitleTest'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const element = instance.getByTestId('verticalDividerId');
       expect(element).not.toBeNull();
     });
     it('should display leftTitle and rightTitle', () => {
       DeviceTypeUtilsMock.isTab = false;
-      const component = <SectionArticleItem image = {'imageUrl'} hideFooter = {false} leftIcon={mockFunction} rightTitle={'rightTitleTest'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem image = {'imageUrl'} hideFooter = {false} leftIcon={mockFunction} rightTitle={'rightTitleTest'} isBookmarked={false} onPressBookmark={mockFunction} body={mockString} nid={'2'}/>
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       const element = instance.getAllByTestId('titleID');
       expect(element).not.toBeNull();
     });
     it('should not display footer related things, when the footer is hidden', () => {
       DeviceTypeUtilsMock.isTab = false;
-      const component = <SectionArticleItem image = {'imageUrl'} hideFooter = {true} leftIcon={mockFunction} rightTitle={'rightTitleTest'} isBookmarked={true} onPressBookmark={mockFunction} body={mockString} nid={'2'} hideBookMark={false}/>;
+      const component = (
+        <GestureHandlerRootView>
+          <SectionArticleItem image = {'imageUrl'} hideFooter = {true} leftIcon={mockFunction} rightTitle={'rightTitleTest'} isBookmarked={true} onPressBookmark={mockFunction} body={mockString} nid={'2'} hideBookMark={false}/>;
+        </GestureHandlerRootView>
+      )
       instance = render(component);
       expect(instance.queryByTestId('footerContainerId')).toBeNull();
     });

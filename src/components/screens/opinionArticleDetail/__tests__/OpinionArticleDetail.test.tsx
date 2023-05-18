@@ -14,6 +14,7 @@ import { horizontalEdge } from 'src/shared/utils';
 import { useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail } from 'src/hooks';
 import Orientation from 'react-native-orientation-locker';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -398,7 +399,9 @@ describe('<OpinionArticleDetail>', () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -418,7 +421,9 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     )).toBeDefined();
@@ -598,7 +603,9 @@ describe('<OpinionArticleDetail>', () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -618,7 +625,9 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     )).toBeDefined();
@@ -788,7 +797,9 @@ describe('<OpinionArticleDetail>', () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -808,7 +819,9 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     )).toBeDefined();
@@ -1017,7 +1030,9 @@ describe('<OpinionArticleDetail>', () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1037,7 +1052,9 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     )).toBeDefined();
@@ -1129,7 +1146,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1224,7 +1243,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1319,7 +1340,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1419,7 +1442,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1526,7 +1551,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1638,7 +1665,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1779,7 +1808,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1887,7 +1918,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1998,7 +2031,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -2110,7 +2145,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );

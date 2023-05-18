@@ -2,11 +2,18 @@ import React, {useState}  from 'react';
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import { Provider } from 'react-redux';
 import { storeSampleData } from '../../../../constants/Constants';
-import { ManageMyFavoriteAuthorScreen } from '../ManageMyFavoriteAuthorScreen';
+import { ManageMyFavoriteAuthorScreen as MMFAScreen } from '../ManageMyFavoriteAuthorScreen';
 import { AllWritersItemType } from 'src/redux/allWriters/types';
 import { FollowFavoriteAuthorWidget } from 'src/components/organisms';
 import { NextButton } from 'src/components/atoms';
 import { useAllWriters } from 'src/hooks';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+
+const ManageMyFavoriteAuthorScreen = () => (
+    <GestureHandlerRootView>
+        <MMFAScreen/>
+    </GestureHandlerRootView>
+)
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({

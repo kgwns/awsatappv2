@@ -3,6 +3,7 @@ import React from 'react';
 import { FlatList, ScrollView } from 'react-native';
 import { FollowFavoriteAuthorWidget } from 'src/components/organisms';
 import { FollowFavoriteAuthor } from 'src/components/molecules';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
@@ -81,7 +82,7 @@ describe('<FollowFavoriteAuthorWidget>', () => {
     DeviceTypeUtilsMock.isTab = false;
     DeviceTypeUtilsMock.isIOS = false;
     
-    const component = <FollowFavoriteAuthorWidget />;
+    const component = <GestureHandlerRootView><FollowFavoriteAuthorWidget /></GestureHandlerRootView>;
     instance = render(component);
   });
 

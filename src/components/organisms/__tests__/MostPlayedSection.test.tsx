@@ -4,6 +4,7 @@ import {Provider} from 'react-redux';
 import {storeSampleData} from '../../../constants/Constants';
 import {mostPlayedSectionData} from 'src/constants/Constants';
 import {MostPlayedSection} from '..';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 describe('<MostPlayedSection>', () => {
   let instance: RenderAPI;
@@ -11,7 +12,9 @@ describe('<MostPlayedSection>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <MostPlayedSection data={mostPlayedSectionData} />
+        <GestureHandlerRootView>
+          <MostPlayedSection data={mostPlayedSectionData} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);

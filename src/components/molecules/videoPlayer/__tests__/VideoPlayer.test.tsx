@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import VideoPlayerFullScreen from '../VideoPlayerFullScreen';
 import { ImagesName } from 'src/shared/styles';
 import Orientation from 'react-native-orientation-locker';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -56,7 +57,11 @@ describe('<VideoPlayer>', () => {
     (useState as jest.Mock).mockImplementation(() => [true, setFullScreen]);
     (useState as jest.Mock).mockImplementation(() => [[], setEdge]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-      const component = <VideoPlayerComponent url={url} goBack={mockFunction} testID={'ID'} />
+      const component = (
+        <GestureHandlerRootView>
+          <VideoPlayerComponent title={'title'} url={url} goBack={mockFunction} testID={'ID'} />
+        </GestureHandlerRootView>
+      )
       instance = render(component)
       jest.useFakeTimers({
         legacyFakeTimers: true
@@ -73,7 +78,11 @@ describe('<VideoPlayer>', () => {
     })
 
     it("should render with goBack as empty",() => {
-      const component = <VideoPlayerComponent url={url} goBack={''} testID={'ID'} />
+      const component = (
+        <GestureHandlerRootView>
+          <VideoPlayerComponent title={'title'} url={url} goBack={''} testID={'ID'} />
+        </GestureHandlerRootView>
+      )
       instance = render(component)
       const element = instance.container.findByType(VideoPlayerFullScreen)
       fireEvent(element, 'onClose');
@@ -153,7 +162,11 @@ describe('<VideoPlayer>', () => {
   (useState as jest.Mock).mockImplementation(() => [false, setFullScreen]);
 
   (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    const component = <VideoPlayerComponent url={url} goBack={mockFunction} testID={'ID'} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerComponent title={'title'} url={url} goBack={mockFunction} testID={'ID'} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
     jest.useFakeTimers({
       legacyFakeTimers: true
@@ -194,7 +207,11 @@ describe('<VideoPlayer>', () => {
   (useState as jest.Mock).mockImplementation(() => ['setVideoUrl', setvideoUrl]);
 
   (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    const component = <VideoPlayerComponent url={url} goBack={mockFunction} testID={'ID'} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerComponent title={'title'} url={url} goBack={mockFunction} testID={'ID'} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
     jest.useFakeTimers({
       legacyFakeTimers: true

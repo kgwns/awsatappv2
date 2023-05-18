@@ -6,6 +6,7 @@ import {EditorsPickSection} from 'src/components/organisms/EditorsPickSection';
 import { FlatList, TouchableOpacity } from 'react-native';
 import { HomePageArticleType, MainSectionBlockType } from 'src/redux/latestNews/types';
 import { useNavigation } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -94,7 +95,9 @@ describe('<EditorsPickSection>', () => {
     (useNavigation as jest.Mock).mockReturnValue(navigation);
     const component = (
       <Provider store={storeSampleData}>
-        <EditorsPickSection data={sampleData} headerRight={titleMock}/>
+        <GestureHandlerRootView>
+          <EditorsPickSection data={sampleData} headerRight={titleMock}/>
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -157,7 +160,9 @@ describe('<EditorsPickSection>', () => {
     (useNavigation as jest.Mock).mockReturnValue(navigation);
     const component = (
       <Provider store={storeSampleData}>
-        <EditorsPickSection data={sampleData} />
+        <GestureHandlerRootView>
+          <EditorsPickSection data={sampleData} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -177,7 +182,9 @@ describe('<EditorsPickSection>', () => {
   test('Should not display EditorsPickSection, if the data is empty', () => {
     const { queryByTestId } = render(
       <Provider store={storeSampleData}>
-        <EditorsPickSection data={[]} />
+        <GestureHandlerRootView>
+          <EditorsPickSection data={[]} />
+        </GestureHandlerRootView>
       </Provider>
     );
     expect(queryByTestId('editorContainerId')).toBeNull();
@@ -186,7 +193,9 @@ describe('<EditorsPickSection>', () => {
   test('Should not display title', () => {
     const { queryByTestId } = render(
       <Provider store={storeSampleData}>
-        <EditorsPickSection data={sampleData} />
+        <GestureHandlerRootView>
+          <EditorsPickSection data={sampleData} />
+        </GestureHandlerRootView>
       </Provider>
     );
     expect(queryByTestId('headerRightId')).toBeNull();

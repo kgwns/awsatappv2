@@ -3,6 +3,7 @@ import React, { useState, useRef } from 'react';
 import VideoPlayerControl from '../VideoPlayerControl';
 import Video from 'react-native-video';
 import { AppState } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -103,14 +104,17 @@ describe('<VideoPlayerControl>', () => {
       (useState as jest.Mock).mockImplementation(() => [true, setInitialPlay]);
       (useState as jest.Mock).mockImplementation(() => ['contain', setScreenType]);
 
-      const component =
-        <VideoPlayerControl
-          url={url} isMiniPlayer={true} paused={true}
-          playerVisible={false} isFullScreenPlayer={false}
-          isFullScreen={true} videoRefs={sampleData}
-          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={false}
-          onChangeFullScreen={mockFunction}
-        />;
+      const component = (
+        <GestureHandlerRootView>
+          <VideoPlayerControl
+            url={url} isMiniPlayer={true} paused={true}
+            playerVisible={false} isFullScreenPlayer={false}
+            isFullScreen={true} videoRefs={sampleData}
+            setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={false}
+            onChangeFullScreen={mockFunction}
+          />
+        </GestureHandlerRootView>
+      )
       instance = render(component);
     });
 
@@ -177,14 +181,17 @@ describe('<VideoPlayerControl>', () => {
       (useState as jest.Mock).mockImplementation(() => [true, setInitialPlay]);
       (useState as jest.Mock).mockImplementation(() => ['contain', setScreenType]);
 
-      const component =
-        <VideoPlayerControl
+      const component = (
+        <GestureHandlerRootView>
+          <VideoPlayerControl
           url={url} isMiniPlayer={false} paused={false}
           playerVisible={false} isFullScreenPlayer={true}
           isFullScreen={true} videoRefs={sampleData} showReplay={true}
           setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction}
           onChangeFullScreen={mockFunction}
-        />;
+        />
+        </GestureHandlerRootView>
+      )
       instance = render(component);
     });
 
@@ -212,13 +219,16 @@ describe('<VideoPlayerControl>', () => {
       (useState as jest.Mock).mockImplementation(() => ['contain', setScreenType]);
       (useState as jest.Mock).mockImplementation(() => [false, mockFunction]);
 
-      const component =
-        <VideoPlayerControl
-          url={url} paused={false}
-          playerVisible={false} videoRefs={sampleData}
-          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
-          onChangeFullScreen={mockFunction}
-        />;
+      const component = (
+        <GestureHandlerRootView>
+          <VideoPlayerControl
+            url={url} paused={false}
+            playerVisible={false} videoRefs={sampleData}
+            setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+            onChangeFullScreen={mockFunction}
+          />
+        </GestureHandlerRootView>
+      )
       instance = render(component);
     });
 
@@ -255,14 +265,16 @@ describe("test videoPlayerControl",() => {
   })
   it("test if the setShowControl state false",() => {
     const instance = render(
-      <VideoPlayerControl
-      url={'url'} paused={false}
-      isMiniPlayer = {false}
-      playerVisible={true} videoRefs={sampleData}
-      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
-      onChangeFullScreen={mockFunction}
-    />
-    );
+      <GestureHandlerRootView>
+        <VideoPlayerControl
+          url={'url'} paused={false}
+          isMiniPlayer={false}
+          playerVisible={true} videoRefs={sampleData}
+          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+          onChangeFullScreen={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )
     expect(instance).toBeDefined();
     expect(setShowControl).toHaveBeenCalled();
     expect(setShowControl).toHaveBeenCalledWith(false);
@@ -280,14 +292,16 @@ describe("test videoPlayerControl onProgress",() => {
   })
   it("test the Video onProgress function when the loading state is false",() => {
     const instance = render(
-      <VideoPlayerControl
-      url={'url'} paused={false}
-      isMiniPlayer = {false}
-      playerVisible={true} videoRefs={sampleData}
-      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
-      onChangeFullScreen={mockFunction}
-    />
-    );
+      <GestureHandlerRootView>
+        <VideoPlayerControl
+          url={'url'} paused={false}
+          isMiniPlayer={false}
+          playerVisible={true} videoRefs={sampleData}
+          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+          onChangeFullScreen={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )
     const element = instance.container.findByType(Video);
     fireEvent(element,'onProgress',{currentTime:'15:30'});
     expect(setState).toHaveBeenCalled();
@@ -309,14 +323,16 @@ describe("test videoPlayerControl onLoad",() => {
   })
   it("test the Video onLoad function",() => {
     const instance = render(
-      <VideoPlayerControl
-      url={'url'} paused={false}
-      isMiniPlayer = {false}
-      playerVisible={true} videoRefs={sampleData}
-      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
-      onChangeFullScreen={mockFunction}
-    />
-    );
+      <GestureHandlerRootView>
+        <VideoPlayerControl
+          url={'url'} paused={false}
+          isMiniPlayer={false}
+          playerVisible={true} videoRefs={sampleData}
+          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+          onChangeFullScreen={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )      
     const element = instance.container.findByType(Video);
     fireEvent(element,'onLoad',{duration:10});
     expect(setState).toHaveBeenCalled();
@@ -327,14 +343,14 @@ describe("test videoPlayerControl renderPlaypauseID onPaused function",() => {
   const mockFunction = jest.fn();
   it("test onPaused function",() => {
     const instance = render(
-      <VideoPlayerControl
-      url={'url'} paused={false}
-      isMiniPlayer = {false}
-      playerVisible={true} videoRefs={sampleData}
-      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
-      onChangeFullScreen={mockFunction} setReset = {mockFunction}
-    />
-    );
+        <VideoPlayerControl
+          url={'url'} paused={false}
+          isMiniPlayer={false}
+          playerVisible={true} videoRefs={sampleData}
+          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+          onChangeFullScreen={mockFunction} setReset={mockFunction}
+        />
+    )      
     const element = instance.container.findByType(Video);
     fireEvent(element,'onEnd');
     expect(instance.container.props.setReset).toHaveBeenCalled();
@@ -349,14 +365,16 @@ describe("test videoPlayerControl renderPlaypauseID onPaused function",() => {
     (useState as jest.Mock).mockImplementation(() => [false, setPaused]);
     (useRef as jest.Mock).mockImplementation(() => ({current:{seek: jest.fn()}}));
     render(
-      <VideoPlayerControl
-      url={'url'} paused={false}
-      isMiniPlayer = {false}
-      playerVisible={true} videoRefs={sampleData}
-      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
-      onChangeFullScreen={mockFunction} setReset = {mockFunction}
-    />
-    );
+      <GestureHandlerRootView>
+        <VideoPlayerControl
+          url={'url'} paused={false}
+          isMiniPlayer={false}
+          playerVisible={true} videoRefs={sampleData}
+          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+          onChangeFullScreen={mockFunction} setReset={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )
     const spyon = jest.spyOn(global,'setTimeout');
     expect(spyon).toHaveBeenCalled();
     jest.runAllTimers();
@@ -372,14 +390,16 @@ describe("VideoPlayerControl",() => {
   beforeEach(() => {
     (useState as jest.Mock).mockImplementation(() => [false, setState]);
     instance = render(
-      <VideoPlayerControl
-      url={'url'} paused={false}
-      isMiniPlayer = {false}
-      playerVisible={true} videoRefs={sampleData}
-      setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
-      onChangeFullScreen={mockFunction} setReset = {mockFunction}
-    />
-    );
+      <GestureHandlerRootView>
+        <VideoPlayerControl
+          url={'url'} paused={false}
+          isMiniPlayer={false}
+          playerVisible={true} videoRefs={sampleData}
+          setMiniPlayerVisible={mockFunction} setPlayerDetails={mockFunction} showReplay={true}
+          onChangeFullScreen={mockFunction} setReset={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )
   });
   afterEach(() => {
     jest.clearAllMocks();

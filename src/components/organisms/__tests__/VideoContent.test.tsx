@@ -6,6 +6,7 @@ import { VideoContent } from '..';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { ImageWithIcon, Label } from 'src/components/atoms';
 import Share from 'react-native-share';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
   ...jest.requireActual('src/shared/utils/dimensions'),
@@ -63,7 +64,9 @@ describe('<VideoContent>', () => {
     (useState as jest.Mock).mockImplementation(() => [false,setState])
     const component = (
       <Provider store={storeSampleData}>
-        <VideoContent data={sampleData} isVideoList = {false} onPress={onPressMock} isTabDesign={true} />
+        <GestureHandlerRootView>
+          <VideoContent data={sampleData} isVideoList = {false} onPress={onPressMock} isTabDesign={true} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -145,7 +148,9 @@ describe('<VideoContent>', () => {
     (useState as jest.Mock).mockImplementation(() => [false,setState])
     const component = (
       <Provider store={storeSampleData}>
-        <VideoContent data={sampleData} onPress={onPressMock} isTabDesign={true} />
+        <GestureHandlerRootView>
+          <VideoContent data={sampleData} onPress={onPressMock} isTabDesign={true} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -189,7 +194,9 @@ describe('<VideoContent>', () => {
     (useState as jest.Mock).mockImplementation(() => [true,setIsTwoLine]);
     const component = (
       <Provider store={storeSampleData}>
-        <VideoContent data={sampleData} onPress={onPressMock} isVideoList = {true} />
+        <GestureHandlerRootView>
+          <VideoContent data={sampleData} onPress={onPressMock} isVideoList = {true} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -257,7 +264,9 @@ describe('<VideoContent>', () => {
     (useState as jest.Mock).mockImplementation(() => [false,setState]);
     const component = (
       <Provider store={storeSampleData}>
-        <VideoContent data={sampleData} onPress={mockFunction} isVideoList = {false}/>
+        <GestureHandlerRootView>
+          <VideoContent data={sampleData} onPress={mockFunction} isVideoList = {false}/>
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -303,7 +312,9 @@ describe('<VideoContent>', () => {
     (useState as jest.Mock).mockImplementation(() => [false,setState]);
     const component = (
       <Provider store={storeSampleData}>
-        <VideoContent data={sampleData} isVideoList = {false}/>
+        <GestureHandlerRootView>
+          <VideoContent data={sampleData} isVideoList = {false}/>
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
