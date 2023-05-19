@@ -269,6 +269,10 @@ enum TranslateKey {
   APP_UPDATE_TITLE,
   APP_UPDATE_DESCRIPTION,
   APP_UPDATE_BUTTON_LABEL,
+  LOGIN_WITH_HUAWEI,
+  HUAWEI_DEVICE,
+  HUAWEI_PROVIDER,
+  HUAWEI_EXTENSION,
   default
 }
 
@@ -759,6 +763,14 @@ const TranslateConstants = ({
             return arabic?.appUpdatePopUp?.appUpdateDescription;
         case TranslateKey.APP_UPDATE_BUTTON_LABEL:
             return arabic?.appUpdatePopUp?.appUpdateButtonLabel;
+        case TranslateKey.HUAWEI_DEVICE:
+            return arabic?.huawei?.huaweiDevice;
+        case TranslateKey.HUAWEI_PROVIDER:
+            return arabic?.huawei?.huaweiProvider;
+        case TranslateKey.HUAWEI_EXTENSION:
+            return arabic?.huawei?.huaweiMailExtension;
+        case TranslateKey.LOGIN_WITH_HUAWEI:
+            return arabic?.signIn?.loginWithHuawei;
         default: return ''
     }
 }
