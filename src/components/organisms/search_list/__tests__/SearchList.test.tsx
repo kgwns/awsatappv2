@@ -134,7 +134,7 @@ describe('<SearchList>', () => {
 ]
   describe('when SearchList is displayed when SearchText length grater than 0', () => {
     beforeEach(() => {
-      (useState as jest.Mock).mockImplementation(() => ['sea', setSearchText]);
+      (useState as jest.Mock).mockImplementation(() => ['se', setSearchText]);
       instance = render(<SearchList isLoading={false} data={mockData} onItemActionPress={mockFunction} onTextChange={'' as any} searchHistory={['abc', 'bcd']} onPressHistory={mockFunction} />);
     });
 
