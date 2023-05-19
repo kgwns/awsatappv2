@@ -64,7 +64,7 @@ export const ProfileSettings = () => {
   const PROFILE_SETTING_DEBUG =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_DEBUG});
   const PROFILE_SETTING_PRODUCTION =  TranslateConstants({key:TranslateKey.PROFILE_SETTING_PRODUCTION});
   const CONST_DELETE_MY_ACCOUNT = TranslateConstants({key:TranslateKey.PROFILE_SETTING_DELETE_MY_ACCOUNT});
-
+  const CONST_HUAWEI_MAIL_EXTENSION = TranslateConstants({ key: TranslateKey.HUAWEI_EXTENSION });
 
   const signOutAlertPayload : AlertPayloadType = {
     title : PROFILE_SETTING_ALERT,
@@ -234,6 +234,15 @@ export const ProfileSettings = () => {
   const _email = isObjectNonEmpty(userProfileData) && isObjectNonEmpty(userProfileData.user) && isNotEmpty(userProfileData.user?.email) ? userProfileData.user?.email : ''
   const email = _email !== undefined ? _email : '';
   const usernameStyle = isNotEmpty(email) && email.length > 24 && {width: '100%'}  
+    
+    const renderEmail = (email: string | undefined): string => {
+        let emailText = '';
+        if (isNotEmpty(email) && !email?.includes(CONST_HUAWEI_MAIL_EXTENSION)) {
+            emailText = email as string;
+        }
+        return emailText;
+    }
+
   const welcomeView = () => (
       <View style={style.title}>
           <Label
@@ -244,7 +253,7 @@ export const ProfileSettings = () => {
           { isLoggedIn && <Label
               children={isNotEmpty(userProfileData.user?.display_name) ? userProfileData.user?.display_name : (isNotEmpty(userProfileData.user?.first_name)
                   ? isNotEmpty(userProfileData.user?.last_name) ? `${userProfileData.user?.first_name} ${userProfileData.user?.last_name}` : userProfileData.user?.first_name
-                  :userProfileData.user?.email)}
+                  : renderEmail(userProfileData.user?.email))}
               style={[style.userName, usernameStyle ]}
               labelType={LabelTypeProp.h1}
           />}

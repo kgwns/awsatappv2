@@ -144,7 +144,8 @@
         "return": "الرجوع",
         "credentialsAreIncorrect": "معلومات الدخول غير صحيحة",
         "verifyMailAndPasswordAndTryAgain": "تحقق من البريد الإلكتروني وكلمة المرور وحاول مجدداً",
-        "signInInfo": "سجل الدخول لتحظ بآخر الأخبار​"
+        "signInInfo": "سجل الدخول لتحظ بآخر الأخبار​",
+        "loginWithHuawei": "الدخول بحساب هواوي"
     },
     "terms_and_condition": "الشروط والأحكام",
     "return": "الرجوع",
@@ -347,6 +348,11 @@
           "title": "يوميات الشرق​"
         }
     ],
+    "huawei": {
+        "huaweiDevice": "huawei",
+        "huaweiMailExtension": "@huawei",
+        "huaweiProvider": "huaweiProvider"
+    },
     "deleteMyAccount": {
         "introductionTitle": "يؤسفنا أن تتركنا!",
         "listTitle": "لماذا تريد حذف حسابك؟",
