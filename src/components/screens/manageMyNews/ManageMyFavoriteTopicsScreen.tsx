@@ -48,8 +48,8 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   }, [allSiteCategoriesData]);
 
   const getSelectedOrNot = (tid: any) => {
-    for (let i = 0; i < selectedTopicsData.data.length; i++) {
-      if (tid == selectedTopicsData.data[i].tid) {
+    for(const item of selectedTopicsData.data) {
+      if (tid == item.tid) {
         return true
       }
     }

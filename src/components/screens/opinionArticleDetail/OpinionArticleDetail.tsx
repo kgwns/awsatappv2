@@ -10,7 +10,7 @@ import {
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useAppPlayer, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
+import Orientation from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -137,7 +137,7 @@ export const OpinionArticleDetail = ({
     }
   }, [relatedOpinionListData])
 
-  const updateScreenEdge = (deviceOrientation: OrientationType) => {
+  /* const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const screenEdge = getScreenEdge(deviceOrientation)
     setEdge(screenEdge)
   }
@@ -149,7 +149,7 @@ export const OpinionArticleDetail = ({
       case 'PORTRAIT': return horizontalEdge
       default: return horizontalEdge
     }
-  }
+  } */
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData)) {

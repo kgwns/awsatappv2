@@ -56,8 +56,8 @@ export const ManageMyFavoriteAuthorScreen = () => {
   }, [allWritersData]);
 
   const getSelectedOrNot = (tid: any) => {
-    for (let i = 0; i < selectedAuthorsData.data.length; i++) {
-      if (tid == selectedAuthorsData.data[i].tid) {
+    for(const item of selectedAuthorsData.data) {
+      if (tid == item.tid) {
         return true
       }
     }

@@ -1,5 +1,5 @@
 import i18next from "i18next";
-import { emailValidation, emptyPasswordValidation, loginPasswordValidation, oldPasswordValidation, reTypePasswordValidation } from "..";
+import { emailValidation, emptyPasswordValidation, loginPasswordValidation, reTypePasswordValidation } from "..";
 
 
 describe('Validators', () => {
@@ -59,13 +59,4 @@ describe('Validators', () => {
     test('reType password validation with password length less than 5', () => {
         expect(reTypePasswordValidation('#Aw', '#Awsat01')).toBe(i18next.t('validation.minLengthPassword'));
     });
-
-    test('old password validation with empty password', () => {
-        expect(oldPasswordValidation('')).toBe(i18next.t('validation.passwordEmpty'));
-    });
-
-    test('old password validation with password', () => {
-        expect(oldPasswordValidation('#Awsat01')).toBe('');
-    });
-
 })

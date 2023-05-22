@@ -39,7 +39,7 @@ import DatePicker from 'react-native-date-picker';
 import {TabBarComponent, TabBarDataProps} from 'src/components/molecules';
 import {
   loginPasswordValidation,
-  oldPasswordValidation,
+  emptyPasswordValidation,
   reTypePasswordValidation,
 } from 'src/shared/validators';
 import {useUserProfileData} from 'src/hooks/useUserProfileData';
@@ -543,7 +543,7 @@ export const UserDetailScreen: FunctionComponent = () => {
 
   const onChangePasswordUpdate = () => {
     Keyboard.dismiss();
-    setOldPasswordError(oldPasswordValidation(oldPassword));
+    setOldPasswordError(emptyPasswordValidation(oldPassword));
     setNewPasswordError(loginPasswordValidation(newPassword));
     setConfirmNewPasswordError(
       reTypePasswordValidation(newPassword, confirmNewPassword),

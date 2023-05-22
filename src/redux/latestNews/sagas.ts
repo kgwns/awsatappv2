@@ -104,7 +104,7 @@ const formatMainSectionBlockData = (response: any) => {
     if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
+        ({ title, body, nid, field_image, field_news_categories,field_new_resource,
         type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed, field_album_image }: any) => ({
           body,
           title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
@@ -130,8 +130,8 @@ const parseCoverageDataSuccess = (response: any) => {
     coverageInfo: []
   }
   const allCoverageInfo = formattedData.filter((item) => item.blockName === MainSectionBlockName.COVERAGE)
-  const sortedCoverageInfo = allCoverageInfo.sort((a, b) => parseInt(a.position) - parseInt(b.position))
-  const coverageInfo = sortedCoverageInfo.splice(0, 4)
+  allCoverageInfo.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const coverageInfo = allCoverageInfo.splice(0, 4)
 
   responseData.coverageInfo = coverageInfo
 
@@ -165,8 +165,8 @@ const parseFeaturedArticleSuccess = (response: any) => {
   }
    
   const allFeaturedArticleData = formattedData.filter((item) => item.blockName === MainSectionBlockName.FEATURED_ARTICLE)
-  const sortedFeaturedArticleData = allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
-  const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 15)
+  allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const featuredArticleDataInfo = allFeaturedArticleData.splice(0, 15)
 
   responseData.featureArticle = featuredArticleDataInfo
 
@@ -180,8 +180,8 @@ const parseHorizontalArticleSuccess = (response: any) => {
   }
    
   const allHorizontalArticleData = formattedData.filter((item) => item.blockName === MainSectionBlockName.HORIZONTAL_ARTICLE)
-  const sortedHorizontalArticleData = allHorizontalArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
-  const horizontalArticleData = sortedHorizontalArticleData.splice(0, 5)
+  allHorizontalArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const horizontalArticleData = allHorizontalArticleData.splice(0, 5)
 
   responseData.horizontalArticle = horizontalArticleData
 
@@ -359,6 +359,15 @@ const parseTickerHeroDataSuccess = (response: any): TickerHeroSuccessPayload => 
   return responseData
 }
 
+const parseBodyAsEmpty = (data: LatestArticleDataType[]): LatestArticleDataType[] => {
+  return data.map((item) => {
+    return {
+      ...item,
+      body: ''
+    }
+  })
+};
+
 const parseSectionComboOne = (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
   const responseData: RequestSectionComboOneSuccessPayload = {
@@ -374,13 +383,7 @@ const parseSectionComboTwo = (response: payloadType) => {
     sectionComboTwo: []
   }
 
-  const data = formattedData.map((item) => {
-    return {
-      ...item,
-      body: ''
-    }
-  })
-  console.log('sectionComboTwo response data', responseData)
+  const data = parseBodyAsEmpty(formattedData);
   responseData.sectionComboTwo = data.splice(0, 6)
   return responseData
 }
@@ -391,12 +394,7 @@ const parseSectionComboThree = (response: payloadType) => {
     sectionComboThree: []
   }
 
-  const data = formattedData.map((item) => {
-    return {
-      ...item,
-      body: ''
-    }
-  })
+  const data = parseBodyAsEmpty(formattedData);
   responseData.sectionComboThree = data.splice(0, 6)
   return responseData
 }
@@ -407,12 +405,7 @@ const parseSectionComboFour = (response: payloadType) => {
     sectionComboFour: []
   }
 
-  const data = formattedData.map((item) => {
-    return {
-      ...item,
-      body: ''
-    }
-  })
+  const data = parseBodyAsEmpty(formattedData);
   responseData.sectionComboFour = data.splice(0, 6)
   return responseData
 }
@@ -477,8 +470,8 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
     editorsChoice: []
   }
   const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname === MainSectionBlockName.EDITORS_CHOICE)
-  const sortedEditorsChoiceInfo = allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
-  const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 6)
+  allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
+  const editorsChoiceInfo = allEditorsChoiceInfo.splice(0, 6)
 
   responseData.editorsChoice = editorsChoiceInfo;
   return responseData;

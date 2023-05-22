@@ -9,7 +9,7 @@ import { articleEventParameter, articleEvents, decodeHTMLTags, horizontalEdge, i
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
 import { ArticleDetailDataType, ArticleReadAlsoType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
-import Orientation, { OrientationType } from 'react-native-orientation-locker'
+import Orientation from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useAppPlayer, useBookmark, useLogin } from 'src/hooks'
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native'

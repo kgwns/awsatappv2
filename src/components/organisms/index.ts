@@ -33,7 +33,6 @@ export {default as EditorsPickSection} from 'src/components/organisms/EditorsPic
 export {default as SectionComboOne} from 'src/components/organisms/SectionComboOne';
 export { PodcastForYou, PodcastForYouListType } from 'src/components/organisms/podcastForYou/PodcastForYou'
 export { Archives } from 'src/components/organisms/archives/Archives'
-export { ContentForYou } from 'src/components/organisms/contentForYou/ContentForYou'
 export { NewsLettersWidget } from 'src/components/organisms/NewsLetterWidget'
 export { OpinionArticleDetailWidget } from 'src/components/organisms/OpinionArticleDetailWidget';
 export { RelatedOpinionArticlesWidget } from 'src/components/organisms/RelatedOpinionArticleWidget';
