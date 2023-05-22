@@ -500,7 +500,7 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
             title: isNotEmpty(title) ? decode(title) : '',
             body: body,
             image: getArticleImage(field_image, field_new_photo),
-            view_node: view_node,
+            view_node,
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             created: changed,
             author: author_resource,

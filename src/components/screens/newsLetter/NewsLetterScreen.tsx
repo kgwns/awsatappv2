@@ -94,8 +94,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const updateNewsLettersData = () => {
     const data = []
     if (selectedNewsLettersData.code && selectedNewsLettersData.code === 200 && isNonEmptyArray(selectedNewsLettersData.data)) {
-      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        const item = selectedNewsLettersData.data[i]
+      for(const item of selectedNewsLettersData.data) {
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -125,8 +124,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const formatNewsLettersData = () => {
     const data = []
     if(selectedNewsLettersData.code && selectedNewsLettersData.code===200 && isNonEmptyArray(selectedNewsLettersData.data)){
-      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        const item = selectedNewsLettersData.data[i]
+      for(const item of selectedNewsLettersData.data) {
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -176,9 +174,9 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   }
 
   const changeSelectedStatus = (item: any,) => {
-    for (let i = 0; i < newsLettersDataInfo.length; i++) {
-      if (item.tid === newsLettersDataInfo[i].tid) {
-        newsLettersDataInfo[i].isSelected = !newsLettersDataInfo[i].isSelected;
+    for(const newLetterItem of newsLettersDataInfo) {
+      if (item.tid === newLetterItem.tid) {
+        newLetterItem.isSelected = !newLetterItem.isSelected;
       }
     }
     if(canGoBack){

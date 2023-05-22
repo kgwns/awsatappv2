@@ -85,8 +85,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const formatNotificationData = () => {
     const data = []
     if (allNotificationList.code && allNotificationList.code === 200 && isNonEmptyArray(allNotificationList.data)) {
-      for (let i = 0; i < allNotificationList.data.length; i++) {
-        const item = allNotificationList.data[i]
+      for(const item of allNotificationList.data) {
         data.push({
           id: item.id,
           name: item.name,
@@ -117,8 +116,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   const getSelectedOrNot = (id: any) => {
-    for (let i = 0; i < selectedNotificationInfo.data.length; i++) {
-      if (id == selectedNotificationInfo.data[i].nid) {
+    for(const item of selectedNotificationInfo.data) {
+      if (id == item.nid) {
         return true
       }
     }
@@ -142,9 +141,9 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   const changeSelectedStatus = (item: any) => {
-    for (let i = 0; i < notificationDate.length; i++) {
-      if (item.id == notificationDate[i].id) {
-        notificationDate[i].selected = !notificationDate[i].selected;
+    for(const notificationItem of notificationDate) {
+      if (item.id == notificationItem.id) {
+        notificationItem.selected = !notificationItem.selected;
       }
     }
     if (canGoBack) {

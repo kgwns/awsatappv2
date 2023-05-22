@@ -192,7 +192,7 @@ export const UserDetailScreen: FunctionComponent = () => {
     if(userProfileData.user?.image == null){
       userProfileData.user?.profile_url &&
         setUserProfileImage(
-          getProfileImageUrl(userProfileData.user?.profile_url as string),
+          getProfileImageUrl(userProfileData.user?.profile_url),
         );
     }
   }, [userProfileData]);

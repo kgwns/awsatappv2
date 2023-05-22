@@ -330,10 +330,10 @@ export const ManageMyNewsScreen = () => {
     }
     if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
       const selectedTopics = []
-      for (let i = 0; i < selectedTopicsData.data.length; i++) {
-        for (let j = 0; j < allSiteCategoriesData.length; j++) {
-          if (selectedTopicsData.data[i].tid == allSiteCategoriesData[j].tid) {
-            selectedTopics?.push(allSiteCategoriesData[j]);
+      for(const selectedTopicsItem of selectedTopicsData.data) {
+        for(const allSiteCategoriesItem of allSiteCategoriesData) {
+          if (selectedTopicsItem.tid == allSiteCategoriesItem.tid) {
+            selectedTopics?.push(allSiteCategoriesItem);
           }
         }
       }

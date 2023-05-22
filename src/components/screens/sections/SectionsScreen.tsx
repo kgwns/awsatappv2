@@ -46,7 +46,6 @@ export const SectionsScreen = () => {
   const [index, setIndex] = React.useState(0);
   const [routes, setNewRoutes] = useState<any>([]);
   const [scrollY, setScrollY] = useState<any>([]);
-  const [hidePlayerVisibility, setHidePlayerVisibility] = useState<any>(false);
 
   const renderScene = ({ route }: any) => {
     const tabIndex = route.key.match(/\d+/g) || ['0'];
@@ -67,7 +66,7 @@ export const SectionsScreen = () => {
       case TabType.photos:
         return <PhotoGalleryScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
       case TabType.main:
-        return <MainSectionScreen hidePlayerVisibility={hidePlayerVisibility} currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
+        return <MainSectionScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
       default:
         return (
           <SectionStoryScreen sectionId={route.field_sections}
