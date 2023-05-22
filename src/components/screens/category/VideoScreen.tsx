@@ -66,8 +66,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   const updateVideoData = () => {
     if(isNonEmptyArray(videoPaginationData)) {
-      const videos = updateBookmark(videoPaginationData)
-      setVideoDataInfo((data: any) => [...data, ...videos as any])
+      const videos = updateBookmark([...videoDataInfo, ...videoPaginationData]) as any;
+      setVideoDataInfo([...videos]);
     }
   }
 
