@@ -325,7 +325,7 @@ export const ArticleDetailScreen = ({
     }
   },[dimensions,isEdgeUpdated,isEdgePortrait])
 
-  /* We will uncomment when we support landscape
+  /* We will uncomment the below code when landscape orientation required for mobile
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     setOrientation(deviceOrientation);
     if(!isEdgeUpdated && (deviceOrientation === 'LANDSCAPE-RIGHT' || deviceOrientation === 'LANDSCAPE-LEFT') && !isEdgePortrait){

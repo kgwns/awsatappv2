@@ -91,7 +91,7 @@ export const PhotoGalleryDetailScreen = ({
     }
   }, [albumData]);
 
-  /* We will uncomment when we support landscape
+  /* We will uncomment the below code when landscape orientation required for mobile
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const screenEdge = getScreenEdge(deviceOrientation);
     isNonEmptyArray(screenEdge) && setEdge(screenEdge);
