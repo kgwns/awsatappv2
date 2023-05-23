@@ -12,3 +12,14 @@ export function replace(name: string, params?: any) {
         routes: [{ name, params }]
     })
 }
+
+const Deferred = () => {
+    let d: any = {};
+    d.promise = new Promise(function (resolve, reject) {
+        d.resolve = resolve;
+        d.reject = reject;
+    });
+    return d;
+};
+
+export const navigationDeferred = Deferred();

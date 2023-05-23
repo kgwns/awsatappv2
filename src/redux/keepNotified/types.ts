@@ -24,7 +24,7 @@ export interface KeepNotifiedState {
 }
 
 export interface SendSelectedNotificationBody {
-  nid: string
+  tid: string
 }
 
 export interface SendSelectedNotificationType {
@@ -101,7 +101,7 @@ export interface GetListOfNotificationType {
 
 
 export type NotificationDataType = {
-  id: number,
+  tid: number,
   name: string,
   selected: boolean
 }
@@ -109,7 +109,8 @@ export type NotificationDataType = {
 export type GetListOfNotificationSuccessPayload = {
   code?: number,
   message?: string,
-  data?: any
+  data?: any,
+  rows?: any
 }
 
 

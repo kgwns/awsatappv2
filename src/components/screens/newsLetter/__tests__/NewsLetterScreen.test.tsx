@@ -368,7 +368,7 @@ describe('<NewsLettersScreen> when the user is in onBoard Flow', () => {
 
   it("should navigate to success screen when the NextButton is clicked",() => {
     expect(navigation.navigate).toHaveBeenCalled();
-    expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.SUCCESS_SCREEN);
+    expect(navigation.navigate).toHaveBeenCalledWith(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN);
   })
 
   it("should apply content style in View",() => {

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isStringEqual, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenHeight, screenWidth, isStringEqual } from 'src/shared/utils';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -16,11 +16,9 @@ import { fonts } from 'src/shared/styles/fonts';
 export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const ONBOARD_KEEP_NOTIFIED_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_KEEP_NOTIFIED_TITLE})
   const ONBOARD_KEEP_NOTIFIED_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_KEEP_NOTIFIED_DESCRIPTION})
-  const ONBOARD_COMMON_COMPLETED = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_COMPLETED})
+  const ONBOARD_COMMON_NEXT_BUTTON = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_NEXT_BUTTON})
 
   const style = useThemeAwareObject(customStyle);
-
-  const { params } = route
 
   const [notificationDate, setNotificationData] = useState<NotificationDataType[]>([])
   const [disableNext, setDisableNext] = useState<boolean>(true)
@@ -32,7 +30,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     getSelectedInfoRequest, selectedNotificationInfo,
     removeSelectedNotificationInfo,isLoading,
     removeKeepNotificationInfo,
-    getAllNotificationList, allNotificationList  } = useKeepNotified()
+    getAllNotificationList, allNotificationList } = useKeepNotified()
 
   useEffect(() => {
     getAllNotificationList()
@@ -74,7 +72,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
         })
       }
     }
-  }, [sendSelectedNotificationInfo.message]);
+  }, [sendSelectedNotificationInfo]);
 
   const setInitialData = () => {
     const data = formatNotificationData()
@@ -84,11 +82,12 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   const formatNotificationData = () => {
     const data = []
-    if (allNotificationList.code && allNotificationList.code === 200 && isNonEmptyArray(allNotificationList.data)) {
-      for(const item of allNotificationList.data) {
+    if (allNotificationList.code && allNotificationList.code === 200 && isNonEmptyArray(allNotificationList.rows)) {
+      for(const item of allNotificationList.rows) {
         data.push({
-          id: item.id,
+          tid: item.tid,
           name: item.name,
+          description: item.description,
           selected: false,
         })
       }
@@ -97,13 +96,14 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   const setMyNewsLettersData = () => {
-    if (isNonEmptyArray(selectedNotificationInfo.data) && isNonEmptyArray(allNotificationList.data)) {
+    if (isNonEmptyArray(selectedNotificationInfo.data) && isNonEmptyArray(allNotificationList.rows)) {
       const data = []
-      for(const item of allNotificationList.data) {
+      for(const item of allNotificationList.rows) {
         data.push({
           name: item.name,
-          id: item.id,
-          selected: getSelectedOrNot(item.id),
+          tid: item.tid,
+          description: item.description,
+          selected: getSelectedOrNot(item.tid),
         })
       }
       setNotificationData(data)
@@ -116,7 +116,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   const getSelectedOrNot = (id: any) => {
     for (const item of selectedNotificationInfo.data) {
-      if (isStringEqual(id, item.nid)) {
+      if (isStringEqual(id, item.tid)) {
         return true
       }
     }
@@ -127,27 +127,23 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
     const selectedData = getSelectedData()
     if (isNonEmptyArray(selectedData)) {
       const selectedDataArray = getSelectedData()
-      sendSelectedInfoRequest({ nid: joinArray(selectedDataArray) })
+      sendSelectedInfoRequest({ tid: selectedDataArray.toString() })
     }
   }
 
   const gotoNext = () => {
-    if (params && params.canGoBack) {
-      navigation.goBack()
-    } else {
       navigation.navigate(ScreensConstants.SUCCESS_SCREEN)
-    }
   }
 
   const changeSelectedStatus = (item: any) => {
     for(const notificationItem of notificationDate) {
-      if (isStringEqual(item.id, notificationItem.id)) {
+      if (isStringEqual(item.tid, notificationItem.tid)) {
         notificationItem.selected = !notificationItem.selected;
       }
     }
     if (canGoBack) {
       const selectedList = getSelectedData();
-      sendSelectedInfoRequest({ nid: joinArray(selectedList) })
+      sendSelectedInfoRequest({ tid: selectedList.toString() })
     } else {
       updateNextButtonActive()
     }
@@ -162,7 +158,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const getSelectedData = () => {
     return notificationDate.reduce((prevValue: number[], item: NotificationDataType) => {
       if (item.selected) {
-        return prevValue.concat(item.id)
+        return prevValue.concat(item.tid)
       }
       return prevValue
     }, [])
@@ -178,16 +174,17 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
         <View style={style.contentStyle}>
           <KeepNotifiedWidget data={notificationDate} onPress={changeSelectedStatus} />
         </View>
-        <View style={style.nextButtonView}>
+       {!canGoBack && <View style={style.nextButtonView}>
           <NextButton
             testID="nextButtonTestId"
-            title={ONBOARD_COMMON_COMPLETED}
+            title={ONBOARD_COMMON_NEXT_BUTTON}
             icon={false}
             disabled={disableNext}
             onPress={onPressNext}
             style={style}
           />
         </View>
+        }
       </View>
     </ScreenContainer>
   );

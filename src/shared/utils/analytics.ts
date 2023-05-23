@@ -41,7 +41,8 @@ export enum AnalyticsEvents {
   ADD_BOOKMARK_TO_ARTICLE = 'Add_Bookmark_to_Article',
   REMOVE_BOOKMARK = 'Remove_Bookmark',
   PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS = 'Pressed_on_social_media_extensions',
-  EMAIL = 'email'
+  EMAIL = 'email',
+  UNHANDLED_NOTIFICATION = 'UnHandled_Notification'
 }
 
 export interface EventParameterProps {

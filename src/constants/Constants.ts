@@ -1942,6 +1942,7 @@ const DMA_OPTIONS_LIST_SCREEN = 'DMAOptionsListScreen' as ScreenName;
 const DMA_FEED_BACK_SCREEN = 'FeedbackScreen' as ScreenName;
 const DMA_DELETE_ACCOUNT_SCREEN = 'DeleteAccountScreen' as ScreenName;
 const CartoonListScreen = 'CartoonListScreen' as ScreenName;
+const EntityQueueListScreen = 'EntityQueueListScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -1999,12 +2000,16 @@ const ScreensConstants = {
     DMA_FEED_BACK_SCREEN,
     DMA_DELETE_ACCOUNT_SCREEN,
     CartoonListScreen,
+    EntityQueueListScreen
 };
 enum notification {
     ARTICLE = 'article',
     OPINION = 'opinion',
     DYNAMIC_SECTION = 'dynamic-section',
     KEYNAME = 'section',
+    ALBUM = 'album',
+    PODCAST = 'podcast',
+    ENTITY_QUEUE = 'entity-queue'
 }
 const DEFAULT_ALERT_TITLE = '';
 const DEFAULT_ALERT_MESSAGE = 'Need to implement';

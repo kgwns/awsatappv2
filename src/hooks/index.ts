@@ -32,3 +32,4 @@ export { useOrientation } from 'src/hooks/useOrientation';
 export { useFetchPodcastData } from 'src/hooks/useFetchPodcastData';
 export { useDeleteMyAccount } from 'src/hooks/useDeleteMyAccount';
 export { useCartoon } from 'src/hooks/useCartoon';
+export { useEntityQueue } from 'src/hooks/useEntityQueue';

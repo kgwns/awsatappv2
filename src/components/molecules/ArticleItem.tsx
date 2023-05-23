@@ -8,6 +8,7 @@ import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
+import { EntityQueueArticleType } from 'src/redux/entityQueue/types';
 
 export interface ArticleItemProps extends ArticleProps {
     index: number,
@@ -42,7 +43,10 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
             if (isJournalist) {
                 navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid, isRelatedArticle: true });
             } else {
-                const screenName = props.isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+                const screenName = props.isAlbum || props.type === EntityQueueArticleType.ALBUM ? 
+                    ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : 
+                    props.type === EntityQueueArticleType.OPINION ? ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN :
+                    ScreensConstants.ARTICLE_DETAIL_SCREEN;
                 navigation.navigate(screenName, { nid: props.nid });
             }
         }

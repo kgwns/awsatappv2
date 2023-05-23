@@ -214,7 +214,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     if (route.params && canGoBack) {
       navigation.goBack()
     } else {
-      navigation.navigate(ScreensConstants.SUCCESS_SCREEN) // will replace keep notified screen once notification part was done. 
+      navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN) 
     }
   }
 

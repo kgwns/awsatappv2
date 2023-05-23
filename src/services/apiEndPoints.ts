@@ -118,8 +118,8 @@ export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getAPPNewslettersL
 export const GET_MY_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getMyNewsletters';
 
 //Keep Notified
-export const SEND_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/addNotifications'
-export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getMyNotifications'
+export const SEND_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/addNotificationCategories'
+export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getMyNotificationCategories'
 export const GET_LIST_OF_NOTIFICATION_END_POINT = 'api/ums/v1/getAPPNotificationsList'
 
 //Podcast
@@ -165,3 +165,6 @@ export const DMA_DELETE_CONFIRMATION_ENDPOINT = 'api/ums/v1/delete-user-account'
 
 //Cartoon
 export const CARTOON_LIST_END_POINT = 'api/v2/cartoonlist';
+
+// Entity-Queue
+export const ENTITY_QUEUE_LIST_END_POINT = 'api/v2/entityqlist';

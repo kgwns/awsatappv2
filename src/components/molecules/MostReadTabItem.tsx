@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useOrientation } from 'src/hooks';
+import { EntityQueueArticleType } from 'src/redux/entityQueue/types';
 
 export interface MostReadTabItemProps {
     articleData: any,
@@ -46,7 +47,8 @@ const MostReadTabItem: FunctionComponent<MostReadTabItemProps> = ({ articleData,
 
     const onPress = () => {
         if (articleData.nid) {
-            const screenName = isTypeAlbum(articleData.type) ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+            const screenName = isTypeAlbum(articleData.type) ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : 
+                (articleData.type === EntityQueueArticleType.OPINION) ? ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
             navigation.navigate(screenName, { nid: articleData.nid });
         }
     }

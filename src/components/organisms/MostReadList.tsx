@@ -30,6 +30,7 @@ export interface ArticleSectionProps {
   isLoading?: boolean;
   enableTag?:boolean;
   flag?:boolean;
+  isEntityQueueList?: boolean
 }
 
 const MostReadList = ({
@@ -38,6 +39,7 @@ const MostReadList = ({
   isLoading = false,
   enableTag = false,
   flag = true,
+  isEntityQueueList = false
 }: ArticleSectionProps) => {
   const MOST_READ_TITLE = TranslateConstants({key:TranslateKey.MOST_READ_TITLE})
   const navigation = useNavigation();
@@ -66,8 +68,28 @@ const MostReadList = ({
     }
   },[data.rows,bookmarkIdInfo])
 
+  useEffect(() => {
+    if (isEntityQueueList && isNonEmptyArray(data)) {
+      updateEntityDataBookmark()
+    } 
+  },[data,bookmarkIdInfo])
+
+  const validateBookmark = (nid: string): boolean => {
+    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+  }
+
   const updateArticleDataBookmark = () => {
-    const articleInfo = data.rows.map((item: any) => (
+    const entityListInfo = data.rows.map((item: any) => (
+      {
+        ...item,
+        isBookmarked: validateBookmark(item.nid)
+      }
+    ))
+    setArticleData(entityListInfo)
+  }
+
+  const updateEntityDataBookmark = () => {
+    const articleInfo = data.map((item: any) => (
       {
         ...item,
         isBookmarked: validateBookmark(item.nid)

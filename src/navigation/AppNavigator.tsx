@@ -333,6 +333,11 @@ const AppNavigator = () => {
         component={Routes.CartoonList}
         options={hideHeader}
       />
+      <Stack.Screen
+        name={ScreensConstants.EntityQueueListScreen}
+        component={Routes.EntityQueueListScreen}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };
