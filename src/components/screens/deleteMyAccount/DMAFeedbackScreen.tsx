@@ -10,6 +10,7 @@ import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constant
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { DeleteMyAccountLabel } from 'src/components/molecules';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { ScreenTestId } from 'src/constants/TestConstant';
 
 export const DMAFeedbackScreen = () => {
   const navigation = useNavigation();
@@ -47,6 +48,7 @@ export const DMAFeedbackScreen = () => {
         multiline={true}
         textInputStyle={style.messageTextInput}
         placeholderTextColor={style.placeHolder.color}
+        testID={ScreenTestId.dmaFeedback.commentLabel}
       />
     </View>
   );
