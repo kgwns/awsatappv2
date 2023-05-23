@@ -15,7 +15,6 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { isNotEmpty, isObjectNonEmpty, decodeHTMLTags, dateTimeAgo, TimeIcon} from 'src/shared/utils/utilities';
 import {useNavigation} from '@react-navigation/native';
 import {OpinionArticleDetailItemType} from 'src/redux/opinionArticleDetail/types';
-import Orientation from 'react-native-orientation-locker';
 import { ArticleFontSize } from 'src/redux/appCommon/types';
 import { WriterDetailDataType } from 'src/redux/writersDetail/types';
 import { fonts } from 'src/shared/styles/fonts';

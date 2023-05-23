@@ -94,8 +94,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const updateNewsLettersData = () => {
     const data = []
     if (selectedNewsLettersData.code && selectedNewsLettersData.code === 200 && isNonEmptyArray(selectedNewsLettersData.data)) {
-      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        const item = selectedNewsLettersData.data[i]
+      for(const item of selectedNewsLettersData.data) {
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -111,8 +110,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   const getSelectedStatus = (id: number) => {
     if (isNonEmptyArray(selectedNewsLetterDataOnboard)) {
-      for (let j = 0; j < selectedNewsLetterDataOnboard.length; j++) {
-        if (selectedNewsLetterDataOnboard[j] === id) {
+      for (const item of selectedNewsLetterDataOnboard) {
+        if (item === id) {
           return true
         }
       }
@@ -125,8 +124,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const formatNewsLettersData = () => {
     const data = []
     if(selectedNewsLettersData.code && selectedNewsLettersData.code===200 && isNonEmptyArray(selectedNewsLettersData.data)){
-      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        const item = selectedNewsLettersData.data[i]
+      for(const item of selectedNewsLettersData.data) {
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -147,8 +145,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   }
 
   const getSelectedOrNot = (tid: any) => {
-    for (let i = 0; i < myNewsLetters.data.length; i++) {
-      if (tid == myNewsLetters.data[i].tid) {
+    for(const item of myNewsLetters.data) {
+      if (tid == item.tid) {
         return true
       }
     }
@@ -158,8 +156,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const setMyNewsLettersData = () => {
     if (isNonEmptyArray(myNewsLetters.data) && isNonEmptyArray(selectedNewsLettersData.data)) {
       const data = []
-      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        const item = selectedNewsLettersData.data[i]
+      for (const item of selectedNewsLettersData.data) {
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -177,9 +174,9 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   }
 
   const changeSelectedStatus = (item: any,) => {
-    for (let i = 0; i < newsLettersDataInfo.length; i++) {
-      if (item.tid === newsLettersDataInfo[i].tid) {
-        newsLettersDataInfo[i].isSelected = !newsLettersDataInfo[i].isSelected;
+    for(const newLetterItem of newsLettersDataInfo) {
+      if (item.tid === newLetterItem.tid) {
+        newLetterItem.isSelected = !newLetterItem.isSelected;
       }
     }
     if(canGoBack){

@@ -437,6 +437,7 @@ jest.mock("src/hooks/useBookmark", () => ({
       removeBookmarkedInfo: () => [],
       getBookmarkDetailData: () => [],
       removeBookmark: () => [],
+      validateBookmark: () => true,
     }
   },
 }));

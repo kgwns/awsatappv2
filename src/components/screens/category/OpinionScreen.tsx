@@ -74,7 +74,8 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
-    bookmarkIdInfo
+    bookmarkIdInfo,
+    validateBookmark,
   } = useBookmark()
   const { isLoggedIn } = useLogin()
   const { showMiniPlayer } = useAppPlayer()
@@ -99,10 +100,6 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
         isBookmarked: validateBookmark(item.nid)
       }
     ))
-  }
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const updatedChangeBookmark = (data: OpinionsListItemType[], index: number) => {

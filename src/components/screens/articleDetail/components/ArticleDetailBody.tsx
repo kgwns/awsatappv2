@@ -24,7 +24,6 @@ export const ArticleDetailBody = React.memo(({
     body,
     index,
     articleFontSize,
-    orientation,
     title,
     author,
     publishedDate,
@@ -200,7 +199,7 @@ export const ArticleDetailBody = React.memo(({
         <AutoHeightWebView
             key={index}
             style={[style.webView, isIOS && !isTab && { height: webViewHeight }]}
-            source={{ html: articleHtml({ body: body }), baseUrl: '' }}
+            source={{ html: articleHtml({ body }), baseUrl: '' }}
             ref={(r) => (webviewRef = r)}
             domStorageEnabled={true}
             bounces={false}

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, ScrollView, StyleSheet, View, TouchableWithoutFeedback } from 'react-native';
 import { CustomThemeType, colors } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, isNotchDevice, normalize, screenHeight, screenWidth, joinArray, isIOS } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, isNotchDevice, normalize, screenHeight, screenWidth, joinArray, isIOS, isStringEqual } from 'src/shared/utils';
 import { BorderLabel, Divider, Label } from 'src/components/atoms';
 import { ScreenContainer } from '..';
 import { FollowFavoriteAuthor } from 'src/components/molecules';
@@ -330,10 +330,10 @@ export const ManageMyNewsScreen = () => {
     }
     if (isNonEmptyArray(allSiteCategoriesData) && isNonEmptyArray(selectedTopicsData.data)) {
       const selectedTopics = []
-      for (let i = 0; i < selectedTopicsData.data.length; i++) {
-        for (let j = 0; j < allSiteCategoriesData.length; j++) {
-          if (selectedTopicsData.data[i].tid == allSiteCategoriesData[j].tid) {
-            selectedTopics?.push(allSiteCategoriesData[j]);
+      for (const selectedTopicsItem of selectedTopicsData.data) {
+        for (const allSiteCategoriesItem of allSiteCategoriesData) {
+          if (isStringEqual(selectedTopicsItem.tid, allSiteCategoriesItem.tid)) {
+            selectedTopics?.push(allSiteCategoriesItem);
           }
         }
       }

@@ -29,7 +29,7 @@ export const fetchLogoutApi = async () => {
 export const forgotPasswordApi = async (body: ForgotPasswordRequestPayloadType) => {
   try {
     return await postApiRequest(
-      `${UMS_BASE_URL}${FORGOT_PASSWORD_ENDPOINT}?email=${body.email}`,undefined,undefined,undefined
+      `${UMS_BASE_URL}${FORGOT_PASSWORD_ENDPOINT}?email=${body.email}`,
     );
   } catch (error) {
     console.log('loginService - forgotPasswordApi - error', error)

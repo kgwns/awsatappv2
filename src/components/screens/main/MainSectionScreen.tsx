@@ -92,8 +92,8 @@ const sectionComboEightPayload: RequestSectionComboBodyGet = {
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export const MainSectionScreen = React.memo((
-  {hidePlayerVisibility, tabIndex, currentIndex, scrollY }:
-  {hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number; scrollY?: any; }) => {
+  {tabIndex, currentIndex, scrollY }:
+  {tabIndex?:number; currentIndex?:number; scrollY?: any; }) => {
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle);
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
@@ -146,7 +146,8 @@ export const MainSectionScreen = React.memo((
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
-    bookmarkIdInfo
+    bookmarkIdInfo,
+    validateBookmark,
   } = useBookmark()
 
   const { isLoggedIn } = useLogin()
@@ -459,11 +460,6 @@ export const MainSectionScreen = React.memo((
     const index = sectionComboFour.findIndex((item) => item.nid === article.nid)
     const updatedData = updatedChangeBookmark(sectionComboFour, index)
     setSectionComboFourInfo(updatedData)
-  }
-
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const featuredArticleInfo: ArticleProps[] = topViewSectionData.map((item: MainSectionBlockType, index: number) => (

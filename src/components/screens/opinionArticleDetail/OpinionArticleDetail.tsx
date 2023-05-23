@@ -10,7 +10,7 @@ import {
 } from 'src/components/organisms';
 import {ScreenContainer} from '..';
 import {useAllWriters, useAppCommon, useAppPlayer, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail} from 'src/hooks';
-import Orientation, { OrientationType } from 'react-native-orientation-locker';
+import Orientation from 'react-native-orientation-locker';
 import { OpinionArticleDetailItemType, OpinionsListItemType, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -53,9 +53,13 @@ export const OpinionArticleDetail = ({
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
 
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, validateBookmark } = useBookmark()
   const { isLoggedIn } = useLogin()
-  const {selectedAuthorsData, getSelectedAuthorsData,sendSelectedWriterInfo,removeAuthorRequest} = useAllWriters();
+  const {
+    selectedAuthorsData,
+    getSelectedAuthorsData, sendSelectedWriterInfo,
+    removeAuthorRequest, validateFollow
+  } = useAllWriters();
 
   const [page,setPage]=useState(0)
   const relatedOpinionPayload: RelatedOpinionBodyGet = {
@@ -137,6 +141,7 @@ export const OpinionArticleDetail = ({
     }
   }, [relatedOpinionListData])
 
+  /* We will uncomment the below code when landscape orientation required for mobile
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const screenEdge = getScreenEdge(deviceOrientation)
     setEdge(screenEdge)
@@ -149,7 +154,7 @@ export const OpinionArticleDetail = ({
       case 'PORTRAIT': return horizontalEdge
       default: return horizontalEdge
     }
-  }
+  } */
 
   useEffect(() => {
     if (isNonEmptyArray(opinionArticleDetailData)) {
@@ -198,15 +203,6 @@ export const OpinionArticleDetail = ({
       setIsFollowed(isFollow)
     }
   }, [isFocused, opinionArticle, selectedAuthorsData])
-
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
-
-  const validateFollow = (id: string): boolean => {
-    return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
-  }
 
   const onPressSave = (nid: string) => {
     if(!isLoggedIn) {

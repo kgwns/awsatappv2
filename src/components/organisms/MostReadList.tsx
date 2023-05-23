@@ -47,7 +47,7 @@ const MostReadList = ({
   const theme = useTheme();
   const { isLoggedIn } = useLogin()
 
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo, validateBookmark } = useBookmark()
 
   const [articleData,setArticleData] = useState(data)
   const [showupUp,setShowPopUp] = useState(false)

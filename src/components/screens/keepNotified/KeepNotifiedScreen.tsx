@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, normalize, screenHeight, screenWidth, isStringEqual } from 'src/shared/utils';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -83,8 +83,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const formatNotificationData = () => {
     const data = []
     if (allNotificationList.code && allNotificationList.code === 200 && isNonEmptyArray(allNotificationList.rows)) {
-      for (let i = 0; i < allNotificationList.rows.length; i++) {
-        const item = allNotificationList.rows[i]
+      for(const item of allNotificationList.rows) {
         data.push({
           tid: item.tid,
           name: item.name,
@@ -99,8 +98,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const setMyNewsLettersData = () => {
     if (isNonEmptyArray(selectedNotificationInfo.data) && isNonEmptyArray(allNotificationList.rows)) {
       const data = []
-      for (let i = 0; i < allNotificationList.rows.length; i++) {
-        const item = allNotificationList.rows[i]
+      for(const item of allNotificationList.rows) {
         data.push({
           name: item.name,
           tid: item.tid,
@@ -117,8 +115,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   const getSelectedOrNot = (id: any) => {
-    for (let i = 0; i < selectedNotificationInfo.data.length; i++) {
-      if (id === selectedNotificationInfo.data[i].tid) {
+    for (const item of selectedNotificationInfo.data) {
+      if (isStringEqual(id, item.tid)) {
         return true
       }
     }
@@ -138,9 +136,9 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   const changeSelectedStatus = (item: any) => {
-    for (let i = 0; i < notificationDate.length; i++) {
-      if (item.tid === notificationDate[i].tid) {
-        notificationDate[i].selected = !notificationDate[i].selected;
+    for(const notificationItem of notificationDate) {
+      if (isStringEqual(item.tid, notificationItem.tid)) {
+        notificationItem.selected = !notificationItem.selected;
       }
     }
     if (canGoBack) {

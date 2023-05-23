@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert, FlatList } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { BorderLabel, Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, isStringEqual, } from 'src/shared/utils';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
@@ -48,8 +48,8 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
   }, [allSiteCategoriesData]);
 
   const getSelectedOrNot = (tid: any) => {
-    for (let i = 0; i < selectedTopicsData.data.length; i++) {
-      if (tid == selectedTopicsData.data[i].tid) {
+    for (const item of selectedTopicsData.data) {
+      if (isStringEqual(tid, item.tid)) {
         return true
       }
     }
@@ -89,9 +89,9 @@ export const ManageMyFavoriteTopicsScreen = ({ navigation }: any) => {
 
   const onTopicsChanged = (item: any) => {
     const data = [...topicsData]
-    for (let i = 0; i < data.length; i++) {
-      if (item.tid === data[i].tid) {
-        topicsData[i].isSelected = !topicsData[i].isSelected;
+    for(const topicItem of data) {
+      if (item.tid === topicItem.tid) {
+        topicItem.isSelected = !topicItem.isSelected;
       }
     }
     setTopicsData(data);

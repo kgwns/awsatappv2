@@ -72,9 +72,9 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const onTopicsChanged = (item: any, selected: boolean) => {
     const data = [...categoriesInfo]
-    for (let i = 0; i < data.length; i++) {
-      if (item.tid === data[i].tid) {
-        data[i].isSelected = selected;
+    for(const categoryItem of data) {
+      if (item.tid === categoryItem.tid) {
+        categoryItem.isSelected = selected;
       }
     }
     setCategoriesInfo(data)

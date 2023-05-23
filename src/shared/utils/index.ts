@@ -37,6 +37,8 @@ export {
   getString,
   formatHijri,
   formatGregorian,
+  isStringEqual,
+  isNumberOrString,
 } from 'src/shared/utils/utilities'
 export { SystemPermissions } from 'src/shared/utils/SystemPermissions'
 export {

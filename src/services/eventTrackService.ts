@@ -38,6 +38,7 @@ export const sendUserEventTracking = async (body: TrackEventBody) => {
     })
     .catch((error: unknown) => {
       const errorResponse = error as AxiosError;
+      console.log('sendUserEventTracking Error :::', errorResponse);
       throw errorResponse
     });
 };

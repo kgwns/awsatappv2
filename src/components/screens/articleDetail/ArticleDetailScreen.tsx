@@ -9,7 +9,7 @@ import { articleEventParameter, articleEvents, decodeHTMLTags, horizontalEdge, i
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { ArticleDetailWidget, ShortArticle } from 'src/components/organisms';
 import { ArticleDetailDataType, ArticleReadAlsoType, HTMLElementParseStore, RelatedArticleBodyGet, RelatedArticleDataType, RichHTMLType } from 'src/redux/articleDetail/types'
-import Orientation, { OrientationType } from 'react-native-orientation-locker'
+import Orientation from 'react-native-orientation-locker'
 import { Edge } from 'react-native-safe-area-context'
 import { useAppCommon, useAppPlayer, useBookmark, useLogin } from 'src/hooks'
 import { useIsFocused, useNavigation, useNavigationState } from '@react-navigation/native'
@@ -64,7 +64,7 @@ export const ArticleDetailScreen = ({
 
   const { themeData } = useTheme()
   const { isLoggedIn } = useLogin()
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo, validateBookmark } = useBookmark()
   const { articleFontSize, storeArticleFontSizeInfo } = useAppCommon()
   const { sendEventToServer } = useArticleDetail()
 
@@ -276,10 +276,6 @@ export const ArticleDetailScreen = ({
     }
   }, [isFocused]);
 
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
-
   useEffect(() => {
     if (isNonEmptyArray(richHTML)) {
       const articleInfo = [...articleDetailState]
@@ -329,7 +325,8 @@ export const ArticleDetailScreen = ({
     }
   },[dimensions,isEdgeUpdated,isEdgePortrait])
 
-  /* const updateScreenEdge = (deviceOrientation: OrientationType) => {
+  /* We will uncomment the below code when landscape orientation required for mobile
+  const updateScreenEdge = (deviceOrientation: OrientationType) => {
     setOrientation(deviceOrientation);
     if(!isEdgeUpdated && (deviceOrientation === 'LANDSCAPE-RIGHT' || deviceOrientation === 'LANDSCAPE-LEFT') && !isEdgePortrait){
       setIsEdgeUpdated(true)

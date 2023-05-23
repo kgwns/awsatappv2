@@ -14,7 +14,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useLogin, useSideMenu, useWeatherDetails } from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ABOUT_US, ADVERTISE_INFO_ID, PRIVACY_POLICY_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import { ABOUT_US, PRIVACY_POLICY_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
@@ -226,8 +226,7 @@ const CustomDrawerContent = () => {
       filterMenuData = menuData.filter((item) => item.parent_export && item.parent_export.includes(parentId))
     }
 
-    for (let i = 0; i < filterMenuData.length; i++) {
-      const item = filterMenuData[i]
+    for(const item of filterMenuData) {
       const newParentId = item.uuid_export ?? null
       const customData: any = {
         ...item,
@@ -273,9 +272,9 @@ const CustomDrawerContent = () => {
         navigation.navigate(ScreensConstants.PROFILE_SETTING)
       }}>
         {useLogin().isLoggedIn && userProfileData.user?.image ?
-          <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image as string) }} />
+          <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image) }} />
           : userProfileData.user?.profile_url
-            ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url as string) }} />
+            ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url) }} />
             : <UserIcon />}
       </TouchableOpacity>
       <View style={styles.logoContainer}>

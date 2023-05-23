@@ -124,6 +124,14 @@ export const getString = (value: any): string => {
   return isNotEmpty(value) ? decodeHTMLTags(value) : ' '
 };
 
+export const isStringEqual = (valueOne: any, valueTwo: any): boolean => {
+  return valueOne == valueTwo;
+}
+
+export const isNumberOrString = (data: any): boolean => {
+  return (typeof data == 'string' || typeof data === 'number');
+}
+
 export const timeAgo = (time: any) => {
   const date = new Date(time);
   const today = new Date();
