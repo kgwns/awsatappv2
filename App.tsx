@@ -8,7 +8,7 @@ import { ThemeProvider } from 'src/shared/styles/ThemeProvider';
 import { DEFAULT_LIGHT_THEME } from 'src/shared/styles/colors';
 import Orientation from 'react-native-orientation-locker'
 import AppPlayer from 'src/shared/utils/appPlayer';
-import { GetFCMToken } from 'src/firebase/notification/notification';
+import { GetFCMToken, checkNotificationPermission } from 'src/firebase/notification/notification';
 import TrackPlayer from 'react-native-track-player';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
 import { isIOS, isTab } from 'src/shared/utils';
@@ -30,6 +30,7 @@ const App = () => {
   useEffect(() => {
     setTimeout(() => {
       checkPermission()
+      checkNotificationPermission();
       Adjust.requestTrackingAuthorizationWithCompletionHandler(function (status) {
         switch (status) {
           case 0:

@@ -86,11 +86,11 @@ export const ProfileSettings = () => {
   ]
 
   const data: SettingDataType[] = [
-    //   {
-    //       iconName: ImagesName.notificationGrey,
-    //       title: CONST_MANAGE_NOTIFICATION,
-    //       screenName: ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN
-    //   },
+      {
+          iconName: ImagesName.notificationGrey,
+          title: CONST_MANAGE_NOTIFICATION,
+          screenName: ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN
+      },
       {
           iconName: ImagesName.manageNews,
           title: CONST_MANAGE_NEWS,
