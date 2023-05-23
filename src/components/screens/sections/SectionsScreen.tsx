@@ -120,8 +120,7 @@ export const SectionsScreen = () => {
       filterMenuData = menuData.filter((item: TopMenuItemType) => isStringIncludes(item.parentId, parentId))
     }
 
-    for (let i = 0; i < filterMenuData.length; i++) {
-      const item: TopMenuItemType = filterMenuData[i]
+    for (const item of filterMenuData) {
       const newParentId = item.uuid ?? null
       const customData: any = {
         ...item,

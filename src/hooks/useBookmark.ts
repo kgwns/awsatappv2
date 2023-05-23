@@ -139,8 +139,7 @@ export const useBookmark = (): UseBookMarkReturn => {
     const selectedDataInfo = isArray(selectedData) ? [...selectedData] : []
     const nextPageIdInfo = spliceArray(selectedDataInfo, startIndex, 25)
     const nidList = filterNidInfoFromNodeList(nextPageIdInfo)
-    const nid = joinArray(nidList, '+')
-    return nid
+    return joinArray(nidList, '+');
   }
 
   const isAllBookmarkFetched = bookmarkIdInfo.length === bookmarkDetail.length

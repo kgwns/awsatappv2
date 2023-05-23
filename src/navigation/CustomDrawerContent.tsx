@@ -272,7 +272,7 @@ const CustomDrawerContent = () => {
         navigation.navigate(ScreensConstants.PROFILE_SETTING)
       }}>
         {useLogin().isLoggedIn && userProfileData.user?.image ?
-          <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image as string) }} />
+          <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image) }} />
           : userProfileData.user?.profile_url
             ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url) }} />
             : <UserIcon />}

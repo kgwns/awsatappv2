@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isStringEqual, isTab, joinArray, normalize, screenHeight, screenWidth } from 'src/shared/utils';
 import KeepNotifiedWidget from 'src/components/organisms/KeepNotifiedWidget';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -99,8 +99,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   const setMyNewsLettersData = () => {
     if (isNonEmptyArray(selectedNotificationInfo.data) && isNonEmptyArray(allNotificationList.data)) {
       const data = []
-      for (let i = 0; i < allNotificationList.data.length; i++) {
-        const item = allNotificationList.data[i]
+      for(const item of allNotificationList.data) {
         data.push({
           name: item.name,
           id: item.id,
@@ -116,8 +115,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
   }
 
   const getSelectedOrNot = (id: any) => {
-    for(const item of selectedNotificationInfo.data) {
-      if (id == item.nid) {
+    for (const item of selectedNotificationInfo.data) {
+      if (isStringEqual(id, item.nid)) {
         return true
       }
     }
@@ -142,7 +141,7 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
 
   const changeSelectedStatus = (item: any) => {
     for(const notificationItem of notificationDate) {
-      if (item.id == notificationItem.id) {
+      if (isStringEqual(item.id, notificationItem.id)) {
         notificationItem.selected = !notificationItem.selected;
       }
     }

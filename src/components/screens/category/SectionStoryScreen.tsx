@@ -134,7 +134,8 @@ export const SectionStoryScreen = React.memo(({
       activeSectionId = childInfo[selectedIndex].sectionId
       const selectedItem = childInfo[selectedIndex]
       if (isNonEmptyArray(selectedItem.child)) {
-        const selectedSubIndex = selectedItem.child!.findIndex((item) => item.isSelected === true)
+        const child = selectedItem.child as TopMenuItemType[];
+        const selectedSubIndex = child.findIndex((item) => item.isSelected === true)
         if (selectedSubIndex > -1) {
           activeSectionId = selectedItem.child && selectedItem.child[selectedSubIndex]?.sectionId
         }

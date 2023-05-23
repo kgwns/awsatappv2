@@ -141,7 +141,8 @@ export const OpinionArticleDetail = ({
     }
   }, [relatedOpinionListData])
 
-  /* const updateScreenEdge = (deviceOrientation: OrientationType) => {
+  /* We will uncomment when we support landscape
+  const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const screenEdge = getScreenEdge(deviceOrientation)
     setEdge(screenEdge)
   }

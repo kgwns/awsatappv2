@@ -27,7 +27,7 @@ import { AllWritersItemType,
   SelectedAuthorDataType, 
   RemoveAuthorBody,
   AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
-import { isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils';
+import { isNonEmptyArray, isNumberOrString, isObjectNonEmpty } from 'src/shared/utils';
 
 export interface UseAllWritersReturn {
   isLoading: boolean;
@@ -113,8 +113,11 @@ export const useAllWriters = (): UseAllWritersReturn => {
   };
 
   const validateFollow = (id: string): boolean => {
-    return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
-  }
+    if (!isNumberOrString(id) || !isObjectNonEmpty(selectedAuthorsData)) {
+      return false;
+    }
+    return selectedAuthorsData.data.some((value: any) => value.tid.toString() === id.toString());
+  };
 
   return {
     isLoading,

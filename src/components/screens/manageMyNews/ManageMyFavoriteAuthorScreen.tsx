@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Alert, StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent, screenWidth, isIOS } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, screenHeight, recordLogEvent, screenWidth, isIOS, isStringEqual } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
@@ -56,8 +56,8 @@ export const ManageMyFavoriteAuthorScreen = () => {
   }, [allWritersData]);
 
   const getSelectedOrNot = (tid: any) => {
-    for(const item of selectedAuthorsData.data) {
-      if (tid == item.tid) {
+    for (const item of selectedAuthorsData.data) {
+      if (isStringEqual(tid, item.tid)) {
         return true
       }
     }
@@ -113,9 +113,9 @@ export const ManageMyFavoriteAuthorScreen = () => {
 
   const changeSelectedStatus = (item: any) => {
     const data = [...authorsData]
-    for (let i = 0; i < data.length; i++) {
-      if (item.tid === data[i].tid) {
-        authorsData[i].isSelected = !authorsData[i].isSelected
+    for(const authorInfo of data) {
+      if (item.tid === authorInfo.tid) {
+        authorInfo.isSelected = !authorInfo.isSelected
       }
     }
     setAuthorsData(data);

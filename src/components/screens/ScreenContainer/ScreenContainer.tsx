@@ -166,16 +166,6 @@ export const ScreenContainer = ({
             <LoadingState />
           </View>
         )}
-        {/* {isSignUpAlertVisible && (
-          <AlertModal
-            title={t('signUpAlert.notSubscribed')}
-            message={t('signUpAlert.description')}
-            buttonText={t('signUpAlert.signUp')}
-            isVisible={isSignUpAlertVisible}
-            onPressSuccess={onPressSignUp}
-            onClose={() => onCloseSignUpAlert && onCloseSignUpAlert()}
-          />
-        )} */}
         {isSignUpAlertVisible && <PopUp type={PopUpType.rbSheet}
         onPressButton={onPressSignUp}
         showPopUp={isSignUpAlertVisible}

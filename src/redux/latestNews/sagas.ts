@@ -496,7 +496,7 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
       responseData.spotlightArticleSectionData = rows.map(
         ({ nid, title, body, field_image, view_node,
           field_news_categories_export, author_resource, field_new_photo, field_display_export, changed }: any) => ({
-            nid: nid,
+            nid,
             title: isNotEmpty(title) ? decode(title) : '',
             body: body,
             image: getArticleImage(field_image, field_new_photo),

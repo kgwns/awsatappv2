@@ -241,7 +241,7 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
             shortUrl: field_shorturl,
             scribbleLiveId: field_scribblelive_id,
             displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
-            link_node: link_node,
+            link_node,
             publishedDate: field_publication_date_export,
             tagTopicsList: getTagTopicsList(field_tags_topics_export)
           })

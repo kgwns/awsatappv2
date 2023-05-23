@@ -252,7 +252,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     if(isObjectNonEmpty(podcastEpisodeInfo)){
       const trackPlayerData = {
         id: podcastEpisodeInfo.nid,
-        url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
+        url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export as string),
         title: podcastEpisodeInfo.title,
         duration: duration,
         artist: podcastEpisodeInfo.title,
