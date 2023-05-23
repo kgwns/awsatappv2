@@ -298,6 +298,10 @@ const createStyles = (theme: CustomThemeType) =>
       opacity: 0.8,
       backgroundColor: colors.darkGreenishBlue,
       padding: normalize(5),
+      paddingBottom: 3,
+      fontFamily: fonts.AwsatDigital_Regular,
+      fontSize: 13,
+      lineHeight: 20,
     },
     tabTime: {
       position: 'absolute',
@@ -305,6 +309,10 @@ const createStyles = (theme: CustomThemeType) =>
       bottom: 0,
       backgroundColor: colors.black55,
       padding: normalize(5),
+      fontFamily: fonts.AwsatDigital_Regular,
+      lineHeight: 20,
+      paddingBottom: 3,
+      fontSize: 13,
     },
     videoLable: {
       left: 0,
