@@ -188,7 +188,6 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
           testID='video_Item_FlatList1'
           listKey={'videoList'+ new Date().getTime().toString()}
           keyExtractor={(_, index) => index.toString()}
-          extraData={videoDataInfo}
           renderItem={renderVideoItem}
           onEndReachedThreshold={0.5}
           onEndReached={onLoadMore}
