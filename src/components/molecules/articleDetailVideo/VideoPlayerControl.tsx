@@ -21,6 +21,7 @@ import {useAppPlayer} from 'src/hooks';
 import {images, ImagesName} from 'src/shared/styles/images';
 import {NativeViewGestureHandler} from 'react-native-gesture-handler';
 import {getSvgImages} from 'src/shared/styles/svgImages';
+import {fonts} from 'src/shared/styles/fonts';
 
 export interface VideoPlayerControlProp {
   url: string;
@@ -468,8 +469,10 @@ const customStyle = (theme: CustomThemeType) =>
     timerText: {
       backgroundColor: 'transparent',
       color: '#FFF',
-      fontSize: 11,
+      fontSize: 13,
+      lineHeight: 20,
       textAlign: 'right',
+      fontFamily: fonts.AwsatDigital_Regular,
     },
     vignette: {
       resizeMode: 'stretch',
