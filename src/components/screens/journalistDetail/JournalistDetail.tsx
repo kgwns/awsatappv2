@@ -29,7 +29,8 @@ export const JournalistDetail = ({
 
     const {
         bookmarkIdInfo,
-        sendBookmarkInfo, removeBookmarkedInfo
+        sendBookmarkInfo, removeBookmarkedInfo,
+        validateBookmark,
     } = useBookmark()
 
     const { isLoggedIn } = useLogin()
@@ -38,7 +39,7 @@ export const JournalistDetail = ({
     } = useWriterDetail();
 
     const { selectedAuthorsData, getSelectedAuthorsData,
-        sendSelectedWriterInfo, removeAuthorRequest
+        sendSelectedWriterInfo, removeAuthorRequest, validateFollow,
     } = useAllWriters();
 
     const { journalistArticleInfo, getJournalistArticleInfo, journalistDetailData, getJournalistDetailInfo,
@@ -89,10 +90,6 @@ export const JournalistDetail = ({
         setJournalistDetail(journalistDetailData)
     }, [journalistDetailData])
 
-    const validateFollow = (id: string): boolean => {
-        return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
-    }
-
     useEffect(() => {
         getJournalistArticleInfo({ nid: jId, page });
     }, [page]);
@@ -115,10 +112,6 @@ export const JournalistDetail = ({
                 isBookmarked: validateBookmark(item.nid)
             }
         ))
-    }
-
-    const validateBookmark = (nid: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid.toString() == nid) : false
     }
 
     const updatedChangeBookmark = (data: JournalistArticleData[], index: number) => {

@@ -54,6 +54,7 @@ jest.mock("src/hooks/useBookmark", () => ({
         ],
         sendBookmarkInfo: () => [],
         removeBookmarkedInfo: () => [],
+        validateBookmark: () => true,
       }
     },
 }));
@@ -171,6 +172,7 @@ jest.mock('src/hooks/useAllWriters', () => ({
         sendSelectedWriterInfo: () => {
             return [];
         },
+        validateFollow: () => true,
       };
     },
 }));

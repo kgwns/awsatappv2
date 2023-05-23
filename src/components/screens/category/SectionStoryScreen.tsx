@@ -100,7 +100,7 @@ export const SectionStoryScreen = React.memo(({
     sectionId: currentSectionId,
   };
 
-  const { sendBookmarkInfo, removeBookmarkedInfo,bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo,bookmarkIdInfo, validateBookmark } = useBookmark()
   const { isLoggedIn } = useLogin()
 
   const [heroListDataInfo,setHeroListDataInfo] = useState<NewsViewListItemType[]>([])
@@ -316,10 +316,6 @@ export const SectionStoryScreen = React.memo(({
         author_resource: '' //Need to hide author name in UI
       }
     ))
-  }
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const updateBookmarkInfo = (nid: string, isBookmarked: boolean,eventParameter: EventParameterProps) => {

@@ -51,7 +51,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
-    bookmarkIdInfo
+    bookmarkIdInfo,
+    validateBookmark,
   } = useBookmark()
 
   const { isLoggedIn } = useLogin()
@@ -78,7 +79,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     }
   }
 
-  const updateBookmark = (data: VideoItemType[]) => {
+  const updateBookmark = (data: VideoItemType[]): VideoItemType[] => {
     return data.map((item: VideoItemType) => (
       {
         ...item,
@@ -86,9 +87,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
       }
     ))
   }
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
+
   const updatedChangeBookmark = (data: VideoItemType[], index: number) => {
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
@@ -150,7 +149,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
    }, [page]);
 
   const onPressItem = (item:VideoItemType, isVideoDocumentary:boolean)=>{
-    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isVideoDocumentary})
+    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isVideoDocumentary} as never)
   }
 
   const [videoDataInfo, setVideoDataInfo] = useState(videoPaginationData)
@@ -189,6 +188,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
           testID='video_Item_FlatList1'
           listKey={'videoList'+ new Date().getTime().toString()}
           keyExtractor={(_, index) => index.toString()}
+          extraData={videoDataInfo}
           renderItem={renderVideoItem}
           onEndReachedThreshold={0.5}
           onEndReached={onLoadMore}

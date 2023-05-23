@@ -29,8 +29,9 @@ export const PhotoGalleryScreen = React.memo(
     const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
     const styles = useThemeAwareObject(customStyle);
 
-    const {sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo} =
-      useBookmark();
+    const { sendBookmarkInfo, removeBookmarkedInfo,
+      bookmarkIdInfo, validateBookmark
+    } = useBookmark();
     const {isLoggedIn} = useLogin();
 
     const [showupUp, setShowPopUp] = useState(false);
@@ -73,12 +74,6 @@ export const PhotoGalleryScreen = React.memo(
         ...item,
         isBookmarked: validateBookmark(item.nid),
       }));
-    };
-
-    const validateBookmark = (nid: string): boolean => {
-      return isNonEmptyArray(bookmarkIdInfo)
-        ? bookmarkIdInfo.some(value => value.nid == nid)
-        : false;
     };
 
     const fetchPhotoList = async (pageProps: number) => {

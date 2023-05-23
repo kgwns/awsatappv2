@@ -36,7 +36,8 @@ export const WritersDetailScreen = ({
 
     const { 
         bookmarkIdInfo, 
-        sendBookmarkInfo, removeBookmarkedInfo 
+        sendBookmarkInfo, removeBookmarkedInfo,
+        validateBookmark,
     } = useBookmark()
 
     const { 
@@ -44,7 +45,7 @@ export const WritersDetailScreen = ({
     } = useLogin()
 
     const { selectedAuthorsData, getSelectedAuthorsData,
-        sendSelectedWriterInfo, removeAuthorRequest
+        sendSelectedWriterInfo, removeAuthorRequest, validateFollow,
     } = useAllWriters();
 
 
@@ -86,10 +87,6 @@ export const WritersDetailScreen = ({
             setIsFollowed(isFollow)
         }
     }, [ writerDetailData, selectedAuthorsData])
-
-    const validateFollow = (id: string): boolean => {
-        return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
-    }
 
     const onChangeBookmarkInfo = () => {
         const writerOpinionsData = [...opinionsDataInfo]
@@ -142,10 +139,6 @@ export const WritersDetailScreen = ({
                 isBookmarked: validateBookmark(item.nid)
             }
         ))
-    }
-
-    const validateBookmark = (nid: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid === nid) : false
     }
 
     const updatedChangeBookmark = (data: OpinionsListItemType[], index: number): OpinionsListItemType[] => {

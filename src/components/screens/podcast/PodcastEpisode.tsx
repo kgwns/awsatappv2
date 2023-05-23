@@ -80,14 +80,10 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
-    bookmarkIdInfo
+    bookmarkIdInfo,
+    validateBookmark,
   } = useBookmark()
   const { isLoggedIn } = useLogin()
-
-
-  const validateBookmark = (nidProps: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nidProps) : false
-  }
 
   useEffect(() => {
     updatePodcastListData()

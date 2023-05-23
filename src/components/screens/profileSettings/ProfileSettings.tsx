@@ -235,10 +235,10 @@ export const ProfileSettings = () => {
   const email = _email !== undefined ? _email : '';
   const usernameStyle = isNotEmpty(email) && email.length > 24 && {width: '100%'}  
     
-    const renderEmail = (email: string | undefined): string => {
+    const renderEmail = (emailInfo: string | undefined): string => {
         let emailText = '';
-        if (isNotEmpty(email) && !email?.includes(CONST_HUAWEI_MAIL_EXTENSION)) {
-            emailText = email as string;
+        if (isNotEmpty(emailInfo) && !emailInfo?.includes(CONST_HUAWEI_MAIL_EXTENSION)) {
+            emailText = emailInfo as string;
         }
         return emailText;
     }

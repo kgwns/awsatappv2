@@ -53,9 +53,13 @@ export const OpinionArticleDetail = ({
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [showupUp,setShowPopUp] = useState(false)
 
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, validateBookmark } = useBookmark()
   const { isLoggedIn } = useLogin()
-  const {selectedAuthorsData, getSelectedAuthorsData,sendSelectedWriterInfo,removeAuthorRequest} = useAllWriters();
+  const {
+    selectedAuthorsData,
+    getSelectedAuthorsData, sendSelectedWriterInfo,
+    removeAuthorRequest, validateFollow
+  } = useAllWriters();
 
   const [page,setPage]=useState(0)
   const relatedOpinionPayload: RelatedOpinionBodyGet = {
@@ -198,15 +202,6 @@ export const OpinionArticleDetail = ({
       setIsFollowed(isFollow)
     }
   }, [isFocused, opinionArticle, selectedAuthorsData])
-
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
-
-  const validateFollow = (id: string): boolean => {
-    return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
-  }
 
   const onPressSave = (nid: string) => {
     if(!isLoggedIn) {

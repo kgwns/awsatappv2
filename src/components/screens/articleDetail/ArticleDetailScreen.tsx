@@ -64,7 +64,7 @@ export const ArticleDetailScreen = ({
 
   const { themeData } = useTheme()
   const { isLoggedIn } = useLogin()
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo, validateBookmark } = useBookmark()
   const { articleFontSize, storeArticleFontSizeInfo } = useAppCommon()
   const { sendEventToServer } = useArticleDetail()
 
@@ -275,10 +275,6 @@ export const ArticleDetailScreen = ({
       });
     }
   }, [isFocused]);
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
 
   useEffect(() => {
     if (isNonEmptyArray(richHTML)) {

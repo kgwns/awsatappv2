@@ -93,7 +93,8 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const {
         sendBookmarkInfo,
         removeBookmarkedInfo,
-        bookmarkIdInfo
+        bookmarkIdInfo,
+        validateBookmark,
     } = useBookmark()
 
     const { isLoggedIn } = useLogin()
@@ -114,11 +115,6 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
             initialRef.current = 0;
         }
     }, [isFocused])
-
-
-    const validateBookmark = (nidProps: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nidProps) : false
-    }
 
     useEffect(() => {
         updatePodcastEpisodeData()

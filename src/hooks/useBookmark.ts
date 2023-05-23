@@ -47,7 +47,7 @@ export interface UseBookMarkReturn {
   getSpecificBundleFavoriteDetail: (bundle: PopulateWidgetType, startIndex?: number) => void;
   canRefreshBookmarkDetail: boolean;
   getSpecificBundleArticleCount: (bundle: PopulateWidgetType) => number;
-  validateBookmark(nid: string): void;
+  validateBookmark(nid: string): boolean;
 }
 
 export const useBookmark = (): UseBookMarkReturn => {
@@ -146,7 +146,11 @@ export const useBookmark = (): UseBookMarkReturn => {
   const isAllBookmarkFetched = bookmarkIdInfo.length === bookmarkDetail.length
 
   const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
+    let isBookmarked = false;
+    if (isNonEmptyArray(bookmarkIdInfo) && isNotEmpty(nid) || typeof nid === 'number') {
+      isBookmarked = bookmarkIdInfo.some(value => value.nid.toString() === nid.toString());
+    }
+    return isBookmarked;
   }
 
   return {

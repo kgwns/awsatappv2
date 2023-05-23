@@ -45,7 +45,7 @@ const MostReadList = ({
   const theme = useTheme();
   const { isLoggedIn } = useLogin()
 
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo, validateBookmark } = useBookmark()
 
   const [articleData,setArticleData] = useState(data)
   const [showupUp,setShowPopUp] = useState(false)
@@ -65,10 +65,6 @@ const MostReadList = ({
       updateArticleDataBookmark()
     }
   },[data.rows,bookmarkIdInfo])
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
 
   const updateArticleDataBookmark = () => {
     const articleInfo = data.rows.map((item: any) => (

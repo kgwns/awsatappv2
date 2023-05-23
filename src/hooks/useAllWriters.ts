@@ -27,7 +27,7 @@ import { AllWritersItemType,
   SelectedAuthorDataType, 
   RemoveAuthorBody,
   AllSelectedWritersDetailsBodyGet } from 'src/redux/allWriters/types';
-import { isNonEmptyArray } from 'src/shared/utils';
+import { isNonEmptyArray, isObjectNonEmpty } from 'src/shared/utils';
 
 export interface UseAllWritersReturn {
   isLoading: boolean;
@@ -48,6 +48,7 @@ export interface UseAllWritersReturn {
   updateAllWritersData(): void;
   sendSelectedFromOnboard(payload: string[]): void
   emptySelectedWritersDataOnboard(): void;
+  validateFollow(tid: string): boolean;
 }
 
 export const useAllWriters = (): UseAllWritersReturn => {
@@ -111,6 +112,10 @@ export const useAllWriters = (): UseAllWritersReturn => {
     dispatch(fetchAllSelectedWritersDetails(payload));
   };
 
+  const validateFollow = (id: string): boolean => {
+    return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
+  }
+
   return {
     isLoading,
     allWritersData,
@@ -129,6 +134,7 @@ export const useAllWriters = (): UseAllWritersReturn => {
     updateAllWritersData,
     sendSelectedFromOnboard,
     emptySelectedWritersDataOnboard,
-    emptySelectedAuthorsData
+    emptySelectedAuthorsData,
+    validateFollow,
   };
 };
