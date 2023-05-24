@@ -14,7 +14,7 @@ export interface StepLineCircleProps {
 
 export const StepLineCircle: FunctionComponent<StepLineCircleProps> = ({
     currentStep,
-    totalStep = 3,
+    totalStep = 4,
 }) => {
     const style = useThemeAwareObject(stepLineCircleStyle);
     const { theme } = useAppCommon()
