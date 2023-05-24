@@ -192,9 +192,8 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
         <View style={style.contentStyle}>
           <KeepNotifiedWidget data={notificationDate} onPress={changeSelectedStatus} />
         </View>
-       {!canGoBack && isTab ? 
-       renderBottomContainer()
-       :
+       {!canGoBack && isTab && renderBottomContainer()}
+       { !canGoBack && !isTab &&
        <View style={style.nextButtonView}>
           <NextButton
             testID="nextButtonTestId"
