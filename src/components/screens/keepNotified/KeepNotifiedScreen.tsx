@@ -11,6 +11,8 @@ import { useKeepNotified } from 'src/hooks';
 import { NotificationDataType } from 'src/redux/keepNotified/types';
 import { useIsFocused } from '@react-navigation/native';
 import { fonts } from 'src/shared/styles/fonts';
+import { OnBoardingBottom } from 'src/components/molecules/onboarding-bottom/OnBoardingBottom';
+import { StepLineCircle } from 'src/components/molecules';
 
 
 export const KeepNotifiedScreen = ({ navigation, route }: any) => {
@@ -163,10 +165,26 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
       return prevValue
     }, [])
   }
+  const renderTabletTopContainer = () => {
+    return (
+      <View style={style.stepCircleContainer}>
+        <StepLineCircle currentStep={4} />
+      </View>
+    )
+  }
+
+  const renderBottomContainer = () => (
+    <OnBoardingBottom
+      title={ONBOARD_COMMON_NEXT_BUTTON}
+      disableNext={disableNext}
+      onPressNext={onPressNext}
+    />
+  );
 
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading} backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
+      {isTab && !canGoBack && renderTabletTopContainer()}
       {!canGoBack && <View style={[style.textContainer, { justifyContent: isTab ? 'center' : 'flex-end' },]}>
           <Label style={style.titleStyle} children={ONBOARD_KEEP_NOTIFIED_TITLE} />
           <Label style={style.descStyle} children={ONBOARD_KEEP_NOTIFIED_DESCRIPTION} />
@@ -174,7 +192,9 @@ export const KeepNotifiedScreen = ({ navigation, route }: any) => {
         <View style={style.contentStyle}>
           <KeepNotifiedWidget data={notificationDate} onPress={changeSelectedStatus} />
         </View>
-       {!canGoBack && <View style={style.nextButtonView}>
+       {!canGoBack && isTab && renderBottomContainer()}
+       { !canGoBack && !isTab &&
+       <View style={style.nextButtonView}>
           <NextButton
             testID="nextButtonTestId"
             title={ONBOARD_COMMON_NEXT_BUTTON}
@@ -252,6 +272,11 @@ const customStyle = (theme: CustomThemeType) => (
     },
     screenBackgroundColor: {
       backgroundColor: theme.profileBackground
+    },
+    stepCircleContainer: {
+      marginHorizontal: normalize(0.06 * screenWidth), 
+      height: 51, 
+      marginTop: 10
     }
   })
 )
