@@ -6,6 +6,7 @@ import { ScreenTestId } from "src/constants/TestConstant";
 import { ButtonOnboard } from "src/components/atoms";
 import { fetchDMAConfirmInfo, makeConfirmDeleteRequest } from "src/services/deleteMyAccountService";
 import { AlertModal } from "src/components/organisms";
+import * as deleteMyAccountService from "src/services/deleteMyAccountService";
 
 jest.mock('react', () => ({
     ...jest.requireActual('react'),
@@ -130,14 +131,13 @@ describe("<<< DMADeleteAccountScreen >>>", () => {
 
     xit('Check makeConfirmDeleteRequest catch block print console', () => {
         const spyLog = jest.spyOn(global.console, 'log');
-
-        (makeConfirmDeleteRequest as jest.Mock).mockImplementation(makeConfirmDeleteRequestMock);
-        makeConfirmDeleteRequestMock.mockRejectedValue('error');
+        jest.spyOn(deleteMyAccountService, 'makeConfirmDeleteRequest')
+            .mockImplementation(() => { throw new Error('error message') });
 
         const deleteButton = instance.container.findAllByType(ButtonOnboard)[0];
         fireEvent(deleteButton, 'onPress');
         expect(spyLog).toHaveBeenCalled();
-        spyLog.mockRestore();
+        spyLog.mockClear();
     });
 });
 
