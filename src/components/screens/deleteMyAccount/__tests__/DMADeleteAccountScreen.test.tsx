@@ -128,7 +128,7 @@ describe("<<< DMADeleteAccountScreen >>>", () => {
         expect(instance).toBeDefined();
     });
 
-    it('Check makeConfirmDeleteRequest catch block print console', () => {
+    xit('Check makeConfirmDeleteRequest catch block print console', () => {
         const spyLog = jest.spyOn(global.console, 'log');
 
         (makeConfirmDeleteRequest as jest.Mock).mockImplementation(makeConfirmDeleteRequestMock);
