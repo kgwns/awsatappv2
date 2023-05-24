@@ -4,7 +4,7 @@ import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useNotificationSaveToken} from 'src/hooks';
 import {SaveTokenBodyType} from 'src/redux/notificationSaveToken/types';
-import {isAndroid, recordLogEvent} from 'src/shared/utils';
+import {isIOS, recordLogEvent} from 'src/shared/utils';
 import {notification, ScreensConstants} from 'src/constants/Constants';
 import { navigate, navigationDeferred } from 'src/navigation/NavigationUtils';
 import notifee, {AndroidImportance, EventDetail, EventType} from '@notifee/react-native';
@@ -37,10 +37,7 @@ async function onDisplayNotification(
 }
 
 export const checkNotificationPermission = () => {
-  if (isAndroid) {
-    // Request permissions (required for iOS/Android 13)
-    notifee.requestPermission();
-  } else {
+  if (isIOS) {
     async function requestUserPermission() {
       await messaging().requestPermission();
     }
