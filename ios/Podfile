@@ -63,3 +63,11 @@ target 'Awsatapp' do
 #    __apply_Xcode_12_5_M1_post_install_workaround(installer)
 #  end
 end
+
+
+target 'AsharqalawsatNotificationExtension' do
+  # pod 'Firebase/Messaging', '~> VERSION_NUMBER' 
+  pod 'FirebaseCoreInternal', :modular_headers => true
+  pod 'Firebase/Messaging', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+end
