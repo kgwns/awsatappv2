@@ -93,12 +93,12 @@ export const useLogin = (): UseLoginReturn => {
   };
 
   const makeUserLogout = () => {
+    unlinkFcmToken();
     logoutFromfacebook()
     recordLogEvent(AnalyticsEvents.LOG_OUT);
     const userId = userProfileData?.user?.id.toString();
     recordUserId(userId);
     fetchLogoutRequest();
-    unlinkFcmToken();
     removeBookmark()
     removeKeepNotificationInfo()
     emptyUserProfileInfoData();
