@@ -18,6 +18,7 @@ import { CustomThemeType, colors } from 'src/shared/styles/colors'
 import VersionCheck from 'react-native-version-check'
 import { APP_STORE_ID, openBrowserURL } from 'src/shared/utils/utilities'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
+import { GetFCMToken } from 'src/firebase/notification/notification'
 
 const SplashNavigation = () => {
     const dispatch = useDispatch()
@@ -212,6 +213,7 @@ const SplashNavigation = () => {
             } else if (isLoaded && isObjectNonEmpty(baseUrlConfig)) {
                 return(
                     <>
+                        <GetFCMToken/>
                         <PodcastAnalyticsManager />
                         <AppStackContainer />
                     </>
