@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView, View, Linking } from 'react-native'
 import React from 'react'
-import { isIOS, screenWidth } from 'src/shared/utils'
+import { isAndroid, isIOS, screenWidth } from 'src/shared/utils'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import AutoHeightWebView from 'react-native-autoheight-webview'
 import { LIVE_BLOG_URL } from 'src/services/apiUrls'
@@ -17,8 +17,15 @@ export const ArticleLiveBlog = React.memo(({
     let webviewRef: any = React.createRef();
     const liveBlogUrl = `${LIVE_BLOG_URL}${scribbleId}`;
 
+    const onNavigationStateChange = (event: any) => {
+        if (event.url !== liveBlogUrl && isIOS) {
+            webviewRef.stopLoading();
+            Linking.openURL(event.url);
+        }
+    }
+
     const onShouldStartLoadWithRequest = (event: any) => {
-        if (event.url !== liveBlogUrl) {
+        if (event.url !== liveBlogUrl && isAndroid) {
             webviewRef.stopLoading();
             Linking.openURL(event.url);
             return false
@@ -39,6 +46,7 @@ export const ArticleLiveBlog = React.memo(({
             androidLayerType="hardware"
             allowsFullscreenVideo={true}
             scrollEnabled={false}
+            onNavigationStateChange={onNavigationStateChange}
             onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
             scalesPageToFit={false}
             setBuiltInZoomControls={false}
