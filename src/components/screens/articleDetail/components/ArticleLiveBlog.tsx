@@ -17,11 +17,13 @@ export const ArticleLiveBlog = React.memo(({
     let webviewRef: any = React.createRef();
     const liveBlogUrl = `${LIVE_BLOG_URL}${scribbleId}`;
 
-    const onNavigationStateChange = (event) => {
+    const onShouldStartLoadWithRequest = (event: any) => {
         if (event.url !== liveBlogUrl) {
             webviewRef.stopLoading();
             Linking.openURL(event.url);
+            return false
         }
+        return true
     }
 
     const renderLiveBlogView = () => (
@@ -37,7 +39,7 @@ export const ArticleLiveBlog = React.memo(({
             androidLayerType="hardware"
             allowsFullscreenVideo={true}
             scrollEnabled={false}
-            onNavigationStateChange={(event) => { onNavigationStateChange(event) }}
+            onShouldStartLoadWithRequest={onShouldStartLoadWithRequest}
             scalesPageToFit={false}
             setBuiltInZoomControls={false}
             viewportContent={'width=device-width, user-scalable=no'}
