@@ -77,7 +77,9 @@ const sucessBottomListResponseObject: FetchBottomListSuccessPayloadType = {
 
 describe('<NewsViewSaga>', () => {
   beforeEach(() => {
-    jest.useFakeTimers();
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   });
   describe('Check news view saga method', () => {
     const genObject = newsViewSaga();

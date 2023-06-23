@@ -9,12 +9,16 @@ import * as serviceApi from 'src/services/api';
 
 describe('Test LatestNews Tab Services', () => {
     const mock = new MockAdapter(axios);
+    const cachedAxiosMock = new MockAdapter(serviceApi.api);
     beforeEach(() => {
         NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() } 
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();
+        cachedAxiosMock.reset();
     });
     describe('Check requestArticleDetail method', () => {
         const requestObject: ArticleDetailBodyGet = {
@@ -22,7 +26,7 @@ describe('Test LatestNews Tab Services', () => {
         };
 
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 
@@ -31,7 +35,7 @@ describe('Test LatestNews Tab Services', () => {
             });
         });
         it('test when response code is 500', () => {
-            mock.onGet().reply(500, {
+            cachedAxiosMock.onGet().reply(500, {
                 error: 'Something Went Wrong',
             });
 
@@ -42,13 +46,13 @@ describe('Test LatestNews Tab Services', () => {
         });
     })
 
-    describe('Check requestLatestArticle method', () => {
+    describe('Check requestRelatedArticle method', () => {
         const requestObject: RelatedArticleBodyGet = {
             tid: 11
         };
 
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 
@@ -57,7 +61,7 @@ describe('Test LatestNews Tab Services', () => {
             });
         });
         it('test when response code is 500', () => {
-            mock.onGet().reply(500, {
+            cachedAxiosMock.onGet().reply(500, {
                 error: 'Something Went Wrong',
             });
 
@@ -96,7 +100,7 @@ describe('Test LatestNews Tab Services', () => {
         });
     })
 
-    describe('Check requestLatestArticle method', () => {
+    describe('Check requestSectionCombo method', () => {
         const requestObject1: RequestSectionComboBodyGet = {
             id: 11,
             items_per_page: 10
@@ -331,7 +335,7 @@ describe('Test LatestNews Tab Services', () => {
         };
 
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 
@@ -351,7 +355,7 @@ describe('Test LatestNews Tab Services', () => {
 
     describe('Check infoGraphicBlockApi method', () => {
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 
@@ -372,7 +376,7 @@ describe('Test LatestNews Tab Services', () => {
 
     describe('Check archivedArticleApi method', () => {
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 

@@ -14,13 +14,13 @@ export interface StepLineCircleProps {
 
 export const StepLineCircle: FunctionComponent<StepLineCircleProps> = ({
     currentStep,
-    totalStep = 3,
+    totalStep = 4,
 }) => {
     const style = useThemeAwareObject(stepLineCircleStyle);
     const { theme } = useAppCommon()
     const isDarkMode = isDarkTheme(theme)
     const renderCircle = (step: number, totalStep: number) => {
-        const left = step == 1 ? -15 : step == totalStep ? '99%' : `${(step - 1) * (100 / (totalStep - 1))}%`;
+        const left = step === 1 ? -15 : step === totalStep ? '99%' : `${(step - 1) * (100 / (totalStep - 1))}%`;
         const backgroundColor = step == currentStep ? colors.greenishBlue : (isDarkMode ? colors.black : colors.cyanGray);
         const borderColor = step == currentStep ? colors.greenishBlue : (isDarkMode ? colors.white : colors.cyanGray);
         return (

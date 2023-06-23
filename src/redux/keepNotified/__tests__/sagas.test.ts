@@ -10,7 +10,9 @@ const errorResponse = {
 
 describe('<Article Detail Saga >', () => {
   beforeEach(() => {
-      jest.useFakeTimers()
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    })
   });
 
   describe('Check keepNotifiedSaga sage method', () => {

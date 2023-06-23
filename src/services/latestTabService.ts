@@ -30,10 +30,9 @@ const getSectionComboUrl = (body: RequestSectionComboBodyGet) => {
 
 export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
   try {
-    const response: payloadType = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${LATEST_ARTICLE_GET}?items_per_page=${body.items_per_page}&page=${body.page}&offset=${body.offset}`,
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - requestLatestArticle - error', error)
     throw error;
@@ -43,10 +42,9 @@ export const requestLatestArticle = async (body: LatestArticleBodyGet) => {
 export const requestSectionCombo = async(body: RequestSectionComboBodyGet) => {
   const query = body.items_per_page ? `/?item per page=${body.items_per_page}&page=${body.page}` : '/'
   try {
-    const response: payloadType = await getApiRequest(
+    return await getApiRequest(
       `${getSectionComboUrl(body)}${query}`
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - requestSectionCombo - error', error)
     throw error;
@@ -55,22 +53,21 @@ export const requestSectionCombo = async(body: RequestSectionComboBodyGet) => {
 
 export const writerOpinionApi = async (body: LatestArticleBodyGet) => {
   try {
-    const response: payloadType = await getApiRequest(
-      `${BASE_URL}${HOME_OPINIONS_GET}?items_per_page=${body.items_per_page}&page=${body.page}&offset=${body.offset}`,
+    return await getApiRequest(
+      `${BASE_URL}${HOME_OPINIONS_GET}?items_per_page=${body.items_per_page}&page=${body.page}&offset=${body.offset}`
     );
-    return response;
   } catch (error) {
-    console.log('latestTabService - writerOpinionApi - error', error)
+    console.log('latestTabService - writerOpinionSortApi - error', error)
     throw error;
   }
 };
 
+
 export const podcastHomeApi = async () => {
   try {
-    const response: payloadType = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${PODCAST_HOME}`,
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - podcastHomeApi - error', error)
     throw error;
@@ -97,10 +94,9 @@ export const mainCoverageBlockApi = async () => {
 
 export const mainFeaturedArticleApi = async () => {
   try {
-    const response: payloadType = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${FEATURED_ARTICLE_ENDPOINT}`,
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - mainFeaturedArticleApi - error', error)
     throw error;
@@ -109,10 +105,9 @@ export const mainFeaturedArticleApi = async () => {
 
 export const mainHorizontalArticleApi = async () => {
   try {
-    const response: payloadType = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${HORIZONTAL_ARTICLE_END_POINT}`,
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - mainHorizontalArticleApi - error', error)
     throw error;
@@ -121,10 +116,9 @@ export const mainHorizontalArticleApi = async () => {
 
 export const editorsChoiceApi = async () => {
   try {
-    const response: payloadType = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${EDITORS_CHOICE}`
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - editorsChoiceApi - error', error)
     throw error;
@@ -133,10 +127,9 @@ export const editorsChoiceApi = async () => {
 
 export const spotlightApi = async () => {
   try {
-    const response: payloadType = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${SPOTLIGHT_COMBO}`
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - spotlightApi - error', error)
     throw error;
@@ -145,10 +138,9 @@ export const spotlightApi = async () => {
 
 export const requestSpotlightArticleSection = async (body: SpotlightArticleSectionBodyGet) => {
   try {
-    const response: payloadType = await getCacheApiRequest(
+    return await getCacheApiRequest(
       `${BASE_URL}${ARTICLE_SECTION_GET}${body.id}?page=${body.page}&items_per_page=${body.items_per_page}`,
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - requestSpotlightArticleSection - error', error)
     throw error;
@@ -157,10 +149,9 @@ export const requestSpotlightArticleSection = async (body: SpotlightArticleSecti
 
 export const infoGraphicBlockApi = async () => {
   try {
-    const response: any = await getCacheApiRequest(
+    return await getCacheApiRequest(
       `${BASE_URL}${INFO_GRAPHIC_BLOCK}`,
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - infoGraphicBlockApi - error', error)
     throw error;
@@ -169,10 +160,9 @@ export const infoGraphicBlockApi = async () => {
 
 export const archivedArticleApi = async () => {
   try {
-    const response: any = await getCacheApiRequest(
+    return await getCacheApiRequest(
       `${BASE_URL}${ARCHIVED_ARTICLE_ENDPOINT}`,
     );
-    return response;
   } catch (error) {
     console.log('latestTabService - archivedArticleApi - error', error)
     throw error;

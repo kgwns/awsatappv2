@@ -17,7 +17,9 @@ describe('<ArticleDetailWidget>', () => {
     const mockFunction = jest.fn();
     const setScribbleLiveData = jest.fn();
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
         (useState as jest.Mock).mockImplementation(() => [{data:'data'},setScribbleLiveData])
         const data: ArticleDetailDataType = {
             title: 'title',

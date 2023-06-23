@@ -1,6 +1,6 @@
 import analytics from '@react-native-firebase/analytics';
 
-interface logSignUpLoginprops {
+interface LogSignUpLoginProps {
   method: string
 }
 
@@ -41,7 +41,8 @@ export enum AnalyticsEvents {
   ADD_BOOKMARK_TO_ARTICLE = 'Add_Bookmark_to_Article',
   REMOVE_BOOKMARK = 'Remove_Bookmark',
   PRESSED_ON_SOCIAL_MEDIA_EXTENSIONS = 'Pressed_on_social_media_extensions',
-  EMAIL = 'email'
+  EMAIL = 'email',
+  UNHANDLED_NOTIFICATION = 'UnHandled_Notification'
 }
 
 export interface EventParameterProps {
@@ -69,14 +70,14 @@ export const recordUserId = async (params: string | null) => {
   await analytics().setUserId(params);
 }
 
-export const recordLogSignUp = async (params: logSignUpLoginprops) => {
+export const recordLogSignUp = async (params: LogSignUpLoginProps) => {
   await analytics().logSignUp(params);
 }
 
-export const recordLogLogin = async (params: logSignUpLoginprops) => {
+export const recordLogLogin = async (params: LogSignUpLoginProps) => {
   await analytics().logLogin(params);
 }
 
 export const recordUserProperty = async (key: string, value: string) => {
   await analytics().setUserProperty(key,value);
-} 
+}

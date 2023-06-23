@@ -14,7 +14,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { useLogin, useSideMenu, useWeatherDetails } from 'src/hooks';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { ABOUT_US, ADVERTISE_INFO_ID, PRIVACY_POLICY_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
+import { ABOUT_US, PRIVACY_POLICY_ID, TERMS_AND_CONDITION } from 'src/services/apiEndPoints';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import { colors } from '../shared/styles/colors';
 import { useUserProfileData } from 'src/hooks/useUserProfileData';
@@ -71,6 +71,8 @@ const CustomDrawerContent = () => {
   const TERMS_OF_USE = TranslateConstants({key: TranslateKey.TERMS_OF_USE});
   const PRIVACY_POLICY = TranslateConstants({key: TranslateKey.PRIVACY_POLICY});
   const CALL_US = TranslateConstants({key: TranslateKey.DRAWER_CALL_US});
+  const CARICATURE = TranslateConstants({key: TranslateKey.CARICATURE});
+  
   const [latitude, setLatitude] = useState<number>();
   const [longitude, setLongitude] = useState<number>();
   const [locationEnabled, setLocationEnabled] = useState<boolean>(false);
@@ -224,8 +226,7 @@ const CustomDrawerContent = () => {
       filterMenuData = menuData.filter((item) => item.parent_export && item.parent_export.includes(parentId))
     }
 
-    for (let i = 0; i < filterMenuData.length; i++) {
-      const item = filterMenuData[i]
+    for(const item of filterMenuData) {
       const newParentId = item.uuid_export ?? null
       const customData: any = {
         ...item,
@@ -271,9 +272,9 @@ const CustomDrawerContent = () => {
         navigation.navigate(ScreensConstants.PROFILE_SETTING)
       }}>
         {useLogin().isLoggedIn && userProfileData.user?.image ?
-          <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image as string) }} />
+          <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.image) }} />
           : userProfileData.user?.profile_url
-            ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url as string) }} />
+            ? <Image style={styles.user} source={{ uri: getProfileImageUrl(userProfileData.user?.profile_url) }} />
             : <UserIcon />}
       </TouchableOpacity>
       <View style={styles.logoContainer}>
@@ -311,6 +312,10 @@ const CustomDrawerContent = () => {
   }
 
   const onPressNavigationDynamicMenu = (isChild: boolean, menuInfo: any) => {
+    if(menuInfo.field_app_key_name_export === CARICATURE){
+      onPressNavigation(ScreensConstants.CartoonListScreen, {title: menuInfo.title});
+      return;
+    }
     const screenName = isChild ? ScreensConstants.SectionArticlesScreen : ScreensConstants.SectionArticlesParentScreen
     const defaultParams = { sectionId: menuInfo.field_sections, title: menuInfo.title }
     const params = isChild ? defaultParams : { ...defaultParams, keyName: menuInfo.field_app_key_name_export }

@@ -35,14 +35,10 @@ export const PodcastProgram = React.memo(({ tabIndex, currentIndex, scrollY }: {
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
-    bookmarkIdInfo
+    bookmarkIdInfo,
+    validateBookmark,
   } = useBookmark()
   const { isLoggedIn } = useLogin()
-
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
 
   const ref = React.useRef(null);
   useEffect(() => {

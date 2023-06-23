@@ -10,6 +10,7 @@ import { useNavigation } from '@react-navigation/native';
 import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { useAppPlayer, useLogin } from 'src/hooks';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
@@ -436,6 +437,7 @@ jest.mock("src/hooks/useBookmark", () => ({
       removeBookmarkedInfo: () => [],
       getBookmarkDetailData: () => [],
       removeBookmark: () => [],
+      validateBookmark: () => true,
     }
   },
 }));
@@ -504,7 +506,11 @@ describe('<MainSectionScreen>', () => {
       setPlay: () => [],
       setPlayerTrack: () => [],
     });
-    const component = <MainSectionScreen tabIndex={0} currentIndex={0} />;
+    const component = (
+      <GestureHandlerRootView>
+        <MainSectionScreen tabIndex={0} currentIndex={0} />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 
@@ -763,7 +769,11 @@ describe('<MainSectionScreen>', () => {
       setPlay: () => [],
       setPlayerTrack: () => [],
     });
-    const component = <MainSectionScreen tabIndex={1} currentIndex={2} />;
+    const component = (
+      <GestureHandlerRootView>
+        <MainSectionScreen tabIndex={1} currentIndex={2} />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 
@@ -988,7 +998,11 @@ describe('<MainSectionScreen>', () => {
     useLoginMock.mockReturnValue({
       isLoggedIn: true,
     });
-    const component = <MainSectionScreen tabIndex={1} currentIndex={2} />;
+    const component = (
+      <GestureHandlerRootView>
+        <MainSectionScreen tabIndex={1} currentIndex={2} />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 

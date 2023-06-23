@@ -87,7 +87,9 @@ describe('render AppStackContainer when the user logged in and the user is not a
     let instance: RenderAPI;
     (useLogin as jest.Mock).mockReturnValueOnce({isLoggedIn:true,loginData:{message:{newUser:0}}});
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       const component = (
           <Provider store={storeSampleData}>
             <AppStackContainer />
@@ -113,7 +115,9 @@ describe('render AppStackContainer when the user logged in and the user is new u
   let instance: RenderAPI;
   (useLogin as jest.Mock).mockReturnValue({isLoggedIn:true,loginData:{message:{newUser:1}}});
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     const component = (
         <Provider store={storeSampleData}>
           <AppStackContainer />

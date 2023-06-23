@@ -12,7 +12,6 @@ import { JournalistSection } from 'src/components/organisms';
 import { horizontalEdge, } from 'src/shared/utils/utilities';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import { ScreensConstants } from 'src/constants/Constants'
-import Orientation from 'react-native-orientation-locker';
 import { JournalistArticleData, JournalistDetailDataType } from 'src/redux/journalist/types';
 
 export interface JournalistDetailScreenProps {
@@ -30,7 +29,8 @@ export const JournalistDetail = ({
 
     const {
         bookmarkIdInfo,
-        sendBookmarkInfo, removeBookmarkedInfo
+        sendBookmarkInfo, removeBookmarkedInfo,
+        validateBookmark,
     } = useBookmark()
 
     const { isLoggedIn } = useLogin()
@@ -39,7 +39,7 @@ export const JournalistDetail = ({
     } = useWriterDetail();
 
     const { selectedAuthorsData, getSelectedAuthorsData,
-        sendSelectedWriterInfo, removeAuthorRequest
+        sendSelectedWriterInfo, removeAuthorRequest, validateFollow,
     } = useAllWriters();
 
     const { journalistArticleInfo, getJournalistArticleInfo, journalistDetailData, getJournalistDetailInfo,
@@ -55,7 +55,8 @@ export const JournalistDetail = ({
     const detailRoutes = useMemo(() => routes.filter((detailRoute) =>
         detailRoute.name === ScreensConstants.ARTICLE_DETAIL_SCREEN ||
         detailRoute.name === ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN ||
-        detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN), [routes]);
+        detailRoute.name === ScreensConstants.WRITERS_DETAIL_SCREEN ||
+        detailRoute.name === ScreensConstants.JOURNALIST_DETAIL_SCREEN), [routes]);
     const noOfDetailRoutes = detailRoutes.length
 
     const jId = route.params.tid
@@ -89,10 +90,6 @@ export const JournalistDetail = ({
         setJournalistDetail(journalistDetailData)
     }, [journalistDetailData])
 
-    const validateFollow = (id: string): boolean => {
-        return isObjectNonEmpty(selectedAuthorsData) ? selectedAuthorsData.data.some((value: any) => value.tid == id) : false
-    }
-
     useEffect(() => {
         getJournalistArticleInfo({ nid: jId, page });
     }, [page]);
@@ -115,10 +112,6 @@ export const JournalistDetail = ({
                 isBookmarked: validateBookmark(item.nid)
             }
         ))
-    }
-
-    const validateBookmark = (nid: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid.toString() == nid) : false
     }
 
     const updatedChangeBookmark = (data: JournalistArticleData[], index: number) => {

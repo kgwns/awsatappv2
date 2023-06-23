@@ -30,8 +30,9 @@ export interface SearchResultsProps {
 export interface SearchListProps {
   testID?: string;
   onItemActionPress?: (item: SearchItemType) => void;
-  onTextChange?: (searctText: string) => void;
+  onTextChange?: (searctText: string, isSubmit: boolean) => void;
   isLoading: boolean;
+  isSubmit?: boolean;
   data: SearchItemType[];
   searchHistory: string[];
   onPressHistory: (historyText: string) => void;
@@ -44,7 +45,8 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   isLoading,
   data,
   searchHistory,
-  onPressHistory
+  onPressHistory,
+  isSubmit = false,
 }) => {
   const [searchText, setSearchText] = useState('');
   const styles = useThemeAwareObject(createStyles);
@@ -59,6 +61,9 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
   };
 
   const onSubmit = () => {
+    if(searchText.length < 3){
+      searchResults(searchText, true);
+    }
     if(isNonEmptyArray(data)){
       recordLogEvent(AnalyticsEvents.SEARCH, {query: searchText, results_length: data.length});
     }
@@ -115,12 +120,26 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
     );
   };
 
+  const searchResults = (text: string, isSubmit: boolean = false) => {
+    if (onTextChange) {
+      onTextChange(text, isSubmit);
+    }
+  }
+
   const onSearchTextChange = (searchString: string) => {
     setSearchText(searchString);
-    if (onTextChange) {
-      onTextChange(searchString);
-    }
+    searchResults(searchString);
   };
+
+  const onClearSearchText = () => {
+    if (onTextChange) {
+      onTextChange('', false);
+    }
+    setSearchText('');
+    requestAnimationFrame(() => {
+      Keyboard.dismiss();
+    });
+  }
 
   const getSearchResults = () => {
     return (
@@ -182,19 +201,13 @@ export const SearchList: FunctionComponent<SearchListProps> = ({
         onChangeText={(text:string) => {
           onSearchTextChange(text);
         }}
-        onClearSearchText={() => {
-          Keyboard.dismiss();
-          if (onTextChange) {
-            onTextChange('');
-          }
-          setSearchText('');
-        }}
+        onClearSearchText={onClearSearchText}
         onSubmitSearch={onSubmit}
       />
     <KeyboardAwareScrollView bounces={false} enableOnAndroid = {true} 
       showsVerticalScrollIndicator={false} scrollEnabled>
       {/* User Need to type minimum four char */}
-      {searchText.length >= 4 ? getSearchResults() : searchHistoryView()} 
+      {isSubmit ? getSearchResults() : searchText.length >= 3 ? getSearchResults() : searchHistoryView()} 
     </KeyboardAwareScrollView>
   </View>
 
@@ -337,6 +350,7 @@ StyleSheet.create({
     marginTop: 40
   },
   loadingContainer: {
-    marginTop:20
+    marginTop:20,
+    height: 80
   }
 });

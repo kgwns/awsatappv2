@@ -59,7 +59,9 @@ describe('<GetFCMToken>', () => {
   const useNotificationSaveTokenMock = jest.fn();
   let instance: RenderAPI;
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNotificationSaveToken as jest.Mock).mockImplementation(
       useNotificationSaveTokenMock,
     );
@@ -91,7 +93,9 @@ describe('<GetFCMToken>', () => {
 
 describe('<registerBackgroundPushNotification>', () => {
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   });
   afterEach(() => {
     jest.clearAllMocks();

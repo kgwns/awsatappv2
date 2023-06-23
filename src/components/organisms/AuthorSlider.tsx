@@ -49,8 +49,10 @@ const AuthorSlider = ({
   const [selectedTrack, setSelectedTrack] = useState<any>(null);
   const [activeIndex, setActiveIndex] = useState<any>(isIOS ? 0 : data.length - 1);
 
-  const renderSepartor = () => {
-    if(isTab) return null;
+  const renderSeparator = () => {
+    if (isTab) {
+      return null
+    }
     return(
       <Divider style={style.divider} />
     )
@@ -65,7 +67,7 @@ const AuthorSlider = ({
         listKey={`AuthorSlider${index}${new Date().getTime().toString()}`}
         renderItem={({ item, index }) => renderAuthorList(item, index)}
         style={[!isTab && style.itemListContainer, isTab && index === 2 && { marginLeft: 0 }]}
-        ItemSeparatorComponent={() => renderSepartor()}
+        ItemSeparatorComponent={() => renderSeparator()}
       />
     );
   };
@@ -137,7 +139,7 @@ const AuthorSlider = ({
   };
 
   const onPressMore = () => {
-    const params = { sectionId: null, title: "الرأي", keyName: "opinion" }
+    const params = { sectionId: null, title: CONST_OPINION_COMBO_TITLE, keyName: "opinion" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 

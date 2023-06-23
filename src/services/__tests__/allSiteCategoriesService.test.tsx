@@ -6,7 +6,9 @@ import { AllSiteCategoriesBodyGet, SendSelectedTopicBody } from 'src/redux/allSi
 describe('Test AllSiteCategories Services', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();

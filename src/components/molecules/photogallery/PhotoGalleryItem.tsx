@@ -58,7 +58,7 @@ export const PhotoGalleryItem: FunctionComponent<PhotoGalleryItemProps> = ({
     },
     rightIcon: () => TimeIcon(timeFormat.icon),
     rightTitleColor: style.footerTitleColor.color,
-    bookMarkColorType: bookMarkColorType,
+    bookMarkColorType,
   };
 
   const onPressBookmark = () => {

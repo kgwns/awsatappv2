@@ -15,11 +15,11 @@ export interface BannerImageWithOverlayProps {
     showOverlay?: boolean;
     isAlbum?: boolean;
     displayType?: string;
-    renderTagName?: JSX.Element | null;
+    renderTagName?: React.JSX.Element | null;
 }
 
 export const RenderPhotoIcon = () => (
-    <View style={isTab ? bannerImageWithOverlayStyle.tabPhotoIconContainer : bannerImageWithOverlayStyle.photoIconContainer}>
+    <View style={isTab ? bannerImageWithOverlayStyle.tabPhotoIconContainer : bannerImageWithOverlayStyle.photoIconContainer} testID={'photoIconId'}>
         {getSvgImages({
             name: ImagesName.photoIcon,
             width: isTab ? 17 : 27,

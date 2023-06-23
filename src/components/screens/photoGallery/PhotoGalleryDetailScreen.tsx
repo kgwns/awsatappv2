@@ -13,7 +13,6 @@ import {
 import {DetailHeader, PhotoGalleryDetailFooter} from 'src/components/molecules';
 import {ScreenContainer} from '..';
 import { useAppCommon, useAppPlayer, useBookmark, useLogin, usePhotoGallery } from 'src/hooks';
-import Orientation, {OrientationType} from 'react-native-orientation-locker';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {ArticleFontSize} from 'src/redux/appCommon/types';
@@ -35,7 +34,7 @@ export const PhotoGalleryDetailScreen = ({
   const isFocused = useIsFocused();
   const styles = useThemeAwareObject(customStyle);
 
-  const {sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo} =
+  const {sendBookmarkInfo, removeBookmarkedInfo, validateBookmark} =
     useBookmark();
   const {albumDetailData, fetchAlbumDetailData, isDetailLoading, emptyAllData} =
     usePhotoGallery();
@@ -92,6 +91,7 @@ export const PhotoGalleryDetailScreen = ({
     }
   }, [albumData]);
 
+  /* We will uncomment the below code when landscape orientation required for mobile
   const updateScreenEdge = (deviceOrientation: OrientationType) => {
     const screenEdge = getScreenEdge(deviceOrientation);
     isNonEmptyArray(screenEdge) && setEdge(screenEdge);
@@ -110,13 +110,7 @@ export const PhotoGalleryDetailScreen = ({
       default:
         return horizontalEdge;
     }
-  };
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo)
-      ? bookmarkIdInfo.some(value => value.nid == nid)
-      : false;
-  };
+  }; */
 
   const onPressSave = (nid: string) => {
     if (!isLoggedIn) {
@@ -150,7 +144,10 @@ export const PhotoGalleryDetailScreen = ({
   };
 
   const onPressBack = () => {
-    // Orientation.lockToPortrait(); //Disabled for iPad orientation
+    
+    //Disabled for iPad orientation
+    // Orientation.lockToPortrait();
+    
     isTab && isIOS
       ? setTimeout(() => {
           navigation.goBack();

@@ -7,9 +7,10 @@ import {
   TouchableOpacity,
   StyleProp,
   ViewStyle,
+  TextStyle,
 } from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenHeight, screenWidth} from '../../../shared/utils';
+import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
 import {useAppCommon} from '../../../hooks/useAppCommon';
 import {CustomThemeType} from 'src/shared/styles/colors';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
@@ -49,6 +50,7 @@ export interface ScreenContainerProps {
   alertOnPress?: () => void;
   headerLeft?: any;
   playerPosition?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
   showPlayer?: boolean;
   isLandscape?: boolean;
   backgroundColor?: string;
@@ -75,7 +77,8 @@ export const ScreenContainer = ({
   showPlayer = true,
   isLandscape = false,
   backgroundColor = '',
-  isAlertCloseIconVisible = true
+  isAlertCloseIconVisible = true,
+  textStyle,
 }: ScreenContainerProps) => {
   const {theme} = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
@@ -131,7 +134,7 @@ export const ScreenContainer = ({
           <Label
             labelType="h2"
             color={themeData.secondaryDarkSlate}
-            style={[style.headerTitle, titleStyle]}>
+            style={[style.headerTitle, titleStyle, textStyle]}>
             {title}
           </Label>
         )}
@@ -163,16 +166,6 @@ export const ScreenContainer = ({
             <LoadingState />
           </View>
         )}
-        {/* {isSignUpAlertVisible && (
-          <AlertModal
-            title={t('signUpAlert.notSubscribed')}
-            message={t('signUpAlert.description')}
-            buttonText={t('signUpAlert.signUp')}
-            isVisible={isSignUpAlertVisible}
-            onPressSuccess={onPressSignUp}
-            onClose={() => onCloseSignUpAlert && onCloseSignUpAlert()}
-          />
-        )} */}
         {isSignUpAlertVisible && <PopUp type={PopUpType.rbSheet}
         onPressButton={onPressSignUp}
         showPopUp={isSignUpAlertVisible}

@@ -45,6 +45,7 @@ jest.mock('src/hooks/useBookmark', () => ({
       ],
       sendBookmarkInfo: () => [],
       removeBookmarkedInfo: () => [],
+      validateBookmark: () => true,
     };
   },
 }));
@@ -74,7 +75,9 @@ describe('should render <PhotoGalleryScreen> when the user is logged in', () => 
   }
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchAlbumListApi as jest.Mock).mockImplementation(fetchAlbumListApiMock);
     (useLogin as jest.Mock).mockReturnValue({isLoggedIn:true});
     (useState as jest.Mock).mockImplementation(() => [false, setIsLoading]);
@@ -198,7 +201,9 @@ describe('should render <PhotoGalleryScreen> when the user is not logged in', ()
   }
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchAlbumListApi as jest.Mock).mockImplementation(fetchAlbumListApiMock);
     (useLogin as jest.Mock).mockReturnValue({isLoggedIn:false});
     (useState as jest.Mock).mockImplementation(() => [false, setIsLoading]);

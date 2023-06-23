@@ -2,10 +2,8 @@ import {BASE_URL} from 'src/services/apiUrls';
 import {getApiRequest} from 'src/services/api';
 import {FAVOURITE_OPINIONS_ENDPOINT,CONTENT_FOR_YOU_ARTICLE_ENDPOINT} from './apiEndPoints';
 import {
-  FetchFavouriteOpinionsSuccessPayloadType,
   FavouriteOpinionsBodyGet,
   FavouriteArticlesBodyGet,
-  FetchFavouriteArticlesSuccessPayloadType,
 } from 'src/redux/contentForYou/types';
 import { joinArray } from 'src/shared/utils/';
 
@@ -27,7 +25,7 @@ const getFavouriteArticleUrl = (body:FavouriteArticlesBodyGet) => {
 
 export const fetchFavouriteOpinionsApi = async (body: FavouriteOpinionsBodyGet) => {
   try {
-    const response: FetchFavouriteOpinionsSuccessPayloadType = await getApiRequest(
+    return await getApiRequest(
       getFavouriteOpinionUrl(body),
       {
         params: {
@@ -36,7 +34,6 @@ export const fetchFavouriteOpinionsApi = async (body: FavouriteOpinionsBodyGet) 
         },
       },
     );
-    return response;
   } catch (error) {
     console.log('contentForYouService - fetchFavouriteOpinionsApi - error', error)
     throw error;
@@ -45,7 +42,7 @@ export const fetchFavouriteOpinionsApi = async (body: FavouriteOpinionsBodyGet) 
 
 export const fetchFavouriteArticleApi = async (body: FavouriteArticlesBodyGet) => {
   try {
-    const response: FetchFavouriteArticlesSuccessPayloadType = await getApiRequest(
+    return await getApiRequest(
       getFavouriteArticleUrl(body),
       {
         params: {
@@ -54,7 +51,6 @@ export const fetchFavouriteArticleApi = async (body: FavouriteArticlesBodyGet) =
         },
       },
     );
-    return response;
   } catch (error) {
     console.log('contentForYouService - fetchFavouriteArticleApi - error', error)
     throw error;

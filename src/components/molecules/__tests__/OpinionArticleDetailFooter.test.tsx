@@ -33,7 +33,9 @@ describe('<OpinionArticleDetailFooter>', () => {
   };
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     jest.spyOn(Share,'open').mockResolvedValue({response:true} as any);
     const component = (
       <OpinionArticleDetailFooter opinionArticleDetailData={data} isBookmarked={false} onPressSave={mockFunction} onPressFontSizeChange={mockFunction}/>
@@ -98,7 +100,9 @@ describe('<OpinionArticleDetailFooter>', () => {
   };
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     jest.spyOn(Share,'open').mockRejectedValue('error');
     const component = (
       <OpinionArticleDetailFooter opinionArticleDetailData={data} isBookmarked={true} onPressSave={mockFunction} onPressFontSizeChange={mockFunction}/>

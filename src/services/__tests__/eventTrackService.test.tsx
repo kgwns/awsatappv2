@@ -5,7 +5,9 @@ import { store } from "src/redux/store";
 describe('Check event track service', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
     afterEach(() => {
         mock.reset();
@@ -47,7 +49,9 @@ describe('Check event track service', () => {
 describe('Check event track service if user id is empty', () => {
     const mock = new MockAdapter(axios);
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
     afterEach(() => {
         mock.reset();

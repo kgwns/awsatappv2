@@ -104,7 +104,7 @@ export const AuthorsHorizontalSlider = ({
             ]}>
             <Image
               url={imageUrl}
-              fallbackName={ImagesName.authorDefault}
+              fallbackName={ImagesName.authorDefaultName}
               style={styles.authorImageStyle}
               resizeMode={'cover'}
             />

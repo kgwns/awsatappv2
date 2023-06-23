@@ -1,5 +1,4 @@
 import { GoogleSignin } from "@react-native-google-signin/google-signin";
-import { RenderAPI } from "@testing-library/react-native";
 import SigninGoogle from "../SigninGoogle";
 jest.mock("@react-native-google-signin/google-signin", () => ({
   GoogleSignin: {
@@ -11,10 +10,12 @@ jest.mock("@react-native-google-signin/google-signin", () => ({
 }))
 
 describe("test facebookSignIn", () => {
-  let instance: RenderAPI;
+  let instance: any;
   const mockFunction = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     instance = new SigninGoogle(mockFunction);
   });
   afterEach(() => {

@@ -3,6 +3,7 @@ import {fireEvent, render, RenderAPI} from '@testing-library/react-native';
 import {PodcastScreen} from 'src/components/screens/category/PodcastScreen';
 import { PodcastCardSection } from 'src/components/organisms';
 import {useNavigation} from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -18,7 +19,7 @@ describe('<PodcastScreen>', () => {
 
   beforeEach(() => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    const component = <PodcastScreen />;
+    const component = <GestureHandlerRootView><PodcastScreen /></GestureHandlerRootView>;
     instance = render(component);
   });
 

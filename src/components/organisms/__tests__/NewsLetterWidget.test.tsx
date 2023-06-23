@@ -5,6 +5,7 @@ import {storeSampleData} from '../../../constants/Constants';
 import {NewsLettersWidget} from '..';
 import { FlatList } from 'react-native';
 import { NewsLetterCard, NewsLetterCardProps } from 'src/components/molecules/NewsLetterCard';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
@@ -28,7 +29,9 @@ describe('<NewsLettersWidget>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLettersWidget data = {sampleData} canGoBack = {true} changeSelectedStatus={mockFunction} title='example' subTitle='example' description='example' isSelected={true} onPress={mockFunction} image={'example.png'} />
+        <GestureHandlerRootView>
+          <NewsLettersWidget data = {sampleData} canGoBack = {true} changeSelectedStatus={mockFunction} title='example' subTitle='example' description='example' isSelected={true} onPress={mockFunction} image={'example.png'} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);
@@ -85,7 +88,9 @@ describe('<NewsLettersWidget> with canGoBack as false', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <NewsLettersWidget data = {sampleData} canGoBack = {false} changeSelectedStatus={mockFunction} title='example' subTitle='example' description='example' isSelected={true} onPress={mockFunction} image={'example.png'} />
+        <GestureHandlerRootView>
+          <NewsLettersWidget data = {sampleData} canGoBack = {false} changeSelectedStatus={mockFunction} title='example' subTitle='example' description='example' isSelected={true} onPress={mockFunction} image={'example.png'} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);

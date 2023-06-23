@@ -2,7 +2,6 @@ import {
   FavoriteScreen,
   MostReadScreen,
   SectionsScreen,
-  LatestNewsScreen,
   AuthPage,
   SearchScreen,
   FollowFavoriteAuthorScreen,
@@ -49,12 +48,13 @@ import {
 import AppNavigator from 'src/navigation/AppNavigator';
 import AuthNavigator from 'src/navigation/AuthNavigator';
 import OnBoardNavigator from './OnBoardNavigator';
+import { CartoonList } from 'src/components/screens/cartoonList/CartoonList';
+import { EntityQueueListScreen } from 'src/components/screens/NotificationEntityQueue/EntityQueueListScreen';
 
 export const Routes = {
   FavoriteScreen,
   MostReadScreen,
   SectionsScreen,
-  LatestNewsScreen,
   AuthPage,
   AppNavigator,
   AuthNavigator,
@@ -100,6 +100,8 @@ export const Routes = {
   DMAOptionsListScreen,
   DMAFeedbackScreen,
   DMADeleteAccountScreen,
+  CartoonList,
+  EntityQueueListScreen
 };
 
 /**
@@ -171,6 +173,8 @@ const journalistDetail = 'journalistDetail' as ScreenName;
 const PodcastEpisodeModalScreen = 'PodcastEpisodeModalScreen' as ScreenName;
 const dmaIntroductionScreen = 'DMAIntroductionScreen' as ScreenName;
 const dmaOptionsList = 'DMAOptionsListScreen' as ScreenName;
+const cartoonList = 'CartoonList' as ScreenName;
+const entityQueueList = 'EntityQueueList' as ScreenName;
 
 export const RoutesName = {
   favoriteScreen,
@@ -206,4 +210,6 @@ export const RoutesName = {
   PodcastEpisodeModalScreen,
   dmaIntroductionScreen,
   dmaOptionsList,
+  cartoonList,
+  entityQueueList
 };

@@ -1,16 +1,15 @@
 import { BASE_URL } from 'src/services/apiUrls';
 import { getCacheApiRequest } from 'src/services/api';
 import { VIDEO_LIST_ENDPOINT } from './apiEndPoints';
-import { FetchVideoSuccessPayloadType, VideoListBodyGet } from 'src/redux/videoList/types';
+import { VideoListBodyGet } from 'src/redux/videoList/types';
 
 export const fetchVideoListApi = async (payload: VideoListBodyGet) => {
   const items_per_page = payload.items_per_page ? payload.items_per_page : 10;
   const page = payload.page ? payload.page : 0;
   try {
-    const response: FetchVideoSuccessPayloadType = await getCacheApiRequest(
+    return await getCacheApiRequest(
       `${BASE_URL}${VIDEO_LIST_ENDPOINT}?items_per_page=${items_per_page}&page=${page}`
     );
-    return response;
   } catch (error) {
     console.log('videoListService - fetchVideoListApi - error', error)
     throw error;

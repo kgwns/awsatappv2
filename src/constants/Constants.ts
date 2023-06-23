@@ -12,7 +12,6 @@ import configureStore from 'redux-mock-store';
 import {
     ArticleProps,
     ShortArticleProps,
-    SearchResultsProps,
     StoryListItemProps,
     StoryListProps,
     PodcastProgramInfoProps,
@@ -38,7 +37,6 @@ enum TranslateKey {
   CROSS_WORD_DESCRIPTION,
   SUDOKU_DESCRIPTION,
   GAMES,
-  SECTION_MAIN,
   SECTION_COMBO_ONE,
   SECTION_COMBO_TWO,
   SECTION_COMBO_THREE,
@@ -49,7 +47,6 @@ enum TranslateKey {
   SECTION_COMBO_EIGHT,
   EDITOR_CHOICE_HEADER_TITLE,
   DRAWER_PDF_ARCHIVE,
-  OPINION_COMBO_TITLE,
   OPINION_ARTICLE_TITLE,
   RICH_HTML_FACTS,
   CONST_MORE,
@@ -74,7 +71,6 @@ enum TranslateKey {
   ADVERTISE_WITH_US,
   ABOUT_THE_MIDDLE_EAST,
   TERMS_OF_USE,
-  EDITORS_PICK_HEADER_TITLE,
   WEATHER_DETAILS_SUNRISE,
   WEATHER_DETAILS_SUNSET,
   WEATHER_DETAILS_SIDEBAR,
@@ -157,7 +153,6 @@ enum TranslateKey {
   VIDEO_DETAIL_WATCH,
   COMMON_ALERT,
   COMMON_NO_INTERNET_CONNECTION,
-  COMMON_SOMETHING_WENT_WRONG,
   TERMS_AND_CONDITION,
   SIGNIN_SKIP,
   SIGNIN_AGREE_TO,
@@ -200,11 +195,6 @@ enum TranslateKey {
   MANAGE_MY_NEWS_CONTINUE_READING_MORE_BOOKS,
   MANAGE_MY_NEWS_MY_FAVORITE_TOPICS,
   MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS,
-  NEW_PASSWORD_CREATE_NEW_PASSWORD,
-  NEW_PASSWORD_DESCRIPTION,
-  NEW_PASSWORD_WARNING,
-  NEW_PASSWORD_MATCH_WARNING,
-  NEW_PASSWORD_SET_NEW_PASSWORD,
   ONBOARD_NEWSLETTER_TITLE,
   ONBOARD_NEWSLETTER_DESCRIPTION,
   PHOTO_GALLERY_TITLE,
@@ -217,14 +207,11 @@ enum TranslateKey {
   PROFILE_SETTING_DARK_MODE,
   PROFILE_SETTING_LIGHT_MODE,
   PROFILE_SETTING_WELCOME,
-  PROFILE_SETTING_CHANGE_ENVIRONMENT,
   PROFILE_SETTING_NOT_SUBSCRIBED,
   PROFILE_SETTING_LOGIN_FEATURE,
   PROFILE_SETTING_SIGN_UP,
   PROFILE_SETTING_ALERT,
   PROFILE_SETTING_LOG_OUT_ALERT_MESSAGE,
-  PROFILE_SETTING_DEBUG,
-  PROFILE_SETTING_PRODUCTION,
   PROFILE_SETTING_DELETE_MY_ACCOUNT,
   ON_BOARD_COMMON_SKIP,
   ON_BOARD_COMMON_RETURN,
@@ -249,24 +236,8 @@ enum TranslateKey {
   FOLLOWER,
   PODCAST_WIDGET_HEADER_LEFT,
   PODCAST_WIDGET_HEADER_RIGHT,
-  ARCHIVES_PODCAST_TITLE,
-  ARCHIVES_PODCAST_ALL_EPISODES,
-  ARCHIVES_PODCAST_BODY,
-  SECTION_HEADER_LEFT,
-  SECTION_HEAER_RIGHT,
-  STORY_WIDGET_HEADER_TITLE,
   SHORT_ARTICLE_TITLE,
-  RELATED_ARTICLE_HEADER_LEFT,
-  RELATED_ARTICLE_TITLE,
-  RELATED_ARTICLE_RIGHT_TITLE,
-  RELATED_ARTICLE_LEFT_TITLE,
-  RELATED_ARTICLE_FLAG,
   ARTICLE_DETAIL_WIDGET_UPDATED,
-  LATEST_NEWS_SUMMARY_HEADER_LEFT,
-  LATEST_NEWS_SUMMARY_HEADER_RIGHT,
-  CONTENT_FOR_YOU_EMPTY_DATA_LABEL,
-  PODCAST_OPINION_ARTICLE_HEADER_LEFT,
-  PODCAST_OPINION_ARTICLE_HEADER_RIGHT,
   TABLET_NOT_SUBSCRIBED_POP_UP,
   TABLET_CREATE_ACCOUNT_DESCRIPTION,
   VIDEO_SHARE,
@@ -292,6 +263,16 @@ enum TranslateKey {
   DMA_TYPE_DELETE,
   DMA_DELETE_ACCOUNT_ARABIC,
   DMA_DELETE_ACCOUNT_ENGLISH,
+  CARICATURE,
+  NO_SECTION_ARTICLE,
+  PODCAST_TITLE,
+  APP_UPDATE_TITLE,
+  APP_UPDATE_DESCRIPTION,
+  APP_UPDATE_BUTTON_LABEL,
+  LOGIN_WITH_HUAWEI,
+  HUAWEI_DEVICE,
+  HUAWEI_PROVIDER,
+  HUAWEI_EXTENSION,
   default
 }
 
@@ -322,8 +303,6 @@ const TranslateConstants = ({
             return arabic?.games?.sudokuDescription;
         case TranslateKey.GAMES:
             return arabic?.games?.games;
-        case TranslateKey.SECTION_MAIN:
-            return arabic?.sectionTab?.main;
         case TranslateKey.SECTION_COMBO_ONE:
             return arabic?.latestNewsTab?.sectionComboOne?.headerLeft;
         case TranslateKey.SECTION_COMBO_TWO:
@@ -342,10 +321,12 @@ const TranslateConstants = ({
             return arabic?.latestNewsTab?.sectionComboEight?.headerLeft;
         case TranslateKey.EDITOR_CHOICE_HEADER_TITLE:
             return arabic?.latestNewsTab?.editorsChoice?.headerLeft;
+        case TranslateKey.PODCAST_TITLE:
+            return arabic?.latestNewsTab?.podcastTitle?.title;
+        case TranslateKey.NO_SECTION_ARTICLE:
+            return arabic?.sectionArticles?.noArticles;
         case TranslateKey.DRAWER_PDF_ARCHIVE:
             return arabic?.drawer?.pdfArchive;
-        case TranslateKey.OPINION_COMBO_TITLE:
-            return arabic?.latestNewsTab?.sectionWriters?.headerLeft;
         case TranslateKey.OPINION_ARTICLE_TITLE:
             return arabic?.opinion?.opinionArticles;
         case TranslateKey.RICH_HTML_FACTS:
@@ -388,8 +369,6 @@ const TranslateConstants = ({
             return arabic?.weatherDetail?.sunrise;
         case TranslateKey.WEATHER_DETAILS_SUNSET:
             return arabic?.weatherDetail?.sunset;
-        case TranslateKey.WEATHER_DETAILS_SIDEBAR:
-            return arabic?.weatherDetail?.sidebarTitle;
         case TranslateKey.WEATHER_DETAILS_MAX:
             return arabic?.weatherDetail?.max;
         case TranslateKey.WEATHER_DETAILS_HUMIDITY:
@@ -418,8 +397,6 @@ const TranslateConstants = ({
             return arabic?.drawer?.aboutTheMiddleEast;
         case TranslateKey.TERMS_OF_USE:
             return arabic?.drawer?.termsOfUse;
-        case TranslateKey.EDITORS_PICK_HEADER_TITLE:
-            return arabic?.latestNewsTab?.editorsPick?.headerRight;
         case TranslateKey.WEATHER_NO_INFORMATION_TEXT:
             return arabic?.weatherDetail?.noInformation;
         case TranslateKey.CONTENT_BUNDLE_WIDGET_TITLE:
@@ -488,8 +465,6 @@ const TranslateConstants = ({
             return arabic?.searchScreen?.placeholder;
         case TranslateKey.VIDEO_DETAIL_EMPLOYMENT:
             return arabic?.videoDetail?.employement;
-        case TranslateKey.OPINION_ARTICLE_RETURN:
-            return arabic?.opinionArticleDetail?.return;
         case TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT:
             return arabic?.latestNewsTab?.sectionComboOne?.headerRight;
         case TranslateKey.PODCAST_HOME_LISTEN_TO_PODCAST:
@@ -558,8 +533,6 @@ const TranslateConstants = ({
             return arabic?.common?.alert;
         case TranslateKey.COMMON_NO_INTERNET_CONNECTION:
             return arabic?.common?.noInternetConnection;
-        case TranslateKey.COMMON_SOMETHING_WENT_WRONG:
-            return arabic?.common?.somthingWentWrong;
         case TranslateKey.TERMS_AND_CONDITION:
             return arabic?.terms_and_condition;
         case TranslateKey.SIGNIN_SKIP:
@@ -648,16 +621,6 @@ const TranslateConstants = ({
             return arabic?.manageMyNews?.myFavoriteTopics;
         case TranslateKey.MANAGE_MY_NEWS_FOLLOW_MORE_TOPICS:
             return arabic?.manageMyNews?.followMoreTopics;
-        case TranslateKey.NEW_PASSWORD_CREATE_NEW_PASSWORD:
-            return arabic?.profile?.newPassword?.createNewPassword;
-        case TranslateKey.NEW_PASSWORD_DESCRIPTION:
-            return arabic?.profile?.newPassword?.passwordDescription;
-        case TranslateKey.NEW_PASSWORD_WARNING:
-            return arabic?.profile?.newPassword?.passwordWarning;
-        case TranslateKey.NEW_PASSWORD_MATCH_WARNING:
-            return arabic?.profile?.newPassword?.passwordMatchWarning;
-        case TranslateKey.NEW_PASSWORD_SET_NEW_PASSWORD:
-            return arabic?.profile?.newPassword?.setNewPassword;
         case TranslateKey.PHOTO_GALLERY_TITLE:
             return arabic?.photoGallery?.title;
         case TranslateKey.PROFILE_SETTING_MANAGE_MY_NOTIFICATION:
@@ -680,8 +643,6 @@ const TranslateConstants = ({
             return arabic?.profileSetting?.lightMode;
         case TranslateKey.PROFILE_SETTING_WELCOME:
             return arabic?.profileSetting?.welcome;
-        case TranslateKey.PROFILE_SETTING_CHANGE_ENVIRONMENT:
-            return arabic?.profileSetting?.changeEnvironment;
         case TranslateKey.PROFILE_SETTING_NOT_SUBSCRIBED:
             return arabic?.profileSetting?.notSubscribed;
         case TranslateKey.PROFILE_SETTING_LOGIN_FEATURE:
@@ -692,10 +653,6 @@ const TranslateConstants = ({
             return arabic?.profileSetting?.logoutAlertMessage;
         case TranslateKey.PROFILE_SETTING_ALERT:
             return arabic?.profileSetting?.alert;
-        case TranslateKey.PROFILE_SETTING_DEBUG:
-            return arabic?.profileSetting?.debug;
-        case TranslateKey.PROFILE_SETTING_PRODUCTION:
-            return arabic?.profileSetting?.production;
         case TranslateKey.ON_BOARD_COMMON_SKIP:
             return arabic?.onBoard?.common?.skip;
         case TranslateKey.ON_BOARD_COMMON_RETURN:
@@ -746,42 +703,10 @@ const TranslateConstants = ({
             return arabic?.podcastWidget?.headerLeft;
         case TranslateKey.PODCAST_WIDGET_HEADER_RIGHT:
             return arabic?.podcastWidget?.headerRight;
-        case TranslateKey.ARCHIVES_PODCAST_TITLE:
-            return arabic?.archivesPodcast?.title;
-        case TranslateKey.ARCHIVES_PODCAST_BODY:
-            return arabic?.archivesPodcast?.body;
-        case TranslateKey.ARCHIVES_PODCAST_ALL_EPISODES:
-            return arabic?.archivesPodcast?.allEpisodes;
-        case TranslateKey.SECTION_HEADER_LEFT:
-            return arabic?.mostPlayedSection?.sectionHeader?.headerLeft;
-        case TranslateKey.SECTION_HEAER_RIGHT:
-            return arabic?.mostPlayedSection?.sectionHeader?.headerRight;
-        case TranslateKey.STORY_WIDGET_HEADER_TITLE:
-            return arabic?.storyWidget?.headerTitle;
         case TranslateKey.SHORT_ARTICLE_TITLE:
             return arabic?.articleDetailScreen?.shortArticle?.title;
-        case TranslateKey.RELATED_ARTICLE_HEADER_LEFT:
-            return arabic?.relatedArticles?.headerLeft;
-        case TranslateKey.RELATED_ARTICLE_TITLE:
-            return arabic?.relatedArticles?.title;
-        case TranslateKey.RELATED_ARTICLE_RIGHT_TITLE:
-            return arabic?.relatedArticles?.rightTitle;
-        case TranslateKey.RELATED_ARTICLE_LEFT_TITLE:
-            return arabic?.relatedArticles?.leftTitle;
-        case TranslateKey.RELATED_ARTICLE_FLAG:
-            return arabic?.relatedArticles?.flag;
         case TranslateKey.ARTICLE_DETAIL_WIDGET_UPDATED:
             return arabic?.articleDetailScreen?.articleDetailWidget?.updated;
-        case TranslateKey.LATEST_NEWS_SUMMARY_HEADER_LEFT:
-            return arabic?.podcastScreen?.latestNewsSummarySection?.sectionHeader?.headerLeft;
-        case TranslateKey.LATEST_NEWS_SUMMARY_HEADER_RIGHT:
-            return arabic?.podcastScreen?.latestNewsSummarySection?.sectionHeader?.headerRight;
-        case TranslateKey.CONTENT_FOR_YOU_EMPTY_DATA_LABEL:
-            return arabic?.contentForYou?.emptyDataLabel;
-        case TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_LEFT:
-            return arabic?.podcastOpinionArticle?.sectionHeader?.headerLeft;
-        case TranslateKey.PODCAST_OPINION_ARTICLE_HEADER_RIGHT:
-            return arabic?.podcastOpinionArticle?.sectionHeader?.headerRight;
         case TranslateKey.TABLET_NOT_SUBSCRIBED_POP_UP: 
             return arabic?.tabletPopUp?.notSubscribedTitle;
         case TranslateKey.TABLET_CREATE_ACCOUNT_DESCRIPTION: 
@@ -830,6 +755,22 @@ const TranslateConstants = ({
             return arabic?.deleteMyAccount?.deleteMyAccountArabic;
         case TranslateKey.DMA_DELETE_ACCOUNT_ENGLISH:
             return arabic?.deleteMyAccount?.deleteMyAccountEnglish;
+        case TranslateKey.CARICATURE:
+            return arabic?.drawer?.caricature;
+        case TranslateKey.APP_UPDATE_TITLE:
+            return arabic?.appUpdatePopUp?.appUpdateTitle;
+        case TranslateKey.APP_UPDATE_DESCRIPTION:
+            return arabic?.appUpdatePopUp?.appUpdateDescription;
+        case TranslateKey.APP_UPDATE_BUTTON_LABEL:
+            return arabic?.appUpdatePopUp?.appUpdateButtonLabel;
+        case TranslateKey.HUAWEI_DEVICE:
+            return arabic?.huawei?.huaweiDevice;
+        case TranslateKey.HUAWEI_PROVIDER:
+            return arabic?.huawei?.huaweiProvider;
+        case TranslateKey.HUAWEI_EXTENSION:
+            return arabic?.huawei?.huaweiMailExtension;
+        case TranslateKey.LOGIN_WITH_HUAWEI:
+            return arabic?.signIn?.loginWithHuawei;
         default: return ''
     }
 }
@@ -1428,193 +1369,112 @@ const weatherData = [
     },
 ];
 
-const searchResults: SearchResultsProps[] = [
-    {
-        id: '1',
-        label: ' تضارب ایرانی بعد انفجار قرب موقع تطير النووي',
-    },
-    {
-        id: '2',
-        label: 'ه فيروس الاوميكرون',
-    },
-    {
-        id: '3',
-        label: 'اثر انبار مدينة نيوم',
-    },
-    {
-        id: '4',
-        label: 'السراع بين فلسطین و اسرائیل',
-    },
-    {
-        id: '5',
-        label: 'عنوان لأخر المواضيع بوضع هنا',
-    },
-    {
-        id: '6',
-        label: 'عنوان الآخر المواضيع يوضع هنا',
-    },
-    {
-        id: '7',
-        label: 'عنوان الاخر المواضيع بوضع هنا',
-    },
-    {
-        id: '8',
-        label: 'أخر اخبار مدينه بيوم',
-    },
-    {
-        id: '9',
-        label: 'السراع بين فلسطین و اسرائیل',
-    },
-    {
-        id: '10',
-        label: 'عنوان لآخر المواضيع بوضع هنا',
-    },
-    {
-        id: '11',
-        label: 'عنوان لاخر المواضيع بوضع هنا',
-    },
-];
+const opinionItem = {
+
+    name: 'غسان الإمام',
+    description__value_export: null,
+    field_opinion_writer_path_export: null,
+    view_taxonomy_term:
+        'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
+    tid: '92570',
+    vid_export: null,
+    field_description_export: null,
+    field_opinion_writer_path_export_1: null,
+    field_opinion_writer_photo_export:
+        'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
+    parent_target_id_export: [],
+};
  
 const opinionData = [
     {
+        ...opinionItem,
         name: 'غسان الإمام',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92570',
         tid: '92570',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2017/11/14/GhassanAlimam.jpg?itok=PjIkzard',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'إياد أبو شقرا',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92571',
         tid: '92571',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2019/03/03/EyadAbuShaqra.jpg?itok=knN3APSy',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'عبد الرحمن الراشد',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92572',
         tid: '92572',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2020/12/01/Abdulrahman-alrashid-01122020.png?itok=jHIC2vMz',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'أونا هاثاواي وسكوت شابيرو',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92573',
         tid: '92573',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/place-holder-sigalat_18_5.png?itok=Uym7-nDQ',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'صالح القلاب',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92574',
         tid: '92574',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/08/30/saleh_1.jpg?itok=PBtrVUNK',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'زين العابدين الركابي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92575',
         tid: '92575',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/353-alrikabi_4.gif?itok=Fgo4PGoT',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'ألبرتو تشيروتي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92576',
         tid: '92576',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/610-hiaghamedi_4.gif?itok=Lksu3ykZ',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'صالح بن علي الحمادي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92577',
         tid: '92577',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/620-hamadi_3.gif?itok=vGLnP-m2',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'موفق النويصر',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92578',
         tid: '92578',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/604-Alnowaisir_3.gif?itok=sjyvDSa1',
-        parent_target_id_export: [],
     },
     {
+        ...opinionItem,
         name: 'محمد السلمي',
-        description__value_export: null,
-        field_opinion_writer_path_export: null,
         view_taxonomy_term:
             'https://srpcawsatdev.prod.acquia-sites.com/taxonomy/term/92579',
         tid: '92579',
-        vid_export: null,
-        field_description_export: null,
-        field_opinion_writer_path_export_1: null,
         field_opinion_writer_photo_export:
             'https://srpcawsatdev.prod.acquia-sites.com/sites/default/files/styles/large/public/2013/09/09/mosilmi_2.jpg?itok=-oLBDYHu',
-        parent_target_id_export: [],
     },
 ]
 
@@ -1675,54 +1535,36 @@ const mostPlayedSectionData: ArticleRectangleCardProps[] = [
     },
 ];
 
+const latestNewsSummaryItem: NewsWithImageItemProps = {
+    imageUrl: mediaSampleImageUrl,
+    title: summarySampleTitle,
+    description: summarySampleDescription,
+    footerRightLabel: 'الخميس',
+    footerLeftLabel: '45 دقيقه',
+    isAlbum: false
+};
+
 const LatestNewsSummarySectionData: NewsWithImageItemProps[] = [
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
     {
-        imageUrl: mediaSampleImageUrl,
-        title: summarySampleTitle,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
+        ...latestNewsSummaryItem,
     },
     {
-        imageUrl: mediaSampleImageUrl,
+        ...latestNewsSummaryItem,
         title: summarySampleTitle2,
-        description:
-        summarySampleDescription,
-        footerRightLabel: 'الخميس',
-        footerLeftLabel: '45 دقيقه',
     },
 ];
 
@@ -1733,6 +1575,7 @@ const editPickData: NewsWithImageItemProps = {
     title: 'عنوان حلثه البودكاست',
     footerRightLabel: 'الخميس',
     footerLeftLabel: '45 دقيقه',
+    isAlbum: false
 }
 
 const EditorsPickSectionData: NewsWithImageItemProps[] = Array(5).fill(editPickData)
@@ -1753,30 +1596,30 @@ const podcastOpinionData: ArticleRectangleCardProps = {
 }
 const PodcastOpinionArticleSectionData: ArticleRectangleCardProps[] = Array(3).fill(podcastOpinionData)
 
+
+const storyWidgetItem: StoryListItemProps = {
+    id: '1',
+    imageUrl: 'https://picsum.photos/500',
+    title: 'كوفيد-19',
+    description: storyWidgetSampleDescription,
+    buttonTitle: storyWidgetSampleButtonTitle,
+    thumbNail: storyWidgetSampleThumbnail,
+};
+
 const storyWidgetItemData: StoryListItemProps[] = [
     {
-        id: '1',
-        imageUrl: 'https://picsum.photos/500',
-        title: 'كوفيد-19',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
+        ...storyWidgetItem,
     },
     {
+        ...storyWidgetItem,
         id: '2',
         imageUrl: 'https://picsum.photos/400',
         title: 'رحلة إلى المريخ',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
     },
     {
+        ...storyWidgetItem,
         id: '3',
         imageUrl: 'https://picsum.photos/600',
-        title: 'كوفيد-19',
-        description: storyWidgetSampleDescription,
-        buttonTitle: storyWidgetSampleButtonTitle,
-        thumbNail: storyWidgetSampleThumbnail,
     },
 ];
 
@@ -1835,7 +1678,8 @@ const videoTabInfo: VideoItemProps = {
     views: '1374',
     shortDescription: 'عامة العصى وجلاها الله عماد الساند مان اوزن النوم ليس لها عنوانا بال ان له دور من الألم الناس الكل سايكي سند عام من المبادلات حول العلمي الدير',
     isBookmarked: false,
-    onPressBookmark: () => ({})
+    onPressBookmark: () => ({}),
+    showShare: false
 }
 
 const videoTabData: VideoItemProps[] = Array(5).fill(videoTabInfo)
@@ -1934,37 +1778,29 @@ const articleSampleData = {
     body: `تهمت وكالة الأمن السيبراني والبنية التحتية التابعة لوزارة الأمن الداخلي الأميركية الحكومة الايرانية، مجما.`,
     tagName: 'الحكومة',
 };
+
+const videoArchiveItem: VideoItemProps = {
+    title: sampleVideoTitle,
+    imageUrl: mediaSampleImageUrl,
+    videoLabel: 'أمريكا',
+    des: sampleVideoDescription,
+    isBookmarked: true,
+    onPressBookmark: () => ({}),
+    showShare: false,
+}
 const videoArchiveData: VideoItemProps[] = [
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
-        des: sampleVideoDescription,
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
+        ...videoArchiveItem,
     },
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
+        ...videoArchiveItem,
         time: '05:22',
-        des: sampleVideoDescription,
         date: '7 ديسمبر ',
         views: '1374',
         toWatchTitle: 'ديسمبر',
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
     },
     {
-        title:
-        sampleVideoTitle,
-        imageUrl: mediaSampleImageUrl,
-        videoLabel: 'أمريكا',
-        des: sampleVideoDescription,
-        isBookmarked: true,
-        onPressBookmark: () => ({}),
+        ...videoArchiveItem,
     },
 ];
 
@@ -2105,6 +1941,8 @@ const DMA_INTRODUCTION_SCREEN = 'DMAIntroductionScreen' as ScreenName;
 const DMA_OPTIONS_LIST_SCREEN = 'DMAOptionsListScreen' as ScreenName;
 const DMA_FEED_BACK_SCREEN = 'FeedbackScreen' as ScreenName;
 const DMA_DELETE_ACCOUNT_SCREEN = 'DeleteAccountScreen' as ScreenName;
+const CartoonListScreen = 'CartoonListScreen' as ScreenName;
+const EntityQueueListScreen = 'EntityQueueListScreen' as ScreenName;
 
 const HEADER_LOGO = 'headerLogo';
 const SEARCH_ICON = 'searchIcon';
@@ -2161,12 +1999,17 @@ const ScreensConstants = {
     DMA_OPTIONS_LIST_SCREEN,
     DMA_FEED_BACK_SCREEN,
     DMA_DELETE_ACCOUNT_SCREEN,
+    CartoonListScreen,
+    EntityQueueListScreen
 };
 enum notification {
     ARTICLE = 'article',
     OPINION = 'opinion',
     DYNAMIC_SECTION = 'dynamic-section',
     KEYNAME = 'section',
+    ALBUM = 'album',
+    PODCAST = 'podcast',
+    ENTITY_QUEUE = 'entity-queue'
 }
 const DEFAULT_ALERT_TITLE = '';
 const DEFAULT_ALERT_MESSAGE = 'Need to implement';
@@ -2234,7 +2077,7 @@ const TABICONS = {
     MOST_READ_ACTIVE: 'mostReadActiveIcon' as ImageName,
     FAVORITE: 'favoriteIcon' as ImageName,
     FAVORITE_ACTIVE: 'favoriteActiveIcon' as ImageName,
-    DOWNLOAD_PDF: 'pdfIcon' as ImageName,
+    DOWNLOAD_PDF: 'pdfIconName' as ImageName,
     MY_NEWS: 'myNewsIcon' as ImageName,
     MY_NEWS_ACTIVE: 'myNewsActiveIcon' as ImageName,
 }
@@ -2285,7 +2128,6 @@ export {
     mostReadData,
     sectionTabItem,
     weatherData,
-    searchResults,
     opinionWritersData,
     opinionWritersArticlesData,
     podcastCardSectionData,

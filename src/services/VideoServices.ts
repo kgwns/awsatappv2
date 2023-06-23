@@ -4,10 +4,9 @@ import { GET_JW_MEDIA_PLAYER_URL } from './apiUrls';
 
 export const fetchVideoDetailInfo = async (payload: RequestVideoUrlPayload) => {
     try {
-        const response = await getApiRequest(
+        return await getApiRequest(
             `${GET_JW_MEDIA_PLAYER_URL}${payload.mediaID}`,
         );
-        return response;
     } catch (error) {
         console.log('videoService - fetchVideoDetailInfo - error', error)
         throw error;

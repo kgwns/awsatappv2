@@ -80,14 +80,10 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
-    bookmarkIdInfo
+    bookmarkIdInfo,
+    validateBookmark,
   } = useBookmark()
   const { isLoggedIn } = useLogin()
-
-
-  const validateBookmark = (nidProps: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nidProps) : false
-  }
 
   useEffect(() => {
     updatePodcastListData()
@@ -256,7 +252,7 @@ export const PodcastEpisode = ({ route }: PodcastEpisodeProps) => {
     if(isObjectNonEmpty(podcastEpisodeInfo)){
       const trackPlayerData = {
         id: podcastEpisodeInfo.nid,
-        url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export),
+        url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export as string),
         title: podcastEpisodeInfo.title,
         duration: duration,
         artist: podcastEpisodeInfo.title,

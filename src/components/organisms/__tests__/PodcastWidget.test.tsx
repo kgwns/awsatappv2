@@ -1,7 +1,6 @@
 import { fireEvent, render, RenderAPI } from '@testing-library/react-native';
 import React, { useState } from 'react';
 import { PodcastWidget } from 'src/components/organisms';
-import { ButtonImage, ButtonOutline } from 'src/components/atoms';
 import { fetchSingleEpisodeSpreakerApi } from 'src/services/podcastService';
 
 jest.mock('src/services/podcastService');
@@ -50,7 +49,9 @@ describe('<PodcastWidget>', () => {
   const setEpisodeData = jest.fn();
   const fetchSingleEpisodeSpreakerApiMock = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchSingleEpisodeSpreakerApi as jest.Mock).mockImplementation(fetchSingleEpisodeSpreakerApiMock);
     DeviceTypeUtilsMock.isTab = true;
     DeviceTypeUtilsMock.isIOS = false;
@@ -112,8 +113,8 @@ describe('<PodcastWidget>', () => {
     expect(instance).toBeDefined();
   });
 
-  it("test ButtonOutline onPress method", () => {
-    const element = instance.container.findByType(ButtonOutline);
+  it("test ListentoArticle onPress method", () => {
+    const element = instance.getByTestId('listenToArticleButtonHome');
     fireEvent(element, 'onPress')
     expect(mockFunction).toHaveBeenCalled()
   })

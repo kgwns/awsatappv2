@@ -8,6 +8,7 @@ import { WriterBannerImage } from 'src/components/molecules';
 import { fetchNarratedOpinionArticleApi } from 'src/services/narratedOpinionArticleService';
 import { AxiosError } from 'axios';
 import { useNavigation } from '@react-navigation/native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -75,7 +76,9 @@ describe('<OpinionArticleDetailWidget>', () => {
   }
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
     fetchNarratedOpinionArticleApiMock.mockReturnValue({
       playlist: [
@@ -103,10 +106,14 @@ describe('<OpinionArticleDetailWidget>', () => {
       ],
       title: 'abc'
     }, mediaData]);
-    const component = <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo} 
-    fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction} 
-    onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
-    />;
+    const component = (
+      <GestureHandlerRootView>
+        <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo}
+          fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction}
+          onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
   
@@ -210,10 +217,14 @@ describe('<OpinionArticleDetailWidget>', () => {
       ],
       title: 'abc'
     }, mediaData]);
-    const component = <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo} 
-                          fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction} 
-                          onPressWriter={mockFunction} onPressHome={mockFunction}
-                      />;
+    const component = (
+      <GestureHandlerRootView>
+        <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo}
+          fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction}
+          onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 
@@ -278,7 +289,9 @@ describe('<OpinionArticleDetailWidget>', () => {
   }
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
     (fetchNarratedOpinionArticleApiMock).mockRejectedValue({response:{data:"error"}});
     (useState as jest.Mock).mockImplementation(() => [{
@@ -294,10 +307,14 @@ describe('<OpinionArticleDetailWidget>', () => {
       ],
       title: 'abc'
     }, mediaData]);
-    const component = <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo} 
-    fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction} 
-    onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
-    />;
+    const component = (
+      <GestureHandlerRootView>
+        <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo}
+          fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction}
+          onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
   
@@ -367,7 +384,9 @@ describe('<OpinionArticleDetailWidget>', () => {
   }
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (fetchNarratedOpinionArticleApi as jest.Mock).mockImplementation(fetchNarratedOpinionArticleApiMock);
     (useState as jest.Mock).mockImplementation(() => [{
       playlist: [
@@ -383,10 +402,14 @@ describe('<OpinionArticleDetailWidget>', () => {
       title: 'abc'
     }, mediaData]);
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
-    const component = <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo} 
-    fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction} 
-    onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
-    />;
+    const component = (
+      <GestureHandlerRootView>
+        <OpinionArticleDetailWidget data={data} writerData={sampleWriterInfo}
+          fontSize={ArticleFontSize.normal} isFollowed={false} onPressFollow={mockFunction}
+          onPressWriter={mockFunction} isRelatedArticle={true} onPressHome={mockFunction}
+        />
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
   

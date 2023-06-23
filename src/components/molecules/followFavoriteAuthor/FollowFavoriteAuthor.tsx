@@ -86,7 +86,7 @@ const FollowFavoriteAuthor = ({
               size={getSize()}
               resizeMode="cover"
               fallback={fallback}
-              fallbackName={ImagesName.authorDefault}
+              fallbackName={ImagesName.authorDefaultName}
             />
           </Grayscale>
         ) : (
@@ -96,7 +96,7 @@ const FollowFavoriteAuthor = ({
             size={getSize()}
             resizeMode="cover"
               fallback={fallback}
-              fallbackName={ImagesName.authorDefault}
+              fallbackName={ImagesName.authorDefaultName}
             />
         )}
         <View style={style.tickIconContainer}>
@@ -159,7 +159,7 @@ const FollowFavoriteAuthor = ({
               size={ tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size)}
               resizeMode="cover"
               fallback={fallback}
-              fallbackName={ImagesName.authorDefault}
+              fallbackName={ImagesName.authorDefaultName}
             />
           </Grayscale>
         ) : (
@@ -169,7 +169,7 @@ const FollowFavoriteAuthor = ({
             size={tabEnable ? tabSize : isTab ? normalize(tabSize) : normalize(size)}
             resizeMode="cover"
               fallback={fallback}
-              fallbackName={ImagesName.authorDefault}
+              fallbackName={ImagesName.authorDefaultName}
             />
         )}
         <View style={style.tickIconContainer}>

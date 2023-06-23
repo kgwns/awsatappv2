@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isDarkTheme, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordUserProperty, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordUserProperty, screenHeight, screenWidth } from 'src/shared/utils';
 import { useIsFocused } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { ScreenContainer } from '..';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { NewsLettersWidget } from 'src/components/organisms';
-import { useAppCommon, useNewsLetters } from 'src/hooks';
+import { useNewsLetters } from 'src/hooks';
 import { NewsLetterItemType } from 'src/redux/newsLetter/types';
 import { fonts } from 'src/shared/styles/fonts';
-import LinearGradient from 'react-native-linear-gradient';
-import { StepLineCircle } from 'src/components/molecules';
+import { OnBoardingBottom, StepLineCircle } from 'src/components/molecules';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const NewsLetterScreen = ({ navigation, route }: any) => {
@@ -21,10 +20,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const ONBOARD_NEWSLETTER_TITLE = TranslateConstants({key:TranslateKey.ONBOARD_NEWSLETTER_TITLE})
   const ONBOARD_NEWSLETTER_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_NEWSLETTER_DESCRIPTION})
 
-  const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
   const style = useThemeAwareObject(customStyle);
-  const nextButtonStyles = useThemeAwareObject(tabNextButtonStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [canGoBack, setCanGoBack] = useState((route.params && route.params.canGoBack)?true:false)
   const [newsLettersDataInfo, setNewsLettersDataInfo] = useState<NewsLetterItemType[]>([])
@@ -98,8 +94,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const updateNewsLettersData = () => {
     const data = []
     if (selectedNewsLettersData.code && selectedNewsLettersData.code === 200 && isNonEmptyArray(selectedNewsLettersData.data)) {
-      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        const item = selectedNewsLettersData.data[i]
+      for(const item of selectedNewsLettersData.data) {
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -115,8 +110,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
 
   const getSelectedStatus = (id: number) => {
     if (isNonEmptyArray(selectedNewsLetterDataOnboard)) {
-      for (let j = 0; j < selectedNewsLetterDataOnboard.length; j++) {
-        if (selectedNewsLetterDataOnboard[j] === id) {
+      for (const item of selectedNewsLetterDataOnboard) {
+        if (item === id) {
           return true
         }
       }
@@ -129,8 +124,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const formatNewsLettersData = () => {
     const data = []
     if(selectedNewsLettersData.code && selectedNewsLettersData.code===200 && isNonEmptyArray(selectedNewsLettersData.data)){
-      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        const item = selectedNewsLettersData.data[i]
+      for(const item of selectedNewsLettersData.data) {
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -151,8 +145,8 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   }
 
   const getSelectedOrNot = (tid: any) => {
-    for (let i = 0; i < myNewsLetters.data.length; i++) {
-      if (tid == myNewsLetters.data[i].tid) {
+    for(const item of myNewsLetters.data) {
+      if (tid == item.tid) {
         return true
       }
     }
@@ -162,8 +156,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
   const setMyNewsLettersData = () => {
     if (isNonEmptyArray(myNewsLetters.data) && isNonEmptyArray(selectedNewsLettersData.data)) {
       const data = []
-      for (let i = 0; i < selectedNewsLettersData.data.length; i++) {
-        const item = selectedNewsLettersData.data[i]
+      for (const item of selectedNewsLettersData.data) {
         data.push({
           title: item.name,
           subTitle: item.date,
@@ -180,10 +173,10 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     }
   }
 
-  const changeSelectedStatus = (item: any, selected: boolean) => {
-    for (let i = 0; i < newsLettersDataInfo.length; i++) {
-      if (item.tid === newsLettersDataInfo[i].tid) {
-        newsLettersDataInfo[i].isSelected = !newsLettersDataInfo[i].isSelected;
+  const changeSelectedStatus = (item: any,) => {
+    for(const newLetterItem of newsLettersDataInfo) {
+      if (item.tid === newLetterItem.tid) {
+        newLetterItem.isSelected = !newLetterItem.isSelected;
       }
     }
     if(canGoBack){
@@ -221,7 +214,7 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     if (route.params && canGoBack) {
       navigation.goBack()
     } else {
-      navigation.navigate(ScreensConstants.SUCCESS_SCREEN) // will replace keep notified screen once notification part was done. 
+      navigation.navigate(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN) 
     }
   }
 
@@ -233,22 +226,13 @@ export const NewsLetterScreen = ({ navigation, route }: any) => {
     )
   }
 
-  const renderTabletBottomContainer = () => {
-    const gradient = isDarkMode ? [colors.blackOpacity0,colors.blackOpacity80,colors.blackOpacity100] : [colors.whiteOpacity0,colors.whiteOpacity80,colors.whiteOpacity100];
-    return (
-      <View style={style.bottomContainer}>
-        <LinearGradient colors={gradient} style={style.linearGradient} />
-        <NextButton
-          testID="nextButtonTestId"
-          disabled={disableNext}
-          title={ONBOARD_COMMON_NEXT_BUTTON}
-          onPress={onPressNext}
-          style={nextButtonStyles}
-          icon={false}
-        />
-      </View>
-    )
-  }
+  const renderTabletBottomContainer = () => (
+    <OnBoardingBottom
+      title={ONBOARD_COMMON_NEXT_BUTTON}
+      disableNext={disableNext}
+      onPressNext={onPressNext}
+    />
+  );
 
   return (
     <ScreenContainer edge={horizontalEdge} isOverlayLoading={isLoading}
@@ -407,26 +391,3 @@ const customStyle = (theme: CustomThemeType) => {
     },
   });
 };
-
-const tabNextButtonStyle = (theme: CustomThemeType) => 
-   StyleSheet.create({
-    nextButtonContainer: {
-      height: 54,
-      backgroundColor: colors.greenishBlue,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 25,
-      width: 250,
-      paddingHorizontal: 8
-    },
-    nextButtonText: {
-      fontFamily: fonts.AwsatDigital_Bold,
-      color: colors.white,
-      textAlign: 'center',
-      width: '100%',
-      fontSize: 20,
-      paddingTop: 5,
-      lineHeight: 28,
-    },
-});
-

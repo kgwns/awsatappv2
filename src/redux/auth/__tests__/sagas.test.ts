@@ -19,7 +19,9 @@ const errorResponse2 = {
 
 describe('<Article Detail Saga >', () => {
   beforeEach(() => {
-      jest.useFakeTimers()
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    })
   })
 
   describe('Check emailCheckSaga sage method', () => {

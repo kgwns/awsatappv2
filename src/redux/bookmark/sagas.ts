@@ -91,7 +91,7 @@ const populateBookmarkDetail = (response: any, payload: GetBookmarkDetailBodyGet
           isBookmarked: true
         }
         return prevValue.concat(videoData)
-      } else if (item.type == PopulateWidgetType.PODCAST) {
+      } else if (item.type === PopulateWidgetType.PODCAST) {
         const podcastData = {
           ...item,
           author: item?.field_announcer_name_export,

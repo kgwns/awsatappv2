@@ -48,6 +48,6 @@ class AdjustAnalyticsManager {
         Adjust.sendFirstPackages()
     }
 
-};
+}
 
-export default new AdjustAnalyticsManager()
+export default new AdjustAnalyticsManager();

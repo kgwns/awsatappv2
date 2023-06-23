@@ -39,7 +39,9 @@ describe('Test ContentForYou Services', () => {
     };
     
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();

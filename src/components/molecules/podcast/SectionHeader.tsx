@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleProp, StyleSheet, TextStyle, View} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {Label} from 'src/components/atoms/label/Label';
 import {CustomThemeType} from 'src/shared/styles/colors';
@@ -11,16 +11,18 @@ import { fonts } from 'src/shared/styles/fonts';
 export interface SectionHeaderProps {
   headerLeft?: string;
   headerRight?: string;
+  tabTitleStyle?: StyleProp<TextStyle>;
 }
 
 export const SectionHeader = ({
   headerLeft,
   headerRight,
+  tabTitleStyle,
 }: SectionHeaderProps) => {
   const style = useThemeAwareObject(customStyle);
   return (
     <View style={style.headerContainer}>
-      {headerRight && <Label style={style.header}>{headerRight}</Label>}
+      {headerRight && <Label style={[style.header, tabTitleStyle]} testID={'headerRightId'}>{headerRight}</Label>}
       {headerLeft && (
         <TouchableOpacity
           style={style.moreContainer}

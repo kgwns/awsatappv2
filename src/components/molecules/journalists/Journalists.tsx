@@ -97,7 +97,6 @@ export const Journalist: FunctionComponent<JournalistProps> = ({
                         <View key={index} testID={'containerId'} style={mainViewStyle}>
                             {item[index] && <View style={style.rowViewStyle}>
                                 {renderCityName(journalistCity[index])}
-                                <Label children={journalistCity[index] + ' : '} style={style.headerLabel} />
                                 {isJournalist && renderAuthorName(
                                     {
                                         name: journalistName[index],

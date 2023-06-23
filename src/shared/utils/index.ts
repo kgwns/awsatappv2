@@ -37,7 +37,26 @@ export {
   getString,
   formatHijri,
   formatGregorian,
+  isStringEqual,
+  isNumberOrString,
 } from 'src/shared/utils/utilities'
 export { SystemPermissions } from 'src/shared/utils/SystemPermissions'
-export {recordCurrentScreen, recordLogEvent, recordUserId, recordLogSignUp, recordLogLogin, recordUserProperty} from './analytics';
-export { EventsValue, podcastPlayEventParameter, articleEventParameter, articleEvents, podcastPlayEvents, podcastShareEvents, videoEvents, sideMenuEventParameter,videoEventParameter } from './analyticsEvents'
+export {
+  recordCurrentScreen,
+  recordLogEvent,
+  recordUserId,
+  recordLogSignUp,
+  recordLogLogin,
+  recordUserProperty
+} from './analytics';
+export {
+  EventsValue,
+  podcastPlayEventParameter,
+  articleEventParameter,
+  articleEvents,
+  podcastPlayEvents,
+  podcastShareEvents,
+  videoEvents,
+  sideMenuEventParameter,
+  videoEventParameter
+} from './analyticsEvents'

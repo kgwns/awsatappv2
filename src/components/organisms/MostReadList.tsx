@@ -6,7 +6,7 @@ import {ImageLabelProps} from 'src/components/atoms/imageWithLabel/ImageWithLabe
 import {isTab, screenWidth, normalize, recordLogEvent} from 'src/shared/utils';
 import {Label, LabelTypeProp} from 'src/components/atoms';
 import { Styles } from 'src/shared/styles';
-import {dateTimeAgo, decodeHTMLTags, getArticleImage, isNonEmptyArray, isNotEmpty, isObjectNonEmpty, TimeIcon} from 'src/shared/utils/utilities';
+import {dateTimeAgo, decodeHTMLTags, getArticleImage, isNonEmptyArray, TimeIcon} from 'src/shared/utils/utilities';
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { useAppPlayer, useBookmark, useLogin } from 'src/hooks';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
@@ -30,6 +30,7 @@ export interface ArticleSectionProps {
   isLoading?: boolean;
   enableTag?:boolean;
   flag?:boolean;
+  isEntityQueueList?: boolean
 }
 
 const MostReadList = ({
@@ -38,6 +39,7 @@ const MostReadList = ({
   isLoading = false,
   enableTag = false,
   flag = true,
+  isEntityQueueList = false
 }: ArticleSectionProps) => {
   const MOST_READ_TITLE = TranslateConstants({key:TranslateKey.MOST_READ_TITLE})
   const navigation = useNavigation();
@@ -45,7 +47,7 @@ const MostReadList = ({
   const theme = useTheme();
   const { isLoggedIn } = useLogin()
 
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo, validateBookmark } = useBookmark()
 
   const [articleData,setArticleData] = useState(data)
   const [showupUp,setShowPopUp] = useState(false)
@@ -66,12 +68,24 @@ const MostReadList = ({
     }
   },[data.rows,bookmarkIdInfo])
 
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
+  useEffect(() => {
+    if (isEntityQueueList && isNonEmptyArray(data)) {
+      updateEntityDataBookmark()
+    } 
+  },[data,bookmarkIdInfo])
 
   const updateArticleDataBookmark = () => {
-    const articleInfo = data.rows.map((item: any) => (
+    const entityListInfo = data.rows.map((item: any) => (
+      {
+        ...item,
+        isBookmarked: validateBookmark(item.nid)
+      }
+    ))
+    setArticleData(entityListInfo)
+  }
+
+  const updateEntityDataBookmark = () => {
+    const articleInfo = data.map((item: any) => (
       {
         ...item,
         isBookmarked: validateBookmark(item.nid)

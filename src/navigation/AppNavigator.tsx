@@ -328,6 +328,16 @@ const AppNavigator = () => {
           headerShadowVisible: false,
         }}
       />
+      <Stack.Screen
+        name={ScreensConstants.CartoonListScreen}
+        component={Routes.CartoonList}
+        options={hideHeader}
+      />
+      <Stack.Screen
+        name={ScreensConstants.EntityQueueListScreen}
+        component={Routes.EntityQueueListScreen}
+        options={hideHeader}
+      />
     </Stack.Navigator>
   );
 };

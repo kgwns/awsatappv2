@@ -13,7 +13,7 @@ import {
 } from 'src/components/atoms';
 import PlayIcon from 'src/assets/images/icons/video_play.svg';
 import ViewIcon from 'src/assets/images/icons/view.svg';
-import {isTab, normalize, recordLogEvent} from 'src/shared/utils';
+import {isTab, normalize} from 'src/shared/utils';
 import {dateTimeAgo, getImageUrl, convertSecondsToHMS, TimeIcon, getShareUrl, isNotEmpty} from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getSvgImages } from 'src/shared/styles/svgImages';
@@ -298,6 +298,10 @@ const createStyles = (theme: CustomThemeType) =>
       opacity: 0.8,
       backgroundColor: colors.darkGreenishBlue,
       padding: normalize(5),
+      paddingBottom: 3,
+      fontFamily: fonts.AwsatDigital_Regular,
+      fontSize: 13,
+      lineHeight: 20,
     },
     tabTime: {
       position: 'absolute',
@@ -305,6 +309,10 @@ const createStyles = (theme: CustomThemeType) =>
       bottom: 0,
       backgroundColor: colors.black55,
       padding: normalize(5),
+      fontFamily: fonts.AwsatDigital_Regular,
+      lineHeight: 20,
+      paddingBottom: 3,
+      fontSize: 13,
     },
     videoLable: {
       left: 0,

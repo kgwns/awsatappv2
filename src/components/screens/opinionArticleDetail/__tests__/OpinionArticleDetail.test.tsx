@@ -14,6 +14,7 @@ import { horizontalEdge } from 'src/shared/utils';
 import { useAllWriters, useAppCommon, useBookmark, useLogin, useOpinionArticleDetail, useWriterDetail } from 'src/hooks';
 import Orientation from 'react-native-orientation-locker';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -303,6 +304,54 @@ const mediaData = {
   title: 'abc'
 }
 
+const defaultBookmarkMock = {
+  bookmarkIdInfo: [
+    {
+      nid: '1',
+      bundle: 'string'
+    },
+    {
+      nid: '2',
+      bundle: 'string'
+    }
+  ],
+  sendBookmarkInfo: () => [],
+  removeBookmarkedInfo: () => [],
+  validateBookmark: () => true,
+};
+
+const defaultWriterDetailMock = {
+  getWriterDetailData: () => jest.fn(),
+  emptyWriterDetailData: () => jest.fn(),
+  writerDetailData: sampleData,
+}
+
+const defaultAllWriterMock = {
+  selectedAuthorsData: {
+    code: 200,
+    message: "string",
+    data: [
+      {
+        tid: '1'
+      },
+      {
+        tid: '2'
+      },
+    ]
+  },
+  error: 'error',
+  getSelectedAuthorsData: () => {
+    return []
+  },
+  removeAuthorRequest: () => {
+    return []
+  },
+  sendSelectedWriterInfo: () => {
+    return []
+  },
+  validateFollow: () => true,
+}
+
 describe('<OpinionArticleDetail>', () => {
   let instance: RenderAPI;
 
@@ -337,55 +386,15 @@ describe('<OpinionArticleDetail>', () => {
         return []
       }
     });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: sampleData,
-    });
-    (useBookmark as jest.Mock).mockReturnValue({
-        bookmarkIdInfo: [
-          {
-            nid: '1',
-            bundle: 'string'
-          },
-          {
-            nid: '2',
-            bundle: 'string'
-          }
-        ],
-        sendBookmarkInfo: () => [],
-        removeBookmarkedInfo: () => [],
-      });
+    (useWriterDetail as jest.Mock).mockReturnValue({ ...defaultWriterDetailMock });
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
     (useAppCommon as jest.Mock).mockReturnValue({
         theme: 'light',
         isFirstSession: true,
         articleFontSize: 16,
         storeArticleFontSizeInfo: () => { }
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-        selectedAuthorsData: {
-          code: 200,
-          message: "string",
-          data: [
-            {
-              tid: '1'
-            },
-            {
-              tid: '2'
-            },
-          ]
-        },
-        error: 'error',
-        getSelectedAuthorsData: () => {
-          return []
-        },
-        removeAuthorRequest: () => {
-          return []
-        },
-        sendSelectedWriterInfo: () => {
-          return []
-        },
-      });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useState as jest.Mock).mockImplementation(() => [opinionData, opinionArticle]);
@@ -398,7 +407,9 @@ describe('<OpinionArticleDetail>', () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -418,7 +429,9 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     )).toBeDefined();
@@ -538,49 +551,10 @@ describe('<OpinionArticleDetail>', () => {
         return []
       }
     });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData:()=>jest.fn(),
-      emptyWriterDetailData:()=> jest.fn(),
-      writerDetailData: sampleData,
-    });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useState as jest.Mock).mockImplementation(() => [opinionData, opinionArticle]);
@@ -598,7 +572,9 @@ describe('<OpinionArticleDetail>', () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -618,7 +594,9 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     )).toBeDefined();
@@ -728,49 +706,10 @@ describe('<OpinionArticleDetail>', () => {
         return []
       }
     });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData:()=>jest.fn(),
-      emptyWriterDetailData:()=> jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useState as jest.Mock).mockImplementation(() => [opinionData, opinionArticle]);
@@ -788,7 +727,9 @@ describe('<OpinionArticleDetail>', () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -808,7 +749,9 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     )).toBeDefined();
@@ -925,49 +868,9 @@ describe('<OpinionArticleDetail>', () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData:()=>jest.fn(),
-      emptyWriterDetailData:()=> jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -989,35 +892,15 @@ describe('<OpinionArticleDetail>', () => {
     useLoginMock.mockReturnValue({
       isLoggedIn: false,
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+
     (useRef as jest.Mock).mockReturnValue({current:true});
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1037,7 +920,9 @@ describe('<OpinionArticleDetail>', () => {
     expect(render(
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: 123, isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     )).toBeDefined();
@@ -1075,49 +960,9 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData:()=>jest.fn(),
-      emptyWriterDetailData:()=> jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -1129,7 +974,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1170,49 +1017,9 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData:()=>jest.fn(),
-      emptyWriterDetailData:()=> jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -1224,7 +1031,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1265,61 +1074,23 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: [],
-    });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
       articleFontSize: 16,
       storeArticleFontSizeInfo: () => { }
     });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
     (useState as jest.Mock).mockImplementation(() => [opinionData, setState]);
     (useRef as jest.Mock).mockReturnValue({current:true});
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1364,49 +1135,9 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -1419,7 +1150,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1448,7 +1181,9 @@ describe("OpinionArticleDetail", () => {
   const setState = jest.fn();
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useOpinionArticleDetail as jest.Mock).mockReturnValue({
       isLoading: false,
       opinionArticleDetailData: opinionArticleDetailData,
@@ -1469,49 +1204,9 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock});
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -1524,7 +1219,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1558,7 +1255,9 @@ describe("OpinionArticleDetail", () => {
   }
   const setState = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useOpinionArticleDetail as jest.Mock).mockReturnValue({
       isLoading: false,
       opinionArticleDetailData: opinionArticleDetailData,
@@ -1579,49 +1278,9 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValue({
-      selectedAuthorsData: {
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    });
-    (useBookmark as jest.Mock).mockReturnValue({
-      bookmarkIdInfo: [
-        {
-          nid: '1',
-          bundle: 'string'
-        },
-        {
-          nid: '2',
-          bundle: 'string'
-        }
-      ],
-      sendBookmarkInfo: () => [],
-      removeBookmarkedInfo: () => [],
-    });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useAllWriters as jest.Mock).mockReturnValue({...defaultAllWriterMock});
+    (useBookmark as jest.Mock).mockReturnValue({...defaultBookmarkMock });
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -1634,7 +1293,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: false } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: false } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1717,30 +1378,7 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValueOnce({
-      selectedAuthorsData:{
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    }).mockReturnValueOnce({
+    (useAllWriters as jest.Mock).mockReturnValueOnce({...defaultAllWriterMock}).mockReturnValueOnce({
       selectedAuthorsData:{},
       error: 'error',
       getSelectedAuthorsData: () => {
@@ -1752,17 +1390,15 @@ describe("OpinionArticleDetail", () => {
       sendSelectedWriterInfo: () => {
         return []
       },
+      validateFollow: () => true,
     });
     (useBookmark as jest.Mock).mockReturnValue({
       bookmarkIdInfo: [],
       sendBookmarkInfo: () => [],
       removeBookmarkedInfo: () => [],
+      validateBookmark: () => true,
     });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -1775,7 +1411,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1825,30 +1463,7 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValueOnce({
-      selectedAuthorsData:{
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    }).mockReturnValueOnce({
+    (useAllWriters as jest.Mock).mockReturnValueOnce({...defaultAllWriterMock}).mockReturnValueOnce({
       selectedAuthorsData:{},
       error: 'error',
       getSelectedAuthorsData: () => {
@@ -1860,17 +1475,15 @@ describe("OpinionArticleDetail", () => {
       sendSelectedWriterInfo: () => {
         return []
       },
+      validateFollow: () => true,
     });
     (useBookmark as jest.Mock).mockReturnValue({
       bookmarkIdInfo: [],
       sendBookmarkInfo: () => [],
       removeBookmarkedInfo: () => [],
+      validateBookmark: () => [],
     });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -1883,7 +1496,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -1932,30 +1547,7 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValueOnce({
-      selectedAuthorsData:{
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    }).mockReturnValueOnce({
+    (useAllWriters as jest.Mock).mockReturnValueOnce({...defaultAllWriterMock}).mockReturnValueOnce({
       selectedAuthorsData:{},
       error: 'error',
       getSelectedAuthorsData: () => {
@@ -1967,17 +1559,15 @@ describe("OpinionArticleDetail", () => {
       sendSelectedWriterInfo: () => {
         return []
       },
+      validateFollow: () => true,
     });
     (useBookmark as jest.Mock).mockReturnValue({
       bookmarkIdInfo: [],
       sendBookmarkInfo: () => [],
       removeBookmarkedInfo: () => [],
+      validateBookmark: () => [],
     });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -1994,7 +1584,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );
@@ -2044,30 +1636,7 @@ describe("OpinionArticleDetail", () => {
         return []
       }
     });
-    (useAllWriters as jest.Mock).mockReturnValueOnce({
-      selectedAuthorsData:{
-        code: 200,
-        message: "string",
-        data: [
-          {
-            tid: '1'
-          },
-          {
-            tid: '2'
-          },
-        ]
-      },
-      error: 'error',
-      getSelectedAuthorsData: () => {
-        return []
-      },
-      removeAuthorRequest: () => {
-        return []
-      },
-      sendSelectedWriterInfo: () => {
-        return []
-      },
-    }).mockReturnValueOnce({
+    (useAllWriters as jest.Mock).mockReturnValueOnce({...defaultAllWriterMock}).mockReturnValueOnce({
       selectedAuthorsData:{},
       error: 'error',
       getSelectedAuthorsData: () => {
@@ -2079,17 +1648,15 @@ describe("OpinionArticleDetail", () => {
       sendSelectedWriterInfo: () => {
         return []
       },
+      validateFollow: () => true,
     });
     (useBookmark as jest.Mock).mockReturnValue({
       bookmarkIdInfo: [],
       sendBookmarkInfo: () => [],
       removeBookmarkedInfo: () => [],
+      validateBookmark: () => [],
     });
-    (useWriterDetail as jest.Mock).mockReturnValue({
-      getWriterDetailData: () => jest.fn(),
-      emptyWriterDetailData: () => jest.fn(),
-      writerDetailData: sampleData,
-    });
+    (useWriterDetail as jest.Mock).mockReturnValue({...defaultWriterDetailMock});
     (useAppCommon as jest.Mock).mockReturnValue({
       theme: 'light',
       isFirstSession: true,
@@ -2106,7 +1673,9 @@ describe("OpinionArticleDetail", () => {
     const component = (
       <SafeAreaProvider>
         <Provider store={storeSampleData}>
-          <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          <GestureHandlerRootView>
+            <OpinionArticleDetail route={{ params: { nid: '2982216', isRelatedArticle: true } }} />
+          </GestureHandlerRootView>
         </Provider>
       </SafeAreaProvider>
     );

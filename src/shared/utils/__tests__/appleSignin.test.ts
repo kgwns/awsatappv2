@@ -3,7 +3,9 @@ import { appleSignin } from '../appleSignin';
 describe('AppleSignIn', () => {
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
 
     afterEach(() => {

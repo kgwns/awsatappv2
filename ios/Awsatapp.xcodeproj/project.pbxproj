@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* AwsatappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AwsatappTests.m */; };
+		079EB6C3F12DEF68C9B34696 /* libPods-AsharqalawsatNotificationExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8E135567FB7EDB22BA8C9E /* libPods-AsharqalawsatNotificationExtension.a */; };
 		09780F0B561145AD914E833A /* AwsatDigitalv2b-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -24,6 +25,8 @@
 		5E3EF9D128A62A4B00A7092F /* AwsatDigital-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */; };
 		5E3EF9D228A62A4B00A7092F /* AwsatDigital-Black.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5E3EF9CF28A62A4B00A7092F /* AwsatDigital-Black.otf */; };
 		5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E92D08427D24F7700592089 /* GoogleService-Info.plist */; };
+		5EDB5C962A1F8DC1009E35B0 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDB5C952A1F8DC1009E35B0 /* NotificationService.m */; };
+		5EDB5C9A2A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5EDB5C922A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */; };
 		7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C512A59BE94247A5B2850233 /* Effra-Medium.ttf */; };
 		7CBB19684ACB44F8882E4025 /* Almarai-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F73EBFEE44F14FD689B8CD00 /* Almarai-Regular.ttf */; };
@@ -73,7 +76,6 @@
 		AF14A16B2836D0C700E6311D /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1432836D0C600E6311D /* Strings.swift */; };
 		AF14A16C2836D0C700E6311D /* DefaultKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1442836D0C600E6311D /* DefaultKeys.swift */; };
 		AF14A16D2836D0C700E6311D /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1452836D0C600E6311D /* Colors.swift */; };
-		AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1472836D0C600E6311D /* AuthenticationData.swift */; };
 		AF14A16F2836D0C700E6311D /* PDFArchiveData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1482836D0C600E6311D /* PDFArchiveData.swift */; };
 		AF14A1702836D0C700E6311D /* UserBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A1492836D0C600E6311D /* UserBase.swift */; };
 		AF14A1712836D0C700E6311D /* PDFEdition.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF14A14A2836D0C600E6311D /* PDFEdition.swift */; };
@@ -134,6 +136,13 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = Awsatapp;
 		};
+		5EDB5C982A1F8DC1009E35B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5EDB5C912A1F8DC1009E35B0;
+			remoteInfo = AsharqalawsatNotificationExtension;
+		};
 		AF23618728F019C100E3A5C6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
@@ -165,6 +174,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		5EDB5C9B2A1F8DC2009E35B0 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				5EDB5C9A2A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		AF2361AC28F019C300E3A5C6 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -210,6 +230,7 @@
 		22E412FC49EB497C9B8E3575 /* AwsatDigitalv2b-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Black.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Black.ttf"; sourceTree = "<group>"; };
 		24FC697514344A82B3783D7A /* Beirut.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Beirut.ttf; path = ../src/assets/fonts/Beirut.ttf; sourceTree = "<group>"; };
 		25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp-AwsatappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2A8E135567FB7EDB22BA8C9E /* libPods-AsharqalawsatNotificationExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AsharqalawsatNotificationExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Bold.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Bold.ttf"; sourceTree = "<group>"; };
 		2F2447FE4CCC4506AFDE3CB3 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		3265B71127D5DD040025B815 /* Awsatapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Awsatapp.entitlements; path = Awsatapp/Awsatapp.entitlements; sourceTree = "<group>"; };
@@ -228,7 +249,13 @@
 		5E3EF9CE28A62A4B00A7092F /* AwsatDigital-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AwsatDigital-Regular.otf"; path = "../src/assets/fonts/AwsatDigital-Regular.otf"; sourceTree = "<group>"; };
 		5E3EF9CF28A62A4B00A7092F /* AwsatDigital-Black.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "AwsatDigital-Black.otf"; path = "../src/assets/fonts/AwsatDigital-Black.otf"; sourceTree = "<group>"; };
 		5E92D08427D24F7700592089 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Awsatapp/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		5EDB5C922A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = AsharqalawsatNotificationExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		5EDB5C942A1F8DC1009E35B0 /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		5EDB5C952A1F8DC1009E35B0 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		5EDB5C972A1F8DC1009E35B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Regular.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Regular.ttf"; sourceTree = "<group>"; };
+		65DEEDB1819D41DA95B7B879 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AsharqalawsatNotificationExtension.debug.xcconfig"; path = "Target Support Files/Pods-AsharqalawsatNotificationExtension/Pods-AsharqalawsatNotificationExtension.debug.xcconfig"; sourceTree = "<group>"; };
+		71839368B61650D7FA413192 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AsharqalawsatNotificationExtension.release.xcconfig"; path = "Target Support Files/Pods-AsharqalawsatNotificationExtension/Pods-AsharqalawsatNotificationExtension.release.xcconfig"; sourceTree = "<group>"; };
 		7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Almarai-Bold.ttf"; path = "../src/assets/fonts/Almarai-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awsatapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		87E5287D29C1BC2200298A3D /* splashscreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = splashscreen.mp4; sourceTree = "<group>"; };
@@ -274,7 +301,6 @@
 		AF14A1432836D0C600E6311D /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		AF14A1442836D0C600E6311D /* DefaultKeys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DefaultKeys.swift; sourceTree = "<group>"; };
 		AF14A1452836D0C600E6311D /* Colors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
-		AF14A1472836D0C600E6311D /* AuthenticationData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthenticationData.swift; sourceTree = "<group>"; };
 		AF14A1482836D0C600E6311D /* PDFArchiveData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFArchiveData.swift; sourceTree = "<group>"; };
 		AF14A1492836D0C600E6311D /* UserBase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserBase.swift; sourceTree = "<group>"; };
 		AF14A14A2836D0C600E6311D /* PDFEdition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PDFEdition.swift; sourceTree = "<group>"; };
@@ -379,6 +405,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		5EDB5C8F2A1F8DC1009E35B0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				079EB6C3F12DEF68C9B34696 /* libPods-AsharqalawsatNotificationExtension.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		6F18BC4E6B8A5AC71DCD0CF9 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -468,8 +502,19 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */,
 				25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */,
+				2A8E135567FB7EDB22BA8C9E /* libPods-AsharqalawsatNotificationExtension.a */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		5EDB5C932A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension */ = {
+			isa = PBXGroup;
+			children = (
+				5EDB5C942A1F8DC1009E35B0 /* NotificationService.h */,
+				5EDB5C952A1F8DC1009E35B0 /* NotificationService.m */,
+				5EDB5C972A1F8DC1009E35B0 /* Info.plist */,
+			);
+			path = AsharqalawsatNotificationExtension;
 			sourceTree = "<group>";
 		};
 		83CBB9F61A601CBA00E9B192 = {
@@ -493,6 +538,7 @@
 				AF23618928F019C100E3A5C6 /* Asharqalawsat WatchKit Extension */,
 				AF23619A28F019C300E3A5C6 /* AsharqalawsatTests */,
 				AF2361A428F019C300E3A5C6 /* AsharqalawsatUITests */,
+				5EDB5C932A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				8D698A178F9B4EB96887F05E /* Pods */,
@@ -512,6 +558,7 @@
 				AF23618528F019C100E3A5C6 /* Asharqalawsat WatchKit Extension.appex */,
 				AF23619728F019C200E3A5C6 /* AsharqalawsatTests.xctest */,
 				AF2361A128F019C300E3A5C6 /* AsharqalawsatUITests.xctest */,
+				5EDB5C922A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -523,6 +570,8 @@
 				F17AA6230FD852F939D1B14B /* Pods-Awsatapp.release.xcconfig */,
 				3AFA3A7D2ED5F1815FCE3407 /* Pods-Awsatapp-AwsatappTests.debug.xcconfig */,
 				E9851DB237B24939BF49AB0D /* Pods-Awsatapp-AwsatappTests.release.xcconfig */,
+				65DEEDB1819D41DA95B7B879 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */,
+				71839368B61650D7FA413192 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -675,7 +724,6 @@
 		AF14A1462836D0C600E6311D /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				AF14A1472836D0C600E6311D /* AuthenticationData.swift */,
 				AF14A1482836D0C600E6311D /* PDFArchiveData.swift */,
 				AF14A1492836D0C600E6311D /* UserBase.swift */,
 				AF14A14A2836D0C600E6311D /* PDFEdition.swift */,
@@ -871,16 +919,36 @@
 				0A8AA18AACED3C5082C8A67C /* [CP-User] [RNFB] Crashlytics Configuration */,
 				18A09C68998F07C24A06A79A /* [CP] Copy Pods Resources */,
 				AF2361AC28F019C300E3A5C6 /* Embed Watch Content */,
+				5EDB5C9B2A1F8DC2009E35B0 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				AF2361AA28F019C300E3A5C6 /* PBXTargetDependency */,
+				5EDB5C992A1F8DC1009E35B0 /* PBXTargetDependency */,
 			);
 			name = Awsatapp;
 			productName = Awsatapp;
 			productReference = 13B07F961A680F5B00A75B9A /* Awsatapp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		5EDB5C912A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5EDB5C9E2A1F8DC2009E35B0 /* Build configuration list for PBXNativeTarget "AsharqalawsatNotificationExtension" */;
+			buildPhases = (
+				1878391A10286924661C8791 /* [CP] Check Pods Manifest.lock */,
+				5EDB5C8E2A1F8DC1009E35B0 /* Sources */,
+				5EDB5C8F2A1F8DC1009E35B0 /* Frameworks */,
+				5EDB5C902A1F8DC1009E35B0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AsharqalawsatNotificationExtension;
+			productName = AsharqalawsatNotificationExtension;
+			productReference = 5EDB5C922A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		AF23617928F019BF00E3A5C6 /* Asharqalawsat */ = {
 			isa = PBXNativeTarget;
@@ -969,6 +1037,9 @@
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1320;
 					};
+					5EDB5C912A1F8DC1009E35B0 = {
+						CreatedOnToolsVersion = 14.3;
+					};
 					AF23617928F019BF00E3A5C6 = {
 						CreatedOnToolsVersion = 13.2.1;
 					};
@@ -1004,6 +1075,7 @@
 				AF23618428F019C100E3A5C6 /* Asharqalawsat WatchKit Extension */,
 				AF23619628F019C200E3A5C6 /* AsharqalawsatTests */,
 				AF2361A028F019C300E3A5C6 /* AsharqalawsatUITests */,
+				5EDB5C912A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -1059,6 +1131,13 @@
 				1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */,
 				7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */,
 				87E5288129C1C33000298A3D /* ipadhorizontal.mp4 in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5EDB5C902A1F8DC1009E35B0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1123,6 +1202,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\nif [[ ${PODS_ROOT} ]]; then\n  echo \"info: Exec FirebaseCrashlytics Run from Pods\"\n  \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nelse\n  echo \"info: Exec FirebaseCrashlytics Run from framework\"\n  \"${PROJECT_DIR}/FirebaseCrashlytics.framework/run\"\nfi\n";
+		};
+		1878391A10286924661C8791 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-AsharqalawsatNotificationExtension-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		18A09C68998F07C24A06A79A /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1285,7 +1386,6 @@
 			files = (
 				AF14A1612836D0C700E6311D /* PDFArchiveViewManager.m in Sources */,
 				AF694E6428F6831B00DAECDF /* AppDelegate+WatchDelegate.swift in Sources */,
-				AF14A16E2836D0C700E6311D /* AuthenticationData.swift in Sources */,
 				AF14A14E2836D0C700E6311D /* CollectionViewCellType.swift in Sources */,
 				AF14A16B2836D0C700E6311D /* Strings.swift in Sources */,
 				AF14A1702836D0C700E6311D /* UserBase.swift in Sources */,
@@ -1328,6 +1428,14 @@
 				AF14A1512836D0C700E6311D /* TableViewCellDescriper.swift in Sources */,
 				D7FDC0AF2837E1BC003F33E9 /* ThemeManager.swift in Sources */,
 				D7FDC0B12837E1DC003F33E9 /* ThemeManagerBridge.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5EDB5C8E2A1F8DC1009E35B0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5EDB5C962A1F8DC1009E35B0 /* NotificationService.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1378,6 +1486,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* Awsatapp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		5EDB5C992A1F8DC1009E35B0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5EDB5C912A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension */;
+			targetProxy = 5EDB5C982A1F8DC1009E35B0 /* PBXContainerItemProxy */;
 		};
 		AF23618828F019C100E3A5C6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -1475,8 +1588,9 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Awsatapp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
@@ -1484,7 +1598,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1493,6 +1607,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp;
 				PRODUCT_NAME = Awsatapp;
 				PROVISIONING_PROFILE_SPECIFIER = "AAA iPhone Development";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AsharqAlAwsat iOS Development Profile";
 				SWIFT_OBJC_BRIDGING_HEADER = "Awsatapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1510,7 +1625,7 @@
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -1520,7 +1635,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1534,6 +1649,85 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		5EDB5C9C2A1F8DC2009E35B0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 65DEEDB1819D41DA95B7B879 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Manual;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AsharqalawsatNotificationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AsharqalawsatNotificationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.notificationextension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharqalawsat Notification Extension Dev Profile";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		5EDB5C9D2A1F8DC2009E35B0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 71839368B61650D7FA413192 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AsharqalawsatNotificationExtension/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = AsharqalawsatNotificationExtension;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.notificationextension;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharqalawsat Notification Extension AdHoc Profile";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -1677,7 +1871,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1687,13 +1881,13 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "AAA WatchKit App Development Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AAA WatchKit App Development Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Ashaeqalawsat WatchKit App Development Profile";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1720,7 +1914,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1731,7 +1925,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1758,9 +1952,9 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1775,13 +1969,13 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "AAA WatchKit Extension AppDevelopment Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AAA WatchKit Extension AppDevelopment Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AsharqAlAwsat WatchKit Extension Dev Profile";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1805,7 +1999,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 42;
+				CURRENT_PROJECT_VERSION = 6;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1821,7 +2015,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.0;
+				MARKETING_VERSION = 5.1;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
@@ -1986,6 +2180,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5EDB5C9E2A1F8DC2009E35B0 /* Build configuration list for PBXNativeTarget "AsharqalawsatNotificationExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5EDB5C9C2A1F8DC2009E35B0 /* Debug */,
+				5EDB5C9D2A1F8DC2009E35B0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

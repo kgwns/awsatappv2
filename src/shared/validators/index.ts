@@ -46,13 +46,3 @@ export const reTypePasswordValidation = (
   }
   return '';
 };
-
-export const oldPasswordValidation = (
-  password: string,
-): string => {
-  if (password === '') {
-    return PASSWORD_EMPTY;
-  }
-  return '';
-};
-

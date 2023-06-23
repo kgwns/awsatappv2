@@ -102,6 +102,7 @@ jest.mock("src/hooks/useBookmark", () => ({
     ],
       sendBookmarkInfo: () => [],
       removeBookmarkedInfo: () => [],
+      validateBookmark: () => true,
     }
   },
 }));
@@ -133,7 +134,9 @@ describe('<VideoDetailScreen >', () => {
 
   describe('when VideoDetailScreen  only', () => {
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (getVideoDetail as jest.Mock).mockImplementation(getVideoDetailMock);
       getVideoDetailMock.mockReturnValue([{response:true}]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
@@ -214,7 +217,9 @@ describe('<VideoDetailScreen >', () => {
   });
   describe('when VideoDetailScreen  only', () => {
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (getVideoDetail as jest.Mock).mockImplementation(getVideoDetailMock);
       getVideoDetailMock.mockReturnValue([{response:true}]);
       (useNavigation as jest.Mock).mockReturnValueOnce(navigation);

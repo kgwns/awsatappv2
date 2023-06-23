@@ -12,7 +12,7 @@ describe('Check InfoGraphicMapWidget with empty values',()=>{
     beforeEach(()=>{
         DeviceTypeUtilsMock.isIOS = true
         const component = (
-            <InfoGraphicMapWidget title = "" htmlContent = "" />
+            <InfoGraphicMapWidget headerTitle = "" htmlContent = "" />
         )
         instance = render(component);
     })
@@ -30,7 +30,7 @@ describe('Check InfoGraphicMapWidget with title and html Content',()=>{
     beforeEach(()=>{
         DeviceTypeUtilsMock.isIOS = false
         const component = (
-            <InfoGraphicMapWidget title = "title" htmlContent="<p>html content</p>"/>
+            <InfoGraphicMapWidget headerTitle = "title" htmlContent="<p>html content</p>"/>
         )
         instance = render(component);
     })

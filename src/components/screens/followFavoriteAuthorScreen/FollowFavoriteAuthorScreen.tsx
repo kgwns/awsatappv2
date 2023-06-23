@@ -2,17 +2,16 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { Label, NextButton } from 'src/components/atoms';
-import { CustomAlert, horizontalEdge, isDarkTheme, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, recordUserProperty, screenHeight, screenWidth } from 'src/shared/utils';
+import { CustomAlert, horizontalEdge, isIOS, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, recordUserProperty, screenHeight, screenWidth } from 'src/shared/utils';
 import FollowFavoriteAuthorWidget from 'src/components/organisms/FollowFavoriteAuthorWidget';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
-import { useAllWriters, useAppCommon, useUserProfileData } from 'src/hooks';
+import { useAllWriters, useUserProfileData } from 'src/hooks';
 import { AllWritersBodyGet, AllWritersItemType } from 'src/redux/allWriters/types';
 import { ScreenContainer } from '..';
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts';
-import { StepLineCircle } from 'src/components/molecules';
-import LinearGradient from 'react-native-linear-gradient';
+import { OnBoardingBottom, StepLineCircle } from 'src/components/molecules';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const FollowFavoriteAuthorScreen = () => {
@@ -22,10 +21,7 @@ export const FollowFavoriteAuthorScreen = () => {
   const ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_FOLLOW_FAVORITE_AUTHOR_DESCRIPTION})
   const ONBOARD_COMMON_NEXT_BUTTON = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_NEXT_BUTTON})
 
-  const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
   const style = useThemeAwareObject(customStyle);
-  const nextButtonStyles = useThemeAwareObject(tabletNextButtonStyle);
   const [disableNext, setDisableNext] = useState<boolean>(true)
 
   const allWritersPayload: AllWritersBodyGet = {
@@ -72,9 +68,9 @@ export const FollowFavoriteAuthorScreen = () => {
 
   const changeSelectedStatus = (item: any, selected: boolean) => {
     const data = [...writersData]
-    for (let i = 0; i < data.length; i++) {
-      if (item.tid === data[i].tid) {
-        data[i].isSelected = selected;
+    for(const authorItem of data) {
+      if (item.tid === authorItem.tid) {
+        authorItem.isSelected = selected;
       }
     }
     setWritersData(data)
@@ -133,22 +129,13 @@ export const FollowFavoriteAuthorScreen = () => {
     </View>
   )
 
-  const renderBottomContainer = () => {
-    const gradient = isDarkMode ? [colors.blackOpacity0,colors.blackOpacity80,colors.blackOpacity100] : [colors.whiteOpacity0,colors.whiteOpacity80,colors.whiteOpacity100];
-    return (
-      <View style={style.bottomContainer}>
-        <LinearGradient colors={gradient} style={style.linearGradient} />
-        <NextButton
-          testID="nextButtonTestId"
-          disabled={disableNext}
-          title={ONBOARD_COMMON_NEXT_BUTTON}
-          onPress={onPressNext}
-          style={nextButtonStyles}
-          icon={false}
-        />
-      </View>
-    )
-  }
+  const renderBottomContainer = () => (
+    <OnBoardingBottom
+      title={ONBOARD_COMMON_NEXT_BUTTON}
+      disableNext={disableNext}
+      onPressNext={onPressNext}
+    />
+  );
 
   if (isTab) {
     return (
@@ -292,41 +279,5 @@ const customStyle = (theme: CustomThemeType) => {
     screenBackgroundColor: {
       backgroundColor: theme.onBoardBackground
     },
-    bottomContainer: {
-      position: 'absolute',
-      bottom: 0,
-      right: 0,
-      left: 0,
-      height: 211,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    linearGradient: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%'
-    },
   });
 };
-
-const tabletNextButtonStyle = (theme: CustomThemeType) => 
-   StyleSheet.create({
-    nextButtonContainer: {
-      height: 54,
-      backgroundColor: colors.greenishBlue,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 25,
-      width: 250,
-      paddingHorizontal: 8
-    },
-    nextButtonText: {
-      fontFamily: fonts.AwsatDigital_Bold,
-      color: colors.white,
-      textAlign: 'center',
-      width: '100%',
-      fontSize: 20,
-      paddingTop: 5,
-      lineHeight: 28,
-    },
-});

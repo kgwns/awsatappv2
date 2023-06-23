@@ -24,6 +24,7 @@ import {NativeViewGestureHandler} from 'react-native-gesture-handler';
 import {getSvgImages} from 'src/shared/styles/svgImages';
 import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { fonts } from 'src/shared/styles/fonts';
 
 export interface VideoPlayerFullScreenProp {
   url: string;
@@ -54,6 +55,7 @@ const VideoPlayerFullScreen = ({
   const [tapActionTimeout, setTapActionTimeout] = useState<any>(null);
   const [showControls, setShowControls] = useState(false);
   const [screenType, setScreenType] = useState('contain');
+  const [isBuffering, setIsBuffering] = useState<boolean>(false);
   const analyticsProgress = useRef<number>(0)
 
   const onSeek = (seek: any) => {
@@ -234,6 +236,8 @@ const VideoPlayerFullScreen = ({
       source={{uri: url}}
       style={styles.backgroundVideo}
       repeat={false}
+      onPlaybackStalled={() => setIsBuffering(true)}
+      onPlaybackResume={() => setIsBuffering(false)}
     />
   );
 
@@ -345,7 +349,7 @@ const VideoPlayerFullScreen = ({
         <View style={styles.videoContainer}>
           {renderVideo()}
           <View style={styles.videoControls}>
-            {isLoading && <LoadingState />}
+            {(isLoading || isBuffering) && <LoadingState />}
             {showControls && (
               <>
                 <View style={styles.videoContainer} testID = 'topControlId'>{renderTopControls()}</View>
@@ -388,8 +392,10 @@ const customStyle = (theme: CustomThemeType) =>
     timerText: {
       backgroundColor: colors.transparent,
       color: colors.white,
-      fontSize: 11,
+      fontSize: 13,
       textAlign: 'right',
+      fontFamily: fonts.AwsatDigital_Regular,
+      lineHeight: 20,
     },
     vignette: {
       resizeMode: 'stretch',

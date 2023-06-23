@@ -38,7 +38,7 @@ export const StaticPageHeader = ({
         <View style={style.headerContainer}>
             <View style={style.return}>
                 <ButtonIconWithLabel
-                    icon={ImagesName.returnIcon}
+                    icon={ImagesName.returnIconName}
                     iconColor={themeData.primaryBlack}
                     title={CONST_RETURN}
                     titleStyle={{ color: themeData.primaryBlack }}

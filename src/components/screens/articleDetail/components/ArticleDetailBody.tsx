@@ -1,6 +1,6 @@
 import { StyleSheet, ScrollView, View } from 'react-native'
 import React, { useEffect, useRef, useState } from 'react'
-import { decodeHTMLTags, EventsValue, isIOS, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
+import { decodeHTMLTags, EventsValue, isAndroid, isIOS, isTab, recordLogEvent, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { articleHtml } from './ArticleDetailRichContent'
@@ -24,7 +24,6 @@ export const ArticleDetailBody = React.memo(({
     body,
     index,
     articleFontSize,
-    orientation,
     title,
     author,
     publishedDate,
@@ -52,7 +51,7 @@ export const ArticleDetailBody = React.memo(({
     }
 
     useEffect(() => {
-        webviewRef && webviewRef.injectJavaScript(script());
+        updateWebViewStyle();
     }, [articleFontSize])
 
     const iFrameInjectCss = () => {
@@ -150,20 +149,14 @@ export const ArticleDetailBody = React.memo(({
             console.log('InAppBrowser ERROR', error.message)
         }
     }
+    
     const onShouldStartLoadWithRequest = (event: any) => {
         const HTML_URL = isIOS ? IOS_WEBVIEW_URL : ANDROID_WEBVIEW_URL; // "file:///" : "about:blank"
         const URL = event.url
 
-        if (isIOS) {
-            if (event.navigationType === 'click') {
-                browserOptions(URL);
-                return false
-            }
-        } else {
-            if (!URL.includes(HTML_URL)) {
-                browserOptions(URL);
-                return false
-            }
+        if((isIOS && event.navigationType === 'click') || (isAndroid && !URL.includes(HTML_URL))) {
+            browserOptions(URL);
+            return false
         }
         return true
     }
@@ -206,7 +199,7 @@ export const ArticleDetailBody = React.memo(({
         <AutoHeightWebView
             key={index}
             style={[style.webView, isIOS && !isTab && { height: webViewHeight }]}
-            source={{ html: articleHtml({ body: body }), baseUrl: '' }}
+            source={{ html: articleHtml({ body }), baseUrl: '' }}
             ref={(r) => (webviewRef = r)}
             domStorageEnabled={true}
             bounces={false}

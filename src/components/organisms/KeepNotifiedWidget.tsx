@@ -46,6 +46,7 @@ const KeepNotifiedWidget = ({
         keyExtractor={(_, index) => index.toString()}
         renderItem={renderItem}
         bounces={false}
+        contentContainerStyle={ isTab && style.tabletContainerStyle}
       />
     </View>
   );
@@ -60,6 +61,9 @@ const customStyle = (theme: CustomThemeType) => {
     divider: {
       height: 1,
       backgroundColor: theme.dividerColor
+    },
+    tabletContainerStyle:{
+      paddingBottom:120
     }
   });
 };

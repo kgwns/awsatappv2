@@ -12,7 +12,7 @@ import { ScreensConstants } from 'src/constants/Constants';
 import { useAppPlayer, useLogin } from 'src/hooks';
 import { isNotEmpty, isObjectNonEmpty, recordCurrentScreen } from 'src/shared/utils';
 import TrackPlayer from 'react-native-track-player';
-import { navigationReference } from './NavigationUtils';
+import { navigationDeferred, navigationReference } from './NavigationUtils';
 const Stack = createStackNavigator<ScreenList>();
 
 const defaultScreenOptions: StackNavigationOptions = {
@@ -65,6 +65,7 @@ const AppStackContainer = () => {
 
     onReady={() => {
       routeNameRef.current = navigationReference.current.getCurrentRoute().name;
+      navigationDeferred.resolve()
     }}
     onStateChange={async () => {
       const previousRouteName = routeNameRef.current;

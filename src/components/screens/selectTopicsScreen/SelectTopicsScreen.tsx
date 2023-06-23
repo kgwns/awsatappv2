@@ -2,24 +2,24 @@ import React, { useEffect, useState } from 'react';
 import { View, StyleSheet, Alert, FlatList } from 'react-native';
 import { colors, CustomThemeType } from 'src/shared/styles/colors';
 import { BorderLabel, Label, NextButton } from 'src/components/atoms';
-import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, isDarkTheme, recordUserProperty } from 'src/shared/utils';
+import { horizontalEdge, isNonEmptyArray, isObjectNonEmpty, isTab, joinArray, normalize, recordLogEvent, screenWidth, isIOS, screenHeight, recordUserProperty } from 'src/shared/utils';
 import { InterestedTopics } from 'src/components/organisms';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { flatListUniqueKey, ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
-import { useAllSiteCategories, useAppCommon, useUserProfileData } from 'src/hooks';
+import { useAllSiteCategories, useUserProfileData } from 'src/hooks';
 import { AllSiteCategoriesBodyGet, AllSiteCategoriesItemType } from 'src/redux/allSiteCategories/types';
 import { ScreenContainer } from 'src/components/screens';
 import { useIsFocused } from '@react-navigation/native';
 import { fonts } from 'src/shared/styles/fonts';
-import LinearGradient from 'react-native-linear-gradient';
 import { decode } from 'html-entities';
-import { StepLineCircle } from 'src/components/molecules';
+import { OnBoardingBottom, StepLineCircle } from 'src/components/molecules';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
 
 export const SelectTopicsScreen = ({ navigation }: any) => {
-  const style = useThemeAwareObject(customTopicsScreenStyle);
-  const nextButtonStyles = useThemeAwareObject(nextButtonStyle);
   const isFocused = useIsFocused()
+
+  const style = useThemeAwareObject(customTopicsScreenStyle);
+
   const { isLoading, 
     allSiteCategoriesData, 
     sentTopicsData, 
@@ -28,8 +28,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
     updateAllSiteCategoriesData, 
     emptySendTopicsInfoData } = useAllSiteCategories();
   const {userProfileData} = useUserProfileData();
-  const { theme } = useAppCommon()
-  const isDarkMode = isDarkTheme(theme)
+
   const [disableNext, setDisableNext] = useState<boolean>(true)
   const [categoriesInfo, setCategoriesInfo] = useState<AllSiteCategoriesItemType[]>([])
   const [updatedTopics, setUpdatedTopics] = useState<string[]>([])
@@ -39,7 +38,6 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
   const ONBOARD_SELECT_TOPICS_DESCRIPTION = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION})
   const ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB = TranslateConstants({key:TranslateKey.ONBOARD_SELECT_TOPICS_DESCRIPTION_TAB})
   const ONBOARD_COMMON_NEXT_BUTTON = TranslateConstants({key:TranslateKey.ONBOARD_COMMON_NEXT_BUTTON})
-
 
 
   const allSiteCategoriesPayload: AllSiteCategoriesBodyGet = {
@@ -74,9 +72,9 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
 
   const onTopicsChanged = (item: any, selected: boolean) => {
     const data = [...categoriesInfo]
-    for (let i = 0; i < data.length; i++) {
-      if (item.tid === data[i].tid) {
-        data[i].isSelected = selected;
+    for(const categoryItem of data) {
+      if (item.tid === categoryItem.tid) {
+        categoryItem.isSelected = selected;
       }
     }
     setCategoriesInfo(data)
@@ -112,7 +110,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
     emptySendTopicsInfoData();
   }
 
-  const renderItem = (item: any, index: any) => {
+  const renderItem = (item: any) => {
     return (
       <View style={style.tabTopicButtonContainer}>
         <BorderLabel label={decode(item.name)}
@@ -134,7 +132,7 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
             listKey={`${flatListUniqueKey.INTERESTED_TOPICS}${new Date().getTime().toString()}`}
             data={categoriesInfo}
             showsHorizontalScrollIndicator={false}
-            renderItem={({ item, index }) => renderItem(item, index)}
+            renderItem={({ item }) => renderItem(item)}
             contentContainerStyle={style.itemContainer}
             columnWrapperStyle={style.wrapperStyle}
             numColumns={categoriesInfo.length > 1 ? categoriesInfo.length : 5}
@@ -144,22 +142,14 @@ export const SelectTopicsScreen = ({ navigation }: any) => {
       </View>
     )
   }
-  const renderBottomContainer = () => {
-    const gradient = isDarkMode ? [colors.blackOpacity0,colors.blackOpacity80,colors.blackOpacity100] : [colors.whiteOpacity0,colors.whiteOpacity80,colors.whiteOpacity100];
-    return (
-      <View style={style.bottomContainer}>
-        <LinearGradient colors={gradient} style={style.linearGradient} />
-        <NextButton
-          testID="nextButtonTestId"
-          disabled={disableNext}
-          title={ONBOARD_COMMON_NEXT_BUTTON}
-          onPress={onPressNext}
-          style={nextButtonStyles}
-          icon={false}
-        />
-      </View>
-    )
-  }
+
+  const renderBottomContainer = () => (
+    <OnBoardingBottom
+      title={ONBOARD_COMMON_NEXT_BUTTON}
+      onPressNext={onPressNext}
+      disableNext={disableNext}
+    />
+  );
 
   const renderHeaderContainer = () => {
     return(
@@ -310,20 +300,6 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
     screenBackgroundColor: {
       backgroundColor: theme.onBoardBackground
     },
-    bottomContainer: {
-      position: 'absolute',
-      bottom: 0,
-      right: 0,
-      left: 0,
-      height: 211,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    linearGradient: {
-      position: 'absolute',
-      width: '100%',
-      height: '100%'
-    },
     tabContainer: {
       flex: 1,
       backgroundColor: theme.backgroundColor,
@@ -353,26 +329,3 @@ const customTopicsScreenStyle = (theme: CustomThemeType) =>
       backgroundColor: colors.transparent
     },
 });
-
-const nextButtonStyle = (theme: CustomThemeType) => 
-   StyleSheet.create({
-    nextButtonContainer: {
-      height: 54,
-      backgroundColor: colors.greenishBlue,
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderRadius: 25,
-      width: 250,
-      paddingHorizontal: 8
-    },
-    nextButtonText: {
-      fontFamily: fonts.AwsatDigital_Bold,
-      color: colors.white,
-      textAlign: 'center',
-      width: '100%',
-      fontSize: 20,
-      paddingTop: 5,
-      lineHeight: 28,
-    },
-});
-

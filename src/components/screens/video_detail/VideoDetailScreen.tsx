@@ -42,7 +42,7 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
   const { showMiniPlayer } = useAppPlayer()
   
   const { isLoggedIn } = useLogin()
-  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo } = useBookmark()
+  const { sendBookmarkInfo, removeBookmarkedInfo, bookmarkIdInfo, validateBookmark } = useBookmark()
   const videoPayload = {page: 0, items_per_page: 10}
 
   useEffect(() => {
@@ -96,10 +96,6 @@ export const VideoDetailScreen = ({route}: VideoDetailScreenProps) => {
     }
     setSelectedVideo(videoInfo)
     setVideolistData(otherVideosList)
-  }
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
   }
 
   const onPressSave = (nid: string) => {

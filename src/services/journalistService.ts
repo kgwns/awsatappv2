@@ -1,14 +1,13 @@
 import { BASE_URL } from 'src/services/apiUrls';
 import { getCacheApiRequest } from 'src/services/api';
 import { JOURNALIST_ARTICLE_ENDPOINT } from './apiEndPoints';
-import { GetJournalistInfoPayload, payloadType } from 'src/redux/journalist/types';
+import { GetJournalistInfoPayload } from 'src/redux/journalist/types';
 
 export const getJournalistArticleService = async (body: GetJournalistInfoPayload) => {
     try {
-        const response: payloadType = await getCacheApiRequest(
+        return await getCacheApiRequest(
             `${BASE_URL}${JOURNALIST_ARTICLE_ENDPOINT}${body.nid}?items_per_page=10&page=${body.page}`,
         );
-        return response;
     } catch (error) {
         console.log('journalistService - getJournalistArticleService - error', error)
         throw error;

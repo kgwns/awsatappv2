@@ -32,7 +32,9 @@ const sucessResponseObject: SendNewPasswordSuccessPayloadType = {
 
 describe('<Change Password Saga>', () => {
   beforeEach(() => {
-      jest.useFakeTimers()
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    })
   });
   
   describe('Test newPasswordSaga  saga', () => {

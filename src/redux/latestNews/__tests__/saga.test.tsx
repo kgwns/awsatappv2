@@ -166,7 +166,9 @@ const errorResponse = {
 
 describe('<LatestNewsSaga >', () => {
     beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        })
     })
 
     describe('Test articleDetailSaga  saga', () => {

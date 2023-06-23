@@ -5,10 +5,9 @@ import { SendContactUsInfoPayload } from 'src/redux/contactUs/types';
 
 export const sendContactUsService = async (body: SendContactUsInfoPayload) => {
     try {
-        const response: { message: any } = await postApiRequest(
+        return await postApiRequest(
             `${UMS_BASE_URL}${CONTACT_US_END_POINT}`, body
         );
-        return response;
     } catch (error) {
         console.log('contactUsService - sendContactUsService - error', error)
         throw error;

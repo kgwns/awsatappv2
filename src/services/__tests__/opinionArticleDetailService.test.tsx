@@ -1,10 +1,10 @@
-import axios, { AxiosError } from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { requestOpinionArticleDetailAPI, fetchRelatedOpinionAPI } from 'src/services/opinionArticleDetailService';
 import { OpinionArticleDetailBodyGet, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import * as serviceApi from 'src/services/api';
 describe('Test OpinionArticleDetail Services', () => {
-  const mock = new MockAdapter(axios);
+  const cachedAxiosMock = new MockAdapter(serviceApi.api);
+
   const body: OpinionArticleDetailBodyGet = {
     nid: 123,
   };
@@ -13,15 +13,17 @@ describe('Test OpinionArticleDetail Services', () => {
   };
   console.log = jest.fn();
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   });
 
   afterEach(() => {
-    mock.reset();
+    cachedAxiosMock.reset();
   });
 
   it('test when response code is 200', () => {
-    mock.onGet().reply(200, {
+    cachedAxiosMock.onGet().reply(200, {
       result: true,
     });
 
@@ -41,7 +43,7 @@ describe('Test OpinionArticleDetail Services', () => {
   });
 
   it('test related opinion when response code is 200', () => {
-    mock.onGet().reply(200, {
+    cachedAxiosMock.onGet().reply(200, {
       result: true,
     });
 

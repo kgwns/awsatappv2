@@ -11,7 +11,9 @@ describe('Test Opinions Services', () => {
     offset: 0,
   };
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   });
   afterEach(() => {
     mock.reset();

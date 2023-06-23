@@ -17,6 +17,7 @@ import AdjustAnalyticsManager, { AdjustEventID } from 'src/shared/utils/AdjustAn
 
 export const SearchScreen = () => {
   const [searchText, setSearchText] = useState('');
+  const [isSubmit, setIsSubmit] = useState<boolean>(false);
   const navigation = useNavigation<StackNavigationProp<any>>()
   const {themeData} = useTheme();
   const styles = useThemeAwareObject(createStyles);
@@ -28,14 +29,22 @@ export const SearchScreen = () => {
       navigation.navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {nid: item.nid})
     }
   }
-  const onSearchTextChange = (searchTextProps: string) => {
+  const onSearchTextChange = (searchTextProps: string, isSubmit: boolean = false) => {
     setSearchText(searchTextProps);
 
     {/* User Need to type minimum four char to enable search*/}
-    if (searchTextProps && isNotEmpty(searchTextProps.toString()) && searchTextProps.trim().length >= 4) {
-      fetchSearchRequest({
-        searchText: searchTextProps,
-      });
+    if (searchTextProps && isNotEmpty(searchTextProps.toString())) {
+      if (isSubmit) {
+        setIsSubmit(true);
+        fetchSearchRequest({
+          searchText: searchTextProps,
+        });
+      } else if (searchTextProps.trim().length >= 3) {
+        setIsSubmit(false);
+        fetchSearchRequest({
+          searchText: searchTextProps,
+        });
+      }
     }
   };
 
@@ -61,8 +70,8 @@ export const SearchScreen = () => {
           <SearchList
             testID="search-input"
             onItemActionPress={onPressItem}
-            onTextChange={text => {
-              onSearchTextChange(text);
+            onTextChange={(text,isSubmit) => {
+              onSearchTextChange(text, isSubmit);
             }}
             isLoading={isLoading}
             data={searchData.rows}
@@ -70,6 +79,7 @@ export const SearchScreen = () => {
             onPressHistory={text => {
               onSearchTextChange(text)
             }}
+            isSubmit={isSubmit}
           />
         </View>
     </ScreenContainer>

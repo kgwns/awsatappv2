@@ -1,6 +1,6 @@
 //MostRead
 export const MOST_READ_ENDPOINT = 'api/v2/view/mostread';
-export const MOST_READ_ENDPOINT_NEW = 'sites/default/files/objects/ar/today/0.json';
+export const MOST_READ_ENDPOINT_NEW = 'https://c.aawsat.com/list/Daily/aawsat.com/10/1/web';
 
 //articleSection
 const ARTICLE_SECTION_ENDPOINT = 'api/v2/articlesection';
@@ -118,8 +118,8 @@ export const GET_SELECTED_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getAPPNewslettersL
 export const GET_MY_NEWS_LETTERS_ENDPOINT = 'api/ums/v1/getMyNewsletters';
 
 //Keep Notified
-export const SEND_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/addNotifications'
-export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getMyNotifications'
+export const SEND_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/addNotificationCategories'
+export const GET_SELECTED_NOTIFICATION_END_POINT = 'api/ums/v1/getMyNotificationCategories'
 export const GET_LIST_OF_NOTIFICATION_END_POINT = 'api/ums/v1/getAPPNotificationsList'
 
 //Podcast
@@ -162,3 +162,9 @@ export const DMA_INTRODUCTION_ENDPOINT = 'api/v2/info/4816'
 export const DMA_FEEDBACK_ENDPOINT = 'api/v2/info/4817'
 export const DMA_LIST_ENDPOINT = 'api/ums/v1/getDeleteAccountOptions'
 export const DMA_DELETE_CONFIRMATION_ENDPOINT = 'api/ums/v1/delete-user-account'
+
+//Cartoon
+export const CARTOON_LIST_END_POINT = 'api/v2/cartoonlist';
+
+// Entity-Queue
+export const ENTITY_QUEUE_LIST_END_POINT = 'api/v2/entityqlist';

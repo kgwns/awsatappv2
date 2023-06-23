@@ -1,4 +1,4 @@
-import { View, StyleSheet, ScrollView, FlatList, Platform } from 'react-native';
+import { View, StyleSheet, ScrollView, FlatList, Platform, ListRenderItem } from 'react-native';
 import React from 'react';
 import { BorderLabel } from 'src/components/atoms/BorderLabel/BorderLabel';
 import { isAndroid, isTab, normalize, screenWidth } from 'src/shared/utils';
@@ -52,7 +52,7 @@ const InterestedTopics = (props:any) => {
     }
   }
 
-  const renderItem = (item: any, index: number) => {
+  const renderItem: ListRenderItem<any> = ({item, index}) => {
     return (
       <View key={flatListUniqueKey.INTERESTED_TOPICS + index}>
         <View style={style.interestedTopicsContainer} >
@@ -76,7 +76,7 @@ const InterestedTopics = (props:any) => {
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={ isAndroid ? item.reverse() : item}
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => renderItem(item, index)}
+          renderItem={renderItem}
         />
       </View>
     )
@@ -92,7 +92,7 @@ const InterestedTopics = (props:any) => {
           listKey={flatListUniqueKey.INTERESTED_TOPICS + new Date().getTime().toString()}
           data={props.allSiteCategoriesData }
           showsHorizontalScrollIndicator={false}
-          renderItem={({ item, index }) => renderItem(item, index)}
+          renderItem={renderItem}
           columnWrapperStyle={style.topicsStyle}
         />
       </View>

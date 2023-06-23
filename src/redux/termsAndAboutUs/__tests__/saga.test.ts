@@ -23,7 +23,9 @@ describe('<Terms and About Us Saga >', () => {
     const id = 123
 
     beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        })
     })
     describe('Check ArticleDetail sage method', () => {
         const genObject = termsAndAboutUsSaga();

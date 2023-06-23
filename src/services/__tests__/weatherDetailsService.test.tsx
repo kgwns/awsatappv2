@@ -12,7 +12,9 @@ describe('Test Weather Detail Services', () => {
     };
 
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     });
 
     afterEach(() => {

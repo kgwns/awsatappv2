@@ -6,6 +6,7 @@ import { FlatList } from "react-native";
 import { ScreensConstants } from 'src/constants/Constants';
 import { isTypeAlbum } from 'src/shared/utils';
 import { GridViewItem } from 'src/components/molecules';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const DeviceTypeUtilsMock = jest.requireMock('src/shared/utils/dimensions');
 jest.mock('src/shared/utils/dimensions', () => ({
@@ -66,7 +67,9 @@ describe('Check ArticleGridView should render component', () => {
         (isTypeAlbum as jest.Mock).mockImplementation(isTypeAlbumMock);
         isTypeAlbumMock.mockReturnValue(false);
         const component = (
-            <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            <GestureHandlerRootView>
+                <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            </GestureHandlerRootView>
         )
         instance = render(component)
     });
@@ -130,7 +133,9 @@ describe('Check ArticleGridView should render component', () => {
 
     it('Should click Article Grid and navigate to PhotoGalleryDetailScreen', () => {
         const component = (
-            <ArticleGridView data={data} showHighlightTitle={false} showImage={true} />
+            <GestureHandlerRootView>
+                <ArticleGridView data={data} showHighlightTitle={false} showImage={true} />
+            </GestureHandlerRootView>
         )
         instance = render(component)
         const gridViewClickId = instance.getByTestId('gridViewClick');
@@ -140,7 +145,9 @@ describe('Check ArticleGridView should render component', () => {
     });
     it('should not navigate to any screens when nid is empty', () => {
         const component = (
-            <ArticleGridView data={dataWithoutNid} showHighlightTitle={true} showImage={true} />
+            <GestureHandlerRootView>
+                <ArticleGridView data={dataWithoutNid} showHighlightTitle={true} showImage={true} />
+            </GestureHandlerRootView>
         )
         instance = render(component)
         const gridViewClickId = instance.getByTestId('gridViewClick');
@@ -150,7 +157,9 @@ describe('Check ArticleGridView should render component', () => {
 
     it("should display 2 columns in tablet and ipad devices",() => {
         const component = (
-            <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            <GestureHandlerRootView>
+                <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            </GestureHandlerRootView>
         )
         instance = render(component)
         const testId = instance.container.findByType(FlatList);
@@ -159,7 +168,9 @@ describe('Check ArticleGridView should render component', () => {
 
     it("should display 3 columns in tab/iPad device",() => {
         const component = (
-            <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            <GestureHandlerRootView>
+                <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            </GestureHandlerRootView>
         )
         instance = render(component)
         const testId = instance.container.findByType(FlatList);
@@ -168,7 +179,9 @@ describe('Check ArticleGridView should render component', () => {
 
     it("should display description(body) in 2 lines in Tab",() => {
         const component = (
-            <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            <GestureHandlerRootView>
+                <ArticleGridView data={data} showHighlightTitle={true} showImage={true} />
+            </GestureHandlerRootView>
         )
         instance = render(component)
         const element = instance.container.findByType(GridViewItem);

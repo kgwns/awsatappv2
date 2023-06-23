@@ -5,7 +5,6 @@ import {
   PHOTO_GALLERY_DETAIL_ENDPOINT,
 } from './apiEndPoints';
 import {
-  FetchAlbumListSuccessPayloadType,
   FetchAlbumDetailSuccessPayloadType,
   AlbumListBodyGet,
   AlbumDetailBodyGet
@@ -13,7 +12,7 @@ import {
 
 export const fetchAlbumListApi = async (body: AlbumListBodyGet) => {
   try {
-    const response: FetchAlbumListSuccessPayloadType = await getApiRequest(
+    return await getApiRequest(
       `${BASE_URL}${PHOTO_GALLERY_LIST_ENDPOINT}`,
       {
         params: {
@@ -22,7 +21,6 @@ export const fetchAlbumListApi = async (body: AlbumListBodyGet) => {
         },
       },
     );
-    return response;
   } catch (error) {
     console.log('photoGalleryService - fetchAlbumListApi - error', error)
     throw error;

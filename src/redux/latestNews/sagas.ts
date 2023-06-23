@@ -12,7 +12,7 @@ import {
   RequestSectionComboEightSuccessPayload,
   RequestSectionComboType,
   RequestTickerAndHeroType, TickerHeroSuccessPayload,
-  OpinionSuccessPayload, RequestOpinionListType, LatestOpinionDataType,
+  OpinionSuccessPayload, LatestOpinionDataType,
   LatestPodcastDataType, PodcastHomeSuccessPayload,
   MainSectionBlockType, MainSectionBlockName,
   RequestCoverageBlockSuccessPayloadType,
@@ -23,6 +23,7 @@ import {
   InfoGraphicBlockType,
   RequestArchivedArticleSectionSuccessPayloadType,
   ArchivedArticleDataType,
+  RequestOpinionListType,
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -71,7 +72,6 @@ import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, isTypeAlbum 
 import {
   requestLatestArticle,
   requestSectionCombo,
-  writerOpinionApi,
   podcastHomeApi,
   mainCoverageBlockApi,
   mainHorizontalArticleApi,
@@ -81,6 +81,7 @@ import {
   requestSpotlightArticleSection,
   infoGraphicBlockApi,
   archivedArticleApi,
+  writerOpinionApi,
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
@@ -88,7 +89,7 @@ const getDisplayName = (text: string) => {
   return isNotEmpty(text) ? text.toLowerCase() : undefined;
 };
 
-const getArticleImage = (fieldImage: any, newPhoto: any) : String => {
+const getArticleImage = (fieldImage: any, newPhoto: any) : string => {
   let image = fieldImage ?? ''
 
   if(!isNotEmpty(fieldImage) && isNotEmpty(newPhoto)) {
@@ -103,7 +104,7 @@ const formatMainSectionBlockData = (response: any) => {
     if (response && isNonEmptyArray(response.rows)) {
       const rows = response.rows
       formattedData = rows.map(
-        ({ title, body, nid, field_image, field_news_categories,field_new_resource,created_export,
+        ({ title, body, nid, field_image, field_news_categories,field_new_resource,
         type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed, field_album_image }: any) => ({
           body,
           title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
@@ -129,8 +130,8 @@ const parseCoverageDataSuccess = (response: any) => {
     coverageInfo: []
   }
   const allCoverageInfo = formattedData.filter((item) => item.blockName === MainSectionBlockName.COVERAGE)
-  const sortedCoverageInfo = allCoverageInfo.sort((a, b) => parseInt(a.position) - parseInt(b.position))
-  const coverageInfo = sortedCoverageInfo.splice(0, 4)
+  allCoverageInfo.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const coverageInfo = allCoverageInfo.splice(0, 4)
 
   responseData.coverageInfo = coverageInfo
 
@@ -164,8 +165,8 @@ const parseFeaturedArticleSuccess = (response: any) => {
   }
    
   const allFeaturedArticleData = formattedData.filter((item) => item.blockName === MainSectionBlockName.FEATURED_ARTICLE)
-  const sortedFeaturedArticleData = allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
-  const featuredArticleDataInfo = sortedFeaturedArticleData.splice(0, 15)
+  allFeaturedArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const featuredArticleDataInfo = allFeaturedArticleData.splice(0, 15)
 
   responseData.featureArticle = featuredArticleDataInfo
 
@@ -179,8 +180,8 @@ const parseHorizontalArticleSuccess = (response: any) => {
   }
    
   const allHorizontalArticleData = formattedData.filter((item) => item.blockName === MainSectionBlockName.HORIZONTAL_ARTICLE)
-  const sortedHorizontalArticleData = allHorizontalArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
-  const horizontalArticleData = sortedHorizontalArticleData.splice(0, 5)
+  allHorizontalArticleData.sort((a, b) => parseInt(a.position) - parseInt(b.position))
+  const horizontalArticleData = allHorizontalArticleData.splice(0, 5)
 
   responseData.horizontalArticle = horizontalArticleData
 
@@ -358,6 +359,15 @@ const parseTickerHeroDataSuccess = (response: any): TickerHeroSuccessPayload => 
   return responseData
 }
 
+const parseBodyAsEmpty = (data: LatestArticleDataType[]): LatestArticleDataType[] => {
+  return data.map((item) => {
+    return {
+      ...item,
+      body: ''
+    }
+  })
+};
+
 const parseSectionComboOne = (response: payloadType) => {
   const formattedData = formatLatestArticle(response)
   const responseData: RequestSectionComboOneSuccessPayload = {
@@ -373,13 +383,7 @@ const parseSectionComboTwo = (response: payloadType) => {
     sectionComboTwo: []
   }
 
-  const data = formattedData.map((item) => {
-    return {
-      ...item,
-      body: ''
-    }
-  })
-  console.log('sectionComboTwo response data', responseData)
+  const data = parseBodyAsEmpty(formattedData);
   responseData.sectionComboTwo = data.splice(0, 6)
   return responseData
 }
@@ -390,12 +394,7 @@ const parseSectionComboThree = (response: payloadType) => {
     sectionComboThree: []
   }
 
-  const data = formattedData.map((item) => {
-    return {
-      ...item,
-      body: ''
-    }
-  })
+  const data = parseBodyAsEmpty(formattedData);
   responseData.sectionComboThree = data.splice(0, 6)
   return responseData
 }
@@ -406,12 +405,7 @@ const parseSectionComboFour = (response: payloadType) => {
     sectionComboFour: []
   }
 
-  const data = formattedData.map((item) => {
-    return {
-      ...item,
-      body: ''
-    }
-  })
+  const data = parseBodyAsEmpty(formattedData);
   responseData.sectionComboFour = data.splice(0, 6)
   return responseData
 }
@@ -476,8 +470,8 @@ const parseEditorsChoiceSuccess = (response: any): EditorsChoiceSuccessPayload =
     editorsChoice: []
   }
   const allEditorsChoiceInfo = formattedData.filter((item) => item.blockname === MainSectionBlockName.EDITORS_CHOICE)
-  const sortedEditorsChoiceInfo = allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
-  const editorsChoiceInfo = sortedEditorsChoiceInfo.splice(0, 6)
+  allEditorsChoiceInfo.sort((a, b) => parseInt(a.entityqueue_relationship_position) - parseInt(b.entityqueue_relationship_position))
+  const editorsChoiceInfo = allEditorsChoiceInfo.splice(0, 6)
 
   responseData.editorsChoice = editorsChoiceInfo;
   return responseData;
@@ -502,11 +496,11 @@ const parseSpotlightArticleSectionSuccess = (response: any): SpotlightArticleSec
       responseData.spotlightArticleSectionData = rows.map(
         ({ nid, title, body, field_image, view_node,
           field_news_categories_export, author_resource, field_new_photo, field_display_export, changed }: any) => ({
-            nid: nid,
+            nid,
             title: isNotEmpty(title) ? decode(title) : '',
             body: body,
             image: getArticleImage(field_image, field_new_photo),
-            view_node: view_node,
+            view_node,
             news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
             created: changed,
             author: author_resource,

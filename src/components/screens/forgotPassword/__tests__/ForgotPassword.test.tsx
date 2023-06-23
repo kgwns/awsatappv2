@@ -59,7 +59,9 @@ beforeEach(() => {
   (useRef as jest.Mock).mockImplementation(() => ({current: 'inactive'}));
   (useNavigation as jest.Mock).mockReturnValue(navigation);
   (useState as jest.Mock).mockImplementation(() => [LottieView, animationRef]);
-  jest.useFakeTimers('legacy')
+  jest.useFakeTimers({
+    legacyFakeTimers: true
+  })
     const component = (
       <Provider store={storeSampleData}>
         <ForgotPassword />

@@ -56,11 +56,10 @@ export const ThemeProvider = React.memo<Props>((props) => {
 
 
   const MemoizedValue = React.useMemo(() => {
-    const value: ProvidedValue = {
-      themeData: themeData,
+    return {
+      themeData,
       toggleTheme: ToggleThemeCallback,
     };
-    return value;
   }, [themeData, ToggleThemeCallback]);
 
   return (

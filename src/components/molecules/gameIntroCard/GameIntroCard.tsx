@@ -44,7 +44,7 @@ export const GameIntroCard = ({
 
     const buttonWithArrow = () => {
         return (
-            <TouchableOpacity style={style.arrowButtonContainer} onPress={onPress}>
+            <TouchableOpacity style={style.arrowButtonContainer} onPress={onPress} testID={'arrowId'}>
                 <Label style={buttonStyle} children={buttonTitle} labelType={LabelTypeProp.p3} color={Styles.color.greenishBlue} />
                 {
                     getSvgImages({
@@ -60,7 +60,7 @@ export const GameIntroCard = ({
     if(isTab && !isDynamic) {
         return (
             <TouchableWithoutFeedback onPress={onPress}>
-                <View style={style.tabletContainer}>
+                <View style={style.tabletContainer} testID={'tabContainerId'}>
                     <View style={StyleSheet.flatten([tabletImageContainerStyle, { backgroundColor: imageBackgroundColor }])}>
                         <Image name={image} style={tabletImageStyle} />
                         <Label children={title} style={style.tabletTitle} />
@@ -73,7 +73,7 @@ export const GameIntroCard = ({
     } else {
         return (
             <TouchableWithoutFeedback onPress={onPress}>
-                <View style={style.container}>
+                <View style={style.container} testID={'mobileContainerId'}>
                     <View style={StyleSheet.flatten([imageContainerStyle, { backgroundColor: imageBackgroundColor }])}>
                         <Image name={image} style={imageStyle} />
                     </View>

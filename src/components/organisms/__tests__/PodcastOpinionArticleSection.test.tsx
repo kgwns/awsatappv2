@@ -6,6 +6,7 @@ import {
   storeSampleData,
 } from '../../../constants/Constants';
 import {PodcastOpinionArticleSection} from '../PodcastOpinionArticleSection';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 describe('<PodcastOpinionArticleSection>', () => {
   let instance: RenderAPI;
@@ -13,7 +14,9 @@ describe('<PodcastOpinionArticleSection>', () => {
   beforeEach(() => {
     const component = (
       <Provider store={storeSampleData}>
-        <PodcastOpinionArticleSection data={PodcastOpinionArticleSectionData} />
+        <GestureHandlerRootView>
+          <PodcastOpinionArticleSection data={PodcastOpinionArticleSectionData} />
+        </GestureHandlerRootView>
       </Provider>
     );
     instance = render(component);

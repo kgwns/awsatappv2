@@ -8,15 +8,22 @@ import { JournalistDetailBodyGet } from '../../redux/articleDetail/types';
 import * as serviceApi from 'src/services/api';
 describe('Test Article Detail Services', () => {
     const mock = new MockAdapter(axios);
+    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+
     beforeEach(() => {
-        jest.useFakeTimers('legacy');
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        });
     })
     afterEach(() => {
         mock.reset();
+        cachedAxiosMock.reset();
     });
     describe('Check requestLatestArticle method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
@@ -48,9 +55,11 @@ describe('Test Article Detail Services', () => {
         });
     })
 
-    describe('Check requestLatestArticle method', () => {
+    describe('Check requestSectionCombo method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
@@ -82,17 +91,20 @@ describe('Test Article Detail Services', () => {
 
     describe('Check requestArticleDetail method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
+            cachedAxiosMock.reset();
         });
         const requestObject: ArticleDetailBodyGet = {
             nid: 123
         };
 
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 
@@ -112,10 +124,13 @@ describe('Test Article Detail Services', () => {
 
     describe('Check requestLatestArticle method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
+            cachedAxiosMock.reset();
         });
         const requestObject: RelatedArticleBodyGet = {
             tid: 11
@@ -125,7 +140,7 @@ describe('Test Article Detail Services', () => {
         };
 
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 
@@ -134,7 +149,7 @@ describe('Test Article Detail Services', () => {
             });
         });
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 
@@ -154,10 +169,13 @@ describe('Test Article Detail Services', () => {
 
     describe('Check requestArticleSection method', () => {
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
+            cachedAxiosMock.reset();
         });
         const requestObject: ArticleSectionBodyGet = {
             id: 11,
@@ -167,7 +185,7 @@ describe('Test Article Detail Services', () => {
         };
 
         it('test when response code is 200', () => {
-            mock.onGet().reply(200, {
+            cachedAxiosMock.onGet().reply(200, {
                 result: true,
             });
 
@@ -186,16 +204,19 @@ describe('Test Article Detail Services', () => {
     });
     describe('Check requestJournalistDetail method',()=>{
         beforeEach(() => {
-            jest.useFakeTimers('legacy');
+            jest.useFakeTimers({
+                legacyFakeTimers: true
+            });
         })
         afterEach(() => {
             mock.reset();
+            cachedAxiosMock.reset();
         });
         const requestObject: JournalistDetailBodyGet = {
             jor_id: 'string',
         }
         it('test requestJournalistDetail when response is 200',()=>{
-            mock.onGet().reply(200,{
+            cachedAxiosMock.onGet().reply(200,{
                 result: true,
             });
 

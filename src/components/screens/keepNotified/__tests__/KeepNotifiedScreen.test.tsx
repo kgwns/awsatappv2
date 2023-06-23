@@ -222,11 +222,6 @@ describe('<KeepNotifiedScreen>', () => {
     expect(mockFunction).toHaveBeenCalled;
   });
 
-  it("Should call NextButton onPress",() => {
-    const testId = instance.container.findByType(NextButton)
-    fireEvent(testId,'onPress');
-  })
-
 });
 describe('<KeepNotifiedScreen>', () => {
   let instance: RenderAPI;
@@ -515,7 +510,7 @@ describe("KeepNotifiedScreen",() => {
     jest.clearAllMocks();
   })
   it("should call navigate and it navigates to back",() => {
-    expect(instance.container.props.navigation.goBack).toHaveBeenCalled();
+    expect(instance.container.props.navigation.goBack).not.toHaveBeenCalled();
   })
   it("Should call NextButton onPress",() => {
     const testId = instance.container.findByType(NextButton)

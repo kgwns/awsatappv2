@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { VideoPlayerComponent } from 'src/components/molecules';
 import { useAppPlayer } from 'src/hooks';
 import { fetchVideoDetailInfo } from '../../../../services/VideoServices';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('react', () => ({
   ...jest.requireActual('react'),
@@ -47,7 +48,9 @@ describe('<VideoPlayerScreen> without nid params', () => {
   const fetchVideoDetailInfoMock = jest.fn();
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useState as jest.Mock).mockImplementation(() => [route.params.videoUrl, playerUrl]);
     (fetchVideoDetailInfo as jest.Mock).mockImplementation(fetchVideoDetailInfoMock);
@@ -56,7 +59,11 @@ describe('<VideoPlayerScreen> without nid params', () => {
       setShowMiniPlayer: setShowMiniPlayerMock,
       setPlayerTrack: setPlayerTrackMock,
     });
-    const component = <VideoPlayerScreen route={route} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerScreen route={route} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 
@@ -127,7 +134,11 @@ describe('<VideoPlayerScreen>', () => {
       setShowMiniPlayer: setShowMiniPlayerMock,
       setPlayerTrack: setPlayerTrackMock,
     });
-    const component = <VideoPlayerScreen route={route} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerScreen route={route} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 
@@ -177,7 +188,11 @@ describe('<VideoPlayerScreen> with nid params', () => {
       setShowMiniPlayer: setShowMiniPlayerMock,
       setPlayerTrack: setPlayerTrackMock,
     });
-    const component = <VideoPlayerScreen route={route} />
+    const component = (
+      <GestureHandlerRootView>
+        <VideoPlayerScreen route={route} />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 

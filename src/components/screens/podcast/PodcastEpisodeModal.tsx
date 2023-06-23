@@ -9,7 +9,7 @@ import { normalize, isNonEmptyArray, recordLogEvent, isTab, screenWidth, podcast
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useAppPlayer, useBookmark, useLogin, usePodcast, useFetchPodcastData } from 'src/hooks';
 import { PodcastEpisodeBodyGet, PodcastListItemType } from 'src/redux/podcast/types';
-import { useIsFocused } from '@react-navigation/native';
+import { useIsFocused, useNavigation } from '@react-navigation/native';
 import TrackPlayer, { State, usePlaybackState, } from 'react-native-track-player';
 import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, horizontalEdge, isNotEmpty, isObjectNonEmpty } from 'src/shared/utils/utilities';
 import { Styles } from 'src/shared/styles';
@@ -17,6 +17,7 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 import { PodcastEpisodeModalInfo } from 'src/components/organisms/podcast/PodcastEpisodeModalInfo';
 import { PodcastDetailHeader } from 'src/components/molecules/podcastDetailHeader/PodcastDetailHeader';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 export interface PodcastEpisodeModalProps {
     route: any;
@@ -77,9 +78,8 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const initialRef = useRef(0);
     const playbackState = usePlaybackState();
     const { fetchPodcastDataAnalytics } = useFetchPodcastData();
-
+    const navigation = useNavigation<StackNavigationProp<any>>();
     const nid = route.params.data.nid
-
     const {
         isLoading, podcastEpisodeData,
         fetchPodcastEpisodeRequest
@@ -93,7 +93,8 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
     const {
         sendBookmarkInfo,
         removeBookmarkedInfo,
-        bookmarkIdInfo
+        bookmarkIdInfo,
+        validateBookmark,
     } = useBookmark()
 
     const { isLoggedIn } = useLogin()
@@ -114,11 +115,6 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
             initialRef.current = 0;
         }
     }, [isFocused])
-
-
-    const validateBookmark = (nidProps: string): boolean => {
-        return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nidProps) : false
-    }
 
     useEffect(() => {
         updatePodcastEpisodeData()
@@ -211,7 +207,7 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
         if (isObjectNonEmpty(podcastEpisodeInfo)) {
             const trackPlayerData = {
                 id: podcastEpisodeInfo.nid,
-                url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export!),
+                url: getPodcastUrl(podcastEpisodeInfo.field_spreaker_episode_export as string),
                 title: podcastEpisodeInfo.title,
                 duration,
                 artist: podcastEpisodeInfo.title,
@@ -232,8 +228,14 @@ export const PodcastEpisodeModal = ({ route, onPressBack }: PodcastEpisodeModalP
         }
     }
 
+    const onNotificationBackPress = () => {
+        navigation.pop();
+    } 
+
     const onGoBack = () => {
-        onPressBack();
+        const { data } = route.params;
+        const isNotificationPodcast = isObjectNonEmpty(data) && data.isNotification;
+        isNotificationPodcast ? onNotificationBackPress() : onPressBack();
     }
     const renderTabComponent = () => {
         return (

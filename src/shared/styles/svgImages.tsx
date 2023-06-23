@@ -185,7 +185,7 @@ import SubscribeIconGreen from 'src/assets/images/subscribeIconGreen.svg';
 import ResetIcon from 'src/assets/images/icons/replayIcon.svg';
 
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { colors, DARK_THEME_ID } from './colors'
+import { DARK_THEME_ID } from './colors'
 
 import LiveIcon from 'src/assets/images/icons/liveIcon.svg';
 import BlackDownArrow from 'src/assets/images/icons/blackDownArrow.svg'
@@ -296,7 +296,7 @@ export const getSvgImages = ({ name, size, style, fill, width, height }: GetSVGP
             return <ClockIconWhite {...props} />
         case ImagesName.arrowLeftFaced:
             return <ArrowLeftFaced {...props} />
-        case ImagesName.returnIcon:
+        case ImagesName.returnIconName:
             return <ReturnArrowBlack {...props} />
         case ImagesName.searchIcon:
             return isDark ? <SearchIconDark {...props} /> : <SearchIcon {...props} />

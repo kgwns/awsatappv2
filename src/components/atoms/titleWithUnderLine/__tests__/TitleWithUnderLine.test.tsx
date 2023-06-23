@@ -31,7 +31,9 @@ describe('<VideoPlayer>', () => {
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
       const component = <TitleWithUnderLine title={'example'} titleContainerStyle={{backgroundColor: colors.aliceBlue}}/>
       instance = render(component)
-      jest.useFakeTimers();
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
     })
 
     afterEach(() => {
@@ -71,7 +73,9 @@ describe('<VideoPlayer>', () => {
   (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     const component = <TitleWithUnderLine title={''}/>
     instance = render(component)
-    jest.useFakeTimers();
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   })
 
   afterEach(() => {

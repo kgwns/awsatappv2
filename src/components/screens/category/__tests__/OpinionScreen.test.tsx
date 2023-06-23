@@ -5,6 +5,7 @@ import { FlatList } from 'react-native';
 import { OpinionWritersArticlesSection, OpinionWritersSection, PopUp } from 'src/components/organisms';
 import {useNavigation} from '@react-navigation/native';
 import { useBookmark, useLogin } from 'src/hooks';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('@react-navigation/native', () => ({
   ...jest.requireActual('@react-navigation/native'),
@@ -122,6 +123,21 @@ jest.mock("src/hooks/useOpinions", () => ({
 }));
 
 jest.mock('src/hooks/useBookmark', () => ({useBookmark: jest.fn()}));
+const defaultBookmarkMock = {
+    bookmarkIdInfo: [
+        {
+            nid: '1',
+            bundle: 'string'
+        },
+        {
+            nid: '2',
+            bundle: 'string'
+        }
+    ],
+    sendBookmarkInfo: () => [],
+    removeBookmarkedInfo: () => [],
+    validateBookmark: () => true,
+}
 
 describe('<OpinionScreen>', () => {
     let instance: RenderAPI
@@ -150,21 +166,8 @@ describe('<OpinionScreen>', () => {
         (useState as jest.Mock).mockImplementation(() => [0, page]);
         (useState as jest.Mock).mockImplementation(() => [false, showupUp]);
         (useBookmark as jest.Mock).mockImplementation(useBookmarkMock);
-        useBookmarkMock.mockReturnValue({
-            bookmarkIdInfo: [
-                {
-                    nid: '1',
-                    bundle: 'string'
-                },
-                {
-                    nid: '2',
-                    bundle: 'string'
-                }
-            ],
-            sendBookmarkInfo: () => [],
-            removeBookmarkedInfo: () => [],
-        });
-        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        useBookmarkMock.mockReturnValue({...defaultBookmarkMock});
+        const component = <GestureHandlerRootView><OpinionScreen tabIndex={0} currentIndex={0}/></GestureHandlerRootView>
         instance = render(component)
     })
 
@@ -230,8 +233,9 @@ describe('<OpinionScreen>', () => {
             bookmarkIdInfo: [],
             sendBookmarkInfo: () => [],
             removeBookmarkedInfo: () => [],
+            validateBookmark: () => true,
         });
-        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        const component = <GestureHandlerRootView><OpinionScreen tabIndex={0} currentIndex={0}/></GestureHandlerRootView>
         instance = render(component)
     })
 
@@ -299,8 +303,9 @@ describe('<OpinionWritersArticlesSection> when the user is not logged in', () =>
             bookmarkIdInfo: [],
             sendBookmarkInfo: () => [],
             removeBookmarkedInfo: () => [],
+            validateBookmark: () => true,
         });
-        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        const component = <GestureHandlerRootView><OpinionScreen tabIndex={0} currentIndex={0}/></GestureHandlerRootView>
         instance = render(component)
     })
 
@@ -351,8 +356,9 @@ describe('<OpinionWritersArticlesSection> when the user is logged in', () => {
             bookmarkIdInfo: [],
             sendBookmarkInfo: () => [],
             removeBookmarkedInfo: () => [],
+            validateBookmark: () => true,
         });
-        const component = <OpinionScreen tabIndex={0} currentIndex={0}/>
+        const component = <GestureHandlerRootView><OpinionScreen tabIndex={0} currentIndex={0}/></GestureHandlerRootView>
         instance = render(component)
     })
 

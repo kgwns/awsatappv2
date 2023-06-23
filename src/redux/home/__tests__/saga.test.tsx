@@ -12,7 +12,9 @@ const sampleResponse = {
 
 describe('<HomeSaga >', () => {
     beforeEach(() => {
-        jest.useFakeTimers()
+        jest.useFakeTimers({
+            legacyFakeTimers: true
+        })
     })
 
     describe('Check Home saga method', () => {

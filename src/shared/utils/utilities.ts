@@ -1,4 +1,4 @@
-import { Alert, ColorSchemeName, Insets } from "react-native"
+import { Alert, ColorSchemeName, Insets, Linking } from "react-native"
 import { Theme } from "../../redux/appCommon/types"
 import { DEFAULT_ALERT_MESSAGE, DEFAULT_ALERT_TITLE, VALID_URL_REGEX, PODCAST_URL_SUFFIX, CONST_OK } from "src/constants/Constants"
 import { Edge } from "react-native-safe-area-context";
@@ -124,6 +124,14 @@ export const getString = (value: any): string => {
   return isNotEmpty(value) ? decodeHTMLTags(value) : ' '
 };
 
+export const isStringEqual = (valueOne: any, valueTwo: any): boolean => {
+  return valueOne == valueTwo;
+}
+
+export const isNumberOrString = (data: any): boolean => {
+  return (typeof data == 'string' || typeof data === 'number');
+}
+
 export const timeAgo = (time: any) => {
   const date = new Date(time);
   const today = new Date();
@@ -179,7 +187,10 @@ export const dateTimeAgo = (time: any): DateTimeAgoType => {
   const minuteValue = calculateMinutes(time)
   const minuteString = minuteValue  < 10 ? '0' + minuteValue : minuteValue
 
-  const timeAgoFormatInfo = isTab ?  `${calculateDateNumber(time)}/${calculateMothNumber(time)} - ${hourString}:${minuteString}` : `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  const timeAgoFormatInfo = isTab ?
+    `${calculateDateNumber(time)}/${calculateMothNumber(time)} - ${hourString}:${minuteString}` : 
+    `${calculateDateNumber(time)}/${calculateMothNumber(time)} ${hourString}:${minuteString}`
+  
   const fullDateFormat = (dayString + timeAgoFormatInfo).toString();
   return { icon: DateIcon.CALENDAR, time: fullDateFormat }
 };
@@ -355,9 +366,9 @@ export const formatHijri = (value: string) => {
   const month = formatToTwoDigit(calculateMonthNumber(value) + 1);
   const year = formatToTwoDigit(calculateYear(value));
   const formattedDate = `${year}-${month}-${day}`.toString();
-  let date = new Date(formattedDate);
+  const date = new Date(formattedDate);
 
-  let format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
+  const format = new Intl.DateTimeFormat('ar-SA-u-nu-latn', {
     year: 'numeric',
     month: 'long',
     day: 'numeric',
@@ -393,3 +404,16 @@ export const getShareUrl = (shortUrl: string, linkNodeUrl:string): string => {
 export const isTypeAlbum = (type: HomePageArticleType): boolean => {
   return isNotEmpty(type) && type === HomePageArticleType.ALBUM;
 }
+
+export const openBrowserURL = async (url: string, callback?: () => void) => {
+  try {
+    const isSupported = await Linking.canOpenURL(url);
+    if (isSupported) {
+      await Linking.openURL(url);
+    }
+  } catch {
+    callback && callback();
+  }
+};
+
+export const APP_STORE_ID = '470905035';

@@ -128,7 +128,7 @@ const OnBoardNavigator = () => {
           headerTitle: HeaderLogo,
           headerTitleAlign: 'center',
           headerRight: () =>
-            onBoardSkip(ScreensConstants.SUCCESS_SCREEN), // will replace keep notified screen once notification part was done. 
+            onBoardSkip(ScreensConstants.KEEP_NOTIFIED_ONBOARD_SCREEN),
         }}
       />
       <Stack.Screen

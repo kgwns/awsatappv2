@@ -4,14 +4,12 @@ import {Platform} from 'react-native';
 import DeviceInfo from 'react-native-device-info';
 import {useNotificationSaveToken} from 'src/hooks';
 import {SaveTokenBodyType} from 'src/redux/notificationSaveToken/types';
-import PushNotification from 'react-native-push-notification';
-import PushNotificationIOS from '@react-native-community/push-notification-ios';
-import {isIOS} from 'src/shared/utils';
+import {isIOS, recordLogEvent} from 'src/shared/utils';
 import {notification, ScreensConstants} from 'src/constants/Constants';
-import {navigate} from 'src/navigation/NavigationUtils';
+import { navigate, navigationDeferred } from 'src/navigation/NavigationUtils';
 import notifee, {AndroidImportance, EventDetail, EventType} from '@notifee/react-native';
-import { firebase } from '@react-native-firebase/remote-config'
-
+import { AnalyticsEvents } from 'src/shared/utils/analytics';
+import { store } from 'src/redux/store';
 async function onDisplayNotification(
   remoteMessage: FirebaseMessagingTypes.RemoteMessage,
 ) {
@@ -38,6 +36,16 @@ async function onDisplayNotification(
   });
 }
 
+export const checkNotificationPermission = () => {
+  if (isIOS) {
+    async function requestUserPermission() {
+      await messaging().requestPermission();
+    }
+    requestUserPermission();
+  }
+}
+
+
 export const GetFCMToken = () => {
   const {saveTokenRequest} = useNotificationSaveToken();
   const deviceOS = Platform.OS;
@@ -57,50 +65,66 @@ export const GetFCMToken = () => {
       .catch(e => console.log(e));
   };
 
-  const dynamicSection = (
-    remoteMessage: FirebaseMessagingTypes.RemoteMessage,
-  ) => {
-    const result = firebase.remoteConfig().getValue('arabic')._value;
-    const arabic = JSON.parse(result || '');
-    const displayId = arabic.notification;
-    const found = displayId.find(
-      (obj: any) => obj.id.toString() === remoteMessage?.data?.id,
-    );
-    return found.title;
-  };
-
   const onOpenNotification = (
     remoteMessage: FirebaseMessagingTypes.RemoteMessage,
   ) => {
     if ((!remoteMessage) || (!remoteMessage?.data)) {
       return
     }
-    switch (remoteMessage.data?.type) {
-      case notification.ARTICLE:
-        navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {
-          nid: remoteMessage.data.id,
-        });
-        break
-      case notification.OPINION:
-        navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, {
-          nid: remoteMessage.data.id,
-        });
-        break
-      case notification.DYNAMIC_SECTION:
-        dynamicSection(remoteMessage);
-        navigate(ScreensConstants.SectionArticlesParentScreen, {
-          title: dynamicSection(remoteMessage),
-          keyName: notification.KEYNAME,
-          sectionId: remoteMessage.data.id,
-        });
-        break
-      default:
-        return
+    const { isSkipped, loginData } = store.getState().login;
+    const isLoggedIn = loginData?.token?.access_token ? true : false
+    if (isLoggedIn || isSkipped) {
+      switch (remoteMessage.data?.type) {
+        case notification.ARTICLE:
+          navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {
+            nid: remoteMessage.data.data_key,
+          });
+          break
+        case notification.OPINION:
+          navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, {
+            nid: remoteMessage.data.data_key,
+          });
+          break
+        case notification.ALBUM:
+          navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
+            nid: remoteMessage.data.data_key,
+          });
+          break
+        case notification.PODCAST:
+          navigate(ScreensConstants.PODCAST_EPISODE_MODAL, {
+            data: {
+              nid: remoteMessage.data.data_key,
+              isNotification: true
+            }
+          });
+          break
+        case notification.DYNAMIC_SECTION:
+          navigate(ScreensConstants.SectionArticlesScreen, {
+            title: '', // will replace sectionTitle once payload is ready
+            keyName: notification.KEYNAME,
+            sectionId: remoteMessage.data.data_key,
+          });
+          break
+        case notification.ENTITY_QUEUE:
+          navigate(ScreensConstants.EntityQueueListScreen, {
+            title: '',  // will replace sectionTitle once payload is ready
+            id: remoteMessage.data.data_key,
+          });
+          break
+        default:
+          const customData = {
+            type: remoteMessage.data.type,
+            data_key: remoteMessage.data.data_key,
+            notification_id: remoteMessage.data.id
+          }
+          recordLogEvent(AnalyticsEvents.UNHANDLED_NOTIFICATION, customData);
+          return
+      }
     }
   }
 
   const notifeeEvents = (type: EventType, detail: EventDetail) => {
-    const { notification, pressAction } = detail;
+    const { notification } = detail;
     switch (type) {
       case EventType.DISMISSED:
         break;
@@ -120,7 +144,9 @@ export const GetFCMToken = () => {
       //When Application open from quit state
       .getInitialNotification()
       .then( async remoteMessage => {
-        onOpenNotification(remoteMessage);
+        navigationDeferred.promise.then(() => {
+          onOpenNotification(remoteMessage);
+        })
       });
 
     notifee.onForegroundEvent(async ({ type, detail }) => {
@@ -140,47 +166,6 @@ export const GetFCMToken = () => {
     });
   }, []);
 
-  useEffect(() => {
-    if (!isIOS) {
-      return;
-    }
-    messaging().onMessage(response => {
-      PushNotificationIOS.requestPermissions().then(
-        () => showNotification(response.notification),
-      );
-    });
-    PushNotificationIOS.addEventListener('register', token => {
-      getToken();
-    });
-
-    PushNotificationIOS.addEventListener('localNotification', notification => {
-      onOpenNotification(notification);
-    });
-
-    PushNotificationIOS.addEventListener(
-      'notification',
-      function (notification) {
-        onOpenNotification(notification);
-      },
-    );
-
-    return () => {
-      PushNotificationIOS.removeEventListener('register');
-      PushNotificationIOS.removeEventListener('registrationError');
-      PushNotificationIOS.removeEventListener('notification');
-    };
-  }, []);
-
-  const showNotification = (
-    notification: FirebaseMessagingTypes.Notification,
-  ) => {
-    PushNotification.localNotification({
-      title: notification.title,
-      message: notification.body!,
-      channelId: notification.android?.channelId,
-    });
-  };
-  
   return <></>;
 };
 

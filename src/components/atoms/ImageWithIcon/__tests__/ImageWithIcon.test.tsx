@@ -1,5 +1,6 @@
 import {render, RenderAPI} from '@testing-library/react-native';
 import React from 'react';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import {ImageWithIcon} from 'src/components/atoms/ImageWithIcon/ImageWithIcon';
 
 describe('<ImageWithIcon/>', () => {
@@ -9,7 +10,9 @@ describe('<ImageWithIcon/>', () => {
   describe('when ImageWithIcon only', () => {
     beforeEach(() => {
       const component = (
-        <ImageWithIcon bottomTag={mockString} onPress={mockFn} />
+        <GestureHandlerRootView>
+          <ImageWithIcon bottomTag={mockString} onPress={mockFn} />
+        </GestureHandlerRootView>
       );
       instance = render(component);
     });

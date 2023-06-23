@@ -2,7 +2,6 @@
     "weatherDetail": {
         "sunrise": "شروق الشمس",
         "sunset": "غروب الشمس",
-        "sidebarTitle": "الرياض :",
         "max": "الحرارة العظمى/الصغرى",
         "humidity": "الرطوبة",
         "speed": "سرعة الرياح",
@@ -16,25 +15,13 @@
         "noInformation": "المعلومات غير متوفره حاليا"
     },
     "drawer": {
-        "latestNews": "آخر الأخبار",
-        "first": "أولى",
-        "firstNews": "الأخبار",
-        "theOpinion": "الرأي",
-        "economy": "الاقتصاد",
-        "sports": "الرياضة",
-        "supplements": "الملاحق",
-        "culture": "ثقافة",
-        "eastFiles": "ملفات الشرق",
-        "mix": "منوعات",
         "advertiseWithUs": "اعلن معنا",
-        "aboutTheEast": "عن الشرق",
         "callUs": "اتصل بنا",
-        "myPersonalAccount": "حسابي الشخصي",
         "termsOfUse": "الشروط والأحكام",
         "pdfArchive": "الأرشيف",
-        "informationAboutUs": "معلومات عنا",
         "aboutTheMiddleEast": " عن \"الشرق الأوسط\"",
-        "privacyPolicy": "سياسة الخصوصية"
+        "privacyPolicy": "سياسة الخصوصية",
+        "caricature": "caricature"
     },
     "onBoard": {
         "common": {
@@ -78,7 +65,6 @@
             "headerLeft": "العالم العربي"
         },
         "sectionWriters": {
-            "headerLeft": "الرأي",
             "sliderLeftHeader": "الرأي",
             "tabSliderLeftHeader": "آراء وكتّاب"
         },
@@ -100,21 +86,17 @@
         "sectionComboEight": {
             "headerLeft": "يوميات الشرق"
         },
-        "articlSection": {
-            "articleTitle": "عِينٌ على"
-        },
         "editorsChoice": {
             "headerLeft": "اختيارات المحرر"
         },
-        "editorsPick": {
-            "headerRight": "مواضيع قد تهمك"
-        },
         "archivedArticle": {
             "headerTitle": "من الأرشيف"
+        },
+        "podcastTitle": {
+            "title": "بودكاست"
         }
     },
     "sectionVideo": {
-        "toWatch": "مشاهدة",
         "share": "شارك"
     },
     "categoryPage": {
@@ -125,72 +107,15 @@
         "episodes": "الحلقات",
         "return": "الرجوع"
     },
-    "timeSince": {
-        "since": "منذ ",
-        "ago": "منذ",
-        "just_now": "الآن فقط",
-        "from_now": "من الان",
-        "seconds": "ثواني",
-        "minute_ago": "منذ 1 دقيقة",
-        "minute_from_now": "دقيقة واحدة من الآن",
-        "minutes": "الدقائق",
-        "hour_ago": "منذ 1 ساعة",
-        "hour_from_now": "ساعة واحدة من الآن",
-        "hours": "ساعات",
-        "yesterday": "في الامس",
-        "tomorrow": "غدا",
-        "days": "أيام",
-        "last_week": "الاسبوع الماضي",
-        "next_week": "الاسبوع المقبل",
-        "weeks": "أسابيع",
-        "one_minute": "1 دقيقة",
-        "one_hour": "1 ساعة",
-        "from": "من",
-        "sinceHour": "منذ ساعة",
-        "sinceTwoHours": "منذ ساعتين",
-        "sinceThreeHours": "منذ ثلاث ساعات",
-        "minute": "دقيقة"
-    },
-    "months": [
-        "يناير",
-        "فبراير",
-        "مارس",
-        "أبريل",
-        "مايو",
-        "يونيو",
-        "يوليو",
-        "أغسطس",
-        "سبتمبر",
-        "أكتوبر",
-        "نوفمبر",
-        "ديسمبر"
-    ],
-    "day": [
-        "الأحد",
-        "الاثنين",
-        "الثلاثاء",
-        "الأربعاء",
-        "الخميس",
-        "الجمعة",
-        "السبت"
-    ],
     "podcastEpisode": {
-        "moreEpisodes": "المزيد من حلقات البودكاست",
         "listenToEpisode": "استمع إلى الحلقة",
         "listenTo": "استمع على"
     },
     "videoDetail": {
         "watch": "مشاهده",
-        "employement": "تشغيل",
-        "documentaryText": "الإقتصاد الإلكتروني",
-        "subtext": "عنوان صغير يوضع هنا"
+        "employement": "تشغيل"
     },
     "favorite": {
-        "tabItem": {
-            "content_for_you": "محتوى لك",
-            "archives": "المحفوظات"
-        },
-        "podcast_for_you": "بودكاست لك",
         "filters": {
             "everyone": "الكل",
             "articles": "مقالات",
@@ -198,9 +123,7 @@
             "opinion": "الرأي",
             "podcast": "بودكاست",
             "album": "صور"
-        },
-        "articles_from_your_favorite_writers": "مقالات من كتابك المفضلين",
-        "articles_that_interest_you": "مقالات تهمك"
+        }
     },
     "signIn": {
         "signUp": "انشئ حساباً خاصاً بك​",
@@ -219,23 +142,11 @@
         "password": "كلمه المرور",
         "forgotPassword": "نسيت كلمة المرور",
         "return": "الرجوع",
-        "success": "نجاح",
         "credentialsAreIncorrect": "معلومات الدخول غير صحيحة",
         "verifyMailAndPasswordAndTryAgain": "تحقق من البريد الإلكتروني وكلمة المرور وحاول مجدداً",
-        "signInInfo": "سجل الدخول لتحظ بآخر الأخبار​"
+        "signInInfo": "سجل الدخول لتحظ بآخر الأخبار​",
+        "loginWithHuawei": "الدخول بحساب هواوي"
     },
-    "validation": {
-        "emailEmpty": "عنوان البريد الإلكتروني مطلوب",
-        "emailNotValid": "البريد الإلكتروني غير صحيح ",
-        "passwordEmpty": "كلمة المرور مطلوبة",
-        "passwordNotMatch": "كلمة المرور غير متطابقة",
-        "passwordStrength": "Password is too short",
-        "passwordRequirement": "Password must contain (1)uppercase,(1)lowercase,(1)numeric and (1)special character",
-        "maxLengthPassword": "Password should contain maximum 20 characters",
-        "minLengthPassword": "كلمة المرور يجب أن تحتوي على ٥ أحرف على الأقل"
-    },
-    "about_the_news_paper": "عن الجريدة",
-    "terms_of_use": "شروط الانتفاع",
     "terms_and_condition": "الشروط والأحكام",
     "return": "الرجوع",
     "searchScreen": {
@@ -279,15 +190,11 @@
         "logoutAlertMessage": "هل أنت متأكد أنك تريد تسجيل الخروج؟",
         "alert": "تأكيد الخروج",
         "arithmetic": "حسابي",
-        "debug": "التصحيح",
-        "production": "إنتاج",
-        "changeEnvironment": "تغيير البيئة",
         "notSubscribed": "لم تشترك بعد​",
         "loginFeature": "انشئ حساباً خاصاً بك لتحصل على أخبار\n مخصصة لك ولتتمتع بخاصية حفظ المقالات وتتلقى\n نشراتنا البريدية المتنوعة​",
         "signUp": "قم بالتسجيل"
     },
     "opinionArticleDetail": {
-        "return": "الرجوع",
         "listenToArticle": "استمع إلى المقالة",
         "relatedOpinionTitle": "المزيد من مقالات الرآي",
         "follow": "تابع",
@@ -299,21 +206,15 @@
             "userNameTitle": "اسم المستخدم",
             "nameTitle": "الاسم",
             "passwordTitle": "كلمة المرور",
-            "changePasswordTitle": "تغيير كلمة المرور",
             "birthdayTitle": "يوم الميلاد",
             "occupationTitle": "الوظيفة",
             "occupationPlaceholder": "اكتب وظيفتك هنا",
-            "monthPlaceholder": "الشهر",
-            "yearPlaceholder": "السنة",
-            "datePlaceholder": "تاريخ",
             "selectTheDate": "حدد تاريخ الميلاد",
             "cancelText": "إلغاء الأمر",
             "confirmText": "أكد",
             "selectBirthdayText": "اختر تاريخ الميلاد",
             "updateButtonText": "تحديث",
             "yourDetails": "التفاصيل الخاصة بك",
-            "emailPlaceholder": "Example@company.com",
-            "changePassword": "تغيير كلمة المرور",
             "oldPassword": "كلمة المرور القديمة",
             "newPassword": "كلمة مرور جديدة",
             "confirmNewPassword": "قم بتأكيد كلمة المرور الجديدة",
@@ -328,14 +229,6 @@
             "requestCameraAccessMessage": "يرجى تقديم إذن للوصول إلى كاميرا الجهاز",
             "pleaseEnterTheName": "الرجاء إدخال الاسم",
             "okText": "نعم"
-        },
-        "newPassword": {
-            "createNewPassword": "أنشئ كلمة مرور جديدة",
-            "passwordDescription": "يجب أن تكون كلمة مرورك الجديدة مختلفة عن كلمة مرورك القديمة",
-            "setNewPassword": "ضبط كلمة المرور",
-            "passwordWarning": "يجب ألا يقل عن 8 أحرف",
-            "passwordMatchWarning": "يجب أن تتطابق كلمتا المرور",
-            "passwordChangedSuccessfully": "تم تغيير كلمة المرور بنجاح"
         }
     },
     "manageMyNews": {
@@ -350,7 +243,6 @@
         "remove": "إزالة"
     },
     "signUpAlert": {
-        "subscribe": "مشترك",
         "notSubscribed": "أنت غير مشترك",
         "description": "سجل للحصول على تجربة فريدة",
         "signUp": "ادخل لحسابك أو اشترك"
@@ -364,7 +256,6 @@
         "ok": "نعم",
         "alert": "للتأكيد",
         "noInternetConnection": "لا يوجد اتصال بالإنترنت",
-        "somthingWentWrong": "هناك خطأ ما",
         "more": "المزيد"
     },
     "games": {
@@ -376,12 +267,8 @@
         "crosswordDescription": "اختبر قاموسك اللغوي مع لعبة الكلمات المتقاطعة يومياً",
         "sudokuDescription": "لعبة سودوكو تنشر يومياً لمحبي أحجيات الأرقام"
     },
-    "sectionTab": {
-        "main": "الرئيسية"
-    },
     "podcastHome": {
-        "listen_to_podcast": "إستمع إلى البودكاست ",
-        "allEpisodes": "كل الحلقات"
+        "listen_to_podcast": "إستمع إلى البودكاست "
     },
     "richHTMLContent": {
         "facts": "حقائق",
@@ -436,31 +323,9 @@
     "photoGallery": {
         "title": "معرض الصور"
     },
-    "tabNavigatorNames": {
-        "latestNews": "آخر الأخبار",
-        "sections": "أقسام",
-        "mostRead": "الأكثر قراءة",
-        "favourite": "المحفوظات",
-        "downloadNews": "الجريدة",
-        "myNews": "أخباري"
-    },
     "podcastWidget": {
         "headerLeft": "بودكاست",
         "headerRight": "المزيد"
-    },
-    "archivesPodcast": {
-        "title": "استمع لملخص آخر أخبار اليوم",
-        "body": "استعاد فريق الاتفاق نغمة انتصاراته وحقق فوزاً ثميناً خارج أرضه أمام نظيره فريق الحزم بثلاثة أهداف دون رد ضمن منافسات الجولة الثانية عشرة من الدوري السعودي للمحترفين.",
-        "allEpisodes": "استمع الي البودكاست "
-    },
-    "mostPlayedSection": {
-        "sectionHeader": {
-            "headerLeft": "المزيد",
-            "headerRight": "اكثر الحلقات التي تم تشغيلها"
-        }
-    },
-    "storyWidget": {
-        "headerTitle": "مذا يحدث الآن"
     },
     "articleDetailScreen": {
         "shortArticle": {
@@ -470,29 +335,8 @@
             "updated": "محدث "
         }
     },
-    "relatedArticles": {
-        "headerLeft": "مقالات ذات صلة",
-        "title": "واشنطن تعيد فتح ملف خاطفي الرهائن الأميركيين في بيروت",
-        "rightTitle": "3 د قرادة ",
-        "leftTitle": "من ساعاتان",
-        "flag": "العالم"
-    },
-    "podcastScreen": {
-        "latestNewsSummarySection": {
-            "sectionHeader": {
-                "headerLeft": "المزيد",
-                "headerRight": "ملخص آخر الأخبار"
-            }
-        }
-    },
-    "podcastOpinionArticle": {
-        "sectionHeader": {
-            "headerLeft": "المزيد",
-            "headerRight": "مقالات الرأي"
-        }
-    },
-    "contentForYou": {
-        "emptyDataLabel": "لم يتم حفظ أي شيء حتى الآن"
+    "sectionArticles": {
+        "noArticles": "لا يوجد مقالات تحت هذه الخانة"
     },
     "notification": [
         {
@@ -504,6 +348,11 @@
           "title": "يوميات الشرق​"
         }
     ],
+    "huawei": {
+        "huaweiDevice": "huawei",
+        "huaweiMailExtension": "@huawei",
+        "huaweiProvider": "huaweiProvider"
+    },
     "deleteMyAccount": {
         "introductionTitle": "يؤسفنا أن تتركنا!",
         "listTitle": "لماذا تريد حذف حسابك؟",
@@ -514,11 +363,14 @@
         "confirmDeleteTitle": "تاكيد حذف",
         "cancelTitle": "إلغاء الطلب",
         "commentsPlaceHolder": "هل لديك أي أسئلة أو تعليقات؟ يرجى مشاركة تعليقاتك معنا.",
-        "deleteSubmissionTitle": "انت على وشك حذف حسابك",
-        "confirmDeleteButton": "تأكيد الحذف",
         "confirmDeletePlaceHolder": "حذف حسابي",
         "typeDeleteToConfirm": "اكتب “حذف حسابي” لتأكيد الحذف.",
         "deleteMyAccountArabic": "حذف حسابي",
         "deleteMyAccountEnglish": "Delete my account"
+      },
+      "appUpdatePopUp": {
+        "appUpdateTitle": "مطلوب التحديث",
+        "appUpdateDescription": "لقد أطلقنا إصدارًا جديدًا ومحسّنًا من التطبيق. يرجى التحديث لمواصلة استخدام التطبيق",
+        "appUpdateButtonLabel": "تحديث"
       }
 }

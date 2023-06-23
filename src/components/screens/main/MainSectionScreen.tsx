@@ -3,7 +3,7 @@ import { FlatList, StyleSheet, View, RefreshControl, ActivityIndicator, Animated
 import {
   ArticleSection, CarouselSlider,
   ShortArticle, BannerArticleSection,
-  EditorsPickSection, ArticleProps, VideoContent, PodcastWidget, ArticleGridView, ArticleImageView,
+  EditorsPickSection, ArticleProps, PodcastWidget, ArticleGridView, ArticleImageView,
   ArchiveArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
@@ -30,7 +30,7 @@ import { TopHeadLineNews } from 'src/components/molecules';
 import { VideoItemType } from 'src/redux/videoList/types';
 import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { Label } from 'src/components/atoms';
-import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, isDarkTheme, isNotEmpty, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
+import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, isDarkTheme, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
@@ -42,8 +42,7 @@ const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
   page: 0,
   offset: 0
-}
-
+} 
 const sectionComboOnePayload: RequestSectionComboBodyGet = {
   id: 10
 }
@@ -93,8 +92,8 @@ const sectionComboEightPayload: RequestSectionComboBodyGet = {
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export const MainSectionScreen = React.memo((
-  {hidePlayerVisibility, tabIndex, currentIndex, scrollY }:
-  {hidePlayerVisibility?: boolean; tabIndex?:number; currentIndex?:number; scrollY?: any; }) => {
+  {tabIndex, currentIndex, scrollY }:
+  {tabIndex?:number; currentIndex?:number; scrollY?: any; }) => {
   const { themeData } = useTheme()
   const mainSectionStyle = useThemeAwareObject(customStyle);
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
@@ -117,6 +116,7 @@ export const MainSectionScreen = React.memo((
   const _sectionComboEightTitle = TranslateConstants({key: TranslateKey.SECTION_COMBO_EIGHT})
   const CONST_EDITOR_CHOICE_HEADER_TITLE = TranslateConstants({key: TranslateKey.EDITOR_CHOICE_HEADER_TITLE})
   const _archivedArticleTitle = TranslateConstants({key: TranslateKey.ARCHIVED_ARTICLE_SECTION_TITLE})
+  const PODCAST_TITLE = TranslateConstants({key: TranslateKey.PODCAST_TITLE});
 
   const { setShowMiniPlayer, setPlayerTrack, showMiniPlayer, selectedTrack: trackData } = useAppPlayer()
   const playbackState = usePlaybackState();
@@ -146,7 +146,8 @@ export const MainSectionScreen = React.memo((
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
-    bookmarkIdInfo
+    bookmarkIdInfo,
+    validateBookmark,
   } = useBookmark()
 
   const { isLoggedIn } = useLogin()
@@ -461,11 +462,6 @@ export const MainSectionScreen = React.memo((
     setSectionComboFourInfo(updatedData)
   }
 
-
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
-
   const featuredArticleInfo: ArticleProps[] = topViewSectionData.map((item: MainSectionBlockType, index: number) => (
     {
       ...item,
@@ -630,7 +626,7 @@ export const MainSectionScreen = React.memo((
   }
 
   const goToPodcast = () => {
-    const params = { sectionId: "", title: "بودكاست", keyName: "podcast" }
+    const params = { sectionId: "", title: PODCAST_TITLE, keyName: "podcast" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 
@@ -661,7 +657,7 @@ export const MainSectionScreen = React.memo((
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
       {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget 
-        title={infoGraphicBlock[0].info}
+        headerTitle={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
       />}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
@@ -860,13 +856,12 @@ export const MainSectionScreen = React.memo((
         </View> */}
       {/* AMAR-1097 - Hide Infographic for iPad and Tablet */}
       {/* {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
-        title={infoGraphicBlock[0].info}
+        headerTitle={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
       />} */}
-      {/* <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} /> */}
 
       {/* <View> */}
-          <View> 
+          <View style={mainSectionStyle.horizontalStyle}> 
             <ArticleSection data={heroListInfoOne}
               showDivider={false}
               onUpdateBookmark={updateBookmarkInfo}
@@ -876,17 +871,24 @@ export const MainSectionScreen = React.memo((
             />
           </View> 
             {isNonEmptyArray(gridViewSectionData) && 
-              <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />
+              <View style={mainSectionStyle.horizontalStyle}> 
+                <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />
+              </View>
             }
         {/* </View> */}
 
-      {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
-      {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
+      {isNonEmptyArray(topViewSectionDataTwo) && <View style={mainSectionStyle.horizontalStyle}> 
+        <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />
+        </View>}
+      {isNonEmptyArray(topViewSectionDataThree) && <View style={mainSectionStyle.horizontalStyle}> 
+        <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />
+      </View>}
+      <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} tabTitleStyle={mainSectionStyle.tabTitleStyle} tabContainerStyle={mainSectionStyle.tabContainerStyle} tabImageStyle={mainSectionStyle.tabImageStyle} />
       {isNonEmptyArray(podcastHome) && isNonEmptyArray(infoGraphicBlock) ?
         <View style={mainSectionStyle.tabSplitterContainer}>
           <View style={[mainSectionStyle.tabPodcastInfoWidget, isDarkMode && {paddingRight:10}]}>
             {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget
-              title={infoGraphicBlock[0].info}
+              headerTitle={infoGraphicBlock[0].info}
               htmlContent={infoGraphicBlock[0].body}
             />}
           </View>
@@ -988,7 +990,7 @@ export const MainSectionScreen = React.memo((
       </View>
 
       {isNonEmptyArray(archivedArticleSection) &&
-      <View style = {mainSectionStyle.articleContainerStyle}>
+      <View style = {[mainSectionStyle.articleContainerStyle, mainSectionStyle.horizontalStyle]}>
        <ArchiveArticleSection
         data={archivedArticleSection}
         title={_archivedArticleTitle}
@@ -1007,7 +1009,7 @@ export const MainSectionScreen = React.memo((
               color = {themeData.primaryBlack}
             />
           </View>
-          <View style={mainSectionStyle.spotlightSectionContainer}>
+          <View>
             <MainSectionShortArticle
               data={spotlightArticleSectionData}
               onPress={onPressArticle}
@@ -1134,7 +1136,7 @@ const customStyle = (theme: CustomThemeType) => {
     },
     tabletMainContainer: {
       backgroundColor: theme.mainBackground,
-      margin: 40
+      marginVertical: 40
     },
     sectionWidgetContainer: {
       overflow: 'hidden',
@@ -1187,12 +1189,11 @@ const customStyle = (theme: CustomThemeType) => {
       backgroundColor: theme.secondaryWhite,
     },
     mainShortArticleContainer: {
-      marginHorizontal:-40, 
+      paddingHorizontal: 40, 
       marginBottom:20
     },
     articleTitleContainer: {
       paddingVertical: normalize(20),
-      alignItems: 'center'
     },
     articleTitleStyle: {
       fontSize: 33,
@@ -1226,9 +1227,6 @@ const customStyle = (theme: CustomThemeType) => {
     editorChoiceContainer: {
       marginBottom: normalize(25),
     },
-    spotlightSectionContainer: {
-      marginHorizontal: 20
-    },
     labelStyle: {
       lineHeight: isIOS ? 30 : 33,
       fontSize: 17,
@@ -1259,7 +1257,8 @@ const customStyle = (theme: CustomThemeType) => {
       width: '70%',
     },
     topContainerSplit: {
-      flexDirection:'row'
+      flexDirection:'row',
+      marginHorizontal: 40,
     },
     topContainerWidget: {
       flex:1,
@@ -1274,6 +1273,7 @@ const customStyle = (theme: CustomThemeType) => {
     tabSplitterContainer:{
       flexDirection:'row',
       marginVertical:20,
+      marginHorizontal: 40,
     },
     tabPodcastInfoWidget: { 
       width: '50%' ,
@@ -1296,7 +1296,26 @@ const customStyle = (theme: CustomThemeType) => {
       marginBottom: 20
     },
     opinionContainer: {
-      marginBottom: 20
+      marginBottom: 20,
+      marginHorizontal: 40,
+    },
+    horizontalStyle: {
+      marginHorizontal: 40,
+    },
+    tabImageStyle: {
+      width: 335 ,
+      height: 252,
+      aspectRatio: 4/3,
+    },
+    tabContainerStyle: {
+      width: 335 ,
+    },
+    tabTitleStyle: {
+      color: theme.primaryBlack,
+      fontSize: 25,
+      lineHeight: 36,
+      fontFamily: fonts.AwsatDigital_Black,
+      paddingTop: 15,
     }
   })
 }

@@ -1,15 +1,12 @@
 import { BASE_URL } from 'src/services/apiUrls';
 import { getCacheApiRequest } from 'src/services/api';
 import { SIDE_MENU_ENDPOINT } from './apiEndPoints';
-import { FetchSideMenuSuccessPayloadType } from 'src/redux/sideMenu/types';
 
 export const fetchSideMenuApi = async () => {
   try {
-    const response: FetchSideMenuSuccessPayloadType = await getCacheApiRequest(
+    return await getCacheApiRequest(
       `${BASE_URL}${SIDE_MENU_ENDPOINT}`,
     );
-   
-    return response;
   } catch (error) {
     console.log('sideMenuService - fetchSideMenuApi - error', error)
     throw error;

@@ -33,6 +33,8 @@ import WeatherDetailSaga from './weatherDetails/sagas'
 import albumListSaga from './photoGallery/sagas';
 import journalistSaga from './journalist/sagas';
 import deleteMyAccountSaga from './deleteMyAccount/sagas';
+import cartoonSaga from './cartoon/sagas';
+import entityQueueSaga from './entityQueue/sagas';
 
 export function* rootSaga() {
   yield all([
@@ -70,5 +72,7 @@ export function* rootSaga() {
     fork(albumListSaga),
     fork(journalistSaga),
     fork(deleteMyAccountSaga),
+    fork(cartoonSaga),
+    fork(entityQueueSaga)
   ]);
 }

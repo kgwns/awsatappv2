@@ -26,7 +26,7 @@ export const parseJournalistArticle = (response: any): JournalistInfoSuccessPayl
       ({ title, nid, field_image_export,
         field_news_categories_export, created_export, field_new_photo }: any) => ({
           title: isNotEmpty(title) ? decode(title) : '',
-          nid: nid,
+          nid,
           image: getArticleImage(field_image_export, field_new_photo),
           news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
           created: created_export,

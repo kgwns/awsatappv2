@@ -22,7 +22,7 @@ describe('<Image>', () => {
     isDarkThemeMock.mockReturnValue(true);
 
     const component = (
-      <Image name={'bookmarkActive'} type="round" size={IMAGE_SIZE} fallback={true} fallbackName={ImagesName.placeholderImg} />
+      <Image name={'bookmarkActive'} type="round" size={IMAGE_SIZE} fallback={true} fallbackName={ImagesName.placeholderImgName} />
     );
     instance = render(component);
   });

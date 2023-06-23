@@ -3,6 +3,7 @@ import { fireEvent, render, RenderAPI } from '@testing-library/react-native'
 import { WeatherDetailScreen } from '../WeatherDetailScreen'
 import { TouchableWithoutFeedback } from 'react-native';
 import { useWeatherDetails } from 'src/hooks/useWeatherDetails';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 jest.mock('src/hooks/useWeatherDetails', () => ({ useWeatherDetails: jest.fn() }));
 
@@ -70,7 +71,7 @@ describe('<WeatherDetailScreen>', () => {
         (useWeatherDetails as jest.Mock).mockImplementation(useWeatherDetailsMock);
         useWeatherDetailsMock.mockReturnValue({ ...sampleWeatherDetailData })
 
-        const component = <WeatherDetailScreen />
+        const component = <GestureHandlerRootView><WeatherDetailScreen /></GestureHandlerRootView>
         instance = render(component)
     })
 

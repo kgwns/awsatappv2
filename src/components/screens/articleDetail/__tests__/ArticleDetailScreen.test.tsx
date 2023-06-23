@@ -65,6 +65,7 @@ jest.mock("src/hooks/useBookmark", () => ({
       ],
       sendBookmarkInfo: () => [],
       removeBookmarkedInfo: () => [],
+      validateBookmark: () => true,
     }
   },
 }));
@@ -185,7 +186,9 @@ describe('<ArticleDetailScreen>', () => {
   const isLoading = mockFunction
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useNavigation as jest.Mock).mockReturnValueOnce(navigation);
     (useLogin as jest.Mock).mockImplementation(useLoginMock);
     (useState as jest.Mock).mockImplementation(() => [true, isLoading]);
@@ -245,7 +248,9 @@ describe('<< With Valid Article Detail >>', () => {
   const mockFunction = jest.fn();
   const articleDetailState = mockFunction;
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [sampleData1, articleDetailState]);
 
     const component =

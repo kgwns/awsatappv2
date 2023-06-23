@@ -3,12 +3,17 @@ import React from 'react';
 import {StoryWidget} from 'src/components/organisms';
 import { storyWidgetData } from 'src/constants/Constants';
 import { StoryCircle } from 'src/components/molecules';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 describe('<StoryWidget>', () => {
   let instance: RenderAPI;
   const mockFunction = jest.fn();
   beforeEach(() => {
-    const component = <StoryWidget data={storyWidgetData} onPress = {mockFunction}/>;
+    const component = (
+      <GestureHandlerRootView>
+        <StoryWidget data={storyWidgetData} onPress = {mockFunction}/>;
+      </GestureHandlerRootView>
+    )
     instance = render(component);
   });
 

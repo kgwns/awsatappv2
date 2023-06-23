@@ -4,6 +4,7 @@ import { Linking, TouchableOpacity } from 'react-native'
 import { ButtonImage } from 'src/components/atoms/button-image/ButtonImage'
 import { SocialMediaType } from 'src/navigation/CustomDrawerContent'
 import  {WriterBannerImage} from 'src/components/molecules/writerBannerImage/WriterBannerImage'
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 jest.mock("react-native/Libraries/Linking/Linking", () => ({
 	openURL: jest.fn(() => Promise.resolve("mockResolve")),
@@ -27,15 +28,19 @@ describe('<WriterBannerImage />', () => {
     instagram_url: 'abc.com'
   }
   beforeEach(() => {
-    const component = <WriterBannerImage 
-      data={data}
-      onPressReturn={mockFunction}
-      isFollowed={false}
-      onPressFollow={mockFunction} 
-      onPressHome={mockFunction}   
-      hideBackArrow={true} 
-      visibleHome={true}
-    />
+    const component = (
+      <GestureHandlerRootView>
+        <WriterBannerImage
+          data={data}
+          onPressReturn={mockFunction}
+          isFollowed={false}
+          onPressFollow={mockFunction}
+          onPressHome={mockFunction}
+          hideBackArrow={true}
+          visibleHome={true}
+        />
+      </GestureHandlerRootView>
+    )
     instance = render(component)
   })
 

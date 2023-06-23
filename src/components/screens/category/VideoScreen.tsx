@@ -51,7 +51,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
-    bookmarkIdInfo
+    bookmarkIdInfo,
+    validateBookmark,
   } = useBookmark()
 
   const { isLoggedIn } = useLogin()
@@ -66,8 +67,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   const updateVideoData = () => {
     if(isNonEmptyArray(videoPaginationData)) {
-      const videos = updateBookmark(videoPaginationData)
-      setVideoDataInfo((data: any) => [...data, ...videos as any])
+      const videos = updateBookmark([...videoDataInfo, ...videoPaginationData]) as any;
+      setVideoDataInfo([...videos]);
     }
   }
 
@@ -78,7 +79,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     }
   }
 
-  const updateBookmark = (data: VideoItemType[]) => {
+  const updateBookmark = (data: VideoItemType[]): VideoItemType[] => {
     return data.map((item: VideoItemType) => (
       {
         ...item,
@@ -86,9 +87,7 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
       }
     ))
   }
-  const validateBookmark = (nid: string): boolean => {
-    return isNonEmptyArray(bookmarkIdInfo) ? bookmarkIdInfo.some(value => value.nid == nid) : false
-  }
+
   const updatedChangeBookmark = (data: VideoItemType[], index: number) => {
     const updatedData = [...data]
     const bookmarkStatus = !updatedData[index]?.isBookmarked ?? true
@@ -144,11 +143,13 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
    }, []);
 
   useEffect(() => { 
-    if(page != 0) fetchVideoWithPagination({page, items_per_page: VIDEO_ITEMS_PER_PAGE});
+    if (page !== 0) {
+      fetchVideoWithPagination({ page, items_per_page: VIDEO_ITEMS_PER_PAGE });
+    }
    }, [page]);
 
   const onPressItem = (item:VideoItemType, isVideoDocumentary:boolean)=>{
-    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isVideoDocumentary})
+    navigation.navigate(ScreensConstants.VideoDetailScreen, {data: item, isDocumentary: isVideoDocumentary} as never)
   }
 
   const [videoDataInfo, setVideoDataInfo] = useState(videoPaginationData)

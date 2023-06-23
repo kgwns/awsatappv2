@@ -76,7 +76,9 @@ describe('<UserDetailScreen>', () => {
     const setTabItemData = mockFunction;
 
     beforeEach(() => {
-      jest.useFakeTimers('legacy');
+      jest.useFakeTimers({
+        legacyFakeTimers: true
+      });
       (useState as jest.Mock).mockImplementation(() => (['selectBirthdayDate',setSelectedDate]));
       (useState as jest.Mock).mockImplementation(() => [[tabItemData],setTabItemData]);
       (useUserProfileData as jest.Mock).mockImplementation(useUserProfileDataMock);
@@ -191,7 +193,9 @@ describe('<UserDetailScreen>', () => {
   const setTabItemData = mockFunction;
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => (['selectBirthdayDate',setSelectedDate]));
     (useState as jest.Mock).mockImplementation(() => [[],setTabItemData]);
     (useUserProfileData as jest.Mock).mockImplementation(useUserProfileDataMock);
@@ -299,7 +303,9 @@ describe('<UserDetailScreen>', () => {
   const setTabItem = mockFunction;
 
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => ['name',setName]);
     (useState as jest.Mock).mockImplementation(() => [[],setTabItem]);
     (useUserProfileData as jest.Mock).mockImplementation(useUserProfileDataMock);
@@ -400,7 +406,9 @@ describe('should render alert modal', () => {
   const setTabItem = mockFunction;
   const showupUp = mockFunction;
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [true,showupUp]);
     (useState as jest.Mock).mockImplementation(() => ['name',setName]);
     (useState as jest.Mock).mockImplementation(() => [[],setTabItem]);
@@ -467,7 +475,9 @@ describe('should renderUserDetails', () => {
   const setTabItem = mockFunction;
   const showupUp = mockFunction;
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => ['name',setName]);
     (useState as jest.Mock).mockImplementation(() => [false,showupUp]);
     (useState as jest.Mock).mockImplementation(() => [[],setTabItem]);
@@ -567,7 +577,9 @@ describe('should render useEffect', () => {
   const setTabItem = mockFunction;
   const showupUp = mockFunction;
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
     (useState as jest.Mock).mockImplementation(() => [true,showupUp]);
     (useState as jest.Mock).mockImplementation(() => ['name',name]);
     (useState as jest.Mock).mockImplementation(() => [[],setTabItem]);

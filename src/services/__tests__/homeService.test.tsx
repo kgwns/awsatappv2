@@ -5,7 +5,9 @@ export const homePayload = { page: 1 };
 describe('Test Home Widget services', () => {
   const mock = new MockAdapter(axios);
   beforeEach(() => {
-    jest.useFakeTimers('legacy');
+    jest.useFakeTimers({
+      legacyFakeTimers: true
+    });
   })
 
   afterEach(() => {

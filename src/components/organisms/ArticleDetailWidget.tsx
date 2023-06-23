@@ -158,7 +158,7 @@ const customStyle = (theme: CustomThemeType) => (
             lineHeight: isAndroid ? 26 : 20,
             textAlign: 'right',
             color: colors.paleGray,
-            fontFamily: fonts.Effra_Arbc_Regular,
+            fontFamily: fonts.AwsatDigital_Regular,
             fontWeight: '400',
         },
         divider: {

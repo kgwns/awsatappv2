@@ -84,3 +84,7 @@ export const SCRIBBLE_LIVE_TOKEN_PARAM = '/?Token='
 export const SCRIBBLE_LIVE_JSON_PARAM = '&format=Json'
 //Scribble auth_token
 export const SCRIBBLE_TOKEN = '0ROZff5O' // Shared by the SRMG team. Need to replace if required.
+
+//EntityQueue
+export const ENTITY_QUEUE_BASE_URL = 'https://aawsat.com/'
+

@@ -43,7 +43,7 @@ const OpinionWritersSection = ({data, onPressWriter}: OpinionWritersWidgetProps)
                 type="round"
                 resizeMode="cover"
                 fallback={true}
-                fallbackName={ImagesName.authorDefault}
+                fallbackName={ImagesName.authorDefaultName}
               />
             </Grayscale>
           </View>

@@ -1,5 +1,7 @@
 global.beforeEach(() => {
-  jest.useFakeTimers();
+  jest.useFakeTimers({
+        legacyFakeTimers: true
+});
 });
 
 global.afterEach(() => {
