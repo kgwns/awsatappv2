@@ -1,13 +1,12 @@
 # README
 
-Getting Started
 
 Development Dependencies: 
+  * Node Js Version 12
+  * Xcode 
+  * Android Studio 
 
-  - Node Js Version 12
-  - Xcode 
-  - Android Studio 
-
+Getting Started
 
 - To setup React environment use this link https://reactnative.dev/docs/environment-setup to set up the environment.
 - Choose React Native CLI Quickstart and follow the instructions in the shared link.
@@ -31,17 +30,18 @@ Development Dependencies:
 
 **Bundle ID :com.srmg.ashaeqalawsat.iphoneapp**
 
+
 # AWSATAPP Released Versions
 
-iOS - 5.0
-Android - 5.0.33
-Huawei - 5.0
+- iOS - 5.0
+- Android - 5.0.33
+- Huawei - 5.0
 
 # AWSATAPP Ready for Release Versions(approved and ready to publish)   
 
-iOS - 5.1
-Android - 5.1.7
-Huewai - 5.1
+- iOS - 5.1
+- Android - 5.1.7
+- Huewai - 5.1
 
 We are maintaining the list of Branches
 
