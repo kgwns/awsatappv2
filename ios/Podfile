@@ -27,6 +27,7 @@ target 'Awsatapp' do
   pod 'FirebaseCoreInternal', :modular_headers => true
   pod 'GoogleUtilities', :modular_headers => true
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
+  pod 'Adjust', '~> 4.35.2'
   
   use_react_native!(
     :path => config[:reactNativePath],

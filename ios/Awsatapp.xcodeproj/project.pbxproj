@@ -126,7 +126,6 @@
 		E3A1C6A163A44E35BA56387D /* AwsatDigitalBetav10-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F8D82F8C72494F68981F642E /* AwsatDigitalBetav10-Regular.ttf */; };
 		F2B68E5A9A4D47CCB204FFC6 /* IBMPlexSansArabic-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B92C60AB24178BA12F9B8 /* IBMPlexSansArabic-Medium.ttf */; };
 		FE26ABECB23748F2B388519E /* Almarai-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B45D19788C4478787AF7891 /* Almarai-ExtraBold.ttf */; };
-		FFA6838C2B330FAA002A9929 /* AdjustSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FFA6838B2B330FAA002A9929 /* AdjustSdk.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -381,7 +380,6 @@
 		F8D82F8C72494F68981F642E /* AwsatDigitalBetav10-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalBetav10-Regular.ttf"; path = "../src/assets/fonts/AwsatDigitalBetav10-Regular.ttf"; sourceTree = "<group>"; };
 		FCCED692C0954145BDAF146A /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		FEE6DCA4EA9647CCA4541A81 /* Effra Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra Medium.ttf"; path = "../src/assets/fonts/Effra Medium.ttf"; sourceTree = "<group>"; };
-		FFA6838B2B330FAA002A9929 /* AdjustSdk.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AdjustSdk.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,7 +395,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FFA6838C2B330FAA002A9929 /* AdjustSdk.framework in Frameworks */,
 				87ED42982A0396470071AC50 /* AppTrackingTransparency.framework in Frameworks */,
 				5E069404290C11FD0081D016 /* UIKit.framework in Frameworks */,
 				5E069402290C11F70081D016 /* AVKit.framework in Frameworks */,
@@ -490,7 +487,6 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				FFA6838B2B330FAA002A9929 /* AdjustSdk.framework */,
 				5E069403290C11FD0081D016 /* UIKit.framework */,
 				5E069401290C11F70081D016 /* AVKit.framework */,
 				5E0693FF290C11E90081D016 /* AVFoundation.framework */,
