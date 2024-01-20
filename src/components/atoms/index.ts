@@ -31,3 +31,4 @@ export { HomeButton } from 'src/components/atoms/homeButton/HomeButton';
 export { ArchiveImage, ArchiveImageProps } from 'src/components/atoms/archiveImage/ArchiveImage';
 export { LiveBlogTag } from '../atoms/liveBlogTag/LiveBlogTag';
 export { AnimatedHeader } from '../atoms/animatedHeader/AnimatedHeader';
+export { AdvertisedContentLabel } from '../atoms/advertisedContentLabel/AdvertisedContentLabel';

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, StyleSheet, ViewStyle } from 'react-native'
 import { ImagesName, Styles } from 'src/shared/styles'
 import { ArticleFooter } from 'src/components/molecules'
-import { Label, LabelTypeProp } from 'src/components/atoms'
+import { Label, LabelTypeProp, AdvertisedContentLabel } from 'src/components/atoms'
 import { ArticleFooterProps } from 'src/components/molecules/articleFooter/ArticleFooter'
 import { isNotEmpty, isTab, normalize } from 'src/shared/utils'
 import { getSvgImages } from 'src/shared/styles/svgImages'
@@ -34,13 +34,14 @@ export interface ArticleOverlayContentProps {
     containerStyle?: ViewStyle,
     author: string,
     created: string,
-    subtitle?: string 
-    showFooter?: boolean;
+    subtitle?: string, 
+    showFooter?: boolean,
+    isAd?: boolean
 }
 
 export const ArticleOverlayContent = ({
-    title, created, subtitle, showFooter = true,
-}: ArticleOverlayContentProps) => {    
+    title, created, subtitle, showFooter = true, isAd = false
+}: ArticleOverlayContentProps) => {
     const { themeData } = useTheme()
     const imageArticleStyle = useThemeAwareObject(customStyle)
     const textColor =  themeData.primaryBlack
@@ -68,6 +69,9 @@ export const ArticleOverlayContent = ({
                 leftTitle={timeFormat.time}
                 leftIcon={() => TimeIcon(timeFormat.icon)}
             />}
+            { !isTab &&
+                <AdvertisedContentLabel isAd={isAd}/>
+            }
         </View>
     )
 }

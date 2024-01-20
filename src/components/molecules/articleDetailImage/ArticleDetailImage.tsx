@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { View, StyleSheet, ViewStyle, StyleProp } from 'react-native'
 import { Styles } from 'src/shared/styles'
 import { BannerImageWithOverlay, BannerImageWithOverlayProps} from 'src/components/atoms/bannerImageWithOverlay/BannerImageWithOverlay'
-import { Label, LabelTypeProp } from 'src/components/atoms/label/Label'
+import { Label, LabelTypeProp, AdvertisedContentLabel } from 'src/components/atoms'
 import { isNotEmpty, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { ArticleOverlayContent } from 'src/components/molecules/articleOverlayContent/ArticleOverlayContent'
 import { CustomThemeType } from 'src/shared/styles/colors'
@@ -35,6 +35,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
     videoRefs?: any;
     showReplay?: boolean;
     displayType?: string;
+    isAd?: boolean;
     liveTimeAgo?: string; 
 }
 const ArticleDetailImage = ({
@@ -46,6 +47,7 @@ const ArticleDetailImage = ({
     jwplayerId,
     showReplay = false,
     displayType,
+    isAd,
     liveTimeAgo,
     ...props
 }: ImageArticleProps) => {
@@ -91,7 +93,7 @@ const ArticleDetailImage = ({
 
     const renderBannerContent = (style: StyleProp<ViewStyle>, showFooter: boolean) => (
         <View style={style}>
-            <ArticleOverlayContent {...props} showFooter={showFooter} />
+            <ArticleOverlayContent {...props} isAd={isAd} showFooter={showFooter} />
         </View>
     );
 
@@ -99,6 +101,7 @@ const ArticleDetailImage = ({
         <View>
             <View>
                 {isLive && <LiveArticleDetailHeader timeAgo={liveTimeAgo}/>}
+                {isTab && <AdvertisedContentLabel isAd={isAd}/>}
                 <View style={isTab ? imageArticleStyle.sliderTabItemContainer : imageArticleStyle.sliderItemContainer}>
                 {isTab && renderBannerContent(imageArticleStyle.tabSlideContent, false)}
                 { isNotEmpty(jwplayerId) && isFirstItem ? <ArticleDetailVideo mediaId={jwplayerId} showReplay={showReplay} {...props}  /> : 

@@ -27,7 +27,7 @@ import { requestArticleDetailFailed,
   fetchRichOpinionsBundleSuccess, 
   fetchRichOpinionsBundleFailed } from './action';
 import { isNonEmptyArray } from 'src/shared/utils';
-import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, joinArray, getArticleImage } from 'src/shared/utils/utilities';
+import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, isNumberNonEmpty, joinArray, getArticleImage } from 'src/shared/utils/utilities';
 import { decode } from 'html-entities';
 import { getBookMarkDetailInfoService } from 'src/services/bookmarkService';
 import { requestOpinionArticleDetailAPI } from 'src/services/opinionArticleDetailService';
@@ -220,7 +220,7 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
           field_news_categories_export, author_resource, field_tags_topics_export, field_new_sub_title_export,
           field_new_photo_export, field_new_photo_titles, field_jwplayer_id_export,
           field_paragraph_export, jor_city, jor_id, jor_name, field_shorturl, field_scribblelive_id, field_display_export,changed, link_node,
-          field_publication_date_export,
+          field_publication_date_export, field_advrts_export,
          }: any) => ({
             body: body_export,
             title: isNotEmpty(title) ? decode(title) : '',
@@ -243,7 +243,8 @@ export const parseArticleDetailSuccess = (response: any): ArticleDetailSuccessPa
             displayType: isNotEmpty(field_display_export) ? field_display_export.toLowerCase() : '',
             link_node,
             publishedDate: field_publication_date_export,
-            tagTopicsList: getTagTopicsList(field_tags_topics_export)
+            tagTopicsList: getTagTopicsList(field_tags_topics_export),
+            isAd: isNumberNonEmpty(field_advrts_export)
           })
       );
     }
