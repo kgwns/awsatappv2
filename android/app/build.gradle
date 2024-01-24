@@ -195,6 +195,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    buildToolsVersion '33.0.0'
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -258,7 +259,7 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.liulishuo.filedownloader:library:1.7.7'
     //pdf viewer
-    implementation 'es.voghdev.pdfviewpager:library:1.1.2'
+    implementation 'es.voghdev.pdfviewpager:library:1.0.4'
     implementation 'com.bogdwellers:pinchtozoom:0.1'
     //Volley & glide
     implementation 'com.android.volley:volley:1.2.0'
