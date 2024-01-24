@@ -144,6 +144,11 @@ export const ArticleDetailBody = React.memo(({
               captionElement[i].style["background-color"] = "${themeData.whiteSurface}"; 
             } 
           }
+
+          var meta = document.createElement('meta');
+          meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0');
+          meta.setAttribute('name', 'viewport');
+          document.getElementsByTagName('head')[0].appendChild(meta);
     
           ${iFrameInjectCss()}
            

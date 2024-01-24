@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "npx react-native run-android",
-    "ios": "npx react-native run-ios",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "start": "react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint .",
@@ -109,9 +109,9 @@
   ],
   "devDependencies": {
     "@babel/core": "^7.20.0",
-    "@babel/runtime": "^7.12.5",
     "@babel/preset-env": "^7.21.5",
     "@babel/preset-typescript": "^7.21.5",
+    "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^3.2.0",
     "@testing-library/jest-native": "^5.4.2",
     "@testing-library/react-hooks": "^8.0.1",

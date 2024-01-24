@@ -318,7 +318,7 @@ export const articleHtml = ({ body }: { body: string }) => `
             font-family: Effra-Regular;
             padding: 0;
             margin: 0;
-            width:100%;
+            width:99.5%;
             height: 100%;
           }
           p {
