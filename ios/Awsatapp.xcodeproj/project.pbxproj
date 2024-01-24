@@ -8,16 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* AwsatappTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* AwsatappTests.m */; };
-		079EB6C3F12DEF68C9B34696 /* libPods-AsharqalawsatNotificationExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A8E135567FB7EDB22BA8C9E /* libPods-AsharqalawsatNotificationExtension.a */; };
 		09780F0B561145AD914E833A /* AwsatDigitalv2b-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1BCC838D77E04AD686D4BE54 /* Beirut.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 24FC697514344A82B3783D7A /* Beirut.ttf */; };
+		21FC93A688234583D7BF6BA6 /* libPods-AsharqalawsatNotificationExtension.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D39B7E197009D923479E94E /* libPods-AsharqalawsatNotificationExtension.a */; };
+		318673118F24B63CA606F164 /* libPods-Awsatapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1F383618F85A4D94474B223 /* libPods-Awsatapp.a */; };
 		383C0A0AB8874E17A395D2DD /* AwsatDigitalBetav10-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1921403A746E47BD885480D8 /* AwsatDigitalBetav10-Black.ttf */; };
 		3E172E253DB7408A9818A83A /* IBMPlexSansArabic-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0B1F1D1A2B2842B9A6761A36 /* IBMPlexSansArabic-SemiBold.ttf */; };
 		5072323B4FFA48B89C5EE93C /* Almarai-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */; };
 		52B5C8CA19974215925660F6 /* Almarai-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F5754958B03F4F8697391B05 /* Almarai-Light.ttf */; };
 		5357BE729B3C4A038D324F02 /* IBMPlexSansArabic-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */; };
+		5DDD86BB16B602CF63B44097 /* libPods-Awsatapp-AwsatappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8555775B7B89451616AD7301 /* libPods-Awsatapp-AwsatappTests.a */; };
 		5E069400290C11E90081D016 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E0693FF290C11E90081D016 /* AVFoundation.framework */; };
 		5E069402290C11F70081D016 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E069401290C11F70081D016 /* AVKit.framework */; };
 		5E069404290C11FD0081D016 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E069403290C11FD0081D016 /* UIKit.framework */; };
@@ -27,7 +29,6 @@
 		5E92D08527D24F7700592089 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5E92D08427D24F7700592089 /* GoogleService-Info.plist */; };
 		5EDB5C962A1F8DC1009E35B0 /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 5EDB5C952A1F8DC1009E35B0 /* NotificationService.m */; };
 		5EDB5C9A2A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 5EDB5C922A1F8DC1009E35B0 /* AsharqalawsatNotificationExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */; };
 		7476FD19439D42338A420F44 /* Effra-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C512A59BE94247A5B2850233 /* Effra-Medium.ttf */; };
 		7CBB19684ACB44F8882E4025 /* Almarai-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F73EBFEE44F14FD689B8CD00 /* Almarai-Regular.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -40,7 +41,6 @@
 		8D00CD9EF80B4DB8852B9964 /* subjectivity-medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 12E7BE3A7CC445D8BAB40327 /* subjectivity-medium.otf */; };
 		928468CA882F4F17B52EF50A /* AwsatDigitalv2b-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 22E412FC49EB497C9B8E3575 /* AwsatDigitalv2b-Black.ttf */; };
 		966D9D379C6F4BD99099A78E /* IBMPlexSansArabic-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5D3FCA19E5074AAC9164401F /* IBMPlexSansArabic-Regular.ttf */; };
-		A281F88502F1503BC5D5065B /* libPods-Awsatapp-AwsatappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */; };
 		AD2D4C4F9729485684CF8B20 /* IBMPlexSansArabic-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FB492873A7A498EBF07352A /* IBMPlexSansArabic-Light.ttf */; };
 		AE824C7EF2A34A76AE26EFFE /* IBMPlexSansArabic-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E986D753AAC0403D87D94AB7 /* IBMPlexSansArabic-ExtraLight.ttf */; };
 		AF14A1102836CF8B00E6311D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF14A1072836CF8B00E6311D /* Images.xcassets */; };
@@ -227,21 +227,22 @@
 		163A8E6E0B244ACCB5828FA9 /* Ionicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Ionicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf"; sourceTree = "<group>"; };
 		1921403A746E47BD885480D8 /* AwsatDigitalBetav10-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalBetav10-Black.ttf"; path = "../src/assets/fonts/AwsatDigitalBetav10-Black.ttf"; sourceTree = "<group>"; };
 		1C7268C897A74FD4BAD431B1 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		1D39B7E197009D923479E94E /* libPods-AsharqalawsatNotificationExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AsharqalawsatNotificationExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		20B6024A099E4A169CBB5362 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		22E412FC49EB497C9B8E3575 /* AwsatDigitalv2b-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Black.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Black.ttf"; sourceTree = "<group>"; };
 		24FC697514344A82B3783D7A /* Beirut.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Beirut.ttf; path = ../src/assets/fonts/Beirut.ttf; sourceTree = "<group>"; };
-		25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp-AwsatappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		2A8E135567FB7EDB22BA8C9E /* libPods-AsharqalawsatNotificationExtension.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-AsharqalawsatNotificationExtension.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		25274F913E1281F59C0B0791 /* Pods-Awsatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.debug.xcconfig"; sourceTree = "<group>"; };
 		2CC96FCB89FE43DCAD20BD5B /* AwsatDigitalv2b-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Bold.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Bold.ttf"; sourceTree = "<group>"; };
 		2F2447FE4CCC4506AFDE3CB3 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
 		3265B71127D5DD040025B815 /* Awsatapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = Awsatapp.entitlements; path = Awsatapp/Awsatapp.entitlements; sourceTree = "<group>"; };
-		3AFA3A7D2ED5F1815FCE3407 /* Pods-Awsatapp-AwsatappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp-AwsatappTests.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests.debug.xcconfig"; sourceTree = "<group>"; };
+		36BCDD459CD7DDB856D1214F /* Pods-Awsatapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.release.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.release.xcconfig"; sourceTree = "<group>"; };
 		3B45D19788C4478787AF7891 /* Almarai-ExtraBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Almarai-ExtraBold.ttf"; path = "../src/assets/fonts/Almarai-ExtraBold.ttf"; sourceTree = "<group>"; };
 		3FB492873A7A498EBF07352A /* IBMPlexSansArabic-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Light.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Light.ttf"; sourceTree = "<group>"; };
 		4D1B92C60AB24178BA12F9B8 /* IBMPlexSansArabic-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Medium.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Medium.ttf"; sourceTree = "<group>"; };
 		4F738844FA8C4260BFC02CF9 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5132FB864E194DCCB0C1B2E2 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		5437AF089D81496AB07BB20A /* Effra-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Regular.ttf"; path = "../src/assets/fonts/Effra-Regular.ttf"; sourceTree = "<group>"; };
+		5642D63EB775851E5A2AD811 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AsharqalawsatNotificationExtension.debug.xcconfig"; path = "Target Support Files/Pods-AsharqalawsatNotificationExtension/Pods-AsharqalawsatNotificationExtension.debug.xcconfig"; sourceTree = "<group>"; };
 		5D3FCA19E5074AAC9164401F /* IBMPlexSansArabic-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Regular.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Regular.ttf"; sourceTree = "<group>"; };
 		5E0693FF290C11E90081D016 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		5E069401290C11F70081D016 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
@@ -255,16 +256,16 @@
 		5EDB5C952A1F8DC1009E35B0 /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		5EDB5C972A1F8DC1009E35B0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5F35CA0AC7E842CC989B0C26 /* AwsatDigitalv2b-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalv2b-Regular.ttf"; path = "../src/assets/fonts/AwsatDigitalv2b-Regular.ttf"; sourceTree = "<group>"; };
-		65DEEDB1819D41DA95B7B879 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AsharqalawsatNotificationExtension.debug.xcconfig"; path = "Target Support Files/Pods-AsharqalawsatNotificationExtension/Pods-AsharqalawsatNotificationExtension.debug.xcconfig"; sourceTree = "<group>"; };
-		71839368B61650D7FA413192 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AsharqalawsatNotificationExtension.release.xcconfig"; path = "Target Support Files/Pods-AsharqalawsatNotificationExtension/Pods-AsharqalawsatNotificationExtension.release.xcconfig"; sourceTree = "<group>"; };
+		6F014C1C700AE69579F10C06 /* Pods-Awsatapp-AwsatappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp-AwsatappTests.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7CC5870F22DF4018A97C651F /* Almarai-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Almarai-Bold.ttf"; path = "../src/assets/fonts/Almarai-Bold.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = Awsatapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8555775B7B89451616AD7301 /* libPods-Awsatapp-AwsatappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp-AwsatappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		87E5287D29C1BC2200298A3D /* splashscreen.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = splashscreen.mp4; sourceTree = "<group>"; };
 		87E5287F29C1C33000298A3D /* ipadhorizontal.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ipadhorizontal.mp4; sourceTree = "<group>"; };
 		87E5288029C1C33000298A3D /* ipadvertical.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = ipadvertical.mp4; sourceTree = "<group>"; };
 		8B308EE34314473BA9FCBF56 /* AwsatDigital-Black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Black.otf"; path = "../src/assets/fonts/AwsatDigital-Black.otf"; sourceTree = "<group>"; };
 		8D462C8FA8AC49E886A70A96 /* AwsatDigital-Bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Bold.otf"; path = "../src/assets/fonts/AwsatDigital-Bold.otf"; sourceTree = "<group>"; };
-		A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.debug.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.debug.xcconfig"; sourceTree = "<group>"; };
+		91DB379A6AAC5CFE5F06C6F4 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AsharqalawsatNotificationExtension.release.xcconfig"; path = "Target Support Files/Pods-AsharqalawsatNotificationExtension/Pods-AsharqalawsatNotificationExtension.release.xcconfig"; sourceTree = "<group>"; };
 		AA4A435E3C93425CA0D7EB9C /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		AF14A1072836CF8B00E6311D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		AF14A1162836D0C600E6311D /* CollectionViewCellDescriper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCellDescriper.swift; sourceTree = "<group>"; };
@@ -351,6 +352,7 @@
 		C3208C9DFD5048A0AE9C4BE3 /* AwsatDigital-Regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigital-Regular.otf"; path = "../src/assets/fonts/AwsatDigital-Regular.otf"; sourceTree = "<group>"; };
 		C512A59BE94247A5B2850233 /* Effra-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Effra-Medium.ttf"; path = "../src/assets/fonts/Effra-Medium.ttf"; sourceTree = "<group>"; };
 		C71F0B6A5BAD4BC1BE74D43A /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
+		D1F383618F85A4D94474B223 /* libPods-Awsatapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D65511C7F87248D4B2F00011 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		D7CB52E528364E3F003B6457 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		D7CB52E728366F63003B6457 /* colorPalatte.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = colorPalatte.xcassets; sourceTree = "<group>"; };
@@ -369,13 +371,11 @@
 		D8AA95078BE64015A4C75555 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		DCAF97FCEBA04671A1F23140 /* IBMPlexSansArabic-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-Bold.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-Bold.ttf"; sourceTree = "<group>"; };
 		DE43288E83E54802B0102ECA /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		E6049E77B322EFCD111CB6E3 /* Pods-Awsatapp-AwsatappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp-AwsatappTests.release.xcconfig"; path = "Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests.release.xcconfig"; sourceTree = "<group>"; };
 		E6F92F68DFA74CDC8DDDD536 /* AwsatDigitalBetav10-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalBetav10-Bold.ttf"; path = "../src/assets/fonts/AwsatDigitalBetav10-Bold.ttf"; sourceTree = "<group>"; };
-		E9851DB237B24939BF49AB0D /* Pods-Awsatapp-AwsatappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp-AwsatappTests.release.xcconfig"; path = "Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests.release.xcconfig"; sourceTree = "<group>"; };
 		E986D753AAC0403D87D94AB7 /* IBMPlexSansArabic-ExtraLight.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSansArabic-ExtraLight.ttf"; path = "../src/assets/fonts/IBMPlexSansArabic-ExtraLight.ttf"; sourceTree = "<group>"; };
-		E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Awsatapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		EEC75ED21FE14073B4FD84D7 /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
-		F17AA6230FD852F939D1B14B /* Pods-Awsatapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Awsatapp.release.xcconfig"; path = "Target Support Files/Pods-Awsatapp/Pods-Awsatapp.release.xcconfig"; sourceTree = "<group>"; };
 		F5754958B03F4F8697391B05 /* Almarai-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Almarai-Light.ttf"; path = "../src/assets/fonts/Almarai-Light.ttf"; sourceTree = "<group>"; };
 		F73EBFEE44F14FD689B8CD00 /* Almarai-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Almarai-Regular.ttf"; path = "../src/assets/fonts/Almarai-Regular.ttf"; sourceTree = "<group>"; };
 		F8D82F8C72494F68981F642E /* AwsatDigitalBetav10-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "AwsatDigitalBetav10-Regular.ttf"; path = "../src/assets/fonts/AwsatDigitalBetav10-Regular.ttf"; sourceTree = "<group>"; };
@@ -389,7 +389,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A281F88502F1503BC5D5065B /* libPods-Awsatapp-AwsatappTests.a in Frameworks */,
+				5DDD86BB16B602CF63B44097 /* libPods-Awsatapp-AwsatappTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -404,7 +404,7 @@
 				5E069400290C11E90081D016 /* AVFoundation.framework in Frameworks */,
 				D7F15A65282BED4A004368A7 /* libSwiftyJSON.a in Frameworks */,
 				D7D85B5027D9C9F10028999D /* CoreTelephony.framework in Frameworks */,
-				726652B4F4065671C8A71E8D /* libPods-Awsatapp.a in Frameworks */,
+				318673118F24B63CA606F164 /* libPods-Awsatapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -412,7 +412,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				079EB6C3F12DEF68C9B34696 /* libPods-AsharqalawsatNotificationExtension.a in Frameworks */,
+				21FC93A688234583D7BF6BA6 /* libPods-AsharqalawsatNotificationExtension.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,9 +504,9 @@
 				D7D85B4B27D9C9D90028999D /* AdServices.framework */,
 				D7D85B4927D9C9CE0028999D /* iAd.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				E9F2F1644163037A2C5978CF /* libPods-Awsatapp.a */,
-				25742A46B7D80C9727BAF371 /* libPods-Awsatapp-AwsatappTests.a */,
-				2A8E135567FB7EDB22BA8C9E /* libPods-AsharqalawsatNotificationExtension.a */,
+				1D39B7E197009D923479E94E /* libPods-AsharqalawsatNotificationExtension.a */,
+				D1F383618F85A4D94474B223 /* libPods-Awsatapp.a */,
+				8555775B7B89451616AD7301 /* libPods-Awsatapp-AwsatappTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -570,12 +570,12 @@
 		8D698A178F9B4EB96887F05E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */,
-				F17AA6230FD852F939D1B14B /* Pods-Awsatapp.release.xcconfig */,
-				3AFA3A7D2ED5F1815FCE3407 /* Pods-Awsatapp-AwsatappTests.debug.xcconfig */,
-				E9851DB237B24939BF49AB0D /* Pods-Awsatapp-AwsatappTests.release.xcconfig */,
-				65DEEDB1819D41DA95B7B879 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */,
-				71839368B61650D7FA413192 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */,
+				5642D63EB775851E5A2AD811 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */,
+				91DB379A6AAC5CFE5F06C6F4 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */,
+				25274F913E1281F59C0B0791 /* Pods-Awsatapp.debug.xcconfig */,
+				36BCDD459CD7DDB856D1214F /* Pods-Awsatapp.release.xcconfig */,
+				6F014C1C700AE69579F10C06 /* Pods-Awsatapp-AwsatappTests.debug.xcconfig */,
+				E6049E77B322EFCD111CB6E3 /* Pods-Awsatapp-AwsatappTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -891,12 +891,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "AwsatappTests" */;
 			buildPhases = (
-				E60D47A704AAEB58EF035C38 /* [CP] Check Pods Manifest.lock */,
+				8D6F7FFB1EBB71CF044F38DF /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				E32334E9D2DF3990D3C5DF78 /* [CP] Embed Pods Frameworks */,
-				8844963A932FCB3ECBB6F553 /* [CP] Copy Pods Resources */,
+				0D3B9561A8457B7D52E60998 /* [CP] Embed Pods Frameworks */,
+				38E4D0D9BFE433E835047A55 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -912,18 +912,18 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "Awsatapp" */;
 			buildPhases = (
-				F0535C552F8621C3CDE477E4 /* [CP] Check Pods Manifest.lock */,
+				7C2FD2D077A85E62C8FA8BC7 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				4AB331EA92B69268E7B56156 /* [CP] Embed Pods Frameworks */,
-				5F546F24D5E37563250CCAE7 /* [CP-User] [RNFB] Core Configuration */,
-				0A8AA18AACED3C5082C8A67C /* [CP-User] [RNFB] Crashlytics Configuration */,
-				18A09C68998F07C24A06A79A /* [CP] Copy Pods Resources */,
 				AF2361AC28F019C300E3A5C6 /* Embed Watch Content */,
 				5EDB5C9B2A1F8DC2009E35B0 /* Embed Foundation Extensions */,
+				8609F8703D522D19D3551C37 /* [CP] Embed Pods Frameworks */,
+				3E31D27D779D530AF5228711 /* [CP] Copy Pods Resources */,
+				FBFBDCC7D73E6825580734D2 /* [CP-User] [RNFB] Core Configuration */,
+				307DAC0CF086CB46C742AB82 /* [CP-User] [RNFB] Crashlytics Configuration */,
 			);
 			buildRules = (
 			);
@@ -940,7 +940,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5EDB5C9E2A1F8DC2009E35B0 /* Build configuration list for PBXNativeTarget "AsharqalawsatNotificationExtension" */;
 			buildPhases = (
-				1878391A10286924661C8791 /* [CP] Check Pods Manifest.lock */,
+				E43C483936F74A94C61D4ACD /* [CP] Check Pods Manifest.lock */,
 				5EDB5C8E2A1F8DC1009E35B0 /* Sources */,
 				5EDB5C8F2A1F8DC1009E35B0 /* Frameworks */,
 				5EDB5C902A1F8DC1009E35B0 /* Resources */,
@@ -1191,109 +1191,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "set -e\nexport BUNDLE_COMMAND=\"ram-bundle\"\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
+			shellScript = "set -e\nexport BUNDLE_COMMAND=\"ram-bundle\"\nexport NODE_BINARY=/opt/homebrew/bin/node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		0A8AA18AACED3C5082C8A67C /* [CP-User] [RNFB] Crashlytics Configuration */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
-				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "[CP-User] [RNFB] Crashlytics Configuration";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\nif [[ ${PODS_ROOT} ]]; then\n  echo \"info: Exec FirebaseCrashlytics Run from Pods\"\n  \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nelse\n  echo \"info: Exec FirebaseCrashlytics Run from framework\"\n  \"${PROJECT_DIR}/FirebaseCrashlytics.framework/run\"\nfi\n";
-		};
-		1878391A10286924661C8791 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-AsharqalawsatNotificationExtension-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		18A09C68998F07C24A06A79A /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4AB331EA92B69268E7B56156 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		5F546F24D5E37563250CCAE7 /* [CP-User] [RNFB] Core Configuration */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
-			);
-			name = "[CP-User] [RNFB] Core Configuration";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
-		};
-		8844963A932FCB3ECBB6F553 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E32334E9D2DF3990D3C5DF78 /* [CP] Embed Pods Frameworks */ = {
+		0D3B9561A8457B7D52E60998 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1310,7 +1210,94 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		E60D47A704AAEB58EF035C38 /* [CP] Check Pods Manifest.lock */ = {
+		307DAC0CF086CB46C742AB82 /* [CP-User] [RNFB] Crashlytics Configuration */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${TARGET_NAME}",
+				"$(SRCROOT)/$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "[CP-User] [RNFB] Crashlytics Configuration";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\nif [[ ${PODS_ROOT} ]]; then\n  echo \"info: Exec FirebaseCrashlytics Run from Pods\"\n  \"${PODS_ROOT}/FirebaseCrashlytics/run\"\nelse\n  echo \"info: Exec FirebaseCrashlytics Run from framework\"\n  \"${PROJECT_DIR}/FirebaseCrashlytics.framework/run\"\nfi\n";
+		};
+		38E4D0D9BFE433E835047A55 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp-AwsatappTests/Pods-Awsatapp-AwsatappTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3E31D27D779D530AF5228711 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7C2FD2D077A85E62C8FA8BC7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Awsatapp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8609F8703D522D19D3551C37 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Awsatapp/Pods-Awsatapp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8D6F7FFB1EBB71CF044F38DF /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1332,7 +1319,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		F0535C552F8621C3CDE477E4 /* [CP] Check Pods Manifest.lock */ = {
+		E43C483936F74A94C61D4ACD /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -1347,12 +1334,25 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Awsatapp-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-AsharqalawsatNotificationExtension-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		FBFBDCC7D73E6825580734D2 /* [CP-User] [RNFB] Core Configuration */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(BUILT_PRODUCTS_DIR)/$(INFOPLIST_PATH)",
+			);
+			name = "[CP-User] [RNFB] Core Configuration";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#!/usr/bin/env bash\n#\n# Copyright (c) 2016-present Invertase Limited & Contributors\n#\n# Licensed under the Apache License, Version 2.0 (the \"License\");\n# you may not use this library except in compliance with the License.\n# You may obtain a copy of the License at\n#\n#   http://www.apache.org/licenses/LICENSE-2.0\n#\n# Unless required by applicable law or agreed to in writing, software\n# distributed under the License is distributed on an \"AS IS\" BASIS,\n# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n# See the License for the specific language governing permissions and\n# limitations under the License.\n#\nset -e\n\n_MAX_LOOKUPS=2;\n_SEARCH_RESULT=''\n_RN_ROOT_EXISTS=''\n_CURRENT_LOOKUPS=1\n_JSON_ROOT=\"'react-native'\"\n_JSON_FILE_NAME='firebase.json'\n_JSON_OUTPUT_BASE64='e30=' # { }\n_CURRENT_SEARCH_DIR=${PROJECT_DIR}\n_PLIST_BUDDY=/usr/libexec/PlistBuddy\n_TARGET_PLIST=\"${BUILT_PRODUCTS_DIR}/${INFOPLIST_PATH}\"\n_DSYM_PLIST=\"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist\"\n\n# plist arrays\n_PLIST_ENTRY_KEYS=()\n_PLIST_ENTRY_TYPES=()\n_PLIST_ENTRY_VALUES=()\n\nfunction setPlistValue {\n  echo \"info:      setting plist entry '$1' of type '$2' in file '$4'\"\n  ${_PLIST_BUDDY} -c \"Add :$1 $2 '$3'\" $4 || echo \"info:      '$1' already exists\"\n}\n\nfunction getFirebaseJsonKeyValue () {\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$1'); puts output[$_JSON_ROOT]['$2']\"\n  else\n    echo \"\"\n  fi;\n}\n\nfunction jsonBoolToYesNo () {\n  if [[ $1 == \"false\" ]]; then\n    echo \"NO\"\n  elif [[ $1 == \"true\" ]]; then\n    echo \"YES\"\n  else echo \"NO\"\n  fi\n}\n\necho \"info: -> RNFB build script started\"\necho \"info: 1) Locating ${_JSON_FILE_NAME} file:\"\n\nif [[ -z ${_CURRENT_SEARCH_DIR} ]]; then\n  _CURRENT_SEARCH_DIR=$(pwd)\nfi;\n\nwhile true; do\n  _CURRENT_SEARCH_DIR=$(dirname \"$_CURRENT_SEARCH_DIR\")\n  if [[ \"$_CURRENT_SEARCH_DIR\" == \"/\" ]] || [[ ${_CURRENT_LOOKUPS} -gt ${_MAX_LOOKUPS} ]]; then break; fi;\n  echo \"info:      ($_CURRENT_LOOKUPS of $_MAX_LOOKUPS) Searching in '$_CURRENT_SEARCH_DIR' for a ${_JSON_FILE_NAME} file.\"\n  _SEARCH_RESULT=$(find \"$_CURRENT_SEARCH_DIR\" -maxdepth 2 -name ${_JSON_FILE_NAME} -print | /usr/bin/head -n 1)\n  if [[ ${_SEARCH_RESULT} ]]; then\n    echo \"info:      ${_JSON_FILE_NAME} found at $_SEARCH_RESULT\"\n    break;\n  fi;\n  _CURRENT_LOOKUPS=$((_CURRENT_LOOKUPS+1))\ndone\n\nif [[ ${_SEARCH_RESULT} ]]; then\n  _JSON_OUTPUT_RAW=$(cat \"${_SEARCH_RESULT}\")\n  _RN_ROOT_EXISTS=$(ruby -Ku -e \"require 'rubygems';require 'json'; output=JSON.parse('$_JSON_OUTPUT_RAW'); puts output[$_JSON_ROOT]\" || echo '')\n\n  if [[ ${_RN_ROOT_EXISTS} ]]; then\n    if ! python3 --version >/dev/null 2>&1; then echo \"python3 not found, firebase.json file processing error.\" && exit 1; fi\n    _JSON_OUTPUT_BASE64=$(python3 -c 'import json,sys,base64;print(base64.b64encode(bytes(json.dumps(json.loads(open('\"'${_SEARCH_RESULT}'\"', '\"'rb'\"').read())['${_JSON_ROOT}']), '\"'utf-8'\"')).decode())' || echo \"e30=\")\n  fi\n\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n\n  # config.app_data_collection_default_enabled\n  _APP_DATA_COLLECTION_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_data_collection_default_enabled\")\n  if [[ $_APP_DATA_COLLECTION_ENABLED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseDataCollectionDefaultEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_DATA_COLLECTION_ENABLED\")\")\n  fi\n\n  # config.analytics_auto_collection_enabled\n  _ANALYTICS_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_auto_collection_enabled\")\n  if [[ $_ANALYTICS_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_COLLECTION\")\")\n  fi\n\n  # config.analytics_collection_deactivated\n  _ANALYTICS_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_collection_deactivated\")\n  if [[ $_ANALYTICS_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FIREBASE_ANALYTICS_COLLECTION_DEACTIVATED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_DEACTIVATED\")\")\n  fi\n\n  # config.analytics_idfv_collection_enabled\n  _ANALYTICS_IDFV_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_idfv_collection_enabled\")\n  if [[ $_ANALYTICS_IDFV_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_IDFV_COLLECTION_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_IDFV_COLLECTION\")\")\n  fi\n\n  # config.analytics_default_allow_ad_personalization_signals\n  _ANALYTICS_PERSONALIZATION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"analytics_default_allow_ad_personalization_signals\")\n  if [[ $_ANALYTICS_PERSONALIZATION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_DEFAULT_ALLOW_AD_PERSONALIZATION_SIGNALS\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_PERSONALIZATION\")\")\n  fi\n\n  # config.analytics_registration_with_ad_network_enabled\n  _ANALYTICS_REGISTRATION_WITH_AD_NETWORK=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_registration_with_ad_network_enabled\")\n  if [[ $_ANALYTICS_REGISTRATION_WITH_AD_NETWORK ]]; then\n    _PLIST_ENTRY_KEYS+=(\"GOOGLE_ANALYTICS_REGISTRATION_WITH_AD_NETWORK_ENABLED\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_REGISTRATION_WITH_AD_NETWORK\")\")\n  fi\n\n  # config.google_analytics_automatic_screen_reporting_enabled\n  _ANALYTICS_AUTO_SCREEN_REPORTING=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"google_analytics_automatic_screen_reporting_enabled\")\n  if [[ $_ANALYTICS_AUTO_SCREEN_REPORTING ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAutomaticScreenReportingEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_ANALYTICS_AUTO_SCREEN_REPORTING\")\")\n  fi\n\n  # config.perf_auto_collection_enabled\n  _PERF_AUTO_COLLECTION=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_auto_collection_enabled\")\n  if [[ $_PERF_AUTO_COLLECTION ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_enabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_AUTO_COLLECTION\")\")\n  fi\n\n  # config.perf_collection_deactivated\n  _PERF_DEACTIVATED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"perf_collection_deactivated\")\n  if [[ $_PERF_DEACTIVATED ]]; then\n    _PLIST_ENTRY_KEYS+=(\"firebase_performance_collection_deactivated\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_PERF_DEACTIVATED\")\")\n  fi\n\n  # config.messaging_auto_init_enabled\n  _MESSAGING_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"messaging_auto_init_enabled\")\n  if [[ $_MESSAGING_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseMessagingAutoInitEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_MESSAGING_AUTO_INIT\")\")\n  fi\n\n  # config.in_app_messaging_auto_colllection_enabled\n  _FIAM_AUTO_INIT=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"in_app_messaging_auto_collection_enabled\")\n  if [[ $_FIAM_AUTO_INIT ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseInAppMessagingAutomaticDataCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_FIAM_AUTO_INIT\")\")\n  fi\n\n  # config.app_check_token_auto_refresh\n  _APP_CHECK_TOKEN_AUTO_REFRESH=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"app_check_token_auto_refresh\")\n  if [[ $_APP_CHECK_TOKEN_AUTO_REFRESH ]]; then\n    _PLIST_ENTRY_KEYS+=(\"FirebaseAppCheckTokenAutoRefreshEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"$(jsonBoolToYesNo \"$_APP_CHECK_TOKEN_AUTO_REFRESH\")\")\n  fi\n\n  # config.crashlytics_disable_auto_disabler - undocumented for now - mainly for debugging, document if becomes useful\n  _CRASHLYTICS_AUTO_DISABLE_ENABLED=$(getFirebaseJsonKeyValue \"$_JSON_OUTPUT_RAW\" \"crashlytics_disable_auto_disabler\")\n  if [[ $_CRASHLYTICS_AUTO_DISABLE_ENABLED == \"true\" ]]; then\n    echo \"Disabled Crashlytics auto disabler.\" # do nothing\n  else\n    _PLIST_ENTRY_KEYS+=(\"FirebaseCrashlyticsCollectionEnabled\")\n    _PLIST_ENTRY_TYPES+=(\"bool\")\n    _PLIST_ENTRY_VALUES+=(\"NO\")\n  fi\nelse\n  _PLIST_ENTRY_KEYS+=(\"firebase_json_raw\")\n  _PLIST_ENTRY_TYPES+=(\"string\")\n  _PLIST_ENTRY_VALUES+=(\"$_JSON_OUTPUT_BASE64\")\n  echo \"warning:   A firebase.json file was not found, whilst this file is optional it is recommended to include it to configure firebase services in React Native Firebase.\"\nfi;\n\necho \"info: 2) Injecting Info.plist entries: \"\n\n# Log out the keys we're adding\nfor i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n  echo \"    ->  $i) ${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\"\ndone\n\nfor plist in \"${_TARGET_PLIST}\" \"${_DSYM_PLIST}\" ; do\n  if [[ -f \"${plist}\" ]]; then\n\n    # paths with spaces break the call to setPlistValue. temporarily modify\n    # the shell internal field separator variable (IFS), which normally\n    # includes spaces, to consist only of line breaks\n    oldifs=$IFS\n    IFS=\"\n\"\n\n    for i in \"${!_PLIST_ENTRY_KEYS[@]}\"; do\n      setPlistValue \"${_PLIST_ENTRY_KEYS[$i]}\" \"${_PLIST_ENTRY_TYPES[$i]}\" \"${_PLIST_ENTRY_VALUES[$i]}\" \"${plist}\"\n    done\n\n    # restore the original internal field separator value\n    IFS=$oldifs\n  else\n    echo \"warning:   A Info.plist build output file was not found (${plist})\"\n  fi\ndone\n\necho \"info: <- RNFB build script finished\"\n";
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1532,7 +1532,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3AFA3A7D2ED5F1815FCE3407 /* Pods-Awsatapp-AwsatappTests.debug.xcconfig */;
+			baseConfigurationReference = 6F014C1C700AE69579F10C06 /* Pods-Awsatapp-AwsatappTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1560,7 +1560,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E9851DB237B24939BF49AB0D /* Pods-Awsatapp-AwsatappTests.release.xcconfig */;
+			baseConfigurationReference = E6049E77B322EFCD111CB6E3 /* Pods-Awsatapp-AwsatappTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1586,13 +1586,14 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A3FDE2C970357A496A5A5514 /* Pods-Awsatapp.debug.xcconfig */;
+			baseConfigurationReference = 25274F913E1281F59C0B0791 /* Pods-Awsatapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
@@ -1606,7 +1607,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1;
+				MARKETING_VERSION = 5.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1615,7 +1616,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp;
 				PRODUCT_NAME = Awsatapp;
 				PROVISIONING_PROFILE_SPECIFIER = "AAA iPhone Development";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "AsharqAlAwsat iOS Development Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharq AlAwsat iPhone AppID App Store";
 				SWIFT_OBJC_BRIDGING_HEADER = "Awsatapp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1626,14 +1627,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F17AA6230FD852F939D1B14B /* Pods-Awsatapp.release.xcconfig */;
+			baseConfigurationReference = 36BCDD459CD7DDB856D1214F /* Pods-Awsatapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -1647,7 +1648,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.1;
+				MARKETING_VERSION = 5.3;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1656,7 +1657,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp;
 				PRODUCT_NAME = Awsatapp;
 				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat AdHoc Provisioning Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharqalawsat AdHoc Provisioning Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharq AlAwsat iPhone AppID App Store";
 				SWIFT_OBJC_BRIDGING_HEADER = "Awsatapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1666,7 +1667,7 @@
 		};
 		5EDB5C9C2A1F8DC2009E35B0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 65DEEDB1819D41DA95B7B879 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */;
+			baseConfigurationReference = 5642D63EB775851E5A2AD811 /* Pods-AsharqalawsatNotificationExtension.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1674,6 +1675,7 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -1696,7 +1698,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.notificationextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharqalawsat Notification Extension Dev Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharqalawsat Notification Service  App Store";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1705,7 +1707,7 @@
 		};
 		5EDB5C9D2A1F8DC2009E35B0 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 71839368B61650D7FA413192 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */;
+			baseConfigurationReference = 91DB379A6AAC5CFE5F06C6F4 /* Pods-AsharqalawsatNotificationExtension.release.xcconfig */;
 			buildSettings = {
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -1736,7 +1738,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.notificationextension;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharqalawsat Notification Extension AdHoc Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "Asharqalawsat Notification Service  App Store";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1748,7 +1750,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1800,11 +1802,11 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1814,7 +1816,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
-				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -1859,10 +1861,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(SDKROOT)/usr/lib/swift\"",
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
-					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				REACT_NATIVE_PATH = "${PODS_ROOT}/../../node_modules/react-native";
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
@@ -1881,9 +1883,9 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1893,13 +1895,13 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
-				MARKETING_VERSION = 5.1;
+				MARKETING_VERSION = 5.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "AAA WatchKit App Development Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Ashaeqalawsat WatchKit App Development Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AAWSAT Watch App Store";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -1926,7 +1928,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1937,12 +1939,12 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
-				MARKETING_VERSION = 5.1;
+				MARKETING_VERSION = 5.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat Watch App AdHoc Provisioning Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Asharqalawsat Watch App AdHoc Provisioning Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AAWSAT Watch App Store";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -1964,9 +1966,9 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1981,13 +1983,13 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.1;
+				MARKETING_VERSION = 5.3;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "AAA WatchKit Extension AppDevelopment Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AsharqAlAwsat WatchKit Extension Dev Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AAWSAT Watch App Stores";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
@@ -2011,7 +2013,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 6;
+				CURRENT_PROJECT_VERSION = 2;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -2027,12 +2029,12 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.1;
+				MARKETING_VERSION = 5.3;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "${TARGET_NAME}";
 				PROVISIONING_PROFILE_SPECIFIER = "Asharqalawsat Watch Extension AdHoc Profile";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "Asharqalawsat Watch Extension AdHoc Profile";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=watchos*]" = "AAWSAT Watch App Stores";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;

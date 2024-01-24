@@ -90,7 +90,8 @@ export interface ArticleDetailDataType extends GeneralArticleFields {
   displayType?: string,
   link_node: string, 
   publishedDate: string,
-  tagTopicsList: string
+  tagTopicsList: string,
+  isAd: boolean
 }
 
 export interface RelatedArticleDataType extends GeneralArticleFields { 

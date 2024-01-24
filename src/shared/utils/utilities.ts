@@ -93,6 +93,10 @@ export const isObjectNonEmpty = (data: any): boolean => {
   return data && Object.keys(data).length > 0 ? true : false;
 };
 
+export const isNumberNonEmpty = (data: any): boolean => {
+  return typeof data === 'number' && data > 0;
+};
+
 export const isNotEmpty = (value: string | null | undefined): boolean => {
   return typeof value === 'string' && value.trim().length > 0;
 };

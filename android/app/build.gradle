@@ -5,7 +5,7 @@ apply plugin: "com.google.gms.google-services"
 apply plugin: 'com.google.firebase.crashlytics'
 
 apply plugin: 'com.google.firebase.firebase-perf'
-
+apply plugin: "com.facebook.react"
 import com.android.build.OutputFile
 
 /**
@@ -89,8 +89,6 @@ project.ext.react = [
     extraPackagerArgs: ["--indexed-ram-bundle"]
 ]
 
-apply from: "../../node_modules/react-native/react.gradle"
-
 /**
  * Set this to true to create two separate APKs instead of one:
  *   - An APK that only works on ARM devices
@@ -137,7 +135,7 @@ def nativeArchitectures = project.getProperties().get("reactNativeDebugArchitect
 android {
     ndkVersion rootProject.ext.ndkVersion
 
-    compileSdkVersion rootProject.ext.compileSdkVersion
+    compileSdk rootProject.ext.compileSdkVersion
 
     lintOptions {
         abortOnError false
@@ -147,8 +145,8 @@ android {
         applicationId "com.knowledgeview.tablet.aaa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 297
-        versionName "5.1.7"
+        versionCode 300
+        versionName "5.2.0"
         bundle{
             language{
                 enableSplit false
@@ -197,6 +195,7 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    buildToolsVersion '33.0.0'
 
     // applicationVariants are e.g. debug, release
     applicationVariants.all { variant ->
@@ -232,11 +231,12 @@ dependencies {
     implementation "com.google.firebase:firebase-analytics"
     
     //noinspection GradleDynamicVersion
-    implementation "com.facebook.react:react-native:+"  // From node_modules
+    // implementation "com.facebook.react:react-native:+"  // From node_modules
 
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.core:core:1.6.0'
+    implementation("com.facebook.react:react-android")
     debugImplementation("com.facebook.flipper:flipper:${FLIPPER_VERSION}") {
         exclude group:'com.facebook.fbjni'
     }
@@ -251,9 +251,7 @@ dependencies {
     }
 
     if (enableHermes) {
-        def hermesPath = "../../node_modules/hermes-engine/android/";
-        debugImplementation files(hermesPath + "hermes-debug.aar")
-        releaseImplementation files(hermesPath + "hermes-release.aar")
+        implementation("com.facebook.react:hermes-android")
     } else {
         implementation jscFlavor
     }
@@ -261,10 +259,10 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.liulishuo.filedownloader:library:1.7.7'
     //pdf viewer
-    implementation 'es.voghdev.pdfviewpager:library:1.0.2'
+    implementation 'es.voghdev.pdfviewpager:library:1.0.4'
     implementation 'com.bogdwellers:pinchtozoom:0.1'
     //Volley & glide
-    implementation 'com.android.volley:volley:1.1.0'
+    implementation 'com.android.volley:volley:1.2.0'
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation project(':react-native-inappbrowser-reborn')

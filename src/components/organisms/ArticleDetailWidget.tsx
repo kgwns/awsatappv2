@@ -123,6 +123,7 @@ const ArticleDetailWidget: FunctionComponent<ArticleDetailWidgetProps> = ({
                 jwplayerId={articleData.jwplayerId}
                 showReplay={showReplay}
                 displayType={articleData.displayType}
+                isAd={articleData.isAd}
                 liveTimeAgo = {timeAgo}
                 {...props}
             />

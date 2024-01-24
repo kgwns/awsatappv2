@@ -8,6 +8,7 @@ import AutoHeightWebView, { SizeUpdate } from 'react-native-autoheight-webview'
 import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 import { ANDROID_WEBVIEW_URL, IOS_WEBVIEW_URL } from 'src/constants/Constants'
 import { AnalyticsEvents } from 'src/shared/utils/analytics'
+import { fonts } from 'src/shared/styles/fonts'
 
 type ArticleDetailBodyProps = {
     body: string;
@@ -69,18 +70,36 @@ export const ArticleDetailBody = React.memo(({
     }
 
     const script = () => {
-        const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.15 * articleFontSize : articleFontSize
+        const newFontSize = isTab ? 1.3 * articleFontSize : isIOS ? 1.12 * articleFontSize : articleFontSize;
         return `
           var pTagElement = document.getElementsByTagName("p");
           //   This css to apply all the p tag element
           if(pTagElement && pTagElement.length > 0) {
             for(i=0; i < pTagElement.length; i++) {
+              pTagElement[i].style.fontFamily = "${fonts.AwsatDigital_Regular}"
               pTagElement[i].style.fontSize = "${newFontSize}px"
-              pTagElement[i].style.lineHeight = "${1.8 * newFontSize}px"
+              pTagElement[i].style.lineHeight = "${1.65 * newFontSize}px"
               pTagElement[i].style.color = "${themeData.primaryBlack}"
               pTagElement[i].style.textAlign = "justify"
               pTagElement[i].style.direction = "rtl"
               pTagElement[i].style.writingDirection = "rtl"
+            }
+          }
+
+          var h2Element = document.getElementsByTagName("h2");
+          var strongElementsInParagraphs = document.querySelectorAll("p > strong");
+          var subTitleElements = Array.from(h2Element).concat(Array.from(strongElementsInParagraphs));
+          //   This css to apply all the p tag element
+          if(subTitleElements && subTitleElements.length > 0) {
+            for(i=0; i < subTitleElements.length; i++) {
+              subTitleElements[i].style.fontFamily = "${fonts.AwsatDigital_Regular}"
+              subTitleElements[i].style.fontSize = "22px"
+              subTitleElements[i].style.lineHeight = "${1.65 * newFontSize}px"
+              subTitleElements[i].style.color = "${themeData.primaryBlack}"
+              subTitleElements[i].style.textAlign = "justify"
+              subTitleElements[i].style.direction = "rtl"
+              subTitleElements[i].style.writingDirection = "rtl"
+              subTitleElements[i].style.marginBottom = "20px"
             }
           }
     
@@ -125,6 +144,11 @@ export const ArticleDetailBody = React.memo(({
               captionElement[i].style["background-color"] = "${themeData.whiteSurface}"; 
             } 
           }
+
+          var meta = document.createElement('meta');
+          meta.setAttribute('content', 'width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0');
+          meta.setAttribute('name', 'viewport');
+          document.getElementsByTagName('head')[0].appendChild(meta);
     
           ${iFrameInjectCss()}
            
