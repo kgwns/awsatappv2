@@ -10,6 +10,7 @@
 #import <React/RCTI18nUtil.h>
 #import "Orientation.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKLoginKit/FBSDKLoginKit.h>
 #import <Firebase.h>
 #import <AVFoundation/AVFoundation.h>
 #import <React/RCTLinkingManager.h>
@@ -43,6 +44,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+  self.moduleName = @"Awsatapp";
   [FBSDKApplicationDelegate.sharedInstance initializeSDK];
   [FIRApp configure];
   
@@ -132,7 +134,9 @@
   UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
     center.delegate = self;
 
-  return YES;
+  bool didFinish=[super application:application didFinishLaunchingWithOptions:launchOptions];
+
+  return didFinish;
 }
 
 - (void)videoDidFinish:(id)notification {
