@@ -20,7 +20,8 @@ export interface ArticleProps extends ImageLabelProps, ArticleWithOutImageProps 
    created: string,
    hideImage?: boolean;
    isAlbum?: boolean,
-   type?: string
+   type?: string,
+   link?: string,
 }
 
 export interface ArticleSectionProps {

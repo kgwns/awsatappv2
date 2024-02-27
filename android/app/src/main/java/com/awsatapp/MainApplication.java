@@ -2,6 +2,7 @@ package com.awsatapp;
 
 import android.app.Application;
 import android.content.ComponentCallbacks2;
+import android.content.Context;
 import android.content.Intent;
 import android.os.StatFs;
 import android.provider.Settings;
@@ -13,12 +14,12 @@ import com.awsatapp.reactPackage.manager.FileDownloadSerialQueue;
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
 import com.proyecto26.inappbrowser.RNInAppBrowserPackage;
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
-import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
-import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.react.modules.i18nmanager.I18nUtil;
 import com.facebook.soloader.SoLoader;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 import com.airbnb.android.react.lottie.LottiePackage;
 import com.swmansion.rnscreens.RNScreensPackage;
@@ -32,7 +33,7 @@ public class MainApplication extends Application implements ReactApplication, Co
     }
 
   private final ReactNativeHost mReactNativeHost =
-      new  DefaultReactNativeHost(this) {
+      new ReactNativeHost(this) {
         @Override
         public boolean getUseDeveloperSupport() {
           return BuildConfig.DEBUG;
@@ -54,15 +55,6 @@ public class MainApplication extends Application implements ReactApplication, Co
         protected String getJSMainModuleName() {
           return "index";
         }
-
-        @Override
-        protected boolean isNewArchEnabled() {
-          return BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
-        }
-        @Override
-        protected Boolean isHermesEnabled() {
-          return BuildConfig.IS_HERMES_ENABLED;
-        }
       };
 
   @Override
@@ -80,11 +72,7 @@ public class MainApplication extends Application implements ReactApplication, Co
       sharedI18nUtilInstance.forceRTL(this,true);
       sharedI18nUtilInstance.allowRTL(this, true);
       checkForLowStorage();
-      if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
-        // If you opted-in for the New Architecture, we load the native entry point for this app.
-        DefaultNewArchitectureEntryPoint.load();
-      }
-      ReactNativeFlipper.initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
     @Override
@@ -142,6 +130,37 @@ public class MainApplication extends Application implements ReactApplication, Co
     public void onLowMemory() {
         super.onLowMemory();
     }
+
+    /**
+   * Loads Flipper in React Native templates. Call this in the onCreate method with something like
+   * initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+   *
+   * @param context
+   * @param reactInstanceManager
+   */
+  private static void initializeFlipper(
+      Context context, ReactInstanceManager reactInstanceManager) {
+    if (BuildConfig.DEBUG) {
+      try {
+        /*
+         We use reflection here to pick up the class that initializes Flipper,
+        since Flipper library is not available in release mode
+        */
+        Class<?> aClass = Class.forName("com.awsatapp.ReactNativeFlipper");
+        aClass
+            .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
+            .invoke(null, context, reactInstanceManager);
+      } catch (ClassNotFoundException e) {
+        e.printStackTrace();
+      } catch (NoSuchMethodException e) {
+        e.printStackTrace();
+      } catch (IllegalAccessException e) {
+        e.printStackTrace();
+      } catch (InvocationTargetException e) {
+        e.printStackTrace();
+      }
+    }
+  }
 
     private void checkForLowStorage() {
         long mFreeMem = getDeviceCurrentStorage();

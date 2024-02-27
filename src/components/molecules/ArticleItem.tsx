@@ -9,6 +9,8 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { EntityQueueArticleType } from 'src/redux/entityQueue/types';
+import { HomePageArticleType } from 'src/redux/latestNews/types';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn'
 
 export interface ArticleItemProps extends ArticleProps {
     index: number,
@@ -40,7 +42,19 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     const navigation = useNavigation<StackNavigationProp<any>>()
     const onPress = () => {
         if (props.nid) {
-            if (isJournalist) {
+            if (props.type === HomePageArticleType.SHORTHAND) {
+                const url = props.link ? props.link : "";
+                InAppBrowser.open(url, {
+                    // iOS Properties
+                    dismissButtonStyle: 'close',
+                    readerMode: false,
+                    modalEnabled: true,
+                    animated: true,
+                    enableBarCollapsing: true,
+                    // // Android Properties
+                    showTitle: true,
+                })
+            } else if (isJournalist) {
                 navigation.push(ScreensConstants.ARTICLE_DETAIL_SCREEN, { nid: props.nid, isRelatedArticle: true });
             } else {
                 const screenName = props.isAlbum || props.type === EntityQueueArticleType.ALBUM ? 
@@ -60,7 +74,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
                 <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                         onPressBookmark={onPressBookmark} titleStyle={props.titleStyle} bodyStyle={props.bodyStyle}
-                        bodyLineCount={tabBodyLineCount} displayType={undefined} //DisplayType with display in ImageWithLabel itself
+                        bodyLineCount={tabBodyLineCount} hideBookmark={props.type === HomePageArticleType.SHORTHAND} displayType={undefined}  //DisplayType with display in ImageWithLabel itself
                     />
                 </View>
             </View>

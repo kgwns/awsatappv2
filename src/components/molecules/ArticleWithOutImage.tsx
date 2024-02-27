@@ -21,6 +21,7 @@ export interface ArticleWithOutImageProps extends TextWithFlagProps {
     showFooterTitle?: boolean,
     onPress?: () => void
     isBookmarked: boolean
+    hideBookmark?: boolean
     onPressBookmark?: () => void
     bodyLineCount?: number,
     showBody?: boolean,
@@ -33,6 +34,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
     body,
     onPress,
     isBookmarked,
+    hideBookmark = false,
     onPressBookmark,
     showDivider = true,
     showFooterTitle,
@@ -63,6 +65,7 @@ const ArticleWithOutImage: FunctionComponent<ArticleWithOutImageProps> = ({
                 <ArticleFooter showFooterTitle={showFooterTitle} {...props.footerInfo}
                     onPress={onPressBookmark}
                     isBookmarked={isBookmarked}
+                    hideBookmark={hideBookmark}
                 />
             </View>
             {showDivider && <Divider style={style.divider}/>}

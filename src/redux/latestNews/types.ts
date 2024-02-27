@@ -464,6 +464,7 @@ export enum MainSectionBlockName {
 export enum HomePageArticleType {
   ARTICLE = 'article',
   ALBUM = 'album',
+  SHORTHAND = 'shorthand_type'
 }
 
 export type MainSectionBlockType = {
@@ -479,6 +480,7 @@ export type MainSectionBlockType = {
   blockName: string;
   position: string;
   displayType: string;
+  link: string;
 }
 
 export type RequestCoverageBlockType = {

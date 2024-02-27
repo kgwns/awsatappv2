@@ -105,7 +105,7 @@ const formatMainSectionBlockData = (response: any) => {
       const rows = response.rows
       formattedData = rows.map(
         ({ title, body, nid, field_image, field_news_categories,field_new_resource,
-        type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed, field_album_image }: any) => ({
+        type, blockname, entityqueue_relationship_position, field_new_photo,field_display_export, changed, field_album_image, field_shorthand_link_export }: any) => ({
           body,
           title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
           nid,
@@ -118,6 +118,7 @@ const formatMainSectionBlockData = (response: any) => {
           blockName: blockname,
           position: entityqueue_relationship_position,
           displayType: getDisplayName(field_display_export),
+          link: field_shorthand_link_export
         })
       );
     }
