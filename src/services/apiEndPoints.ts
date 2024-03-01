@@ -20,14 +20,14 @@ export const ARTICLE_NEXT_GET = '/api/v2/articlenext/';
 export const LATEST_ARTICLE_GET = 'api/v2/latestarticles';
 export const SECTION_COMBO = ARTICLE_SECTION_ENDPOINT;
 export const PODCAST_HOME = 'api/v2/podcasthome';
-export const COVERAGE_ARTICLE_END_POINT = 'api/v2/home/topview/coverage'
-export const FEATURED_ARTICLE_ENDPOINT = 'api/v2/home/topview/almqalat_alryysyt_'
-export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home/topview/tghtyt_khast'
-export const EDITORS_CHOICE = 'api/v2/home/editorschoice';
-export const SPOTLIGHT_COMBO = 'api/v2/home/spotlight';
+export const COVERAGE_ARTICLE_END_POINT = 'api/v2/home2/topview/coverage'
+export const FEATURED_ARTICLE_ENDPOINT = 'api/v2/home2/topview/almqalat_alryysyt_'
+export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home2/topview/tghtyt_khast'
+export const EDITORS_CHOICE = 'api/v2/home2/editorschoice';
+export const SPOTLIGHT_COMBO = 'api/v2/home2/spotlight';
 export const INFO_GRAPHIC_BLOCK = 'api/block/v1/top';
 export const SECTION_COMBO_TWO = 'api/v2/user/articlesection/11+97115+97110';
-export const SECTION_COMBO_SIX = '/api/v2/home/thakafa';
+export const SECTION_COMBO_SIX = '/api/v2/home2/thakafa';
 export const ARCHIVED_ARTICLE_ENDPOINT = 'api/v2/archivedarticle'
 
 //opinion tab in category section

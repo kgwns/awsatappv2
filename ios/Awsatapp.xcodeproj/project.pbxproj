@@ -1612,7 +1612,7 @@
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				ENABLE_BITCODE = NO;
@@ -1627,7 +1627,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -1654,7 +1654,7 @@
 				CODE_SIGN_ENTITLEMENTS = Awsatapp/Awsatapp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 5LV5P9XYQ8;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
@@ -1668,7 +1668,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -1918,7 +1918,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1928,7 +1928,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
@@ -1961,7 +1961,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -1972,7 +1972,7 @@
 				INFOPLIST_KEY_CFBundleDisplayName = Asharqalawsat;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.srmg.ashaeqalawsat.iphoneapp;
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp;
@@ -2002,7 +2002,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -2017,7 +2017,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
@@ -2047,7 +2047,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 5LV5P9XYQ8;
 				"DEVELOPMENT_TEAM[sdk=watchos*]" = 5LV5P9XYQ8;
@@ -2063,7 +2063,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 5.4;
+				MARKETING_VERSION = 5.5;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.srmg.ashaeqalawsat.iphoneapp.watchkitapp.watchkitextension;
