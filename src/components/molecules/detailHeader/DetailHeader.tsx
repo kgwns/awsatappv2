@@ -4,6 +4,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { BackIcon, HomeButton } from 'src/components/atoms'
 import { isIOS, isNotchDevice, isTab, normalize } from 'src/shared/utils'
 import { CustomThemeType } from 'src/shared/styles/colors'
+import { BannerAd, BannerAdSize, TestIds } from 'react-native-google-mobile-ads'
 
 interface DetailHeaderProps {
     visibleHome?: boolean;
@@ -20,6 +21,16 @@ export const DetailHeader = ({
     return (
         <View style={style.headerContainer}>
             {visibleHome && <HomeButton containerStyle={style.homeIconContainer} onPress={onHomePress} />}
+            <BannerAd
+                size={BannerAdSize.BANNER}
+                unitId={TestIds.BANNER}
+                onAdLoaded={() => {
+                console.log('Advert loaded');
+                }}
+                onAdFailedToLoad={error => {
+                console.error('Advert failed to load: ', error);
+                }}
+            />
             <BackIcon onPressBack={onBackPress} />
         </View>
     )
