@@ -18,13 +18,10 @@ export const getCacheApiRequest = (
   url: string,
   config?: AxiosRequestConfig | undefined,
 ) => {
+  const token = getToken();
   return api
     .get(url, {
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        Accept: APPLICATION_JSON,
-        Authorization: 'Bearer some_token',
-      },
+      headers: getHeader(token),
       ...config,
     })
     .then(response => {
@@ -40,13 +37,10 @@ export const getApiRequest = (
   url: string,
   config?: AxiosRequestConfig | undefined,
 ) => {
+  const token = getToken();
   return axios
     .get(url, {
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        Accept: APPLICATION_JSON,
-        Authorization: 'Bearer some_token',
-      },
+      headers: getHeader(token),
       ...config,
     })
     .then(response => {
@@ -64,10 +58,7 @@ export const getApiRequestWithoutAuth = (
 ) => {
   return axios
     .get(url, {
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        Accept: APPLICATION_JSON,
-      },
+      headers: getHeader(),
       ...config,
     })
     .then(response => {
@@ -85,24 +76,10 @@ export const postApiRequest = (
   config?: AxiosRequestConfig | undefined,
   header?: AxiosRequestHeaders | undefined
 ) => {
-  const loginData = store.getState().login?.loginData
-  let tokenInfo = {}
-  if (loginData) {
-    const type = `${loginData.token.token_type} ` || 'Bearer '
-    const accessToken = loginData.token.access_token
-    tokenInfo = {
-      Authorization: type + accessToken
-    }
-  }
-
+  const token = getToken();
   return axios
     .post(url, data, {
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        Accept: APPLICATION_JSON,
-        ...header,
-        ...tokenInfo
-      },
+      headers: getHeader(token, header),
       ...config,
     })
     .then(response => {
@@ -117,3 +94,24 @@ export const postApiRequest = (
 const handleErrorResponses = (error: AxiosError) => {
   throw error;
 };
+
+function getHeader(token?: string,
+  header?: AxiosRequestHeaders | undefined) {
+    return {
+      'Content-Type': APPLICATION_JSON,
+      'Accept': APPLICATION_JSON,
+      'Authorization': token,
+      'User-Agent': 'axios/1.3.5',
+      ...header
+    }
+}
+
+function getToken() {
+  const loginData = store.getState().login?.loginData;  
+  if (loginData) {
+    const type = `${loginData.token.token_type} ` || 'Bearer ';
+    const accessToken = loginData.token.access_token;
+    return type + accessToken;
+  }
+  return '';
+}
