@@ -37,7 +37,7 @@ import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget'
 import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
-import { useAdMob } from 'src/hooks/useAdMob';
+import { standardBanner } from 'src/hooks/useAdMob';
 
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
@@ -642,7 +642,6 @@ export const MainSectionScreen = React.memo((
     }
   }
 
-  const {standardBanner} = useAdMob();
   const renderMobile = () => (
     <View style={mainSectionStyle.mainContainer}>
       <Divider style={mainSectionStyle.dividerTop} />

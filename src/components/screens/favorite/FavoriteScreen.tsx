@@ -8,7 +8,7 @@ import {useLogin} from 'src/hooks';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { useAdMob } from 'src/hooks/useAdMob';
+import { standardBanner } from 'src/hooks/useAdMob';
 
 
 export const FavoriteScreen = () => {
@@ -55,7 +55,6 @@ export const FavoriteScreen = () => {
     showupUp.current = false
   }
 
-  const { standardBanner } = useAdMob();
   return (
     <ScreenContainer edge={horizontalEdge}
       isSignUpAlertVisible={showupUp.current}

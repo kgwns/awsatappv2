@@ -37,6 +37,7 @@ import { fetchVideoListApi } from 'src/services/videoListService';
 import { formatVideoData } from 'src/redux/videoList/sagas';
 import { Styles } from 'src/shared/styles';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
+import { standardBanner } from 'src/hooks/useAdMob';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -560,6 +561,7 @@ export const SectionStoryScreen = React.memo(({
           {renderTopArticle()}
         </>
       }
+      {standardBanner(screenWidth, 250)}
       {!isTab && <Divider style={style.divider} />}
       <View style={style.newsFeedContainer}>
         <NewsFeed

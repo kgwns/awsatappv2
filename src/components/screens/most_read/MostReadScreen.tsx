@@ -3,7 +3,7 @@ import { MostReadList } from 'src/components/organisms';
 import { ScreenContainer } from '..'
 import { horizontalEdge } from 'src/shared/utils';
 import { useMostRead } from 'src/hooks';
-import { useAdMob } from 'src/hooks/useAdMob';
+import { standardBanner } from 'src/hooks/useAdMob';
 
 export const MostReadScreen = () => {
   const {
@@ -11,8 +11,6 @@ export const MostReadScreen = () => {
     mostReadData,
     fetchMostReadRequest
   } = useMostRead();
-
-  const { standardBanner } = useAdMob();
 
   useEffect(() => { 
     fetchMostReadRequest(); 

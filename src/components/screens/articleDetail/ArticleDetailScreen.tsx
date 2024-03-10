@@ -39,7 +39,7 @@ import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import ArticleLiveBlog from './components/ArticleLiveBlog'
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics'
-import { useAdMob } from 'src/hooks/useAdMob'
+import { standardBanner } from 'src/hooks/useAdMob'
 export interface ArticleDetailScreenProps {
   route: any
 }
@@ -628,7 +628,6 @@ export const ArticleDetailScreen = ({
     }
   }
 
-  const {standardBanner} = useAdMob();
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
     backgroundColor={fullScreenBackgroundColor}

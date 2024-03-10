@@ -26,6 +26,7 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppCommon, useAppPlayer } from 'src/hooks';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 import { Styles } from 'src/shared/styles';
+import { ARTICLE_CATEGORY_FIRST_INDEX, ARTICLE_CATEGORY_SECOND_INDEX, ARTICLE_CATEGORY_THIRD_INDEX, standardBanner } from 'src/hooks/useAdMob';
 
 export interface NewsFeedProps {
   title: string;
@@ -164,7 +165,18 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelConta
               </>
           }
         </FixedTouchable>
+        {index === (ARTICLE_CATEGORY_FIRST_INDEX - 1) && 
+          <>
+            <Divider style={[style.divider, {marginBottom: 20}]}/>
+            {standardBanner(screenWidth, 200)}
+          </>
+        }
         <Divider style={style.divider}/>
+        { (index === (ARTICLE_CATEGORY_SECOND_INDEX - 1) || index === (ARTICLE_CATEGORY_THIRD_INDEX - 1)) && 
+          <>
+            {standardBanner(screenWidth, 250)}
+          </>
+        }
         {isLoading && data.length - 1 === index && (
           <View style={style.loaderStyle}>
             <ActivityIndicator size={'small'} color={theme.themeData.primary} />
@@ -196,10 +208,10 @@ export default NewsFeed;
 
 const customStyle = (theme: CustomThemeType) => StyleSheet.create({
   container: {
-    paddingHorizontal: isTab ? 18 : normalize(0.04 * screenWidth),
     paddingTop: normalize(25),
   },
-  listContainer: {},
+  listContainer: {
+  },
   footerContainer: {
     flex: 1,
     width: '100%',
@@ -280,10 +292,12 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     color: theme.footerTextColor
   },
   videoFooterContainer: {
-    marginTop: 10
+    marginTop: 10,
+    paddingHorizontal: isTab ? 18 : normalize(0.04 * screenWidth),
   },
   blogContainer: {
-    flexDirection: 'row' 
+    flexDirection: 'row' ,
+    paddingHorizontal: isTab ? 18 : normalize(0.04 * screenWidth),
   },
   loaderStyle: {
     margin: normalize(28)

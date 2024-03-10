@@ -27,7 +27,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { TopMenuItemType } from 'src/redux/topMenu/types';
 import { AnimatedHeader } from 'src/components/atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { useAdMob } from 'src/hooks/useAdMob';
+import { standardBanner, useAdMob } from 'src/hooks/useAdMob';
 
 export enum TabType {
   opinion = 'opinion',
@@ -225,7 +225,7 @@ export const SectionsScreen = () => {
       />
     );
   };
-  const { standardBanner } = useAdMob();
+
   const renderHeader = () => {
     return(
       scrollY.map((_: any, i: number) => {

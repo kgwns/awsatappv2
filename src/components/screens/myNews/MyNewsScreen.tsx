@@ -15,7 +15,7 @@ import { MyNewsWriters } from 'src/components/organisms';
 import { useLogin } from 'src/hooks';
 
 import { useNavigation } from '@react-navigation/native';
-import { useAdMob } from 'src/hooks/useAdMob';
+import { standardBanner } from 'src/hooks/useAdMob';
 
 export enum MyNewsTabType {
   media = 'media',
@@ -33,7 +33,6 @@ export const MyNewsScreen = () => {
   const SIGN_UP_PH_TITLE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_TITLE})
   const SIGN_UP_PH_MESSAGE = TranslateConstants({key:TranslateKey.SIGN_UP_PH_MESSAGE})
   const SIGN_UP_PH_SIGNUP = TranslateConstants({key:TranslateKey.SIGN_UP_PH_SIGNUP})
-  const { standardBanner } = useAdMob();
 
   useEffect(() => {
     configData()
