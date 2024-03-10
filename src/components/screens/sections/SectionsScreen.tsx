@@ -27,6 +27,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { TopMenuItemType } from 'src/redux/topMenu/types';
 import { AnimatedHeader } from 'src/components/atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { useAdMob } from 'src/hooks/useAdMob';
 
 export enum TabType {
   opinion = 'opinion',
@@ -46,6 +47,8 @@ export const SectionsScreen = () => {
   const [index, setIndex] = React.useState(0);
   const [routes, setNewRoutes] = useState<any>([]);
   const [scrollY, setScrollY] = useState<any>([]);
+
+  const { loadInterstitialAd } = useAdMob();
 
   const renderScene = ({ route }: any) => {
     const tabIndex = route.key.match(/\d+/g) || ['0'];
@@ -81,7 +84,7 @@ export const SectionsScreen = () => {
   }
 
   useEffect(() => {
-    updatedTopMenuData()
+    updatedTopMenuData();
   }, [topMenuData])
 
   const updatedTopMenuData = () => {

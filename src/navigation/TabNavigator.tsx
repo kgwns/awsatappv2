@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from 'react';
+import React, { FunctionComponent, useEffect } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import {
     createBottomTabNavigator,
@@ -12,11 +12,12 @@ import { colors, CustomThemeType } from '../shared/styles/colors';
 import { ImagesName } from 'src/shared/styles/images';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { getSvgImages } from 'src/shared/styles/svgImages';
-import { isIOS, isNonEmptyArray, isTab, normalize, recordCurrentScreen, screenWidth } from 'src/shared/utils';
+import { isIOS, isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils';
 import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { useNavigation, useNavigationState, DrawerActions } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useOrientation } from 'src/hooks';
+import { useAdMob } from 'src/hooks/useAdMob';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -70,6 +71,12 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
     const {isPortrait} = useOrientation();
+    const { loadInterstitialAd, showInterstitialAd } = useAdMob();
+
+    useEffect(() => {        
+        // loadInterstitialAd();
+    }, []);
+
     return (
         <View style={[style.bottomBar, { backgroundColor: themeData.primaryWhite }, isTab && !isPortrait && style.bottomBarLandscape]}>
             {state.routes.map((route, index) => {
@@ -80,6 +87,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                 const onPress = async () => {
                     
                     if (!isFocused) {
+                        // showInterstitialAd();
                         navigation.navigate(route.name);
                     }else{
                         global.refFlatList.current?.scrollToOffset({ offset: -100 })

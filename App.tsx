@@ -14,14 +14,16 @@ import { checkPermission } from 'src/shared/utils/LocationPermission';
 import { isIOS, isTab } from 'src/shared/utils';
 import { FetchArabicData } from 'src/firebase/RemoteConfig/RemoteConfig';
 import { Adjust } from 'react-native-adjust';
-import { LoadAppOpenAd, initializeAdMob } from 'src/admob/admob';
+import { useAdMob } from 'src/hooks/useAdMob';
 
 const App = () => {
 
   const permissionDelay = isIOS ? 4000 : 5500;
+  const {initializeAdMob, loadAppOpenAd} = useAdMob();
   
   useEffect(() => {
     initializeAdMob();
+    loadAppOpenAd();
     if (isTab) {
       Orientation.unlockAllOrientations()
     } else {
@@ -64,7 +66,6 @@ const App = () => {
       <FetchArabicData/>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider initial={DEFAULT_LIGHT_THEME} >
-          <LoadAppOpenAd />
           <SplashNavigation />
         </ThemeProvider>
       </PersistGate>

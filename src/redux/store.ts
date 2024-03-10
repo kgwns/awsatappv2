@@ -24,9 +24,9 @@ const sagaMiddleware = createSagaMiddleware();
 
 //MiddleWare
 let middleware = applyMiddleware(sagaMiddleware)
-if (__DEV__) {
-  middleware = applyMiddleware(sagaMiddleware, logger)
-}
+// if (__DEV__) {
+//   middleware = applyMiddleware(sagaMiddleware, logger)
+// }
 
 // Mount it on the Store
 const store = createStore(
