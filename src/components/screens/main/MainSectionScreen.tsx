@@ -37,6 +37,7 @@ import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget'
 import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
+import { useAdMob } from 'src/hooks/useAdMob';
 
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
@@ -641,6 +642,7 @@ export const MainSectionScreen = React.memo((
     }
   }
 
+  const {standardBanner} = useAdMob();
   const renderMobile = () => (
     <View style={mainSectionStyle.mainContainer}>
       <Divider style={mainSectionStyle.dividerTop} />
@@ -653,6 +655,7 @@ export const MainSectionScreen = React.memo((
         <TopHeadLineNews data={headlineNews} />
       </View>
       {isNonEmptyArray(featuredArticleInfo) && <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />}
+      {standardBanner(screenWidth, 250)}
       {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
@@ -662,6 +665,7 @@ export const MainSectionScreen = React.memo((
       />}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false}/>
+      {standardBanner(screenWidth, 250)}
       {isNonEmptyArray(opinionListData) && 
       <AuthorSlider data={opinionListData} 
         selectedType={selectedType} 
@@ -672,6 +676,7 @@ export const MainSectionScreen = React.memo((
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast}/>
         </View>}
+      {standardBanner(screenWidth, 250)}
       {/* <BannerArticleSection data={editorsChoiceInfo} // Commented in the update of AMAR-1018 
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         onPress={onPressArticle}

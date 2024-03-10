@@ -225,13 +225,16 @@ export const SectionsScreen = () => {
       />
     );
   };
-
+  const { standardBanner } = useAdMob();
   const renderHeader = () => {
     return(
       scrollY.map((_: any, i: number) => {
         if(index === i){
           return(
-            <AnimatedHeader key={i} scrollY={scrollY[index]} />
+            <>
+              <AnimatedHeader key={i} scrollY={scrollY[index]} />
+              {standardBanner()}
+            </>
           )
         }else{
           return null

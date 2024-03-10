@@ -39,6 +39,7 @@ import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import ArticleLiveBlog from './components/ArticleLiveBlog'
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics'
+import { useAdMob } from 'src/hooks/useAdMob'
 export interface ArticleDetailScreenProps {
   route: any
 }
@@ -563,9 +564,11 @@ export const ArticleDetailScreen = ({
             showReplay={showReplay}
             setReset={(show: boolean) => setShowReplay(show)}
           />
+          {standardBanner(screenWidth, 250)}
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
           { isNotEmpty(item.scribbleLiveId) && <ArticleLiveBlog scribbleId={item.scribbleLiveId}/>}
+          {standardBanner(screenWidth, 250)}
           <Divider style={style.divider} />
         </>
         }
@@ -625,12 +628,14 @@ export const ArticleDetailScreen = ({
     }
   }
 
+  const {standardBanner} = useAdMob();
   return (
     <ScreenContainer edge={edge} isLoading={isLoading}  isLandscape 
     backgroundColor={fullScreenBackgroundColor}
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isTab ? 104 : isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading === false}>
       {isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
+        {standardBanner()}
         <FlatList
           testID='ArticleDetailScreenFlatlist01'
           onViewableItemsChanged={onViewableItemRef.current}

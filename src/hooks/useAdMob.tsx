@@ -1,11 +1,13 @@
-import mobileAds, { AdEventType, AppOpenAd, InterstitialAd, TestIds } from 'react-native-google-mobile-ads';
+import mobileAds, { AdEventType, AppOpenAd, BannerAd, InterstitialAd, TestIds } from 'react-native-google-mobile-ads';
 import { useEffect, useState } from 'react';
+import { screenWidth } from 'src/shared/utils';
 
 export interface UseAdMobReturn {
     initializeAdMob(): void,
     loadAppOpenAd(): void,
     loadInterstitialAd(): void,
-    showInterstitialAd(): void
+    showInterstitialAd(): void,
+    standardBanner(width?: number, height?: number): JSX.Element
 }
 
 export const useAdMob = (): UseAdMobReturn => {
@@ -61,10 +63,23 @@ export const useAdMob = (): UseAdMobReturn => {
         }
     };
 
+    const standardBanner = (width?: number, height?: number) => {
+        width = width ? width : screenWidth;
+        height = height ? height : 50;
+
+        return (
+            <BannerAd                
+                  unitId={TestIds.BANNER}
+                  size={width + "x" + height}
+              />
+        );
+    };
+
     return {
         initializeAdMob,
         loadAppOpenAd,
         loadInterstitialAd,
-        showInterstitialAd
+        showInterstitialAd,
+        standardBanner
     };
 };
