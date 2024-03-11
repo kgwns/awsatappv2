@@ -14,6 +14,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreenContainer } from 'src/components/screens'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants'
+import { MY_NEWS_FIRST_INDEX, MY_NEWS_SECOND_INDEX, standardBanner } from 'src/hooks/useAdMob'
 
 export const keyExtractor = (_: any, index: number) => index.toString();
 
@@ -166,6 +167,9 @@ export const MyNewsTopics = () => {
                     containerStyle={styles.containerStyle}
                     articleItemStyle={articleItemStyle}
                 />
+                {(index == (MY_NEWS_FIRST_INDEX - 1) || index == (MY_NEWS_SECOND_INDEX - 1)) && 
+                    <View style={{marginBottom: 20}}>{standardBanner(screenWidth, 250)}</View>
+                }
             </View>
         )
     };
@@ -245,7 +249,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     imageStyle: {
         width: '100%',
         height: 'auto',
-        aspectRatio: 1.34,
+        aspectRatio: 1.34
     },
     tabImageStyle: {
         // Enable when New UI change requested
@@ -256,7 +260,6 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
     listContainer: {
         flex: 1,
         paddingTop: 20,
-        marginHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
         backgroundColor: colors.transparent,
         paddingBottom: isTab ? 20 : 0,
     },
@@ -296,6 +299,7 @@ const customStyle = (theme: CustomThemeType) => StyleSheet.create({
         backgroundColor: theme.backgroundColor,
     },
     containerStyle:{ 
-        paddingTop: normalize(20) 
+        paddingTop: normalize(20) ,
+        marginHorizontal: (isTab ? 0.02 : 0.04) * screenWidth,
     }
 })
