@@ -5,11 +5,10 @@ import {
   getMostReadError,
 } from 'src/redux/mostRead/selectors';
 import {fetchMostRead} from 'src/redux/mostRead/action';
-import {MostReadItemType} from 'src/redux/mostRead/types';
 
 export interface UseMostReadReturn {
   isLoading: boolean;
-  mostReadData: MostReadItemType[];
+  mostReadData: any;
   mostReadError: string;
   fetchMostReadRequest(): void;
 }
