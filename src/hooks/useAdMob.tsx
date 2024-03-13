@@ -19,20 +19,6 @@ export const ARCHIVES_UNIT_ID = 'Archives';
 export const NEWS_UNIT_ID = 'Most_Read';
 export const ARTICLE_UNIT_ID = 'Buddhist';
 
-export const standardBanner = (unitId: string, width?: number, height?: number) => {
-    width = width ? width : screenWidth;
-    height = height ? height : 50;
-
-    const appUnitId = __DEV__ ? TestIds.BANNER : `/5910/AsharqAlawsat_APP/ADR/${unitId}`;
-
-    return (
-        <BannerAd                
-              unitId={appUnitId}
-              size={width + "x" + height}
-          />
-    );
-};
-
 export interface UseAdMobReturn {
     initializeAdMob(): void,
     loadAppOpenAd(): void,
@@ -48,29 +34,22 @@ export const useAdMob = (): UseAdMobReturn => {
     };
 
     const loadAppOpenAd = () => {
-        const adUnitId = __DEV__ ? TestIds.APP_OPEN : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';    
-        const appOpenAd = AppOpenAd.createForAdRequest(adUnitId, {
-            requestNonPersonalizedAdsOnly: true,
-            keywords: ['fashion', 'clothing'],
-        });
-        console.log(appOpenAd);
+        const adUnitId = __DEV__ ? TestIds.APP_OPEN : '/5910/AsharqAlawsat_APP/ADR/App-Open';    
+        const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
 
         appOpenAd.addAdEventListener(AdEventType.LOADED, () => {
             appOpenAd.show();
         });
         appOpenAd.addAdEventListener(AdEventType.ERROR, (error) => {
-            console.log(error);
+            console.log('App open ad error:', error);
         });
         appOpenAd.load();
     };
 
     const loadInterstitialAd = () => {
         console.log("loadInterstitialAd called");
-        const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : 'ca-app-pub-xxxxxxxxxxxxx/yyyyyyyyyyyyyy';
-        setInterstitial(InterstitialAd.createForAdRequest(adUnitId, {
-            requestNonPersonalizedAdsOnly: true,
-            keywords: ['fashion', 'clothing'],
-        }));
+        const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : '/5910/AsharqAlawsat_APP/ADR/Interstitial';
+        setInterstitial(InterstitialAd.createForAdRequest(adUnitId));
     };
     
     useEffect(() => {

@@ -27,7 +27,8 @@ import { fonts } from 'src/shared/styles/fonts';
 import { TopMenuItemType } from 'src/redux/topMenu/types';
 import { AnimatedHeader } from 'src/components/atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { HOME_UNIT_ID, standardBanner, useAdMob } from 'src/hooks/useAdMob';
+import { HOME_UNIT_ID, useAdMob } from 'src/hooks/useAdMob';
+import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
 
 export enum TabType {
   opinion = 'opinion',
@@ -233,7 +234,7 @@ export const SectionsScreen = () => {
           return(
             <>
               <AnimatedHeader key={i} scrollY={scrollY[index]} />
-              {standardBanner(HOME_UNIT_ID)}
+              <AdContainer unitId={HOME_UNIT_ID}/>
             </>
           )
         }else{

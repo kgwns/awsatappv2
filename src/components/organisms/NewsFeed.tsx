@@ -26,7 +26,8 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppCommon, useAppPlayer } from 'src/hooks';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 import { Styles } from 'src/shared/styles';
-import { ARTICLE_CATEGORY_FIRST_INDEX, ARTICLE_CATEGORY_SECOND_INDEX, ARTICLE_CATEGORY_THIRD_INDEX, ARTICLE_UNIT_ID, NEWS_UNIT_ID, standardBanner } from 'src/hooks/useAdMob';
+import { ARTICLE_CATEGORY_FIRST_INDEX, ARTICLE_CATEGORY_SECOND_INDEX, ARTICLE_CATEGORY_THIRD_INDEX, ARTICLE_UNIT_ID } from 'src/hooks/useAdMob';
+import { AdContainer } from '../atoms/adContainer/AdContainer';
 
 export interface NewsFeedProps {
   title: string;
@@ -168,14 +169,12 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelConta
         {index === (ARTICLE_CATEGORY_FIRST_INDEX - 1) && 
           <>
             <Divider style={[style.divider, {marginBottom: 20}]}/>
-            {standardBanner(ARTICLE_UNIT_ID, screenWidth, 200)}
+            <AdContainer unitId={ARTICLE_UNIT_ID} height={200}/>
           </>
         }
         <Divider style={style.divider}/>
         { (index === (ARTICLE_CATEGORY_SECOND_INDEX - 1) || index === (ARTICLE_CATEGORY_THIRD_INDEX - 1)) && 
-          <>
-            {standardBanner(ARTICLE_UNIT_ID, screenWidth, 250)}
-          </>
+          <AdContainer unitId={ARTICLE_UNIT_ID} height={250}/>
         }
         {isLoading && data.length - 1 === index && (
           <View style={style.loaderStyle}>
