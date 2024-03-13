@@ -14,7 +14,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreenContainer } from 'src/components/screens'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants'
-import { MY_NEWS_FIRST_INDEX, MY_NEWS_SECOND_INDEX, standardBanner } from 'src/hooks/useAdMob'
+import { MY_NEWS_FIRST_INDEX, MY_NEWS_SECOND_INDEX, NEWS_UNIT_ID, standardBanner } from 'src/hooks/useAdMob'
 
 export const keyExtractor = (_: any, index: number) => index.toString();
 
@@ -168,7 +168,7 @@ export const MyNewsTopics = () => {
                     articleItemStyle={articleItemStyle}
                 />
                 {(index == (MY_NEWS_FIRST_INDEX - 1) || index == (MY_NEWS_SECOND_INDEX - 1)) && 
-                    <View style={{marginBottom: 20}}>{standardBanner(screenWidth, 250)}</View>
+                    <View style={{marginBottom: 20}}>{standardBanner(NEWS_UNIT_ID, screenWidth, 250)}</View>
                 }
             </View>
         )

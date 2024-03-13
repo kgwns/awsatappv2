@@ -20,7 +20,7 @@ import { PodcastEpisodeModal } from 'src/components/screens'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useOrientation } from 'src/hooks'
 import { BookMarkColorType } from '../articleFooter/ArticleFooter'
-import { standardBanner } from 'src/hooks/useAdMob'
+import { ARCHIVES_UNIT_ID, standardBanner } from 'src/hooks/useAdMob'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -93,7 +93,7 @@ export const PopulateWidget = ({
     const podcastStyle = isTab ? style.podcastContainerTab : style.podcastContainer;
     switch (type) {
         case 'ad':
-            return <View>{standardBanner(screenWidth, 250)}</View>
+            return <View>{standardBanner(ARCHIVES_UNIT_ID, screenWidth, 250)}</View>
         case PopulateWidgetType.ARTICLE:
             return <View style={containerStyle}>
                 <ArticleItem

@@ -15,7 +15,7 @@ import { MyNewsWriters } from 'src/components/organisms';
 import { useLogin } from 'src/hooks';
 
 import { useNavigation } from '@react-navigation/native';
-import { standardBanner } from 'src/hooks/useAdMob';
+import { NEWS_UNIT_ID, standardBanner } from 'src/hooks/useAdMob';
 
 export enum MyNewsTabType {
   media = 'media',
@@ -136,7 +136,7 @@ export const MyNewsScreen = () => {
       onCloseSignUpAlert={onCloseSignUpAlert}>
       {isLoggedIn ? (
         <View style={ styles.scene} testID={'tabContent'}>
-          {standardBanner()}
+          {standardBanner(NEWS_UNIT_ID)}
           {routes.length > 0 && tabsView()}
         </View>
       ) : (

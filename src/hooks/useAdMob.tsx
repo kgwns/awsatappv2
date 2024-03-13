@@ -13,13 +13,21 @@ export const MOST_READ_FIRST_INDEX = 3;
 
 export const FAVORITE_FIRST_INDEX = 3;
 
-export const standardBanner = (width?: number, height?: number) => {
+export const HOME_UNIT_ID = 'Most_Read';
+export const MOST_READ_UNIT_ID = 'News';
+export const ARCHIVES_UNIT_ID = 'Archives';
+export const NEWS_UNIT_ID = 'Most_Read';
+export const ARTICLE_UNIT_ID = 'Buddhist';
+
+export const standardBanner = (unitId: string, width?: number, height?: number) => {
     width = width ? width : screenWidth;
     height = height ? height : 50;
 
+    const appUnitId = __DEV__ ? TestIds.BANNER : `/5910/AsharqAlawsat_APP/ADR/${unitId}`;
+
     return (
         <BannerAd                
-              unitId={TestIds.BANNER}
+              unitId={appUnitId}
               size={width + "x" + height}
           />
     );

@@ -4,7 +4,7 @@ import { PopulateWidget } from 'src/components/molecules'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useAppPlayer } from 'src/hooks'
-import { FAVORITE_FIRST_INDEX, standardBanner } from 'src/hooks/useAdMob'
+import { ARCHIVES_UNIT_ID, FAVORITE_FIRST_INDEX, standardBanner } from 'src/hooks/useAdMob'
 
 export interface DynamicWidgetProps {
     data: any[],
@@ -42,7 +42,7 @@ export const DynamicWidget = ({
                     onPressBookmark={() => onPressBookmark(item)}
                     selectedTrack={selectedTrack} />
                 {index == (FAVORITE_FIRST_INDEX - 1) && 
-                    <View style={{marginBottom: 20}}>{standardBanner(screenWidth, 250)}</View>
+                    <View style={{marginBottom: 20}}>{standardBanner(ARCHIVES_UNIT_ID, screenWidth, 250)}</View>
                 }            
             </>
         )
