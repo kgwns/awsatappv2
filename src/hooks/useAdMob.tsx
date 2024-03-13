@@ -11,6 +11,8 @@ export const MY_NEWS_SECOND_INDEX = 5;
 
 export const MOST_READ_FIRST_INDEX = 3;
 
+export const FAVORITE_FIRST_INDEX = 3;
+
 export const standardBanner = (width?: number, height?: number) => {
     width = width ? width : screenWidth;
     height = height ? height : 50;

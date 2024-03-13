@@ -1,9 +1,10 @@
 import { ActivityIndicator, FlatList, ListRenderItem, View, StyleSheet } from 'react-native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { PopulateWidget } from 'src/components/molecules'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useAppPlayer } from 'src/hooks'
+import { FAVORITE_FIRST_INDEX, standardBanner } from 'src/hooks/useAdMob'
 
 export interface DynamicWidgetProps {
     data: any[],
@@ -36,11 +37,23 @@ export const DynamicWidget = ({
 
     const renderItem: ListRenderItem<any> = ({ item, index }) => {
         return (
-            <PopulateWidget key={index} {...item}
-                onPressBookmark={() => onPressBookmark(item)}
-                selectedTrack={selectedTrack} />
+            <>
+                <PopulateWidget key={index} {...item}
+                    onPressBookmark={() => onPressBookmark(item)}
+                    selectedTrack={selectedTrack} />
+                {index == (FAVORITE_FIRST_INDEX - 1) && 
+                    <View style={{marginBottom: 20}}>{standardBanner(screenWidth, 250)}</View>
+                }            
+            </>
         )
     }
+
+    const [items, setItems] = useState<any[]>();
+    useEffect(() => {
+        if (isNonEmptyArray(data)) {
+            setItems([...data, {type: 'ad'}])
+        }
+    }, data);
     
     if(!isNonEmptyArray(data)) {
         return null
@@ -49,7 +62,7 @@ export const DynamicWidget = ({
     return(
         <FlatList 
            style={styles.container}
-           data={data}
+           data={items}
            keyExtractor={(_,index) => index.toString()}
            renderItem={renderItem}
            numColumns={isTab ? 2 : 1}
