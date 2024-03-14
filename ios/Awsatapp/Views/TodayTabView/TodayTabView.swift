@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import GoogleMobileAds
 
 class TodayTabView: UIView, LoadingView {
   
@@ -38,6 +39,8 @@ class TodayTabView: UIView, LoadingView {
 
     // MARK: - Outlets
     private var collectionView: UICollectionView!
+  private var bannerView: GAMBannerView!
+  private var bannerView2: GAMBannerView!
 
     // MARK: - Datasource
     var datasource: [CollectionViewCellType] = [] {
@@ -66,6 +69,14 @@ class TodayTabView: UIView, LoadingView {
     // MARK: - Private
   
     private func setUp() {
+      let viewWidth = frame.inset(by: safeAreaInsets).width
+      let adaptiveSize = GADCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(viewWidth)
+      bannerView = GAMBannerView(adSize: adaptiveSize)
+      bannerView2 = GAMBannerView(adSize: adaptiveSize)
+
+
+        setUpBannerView()
+        setUpBannerView2()
         setUpCollectionView()
         setUpLoadingIndicator()
         addObservers()
@@ -112,12 +123,63 @@ class TodayTabView: UIView, LoadingView {
       
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: self.topAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+          collectionView.topAnchor.constraint(equalTo: bannerView.bottomAnchor),
+            collectionView.bottomAnchor.constraint(equalTo: bannerView2.topAnchor),
             collectionView.leftAnchor.constraint(equalTo: self.leftAnchor),
             collectionView.rightAnchor.constraint(equalTo: self.rightAnchor)
         ])
     }
+  
+    private func setUpBannerView() {
+      bannerView.translatesAutoresizingMaskIntoConstraints = false
+      addSubview(bannerView)
+      addConstraints(
+        [NSLayoutConstraint(item: bannerView!,
+                            attribute: .top,
+                            relatedBy: .equal,
+                            toItem: safeAreaLayoutGuide,
+                            attribute: .top,
+                            multiplier: 1,
+                            constant: 0),
+         NSLayoutConstraint(item: bannerView!,
+                            attribute: .centerX,
+                            relatedBy: .equal,
+                            toItem: self,
+                            attribute: .centerX,
+                            multiplier: 1,
+                            constant: 0)
+        ])
+      
+      bannerView.adUnitID = "/5910/AsharqAlawsat_APP/ADR/Newspaper"
+
+      bannerView.load(GAMRequest())
+    
+   }
+  
+  private func setUpBannerView2() {
+     bannerView2.translatesAutoresizingMaskIntoConstraints = false
+     addSubview(bannerView2)
+     addConstraints(
+       [NSLayoutConstraint(item: bannerView2!,
+                           attribute: .bottom,
+                           relatedBy: .equal,
+                           toItem: safeAreaLayoutGuide,
+                           attribute: .bottom,
+                           multiplier: 1,
+                           constant: 0),
+        NSLayoutConstraint(item: bannerView2!,
+                           attribute: .centerX,
+                           relatedBy: .equal,
+                           toItem: self,
+                           attribute: .centerX,
+                           multiplier: 1,
+                           constant: 0)])
+     
+     bannerView2.adUnitID = "/5910/AsharqAlawsat_APP/ADR/Newspaper"
+
+     bannerView2.load(GAMRequest())
+   
+  }
 
     private func addObservers() {
         readPDFEditionNotificationToken = NotificationCenter.default.addObserver(descriptor: PDFEdition.readPDFEditionNotification) { [weak self] (pdfEditionNotificationInfoPayload) in
