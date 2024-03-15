@@ -49,8 +49,6 @@ export const SectionsScreen = () => {
   const [routes, setNewRoutes] = useState<any>([]);
   const [scrollY, setScrollY] = useState<any>([]);
 
-  const { loadInterstitialAd } = useAdMob();
-
   const renderScene = ({ route }: any) => {
     const tabIndex = route.key.match(/\d+/g) || ['0'];
 

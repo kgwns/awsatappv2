@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FunctionComponent } from 'react';
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
 import {
     createBottomTabNavigator,
@@ -17,7 +17,7 @@ import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
 import { useNavigation, useNavigationState, DrawerActions } from '@react-navigation/native';
 import { ScreensConstants } from 'src/constants/Constants';
 import { useOrientation } from 'src/hooks';
-import { useAdMob } from 'src/hooks/useAdMob';
+import { useInterstitial } from 'src/hooks/useInterstitial';
 
 const Tab = createBottomTabNavigator<ScreenName>();
 
@@ -71,11 +71,7 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
     const { themeData } = useTheme()
     const style = useThemeAwareObject(customStyle);
     const {isPortrait} = useOrientation();
-    const { loadInterstitialAd, showInterstitialAd } = useAdMob();
-
-    useEffect(() => {        
-        // loadInterstitialAd();
-    }, []);
+    const { showInterstitialAd } = useInterstitial();
 
     return (
         <View style={[style.bottomBar, { backgroundColor: themeData.primaryWhite }, isTab && !isPortrait && style.bottomBarLandscape]}>
@@ -87,8 +83,8 @@ const CustomTabBar: FunctionComponent<BottomTabBarProps> = ({
                 const onPress = async () => {
                     
                     if (!isFocused) {
-                        // showInterstitialAd();
                         navigation.navigate(route.name);
+                        await showInterstitialAd();
                     }else{
                         global.refFlatList.current?.scrollToOffset({ offset: -100 })
                     }

@@ -1,6 +1,4 @@
-import mobileAds, { AdEventType, AppOpenAd, BannerAd, InterstitialAd, TestIds } from 'react-native-google-mobile-ads';
-import { useEffect, useState } from 'react';
-import { screenWidth } from 'src/shared/utils';
+import mobileAds, { AdEventType, AppOpenAd, TestIds } from 'react-native-google-mobile-ads';
 
 export const ARTICLE_CATEGORY_FIRST_INDEX = 3;
 export const ARTICLE_CATEGORY_SECOND_INDEX = 8;
@@ -21,20 +19,16 @@ export const ARTICLE_UNIT_ID = 'Buddhist';
 
 export interface UseAdMobReturn {
     initializeAdMob(): void,
-    loadAppOpenAd(): void,
-    loadInterstitialAd(): void,
-    showInterstitialAd(): void
+    loadAppOpenAd(): void
 }
 
 export const useAdMob = (): UseAdMobReturn => {
-    const [interstitial, setInterstitial] = useState<InterstitialAd>();
-    
     const initializeAdMob = () => {
         mobileAds().initialize();
     };
 
     const loadAppOpenAd = () => {
-        const adUnitId = __DEV__ ? TestIds.APP_OPEN : '/5910/AsharqAlawsat_APP/ADR/App-Open';    
+        const adUnitId = __DEV__ ? TestIds.APP_OPEN : '/5910/AsharqAlawsat_APP/ADR/App-Open';
         const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
 
         appOpenAd.addAdEventListener(AdEventType.LOADED, () => {
@@ -46,36 +40,8 @@ export const useAdMob = (): UseAdMobReturn => {
         appOpenAd.load();
     };
 
-    const loadInterstitialAd = () => {
-        console.log("loadInterstitialAd called");
-        const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : '/5910/AsharqAlawsat_APP/ADR/Interstitial';
-        setInterstitial(InterstitialAd.createForAdRequest(adUnitId));
-    };
-    
-    useEffect(() => {
-        console.log("interstitial", interstitial);
-        if (interstitial) {
-            interstitial.addAdEventListener(AdEventType.ERROR, (error) => {
-                console.log('interstitial load', error);
-            });
-            console.log("interstitial load");
-            interstitial.load();
-        }
-    }, [interstitial]);
-
-    const showInterstitialAd = () => {
-        console.log('show interstitial: ', interstitial);
-        if (interstitial) {
-            interstitial.show();
-        } else {
-            console.error("Interstitial Ad is not loaded, call loadInterstitialAd before");
-        }
-    };
-
     return {
         initializeAdMob,
-        loadAppOpenAd,
-        loadInterstitialAd,
-        showInterstitialAd
+        loadAppOpenAd
     };
 };
