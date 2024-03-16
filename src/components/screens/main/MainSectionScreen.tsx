@@ -38,7 +38,7 @@ import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints'
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 import { HOME_UNIT_ID } from 'src/hooks/useAdMob';
-import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 const opinionListPayload: LatestArticleBodyGet = {
   items_per_page: 20,
@@ -655,7 +655,7 @@ export const MainSectionScreen = React.memo((
         <TopHeadLineNews data={headlineNews} />
       </View>
       {isNonEmptyArray(featuredArticleInfo) && <ArticleSection data={featuredArticleInfo} onUpdateBookmark={updateBookmarkInfo} />}
-      <AdContainer unitId={HOME_UNIT_ID} height={250}/>
+      <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
       {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
@@ -665,7 +665,7 @@ export const MainSectionScreen = React.memo((
       />}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false}/>
-      <AdContainer unitId={HOME_UNIT_ID} height={250}/>
+      <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
       {isNonEmptyArray(opinionListData) && 
       <AuthorSlider data={opinionListData} 
         selectedType={selectedType} 
@@ -676,7 +676,7 @@ export const MainSectionScreen = React.memo((
         <View>
           <PodcastWidget data={podcastHome} onPress={onListenPodcast} onMorePress={goToPodcast}/>
         </View>}
-      <AdContainer unitId={HOME_UNIT_ID} height={250}/>
+      <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
       {/* <BannerArticleSection data={editorsChoiceInfo} // Commented in the update of AMAR-1018 
         title={CONST_EDITOR_CHOICE_HEADER_TITLE}
         onPress={onPressArticle}

@@ -16,7 +16,7 @@ import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { fonts } from 'src/shared/styles/fonts';
 import { Label } from '../atoms';
 import { isArticleCategoryIndex, OPINION_UNIT_ID } from 'src/hooks/useAdMob';
-import { AdContainer } from '../atoms/adContainer/AdContainer';
+import { AdContainer, AdContainerSize } from '../atoms/adContainer/AdContainer';
 
 interface OpinionWritersArticlesSectionProps {
   data: OpinionsListItemType[];
@@ -77,7 +77,7 @@ const OpinionWritersArticlesSection = ({
           hideImageView={hideImageView}
         />
         { isArticleCategoryIndex(index) && 
-          <AdContainer style={{marginTop: -20, marginBottom: 20}} unitId={OPINION_UNIT_ID} height={250}/>
+          <AdContainer style={{marginTop: -20, marginBottom: 20}} unitId={OPINION_UNIT_ID} size={AdContainerSize.MEDIUM}/>
         }
         {isLoading && data.length - 1 === index && (
           <View style={style.loaderStyle}>

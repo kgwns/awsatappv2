@@ -40,7 +40,7 @@ import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import ArticleLiveBlog from './components/ArticleLiveBlog'
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics'
 import { HOME_UNIT_ID } from 'src/hooks/useAdMob'
-import { AdContainer } from 'src/components/atoms/adContainer/AdContainer'
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 export interface ArticleDetailScreenProps {
   route: any
 }
@@ -565,11 +565,11 @@ export const ArticleDetailScreen = ({
             showReplay={showReplay}
             setReset={(show: boolean) => setShowReplay(show)}
           />
-          <AdContainer unitId={HOME_UNIT_ID} height={250}/>
+          <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
           { isNotEmpty(item.scribbleLiveId) && <ArticleLiveBlog scribbleId={item.scribbleLiveId}/>}
-          <AdContainer unitId={HOME_UNIT_ID} height={250}/>
+          <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
           <Divider style={style.divider} />
         </>
         }

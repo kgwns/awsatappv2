@@ -5,7 +5,7 @@ import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useAppPlayer } from 'src/hooks'
 import { ARCHIVES_UNIT_ID, FAVORITE_FIRST_INDEX } from 'src/hooks/useAdMob'
-import { AdContainer } from 'src/components/atoms/adContainer/AdContainer'
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export interface DynamicWidgetProps {
     data: any[],
@@ -43,7 +43,7 @@ export const DynamicWidget = ({
                     onPressBookmark={() => onPressBookmark(item)}
                     selectedTrack={selectedTrack} />
                 {index == (FAVORITE_FIRST_INDEX - 1) && 
-                    <AdContainer style={{marginBottom: 20}} unitId={ARCHIVES_UNIT_ID} height={250}/>
+                    <AdContainer style={{marginBottom: 20}} unitId={ARCHIVES_UNIT_ID} size={AdContainerSize.MEDIUM}/>
                 }            
             </>
         )

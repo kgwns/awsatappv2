@@ -15,7 +15,7 @@ import { ScreenContainer } from 'src/components/screens'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { MY_NEWS_FIRST_INDEX, MY_NEWS_SECOND_INDEX, NEWS_UNIT_ID } from 'src/hooks/useAdMob'
-import { AdContainer } from 'src/components/atoms/adContainer/AdContainer'
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export const keyExtractor = (_: any, index: number) => index.toString();
 
@@ -169,7 +169,7 @@ export const MyNewsTopics = () => {
                     articleItemStyle={articleItemStyle}
                 />
                 {(index == (MY_NEWS_FIRST_INDEX - 1) || index == (MY_NEWS_SECOND_INDEX - 1)) && 
-                    <AdContainer style={{marginBottom: 20}} unitId={NEWS_UNIT_ID} height={250}/>
+                    <AdContainer style={{marginBottom: 20}} unitId={NEWS_UNIT_ID} size={AdContainerSize.MEDIUM}/>
                 }
             </View>
         )

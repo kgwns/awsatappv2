@@ -9,7 +9,7 @@ import { useIsFocused } from '@react-navigation/native'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { colors } from 'src/shared/styles/colors'
 import { ARCHIVES_UNIT_ID } from 'src/hooks/useAdMob'
-import { AdContainer } from 'src/components/atoms/adContainer/AdContainer'
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export const Archives = () => {
     const isFocused = useIsFocused()
@@ -250,7 +250,7 @@ export const Archives = () => {
         return <View
             style={styles.noFavoriteMessage}>
             <Label style={{marginBottom: 20}} children={noContentTitle} labelType={LabelTypeProp.h1} />
-            <AdContainer unitId={ARCHIVES_UNIT_ID} height={250}/>
+            <AdContainer unitId={ARCHIVES_UNIT_ID} size={AdContainerSize.MEDIUM}/>
         </View>
     }
 

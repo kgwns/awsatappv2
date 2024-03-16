@@ -27,7 +27,7 @@ import { useAppCommon, useAppPlayer } from 'src/hooks';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 import { Styles } from 'src/shared/styles';
 import { ARTICLE_CATEGORY_FIRST_INDEX, ARTICLE_CATEGORY_SECOND_INDEX, ARTICLE_CATEGORY_THIRD_INDEX } from 'src/hooks/useAdMob';
-import { AdContainer } from '../atoms/adContainer/AdContainer';
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 export interface NewsFeedProps {
   title: string;
@@ -175,7 +175,7 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelConta
         }
         <Divider style={style.divider}/>
         { (index === (ARTICLE_CATEGORY_SECOND_INDEX - 1) || index === (ARTICLE_CATEGORY_THIRD_INDEX - 1)) && 
-          <AdContainer unitId={categoryUnitId} height={250}/>
+          <AdContainer unitId={categoryUnitId} size={AdContainerSize.MEDIUM}/>
         }
         {isLoading && data.length - 1 === index && (
           <View style={style.loaderStyle}>

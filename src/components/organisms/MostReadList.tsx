@@ -17,7 +17,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from '../molecules/populateWidget/PopulateWidget';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 import { MOST_READ_FIRST_INDEX, MOST_READ_UNIT_ID } from 'src/hooks/useAdMob';
-import { AdContainer } from '../atoms/adContainer/AdContainer';
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 export interface ArticleProps
   extends ImageLabelProps,
@@ -145,7 +145,7 @@ const MostReadList = ({
   const renderItem = (item: any, index: number) => {
     if (item.nid == 'ad') {
       return (
-        <AdContainer style={{marginBottom: 20}} unitId={MOST_READ_UNIT_ID} height={250}/>
+        <AdContainer style={{marginBottom: 20}} unitId={MOST_READ_UNIT_ID} size={AdContainerSize.MEDIUM}/>
       );
     }
 
@@ -202,7 +202,7 @@ const MostReadList = ({
             articleItemStyle={style.articleItemStyle}
           />
           {(index == (MOST_READ_FIRST_INDEX - 1)) && 
-            <AdContainer style={{marginBottom: 20}} unitId={MOST_READ_UNIT_ID} height={250}/>
+            <AdContainer style={{marginBottom: 20}} unitId={MOST_READ_UNIT_ID} size={AdContainerSize.MEDIUM}/>
           }
           {isLoading && (data.length - 1 === index) && (
             <View style={style.loaderStyle}>

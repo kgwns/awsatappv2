@@ -38,7 +38,7 @@ import { formatVideoData } from 'src/redux/videoList/sagas';
 import { Styles } from 'src/shared/styles';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 import { getCategoryUnitIdBySectionKey } from 'src/hooks/useAdMob';
-import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -564,7 +564,7 @@ export const SectionStoryScreen = React.memo(({
           {renderTopArticle()}
         </>
       }
-      <AdContainer unitId={getCategoryUnitIdBySectionKey(sectionKey!)} height={250}/>
+      <AdContainer unitId={getCategoryUnitIdBySectionKey(sectionKey!)} size={AdContainerSize.MEDIUM}/>
       {!isTab && <Divider style={style.divider} />}
       <View style={style.newsFeedContainer}>
         <NewsFeed

@@ -21,7 +21,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useOrientation } from 'src/hooks'
 import { BookMarkColorType } from '../articleFooter/ArticleFooter'
 import { ARCHIVES_UNIT_ID } from 'src/hooks/useAdMob'
-import { AdContainer } from 'src/components/atoms/adContainer/AdContainer'
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export enum PopulateWidgetType {
     ARTICLE = 'article',
@@ -94,7 +94,7 @@ export const PopulateWidget = ({
     const podcastStyle = isTab ? style.podcastContainerTab : style.podcastContainer;
     switch (type) {
         case 'ad':
-            return <AdContainer unitId={ARCHIVES_UNIT_ID} height={250}/>
+            return <AdContainer unitId={ARCHIVES_UNIT_ID} size={AdContainerSize.MEDIUM}/>
         case PopulateWidgetType.ARTICLE:
             return <View style={containerStyle}>
                 <ArticleItem
