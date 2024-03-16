@@ -1,40 +1,69 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
   InterstitialAd,
   TestIds,
   AdEventType,
 } from 'react-native-google-mobile-ads';
 
-export const useInterstitial = (): any => {
+export const useInterstitial = (callback?: Function): any => {
   const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : '/5910/AsharqAlawsat_APP/ADR/Interstitial';
-  const interstitial = InterstitialAd.createForAdRequest(adUnitId);
+  const [interstitial, setInterstitial] = useState<InterstitialAd | null>();
+  
+  useEffect(() => {
+    const ad = InterstitialAd.createForAdRequest(adUnitId);
+    setInterstitial(ad);
+  }, []);
 
   useEffect(() => {
+    if (!interstitial)
+      return;
+
     const unsubscribe = interstitial.addAdEventListener(
       AdEventType.LOADED,
       () => {
-        console.log('Loaded');
         interstitial.show();
       },
     );
 
     // Unsubscribe from events on unmount
     return unsubscribe;
-  }, []);
+  }, [interstitial]);
 
   useEffect(() => {
+    if (!interstitial)
+      return;
+
     const unsubscribe = interstitial.addAdEventListener(
       AdEventType.CLOSED,
       () => {
-        console.log('closed');
+        if (callback)
+          callback();
       },
     );
 
     // Unsubscribe from events on unmount
     return unsubscribe;
-  }, []);
+  }, [interstitial]);
+
+  useEffect(() => {
+    if (!interstitial)
+      return;
+
+    const unsubscribe = interstitial.addAdEventListener(
+      AdEventType.ERROR,
+      (error) => {
+        console.log('interstitial ad error', error);
+      },
+    );
+
+    // Unsubscribe from events on unmount
+    return unsubscribe;
+  }, [interstitial]);
 
   const showInterstitialAd = async () => {
+    if (!interstitial)
+      return;
+
     interstitial.load();
   };
 

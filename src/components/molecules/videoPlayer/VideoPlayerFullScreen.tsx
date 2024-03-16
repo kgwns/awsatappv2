@@ -25,6 +25,7 @@ import {getSvgImages} from 'src/shared/styles/svgImages';
 import { SPACE_BETWEEN } from 'src/shared/styles/item-alignment';
 import { AnalyticsEvents } from 'src/shared/utils/analytics';
 import { fonts } from 'src/shared/styles/fonts';
+import { useInterstitial } from 'src/hooks/useInterstitial';
 
 export interface VideoPlayerFullScreenProp {
   url: string;
@@ -56,7 +57,8 @@ const VideoPlayerFullScreen = ({
   const [showControls, setShowControls] = useState(false);
   const [screenType, setScreenType] = useState('contain');
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
-  const analyticsProgress = useRef<number>(0)
+  const analyticsProgress = useRef<number>(0);
+  const { showInterstitialAd } = useInterstitial(resumeAfterAd);
 
   const onSeek = (seek: any) => {
     videoPlayer.current?.seek(seek);
@@ -97,6 +99,7 @@ const VideoPlayerFullScreen = ({
           }
           recordLogEvent(AnalyticsEvents.VIDEO_PROGRESS, videoEventPreset);
           analyticsProgress.current = 50
+          showAd();
         } else if ((percentageData >= 75) && (analyticsProgress.current < 75)) {
           videoEventPreset = {
             ...videoEventPreset,
@@ -129,9 +132,19 @@ const VideoPlayerFullScreen = ({
   };
 
   const onLoad = (data: any) => {
+    showAd();
     setDuration(data.duration);
     setIsLoading(false);
     onScreenTouch();
+  };
+
+  const showAd = () => {
+    showInterstitialAd();
+    setPaused(true);
+  };
+
+  function resumeAfterAd() {
+    setPaused(false);
   };
 
   const onLoadStart = (data: any) => {
