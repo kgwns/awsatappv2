@@ -26,7 +26,7 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppCommon, useAppPlayer } from 'src/hooks';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 import { Styles } from 'src/shared/styles';
-import { ARTICLE_CATEGORY_FIRST_INDEX, ARTICLE_CATEGORY_SECOND_INDEX, ARTICLE_CATEGORY_THIRD_INDEX, ARTICLE_UNIT_ID } from 'src/hooks/useAdMob';
+import { ARTICLE_CATEGORY_FIRST_INDEX, ARTICLE_CATEGORY_SECOND_INDEX, ARTICLE_CATEGORY_THIRD_INDEX } from 'src/hooks/useAdMob';
 import { AdContainer } from '../atoms/adContainer/AdContainer';
 
 export interface NewsFeedProps {
@@ -46,10 +46,11 @@ interface NewsFeedWidgetProps {
   onScroll: () => void;
   isLoading: boolean;
   onUpdateNewsFeedBookmark: (index: number) => void,
-  labelContainerStyle?: StyleProp<ViewStyle>
+  labelContainerStyle?: StyleProp<ViewStyle>,
+  categoryUnitId: string
 }
 
-const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelContainerStyle}: NewsFeedWidgetProps) => {
+const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelContainerStyle, categoryUnitId}: NewsFeedWidgetProps) => {
   const theme = useTheme();
   const navigation = useNavigation<StackNavigationProp<any>>();
   const style = useThemeAwareObject(customStyle)
@@ -169,12 +170,12 @@ const NewsFeed = ({data, onScroll, isLoading,onUpdateNewsFeedBookmark,labelConta
         {index === (ARTICLE_CATEGORY_FIRST_INDEX - 1) && 
           <>
             <Divider style={[style.divider, {marginBottom: 20}]}/>
-            <AdContainer unitId={ARTICLE_UNIT_ID} height={200}/>
+            <AdContainer unitId={categoryUnitId} height={200}/>
           </>
         }
         <Divider style={style.divider}/>
         { (index === (ARTICLE_CATEGORY_SECOND_INDEX - 1) || index === (ARTICLE_CATEGORY_THIRD_INDEX - 1)) && 
-          <AdContainer unitId={ARTICLE_UNIT_ID} height={250}/>
+          <AdContainer unitId={categoryUnitId} height={250}/>
         }
         {isLoading && data.length - 1 === index && (
           <View style={style.loaderStyle}>

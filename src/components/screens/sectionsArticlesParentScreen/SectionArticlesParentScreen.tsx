@@ -14,7 +14,8 @@ import { PhotoGalleryScreen } from '../photoGallery/PhotoGalleryScreen';
 export const SectionArticlesParentScreen = () => {
   const { params } = useRoute<RouteProp<any>>();
   const sectionId = params?.sectionId;
-  const keyName = params?.keyName || ''
+  const keyName = params?.keyName || '';
+  const sectionKey = params?.sectionKey || ''
 
   const { emptyAllListData } = useNewsView();
   const [isShowPlayer, setIsShowPlayer] = useState(false)
@@ -43,7 +44,7 @@ export const SectionArticlesParentScreen = () => {
       case TabType.photos:
         return <PhotoGalleryScreen />
       default:
-        return <SectionStoryScreen sectionId={sectionId} childInfo={[]} />;
+        return <SectionStoryScreen sectionId={sectionId} sectionKey={sectionKey} childInfo={[]} />;
     }
   }
 

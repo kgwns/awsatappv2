@@ -15,6 +15,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
+import { isArticleCategoryIndex, VIDEOS_UNIT_ID } from 'src/hooks/useAdMob';
+import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -199,45 +201,55 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   const renderDocumentaryVideoItem: ListRenderItem<VideoItemType> = ({item, index}) => {
     return (
-      <VideoItem
-        title={item.title}
-        imageUrl={item.field_thumbnil_multimedia_export}
-        des={item.body_export}
-        date={item.created_export}
-        testID='video_documentary_screen_id'
-        onPress={()=>onPressItem(item, true)}
-        video={item.field_mp4_link_export}
-        isBookmarked={item.isBookmarked}
-        time={item.field_jwplayerinfo_export}
-        videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
-        onPressBookmark={() => {updateVideosBookmark(index, videoDocumentaryInfo)}}
-        isDocumentary={true}
-        index={index}
-        subTitle={''}
-        showShare
-        link_node={item.link_node}
-      />
+      <>
+        <VideoItem
+          title={item.title}
+          imageUrl={item.field_thumbnil_multimedia_export}
+          des={item.body_export}
+          date={item.created_export}
+          testID='video_documentary_screen_id'
+          onPress={()=>onPressItem(item, true)}
+          video={item.field_mp4_link_export}
+          isBookmarked={item.isBookmarked}
+          time={item.field_jwplayerinfo_export}
+          videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
+          onPressBookmark={() => {updateVideosBookmark(index, videoDocumentaryInfo)}}
+          isDocumentary={true}
+          index={index}
+          subTitle={''}
+          showShare
+          link_node={item.link_node}
+        />
+        { isArticleCategoryIndex(index) && 
+          <AdContainer style={{marginBottom: 20}} unitId={VIDEOS_UNIT_ID} height={250}/>
+        }
+      </>
     );
   };
   const renderVideoItem: ListRenderItem<VideoItemType> = ({item, index}) => {
     return (
-      <VideoItem
-        title={item.title}
-        imageUrl={item.field_thumbnil_multimedia_export}
-        des={!isTab && item.body_export}
-        date={item.created_export}
-        testID='video_screen_id'
-        onPress={()=>onPressItem(item, false)}
-        video={item.field_mp4_link_export}
-        isBookmarked={item.isBookmarked}
-        time={item.field_jwplayerinfo_export}
-        videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
-        isVideoContents={true} 
-        onPressBookmark={() => {updateVideosBookmark(index, videoDataInfo)}}
-        index={index}
-        showShare
-        link_node={item.link_node}
-      />
+      <>
+        <VideoItem
+          title={item.title}
+          imageUrl={item.field_thumbnil_multimedia_export}
+          des={!isTab && item.body_export}
+          date={item.created_export}
+          testID='video_screen_id'
+          onPress={()=>onPressItem(item, false)}
+          video={item.field_mp4_link_export}
+          isBookmarked={item.isBookmarked}
+          time={item.field_jwplayerinfo_export}
+          videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
+          isVideoContents={true} 
+          onPressBookmark={() => {updateVideosBookmark(index, videoDataInfo)}}
+          index={index}
+          showShare
+          link_node={item.link_node}
+        />
+        { isArticleCategoryIndex(index) && 
+          <AdContainer style={{marginBottom: 20}} unitId={VIDEOS_UNIT_ID} height={250}/>
+        }
+      </>
     );
   };
   

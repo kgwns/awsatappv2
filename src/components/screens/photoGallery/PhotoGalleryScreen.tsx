@@ -19,6 +19,8 @@ import {fetchAlbumListApi} from 'src/services/photoGalleryService';
 import {AxiosError} from 'axios';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
+import { PHOTO_UNIT_ID, isArticleCategoryIndex } from 'src/hooks/useAdMob';
+import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -162,17 +164,22 @@ export const PhotoGalleryScreen = React.memo(
 
     const renderItem: ListRenderItem<any> = ({item, index}) => {
       return (
-        <PhotoGalleryItem
-          onPress={onPress}
-          onUpdateBookmark={updateBookmarkInfo}
-          index={index}
-          item={item}
-          title={item.title}
-          nid={item.nid}
-          created={item.created}
-          imageUrl={item.field_album_img_export}
-          isBookmarked={item.isBookmarked}
-        />
+        <>
+          <PhotoGalleryItem
+            onPress={onPress}
+            onUpdateBookmark={updateBookmarkInfo}
+            index={index}
+            item={item}
+            title={item.title}
+            nid={item.nid}
+            created={item.created}
+            imageUrl={item.field_album_img_export}
+            isBookmarked={item.isBookmarked}
+          />
+          { isArticleCategoryIndex(index) && 
+            <AdContainer style={{marginTop: -20, marginBottom: 20}} unitId={PHOTO_UNIT_ID} height={250}/>
+          }
+        </>
       );
     };
 

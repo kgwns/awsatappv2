@@ -72,6 +72,7 @@ export const SectionsScreen = () => {
       default:
         return (
           <SectionStoryScreen sectionId={route.field_sections}
+            sectionKey={route.key}
             currentIndex={index}
             tabIndex={parseInt(tabIndex[0])}
             childInfo={route.child}

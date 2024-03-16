@@ -628,7 +628,7 @@ export const MainSectionScreen = React.memo((
   }
 
   const goToPodcast = () => {
-    const params = { sectionId: "", title: PODCAST_TITLE, keyName: "podcast" }
+    const params = { sectionId: "", title: PODCAST_TITLE, keyName: "podcast", sectionKey: "podcast" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 
