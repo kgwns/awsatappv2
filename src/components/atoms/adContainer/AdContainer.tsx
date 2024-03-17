@@ -1,6 +1,6 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { screenWidth } from 'src/shared/utils';
+import { isTab, screenWidth } from 'src/shared/utils';
 import { BannerAd, TestIds } from 'react-native-google-mobile-ads';
 
 export enum AdContainerSize {
@@ -33,11 +33,27 @@ export const AdContainer: FunctionComponent<AdContainerProps> = ({
         if (height) {
             setAdHeight(height);
         } else if (size == AdContainerSize.DEFAULT) {
-            setAdHeight(50);
+            setAdHeight(getDefaultHeight());
         } else if (size == AdContainerSize.MEDIUM) {
-            setAdHeight(250);
+            setAdHeight(getMediumHeight());
         }
     }, [height]);
+
+    function getDefaultHeight() : number {
+        if (isTab) {
+            return screenWidth > 727 ? 90 : 60;
+        } else {
+            return 50;
+        }
+    };
+
+    function getMediumHeight() : number {
+        if (isTab) {
+            return screenWidth > 335 ? 280 : 250;
+        } else {
+            return screenWidth >= 250 ? 250 : 200;
+        }
+    }
 
     const onFailedToLoad = (error: Error) => {
         console.log('failed', error);

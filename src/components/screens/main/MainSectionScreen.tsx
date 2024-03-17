@@ -628,7 +628,7 @@ export const MainSectionScreen = React.memo((
   }
 
   const goToPodcast = () => {
-    const params = { sectionId: "", title: PODCAST_TITLE, keyName: "podcast", sectionKey: "podcast" }
+    const params = { sectionId: "", title: PODCAST_TITLE, keyName: "podcast" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 
@@ -827,6 +827,8 @@ export const MainSectionScreen = React.memo((
             <TopHeadLineNews data={headlineNews} tabContainerStyle={mainSectionStyle.tabTopNewsContainerStyle} />
           </View>
          <Divider style={mainSectionStyle.tabDividerTop} />
+         <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
+
 
            {/* <View>
             {isNonEmptyArray(videoData) && (
@@ -889,6 +891,8 @@ export const MainSectionScreen = React.memo((
         <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />
       </View>}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false} tabTitleStyle={mainSectionStyle.tabTitleStyle} tabContainerStyle={mainSectionStyle.tabContainerStyle} tabImageStyle={mainSectionStyle.tabImageStyle} />
+      <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
+
       {isNonEmptyArray(podcastHome) && isNonEmptyArray(infoGraphicBlock) ?
         <View style={mainSectionStyle.tabSplitterContainer}>
           <View style={[mainSectionStyle.tabPodcastInfoWidget, isDarkMode && {paddingRight:10}]}>
@@ -911,6 +915,7 @@ export const MainSectionScreen = React.memo((
           </View>
         </View>
       }
+      <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
       {/* <View style={[mainSectionStyle.tabWidgetContainer,{paddingBottom:30}]}>
           <BannerArticleSection data={editorsChoiceInfo}
             title={CONST_EDITOR_CHOICE_HEADER_TITLE}

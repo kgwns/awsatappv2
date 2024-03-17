@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem, Animated, ActivityIndicator} from 'react-native';
 
 import {VideoItem} from 'src/components/molecules';
-import {decodeHTMLTags, EventsValue, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent} from 'src/shared/utils';
+import {decodeHTMLTags, EventsValue, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth} from 'src/shared/utils';
 import {useNavigation} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants/Constants';
@@ -15,7 +15,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
-import { isArticleCategoryIndex, VIDEOS_UNIT_ID } from 'src/hooks/useAdMob';
+import { isVideoAdIndex, VIDEOS_UNIT_ID } from 'src/hooks/useAdMob';
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
@@ -220,13 +220,10 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
           showShare
           link_node={item.link_node}
         />
-        { isArticleCategoryIndex(index) && 
-          <AdContainer style={{marginBottom: 20}} unitId={VIDEOS_UNIT_ID} size={AdContainerSize.MEDIUM}/>
-        }
       </>
     );
   };
-  const renderVideoItem: ListRenderItem<VideoItemType> = ({item, index}) => {
+  const renderVideoItem: ListRenderItem<VideoItemType> = ({item, index}) => {    
     return (
       <>
         <VideoItem
@@ -246,8 +243,8 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
           showShare
           link_node={item.link_node}
         />
-        { isArticleCategoryIndex(index) && 
-          <AdContainer style={{marginBottom: 20}} unitId={VIDEOS_UNIT_ID} size={AdContainerSize.MEDIUM}/>
+        { isVideoAdIndex(index) && 
+          <AdContainer style={{marginBottom: 20}} unitId={VIDEOS_UNIT_ID} width={isTab ? screenWidth / 3 : screenWidth} size={AdContainerSize.MEDIUM}/>
         }
       </>
     );

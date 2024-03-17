@@ -1,8 +1,13 @@
 import mobileAds, { AdEventType, AppOpenAd, TestIds } from 'react-native-google-mobile-ads';
+import { isTab } from 'src/shared/utils';
 
-export const ARTICLE_CATEGORY_FIRST_INDEX = 3;
+export const ARTICLE_CATEGORY_FIRST_INDEX = isTab ? 4 : 3;
 export const ARTICLE_CATEGORY_SECOND_INDEX = 8;
 export const ARTICLE_CATEGORY_THIRD_INDEX = 12;
+
+export const VIDEO_FIRST_INDEX = 3;
+export const VIDEO_SECOND_INDEX = isTab ? 9 : 8;
+export const VIDEO_THIRD_INDEX = 12;
 
 export const MY_NEWS_FIRST_INDEX = 2;
 export const MY_NEWS_SECOND_INDEX = 5;
@@ -52,26 +57,31 @@ export const isArticleCategoryIndex = (index: number) => {
     return index === (ARTICLE_CATEGORY_FIRST_INDEX - 1) || index === (ARTICLE_CATEGORY_SECOND_INDEX - 1) || index === (ARTICLE_CATEGORY_THIRD_INDEX - 1);
 };
 
-export const getCategoryUnitIdBySectionKey = (key: string) => {
-    console.log(key);
-    switch(key) {
-        case '1section':
+export const isVideoAdIndex = (index: number) => {
+    const result = index === (VIDEO_FIRST_INDEX - 1) || index === (VIDEO_SECOND_INDEX - 1) || index === (VIDEO_THIRD_INDEX - 1);
+    console.log(index, result);
+    return result;
+};
+
+export const getCategoryUnitIdBySectionKey = (sectionId: string) => {
+    switch(sectionId) {
+        case '97120':
             return 'Middle_East';
-        case '2section':
+        case '871':
             return 'World';
-        case '4section':
+        case '18':
             return 'Economy';
-        case '5section':
+        case '29':
             return 'Culture_Arts';
-        case '6section':
+        case '34':
             return 'Health_Science';
-        case '7section':
+        case '24':
             return 'Technology';
-        case '8section':
+        case '66':
             return 'East_Diary';
-        case '9section':
+        case '36':
             return 'Sports';
-        case '10section':
+        case '38':
             return 'In_Depth';
         default:
             return 'Home'

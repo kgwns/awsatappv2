@@ -44,7 +44,6 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export type SectionStoryScreenProps = {
   sectionId: any;
-  sectionKey?: string;
   tabIndex?: number;
   currentIndex?: number;
   childInfo: TopMenuItemType[];
@@ -54,7 +53,6 @@ export type SectionStoryScreenProps = {
 
 export const SectionStoryScreen = React.memo(({
   sectionId,
-  sectionKey,
   tabIndex,
   currentIndex,
   childInfo,
@@ -564,7 +562,7 @@ export const SectionStoryScreen = React.memo(({
           {renderTopArticle()}
         </>
       }
-      <AdContainer unitId={getCategoryUnitIdBySectionKey(sectionKey!)} size={AdContainerSize.MEDIUM}/>
+      <AdContainer unitId={getCategoryUnitIdBySectionKey(sectionId)} size={AdContainerSize.MEDIUM}/>
       {!isTab && <Divider style={style.divider} />}
       <View style={style.newsFeedContainer}>
         <NewsFeed
@@ -573,7 +571,7 @@ export const SectionStoryScreen = React.memo(({
           isLoading={isBottomListLoading}
           onUpdateNewsFeedBookmark={updatedNewsFeedBookmark}
           labelContainerStyle = { style.labelContainerStyle}
-          categoryUnitId={getCategoryUnitIdBySectionKey(sectionKey!)}
+          categoryUnitId={getCategoryUnitIdBySectionKey(sectionId)}
         />
       </View>
     </>
