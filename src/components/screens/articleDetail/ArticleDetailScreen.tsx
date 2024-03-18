@@ -39,7 +39,7 @@ import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import ArticleLiveBlog from './components/ArticleLiveBlog'
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics'
-import { HOME_UNIT_ID } from 'src/hooks/useAdMob'
+import { HOME_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 export interface ArticleDetailScreenProps {
   route: any

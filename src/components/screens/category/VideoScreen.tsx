@@ -15,7 +15,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
-import { isVideoAdIndex, VIDEOS_UNIT_ID } from 'src/hooks/useAdMob';
+import { isVideoAdIndex, VIDEOS_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);

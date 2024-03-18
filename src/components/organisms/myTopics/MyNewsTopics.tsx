@@ -14,7 +14,7 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreenContainer } from 'src/components/screens'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { flatListUniqueKey, TranslateConstants, TranslateKey } from 'src/constants/Constants'
-import { MY_NEWS_FIRST_INDEX, MY_NEWS_SECOND_INDEX, NEWS_UNIT_ID } from 'src/hooks/useAdMob'
+import { MY_NEWS_FIRST_INDEX, MY_NEWS_SECOND_INDEX, NEWS_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export const keyExtractor = (_: any, index: number) => index.toString();

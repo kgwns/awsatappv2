@@ -1,5 +1,6 @@
 import mobileAds, { AdEventType, AppOpenAd, TestIds } from 'react-native-google-mobile-ads';
 import { isTab } from 'src/shared/utils';
+import { enableAds } from 'src/shared/utils/dimensions';
 
 export const ARTICLE_CATEGORY_FIRST_INDEX = isTab ? 4 : 3;
 export const ARTICLE_CATEGORY_SECOND_INDEX = 8;
@@ -29,12 +30,17 @@ export interface UseAdMobReturn {
     loadAppOpenAd(): void
 }
 
-export const useAdMob = (): UseAdMobReturn => {
-    const initializeAdMob = () => {
-        mobileAds().initialize();
+export const useAds = (): UseAdMobReturn => {
+    const initializeAds = () => {
+        if (enableAds)
+            mobileAds().initialize();
     };
 
     const loadAppOpenAd = () => {
+        if (!enableAds)
+            return;
+
+        console.log("show open ad");
         const adUnitId = __DEV__ ? TestIds.APP_OPEN : '/5910/AsharqAlawsat_APP/ADR/App-Open';
         const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
 
@@ -48,7 +54,7 @@ export const useAdMob = (): UseAdMobReturn => {
     };
 
     return {
-        initializeAdMob,
+        initializeAdMob: initializeAds,
         loadAppOpenAd
     };
 };

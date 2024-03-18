@@ -20,7 +20,7 @@ import { PodcastEpisodeModal } from 'src/components/screens'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useOrientation } from 'src/hooks'
 import { BookMarkColorType } from '../articleFooter/ArticleFooter'
-import { ARCHIVES_UNIT_ID } from 'src/hooks/useAdMob'
+import { ARCHIVES_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export enum PopulateWidgetType {

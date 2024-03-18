@@ -15,7 +15,7 @@ import {
 import {useTheme} from 'src/shared/styles/ThemeProvider';
 import { fonts } from 'src/shared/styles/fonts';
 import { Label } from '../atoms';
-import { isArticleCategoryIndex, OPINION_UNIT_ID } from 'src/hooks/useAdMob';
+import { isArticleCategoryIndex, OPINION_UNIT_ID } from 'src/hooks/useAds';
 import { AdContainer, AdContainerSize } from '../atoms/adContainer/AdContainer';
 
 interface OpinionWritersArticlesSectionProps {

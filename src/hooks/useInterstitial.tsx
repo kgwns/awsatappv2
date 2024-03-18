@@ -4,6 +4,7 @@ import {
   TestIds,
   AdEventType,
 } from 'react-native-google-mobile-ads';
+import { enableAds } from 'src/shared/utils/dimensions';
 
 export const useInterstitial = (callback?: Function): any => {
   const adUnitId = __DEV__ ? TestIds.INTERSTITIAL : '/5910/AsharqAlawsat_APP/ADR/Interstitial';
@@ -61,7 +62,7 @@ export const useInterstitial = (callback?: Function): any => {
   }, [interstitial]);
 
   const showInterstitialAd = async () => {
-    if (!interstitial)
+    if (!interstitial || !enableAds)
       return;
 
     interstitial.load();

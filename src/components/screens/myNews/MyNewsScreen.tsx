@@ -15,7 +15,7 @@ import { MyNewsWriters } from 'src/components/organisms';
 import { useLogin } from 'src/hooks';
 
 import { useNavigation } from '@react-navigation/native';
-import { NEWS_UNIT_ID } from 'src/hooks/useAdMob';
+import { NEWS_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
 
 export enum MyNewsTabType {

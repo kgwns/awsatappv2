@@ -8,7 +8,7 @@ import {useLogin} from 'src/hooks';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
-import { ARCHIVES_UNIT_ID } from 'src/hooks/useAdMob';
+import { ARCHIVES_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
 
 

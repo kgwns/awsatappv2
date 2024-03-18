@@ -27,7 +27,7 @@ import { fonts } from 'src/shared/styles/fonts';
 import { TopMenuItemType } from 'src/redux/topMenu/types';
 import { AnimatedHeader } from 'src/components/atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
-import { HOME_UNIT_ID, useAdMob } from 'src/hooks/useAdMob';
+import { HOME_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
 
 export enum TabType {

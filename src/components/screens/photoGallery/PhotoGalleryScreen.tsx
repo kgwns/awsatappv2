@@ -19,7 +19,7 @@ import {fetchAlbumListApi} from 'src/services/photoGalleryService';
 import {AxiosError} from 'axios';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
-import { PHOTO_UNIT_ID, isArticleCategoryIndex } from 'src/hooks/useAdMob';
+import { PHOTO_UNIT_ID, isArticleCategoryIndex } from 'src/hooks/useAds'
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);

@@ -37,7 +37,7 @@ import { fetchVideoListApi } from 'src/services/videoListService';
 import { formatVideoData } from 'src/redux/videoList/sagas';
 import { Styles } from 'src/shared/styles';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
-import { getCategoryUnitIdBySectionKey } from 'src/hooks/useAdMob';
+import { getCategoryUnitIdBySectionKey } from 'src/hooks/useAds';
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);

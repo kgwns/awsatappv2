@@ -4,7 +4,7 @@ import { PopulateWidget } from 'src/components/molecules'
 import { isNonEmptyArray, isTab, normalize, screenWidth } from 'src/shared/utils'
 import { useTheme } from 'src/shared/styles/ThemeProvider'
 import { useAppPlayer } from 'src/hooks'
-import { ARCHIVES_UNIT_ID, FAVORITE_FIRST_INDEX } from 'src/hooks/useAdMob'
+import { ARCHIVES_UNIT_ID, FAVORITE_FIRST_INDEX } from 'src/hooks/useAds'
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export interface DynamicWidgetProps {

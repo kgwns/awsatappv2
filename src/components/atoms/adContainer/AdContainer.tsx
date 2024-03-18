@@ -2,6 +2,7 @@ import React, { FunctionComponent, useEffect, useState } from 'react';
 import { View, StyleSheet } from 'react-native';
 import { isTab, screenWidth } from 'src/shared/utils';
 import { BannerAd, TestIds } from 'react-native-google-mobile-ads';
+import { enableAds } from 'src/shared/utils/dimensions';
 
 export enum AdContainerSize {
     DEFAULT,
@@ -75,9 +76,12 @@ export const AdContainer: FunctionComponent<AdContainerProps> = ({
         );
     }
 
-    return (
-       <View style={StyleSheet.flatten([style, {display: showAd ? 'block' : 'none'}])}>
-            {renderBannerAd()}
-        </View>
-    );
+    if (!enableAds)
+        return null;
+    else
+        return (
+        <View style={StyleSheet.flatten([style, {display: showAd ? 'block' : 'none'}])}>
+                {renderBannerAd()}
+            </View>
+        );
 };

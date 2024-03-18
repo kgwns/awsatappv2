@@ -26,7 +26,7 @@ import FixedTouchable from 'src/shared/utils/FixedTouchable';
 import { useAppCommon, useAppPlayer } from 'src/hooks';
 import { ArticleLabel } from '../molecules/articleLabel/ArticleLabel';
 import { Styles } from 'src/shared/styles';
-import { ARTICLE_CATEGORY_FIRST_INDEX, ARTICLE_CATEGORY_SECOND_INDEX, ARTICLE_CATEGORY_THIRD_INDEX } from 'src/hooks/useAdMob';
+import { ARTICLE_CATEGORY_FIRST_INDEX, ARTICLE_CATEGORY_SECOND_INDEX, ARTICLE_CATEGORY_THIRD_INDEX } from 'src/hooks/useAds';
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 export interface NewsFeedProps {

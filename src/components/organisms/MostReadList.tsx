@@ -16,7 +16,7 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from '../molecules/populateWidget/PopulateWidget';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
-import { MOST_READ_FIRST_INDEX, MOST_READ_UNIT_ID } from 'src/hooks/useAdMob';
+import { MOST_READ_FIRST_INDEX, MOST_READ_UNIT_ID } from 'src/hooks/useAds';
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 export interface ArticleProps

@@ -37,7 +37,7 @@ import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget'
 import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
-import { HOME_UNIT_ID } from 'src/hooks/useAdMob';
+import { HOME_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 const opinionListPayload: LatestArticleBodyGet = {

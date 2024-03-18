@@ -8,7 +8,7 @@ import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { colors } from 'src/shared/styles/colors'
-import { ARCHIVES_UNIT_ID } from 'src/hooks/useAdMob'
+import { ARCHIVES_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export const Archives = () => {
