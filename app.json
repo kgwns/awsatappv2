@@ -2,6 +2,7 @@
   "name": "Awsatapp",
   "displayName": "Awsatapp",
   "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-4150704963124409~2551601592",
     "ios_app_id": "ca-app-pub-4150704963124409~7122274139"
   },
   "user_tracking_usage_description": "This identifier will be used to deliver personalized ads to you.",

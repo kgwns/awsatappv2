@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { isTab, screenWidth } from 'src/shared/utils';
 import { BannerAd, TestIds } from 'react-native-google-mobile-ads';
 import { enableAds } from 'src/shared/utils/dimensions';
@@ -21,14 +21,15 @@ export interface AdContainerProps {
 export const AdContainer: FunctionComponent<AdContainerProps> = ({
     unitId,
     contentUrl,
-    width = screenWidth,
+    width,
     height,
     style,
     size = AdContainerSize.DEFAULT
 }) => {
     const appUnitId = __DEV__ ? TestIds.BANNER : `/5910/AsharqAlawsat_APP/ADR/${unitId}`;
-    const [showAd, setShowAd] = useState<boolean>(false);
+    const [showAd, setShowAd] = useState<boolean>(true);
     const [adHeight, setAdHeight] = useState<number>(50);
+    const [adWidth, setAdWidth] = useState<number>(300);
     
     useEffect(() => {
         if (height) {
@@ -56,6 +57,16 @@ export const AdContainer: FunctionComponent<AdContainerProps> = ({
         }
     }
 
+    useEffect(() => {
+        if (width) {
+            setAdWidth(parseInt(width + ''));
+        } else if (screenWidth) {
+            setAdWidth(parseInt(screenWidth + ''));
+        } else {
+            setAdWidth(300);
+        }
+    }, [width]);
+
     const onFailedToLoad = (error: Error) => {
         console.log('failed', error);
         setShowAd(false);
@@ -67,10 +78,10 @@ export const AdContainer: FunctionComponent<AdContainerProps> = ({
 
     const renderBannerAd = () => {
         return (
-            <BannerAd
+            <BannerAd            
                 unitId={appUnitId}
                 requestOptions={{contentUrl: contentUrl}}
-                size={width + "x" + adHeight}
+                size={adWidth + "x" + adHeight}
                 onAdFailedToLoad={onFailedToLoad}
                 onAdLoaded={onLoaded} />
         );
@@ -80,7 +91,7 @@ export const AdContainer: FunctionComponent<AdContainerProps> = ({
         return null;
     else
         return (
-        <View style={StyleSheet.flatten([style, {display: showAd ? 'block' : 'none'}])}>
+            showAd && <View style={style}>
                 {renderBannerAd()}
             </View>
         );

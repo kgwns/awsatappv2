@@ -24,6 +24,7 @@ export const NEWS_UNIT_ID = 'Most_Read';
 export const OPINION_UNIT_ID = 'Opinion';
 export const VIDEOS_UNIT_ID = 'Videos';
 export const PHOTO_UNIT_ID = 'Photo';
+export const NEWSPAPER_UNIT_ID = 'Newspaper';
 
 export interface UseAdMobReturn {
     initializeAdMob(): void,
@@ -40,7 +41,6 @@ export const useAds = (): UseAdMobReturn => {
         if (!enableAds)
             return;
 
-        console.log("show open ad");
         const adUnitId = __DEV__ ? TestIds.APP_OPEN : '/5910/AsharqAlawsat_APP/ADR/App-Open';
         const appOpenAd = AppOpenAd.createForAdRequest(adUnitId);
 
@@ -64,9 +64,7 @@ export const isArticleCategoryIndex = (index: number) => {
 };
 
 export const isVideoAdIndex = (index: number) => {
-    const result = index === (VIDEO_FIRST_INDEX - 1) || index === (VIDEO_SECOND_INDEX - 1) || index === (VIDEO_THIRD_INDEX - 1);
-    console.log(index, result);
-    return result;
+    return index === (VIDEO_FIRST_INDEX - 1) || index === (VIDEO_SECOND_INDEX - 1) || index === (VIDEO_THIRD_INDEX - 1);
 };
 
 export const getCategoryUnitIdBySectionKey = (sectionId: string) => {

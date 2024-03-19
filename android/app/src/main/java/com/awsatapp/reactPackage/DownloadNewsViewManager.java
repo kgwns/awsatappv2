@@ -37,6 +37,7 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
     ReactApplicationContext reactContext;
 
     private String theme;
+    private int screenWidth;
     private int propWidth;
     private int propHeight;
 
@@ -77,6 +78,14 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
         this.theme = themeData;
     }
 
+    @ReactProp(name = "screenWidth")
+    public void setScreenWidth(FrameLayout view, @Nullable int screenWidth) {
+        Intent intent = new Intent("custom-action-local-broadcast");
+        intent.putExtra("screenWidth", screenWidth);
+        reactContext.sendBroadcast(intent);
+        this.screenWidth = screenWidth;
+    }
+
     @ReactPropGroup(names = {"width", "height"}, customType = "Style")
     public void setStyle(FrameLayout view, int index, Integer value) {
         if (index == 0) {
@@ -100,6 +109,7 @@ public class DownloadNewsViewManager  extends SimpleViewManager<FrameLayout>{
         Bundle bundle = new Bundle();
         bundle.putString("theme",this.theme);
         final DownloadNewsFragment downloadNewsFragment = new DownloadNewsFragment();
+        downloadNewsFragment.setScreenWidth(screenWidth);
         downloadNewsFragment.setArguments(bundle);
         MainActivity activity = (MainActivity) reactContext.getCurrentActivity();
         if(isTablet(reactContext)) {

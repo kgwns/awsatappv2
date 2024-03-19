@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,9 @@ import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.GlideException;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.admanager.AdManagerAdRequest;
+import com.google.android.gms.ads.admanager.AdManagerAdView;
 import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadLargeFileListener;
 import com.liulishuo.filedownloader.FileDownloadListener;
@@ -75,11 +79,16 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
     private LinearLayout mDownlaodBtnContainer;
     private Button mDownlaodBtn;
     private TextView archiveBtn;
+
+    private RelativeLayout adBannerTop;
+    private RelativeLayout adBannerBottom;
     private ProgressBar mLoader;
     private LinearLayout mContainer;
     private PendingIntent pi;
     private Pdf mPdf;
     private FileDownloadSerialQueue pdfDownloadService = null;
+    private int screenWidth;
+
     public static DownloadNewsFragment newInstance() {
         return new DownloadNewsFragment();
     }
@@ -124,6 +133,8 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         mDownlaodBtnContainer = (LinearLayout) view.findViewById(R.id.newsArchiveBtn);
         mLoader = (ProgressBar) view.findViewById(R.id.loader);
         mContainer = (LinearLayout) view.findViewById(R.id.pdf_container);
+        adBannerTop = (RelativeLayout) view.findViewById(R.id.adBannerTop);
+        adBannerBottom = (RelativeLayout) view.findViewById(R.id.adBannerBottom);
 
         //FontUtils.setBold(archiveBtn.getContext(),archiveBtn);
         FontUtils.setLight(mTitle.getContext(), mTitle);
@@ -132,6 +143,42 @@ public class DownloadNewsFragment extends CoreFragment implements View.OnClickLi
         mDownlaodBtn.setOnClickListener(this);
         mDownlaodBtnContainer.setOnClickListener(this);
         getPdfArchive();
+        loadBannerTop();
+        loadBannerBottom();
+    }
+
+    public void setScreenWidth(int screenWidth) {
+        this.screenWidth = screenWidth;
+    }
+
+    private void loadBannerTop() {
+        // Create a new ad view.
+        AdManagerAdView adBanner = new AdManagerAdView(getContext());
+        adBanner.setAdSizes(new AdSize(screenWidth, 50));
+        adBanner.setAdUnitId("/5910/AsharqAlawsat_APP/ADR/Newspaper");
+
+        // Replace ad container with new ad view.
+        adBannerTop.removeAllViews();
+        adBannerTop.addView(adBanner);
+
+        // Start loading the ad in the background.
+        AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
+        adBanner.loadAd(adRequest);
+    }
+
+    private void loadBannerBottom() {
+        // Create a new ad view.
+        AdManagerAdView adBanner = new AdManagerAdView(getContext());
+        adBanner.setAdSizes(new AdSize(screenWidth, 50));
+        adBanner.setAdUnitId("/5910/AsharqAlawsat_APP/ADR/Newspaper");
+
+        // Replace ad container with new ad view.
+        adBannerBottom.removeAllViews();
+        adBannerBottom.addView(adBanner);
+
+        // Start loading the ad in the background.
+        AdManagerAdRequest adRequest = new AdManagerAdRequest.Builder().build();
+        adBanner.loadAd(adRequest);
     }
 
     @Override
