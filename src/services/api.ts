@@ -97,12 +97,19 @@ const handleErrorResponses = (error: AxiosError) => {
 
 function getHeader(token?: string,
   header?: AxiosRequestHeaders | undefined) {
-    return {
-      'Content-Type': APPLICATION_JSON,
-      'Accept': APPLICATION_JSON,
-      'Authorization': token,
-      'User-Agent': 'axios/1.3.5',
-      ...header
+    if (token) {
+      return {
+        'Content-Type': APPLICATION_JSON,
+        'Accept': APPLICATION_JSON,
+        'Authorization': token,
+        ...header
+      }
+    } else {
+      return {
+        'Content-Type': APPLICATION_JSON,
+        'Accept': APPLICATION_JSON,
+        ...header
+      }
     }
 }
 
