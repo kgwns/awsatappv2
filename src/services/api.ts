@@ -116,7 +116,7 @@ function getHeader(token?: string,
 function getToken() {
   const loginData = store.getState().login?.loginData;  
   if (loginData) {
-    const type = `${loginData.token.token_type} ` || 'Bearer ';
+    const type = 'Basic';//`${loginData.token.token_type} ` || 'Bearer ';
     const accessToken = loginData.token.access_token;
     return type + accessToken;
   }
