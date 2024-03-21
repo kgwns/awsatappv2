@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useEffect, useState } from 'react';
-import { View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { isTab, screenWidth } from 'src/shared/utils';
 import { BannerAd, TestIds } from 'react-native-google-mobile-ads';
 import { enableAds } from 'src/shared/utils/dimensions';
@@ -27,7 +27,7 @@ export const AdContainer: FunctionComponent<AdContainerProps> = ({
     size = AdContainerSize.DEFAULT
 }) => {
     const appUnitId = __DEV__ ? TestIds.BANNER : `/5910/AsharqAlawsat_APP/ADR/${unitId}`;
-    const [showAd, setShowAd] = useState<boolean>(true);
+    const [showAd, setShowAd] = useState<boolean>(false);
     const [adHeight, setAdHeight] = useState<number>(50);
     const [adWidth, setAdWidth] = useState<number>(300);
     
@@ -91,7 +91,7 @@ export const AdContainer: FunctionComponent<AdContainerProps> = ({
         return null;
     else
         return (
-            showAd && <View style={style}>
+            <View style={StyleSheet.flatten([style, {height: showAd ? adHeight : 0}])}>
                 {renderBannerAd()}
             </View>
         );
