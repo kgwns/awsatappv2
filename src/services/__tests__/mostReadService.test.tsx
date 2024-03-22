@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fetchMostReadApi } from 'src/services/mostReadService';
 import * as serviceApi from 'src/services/api';
 describe('Test Most Read Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     beforeEach(() => {
         jest.useFakeTimers({

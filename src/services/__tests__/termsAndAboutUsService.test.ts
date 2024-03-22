@@ -3,7 +3,7 @@ import {requestStaticDetail} from 'src/services/termsAndAboutUsService';
 import {StaticDetailBodyGet} from 'src/redux/termsAndAboutUs/types';
 import * as serviceApi from 'src/services/api';
 describe('Test Opinions Services', () => {
-  const cachedAxiosMock = new MockAdapter(serviceApi.api);
+  const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
   const body: StaticDetailBodyGet = {
     id: 56,

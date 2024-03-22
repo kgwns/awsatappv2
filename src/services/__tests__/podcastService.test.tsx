@@ -4,7 +4,7 @@ import { PodcastEpisodeBodyGet, PodcastListBodyGet } from 'src/redux/podcast/typ
 import { fetchPodcastEpisodeApi, fetchPodcastListApi, fetchSingleEpisodeSpreakerApi } from '../podcastService';
 import * as serviceApi from 'src/services/api';
 describe('Test Podcast Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     const body: PodcastListBodyGet = {
         tid: 12345,

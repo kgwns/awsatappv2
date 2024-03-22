@@ -10,21 +10,23 @@ const cache = setupCache({
 }
 })
 const APPLICATION_JSON = 'application/json';
-export const api = axios.create({
+export const apiWithCache = axios.create({
+  withCredentials: false,
   adapter: cache.adapter
+})
+
+export const api = axios.create({
+  withCredentials: false
 })
 
 export const getCacheApiRequest = (
   url: string,
   config?: AxiosRequestConfig | undefined,
 ) => {
-  return api
+  const token = getToken(url);
+  return apiWithCache
     .get(url, {
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        Accept: APPLICATION_JSON,
-        Authorization: 'Bearer some_token',
-      },
+      headers: getHeader(token),
       ...config,
     })
     .then(response => {
@@ -40,13 +42,10 @@ export const getApiRequest = (
   url: string,
   config?: AxiosRequestConfig | undefined,
 ) => {
-  return axios
+  const token = getToken(url);
+  return api
     .get(url, {
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        Accept: APPLICATION_JSON,
-        Authorization: 'Bearer some_token',
-      },
+      headers: getHeader(token),
       ...config,
     })
     .then(response => {
@@ -62,12 +61,9 @@ export const getApiRequestWithoutAuth = (
   url: string,
   config?: AxiosRequestConfig | undefined,
 ) => {
-  return axios
+  return api
     .get(url, {
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        Accept: APPLICATION_JSON,
-      },
+      headers: getHeader(),
       ...config,
     })
     .then(response => {
@@ -85,24 +81,10 @@ export const postApiRequest = (
   config?: AxiosRequestConfig | undefined,
   header?: AxiosRequestHeaders | undefined
 ) => {
-  const loginData = store.getState().login?.loginData
-  let tokenInfo = {}
-  if (loginData) {
-    const type = `${loginData.token.token_type} ` || 'Bearer '
-    const accessToken = loginData.token.access_token
-    tokenInfo = {
-      Authorization: type + accessToken
-    }
-  }
-
-  return axios
+  const token = getToken(url);
+  return api
     .post(url, data, {
-      headers: {
-        'Content-Type': APPLICATION_JSON,
-        Accept: APPLICATION_JSON,
-        ...header,
-        ...tokenInfo
-      },
+      headers: getHeader(token, header),
       ...config,
     })
     .then(response => {
@@ -117,3 +99,32 @@ export const postApiRequest = (
 const handleErrorResponses = (error: AxiosError) => {
   throw error;
 };
+
+function getHeader(token?: string,
+  header?: AxiosRequestHeaders | undefined) {
+    if (token) {
+      return {
+        'Content-Type': APPLICATION_JSON,
+        'Accept': APPLICATION_JSON,
+        'Authorization': token,
+        ...header
+      }
+    } else {
+      return {
+        'Content-Type': APPLICATION_JSON,
+        'Accept': APPLICATION_JSON,
+        ...header
+      }
+    }
+}
+
+function getToken(url: string) {
+  const loginData = store.getState().login?.loginData;  
+  if (loginData) {
+    const isUms = url.includes('ums');
+    const type = isUms ? 'Bearer ' : 'Basic ';
+    const accessToken = loginData.token.access_token;
+    return type + accessToken;
+  }
+  return '';
+}

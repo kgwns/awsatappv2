@@ -8,7 +8,7 @@ import { JournalistDetailBodyGet } from '../../redux/articleDetail/types';
 import * as serviceApi from 'src/services/api';
 describe('Test Article Detail Services', () => {
     const mock = new MockAdapter(axios);
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     beforeEach(() => {
         jest.useFakeTimers({

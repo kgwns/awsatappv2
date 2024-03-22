@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fetchVideoListApi } from 'src/services/videoListService';
 import * as serviceApi from 'src/services/api';
 describe('Test VideoList Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     const requestBody = {items_per_page: 10, page: 0}
     beforeEach(() => {

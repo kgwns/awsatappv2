@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fetchTopMenuApi } from 'src/services/topMenuService';
 import * as serviceApi from 'src/services/api';
 describe('Test TopMenu Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     beforeEach(() => {
         jest.useFakeTimers({

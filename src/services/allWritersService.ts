@@ -58,8 +58,8 @@ export const removeWritersApi = async (body: RemoveAuthorBody) => {
 };
 
 export const fetchAllSelectedWritersDataApi = async (body: AllSelectedWritersDetailsBodyGet) => {
-    try {           
-        return await getApiRequest(
+    try {
+        return await getApiRequestWithoutAuth(
             `${BASE_URL}${ALL_SELECTED_WRITERS_ENDPOINT}/${body.tid}?items_per_page=${body.items_per_page}`,
         );
     } catch (error) {

@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { fetchJournalistDetailInfo } from '../journalistDetailService';
 import * as serviceApi from 'src/services/api'; 
 describe('Test Side Menu Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
     const journalistPayload = { tid: '1' };
     beforeEach(() => {
         jest.useFakeTimers({
