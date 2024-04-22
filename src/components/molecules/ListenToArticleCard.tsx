@@ -18,7 +18,7 @@ export const ListenToArticleCard = (data: any) => {
   const mediaData = data.data && isObjectNonEmpty(data.data) ? data.data : {}
   const playList = isObjectNonEmpty(mediaData) && isNonEmptyArray(mediaData.playlist) ? mediaData.playlist[0] : {};
   const duration = isObjectNonEmpty(playList) ? playList.duration : 0;
-  const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+  const [prevPlayBackState, setPrevPlayBackState] = useState<State | undefined>(undefined);
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
@@ -32,19 +32,19 @@ export const ListenToArticleCard = (data: any) => {
   // }
 
   useEffect(() => {
-    if (trackData && trackData.id === (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (data.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState.state === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
     }
-    setPrevPlayBackState(playbackState);
+    setPrevPlayBackState(playbackState.state);
   }, [playbackState])
 
   const onPlayPausePress = async () => {
-    const state = await TrackPlayer.getState()
+    const playback = await TrackPlayer.getPlaybackState()
 
     if(trackData != null){
-        if(state === State.Paused){
+        if(playback.state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -88,7 +88,7 @@ return (
           hitSlop={{}}
           icon={() =>
             trackData && trackData.id === (data.nid+'opinion') && 
-            playbackState === State.Playing || isBuffering ? 
+            playbackState.state === State.Playing || isBuffering ? 
             getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
             getSvgImages({ name: ImagesName.playIconSVG, size: normalize(12), style: { marginEnd: 2 } })
           }

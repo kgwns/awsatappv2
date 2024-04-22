@@ -23,7 +23,7 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   const playbackState = usePlaybackState();
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
-  const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+  const [prevPlayBackState, setPrevPlayBackState] = useState<State | undefined>(undefined);
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
@@ -31,12 +31,12 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   const CONST_LISTEN_TO_ARTICLE = TranslateConstants({key:TranslateKey.LISTEN_TO_ARTICLE});
 
   useEffect(() => {
-    if (trackData && trackData.id === (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (item.nid + 'opinion') && prevPlayBackState === State.Playing && playbackState.state === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
     }
-    setPrevPlayBackState(playbackState);
+    setPrevPlayBackState(playbackState.state);
   }, [playbackState])
 
   const renderTitle = (itemProps: any) => {
@@ -61,10 +61,10 @@ export const RelatedOpinionCard = ({item, onPress, mediaVisibility, togglePlayba
   }
 
   const onPlayPausePress = async () => {
-    const state = await TrackPlayer.getState()
+    const playback = await TrackPlayer.getPlaybackState()
 
     if(trackData != null){
-        if(state === State.Paused){
+        if(playback.state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -136,7 +136,7 @@ const onPressPlay = () => {
             <ButtonImage
               icon={() =>
                 trackData && trackData.id === (item.nid+'opinion') && 
-                playbackState === State.Playing || isBuffering ? 
+                playbackState.state === State.Playing || isBuffering ? 
                 getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                 getSvgImages({name: ImagesName.playIconSVG, size: normalize(12)})
               }

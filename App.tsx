@@ -9,7 +9,6 @@ import { DEFAULT_LIGHT_THEME } from 'src/shared/styles/colors';
 import Orientation from 'react-native-orientation-locker'
 import AppPlayer from 'src/shared/utils/appPlayer';
 import { checkNotificationPermission } from 'src/firebase/notification/notification';
-import TrackPlayer from 'react-native-track-player';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
 import { isIOS, isTab } from 'src/shared/utils';
 import { FetchArabicData } from 'src/firebase/RemoteConfig/RemoteConfig';
@@ -55,9 +54,6 @@ const App = () => {
 
   useEffect(() => {
     AppPlayer.initializePlayer();
-    return(() => {
-      TrackPlayer.destroy();
-    });
   }, [])
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   StyleSheet,
   StatusBar,
@@ -9,22 +9,22 @@ import {
   ViewStyle,
   TextStyle,
 } from 'react-native';
-import {Edge, SafeAreaView} from 'react-native-safe-area-context';
-import {DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenWidth} from '../../../shared/utils';
-import {useAppCommon} from '../../../hooks/useAppCommon';
-import {CustomThemeType} from 'src/shared/styles/colors';
-import {useThemeAwareObject} from 'src/shared/styles/useThemeAware';
-import {Label, LoadingState} from 'src/components/atoms';
-import {useNavigation} from '@react-navigation/native';
-import {ImagesName} from 'src/shared/styles';
-import {useTheme} from 'src/shared/styles/ThemeProvider';
-import {AlertModal, PopUp} from 'src/components/organisms';
-import {ScreensConstants, TranslateConstants, TranslateKey} from 'src/constants/Constants';
+import { Edge, SafeAreaView } from 'react-native-safe-area-context';
+import { DEFAULT_HIT_SLOP, isAndroid, isDarkTheme, isIOS, isNotEmpty, isTab, normalize, screenWidth } from '../../../shared/utils';
+import { useAppCommon } from '../../../hooks/useAppCommon';
+import { CustomThemeType } from 'src/shared/styles/colors';
+import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
+import { Label, LoadingState } from 'src/components/atoms';
+import { useNavigation } from '@react-navigation/native';
+import { ImagesName } from 'src/shared/styles';
+import { useTheme } from 'src/shared/styles/ThemeProvider';
+import { AlertModal, PopUp } from 'src/components/organisms';
+import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { PopUpType } from 'src/components/organisms/popUp/PopUp';
 import { getSvgImages } from 'src/shared/styles/svgImages';
 import TrackPlayer from 'react-native-track-player';
 import { PodCastMiniPlayer } from 'src/components/molecules';
-import  { useAppPlayer } from 'src/hooks/useAppPlayer';
+import { useAppPlayer } from 'src/hooks/useAppPlayer';
 import { fonts } from 'src/shared/styles/fonts';
 
 export interface AlertPayloadType {
@@ -80,12 +80,12 @@ export const ScreenContainer = ({
   isAlertCloseIconVisible = true,
   textStyle,
 }: ScreenContainerProps) => {
-  const {theme} = useAppCommon();
+  const { theme } = useAppCommon();
   const isDarkMode = isDarkTheme(theme);
   const style = useThemeAwareObject(createStyles);
   const navigation = useNavigation();
 
-  const {themeData} = useTheme();
+  const { themeData } = useTheme();
 
   const onPressBack = () => {
     navigation.goBack();
@@ -107,7 +107,7 @@ export const ScreenContainer = ({
     onCloseSignUpAlert && onCloseSignUpAlert();
     navigation.reset({
       index: 0,
-      routes: [{name: ScreensConstants.AuthNavigator}],
+      routes: [{ name: ScreensConstants.AuthNavigator }],
     });
   };
 
@@ -127,7 +127,7 @@ export const ScreenContainer = ({
   );
 
   const header = (title?: string) => {
-    const titleStyle = {marginLeft: title && ((isTab && title.length > 60) || (title?.length > 15)) ? 35 : 0 }
+    const titleStyle = { marginLeft: title && ((isTab && title.length > 60) || (title?.length > 15)) ? 35 : 0 }
     return (
       <View style={style.headerContainer}>
         {isNotEmpty(title) && (
@@ -144,54 +144,54 @@ export const ScreenContainer = ({
     );
   };
 
-  const statusBarBackgroundColor = statusbarColor ||  isNotEmpty(backgroundColor) ? backgroundColor : themeData.backgroundColor;
-  const contentStyle =  isDarkMode ? 'light-content' : 'dark-content';
+  const statusBarBackgroundColor = statusbarColor || isNotEmpty(backgroundColor) ? backgroundColor : themeData.backgroundColor;
+  const contentStyle = isDarkMode ? 'light-content' : 'dark-content';
   return (
-      <SafeAreaView
-        style={[style.container,
-          isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor}
-        ]} // Intensively added inline style to update screen size when rotate
-        edges={edge ? edge : ['left', 'right', 'top']}>
-        {showHeader && header(headerTitle)}
-        <StatusBar
-          backgroundColor={statusBarBackgroundColor}
-          barStyle={
-            barStyle ? barStyle : contentStyle
-          }
-        />
-        {children}
-        {isLoading && <LoadingState />}
-        {isOverlayLoading && (
-          <View style={[style.loadingOverlay,isNotEmpty(backgroundColor) && {backgroundColor: backgroundColor}]}>
-            <LoadingState />
-          </View>
-        )}
-        {isSignUpAlertVisible && <PopUp type={PopUpType.rbSheet}
+    <SafeAreaView
+      style={[style.container,
+      isNotEmpty(backgroundColor) && { backgroundColor: backgroundColor }
+      ]} // Intensively added inline style to update screen size when rotate
+      edges={edge ? edge : ['left', 'right', 'top']}>
+      {showHeader && header(headerTitle)}
+      <StatusBar
+        backgroundColor={statusBarBackgroundColor}
+        barStyle={
+          barStyle ? barStyle : contentStyle
+        }
+      />
+      {children}
+      {isLoading && <LoadingState />}
+      {isOverlayLoading && (
+        <View style={[style.loadingOverlay, isNotEmpty(backgroundColor) && { backgroundColor: backgroundColor }]}>
+          <LoadingState />
+        </View>
+      )}
+      {isSignUpAlertVisible && <PopUp type={PopUpType.rbSheet}
         onPressButton={onPressSignUp}
         showPopUp={isSignUpAlertVisible}
         onClosePopUp={() => onCloseSignUpAlert && onCloseSignUpAlert()} />}
 
-        {isAlertVisible && (
-          <AlertModal
-            title={alertPayload ? alertPayload.title : ''}
-            message={alertPayload ? alertPayload.message : ''}
-            buttonText={alertPayload ? alertPayload.buttonTitle : ''}
-            isVisible={isAlertVisible}
-            onPressSuccess={alertOnPress}
-            onClose={() => setIsAlertVisible && setIsAlertVisible(false)}
-            isCloseIconVisible = {isAlertCloseIconVisible}
-          />
-        )}
-
-        { showPlayer && showMiniPlayer && !isLoading && 
-        <PodCastMiniPlayer 
-          onClose={onClose} 
-          toggleControl={() => { setShowPlayerControls(!showPlayerControls)}} 
-          playerPosition={playerPosition} 
+      {isAlertVisible && (
+        <AlertModal
+          title={alertPayload ? alertPayload.title : ''}
+          message={alertPayload ? alertPayload.message : ''}
+          buttonText={alertPayload ? alertPayload.buttonTitle : ''}
+          isVisible={isAlertVisible}
+          onPressSuccess={alertOnPress}
+          onClose={() => setIsAlertVisible && setIsAlertVisible(false)}
+          isCloseIconVisible={isAlertCloseIconVisible}
         />
-        }
+      )}
 
-      </SafeAreaView>
+      {showPlayer && showMiniPlayer && !isLoading &&
+        <PodCastMiniPlayer
+          onClose={onClose}
+          toggleControl={() => { setShowPlayerControls(!showPlayerControls) }}
+          playerPosition={playerPosition}
+        />
+      }
+
+    </SafeAreaView>
   );
 };
 
@@ -229,9 +229,9 @@ const createStyles = (theme: CustomThemeType) => {
       alignItems: 'center',
     },
     headerTitle: {
-      fontSize:16,
+      fontSize: 16,
       lineHeight: 30,
-      color:theme.primaryDarkSlateGray,
+      color: theme.primaryDarkSlateGray,
       fontFamily: fonts.IBMPlexSansArabic_Bold,
       paddingLeft: 0,
       paddingVertical: 0,

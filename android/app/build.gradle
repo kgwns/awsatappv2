@@ -91,7 +91,7 @@ android {
         configurations.all {
             resolutionStrategy { force 'androidx.browser:browser:1.5.0' }
         }
-        versionCode 303
+        versionCode 305
         versionName "5.5.0"
         bundle{
             language{

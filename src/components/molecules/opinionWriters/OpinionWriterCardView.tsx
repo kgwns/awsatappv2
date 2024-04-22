@@ -63,7 +63,7 @@ const OpinionWritersCardView = ({
 
   const[mediaData, setMediaData] = useState<any>({});
   const[timeDuration, setTimeDuration] = useState<any>(null);
-  const [prevPlayBackState, setPrevPlayBackState] = useState<State | null>(null);
+  const [prevPlayBackState, setPrevPlayBackState] = useState<State | undefined>(undefined);
   const [isBuffering, setIsBuffering] = useState<boolean>(false);
 
   const { setShowMiniPlayer, setPlayerTrack, selectedTrack: trackData, showMiniPlayer } = useAppPlayer()
@@ -79,12 +79,12 @@ const OpinionWritersCardView = ({
   }, [])
 
   useEffect(() => {
-    if (trackData && trackData.id === (nid+'opinion') && prevPlayBackState === State.Playing && playbackState === State.Buffering) {
+    if (trackData && trackData.id === (nid+'opinion') && prevPlayBackState === State.Playing && playbackState.state === State.Buffering) {
       setIsBuffering(true);
     } else {
       setIsBuffering(false);
     }
-    setPrevPlayBackState(playbackState);
+    setPrevPlayBackState(playbackState.state);
   }, [playbackState])
 
   const onPress = () => {
@@ -102,10 +102,10 @@ const OpinionWritersCardView = ({
   }
 
   const onPlayPausePress = async () => {
-    const state = await TrackPlayer.getState()
+    const playback = await TrackPlayer.getPlaybackState()
 
     if(trackData != null){
-        if(state === State.Paused){
+        if(playback.state === State.Paused){
             await TrackPlayer.play()
         }else{
             await TrackPlayer.pause()
@@ -192,7 +192,7 @@ const onPressPlay = () => {
               <ButtonImage
                 icon={() =>
                   trackData && trackData.id === (nid+'opinion') && 
-                  playbackState === State.Playing || isBuffering   ? 
+                  playbackState.state === State.Playing || isBuffering   ? 
                   getSvgImages({ name: ImagesName.pauseIcon, width: normalize(12), height: normalize(14) }) :
                   playIconWidget
                 }

@@ -45,7 +45,7 @@ public class MainApplication extends Application implements ReactApplication, Co
           List<ReactPackage> packages = new PackageList(this).getPackages();
           packages.add(new LottiePackage());
           packages.add(new PDFPackage());
-          packages.add(new com.swmansion.rnscreens.RNScreensPackage());
+          // packages.add(new com.swmansion.rnscreens.RNScreensPackage());
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
           return packages;
@@ -72,7 +72,7 @@ public class MainApplication extends Application implements ReactApplication, Co
       sharedI18nUtilInstance.forceRTL(this,true);
       sharedI18nUtilInstance.allowRTL(this, true);
       checkForLowStorage();
-    initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+      initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
   }
 
     @Override

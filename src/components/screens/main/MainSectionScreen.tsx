@@ -620,7 +620,7 @@ export const MainSectionScreen = React.memo((
         fetchPodcastDataAnalytics(eventParameter);
         setShowMiniPlayer(true);
       } 
-      showMiniPlayer && playbackState === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
+      showMiniPlayer && playbackState.state === State.Playing ? TrackPlayer.pause() : TrackPlayer.play();
     }
 
     setSelectedTrack(podcastData.nid);

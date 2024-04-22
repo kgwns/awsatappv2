@@ -1,12 +1,17 @@
-import TrackPlayer, { Capability } from 'react-native-track-player';
+import TrackPlayer, { AppKilledPlaybackBehavior, Capability } from 'react-native-track-player';
 
 class AppPlayer {
     static selectedTrack: null;
 
     static initializePlayer = async () => {
         try {
-            await TrackPlayer.updateOptions({
-                stopWithApp: true, // false=> music continues in background even when app is closed
+            await TrackPlayer.setupPlayer({waitForBuffer: true});
+            await TrackPlayer.updateOptions({                
+                android: {
+                    appKilledPlaybackBehavior: AppKilledPlaybackBehavior.ContinuePlayback // music continues in background even when app is closed
+                    // Enable Pause On Interruption
+                    // alwaysPauseOnInterruption: true, 
+                },
                 // Media controls capabilities
                 capabilities: [
                     Capability.Play,
@@ -15,17 +20,13 @@ class AppPlayer {
                     Capability.SeekTo,
                 ],
                 compactCapabilities: [Capability.Play, Capability.Pause],
-                // Enable Pause On Interruption
-                // alwaysPauseOnInterruption: true, 
                 notificationCapabilities: [
                     Capability.Play,
                     Capability.Pause,
                   ],
             });
-
-            await TrackPlayer.setupPlayer({waitForBuffer: true});
         } catch (e) {
-            console.log(e);
+            console.error(e);
             // to-do handle error
         }
     };
