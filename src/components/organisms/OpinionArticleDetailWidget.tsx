@@ -80,7 +80,7 @@ export const OpinionArticleDetailWidget = ({
       direction: 'rtl',
       fontSize: fontSize,
       lineHeight: 1.8 * fontSize,
-      fontFamily: fonts.Effra_Arbc_Regular,
+      fontFamily: fonts.AwsatDigital_Regular,
       writingDirection: 'rtl',
     },
   };
