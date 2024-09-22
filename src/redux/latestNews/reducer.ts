@@ -21,6 +21,12 @@ import {
   REQUEST_INFO_GRAPHIC_BLOCK, REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS, 
   REQUEST_INFO_GRAPHIC_BLOCK_FAILED, REQUEST_ARCHIVED_ARTICLE_DATA, 
   REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS, REQUEST_ARCHIVED_ARTICLE_DATA_FAILED,
+  REQUEST_US_ELECTION_DATA,
+  REQUEST_US_ELECTION_DATA_SUCCESS,
+  REQUEST_US_ELECTION_DATA_FAILED,
+  REQUEST_CONTESTANTS_DATA,
+  REQUEST_CONTESTANTS_DATA_FAILED,
+  REQUEST_CONTESTANTS_DATA_SUCCESS,
 } from './actionType';
 import { LatestNewsTabState, LatestTabAction } from './types';
 
@@ -50,6 +56,7 @@ const initialData: LatestNewsTabState = {
   infoGraphicBlockInfo: [],
   archivedArticleSection: [],
   coverageInfoLoaded: false,
+  usElectionsSectionLoaded: false,
   featuredArticleLoaded: false,
   horizontalArticleLoaded: false,
   opinionLoaded: false,
@@ -398,6 +405,41 @@ export default (state = initialData, action: LatestTabAction) => {
         isLoading: false,
       }
     case REQUEST_ARCHIVED_ARTICLE_DATA_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error
+      }
+    case REQUEST_US_ELECTION_DATA:
+      return {
+        ...state,
+        usElectionsSectionLoaded: false
+      }
+    case REQUEST_US_ELECTION_DATA_SUCCESS:
+      return {
+        ...state,
+        usElectionsSection: action.payload.nodeListData,
+        isLoading: false,
+        usElectionsSectionLoaded: true
+      }
+    case REQUEST_US_ELECTION_DATA_FAILED:
+      return {
+        ...state,
+        isLoading: false,
+        error: action.payload.error,
+        usElectionsSectionLoaded: false
+      }
+    case REQUEST_CONTESTANTS_DATA:
+      return {
+        ...state
+      }
+    case REQUEST_CONTESTANTS_DATA_SUCCESS:
+      return {
+        ...state,
+        contestantsSection: action.payload.nodeListData,
+        isLoading: false
+      }
+    case REQUEST_CONTESTANTS_DATA_FAILED:
       return {
         ...state,
         isLoading: false,

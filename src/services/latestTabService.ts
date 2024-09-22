@@ -9,6 +9,7 @@ import { LATEST_ARTICLE_GET, SECTION_COMBO, PODCAST_HOME,
   ARTICLE_SECTION_GET,
   INFO_GRAPHIC_BLOCK,
   ARCHIVED_ARTICLE_ENDPOINT,
+  NODE_LIST_ENDPOINT,
 } from './apiEndPoints';
 import { LatestArticleBodyGet, RequestSectionComboBodyGet, SpotlightArticleSectionBodyGet, payloadType } from 'src/redux/latestNews/types';
 import { isArray, isIOS, joinArray } from 'src/shared/utils';
@@ -165,6 +166,17 @@ export const archivedArticleApi = async () => {
     );
   } catch (error) {
     console.log('latestTabService - archivedArticleApi - error', error)
+    throw error;
+  }
+};
+
+export const nodeListApi = async (id: string) => {
+  try {
+    return await getCacheApiRequest(
+      `${BASE_URL}${NODE_LIST_ENDPOINT}${id}`,
+    );
+  } catch (error) {
+    console.log('latestTabService - nodeListApi - error', error)
     throw error;
   }
 };

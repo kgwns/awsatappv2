@@ -647,7 +647,7 @@ export const MainSectionScreen = React.memo((
     <View style={mainSectionStyle.mainContainer}>
       <Divider style={mainSectionStyle.dividerTop} />
       <View style={mainSectionStyle.heroContainer}>
-        <CarouselSlider coverageInfo={coverageInfo}
+        <CarouselSlider info={coverageInfo}
           onUpdateHeroBookmark={updateCoverageBookMark}
         />
       </View>
@@ -819,7 +819,7 @@ export const MainSectionScreen = React.memo((
       <View style = {mainSectionStyle.topContainerSplit}>
         <View style = {mainSectionStyle.topContainerWidget}>
           <View style={mainSectionStyle.tabletHeroContainer}>
-            <CarouselSlider coverageInfo={coverageInfo}
+            <CarouselSlider info={coverageInfo}
               onUpdateHeroBookmark={updateCoverageBookMark}
             />
           </View>

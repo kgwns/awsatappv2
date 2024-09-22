@@ -33,7 +33,7 @@ export const SectionArticlesParentScreen = () => {
     }
     switch (keyName) {
       case TabType.opinion:
-        return <OpinionScreen />;
+        return <OpinionScreen tid={sectionId} />;
       case TabType.podcast:
         return <PodcastProgram />;
       case TabType.video:

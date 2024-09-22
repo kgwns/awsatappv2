@@ -1,4 +1,4 @@
-import { FETCH_VIDEO, FETCH_VIDEO_SUCCESS, FETCH_VIDEO_FAILED, FETCH_VIDEO_PAGINATION_SUCCESS, FETCH_VIDEO_PAGINATION, FETCH_VIDEO_PAGINATION_FAILED } from './actionTypes';
+import { FETCH_VIDEO, FETCH_VIDEO_SUCCESS, FETCH_VIDEO_FAILED, FETCH_VIDEO_PAGINATION_SUCCESS, FETCH_VIDEO_PAGINATION, FETCH_VIDEO_PAGINATION_FAILED, FETCH_VIDEO_BY_ID_SUCCESS, FETCH_VIDEO_BY_ID_FAILED, FETCH_VIDEO_BY_ID } from './actionTypes';
 import { VideoActions, VideoState } from './types';
 const initialAuthState: VideoState = {
   videoData: [],
@@ -6,6 +6,7 @@ const initialAuthState: VideoState = {
   isLoading: false,
   isVideoLoading: false,
   videoPaginationData: [],
+  videoByIdData: [],
   videoError: ''
 };
 
@@ -32,6 +33,17 @@ export default (state = initialAuthState, action: VideoActions) => {
     case FETCH_VIDEO_PAGINATION_FAILED:
       return { ...state, videoError: action.payload.error, isVideoLoading: false };
     case FETCH_VIDEO_PAGINATION:
+      return { ...state, isVideoLoading: true, videoError: '' };
+    case FETCH_VIDEO_BY_ID_SUCCESS:
+      return {
+        ...state,
+        isVideoLoading: false,
+        videoByIdData: action.payload.videoData,
+        videoError: '',
+      };
+    case FETCH_VIDEO_BY_ID_FAILED:
+      return { ...state, videoError: action.payload.error, isVideoLoading: false };
+    case FETCH_VIDEO_BY_ID:
       return { ...state, isVideoLoading: true, videoError: '' };
     default:
       return { ...state };

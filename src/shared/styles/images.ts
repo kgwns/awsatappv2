@@ -14,6 +14,7 @@ import sudoku from 'src/assets/images/sudoku.png'
 import pdfIcon from 'src/assets/images/pdf_icon.png'
 import archiveIconLight from 'src/assets/images/icons/archiveIconLight.png'
 import archiveIconDark from 'src/assets/images/icons/archiveIconDark.png'
+import usElectionsBanner from 'src/assets/images/usElections_banner.png'
 
 // Video Controls Icon
 import bottomShadowImg from 'src/assets/images/bottom-vignette.png'
@@ -193,6 +194,7 @@ export enum ImagesName {
   deleteUserIcon = 'deleteUserIcon',
   deleteAccountImageName = 'deleteAccountImage',
   arrowLeftDimGrey = 'arrowLeftDimGrey',
+  usElectionsBanner = 'usElectionsBanner',
 }
 
 export const images = {
@@ -228,6 +230,7 @@ export const images = {
   archiveIconLight,
   archiveIconDark,
   deleteAccountImage,
+  usElectionsBanner
 };
 
 export const darkImages = {

@@ -12,6 +12,14 @@ const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
   }
     if (response && isNonEmptyArray(response.rows)) {
       const results: TopMenuItemType[] = [];
+      const usElectionItem: TopMenuItemType = {
+        tabName: 'US ELECTIONs',
+        keyName: 'us_elections',
+        isSelected: false,
+        uuid: 'bc1a6107-1624-4efd-acbf-54386f60dcb6',
+        field_sections: ''
+      };
+      results.push(usElectionItem);
       for (const [index,item] of response.rows.entries()) {
         const topMenuItem: TopMenuItemType = {
           sectionId: item.sectionid,

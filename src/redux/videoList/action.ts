@@ -6,6 +6,8 @@ import {
   VideoListBodyGet,
   FetchVideoPaginationSuccessType,
   FetchVideoPaginationFailedType,
+  FetchVideoByIdSuccessType,
+  FetchVideoByIdFailedType,
 } from './types';
 import {
   FETCH_VIDEO,
@@ -14,6 +16,9 @@ import {
   FETCH_VIDEO_PAGINATION,
   FETCH_VIDEO_PAGINATION_SUCCESS,
   FETCH_VIDEO_PAGINATION_FAILED,
+  FETCH_VIDEO_BY_ID,
+  FETCH_VIDEO_BY_ID_SUCCESS,
+  FETCH_VIDEO_BY_ID_FAILED,
 } from './actionTypes';
 
 export const fetchVideoList = (payload: VideoListBodyGet) => {
@@ -37,6 +42,31 @@ export const fetchVideoListFailed = (
 ): FetchVideoFailedType => {
   return {
     type: FETCH_VIDEO_FAILED,
+    payload,
+  };
+};
+
+export const fetchVideoListById = (id: string) => {
+  return {
+    type: FETCH_VIDEO_BY_ID,
+    id
+  };
+};
+
+export const fetchVideoListByIdSuccess = (
+  payload: FetchVideoSuccessPayloadType,
+): FetchVideoByIdSuccessType => {
+  return {
+    type: FETCH_VIDEO_BY_ID_SUCCESS,
+    payload,
+  };
+};
+
+export const fetchVideoListByIdFailed = (
+  payload: FetchVideoFailedPayloadtype,
+): FetchVideoByIdFailedType => {
+  return {
+    type: FETCH_VIDEO_BY_ID_FAILED,
     payload,
   };
 };

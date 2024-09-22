@@ -106,7 +106,7 @@ export const VideoContent = ({
         // const date = timeFormat.time   Enable date when required video footer
         const time = item.field_jwplayerinfo_export ? convertSecondsToHMS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
-        const itemStyle = isTab ? isVideoList ? {} : {  marginBottom: normalize(30),paddingLeft: 20 } :
+        const itemStyle = isTab ? isVideoList ? {} : {  marginBottom: normalize(30),paddingLeft: 20 } : {paddingLeft: 20}
         index === data.length - 1 && { marginRight: 0.04 * screenWidth }
         const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
         return (
@@ -267,7 +267,7 @@ const customStyle = (theme: CustomThemeType) => {
             flexDirection:'row',
             width:'100%',
             justifyContent:'space-between',
-            flexWrap:'wrap'
+            flexWrap:'wrap',
         },
         divider: {
             height: 1,

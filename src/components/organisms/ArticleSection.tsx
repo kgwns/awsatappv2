@@ -33,6 +33,7 @@ export interface ArticleSectionProps {
     isFromFavorites?: boolean
     numColumns?: number;
     addStyle?: StyleProp<ViewStyle>
+    hideBookmark?: boolean
 }
 
 export const articleFooterDataSet: ArticleFooterProps = {
@@ -67,6 +68,7 @@ const ArticleSection = ({
     isFromFavorites = false,
     numColumns = 1,
     addStyle,
+    hideBookmark
 }: ArticleSectionProps) => {
     const [articleData,setArticleData] = useState(data)
     const style = useThemeAwareObject(articleSectionStyle)
@@ -104,7 +106,7 @@ const ArticleSection = ({
         articleFooterDataSet.leftTitle = timeFormat.time
         articleFooterDataSet.leftTitleColor = style.footerTitleColor.color
         articleFooterDataSet.leftIcon = () => TimeIcon(timeFormat.icon) 
-        articleFooterDataSet.hideBookmark = isTab
+        articleFooterDataSet.hideBookmark = hideBookmark || isTab
 
         const canShowDivider = showDivider || item.showDivider || isFromFavorites && numColumns === 1 && 
         articleData.length === index + 1 || (isTab && numColumns > 1 && index < data.length - 2)
@@ -122,6 +124,7 @@ const ArticleSection = ({
             mainContainerStyle = {style.mainContainerStyle}
             tabletArticleContainerStyle = { isTab ? style.tabletArticleContainer : {}}
             tabBodyLineCount={isTab ? 2 : 3}
+            hideBookmark={hideBookmark || isTab}
         />
     }
     return (

@@ -20,6 +20,7 @@ export const FetchArabicData = () => {
             .then(() => {
                 const result = firebase.remoteConfig().getValue('arabic')._value;
                 const resultJSON = JSON.parse(result)
+                console.warn(resultJSON)
                 fetchArabicData(resultJSON)
             })
             .catch(error => console.log(error))

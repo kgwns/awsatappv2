@@ -24,6 +24,7 @@ import {
   RequestArchivedArticleSectionSuccessPayloadType,
   ArchivedArticleDataType,
   RequestOpinionListType,
+  RequestNodeListSectionSuccessPayloadType,
 } from './types';
 import {
   REQUEST_HERO_AND_TOP_LIST_DATA,
@@ -46,6 +47,8 @@ import {
   REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,
   REQUEST_INFO_GRAPHIC_BLOCK,
   REQUEST_ARCHIVED_ARTICLE_DATA,
+  REQUEST_US_ELECTION_DATA,
+  REQUEST_CONTESTANTS_DATA,
 } from './actionType';
 import {
   requestHeroListTopListFailed, requestHeroListTopListSuccess,
@@ -66,6 +69,10 @@ import {
   requestEditorsChoiceSuccess, requestEditorsChoiceFailed,
   requestSpotlightSuccess, requestSpotlightFailed, requestSpotlightArticleSectionSuccess, requestSpotlightArticleSectionFailed,
   requestInfoGraphicBlockSuccess, requestInfoGraphicBlockFailed, requestArchivedArticleSectionSuccess, requestArchivedArticleSectionFailed,
+  requestUsElectionsSectionSuccess,
+  requestUsElectionsSectionFailed,
+  requestContestantsSectionSuccess,
+  requestContestantsSectionFailed,
 } from './action';
 import { isNonEmptyArray, isTab } from 'src/shared/utils';
 import { decodeHTMLTags, getImageUrl, isNotEmpty, isObjectNonEmpty, isTypeAlbum } from 'src/shared/utils/utilities';
@@ -82,6 +89,7 @@ import {
   infoGraphicBlockApi,
   archivedArticleApi,
   writerOpinionApi,
+  nodeListApi,
 } from 'src/services/latestTabService';
 import { decode } from 'html-entities';
 
@@ -155,6 +163,16 @@ const parseArchivedArticleSectionDataSuccess = (response: any) => {
     archivedArticleSection: []
   }
   responseData.archivedArticleSection = formattedData
+
+  return responseData
+}
+
+const parseNodeListDataSuccess = (response: any) => {
+  const formattedData = formatNodeListSectionData(response)
+  const responseData: RequestNodeListSectionSuccessPayloadType = {
+    nodeListData: []
+  }
+  responseData.nodeListData = formattedData
 
   return responseData
 }
@@ -301,11 +319,11 @@ const formatSpotlight = (response: any): SpotlightDataType[] => {
 
 const formatInfoGraphicBlockData = (response: any): InfoGraphicBlockType[] => {
   let formattedInfoGraphicBlockData: InfoGraphicBlockType[] = []
-  if (response && isNonEmptyArray(response)) {
-    formattedInfoGraphicBlockData = response.map(
-      ({ info, body }: any) => ({
-        info,
-        body,
+  if (response && response.rows && isNonEmptyArray(response.rows)) {
+    formattedInfoGraphicBlockData = response.rows.map(
+      ({ title, body_export }: any) => ({
+        info: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
+        body: body_export,
       })
     );
   }
@@ -335,6 +353,32 @@ const formatArchivedArticleSectionData = (response: any): ArchivedArticleDataTyp
     );
   }
   return formattedArchivedArticleSectionData;
+}
+
+const formatNodeListSectionData = (response: any): MainSectionBlockType[] => {
+  let formattedSectionData: MainSectionBlockType[] = []
+  if (response && isNonEmptyArray(response)) {
+    formattedSectionData = response.map(
+      ({ title, type, nid, body_export, 
+        field_image_export, field_new_photo, field_new_resource_export, 
+        field_publication_date_export, field_news_categories_export, 
+        field_display_export, changed
+      }: any) => ({
+        title: isNotEmpty(title) ? decodeHTMLTags(decode(title)) : '',
+        type,
+        nid,
+        body: body_export,
+        image: getArticleImage(field_image_export, field_new_photo),
+        created: changed,
+        author: field_new_resource_export,
+        publication_date: field_publication_date_export,
+        news_categories: isNonEmptyArray(field_news_categories_export) ? field_news_categories_export[0] : field_news_categories_export,
+        displayType: getDisplayName(field_display_export),
+        isBookmarked: false
+      })
+    );
+  }
+  return formattedSectionData;
 }
 
 const parseHeroListTopListSuccess = (response: any): HeroListTopListSuccessPayload => {
@@ -780,6 +824,40 @@ export function* fetchArchivedArticleSectionData() {
   }
 }
 
+export function* fetchUsElectionSectionData() {
+  try {
+    const payload: payloadType = yield call(
+      nodeListApi,
+      'us_election'
+    );
+    const response = parseNodeListDataSuccess(payload)
+    yield put(requestUsElectionsSectionSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestUsElectionsSectionFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
+export function* fetchContestantsSectionData() {
+  try {
+    const payload: payloadType = yield call(
+      nodeListApi,
+      'almrshhwn'
+    );
+    const response = parseNodeListDataSuccess(payload)
+    yield put(requestContestantsSectionSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    if (errorResponse.response) {
+      const errorMessage: { message: string } = errorResponse.response.data;
+      yield put(requestContestantsSectionFailed({ error: errorMessage.message }));
+    }
+  }
+}
+
 function* articleDetailSaga() {
   yield all([takeLatest(REQUEST_TICKER_HERO_DATA, fetchTickerAndHeroWidgetData)]);
   yield all([takeLatest(REQUEST_HERO_AND_TOP_LIST_DATA, fetchHeroListTopListWidgetData)]);
@@ -801,6 +879,8 @@ function* articleDetailSaga() {
   yield all ([takeLatest(REQUEST_SPOTLIGHT_ARTICLE_SECTION_DATA,fetchSpotlightArticleSection)]);
   yield all([takeLatest(REQUEST_INFO_GRAPHIC_BLOCK, fetchInfoGraphicBlockData)]);
   yield all([takeLatest(REQUEST_ARCHIVED_ARTICLE_DATA, fetchArchivedArticleSectionData)]);
+  yield all([takeLatest(REQUEST_US_ELECTION_DATA, fetchUsElectionSectionData)]);
+  yield all([takeLatest(REQUEST_CONTESTANTS_DATA, fetchContestantsSectionData)]);
 }
 
 export default articleDetailSaga;

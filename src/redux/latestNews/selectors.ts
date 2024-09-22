@@ -112,3 +112,11 @@ state.latestNewsTab.infoGraphicBlockInfoLoaded;
 export const getArchivedArticleSectionData: Selector<ArchivedArticleDataType[]> = (state: AppState) =>
 state.latestNewsTab.archivedArticleSection;
 
+export const getUsElectionsSectionData: Selector<MainSectionBlockType[]> = (state: AppState) =>
+  state.latestNewsTab.usElectionsSection;
+
+export const getUsElectionsSectionDataLoading: Selector<boolean> = (state: AppState) =>
+  state.latestNewsTab.usElectionsSectionLoaded;
+
+export const getContestantsSectionData: Selector<MainSectionBlockType[]> = (state: AppState) =>
+  state.latestNewsTab.contestantsSection;

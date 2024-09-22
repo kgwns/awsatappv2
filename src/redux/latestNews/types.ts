@@ -59,6 +59,12 @@ import {
   REQUEST_ARCHIVED_ARTICLE_DATA,
   REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS,
   REQUEST_ARCHIVED_ARTICLE_DATA_FAILED,
+  REQUEST_US_ELECTION_DATA,
+  REQUEST_US_ELECTION_DATA_SUCCESS,
+  REQUEST_US_ELECTION_DATA_FAILED,
+  REQUEST_CONTESTANTS_DATA,
+  REQUEST_CONTESTANTS_DATA_SUCCESS,
+  REQUEST_CONTESTANTS_DATA_FAILED,
 } from "./actionType"
 import { PodcastListItemType } from '../podcast/types'
 export type payloadType = { rows: any[], pager: object }
@@ -181,6 +187,9 @@ export type LatestNewsTabState = {
   spotlightArticleSection: LatestArticleDataType[],
   infoGraphicBlockInfo: InfoGraphicBlockType[]
   archivedArticleSection: ArchivedArticleDataType[]
+  contestantsSection: MainSectionBlockType[]
+  usElectionsSection: MainSectionBlockType[]
+  usElectionsSectionLoaded: boolean,
   coverageInfoLoaded: boolean,
   featuredArticleLoaded: boolean,
   horizontalArticleLoaded: boolean,
@@ -670,6 +679,42 @@ export type RequestArchivedArticleSectionFailedType = {
   payload: RequestArchivedArticleSectionFailedPayload
 }
 
+export type RequestNodeListSectionSuccessPayloadType = {
+  nodeListData: MainSectionBlockType[]
+}
+
+export type RequestNodeListSectionFailedPayload = {
+  error: string
+}
+
+export type RequestUsElectionsSectionType = {
+  type: typeof REQUEST_US_ELECTION_DATA
+}
+
+export type RequestUsElectionsSectionSuccessType = {
+  type: typeof REQUEST_US_ELECTION_DATA_SUCCESS;
+  payload: RequestNodeListSectionSuccessPayloadType
+}
+
+export type RequestUsElectionsSectionFailedType = {
+  type: typeof REQUEST_US_ELECTION_DATA_FAILED;
+  payload: RequestNodeListSectionFailedPayload
+}
+
+export type RequestContestantsSectionType = {
+  type: typeof REQUEST_CONTESTANTS_DATA
+}
+
+export type RequestContestantsSectionSuccessType = {
+  type: typeof REQUEST_CONTESTANTS_DATA_SUCCESS;
+  payload: RequestNodeListSectionSuccessPayloadType
+}
+
+export type RequestContestantsSectionFailedType = {
+  type: typeof REQUEST_CONTESTANTS_DATA_FAILED;
+  payload: RequestNodeListSectionFailedPayload
+}
+
 export type RequestSectionComboType =
   RequestSectionComboOne
   | RequestSectionComboTwo
@@ -740,5 +785,11 @@ export type LatestTabAction =
   | RequestInfoGraphicBlockFailedType
   | RequestArchivedArticleSectionType
   | RequestArchivedArticleSectionSuccessType
-  | RequestArchivedArticleSectionFailedType;
+  | RequestArchivedArticleSectionFailedType
+  | RequestUsElectionsSectionType
+  | RequestUsElectionsSectionSuccessType
+  | RequestUsElectionsSectionFailedType
+  | RequestContestantsSectionType
+  | RequestContestantsSectionSuccessType
+  | RequestContestantsSectionFailedType;
 

@@ -15,3 +15,14 @@ export const fetchVideoListApi = async (payload: VideoListBodyGet) => {
     throw error;
   }
 };
+
+export const fetchVideoListByIdApi = async (id: string) => {
+  try {
+    return await getCacheApiRequest(
+      `${BASE_URL}${VIDEO_LIST_ENDPOINT}/section/${id}`
+    );
+  } catch (error) {
+    console.log('videoListService - fetchVideoListByIdApi - error', error)
+    throw error;
+  }
+};

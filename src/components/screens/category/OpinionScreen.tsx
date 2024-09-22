@@ -22,9 +22,10 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any;}) => {
+export const OpinionScreen = React.memo(({tid, tabIndex, currentIndex, scrollY}: {tid?:string, tabIndex?:number; currentIndex?:number; scrollY?: any;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
+  const [opinionListData, setOpinionListData] = useState<OpinionsListItemType[]>([])
 
   const [page, setPage] = useState(0);
   const [isShowPlayer, setIsShowPlayer] = useState(false)
@@ -42,7 +43,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   const style = useThemeAwareObject(customStyle);
 
   const {opinionWriterData, fetchOpinionWriterRequest} = useOpinionWriter();
-  const { opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData } = useOpinions();
+  const { opinionsData, writerOpinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData } = useOpinions();
 
   const isFocused = useIsFocused();
 
@@ -71,6 +72,13 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
     fetchOpinionsRequest({ page });
   }, [page]);
 
+  useEffect(() => {
+    if (tid)
+      setOpinionListData(writerOpinionsData)
+    else
+      setOpinionListData(opinionsData)
+  }, [opinionsData, writerOpinionsData]);
+
   const {
     sendBookmarkInfo,
     removeBookmarkedInfo,
@@ -80,15 +88,15 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   const { isLoggedIn } = useLogin()
   const { showMiniPlayer } = useAppPlayer()
 
-  const [opinionsDataInfo, setOpinionsDataInfo] = useState(opinionsData)
+  const [opinionsDataInfo, setOpinionsDataInfo] = useState(opinionListData)
   const [showupUp,setShowPopUp] = useState(false)
   useEffect(() => {
     updateOpinionsData()
-  }, [opinionsData,bookmarkIdInfo,isFocused])
+  }, [opinionListData,bookmarkIdInfo,isFocused])
 
   const updateOpinionsData = () => {
-    if(isNonEmptyArray(opinionsData) && isFocused) {
-      const opinions = updateBookmark(opinionsData)
+    if(isNonEmptyArray(opinionListData) && isFocused) {
+      const opinions = updateBookmark(opinionListData)
       setOpinionsDataInfo(opinions)
     }
   }
@@ -145,7 +153,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
 
   const renderItem = () => (
     <View style={style.itemContainer}>
-      {isNonEmptyArray(opinionWriterData) &&
+      {!tid && isNonEmptyArray(opinionWriterData) &&
         <OpinionWritersSection data={opinionWriterData}
           onPressWriter={onPressWriter}
         />
@@ -164,7 +172,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   
 
   return (
-    <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionsData)} showPlayer={isShowPlayer}
+    <ScreenContainer  edge={horizontalEdge} isLoading={!isNonEmptyArray(opinionWriterData) || !isNonEmptyArray(opinionListData)} showPlayer={isShowPlayer}
       backgroundColor={style.screenBackgroundColor?.backgroundColor}>
       <View style={style.container}>
       <AnimatedFlatList

@@ -233,6 +233,7 @@ enum TranslateKey {
   USER_DETAIL_CONFIRM_NEW_PASSWORD,
   USER_DETAIL_MOVE_AND_SCALE,
   FOLLOW,
+  CONTESTANTS,
   FOLLOWER,
   PODCAST_WIDGET_HEADER_LEFT,
   PODCAST_WIDGET_HEADER_RIGHT,
@@ -697,6 +698,8 @@ const TranslateConstants = ({
             return arabic?.onBoard?.newsLetter?.description;
         case TranslateKey.FOLLOW:
             return arabic?.opinionArticleDetail?.follow;
+        case TranslateKey.CONTESTANTS:
+            return arabic?.opinionArticleDetail?.contestants ?? 'المرشحون';
         case TranslateKey.FOLLOWER:
             return arabic?.opinionArticleDetail?.follower;
         case TranslateKey.PODCAST_WIDGET_HEADER_LEFT:

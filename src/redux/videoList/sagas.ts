@@ -1,9 +1,9 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import { AxiosError } from 'axios';
-import { FetchVideoSuccessPayloadType, FetchVideoType, VideoItemType } from './types';
-import { fetchVideoListFailed, fetchVideoListSuccess, fetchVideoListWithPaginationFailed, fetchVideoListWithPaginationSuccess } from './action';
-import { FETCH_VIDEO, FETCH_VIDEO_PAGINATION } from './actionTypes';
-import { fetchVideoListApi } from 'src/services/videoListService';
+import { FetchVideoByIdType, FetchVideoSuccessPayloadType, FetchVideoType, VideoItemType } from './types';
+import { fetchVideoListByIdFailed, fetchVideoListByIdSuccess, fetchVideoListFailed, fetchVideoListSuccess, fetchVideoListWithPaginationFailed, fetchVideoListWithPaginationSuccess } from './action';
+import { FETCH_VIDEO, FETCH_VIDEO_BY_ID, FETCH_VIDEO_PAGINATION } from './actionTypes';
+import { fetchVideoListApi, fetchVideoListByIdApi } from 'src/services/videoListService';
 import { isNonEmptyArray, isNotEmpty } from 'src/shared/utils';
 import { decode } from 'html-entities';
 
@@ -60,6 +60,21 @@ export function* fetchVideoList(action: FetchVideoType) {
   }
 }
 
+export function* fetchVideoListById(action: FetchVideoByIdType) {
+
+  try {
+    const payload: FetchVideoSuccessPayloadType = yield call(
+      fetchVideoListByIdApi,
+      action.id
+    );
+    const response = parseVideosList(payload)
+    yield put(fetchVideoListByIdSuccess(response));
+  } catch (error) {
+    const errorResponse: AxiosError = error as AxiosError;
+    yield put(fetchVideoListByIdFailed({ error: errorResponse.message }));
+  }
+}
+
 export function* fetchVideoListPagination(action: FetchVideoType) {
 
   try {
@@ -77,6 +92,7 @@ export function* fetchVideoListPagination(action: FetchVideoType) {
 
 function* videoListSaga() {
   yield all([takeLatest(FETCH_VIDEO, fetchVideoList)]);
+  yield all([takeLatest(FETCH_VIDEO_BY_ID, fetchVideoListById)]);
   yield all([takeLatest(FETCH_VIDEO_PAGINATION, fetchVideoListPagination)]);
 }
 
