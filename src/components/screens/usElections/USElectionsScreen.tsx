@@ -4,10 +4,12 @@ import {
   ArticleSection, CarouselSlider,
   ArticleGridView, ArticleImageView,
   VideoContent,
+  BannerArticleSection,
 } from 'src/components/organisms'
 import { ScreenContainer } from '..'
 import {
   ScreensConstants,
+  shortArticleWithTagProperties,
   TranslateConstants,
   TranslateKey,
 } from 'src/constants/Constants';
@@ -15,7 +17,7 @@ import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth }
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useLatestNewsTab, useVideoList, useAppPlayer } from 'src/hooks';
-import { MainSectionBlockType } from 'src/redux/latestNews/types';
+import { LatestArticleDataType, MainSectionBlockType, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { ImagesName, Styles } from 'src/shared/styles';
@@ -27,19 +29,12 @@ import AuthorSlider from 'src/components/organisms/AuthorSlider';
 import { Label, LabelTypeProp, Overlay, WidgetHeader } from 'src/components/atoms';
 import { fonts } from 'src/shared/styles/fonts';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
-import { HOME_UNIT_ID } from 'src/hooks/useAds'
-import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 import { Image } from 'src/components/atoms/image/Image'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { useOpinions } from 'src/hooks/useOpinions';
 import { WriterOpinionsBodyGet } from 'src/redux/opinions/types';
 
-const OPINIONS_ID = '157431';
-const opinionListPayload: WriterOpinionsBodyGet = {
-  tid: OPINIONS_ID,
-  page: 0
-} 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export const USElectionsScreen = React.memo((
@@ -61,9 +56,9 @@ export const USElectionsScreen = React.memo((
   const { showMiniPlayer } = useAppPlayer()
   const {
     isLoading,
-    infoGraphicBlock, usElectionsSection, contestantsSection,
-    usElectionsSectionLoaded, featuredArticleLoaded, horizontalArticleLoaded,
-    fetchSpotlight, fetchUsElectionsSection, fetchContestantsSection  } = useLatestNewsTab()
+    infoGraphicBlock, usElectionsSection, contestantsSection, spotlightArticleSection,
+    usElectionsSectionLoaded,
+    fetchSpotlightArticleSection, fetchUsElectionsSection, fetchContestantsSection  } = useLatestNewsTab()
   const { fetchVideoById, videoByIdData } = useVideoList();
   const {writerOpinionsData, fetchWriterOpinionsRequest} = useOpinions();
 
@@ -150,25 +145,52 @@ export const USElectionsScreen = React.memo((
     fetchUsElectionsSection();
   }
 
-  const loadBottomWidgetAPI = () => {
-    fetchWriterOpinionsRequest(opinionListPayload)
-    fetchVideoById('157431');
-    fetchContestantsSection();
-    fetchSpotlight();
-  }
-
   useEffect(() => {
     if (usElectionsSectionLoaded) {
       loadBottomWidgetAPI()
     }
   }, [usElectionsSectionLoaded])
 
+  const OPINIONS_ID = '157431';
+  const opinionListPayload: WriterOpinionsBodyGet = {
+    tid: OPINIONS_ID,
+    page: 0
+  } 
+
+  const spotlightPayload: SpotlightArticleSectionBodyGet = {
+    id: 157431,
+    page: 0,
+    items_per_page: 20
+  } 
+  const loadBottomWidgetAPI = () => {
+    console.warn("opinionListPayload")
+    fetchWriterOpinionsRequest(opinionListPayload)
+    fetchVideoById('157431');
+    fetchContestantsSection();
+    fetchSpotlightArticleSection(spotlightPayload);
+  }
+
+  const spotlightArticleSectionData = spotlightArticleSection.map((item: LatestArticleDataType) => (
+    {
+      ...item,
+      ...shortArticleWithTagProperties,
+      titleColor: themeData.primaryBlack,
+      flag: item.news_categories && item.news_categories.title || '',
+      isBookmarked: false,
+      style: screenStyle.labelStyle
+    }
+  ))
+
   const onVideoItemPress = (item: VideoItemType) => {
     navigation.navigate(ScreensConstants.VideoPlayerScreen,
       { mediaID: item.mediaId, nid: item.nid, title: item.title })
   }
-  
 
+  const onPressArticle = (nid: string, isAlbum = false) => {
+    const screenName = isAlbum ? ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN : ScreensConstants.ARTICLE_DETAIL_SCREEN;
+    nid && navigation.navigate(screenName, { nid })
+  }
+  
   const onCloseSignUpAlert = () => {
     setShowPopUp(false)
   }
@@ -196,6 +218,7 @@ export const USElectionsScreen = React.memo((
           </View>
   }
   const CONTESTANTS = TranslateConstants({key:TranslateKey.CONTESTANTS})
+  const ELECTIONS_NEWS = TranslateConstants({key:TranslateKey.ELECTIONS_NEWS})
 
   const renderMobile = () => (
     <View style={screenStyle.mainContainer}>
@@ -216,7 +239,6 @@ export const USElectionsScreen = React.memo((
         <TopHeadLineNews data={headlineNews} />
       </View>
       {isNonEmptyArray(topViewSectionData) && <ArticleSection data={topViewSectionData} hideBookmark={true} onUpdateBookmark={() => true} />}
-      <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
       {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
@@ -228,7 +250,6 @@ export const USElectionsScreen = React.memo((
       {isNonEmptyArray(videoData) && (
         <VideoContent data={videoData} onPress={onVideoItemPress} />
       )}     
-      <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
       {isNonEmptyArray(opinionListData) && 
       <AuthorSlider data={opinionListData} 
         selectedType={selectedType} 
@@ -236,16 +257,27 @@ export const USElectionsScreen = React.memo((
         onClose={onClose} tid={OPINIONS_ID} />
       }
       {isNonEmptyArray(contestants) && 
-        <View style={screenStyle.heroContainer}>
+        <View style={screenStyle.contestantsContainer}>
           <WidgetHeader {...{headerLeft: {
             title: CONTESTANTS,
             color: themeData.primaryBlack,
             labelType: LabelTypeProp.title3,
-            textStyle: isTab ? screenStyle.tabHeaderTextStyle : { fontFamily: fonts.AwsatDigital_Black }
+            textStyle: isTab ? screenStyle.tabHeaderTextStyle : { fontFamily: fonts.AwsatDigital_Black, margin: normalize(16) }
           }}} />
           <FlatList data={contestants} horizontal={true} showsHorizontalScrollIndicator={false} renderItem={renderContestantItem}/>
         </View>
       }
+      {isNonEmptyArray(spotlightArticleSectionData) && (
+        <View style={screenStyle.articleContainer}>
+          <BannerArticleSection
+            data={spotlightArticleSectionData}
+            title={ELECTIONS_NEWS}
+            sectionId={'157431'}
+            onPress={onPressArticle}
+            onUpdateBookmark={() => true}
+          />
+        </View>
+      )}
       {showBottomSpinner()}
     </View>
   )
@@ -529,7 +561,7 @@ export const USElectionsScreen = React.memo((
   }
 
   const showBottomSpinner = () => {
-    if (isLoading || !usElectionsSectionLoaded) {
+    if (!isLoading || usElectionsSectionLoaded) {
       return null
     }
 
@@ -540,7 +572,7 @@ export const USElectionsScreen = React.memo((
     )
   }
 
-  const showSpinner = isLoading || !usElectionsSectionLoaded || !featuredArticleLoaded || !horizontalArticleLoaded
+  const showSpinner = isLoading || !usElectionsSectionLoaded
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={refreshing ? false : showSpinner}
       isSignUpAlertVisible={showupUp}
@@ -588,7 +620,8 @@ const customStyle = (theme: CustomThemeType) => {
   tabHeaderTextStyle: { 
     fontFamily: fonts.AwsatDigital_Black, 
     fontSize: 25, 
-    lineHeight: 36
+    lineHeight: 36,
+    margin: normalize(20)
   },
   slideContent: {
       position: 'absolute',
@@ -679,6 +712,9 @@ const customStyle = (theme: CustomThemeType) => {
     heroContainer: {
       marginHorizontal: isTab ? 0.04 * screenWidth : 0,
       overflow: 'hidden'
+    },
+    contestantsContainer: {
+      backgroundColor: theme.secondaryWhite,
     },
     tabletHeroContainer: {
       overflow: 'hidden',
@@ -785,3 +821,4 @@ const customStyle = (theme: CustomThemeType) => {
   }
   })
 }
+

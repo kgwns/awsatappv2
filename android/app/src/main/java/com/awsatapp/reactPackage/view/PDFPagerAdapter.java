@@ -18,14 +18,18 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.awsatapp.R;
+import com.github.chrisbanes.photoview.OnMatrixChangedListener;
+import com.github.chrisbanes.photoview.PhotoViewAttacher;
+
 import java.lang.ref.WeakReference;
+
 import es.voghdev.pdfviewpager.library.adapter.PdfScale;
 import es.voghdev.pdfviewpager.library.util.EmptyClickListener;
-import uk.co.senab.photoview.PhotoViewAttacher;
+
 
 
 public class PDFPagerAdapter extends BasePDFPagerAdapter
-        implements PhotoViewAttacher.OnMatrixChangedListener {
+        implements OnMatrixChangedListener {
 
     private static final float DEFAULT_SCALE = 1f;
 
@@ -61,12 +65,7 @@ public class PDFPagerAdapter extends BasePDFPagerAdapter
         attachers.put(position, new WeakReference<PhotoViewAttacher>(attacher));
 
         iv.setImageBitmap(bitmap);
-        attacher.setOnPhotoTapListener(new PhotoViewAttacher.OnPhotoTapListener() {
-            @Override
-            public void onPhotoTap(View view, float x, float y) {
-                pageClickListener.onClick(view);
-            }
-        });
+        attacher.setOnPhotoTapListener((view, x, y) -> pageClickListener.onClick(view));
         iv.setRotationY(180);
         attacher.update();
         container.addView(v, 0);

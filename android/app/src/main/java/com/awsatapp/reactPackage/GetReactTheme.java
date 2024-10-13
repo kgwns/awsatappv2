@@ -1,27 +1,11 @@
 package com.awsatapp.reactPackage;
 
-import android.content.Intent;
-import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-import androidx.lifecycle.Lifecycle;
-import androidx.lifecycle.LifecycleEventObserver;
-import androidx.lifecycle.LifecycleOwner;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.awsatapp.MainActivity;
 import com.awsatapp.reactPackage.listener.OnThemeChangeListener;
 import com.awsatapp.reactPackage.listener.ThemeChangeEvent;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
-import com.facebook.react.bridge.WritableMap;
-
-import java.util.Objects;
 
 /**
  * @Author: Saravanakumar Subramanian

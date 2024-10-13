@@ -234,6 +234,8 @@ enum TranslateKey {
   USER_DETAIL_MOVE_AND_SCALE,
   FOLLOW,
   CONTESTANTS,
+  ELECTIONS_NEWS,
+  US_ELECTIONS,
   FOLLOWER,
   PODCAST_WIDGET_HEADER_LEFT,
   PODCAST_WIDGET_HEADER_RIGHT,
@@ -700,6 +702,10 @@ const TranslateConstants = ({
             return arabic?.opinionArticleDetail?.follow;
         case TranslateKey.CONTESTANTS:
             return arabic?.opinionArticleDetail?.contestants ?? 'المرشحون';
+        case TranslateKey.ELECTIONS_NEWS:
+            return arabic?.opinionArticleDetail?.electionsNews ?? 'أخبار الانتخابات';
+        case TranslateKey.US_ELECTIONS:
+            return arabic?.opinionArticleDetail?.usElections ?? 'الانتخابات الأمريكية';
         case TranslateKey.FOLLOWER:
             return arabic?.opinionArticleDetail?.follower;
         case TranslateKey.PODCAST_WIDGET_HEADER_LEFT:

@@ -12,8 +12,9 @@ const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
   }
     if (response && isNonEmptyArray(response.rows)) {
       const results: TopMenuItemType[] = [];
+      const usElectionsTitle = 'الانتخابات'//TranslateConstants({key:TranslateKey.US_ELECTIONS})
       const usElectionItem: TopMenuItemType = {
-        tabName: 'US ELECTIONs',
+        tabName: usElectionsTitle,
         keyName: 'us_elections',
         isSelected: false,
         uuid: 'bc1a6107-1624-4efd-acbf-54386f60dcb6',
