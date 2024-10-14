@@ -10,8 +10,8 @@ import {
   FetchWriterOpinionsSuccessType,
   EmptyWriterOpinionDataType,
   EmptyOpinionsDataType,
-  OpinionsListBodyGet,
   StoreHomeOpinionNidPayload,
+  OpinionsBodyGet,
 } from 'src/redux/opinions/types';
 import {
   EMPTY_OPINION_DATA,
@@ -25,7 +25,7 @@ import {
   STORE_HOME_OPINION_NID,
 } from './actionTypes';
 
-export const fetchOpinions = (payload: OpinionsListBodyGet) => {
+export const fetchOpinions = (payload: OpinionsBodyGet) => {
   return {
     type: FETCH_OPINIONS,
     payload,

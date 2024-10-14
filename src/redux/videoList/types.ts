@@ -40,6 +40,7 @@ export interface FetchVideoFailedPayloadtype {
 
 export interface VideoListBodyGet {
   page?: number;
+  id?: string;
   items_per_page?: number;
 }
 
@@ -85,7 +86,7 @@ export type FetchVideoPaginationFailedType = {
 
 export type FetchVideoByIdType = {
   type: typeof FETCH_VIDEO_BY_ID;
-  id: string;
+  payload: VideoListBodyGet;
 };
 
 export type FetchVideoByIdSuccessType = {

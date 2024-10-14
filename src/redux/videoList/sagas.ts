@@ -65,7 +65,7 @@ export function* fetchVideoListById(action: FetchVideoByIdType) {
   try {
     const payload: FetchVideoSuccessPayloadType = yield call(
       fetchVideoListByIdApi,
-      action.id
+      action.payload
     );
     const response = parseVideosList(payload)
     yield put(fetchVideoListByIdSuccess(response));

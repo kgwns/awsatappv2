@@ -187,6 +187,18 @@ const AppNavigator = () => {
         options={{ ...hideHeader, animationEnabled: false }}
       />
       <Stack.Screen
+        name={ScreensConstants.VideoScreen}
+        component={Routes.VideoScreen}
+        options={{
+          headerStyle: [style.container, style.onboardBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle('فيديو'),
+          headerTitleAlign: 'center',
+          gestureEnabled: false,
+          headerShadowVisible: false,
+        }}
+      />
+      <Stack.Screen
         name={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN}
         component={Routes.ManageMyFavoriteAuthorScreen}
         options={{

@@ -46,10 +46,10 @@ export const fetchVideoListFailed = (
   };
 };
 
-export const fetchVideoListById = (id: string) => {
+export const fetchVideoListById = (payload: VideoListBodyGet) => {
   return {
     type: FETCH_VIDEO_BY_ID,
-    id
+    payload
   };
 };
 

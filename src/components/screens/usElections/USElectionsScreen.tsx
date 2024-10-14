@@ -17,7 +17,7 @@ import { horizontalEdge, isIOS, isNonEmptyArray, isTab, normalize, screenWidth }
 import { Divider } from 'react-native-elements/dist/divider/Divider';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { useLatestNewsTab, useVideoList, useAppPlayer } from 'src/hooks';
-import { LatestArticleDataType, MainSectionBlockType, SpotlightArticleSectionBodyGet } from 'src/redux/latestNews/types';
+import { LatestArticleDataType, MainSectionBlockType } from 'src/redux/latestNews/types';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { ImagesName, Styles } from 'src/shared/styles';
@@ -33,7 +33,6 @@ import { Image } from 'src/components/atoms/image/Image'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { useOpinions } from 'src/hooks/useOpinions';
-import { WriterOpinionsBodyGet } from 'src/redux/opinions/types';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -60,7 +59,7 @@ export const USElectionsScreen = React.memo((
     usElectionsSectionLoaded,
     fetchSpotlightArticleSection, fetchUsElectionsSection, fetchContestantsSection  } = useLatestNewsTab()
   const { fetchVideoById, videoByIdData } = useVideoList();
-  const {writerOpinionsData, fetchWriterOpinionsRequest} = useOpinions();
+  const {opinionsData, fetchOpinionsRequest, emptyOpinionsData} = useOpinions();
 
   const [refreshing, setRefreshing] = useState(false);
   const [usElections, setUsElections] = useState<MainSectionBlockType[]>(usElectionsSection)
@@ -114,14 +113,15 @@ export const USElectionsScreen = React.memo((
     }
   }, [videoByIdData])
 
+  const listPartition = (list: any, value: any):any => {
+    return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
+  }
   useEffect(() => {
-    const listPartition = (list: any, value: any):any => {
-      return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
+    if (opinionsData.length) {
+      const data = listPartition(opinionsData, 4)
+      setOpinionListData(data)
     }
-    const newData = [...writerOpinionsData]
-    const data = listPartition(newData,4)
-    setOpinionListData(data)
-  }, [writerOpinionsData])
+  }, [opinionsData])
 
   useEffect(() => {
     allDataLoad();
@@ -142,6 +142,7 @@ export const USElectionsScreen = React.memo((
   }
 
   const loadTopWidgetAPI = () => {
+    emptyOpinionsData();
     fetchUsElectionsSection();
   }
 
@@ -151,23 +152,29 @@ export const USElectionsScreen = React.memo((
     }
   }, [usElectionsSectionLoaded])
 
-  const OPINIONS_ID = '157431';
-  const opinionListPayload: WriterOpinionsBodyGet = {
-    tid: OPINIONS_ID,
-    page: 0
-  } 
+  const ELECTION_ID = '157431';
 
-  const spotlightPayload: SpotlightArticleSectionBodyGet = {
-    id: 157431,
-    page: 0,
-    items_per_page: 20
-  } 
   const loadBottomWidgetAPI = () => {
-    console.warn("opinionListPayload")
-    fetchWriterOpinionsRequest(opinionListPayload)
-    fetchVideoById('157431');
+    fetchOpinionsRequest({
+      nid: ELECTION_ID,
+      page: 0,
+      itemsPerPage: 50,
+      notOpinionsList: true
+    });
+
+    fetchVideoById({
+      id: ELECTION_ID,
+      page: 0,
+      items_per_page: 10
+    });
+
+    fetchSpotlightArticleSection({
+      id: 157431,
+      page: 0,
+      items_per_page: 20
+    });
+
     fetchContestantsSection();
-    fetchSpotlightArticleSection(spotlightPayload);
   }
 
   const spotlightArticleSectionData = spotlightArticleSection.map((item: LatestArticleDataType) => (
@@ -184,6 +191,11 @@ export const USElectionsScreen = React.memo((
   const onVideoItemPress = (item: VideoItemType) => {
     navigation.navigate(ScreensConstants.VideoPlayerScreen,
       { mediaID: item.mediaId, nid: item.nid, title: item.title })
+  }
+
+  const onVideoPressMore = () => {
+    navigation.navigate(ScreensConstants.VideoScreen,
+      { sectionId: ELECTION_ID })
   }
 
   const onPressArticle = (nid: string, isAlbum = false) => {
@@ -248,13 +260,13 @@ export const USElectionsScreen = React.memo((
       />}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       {isNonEmptyArray(videoData) && (
-        <VideoContent data={videoData} onPress={onVideoItemPress} />
+        <VideoContent data={videoData} onPress={onVideoItemPress} showMore onPressMore={onVideoPressMore}/>
       )}     
       {isNonEmptyArray(opinionListData) && 
-      <AuthorSlider data={opinionListData} 
-        selectedType={selectedType} 
-        getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
-        onClose={onClose} tid={OPINIONS_ID} />
+        <AuthorSlider data={opinionListData} 
+          selectedType={selectedType} 
+          getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
+          onClose={onClose} tid={ELECTION_ID} />
       }
       {isNonEmptyArray(contestants) && 
         <View style={screenStyle.contestantsContainer}>
@@ -572,7 +584,7 @@ export const USElectionsScreen = React.memo((
     )
   }
 
-  const showSpinner = isLoading || !usElectionsSectionLoaded
+  const showSpinner = !usElectionsSectionLoaded
   return (
     <ScreenContainer edge={horizontalEdge} isLoading={refreshing ? false : showSpinner}
       isSignUpAlertVisible={showupUp}

@@ -1935,6 +1935,7 @@ const MANAGE_MY_FAVORITE_TOPICS_SCREEN = 'MANAGE_MY_FAVORITE_TOPICS_SCREEN' as S
 const USER_DETAIL_SCREEN = 'UserDetailScreen' as ScreenName;
 const WEATHER_DETAIL_SCREEN = 'WeatherDetailScreen' as ScreenName;
 const VideoPlayerScreen = 'VideoPlayerScreen' as ScreenName;
+const VideoScreen = 'VideoScreen' as ScreenName;
 const WRITERS_DETAIL_SCREEN = 'WriterDetailScreen' as ScreenName
 const SectionArticlesParentScreen = 'SectionArticlesParentScreen' as ScreenName
 const GAME_SCREEN = 'GameScreen' as ScreenName
@@ -1993,6 +1994,7 @@ const ScreensConstants = {
     USER_DETAIL_SCREEN,
     WEATHER_DETAIL_SCREEN,
     VideoPlayerScreen,
+    VideoScreen,
     WRITERS_DETAIL_SCREEN,
     SectionArticlesParentScreen,
     GAME_SCREEN,

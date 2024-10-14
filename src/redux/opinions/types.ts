@@ -52,12 +52,10 @@ export interface FieldOpinionSportBlogExport {
 }
 
 export interface OpinionsBodyGet {
+  nid?: string;
   page: number;
-}
-
-export interface OpinionsListBodyGet {
-  page: number;
-  nid: string;
+  itemsPerPage?: number;
+  notOpinionsList?: boolean
 }
 
 export interface FetchOpinionsSuccessPayloadType {
@@ -80,7 +78,7 @@ export type OpinionsListState = {
 
 export type FetchOpinionsType = {
   type: typeof FETCH_OPINIONS;
-  payload: OpinionsListBodyGet;
+  payload: OpinionsBodyGet;
 };
 
 export type FetchOpinionsSuccessType = {

@@ -12,7 +12,7 @@ const returnResponse = (response: any): FetchTopMenuSuccessPayloadType => {
   }
     if (response && isNonEmptyArray(response.rows)) {
       const results: TopMenuItemType[] = [];
-      const usElectionsTitle = 'الانتخابات'//TranslateConstants({key:TranslateKey.US_ELECTIONS})
+      const usElectionsTitle = 'الانتخابات الأمريكية'//TranslateConstants({key:TranslateKey.US_ELECTIONS})
       const usElectionItem: TopMenuItemType = {
         tabName: usElectionsTitle,
         keyName: 'us_elections',

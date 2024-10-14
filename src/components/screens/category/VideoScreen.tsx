@@ -3,7 +3,7 @@ import {View, StyleSheet, FlatList, ListRenderItem, Animated, ActivityIndicator}
 
 import {VideoItem} from 'src/components/molecules';
 import {decodeHTMLTags, EventsValue, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth} from 'src/shared/utils';
-import {useNavigation} from '@react-navigation/native';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants/Constants';
 import { useBookmark, useLogin, useVideoList, useDocumentaryVideo, useAppPlayer } from 'src/hooks';
@@ -26,7 +26,9 @@ const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
 }
 
 export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any}) => {
-
+  const { params } = useRoute<RouteProp<any>>();
+  const sectionId = params?.sectionId;
+  
   const styles = useThemeAwareObject(customStyle);
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
   const {isVideoLoading: isLoading,videoPaginationData, fetchVideoWithPagination} = useVideoList();
@@ -141,12 +143,12 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     setPage(0);
     setVideoDataInfo([]);
     fetchDocumentaryVideoRequest(documentaryVideoPayload);
-    fetchVideoWithPagination({page: 0, items_per_page: VIDEO_ITEMS_PER_PAGE});
+    fetchVideoWithPagination({page: 0, id: sectionId, items_per_page: VIDEO_ITEMS_PER_PAGE});
    }, []);
 
   useEffect(() => { 
     if (page !== 0) {
-      fetchVideoWithPagination({ page, items_per_page: VIDEO_ITEMS_PER_PAGE });
+      fetchVideoWithPagination({ page, id: sectionId, items_per_page: VIDEO_ITEMS_PER_PAGE });
     }
    }, [page]);
 

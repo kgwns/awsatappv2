@@ -20,7 +20,7 @@ export interface UseVideoReturn {
   videoError: string;
   errorMessage: string;
   fetchVideoRequest(payload: VideoListBodyGet): void;
-  fetchVideoById(id: string): void;
+  fetchVideoById(payload: VideoListBodyGet): void;
   fetchVideoWithPagination(payload: VideoListBodyGet): void;
 }
 
@@ -36,8 +36,8 @@ export const useVideoList = (): UseVideoReturn => {
   const fetchVideoRequest = (payload: VideoListBodyGet) => {
     dispatch(fetchVideoList(payload));
   };
-  const fetchVideoById = (id: string) => {
-    dispatch(fetchVideoListById(id));
+  const fetchVideoById = (payload: VideoListBodyGet) => {
+    dispatch(fetchVideoListById(payload));
   };
   const fetchVideoWithPagination = (payload: VideoListBodyGet) => {
     dispatch(fetchVideoListWithPagination(payload));

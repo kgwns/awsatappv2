@@ -36,7 +36,7 @@ export function* fetchOpinionsList(action: FetchOpinionsType) {
   try {
     let nid = action.payload.nid
     const page = action.payload.page
-    if (page === 0) {
+    if (page === 0 && !action.payload.notOpinionsList) {
       const homeOpinionListPayload: payloadType = yield call(
         fetchHomeOpinionsListApi,
       );
@@ -45,10 +45,10 @@ export function* fetchOpinionsList(action: FetchOpinionsType) {
       nid = joinArray(nidArray, '+')
       yield put(storeHomeOpinionNid({ nid }))
     }
-
+    action.payload.nid = nid;
     const payload: FetchOpinionsSuccessPayloadType = yield call(
       fetchOpinionsListApi,
-      { page: action.payload.page, nid },
+      action.payload,
     );
     yield put(fetchOpinionsSuccess({opinionListData: payload}));
   } catch (error) {

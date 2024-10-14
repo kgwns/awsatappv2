@@ -33,7 +33,8 @@ export const useOpinions = (): UseOpinionsReturn => {
   const homeOpinionNidList = useSelector(getHomeOpinionNidData);
 
   const fetchOpinionsRequest = (payload: OpinionsBodyGet) => {
-    dispatch(fetchOpinions({ page: payload.page, nid: homeOpinionNidList }));
+    payload.nid = payload.nid ? payload.nid : homeOpinionNidList;
+    dispatch(fetchOpinions(payload));
   };
 
   const isWriterOpinionLoading = useSelector(getWriterOpinionIsLoading);
