@@ -33,6 +33,7 @@ import { Image } from 'src/components/atoms/image/Image'
 import { ImageResize } from 'src/shared/styles/text-styles';
 import { VideoItemType } from 'src/redux/videoList/types';
 import { useOpinions } from 'src/hooks/useOpinions';
+import FixedTouchable from '~/shared/utils/FixedTouchable';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -217,7 +218,7 @@ export const USElectionsScreen = React.memo((
   }
 
   const renderContestantItem = ({ item }: { item: MainSectionBlockType, index: number }) => {
-    return <View style={screenStyle.sliderItemContainer}>
+    return <FixedTouchable style={screenStyle.sliderItemContainer} onPress={() => onPressArticle(item.nid)}>
               <Image url={item.image} style={screenStyle.image}
                     resizeMode={ImageResize.COVER}
               />
@@ -225,7 +226,7 @@ export const USElectionsScreen = React.memo((
               <View style={screenStyle.slideContent}>
                   <Label labelType={LabelTypeProp.h1} children={item.title} color={Styles.color.white} />
               </View>
-          </View>
+          </FixedTouchable>
   }
   const CONTESTANTS = TranslateConstants({key:TranslateKey.CONTESTANTS})
   const ELECTIONS_NEWS = TranslateConstants({key:TranslateKey.ELECTIONS_NEWS})
@@ -826,8 +827,9 @@ const customStyle = (theme: CustomThemeType) => {
       fontFamily: fonts.AwsatDigital_Black,
       paddingTop: 15,
     }, sliderItemContainer: {
-      width: screenWidth,
-      height: 1.05 * screenWidth
+      width: screenWidth * .8,
+      height: 1.05 * screenWidth,
+      margin: normalize(14)
   }
   })
 }
