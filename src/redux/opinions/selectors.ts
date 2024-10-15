@@ -8,6 +8,10 @@ export const getOpinionsData: Selector<OpinionsListItemType[]> = (
   state: AppState,
 ) => state.opinions.opinionData.rows;
 
+export const getOpinionsByIdData: Selector<OpinionsListItemType[]> = (
+  state: AppState,
+) => state.opinions.opinionByIdData.rows;
+
 export const getOpinionsError: Selector<string> = (state: AppState) =>
   state.opinions.error;
 

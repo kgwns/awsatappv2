@@ -59,7 +59,7 @@ export const USElectionsScreen = React.memo((
     usElectionsSectionLoaded,
     fetchSpotlightArticleSection, fetchUsElectionsSection, fetchContestantsSection  } = useLatestNewsTab()
   const { fetchVideoById, videoByIdData } = useVideoList();
-  const {opinionsData, fetchOpinionsRequest, emptyOpinionsData} = useOpinions();
+  const {opinionByIdData, fetchOpinionsRequest} = useOpinions();
 
   const [refreshing, setRefreshing] = useState(false);
   const [usElections, setUsElections] = useState<MainSectionBlockType[]>(usElectionsSection)
@@ -117,11 +117,11 @@ export const USElectionsScreen = React.memo((
     return list.length ? [list.splice(0, value)].concat(listPartition(list, value)) : [];
   }
   useEffect(() => {
-    if (opinionsData.length) {
-      const data = listPartition(opinionsData, 4)
+    if (opinionByIdData.length) {
+      const data = listPartition(opinionByIdData, 4)
       setOpinionListData(data)
     }
-  }, [opinionsData])
+  }, [opinionByIdData])
 
   useEffect(() => {
     allDataLoad();
@@ -142,8 +142,13 @@ export const USElectionsScreen = React.memo((
   }
 
   const loadTopWidgetAPI = () => {
-    emptyOpinionsData();
     fetchUsElectionsSection();
+    fetchOpinionsRequest({
+      nid: ELECTION_ID,
+      page: 0,
+      itemsPerPage: 50,
+      byIdOpinions: true
+    });
   }
 
   useEffect(() => {
@@ -155,13 +160,6 @@ export const USElectionsScreen = React.memo((
   const ELECTION_ID = '157431';
 
   const loadBottomWidgetAPI = () => {
-    fetchOpinionsRequest({
-      nid: ELECTION_ID,
-      page: 0,
-      itemsPerPage: 50,
-      notOpinionsList: true
-    });
-
     fetchVideoById({
       id: ELECTION_ID,
       page: 0,
@@ -266,7 +264,7 @@ export const USElectionsScreen = React.memo((
         <AuthorSlider data={opinionListData} 
           selectedType={selectedType} 
           getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
-          onClose={onClose} tid={ELECTION_ID} />
+          onClose={onClose} showMore={false}/>
       }
       {isNonEmptyArray(contestants) && 
         <View style={screenStyle.contestantsContainer}>

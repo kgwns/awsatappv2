@@ -34,9 +34,11 @@ export const fetchOpinions = (payload: OpinionsBodyGet) => {
 
 export const fetchOpinionsSuccess = (
   payload: FetchOpinionsSuccessPayloadType,
+  byIdOpinions?: boolean
 ): FetchOpinionsSuccessType => {
   return {
     type: FETCH_OPINIONS_SUCCESS,
+    byIdOpinions: byIdOpinions,
     payload,
   };
 };

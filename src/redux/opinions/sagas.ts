@@ -36,7 +36,7 @@ export function* fetchOpinionsList(action: FetchOpinionsType) {
   try {
     let nid = action.payload.nid
     const page = action.payload.page
-    if (page === 0 && !action.payload.notOpinionsList) {
+    if (page === 0 && !action.payload.byIdOpinions) {
       const homeOpinionListPayload: payloadType = yield call(
         fetchHomeOpinionsListApi,
       );
@@ -50,7 +50,7 @@ export function* fetchOpinionsList(action: FetchOpinionsType) {
       fetchOpinionsListApi,
       action.payload,
     );
-    yield put(fetchOpinionsSuccess({opinionListData: payload}));
+    yield put(fetchOpinionsSuccess({opinionListData: payload}, action.payload.byIdOpinions));
   } catch (error) {
     const errorResponse: AxiosError = error as AxiosError;
     if (errorResponse.response) {

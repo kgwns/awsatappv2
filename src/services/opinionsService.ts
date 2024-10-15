@@ -33,7 +33,7 @@ export const fetchOpinionsListApi = async (body: OpinionsBodyGet) => {
   const page = body.page ? body.page : 0;
   const id = body.nid ? body.nid : 'all';
   try {
-    const relativeUrl = body.notOpinionsList ? OPINIONS_ENDPOINT : OPINION_LIST_END_POINT
+    const relativeUrl = body.byIdOpinions ? OPINIONS_ENDPOINT : OPINION_LIST_END_POINT
     const pagingQueryString = `?items_per_page=${itemsPerPage}&page=${page}`;
     const url = `${BASE_URL}${relativeUrl}${id}${pagingQueryString}`
     return await getCacheApiRequest(url);

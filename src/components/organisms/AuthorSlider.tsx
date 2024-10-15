@@ -24,7 +24,8 @@ const AuthorSlider = ({
   getSelectedTrack,
   selectedType,
   onClose,
-  tid
+  tid,
+  showMore = true
 }: {
   data: any, listKey?: string,
   widgetHeader?: string,
@@ -34,7 +35,8 @@ const AuthorSlider = ({
   getSelectedTrack?: (id: any, type: 'OPINION' | 'PODCAST') => void,
   selectedType?: string,
   onClose?: () => void,
-  tid?: string
+  tid?: string,
+  showMore?: boolean
 }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
@@ -125,7 +127,7 @@ const AuthorSlider = ({
       elementContainerStyle: style.headerLeftContainer,
       textStyle: isTab && style.opinionHeader
   },
-    headerRight: {
+    headerRight: showMore ? {
       title: SECTION_COMBO_ONE_HEADER_RIGHT,
       icon: () => {
         return getSvgImages({
@@ -136,11 +138,11 @@ const AuthorSlider = ({
       },
       labelType: LabelTypeProp.caption2,
       clickable: true,
-    },
+    } : undefined,
   };
 
   const onPressMore = () => {
-    const params = { sectionId: tid, title: CONST_OPINION_COMBO_TITLE, keyName: "opinion" }
+    const params = { data: data, sectionId: tid, title: CONST_OPINION_COMBO_TITLE, keyName: "opinion" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 

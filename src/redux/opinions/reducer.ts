@@ -9,10 +9,11 @@ import {
   FETCH_WRITER_OPINIONS_SUCCESS,
   STORE_HOME_OPINION_NID,
 } from './actionTypes';
-import { OpinionsActions, OpinionsListState } from './types';
+import { FetchOpinionsSuccessType, OpinionsActions, OpinionsListState } from './types';
 
 const initialState: OpinionsListState = {
   opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+  opinionByIdData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
   error: '',
   isLoading: false,
   writerOpinionLoading: true,
@@ -38,15 +39,34 @@ export default (state = initialState, action: OpinionsActions) => {
     return temp.opinionData;
   };
 
+  const concatByIdData = (data: any) => {
+    const temp = { ...state }
+    temp.opinionByIdData.rows = temp.opinionByIdData.rows.concat(data.rows);
+    temp.opinionByIdData.pager.current_page = data.pager?.current_page;
+    temp.opinionByIdData.pager.items_per_page = data.pager?.items_per_page;
+    return temp.opinionByIdData;
+  };
+
+  const editState = (action: any) => {
+    if (action.byIdOpinions) {
+      return {
+        ...state, isLoading: false, error: '',
+        opinionByIdData: isNonEmptyArray(state.opinionByIdData.rows) ?
+        concatByIdData(action.payload.opinionListData) : action.payload.opinionListData
+      }
+    } else {
+      return {
+        ...state, isLoading: false, error: '',
+        opinionData: isNonEmptyArray(state.opinionData.rows) ?
+        concatData(action.payload.opinionListData) : action.payload.opinionListData
+      }
+    }
+  }
+
   switch (action.type) {
     case FETCH_OPINIONS_SUCCESS:
-      return {
-        ...state,
-        isLoading: false,
-        error: '',
-        opinionData: isNonEmptyArray(state.opinionData.rows) ?
-          concatData(action.payload.opinionListData) : action.payload.opinionListData,
-      };
+      action.payload.opinionListData
+      return editState(action);
     case FETCH_OPINIONS_ERROR:
       return {
         ...state,
@@ -76,9 +96,10 @@ export default (state = initialState, action: OpinionsActions) => {
         writerOpinionError: '',
       }
     case EMPTY_OPINION_DATA:
-      return {
+        return {
         ...state,
         opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+        opinionByIdData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
       }
     case STORE_HOME_OPINION_NID:
       return {
@@ -89,3 +110,4 @@ export default (state = initialState, action: OpinionsActions) => {
       return { ...state };
   }
 };
+

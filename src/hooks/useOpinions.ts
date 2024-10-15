@@ -7,6 +7,7 @@ import {
   getWriterOpinionsData,
   getWriterOpinionsError,
   getHomeOpinionNidData,
+  getOpinionsByIdData,
 } from 'src/redux/opinions/selectors';
 import {emptyWriterOpinionAction, fetchOpinions, fetchWriterOpinions, emptyOpinionsAction, fetchOpinionsSuccess} from 'src/redux/opinions/action';
 import { FetchOpinionsSuccessPayloadType, OpinionsBodyGet, OpinionsListItemType, WriterOpinionsBodyGet} from 'src/redux/opinions/types';
@@ -14,6 +15,7 @@ import { FetchOpinionsSuccessPayloadType, OpinionsBodyGet, OpinionsListItemType,
 export interface UseOpinionsReturn {
   isLoading: boolean;
   opinionsData: OpinionsListItemType[];
+  opinionByIdData: OpinionsListItemType[];
   opinionsError: string;
   fetchOpinionsRequest(payload: OpinionsBodyGet): void;
   isWriterOpinionLoading: boolean;
@@ -29,6 +31,7 @@ export const useOpinions = (): UseOpinionsReturn => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getIsLoading);
   const opinionsData = useSelector(getOpinionsData);
+  const opinionByIdData = useSelector(getOpinionsByIdData);
   const opinionsError = useSelector(getOpinionsError);
   const homeOpinionNidList = useSelector(getHomeOpinionNidData);
 
@@ -59,6 +62,7 @@ export const useOpinions = (): UseOpinionsReturn => {
   return {
     isLoading,
     opinionsData,
+    opinionByIdData,
     opinionsError,
     fetchOpinionsRequest,
     isWriterOpinionLoading,

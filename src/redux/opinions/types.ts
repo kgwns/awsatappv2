@@ -55,7 +55,7 @@ export interface OpinionsBodyGet {
   nid?: string;
   page: number;
   itemsPerPage?: number;
-  notOpinionsList?: boolean
+  byIdOpinions?: boolean
 }
 
 export interface FetchOpinionsSuccessPayloadType {
@@ -68,6 +68,7 @@ export interface FetchOpinionsFailedPayloadtype {
 //opinionData: OpinionsListItemType[];
 export type OpinionsListState = {
   opinionData: payloadType;
+  opinionByIdData: payloadType;
   error: string;
   isLoading: boolean;
   writerOpinionLoading: boolean;
@@ -83,6 +84,7 @@ export type FetchOpinionsType = {
 
 export type FetchOpinionsSuccessType = {
   type: typeof FETCH_OPINIONS_SUCCESS;
+  byIdOpinions?: boolean;
   payload: FetchOpinionsSuccessPayloadType;
 };
 
