@@ -34,7 +34,7 @@ import { convertSecondsToHMS, decodeHTMLTags, getPodcastUrl, isDarkTheme, isObje
 import { fonts } from 'src/shared/styles/fonts';
 import { PopulateWidgetType } from 'src/components/molecules/populateWidget/PopulateWidget';
 import InfoGraphicMapWidget from 'src/components/organisms/InfoGraphicMapWidget';
-import { SECTION_COMBO_SIX, SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
+import { SECTION_COMBO_TWO } from 'src/services/apiEndPoints';
 import MainSectionShortArticle from 'src/components/organisms/MainSectionShortArticle';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
 import { HOME_UNIT_ID } from 'src/hooks/useAds'
@@ -74,7 +74,7 @@ const sectionComboFivePayload: RequestSectionComboBodyGet = {
 }
 
 const sectionComboSixPayload: RequestSectionComboBodyGet = {
-  id: SECTION_COMBO_SIX,
+  id: 29,
   items_per_page: 10,
   page: 0
 }
@@ -659,10 +659,10 @@ export const MainSectionScreen = React.memo((
       {isNonEmptyArray(gridViewSectionData) && <ArticleGridView showHighlightTitle={false} data={gridViewSectionData} />}
       {isNonEmptyArray(topViewSectionDataTwo) && <ArticleImageView showHighlightTitle={false} data={topViewSectionDataTwo} />}
       {isNonEmptyArray(topViewSectionDataThree) && <ArticleImageView showImage={false} showHighlightTitle={false} data={topViewSectionDataThree} />}
-      {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget 
+      {/* {isNonEmptyArray(infoGraphicBlock) && <InfoGraphicMapWidget 
         headerTitle={infoGraphicBlock[0].info}
         htmlContent={infoGraphicBlock[0].body}
-      />}
+      />} */}
       {isNonEmptyArray(infoGraphicBlock) && <Divider style={{ height: 1, backgroundColor: themeData.dividerColor }} />}
       <EditorsPickSection headerRight={CONST_EDITOR_CHOICE_HEADER_TITLE} data={editorsChoiceInfo} showHighlightTitle={false}/>
       <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>

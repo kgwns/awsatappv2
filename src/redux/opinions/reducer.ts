@@ -51,8 +51,7 @@ export default (state = initialState, action: OpinionsActions) => {
     if (action.byIdOpinions) {
       return {
         ...state, isLoading: false, error: '',
-        opinionByIdData: isNonEmptyArray(state.opinionByIdData.rows) ?
-        concatByIdData(action.payload.opinionListData) : action.payload.opinionListData
+        opinionByIdData: action.payload.opinionListData
       }
     } else {
       return {
@@ -65,7 +64,6 @@ export default (state = initialState, action: OpinionsActions) => {
 
   switch (action.type) {
     case FETCH_OPINIONS_SUCCESS:
-      action.payload.opinionListData
       return editState(action);
     case FETCH_OPINIONS_ERROR:
       return {
@@ -98,8 +96,7 @@ export default (state = initialState, action: OpinionsActions) => {
     case EMPTY_OPINION_DATA:
         return {
         ...state,
-        opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
-        opinionByIdData: { rows: [], pager: { current_page: 0, items_per_page: '' } },
+        opinionData: { rows: [], pager: { current_page: 0, items_per_page: '' } }
       }
     case STORE_HOME_OPINION_NID:
       return {

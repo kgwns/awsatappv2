@@ -16,6 +16,7 @@ import { isArray, isIOS, joinArray } from 'src/shared/utils';
 import { NativeModules } from 'react-native';
 
 const getSectionComboUrl = (body: RequestSectionComboBodyGet) => {
+  console.log(body.id)
   let url = `${BASE_URL}${SECTION_COMBO}`
   if (typeof(body.id) == 'string') {
     url = `${BASE_URL}${body.id}`
@@ -26,6 +27,7 @@ const getSectionComboUrl = (body: RequestSectionComboBodyGet) => {
       url += `/${body.id}`;
     }
   }
+  console.log('url', url)
   return url
 }
 

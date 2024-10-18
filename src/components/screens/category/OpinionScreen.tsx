@@ -22,7 +22,7 @@ import { PopulateWidgetType } from 'src/components/molecules/populateWidget/Popu
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
-export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any;}) => {
+export const OpinionScreen = React.memo(({tid, tabIndex, currentIndex, scrollY}: {tid?:string, tabIndex?:number; currentIndex?:number; scrollY?: any;}) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
 
@@ -34,7 +34,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   };
 
   const gotoNextPage = () => {
-    if (!isLoading) {
+    if (!isLoading && !tid) {
       setPage(page + 1);
     }
   };
@@ -42,7 +42,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   const style = useThemeAwareObject(customStyle);
 
   const {opinionWriterData, fetchOpinionWriterRequest} = useOpinionWriter();
-  const { opinionsData, isLoading, fetchOpinionsRequest, emptyOpinionsData } = useOpinions();
+  const { opinionsData, opinionByIdData, isLoading, fetchOpinionsRequest, emptyOpinionsData } = useOpinions();
   const [opinionListData, setOpinionListData] = useState<OpinionsListItemType[]>([])
 
   const isFocused = useIsFocused();
@@ -69,12 +69,18 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
   }, []);
 
   useEffect(() => {
-    fetchOpinionsRequest({page});
+    if (!tid) {
+      fetchOpinionsRequest({page});
+    }
   }, [page]);
 
   useEffect(() => {
-    setOpinionListData(opinionsData)
-  }, [opinionsData]);
+    if (tid) {
+      setOpinionListData(opinionByIdData)
+    } else {
+      setOpinionListData(opinionsData)
+    }
+  }, [opinionsData, opinionByIdData]);
 
   const {
     sendBookmarkInfo,
@@ -150,7 +156,7 @@ export const OpinionScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tab
 
   const renderItem = () => (
     <View style={style.itemContainer}>
-      {isNonEmptyArray(opinionWriterData) &&
+      {!tid && isNonEmptyArray(opinionWriterData) &&
         <OpinionWritersSection data={opinionWriterData}
           onPressWriter={onPressWriter}
         />

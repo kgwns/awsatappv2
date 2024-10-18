@@ -119,10 +119,12 @@ export const USElectionsScreen = React.memo((
   }
   useEffect(() => {
     if (opinionByIdData.length) {
-      const data = listPartition(opinionByIdData, 4)
+      const opinions = [...opinionByIdData];
+      const maxLength = Math.min(opinions.length, 16);
+      const data = listPartition(opinions.splice(0, maxLength), 4)
       setOpinionListData(data)
     }
-  }, [opinionByIdData])
+  }, [opinionByIdData]);
 
   useEffect(() => {
     allDataLoad();
@@ -265,7 +267,7 @@ export const USElectionsScreen = React.memo((
         <AuthorSlider data={opinionListData} 
           selectedType={selectedType} 
           getSelectedTrack={(id, type) => getSelectedTrack(id, type)} 
-          onClose={onClose} showMore={false}/>
+          onClose={onClose} tid={ELECTION_ID}/>
       }
       {isNonEmptyArray(contestants) && 
         <View style={screenStyle.contestantsContainer}>
