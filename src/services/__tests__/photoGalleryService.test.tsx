@@ -5,7 +5,7 @@ import { AlbumListBodyGet, AlbumDetailBodyGet } from 'src/redux/photoGallery/typ
 import * as serviceApi from 'src/services/api';
 describe('Test Photo Gallery Screen', () => {
     const mock = new MockAdapter(axios);
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     const body: AlbumListBodyGet = {
         page: 1,

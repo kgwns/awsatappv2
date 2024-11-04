@@ -39,6 +39,8 @@ import { AxiosError } from 'axios'
 import { useArticleDetail } from 'src/hooks/useArticleDetail'
 import ArticleLiveBlog from './components/ArticleLiveBlog'
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics'
+import { HOME_UNIT_ID } from 'src/hooks/useAds'
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 export interface ArticleDetailScreenProps {
   route: any
 }
@@ -563,9 +565,11 @@ export const ArticleDetailScreen = ({
             showReplay={showReplay}
             setReset={(show: boolean) => setShowReplay(show)}
           />
+          <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
           {articleHtmlContent(index)}
           {index === 0 && renderRichHTMLContent(item)}
           { isNotEmpty(item.scribbleLiveId) && <ArticleLiveBlog scribbleId={item.scribbleLiveId}/>}
+          <AdContainer unitId={HOME_UNIT_ID} size={AdContainerSize.MEDIUM}/>
           <Divider style={style.divider} />
         </>
         }
@@ -631,6 +635,7 @@ export const ArticleDetailScreen = ({
     isSignUpAlertVisible={showupUp} onCloseSignUpAlert={onCloseSignUpAlert} playerPosition={{bottom: isTab ? 104 : isIOS ? normalize(70) : normalize(60)}} showPlayer={isLoading === false}>
       {isNonEmptyArray(articleDetailState) && <View style={{flex: !isFullScreen ? 1 : 0}}>
         { !isFullScreen &&  renderHeader()}
+        <AdContainer unitId={HOME_UNIT_ID}/>        
         <FlatList
           testID='ArticleDetailScreenFlatlist01'
           onViewableItemsChanged={onViewableItemRef.current}

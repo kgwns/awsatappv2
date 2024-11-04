@@ -32,6 +32,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
     showDivider,
     showFooterTitle,
     hideImage,
+    hideBookmark = false,
     containerStyle,
     isJournalist = false,
     mainContainerStyle,
@@ -74,7 +75,7 @@ const ArticleItem: FunctionComponent<ArticleItemProps> = ({
                 <View style={StyleSheet.flatten([style.contentContainer, containerStyle])}>
                     <ArticleWithOutImage showDivider={showDivider} showFooterTitle={showFooterTitle} {...props} onPress={onPress}
                         onPressBookmark={onPressBookmark} titleStyle={props.titleStyle} bodyStyle={props.bodyStyle}
-                        bodyLineCount={tabBodyLineCount} hideBookmark={props.type === HomePageArticleType.SHORTHAND} displayType={undefined}  //DisplayType with display in ImageWithLabel itself
+                        bodyLineCount={tabBodyLineCount} hideBookmark={hideBookmark || props.type === HomePageArticleType.SHORTHAND} displayType={undefined}  //DisplayType with display in ImageWithLabel itself
                     />
                 </View>
             </View>

@@ -29,6 +29,12 @@ import { REQUEST_TICKER_HERO_DATA, REQUEST_TICKER_HERO_DATA_SUCCESS,
   REQUEST_INFO_GRAPHIC_BLOCK_SUCCESS,
   REQUEST_INFO_GRAPHIC_BLOCK_FAILED,
   REQUEST_ARCHIVED_ARTICLE_DATA, REQUEST_ARCHIVED_ARTICLE_DATA_SUCCESS, REQUEST_ARCHIVED_ARTICLE_DATA_FAILED,
+  REQUEST_US_ELECTION_DATA_SUCCESS,
+  REQUEST_US_ELECTION_DATA_FAILED,
+  REQUEST_US_ELECTION_DATA,
+  REQUEST_CONTESTANTS_DATA_SUCCESS,
+  REQUEST_CONTESTANTS_DATA_FAILED,
+  REQUEST_CONTESTANTS_DATA,
 } from "./actionType"
 import { HeroListTopListFailedPayload, HeroListTopListFailedType, 
   HeroListTopListSuccessPayload, HeroListTopListSuccessType, 
@@ -89,6 +95,12 @@ import { HeroListTopListFailedPayload, HeroListTopListFailedType,
   RequestArchivedArticleSectionSuccessType, 
   RequestArchivedArticleSectionFailedPayload, 
   RequestArchivedArticleSectionFailedType,
+  RequestNodeListSectionSuccessPayloadType,
+  RequestNodeListSectionFailedPayload,
+  RequestUsElectionsSectionSuccessType,
+  RequestUsElectionsSectionFailedType,
+  RequestContestantsSectionSuccessType,
+  RequestContestantsSectionFailedType,
 } from "./types"
 
 export const requestTickerAndHero = (
@@ -445,6 +457,54 @@ export const requestArchivedArticleSectionSuccess = (
   }
 }
 
+export const requestUsElectionsSection = () => {
+  return {
+    type: REQUEST_US_ELECTION_DATA
+  }
+}
+
+export const requestUsElectionsSectionSuccess = (
+  payload: RequestNodeListSectionSuccessPayloadType
+): RequestUsElectionsSectionSuccessType => {
+  return {
+    type: REQUEST_US_ELECTION_DATA_SUCCESS,
+    payload
+  }
+}
+
+export const requestUsElectionsSectionFailed = (
+  payload: RequestNodeListSectionFailedPayload
+): RequestUsElectionsSectionFailedType => {
+  return {
+    type: REQUEST_US_ELECTION_DATA_FAILED,
+    payload
+  }
+}
+
+export const requestContestantsSection = () => {
+  return {
+    type: REQUEST_CONTESTANTS_DATA
+  }
+}
+
+export const requestContestantsSectionSuccess = (
+  payload: RequestNodeListSectionSuccessPayloadType
+): RequestContestantsSectionSuccessType => {
+  return {
+    type: REQUEST_CONTESTANTS_DATA_SUCCESS,
+    payload
+  }
+}
+
+export const requestContestantsSectionFailed = (
+  payload: RequestNodeListSectionFailedPayload
+): RequestContestantsSectionFailedType => {
+  return {
+    type: REQUEST_CONTESTANTS_DATA_FAILED,
+    payload
+  }
+}
+
 export const requestCoverBlockFailed = (
   payload: RequestCoverageBlockFailedPayload
 ): RequestCoverageBlockFailedType => {
@@ -682,4 +742,10 @@ export const latestTabActions = {
   requestArchivedArticleSection,
   requestArchivedArticleSectionSuccess,
   requestArchivedArticleSectionFailed,
+  requestUsElectionsSection,
+  requestUsElectionsSectionSuccess,
+  requestUsElectionsSectionFailed,
+  requestContestantsSection,
+  requestContestantsSectionSuccess,
+  requestContestantsSectionFailed
 };

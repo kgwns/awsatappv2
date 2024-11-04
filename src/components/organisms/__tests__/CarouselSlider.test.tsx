@@ -31,7 +31,7 @@ describe('<CarouselSlider>', () => {
   ];
 
   beforeEach(() => {
-    const component = <CarouselSlider coverageInfo={sampleData} onUpdateHeroBookmark={mockFunction}/>;
+    const component = <CarouselSlider info={sampleData} onUpdateHeroBookmark={mockFunction}/>;
     instance = render(component);
   });
 

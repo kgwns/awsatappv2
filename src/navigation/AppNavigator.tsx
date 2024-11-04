@@ -1,5 +1,5 @@
 import 'react-native-gesture-handler';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Keyboard, StyleSheet, TouchableOpacity } from 'react-native';
 import { ScreensConstants } from '../constants/Constants';
 import { Routes } from './index';
@@ -14,6 +14,7 @@ import { getSvgImages } from 'src/shared/styles/svgImages';
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { fonts } from 'src/shared/styles/fonts'
 import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
+import { useAds } from 'src/hooks/useAds';
 
 const Stack = createStackNavigator();
 
@@ -43,6 +44,11 @@ const AppNavigator = () => {
   const HeaderLogo = () => getSvgImages({ name: ImagesName.headerLogo, width: style.logo.width, height: style.logo.height, style: style.logo });
 
   const HeaderTitle = (title: string) => <Label style={style.headerTitle}>{title}</Label>;
+  
+  const {loadAppOpenAd} = useAds();
+  useEffect(() => {
+    loadAppOpenAd();
+  }, []);
 
   const onBoardReturn = () => (
     <TouchableOpacity
@@ -179,6 +185,18 @@ const AppNavigator = () => {
         name={ScreensConstants.VideoPlayerScreen}
         component={Routes.VideoPlayerScreen}
         options={{ ...hideHeader, animationEnabled: false }}
+      />
+      <Stack.Screen
+        name={ScreensConstants.VideoScreen}
+        component={Routes.VideoScreen}
+        options={{
+          headerStyle: [style.container, style.onboardBackground],
+          headerLeft: () => onBoardReturn(),
+          headerTitle: () => HeaderTitle('فيديو'),
+          headerTitleAlign: 'center',
+          gestureEnabled: false,
+          headerShadowVisible: false,
+        }}
       />
       <Stack.Screen
         name={ScreensConstants.MANAGE_MY_FAVORITE_AUTHOR_SCREEN}

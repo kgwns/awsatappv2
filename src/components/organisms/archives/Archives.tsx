@@ -8,6 +8,8 @@ import { Label, LabelTypeProp, LoadingState } from 'src/components/atoms'
 import { useIsFocused } from '@react-navigation/native'
 import { TranslateConstants, TranslateKey } from 'src/constants/Constants'
 import { colors } from 'src/shared/styles/colors'
+import { ARCHIVES_UNIT_ID } from 'src/hooks/useAds'
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer'
 
 export const Archives = () => {
     const isFocused = useIsFocused()
@@ -247,7 +249,8 @@ export const Archives = () => {
         }
         return <View
             style={styles.noFavoriteMessage}>
-            <Label children={noContentTitle} labelType={LabelTypeProp.h1} />
+            <Label style={{marginBottom: 20}} children={noContentTitle} labelType={LabelTypeProp.h1} />
+            <AdContainer unitId={ARCHIVES_UNIT_ID} size={AdContainerSize.MEDIUM}/>
         </View>
     }
 

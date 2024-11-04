@@ -233,6 +233,9 @@ enum TranslateKey {
   USER_DETAIL_CONFIRM_NEW_PASSWORD,
   USER_DETAIL_MOVE_AND_SCALE,
   FOLLOW,
+  CONTESTANTS,
+  ELECTIONS_NEWS,
+  US_ELECTIONS,
   FOLLOWER,
   PODCAST_WIDGET_HEADER_LEFT,
   PODCAST_WIDGET_HEADER_RIGHT,
@@ -697,6 +700,12 @@ const TranslateConstants = ({
             return arabic?.onBoard?.newsLetter?.description;
         case TranslateKey.FOLLOW:
             return arabic?.opinionArticleDetail?.follow;
+        case TranslateKey.CONTESTANTS:
+            return arabic?.opinionArticleDetail?.contestants ?? 'المرشحون';
+        case TranslateKey.ELECTIONS_NEWS:
+            return arabic?.opinionArticleDetail?.electionsNews ?? 'أخبار الانتخابات';
+        case TranslateKey.US_ELECTIONS:
+            return arabic?.opinionArticleDetail?.usElections ?? 'الانتخابات الأمريكية';
         case TranslateKey.FOLLOWER:
             return arabic?.opinionArticleDetail?.follower;
         case TranslateKey.PODCAST_WIDGET_HEADER_LEFT:
@@ -1926,6 +1935,7 @@ const MANAGE_MY_FAVORITE_TOPICS_SCREEN = 'MANAGE_MY_FAVORITE_TOPICS_SCREEN' as S
 const USER_DETAIL_SCREEN = 'UserDetailScreen' as ScreenName;
 const WEATHER_DETAIL_SCREEN = 'WeatherDetailScreen' as ScreenName;
 const VideoPlayerScreen = 'VideoPlayerScreen' as ScreenName;
+const VideoScreen = 'VideoScreen' as ScreenName;
 const WRITERS_DETAIL_SCREEN = 'WriterDetailScreen' as ScreenName
 const SectionArticlesParentScreen = 'SectionArticlesParentScreen' as ScreenName
 const GAME_SCREEN = 'GameScreen' as ScreenName
@@ -1984,6 +1994,7 @@ const ScreensConstants = {
     USER_DETAIL_SCREEN,
     WEATHER_DETAIL_SCREEN,
     VideoPlayerScreen,
+    VideoScreen,
     WRITERS_DETAIL_SCREEN,
     SectionArticlesParentScreen,
     GAME_SCREEN,

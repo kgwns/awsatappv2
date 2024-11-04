@@ -2,7 +2,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { getJournalistArticleService } from '../journalistService';
 import * as serviceApi from 'src/services/api';
 describe('Test Side Menu Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     const journalistPayload = { nid: '1', page: 1 };
     beforeEach(() => {

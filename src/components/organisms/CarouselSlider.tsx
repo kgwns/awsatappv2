@@ -8,27 +8,30 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { CustomThemeType } from 'src/shared/styles/colors'
 
 type CarouselSliderProps = {
-    coverageInfo: MainSectionBlockType[],
+    info: MainSectionBlockType[],
+    hideBookmark?: boolean,
+    titleOnTop?: boolean,
     onUpdateHeroBookmark: (index: number) => void
 }
 
 const CarouselSlider = ({
-    coverageInfo, onUpdateHeroBookmark
+    info, hideBookmark, titleOnTop, onUpdateHeroBookmark
 }: CarouselSliderProps) => {
     const carouselSliderStyle = useThemeAwareObject(customStyle);
 
     return (
         <View style={carouselSliderStyle.view}>
-            {isNonEmptyArray(coverageInfo) &&
-                <ImageArticle key={0} {...coverageInfo[0]} author={''}
+            {isNonEmptyArray(info) &&
+                <ImageArticle key={0} {...info[0]} author={''}
                     onPressBookmark={() => onUpdateHeroBookmark(0)}
                     // rightContainerStyle={{ flex: 0 }} //enable to center align
                     titleStyle={carouselSliderStyle.titleStyle}
+                    titleOnTop={titleOnTop}
                     textStyles={carouselSliderStyle.textStyle}
-                    isAlbum={isTypeAlbum(coverageInfo[0].type)}
+                    isAlbum={isTypeAlbum(info[0].type)}
                     contentStyle = {isTab && carouselSliderStyle.tabContentStyle}
                     tabTitleContainer = {isTab && carouselSliderStyle.tabTitleContainer}
-                    hideBookmark = {isTab}
+                    hideBookmark = {hideBookmark || isTab}
                     carouselContainerStyle = {isTab && carouselSliderStyle.carouselContainerStyle}
                 />
             }

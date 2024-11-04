@@ -5,7 +5,7 @@ import { FetchDMAIntroductionSuccessPayloadType } from "src/redux/deleteMyAccoun
 import { FetchDMAOptionsListSuccessPayloadType } from "src/redux/deleteMyAccount/types";
 import * as serviceApi from 'src/services/api';
 import { DeleteRequestBodyPayload } from "src/redux/deleteMyAccount/types";
-const cachedAxiosMock = new MockAdapter(serviceApi.api);
+const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
 describe('Test deleteMyAccount Services', () => {
     const mock = new MockAdapter(axios);

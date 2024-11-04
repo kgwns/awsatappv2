@@ -5,7 +5,7 @@ import { View, StyleSheet } from 'react-native';
 */
 import { FlatList, TouchableOpacity } from 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import { Label, LabelTypeProp, ImageWithIcon, Divider } from '../atoms';
+import { Label, LabelTypeProp, ImageWithIcon, Divider, WidgetHeader, WidgetHeaderProps } from '../atoms';
 import { isTab, normalize, screenWidth } from 'src/shared/utils';
 import { ImagesName, Styles } from 'src/shared/styles';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
@@ -34,13 +34,17 @@ export interface VideoProps {
 export const VideoContent = ({ 
     data, 
     onPress,
+    onPressMore,
     isTabDesign = false,
-    isVideoList = false
+    isVideoList = false,
+    showMore = false
 }: { 
     data: VideoItemType[], 
     onPress?: (item: VideoItemType) => void,
+    onPressMore?: () => void,
     isTabDesign?: boolean,
-    isVideoList?: boolean
+    isVideoList?: boolean,
+    showMore?: boolean
 }) => {
     const CATEGORY_PAGE_VIDEO_CONTENT = TranslateConstants({key:TranslateKey.CATEGORY_PAGE_VIDEO_CONTENT})
     const SECTION_VIDEO_SHARE = TranslateConstants({key:TranslateKey.VIDEO_SHARE})
@@ -106,7 +110,7 @@ export const VideoContent = ({
         // const date = timeFormat.time   Enable date when required video footer
         const time = item.field_jwplayerinfo_export ? convertSecondsToHMS(item.field_jwplayerinfo_export.split('|')[1]) : undefined;
         
-        const itemStyle = isTab ? isVideoList ? {} : {  marginBottom: normalize(30),paddingLeft: 20 } :
+        const itemStyle = isTab ? isVideoList ? {} : {  marginBottom: normalize(30),paddingLeft: 20 } : {paddingLeft: 20}
         index === data.length - 1 && { marginRight: 0.04 * screenWidth }
         const moreStyle = isTwoLine ? { height: normalize(isTitleLineCount * 35) } : {}
         return (
@@ -155,22 +159,51 @@ export const VideoContent = ({
             </TouchableOpacity>
         )
     }
+    
+    const SECTION_COMBO_ONE_HEADER_RIGHT = TranslateConstants({ key: TranslateKey.SECTION_COMBO_ONE_HEADER_RIGHT })
+    const widgetHeaderData: WidgetHeaderProps = {
+        headerLeft: {
+            title: isTab ? TAB_VIDEO_CONTENT_TITLE : CATEGORY_PAGE_VIDEO_CONTENT,
+            color: isTab ? themeData.primaryBlack : themeData.primary,
+            labelType: LabelTypeProp.title3,
+            textStyle: style.titleTextStyle
+        },
+        headerRight: {
+            title: SECTION_COMBO_ONE_HEADER_RIGHT,
+            icon: () => {
+                return getSvgImages({
+                name: ImagesName.arrowLeftFaced,
+                size: normalize(12),
+                style: { marginLeft: normalize(10) }
+                })
+            },
+            labelType: LabelTypeProp.caption2,
+            clickable: true,
+        },
+    };
+
     return (
         <View style={ isVideoList ? style.tabContainer : style.container}>
 
-            {
-                isVideoList ? <Divider style={style.divider} /> :
-                <Label style={style.titleTextStyle} 
-                    labelType={isTab ? LabelTypeProp.title3 : LabelTypeProp.title1} 
-                    children={ isTab ? TAB_VIDEO_CONTENT_TITLE : CATEGORY_PAGE_VIDEO_CONTENT }
-                    numberOfLines={2} 
-                    testID={'videoContentTitleId'}
-                />
+            { !showMore &&
+                ( isVideoList ? <Divider style={style.divider} /> :
+                    <Label style={style.titleTextStyle} 
+                        labelType={isTab ? LabelTypeProp.title3 : LabelTypeProp.title1} 
+                        children={ isTab ? TAB_VIDEO_CONTENT_TITLE : CATEGORY_PAGE_VIDEO_CONTENT }
+                        numberOfLines={2} 
+                        testID={'videoContentTitleId'}
+                    />
+                )
             }
+
+            {
+                showMore && <View style={style.headerContainer}>
+                    <WidgetHeader {...widgetHeaderData} onPress={onPressMore} />
+                </View>
+            } 
             <FlatList
                 horizontal={!isTabDesign}
                 keyExtractor={(_, index) => index.toString()}
-                listKey={flatListUniqueKey.VIDEO_CONTENT}
                 style={ !isVideoList && style.listContainer}
                 data={data}
                 showsHorizontalScrollIndicator={false}
@@ -267,7 +300,7 @@ const customStyle = (theme: CustomThemeType) => {
             flexDirection:'row',
             width:'100%',
             justifyContent:'space-between',
-            flexWrap:'wrap'
+            flexWrap:'wrap',
         },
         divider: {
             height: 1,
@@ -288,6 +321,12 @@ const customStyle = (theme: CustomThemeType) => {
             alignItems:'center',
             flexDirection:'row-reverse',
             justifyContent:'flex-end'
+        },
+        headerContainer: {
+          paddingHorizontal: isTab ? 0 : 0.04 * screenWidth,
+          backgroundColor: theme.secondaryWhite,
+          paddingTop: normalize(30),
+          paddingBottom: normalize(10),
         }
     })
 }

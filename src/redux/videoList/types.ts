@@ -5,6 +5,9 @@ import {
   FETCH_VIDEO_PAGINATION_SUCCESS,
   FETCH_VIDEO_PAGINATION_FAILED,
   FETCH_VIDEO_PAGINATION,
+  FETCH_VIDEO_BY_ID,
+  FETCH_VIDEO_BY_ID_SUCCESS,
+  FETCH_VIDEO_BY_ID_FAILED,
 } from './actionTypes';
 
 
@@ -37,6 +40,7 @@ export interface FetchVideoFailedPayloadtype {
 
 export interface VideoListBodyGet {
   page?: number;
+  id?: string;
   items_per_page?: number;
 }
 
@@ -46,6 +50,7 @@ export type VideoState = {
   isLoading: boolean;
   isVideoLoading: boolean;
   videoPaginationData: any;
+  videoByIdData: any;
   videoError: string;
 }
 
@@ -79,6 +84,21 @@ export type FetchVideoPaginationFailedType = {
   payload: FetchVideoFailedPayloadtype;
 };
 
+export type FetchVideoByIdType = {
+  type: typeof FETCH_VIDEO_BY_ID;
+  payload: VideoListBodyGet;
+};
+
+export type FetchVideoByIdSuccessType = {
+  type: typeof FETCH_VIDEO_BY_ID_SUCCESS;
+  payload: FetchVideoSuccessPayloadType;
+};
+
+export type FetchVideoByIdFailedType = {
+  type: typeof FETCH_VIDEO_BY_ID_FAILED;
+  payload: FetchVideoFailedPayloadtype;
+};
+
 
 export type RequestVideoUrlPayload = {
   mediaID: string
@@ -107,4 +127,7 @@ export type VideoActions =
   | FetchVideoFailedType
   | FetchVideoPaginationType
   | FetchVideoPaginationSuccessType
-  | FetchVideoPaginationFailedType;
+  | FetchVideoPaginationFailedType
+  | FetchVideoByIdType
+  | FetchVideoByIdSuccessType
+  | FetchVideoByIdFailedType;

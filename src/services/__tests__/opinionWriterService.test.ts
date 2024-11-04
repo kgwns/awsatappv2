@@ -3,7 +3,7 @@ import { fetchOpinionWriterApi } from 'src/services/opinionWriterService';
 import { WritersBodyGet } from 'src/redux/writers/types';
 import * as serviceApi from 'src/services/api';
 describe('Test OpinionWriters Services', () => {
-  const cachedAxiosMock = new MockAdapter(serviceApi.api);
+  const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
   const body: WritersBodyGet = {
     items_per_page: 10,
   };

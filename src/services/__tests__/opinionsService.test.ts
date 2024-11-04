@@ -3,7 +3,7 @@ import { fetchHomeOpinionsListApi, fetchOpinionsApi, fetchOpinionsListApi, fetch
 import { OpinionsBodyGet, WriterOpinionsBodyGet } from 'src/redux/opinions/types';
 import * as serviceApi from 'src/services/api';
 describe('Test Opinions Services', () => {
-  const cachedAxiosMock = new MockAdapter(serviceApi.api);
+  const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
   const body: OpinionsBodyGet = {
     page: 0,

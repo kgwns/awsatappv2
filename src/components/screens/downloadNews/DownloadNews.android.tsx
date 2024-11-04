@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {horizontalAndTop, recordLogEvent} from 'src/shared/utils';
+import {horizontalAndTop, recordLogEvent, screenWidth} from 'src/shared/utils';
 import {ScreenContainer} from '../ScreenContainer/ScreenContainer';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { UIManager, findNodeHandle, PixelRatio, Dimensions, StyleSheet, NativeModules, NativeEventEmitter } from 'react-native';
@@ -72,6 +72,7 @@ export const DownloadNews = () => {
       <DownloadNewsViewManager
         style={style.downloadNewsManagerStyle}
         userTheme={userTheme}
+        screenWidth={screenWidth}
         ref={ref}
       />
     </ScreenContainer>

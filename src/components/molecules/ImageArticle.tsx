@@ -34,6 +34,7 @@ const carouselFooterSample: ArticleFooterProps = {
 
 export interface ImageArticleProps extends BannerImageWithOverlayProps {
   title: string,
+  titleOnTop?: boolean,
   containerStyle?: ViewStyle,
   nid?: string,
   author: string,
@@ -59,6 +60,7 @@ export interface ImageArticleProps extends BannerImageWithOverlayProps {
 const ImageArticle = ({
   image,
   title,
+  titleOnTop = false,
   containerStyle,
   nid,
   author,
@@ -101,7 +103,15 @@ const ImageArticle = ({
   return (
     <FixedTouchable onPress={onPress}>
       <View style = {[carouselContainerStyle]}> 
-        <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>
+        {titleOnTop && isNotEmpty(title) &&
+          <View style={[imageArticleStyle.titleContainer,tabTitleContainer, {marginTop: normalize(26)}]}>
+            <Label labelType={LabelTypeProp.title1}
+              children={decodeHTMLTags(title)}
+              style={titleStyle}
+            />
+          </View>
+        }
+        <View style={StyleSheet.flatten([imageArticleStyle.sliderItemContainer, containerStyle])}>          
           <BannerImageWithOverlay image={image}
             onImageLoadEnd={onImageLoadEnd}
             displayType={displayType}
@@ -110,7 +120,7 @@ const ImageArticle = ({
           />
         </View>
         <View style={isTab ? [imageArticleStyle.tabArticleContent, contentStyle ] : imageArticleStyle.articleContent}>
-          {isNotEmpty(title) &&
+          {!titleOnTop && isNotEmpty(title) &&
             <View style={[imageArticleStyle.titleContainer,tabTitleContainer]}>
               <Label labelType={LabelTypeProp.title1}
                 children={decodeHTMLTags(title)}

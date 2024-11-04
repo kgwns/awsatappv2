@@ -80,25 +80,23 @@ android {
     compileSdk rootProject.ext.compileSdkVersion
 
     namespace "com.awsatapp"
-    lintOptions {
-        abortOnError false
-    }
+    buildFeatures.buildConfig true
 
     defaultConfig {
         applicationId "com.knowledgeview.tablet.aaa"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        configurations.all {
+        configurations.configureEach {
             resolutionStrategy { force 'androidx.browser:browser:1.5.0' }
         }
-        versionCode 302
-        versionName "5.4.0"
+        versionCode 306
+        versionName "5.5.0"
         bundle{
             language{
                 enableSplit false
             }
         }
-        resConfigs "ar"
+        resourceConfigurations += ['ar']
     }
     signingConfigs {
         debug {
@@ -128,10 +126,13 @@ android {
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
         }
     }
+    lint {
+        abortOnError false
+    }
 }
 
 dependencies {
-    implementation 'com.google.android.gms:play-services-analytics:18.0.1'
+    implementation 'com.google.android.gms:play-services-analytics:18.1.0'
     implementation 'com.android.installreferrer:installreferrer:2.2'
     implementation("androidx.recyclerview:recyclerview:1.2.1")
 
@@ -143,6 +144,8 @@ dependencies {
     implementation "com.google.firebase:firebase-core"
     implementation "com.google.firebase:firebase-messaging"
     implementation "com.google.firebase:firebase-analytics"
+
+    implementation 'com.github.chrisbanes:photoView:2.3.0'
     
     // The version of react-native is set by the React Native Gradle Plugin
     implementation("com.facebook.react:react-android")
@@ -161,11 +164,10 @@ dependencies {
     } else {
         implementation jscFlavor
     }
-    implementation project(':lottie-react-native')
     implementation 'com.google.code.gson:gson:2.8.9'
     implementation 'com.liulishuo.filedownloader:library:1.7.7'
     //pdf viewer
-    implementation 'es.voghdev.pdfviewpager:library:1.0.4'
+    implementation 'com.github.voghDev:PdfViewPager:1.1.2'
     implementation 'com.bogdwellers:pinchtozoom:0.1'
     //Volley & glide
     implementation 'com.android.volley:volley:1.2.0'
@@ -174,6 +176,8 @@ dependencies {
     implementation project(':react-native-inappbrowser-reborn')
     implementation 'com.facebook.android:facebook-android-sdk:latest.release'
     implementation project(':react-native-screens')
+    implementation 'com.google.android.gms:play-services-ads:23.3.0'
+
     constraints {
         implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk7:1.8.0") {
             because("kotlin-stdlib-jdk7 is now a part of kotlin-stdlib")

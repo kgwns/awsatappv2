@@ -27,6 +27,8 @@ import {
     getSectionComboTwoLoading,
     getSectionComboThreeLoading,
     getInfoGraphicBlockDataLoading,
+    getUsElectionsSectionData,
+    getContestantsSectionData,
 } from 'src/redux/latestNews/selectors';
 import {  LatestOpinionDataType, LatestPodcastDataType, MainSectionBlockType,
     LatestArticleBodyGet, LatestArticleDataType, RequestSectionComboBodyGet,
@@ -43,6 +45,8 @@ import { requestHeroListTopList, requestSectionComboFour,
     requestSectionComboEight, 
     requestEditorsChoiceData, requestSpotlightData, requestSpotlightArticleSection, requestInfoGraphicBlock,
     requestArchivedArticleSection,
+    requestUsElectionsSection,
+    requestContestantsSection,
 } from 'src/redux/latestNews/action';
 
 export interface UseLatestNewsReturn {
@@ -70,7 +74,10 @@ export interface UseLatestNewsReturn {
     spotlightArticleSection: LatestArticleDataType[];
     infoGraphicBlock: InfoGraphicBlockType[];
     archivedArticleSection: ArchivedArticleDataType[];
+    usElectionsSection: MainSectionBlockType[];
+    contestantsSection: MainSectionBlockType[];
     coverageInfoLoaded: boolean;
+    usElectionsSectionLoaded: boolean;
     featuredArticleLoaded: boolean;
     horizontalArticleLoaded: boolean;
     opinionLoaded: boolean;
@@ -99,6 +106,8 @@ export interface UseLatestNewsReturn {
     fetchSpotlightArticleSection(payload: SpotlightArticleSectionBodyGet): void;
     fetchInfoGraphicBlockData(): void;
     fetchArchivedArticleSection(): void;
+    fetchUsElectionsSection(): void;
+    fetchContestantsSection(): void;
 }
 
 export const useLatestNewsTab = (): UseLatestNewsReturn => {
@@ -126,7 +135,10 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
     const spotlightArticleSection = useSelector(getSpotlightArticleSectionData)
     const infoGraphicBlock = useSelector(getInfoGraphicBlockData)
     const archivedArticleSection = useSelector(getArchivedArticleSectionData)
+    const usElectionsSection = useSelector(getUsElectionsSectionData)
+    const contestantsSection = useSelector(getContestantsSectionData)
     const coverageInfoLoaded = useSelector(getCoverageDataLoading)
+    const usElectionsSectionLoaded = useSelector(getCoverageDataLoading)
     const featuredArticleLoaded = useSelector(getFeaturedArticleLoading)
     const horizontalArticleLoaded = useSelector(getHorizontalDataLoading)
     const opinionLoaded = useSelector(getOpinionDataLoading)
@@ -211,6 +223,14 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         dispatch(requestArchivedArticleSection());
     }
 
+    const fetchUsElectionsSection = () => {
+        dispatch(requestUsElectionsSection());
+    }
+
+    const fetchContestantsSection = () => {
+        dispatch(requestContestantsSection());
+    }
+
     return {
         isLoading,
         ticker,
@@ -255,6 +275,11 @@ export const useLatestNewsTab = (): UseLatestNewsReturn => {
         fetchInfoGraphicBlockData,
         archivedArticleSection,
         fetchArchivedArticleSection,
+        usElectionsSection,
+        fetchUsElectionsSection,
+        usElectionsSectionLoaded,
+        contestantsSection,
+        fetchContestantsSection,
         coverageInfoLoaded,
         featuredArticleLoaded,
         horizontalArticleLoaded,

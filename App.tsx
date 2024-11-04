@@ -9,17 +9,19 @@ import { DEFAULT_LIGHT_THEME } from 'src/shared/styles/colors';
 import Orientation from 'react-native-orientation-locker'
 import AppPlayer from 'src/shared/utils/appPlayer';
 import { checkNotificationPermission } from 'src/firebase/notification/notification';
-import TrackPlayer from 'react-native-track-player';
 import { checkPermission } from 'src/shared/utils/LocationPermission';
 import { isIOS, isTab } from 'src/shared/utils';
 import { FetchArabicData } from 'src/firebase/RemoteConfig/RemoteConfig';
 import { Adjust } from 'react-native-adjust';
+import { useAds } from 'src/hooks/useAds';
 
 const App = () => {
 
   const permissionDelay = isIOS ? 4000 : 5500;
+  const {initializeAdMob} = useAds();
   
   useEffect(() => {
+    initializeAdMob();
     if (isTab) {
       Orientation.unlockAllOrientations()
     } else {
@@ -52,9 +54,6 @@ const App = () => {
 
   useEffect(() => {
     AppPlayer.initializePlayer();
-    return(() => {
-      TrackPlayer.destroy();
-    });
   }, [])
 
   return (

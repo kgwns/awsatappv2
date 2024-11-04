@@ -63,9 +63,6 @@ android/app/release/
 android/app/build
 android/java_pid32058.hprof
 android/app/src/main/assets/index.android.bundle
-package-lock.json
-ios/Podfile.lock
-package-lock.json
 yarn.lock
 
 # test coverage

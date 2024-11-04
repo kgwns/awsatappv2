@@ -11,6 +11,8 @@ const isNotchDevice = DeviceInfo.hasNotch();
 
 export const isTab = DeviceInfo.isTablet();
 
+export const enableAds = true;
+
 const scale = isTab ? screenWidth / 768 : screenWidth / 375;
 const scaleHeight = isTab ? screenHeight / 1024 : screenHeight / 667;
 

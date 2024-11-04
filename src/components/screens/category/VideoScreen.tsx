@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import {View, StyleSheet, FlatList, ListRenderItem, Animated, ActivityIndicator} from 'react-native';
 
 import {VideoItem} from 'src/components/molecules';
-import {decodeHTMLTags, EventsValue, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent} from 'src/shared/utils';
-import {useNavigation} from '@react-navigation/native';
+import {decodeHTMLTags, EventsValue, horizontalEdge, isNonEmptyArray, isTab, normalize, recordLogEvent, screenWidth} from 'src/shared/utils';
+import {RouteProp, useNavigation, useRoute} from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import {  ScreensConstants } from 'src/constants/Constants';
 import { useBookmark, useLogin, useVideoList, useDocumentaryVideo, useAppPlayer } from 'src/hooks';
@@ -15,6 +15,8 @@ import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { CustomThemeType } from 'src/shared/styles/colors';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
+import { isVideoAdIndex, VIDEOS_UNIT_ID } from 'src/hooks/useAds'
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
@@ -24,7 +26,9 @@ const documentaryVideoPayload: RequestDocumentaryVideoPayload = {
 }
 
 export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIndex?:number; currentIndex?:number; scrollY?: any}) => {
-
+  const { params } = useRoute<RouteProp<any>>();
+  const sectionId = params?.sectionId;
+  
   const styles = useThemeAwareObject(customStyle);
   const scrollYValue = scrollY ? scrollY : new Animated.Value(0);
   const {isVideoLoading: isLoading,videoPaginationData, fetchVideoWithPagination} = useVideoList();
@@ -139,12 +143,12 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
     setPage(0);
     setVideoDataInfo([]);
     fetchDocumentaryVideoRequest(documentaryVideoPayload);
-    fetchVideoWithPagination({page: 0, items_per_page: VIDEO_ITEMS_PER_PAGE});
+    fetchVideoWithPagination({page: 0, id: sectionId, items_per_page: VIDEO_ITEMS_PER_PAGE});
    }, []);
 
   useEffect(() => { 
     if (page !== 0) {
-      fetchVideoWithPagination({ page, items_per_page: VIDEO_ITEMS_PER_PAGE });
+      fetchVideoWithPagination({ page, id: sectionId, items_per_page: VIDEO_ITEMS_PER_PAGE });
     }
    }, [page]);
 
@@ -199,45 +203,52 @@ export const VideoScreen = React.memo(({tabIndex, currentIndex, scrollY}: {tabIn
 
   const renderDocumentaryVideoItem: ListRenderItem<VideoItemType> = ({item, index}) => {
     return (
-      <VideoItem
-        title={item.title}
-        imageUrl={item.field_thumbnil_multimedia_export}
-        des={item.body_export}
-        date={item.created_export}
-        testID='video_documentary_screen_id'
-        onPress={()=>onPressItem(item, true)}
-        video={item.field_mp4_link_export}
-        isBookmarked={item.isBookmarked}
-        time={item.field_jwplayerinfo_export}
-        videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
-        onPressBookmark={() => {updateVideosBookmark(index, videoDocumentaryInfo)}}
-        isDocumentary={true}
-        index={index}
-        subTitle={''}
-        showShare
-        link_node={item.link_node}
-      />
+      <>
+        <VideoItem
+          title={item.title}
+          imageUrl={item.field_thumbnil_multimedia_export}
+          des={item.body_export}
+          date={item.created_export}
+          testID='video_documentary_screen_id'
+          onPress={()=>onPressItem(item, true)}
+          video={item.field_mp4_link_export}
+          isBookmarked={item.isBookmarked}
+          time={item.field_jwplayerinfo_export}
+          videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
+          onPressBookmark={() => {updateVideosBookmark(index, videoDocumentaryInfo)}}
+          isDocumentary={true}
+          index={index}
+          subTitle={''}
+          showShare
+          link_node={item.link_node}
+        />
+      </>
     );
   };
-  const renderVideoItem: ListRenderItem<VideoItemType> = ({item, index}) => {
+  const renderVideoItem: ListRenderItem<VideoItemType> = ({item, index}) => {    
     return (
-      <VideoItem
-        title={item.title}
-        imageUrl={item.field_thumbnil_multimedia_export}
-        des={!isTab && item.body_export}
-        date={item.created_export}
-        testID='video_screen_id'
-        onPress={()=>onPressItem(item, false)}
-        video={item.field_mp4_link_export}
-        isBookmarked={item.isBookmarked}
-        time={item.field_jwplayerinfo_export}
-        videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
-        isVideoContents={true} 
-        onPressBookmark={() => {updateVideosBookmark(index, videoDataInfo)}}
-        index={index}
-        showShare
-        link_node={item.link_node}
-      />
+      <>
+        <VideoItem
+          title={item.title}
+          imageUrl={item.field_thumbnil_multimedia_export}
+          des={!isTab && item.body_export}
+          date={item.created_export}
+          testID='video_screen_id'
+          onPress={()=>onPressItem(item, false)}
+          video={item.field_mp4_link_export}
+          isBookmarked={item.isBookmarked}
+          time={item.field_jwplayerinfo_export}
+          videoLabel={isNonEmptyArray(item.field_multimedia_section_export) ? item.field_multimedia_section_export[0]?.title : undefined}
+          isVideoContents={true} 
+          onPressBookmark={() => {updateVideosBookmark(index, videoDataInfo)}}
+          index={index}
+          showShare
+          link_node={item.link_node}
+        />
+        { isVideoAdIndex(index) && 
+          <AdContainer style={{marginBottom: 20}} unitId={VIDEOS_UNIT_ID} width={isTab ? screenWidth / 3 : screenWidth} size={AdContainerSize.MEDIUM}/>
+        }
+      </>
     );
   };
   

@@ -3,7 +3,7 @@ import { fetchDocumentaryVideo } from 'src/services/videoDocumentaryService';
 import { RequestDocumentaryVideoPayload } from 'src/redux/documentaryVideo/types'
 import * as serviceApi from 'src/services/api'
 describe('Test Video Documentary Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     const requestObject: RequestDocumentaryVideoPayload = {
         page: 1,

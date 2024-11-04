@@ -25,10 +25,10 @@ export const FEATURED_ARTICLE_ENDPOINT = 'api/v2/home2/topview/almqalat_alryysyt
 export const HORIZONTAL_ARTICLE_END_POINT = 'api/v2/home2/topview/tghtyt_khast'
 export const EDITORS_CHOICE = 'api/v2/home2/editorschoice';
 export const SPOTLIGHT_COMBO = 'api/v2/home2/spotlight';
-export const INFO_GRAPHIC_BLOCK = 'api/block/v1/top';
+export const INFO_GRAPHIC_BLOCK = 'api/v2/pagenode/5062917';
 export const SECTION_COMBO_TWO = 'api/v2/user/articlesection/11+97115+97110';
-export const SECTION_COMBO_SIX = '/api/v2/home2/thakafa';
 export const ARCHIVED_ARTICLE_ENDPOINT = 'api/v2/archivedarticle'
+export const NODE_LIST_ENDPOINT = 'api/v2/queue/nodelist/'
 
 //opinion tab in category section
 //writer list
@@ -36,7 +36,7 @@ export const OPINION_TAB_WRITER_ENDPOINT = 'api/v2/applist/authors';
 
 //opinion tab in category section
 //opinions list
-export const OPINIONS_ENDPOINT = 'api/v2/opinions/all';
+export const OPINIONS_ENDPOINT = 'api/v2/opinions/';
 export const OPINION_BY_WRITER_END_POINT = 'api/v2/opinions/'
 export const OPINION_LIST_END_POINT = 'api/v2/opinionslist/'
 export const OPINION_LIST_ALL_END_POINT = 'api/v2/opinionslist/all'

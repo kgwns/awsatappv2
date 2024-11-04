@@ -19,7 +19,7 @@ export const DetailHeader = ({
     const style = useThemeAwareObject(customStyle)
     return (
         <View style={style.headerContainer}>
-            {visibleHome && <HomeButton containerStyle={style.homeIconContainer} onPress={onHomePress} />}
+            {visibleHome && <HomeButton containerStyle={style.homeIconContainer} onPress={onHomePress} />}            
             <BackIcon onPressBack={onBackPress} />
         </View>
     )

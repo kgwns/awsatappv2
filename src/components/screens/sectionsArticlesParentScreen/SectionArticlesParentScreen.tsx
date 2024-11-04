@@ -14,7 +14,7 @@ import { PhotoGalleryScreen } from '../photoGallery/PhotoGalleryScreen';
 export const SectionArticlesParentScreen = () => {
   const { params } = useRoute<RouteProp<any>>();
   const sectionId = params?.sectionId;
-  const keyName = params?.keyName || ''
+  const keyName = params?.keyName || '';
 
   const { emptyAllListData } = useNewsView();
   const [isShowPlayer, setIsShowPlayer] = useState(false)
@@ -33,7 +33,7 @@ export const SectionArticlesParentScreen = () => {
     }
     switch (keyName) {
       case TabType.opinion:
-        return <OpinionScreen />;
+        return <OpinionScreen tid={sectionId}/>;
       case TabType.podcast:
         return <PodcastProgram />;
       case TabType.video:

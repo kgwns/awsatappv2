@@ -3,7 +3,7 @@ import { WritersDetailBodyGet } from 'src/redux/writersDetail/types';
 import { fetchWriterDetailInfo } from '../writerDetailService';
 import * as serviceApi from 'src/services/api';
 describe('Test Writer Detail Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     const payload: WritersDetailBodyGet = {
         tid: '12345'

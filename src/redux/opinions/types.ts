@@ -52,12 +52,10 @@ export interface FieldOpinionSportBlogExport {
 }
 
 export interface OpinionsBodyGet {
+  nid?: string;
   page: number;
-}
-
-export interface OpinionsListBodyGet {
-  page: number;
-  nid: string;
+  itemsPerPage?: number;
+  byIdOpinions?: boolean
 }
 
 export interface FetchOpinionsSuccessPayloadType {
@@ -70,6 +68,7 @@ export interface FetchOpinionsFailedPayloadtype {
 //opinionData: OpinionsListItemType[];
 export type OpinionsListState = {
   opinionData: payloadType;
+  opinionByIdData: payloadType;
   error: string;
   isLoading: boolean;
   writerOpinionLoading: boolean;
@@ -80,11 +79,12 @@ export type OpinionsListState = {
 
 export type FetchOpinionsType = {
   type: typeof FETCH_OPINIONS;
-  payload: OpinionsListBodyGet;
+  payload: OpinionsBodyGet;
 };
 
 export type FetchOpinionsSuccessType = {
   type: typeof FETCH_OPINIONS_SUCCESS;
+  byIdOpinions?: boolean;
   payload: FetchOpinionsSuccessPayloadType;
 };
 

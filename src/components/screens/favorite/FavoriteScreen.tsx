@@ -8,6 +8,8 @@ import {useLogin} from 'src/hooks';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware'
 import { ScreensConstants, TranslateConstants, TranslateKey } from 'src/constants/Constants';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { ARCHIVES_UNIT_ID } from 'src/hooks/useAds'
+import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
 
 
 export const FavoriteScreen = () => {
@@ -59,6 +61,7 @@ export const FavoriteScreen = () => {
       isSignUpAlertVisible={showupUp.current}
       onCloseSignUpAlert={onCloseSignUpAlert}
     >
+      <AdContainer unitId={ARCHIVES_UNIT_ID}/>
       {isLoggedIn  ?
        renderItem() :
      <SignupAlertCard title={SIGN_UP_PH_TITLE} message={SIGN_UP_PH_MESSAGE}

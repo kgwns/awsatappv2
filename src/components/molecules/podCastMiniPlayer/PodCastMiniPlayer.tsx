@@ -33,9 +33,9 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
 }) => {
     const style = useThemeAwareObject(customStyle)
     const playbackState = usePlaybackState();
-    const isPlaying = playbackState === State.Playing
-    const isLoading = playbackState !== State.Playing && playbackState !== State.Paused
-    const isBuffering = playbackState === State.Buffering
+    const isPlaying = playbackState.state === State.Playing
+    const isLoading = playbackState.state !== State.Playing && playbackState.state !== State.Paused
+    const isBuffering = playbackState.state === State.Buffering
     const { selectedTrack } = useAppPlayer()
     
     const refRBSheet = useRef<RBSheet>();
@@ -62,7 +62,7 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     });
 
     const setTrackToStart = async() => {
-        const currentTrack = await TrackPlayer.getCurrentTrack()
+        const currentTrack = await TrackPlayer.getActiveTrackIndex()
         if(currentTrack != null){
             await TrackPlayer.pause();
             await TrackPlayer.seekTo(0)
@@ -85,10 +85,10 @@ export const PodCastMiniPlayer: FunctionComponent<PodcastMiniPlayerProps> = ({
     )
 
     const onPlayPausePress = async () => {
-        const state = await TrackPlayer.getState()
+        const state = await TrackPlayer.getPlaybackState()
 
         if(selectedTrack != null){
-            if(state === State.Paused){
+            if(state.state === State.Paused){
                 await TrackPlayer.play()
             }else{
                 await TrackPlayer.pause()

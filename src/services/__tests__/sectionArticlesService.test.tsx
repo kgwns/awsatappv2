@@ -3,7 +3,7 @@ import { SectionArticlesBodyGet } from 'src/redux/sectionArticles/types';
 import { fetchSectionArticlesApi } from '../sectionArticlesService';
 import * as serviceApi from 'src/services/api';
 describe('Test Section Articles Services', () => {
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
     const body: SectionArticlesBodyGet = {
         sectionId: '12345',

@@ -9,7 +9,7 @@ import * as serviceApi from 'src/services/api';
 
 describe('Test LatestNews Tab Services', () => {
     const mock = new MockAdapter(axios);
-    const cachedAxiosMock = new MockAdapter(serviceApi.api);
+    const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
     beforeEach(() => {
         NativeModules.RNTopNewsContentBridge = { syncTopStories: jest.fn() } 
         jest.useFakeTimers({

@@ -1,26 +1,22 @@
 package com.awsatapp;
 
-import com.facebook.react.ReactActivity;
-import com.facebook.react.ReactActivityDelegate;
-import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
-import com.facebook.react.defaults.DefaultReactActivityDelegate;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
 import com.awsatapp.reactPackage.Constant;
 import com.awsatapp.reactPackage.MyContextWrapper;
-import com.awsatapp.reactPackage.listener.ThemeChangeEvent;
 import com.awsatapp.reactPackage.manager.CoreCacheManager;
-
-import org.devio.rn.splashscreen.SplashScreen;
+import com.facebook.react.ReactActivity;
+import com.facebook.react.ReactActivityDelegate;
+import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
+import com.facebook.react.defaults.DefaultReactActivityDelegate;
 
 import java.util.Locale;
 import java.util.Objects;
@@ -45,7 +41,9 @@ public class MainActivity extends ReactActivity{
   @Override
   protected void onCreate(Bundle savedInstanceState) {
 //    SplashScreen.show(this);
-    registerReceiver(broadcastReceiver, new IntentFilter("custom-action-local-broadcast"));
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+      registerReceiver(broadcastReceiver, new IntentFilter("custom-action-local-broadcast"), Context.RECEIVER_NOT_EXPORTED);
+    }
     super.onCreate(null);
 
   }

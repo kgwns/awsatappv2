@@ -16,6 +16,8 @@ import { CustomThemeType } from 'src/shared/styles/colors';
 import { useThemeAwareObject } from 'src/shared/styles/useThemeAware';
 import { PopulateWidgetType } from '../molecules/populateWidget/PopulateWidget';
 import { AnalyticsEvents, EventParameterProps } from 'src/shared/utils/analytics';
+import { MOST_READ_FIRST_INDEX, MOST_READ_UNIT_ID } from 'src/hooks/useAds';
+import { AdContainer, AdContainerSize } from 'src/components/atoms/adContainer/AdContainer';
 
 export interface ArticleProps
   extends ImageLabelProps,
@@ -62,9 +64,10 @@ const MostReadList = ({
   );
 
   useEffect(() => {
-    
     if (isNonEmptyArray(data.rows)) {
-      updateArticleDataBookmark()
+      updateArticleDataBookmark(data.rows)
+    } else {
+      updateArticleDataBookmark([])
     }
   },[data.rows,bookmarkIdInfo])
 
@@ -74,14 +77,14 @@ const MostReadList = ({
     } 
   },[data,bookmarkIdInfo])
 
-  const updateArticleDataBookmark = () => {
-    const entityListInfo = data.rows.map((item: any) => (
+  const updateArticleDataBookmark = (rows: any[]) => {
+    const entityListInfo = rows.map((item: any) => (
       {
         ...item,
         isBookmarked: validateBookmark(item.nid)
       }
     ))
-    setArticleData(entityListInfo)
+    setArticleData([...entityListInfo, {nid: 'ad'}])
   }
 
   const updateEntityDataBookmark = () => {
@@ -140,6 +143,12 @@ const MostReadList = ({
   }
 
   const renderItem = (item: any, index: number) => {
+    if (item.nid == 'ad') {
+      return (
+        <AdContainer style={{marginBottom: 20}} unitId={MOST_READ_UNIT_ID} size={AdContainerSize.MEDIUM}/>
+      );
+    }
+
     const timeFormat = dateTimeAgo(item.changed)
 
     const footerData = {
@@ -192,6 +201,9 @@ const MostReadList = ({
             titleContainerStyle={style.titleContainerStyle}
             articleItemStyle={style.articleItemStyle}
           />
+          {(index == (MOST_READ_FIRST_INDEX - 1)) && 
+            <AdContainer style={{marginBottom: 20}} unitId={MOST_READ_UNIT_ID} size={AdContainerSize.MEDIUM}/>
+          }
           {isLoading && (data.length - 1 === index) && (
             <View style={style.loaderStyle}>
               <ActivityIndicator size={'small'} color={theme.themeData.primary} />

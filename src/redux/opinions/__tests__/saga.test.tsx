@@ -8,13 +8,13 @@ import { fetchOpinionsListApi } from 'src/services/opinionsService';
 import {
   FetchOpinionsType,
   FetchOpinionsSuccessPayloadType,
-  OpinionsListBodyGet,
+  OpinionsBodyGet,
 } from '../types';
 
 const mockPage = 1;
 const mockString = 'mockString';
 
-const requestObject: OpinionsListBodyGet = {
+const requestObject: OpinionsBodyGet = {
   page: mockPage,
   nid: '1',
 };

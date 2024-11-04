@@ -3,6 +3,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/background_color"
     android:id="@+id/container"
     android:layout_width="match_parent"
@@ -11,17 +12,28 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
+        android:id="@+id/adBannerTop"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_constraintTop_toTopOf="parent">
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:orientation="horizontal"
         android:layoutDirection="ltr"
+        android:orientation="horizontal"
+        android:padding="6dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintHeight_percent=".10"
-        android:padding="6dp">
+        app:layout_constraintStart_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/adBannerTop"
+        tools:layout_constraintTop_toBottomOf="@id/adBannerTop">
 
         <LinearLayout
             android:id="@+id/newsArchiveBtn"
@@ -39,10 +51,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="35dp"
                 android:background="@android:color/transparent"
+                android:fontFamily="@font/bold"
                 android:gravity="center"
                 android:paddingTop="0dp"
                 android:paddingBottom="0dp"
-                android:fontFamily="@font/bold"
                 android:text="@string/news_archive_title"
                 android:textAlignment="center"
                 android:textAllCaps="false"
@@ -62,8 +74,8 @@
             android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
             android:layout_gravity="end"
             android:gravity="end"
             android:orientation="vertical">
@@ -72,38 +84,41 @@
                 android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="26dp"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:includeFontPadding="false"
-                android:textSize="22sp"
-                android:text="@string/download_news_issue_title"
                 android:gravity="top|start"
+                android:includeFontPadding="false"
+                android:paddingStart="@dimen/activity_horizontal_margin"
+                android:text="@string/download_news_issue_title"
                 android:textColor="@color/download_news_title"
-                android:textStyle="normal"/>
+                android:textSize="22sp"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/date"
                 android:layout_width="match_parent"
                 android:layout_height="25sp"
                 android:gravity="top|start"
-                android:textSize="15sp"
-                android:lineHeight="25sp"
-                android:paddingTop="5dp"
                 android:includeFontPadding="false"
+                android:lineHeight="25sp"
                 android:paddingStart="@dimen/activity_horizontal_margin"
-                android:textColor="@color/download_news_subtitle" />
+                android:paddingTop="5dp"
+                android:textColor="@color/download_news_subtitle"
+                android:textSize="15sp" />
 
 
         </LinearLayout>
     </RelativeLayout>
 
     <LinearLayout
-        app:layout_constraintTop_toBottomOf="@+id/header"
-        app:layout_constraintHeight_percent=".70"
-        android:orientation="vertical"
-        android:paddingVertical="2dp"
+        android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:weightSum="1">
+        android:orientation="vertical"
+        android:paddingVertical="2dp"
+        android:weightSum="1"
+        app:layout_constraintHeight_percent="0.65"
+        app:layout_constraintTop_toBottomOf="@+id/header"
+        tools:layout_editor_absoluteX="24dp">
+
         <RelativeLayout
             android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
@@ -134,28 +149,38 @@
                     android:id="@+id/image"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="fitXY" />
+                    android:scaleType="fitCenter" />
             </LinearLayout>
         </RelativeLayout>
+
         <Button
-            android:layout_weight=".20"
             android:id="@+id/download_btn"
             android:layout_width="wrap_content"
-            android:minWidth="140dp"
             android:layout_height="52dp"
-            android:maxHeight="52dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="5sp"
+            android:layout_weight=".20"
             android:background="@drawable/download_news_btn"
+            android:fontFamily="@font/bold"
+            android:maxHeight="52dp"
+            android:minWidth="140dp"
             android:paddingStart="@dimen/activity_horizontal_margin"
             android:paddingTop="0dp"
             android:paddingEnd="@dimen/activity_horizontal_margin"
-            android:fontFamily="@font/bold"
             android:paddingBottom="0dp"
-            android:textSize="22sp"
             android:singleLine="true"
             android:text="@string/download"
             android:textAllCaps="false"
-            android:textColor="@color/download_news_label"/>
+            android:textColor="@color/download_news_label"
+            android:textSize="22sp" />
+
+        <RelativeLayout
+            android:id="@+id/adBannerBottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".80">
+
+        </RelativeLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

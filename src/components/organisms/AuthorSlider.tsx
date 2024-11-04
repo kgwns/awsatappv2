@@ -23,7 +23,8 @@ const AuthorSlider = ({
   widgetHeaderContainerStyle,
   getSelectedTrack,
   selectedType,
-  onClose
+  onClose,
+  tid
 }: {
   data: any, listKey?: string,
   widgetHeader?: string,
@@ -32,7 +33,8 @@ const AuthorSlider = ({
   widgetHeaderStyle?: StyleProp<ViewStyle>
   getSelectedTrack?: (id: any, type: 'OPINION' | 'PODCAST') => void,
   selectedType?: string,
-  onClose?: () => void
+  onClose?: () => void,
+  tid?: string
 }) => {
   const navigation = useNavigation<StackNavigationProp<any>>();
 
@@ -109,7 +111,6 @@ const AuthorSlider = ({
   };
 
   const scrollToStart = () => {
-    console.log('scrollToStart');
     if (isIOS) {
       return
     }
@@ -139,7 +140,7 @@ const AuthorSlider = ({
   };
 
   const onPressMore = () => {
-    const params = { sectionId: null, title: CONST_OPINION_COMBO_TITLE, keyName: "opinion" }
+    const params = { sectionId: tid, title: CONST_OPINION_COMBO_TITLE, keyName: "opinion" }
     navigation.navigate(ScreensConstants.SectionArticlesParentScreen, params)
   }
 
@@ -173,6 +174,7 @@ const AuthorSlider = ({
       </View>
     )
   }
+
   return (
     <View>
       {

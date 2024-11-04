@@ -18,3 +18,6 @@ export const getVideoPaginationData: Selector<VideoItemType[]> = (state: AppStat
 
 export const getVideoPaginationError: Selector<string> = (state: AppState) =>
   state.videoList.videoError;
+
+export const getVideoByData: Selector<VideoItemType[]> = (state: AppState) =>
+  state.videoList.videoByIdData;

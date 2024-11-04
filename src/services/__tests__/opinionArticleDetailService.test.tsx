@@ -3,7 +3,7 @@ import { requestOpinionArticleDetailAPI, fetchRelatedOpinionAPI } from 'src/serv
 import { OpinionArticleDetailBodyGet, RelatedOpinionBodyGet } from 'src/redux/opinionArticleDetail/types';
 import * as serviceApi from 'src/services/api';
 describe('Test OpinionArticleDetail Services', () => {
-  const cachedAxiosMock = new MockAdapter(serviceApi.api);
+  const cachedAxiosMock = new MockAdapter(serviceApi.apiWithCache);
 
   const body: OpinionArticleDetailBodyGet = {
     nid: 123,
