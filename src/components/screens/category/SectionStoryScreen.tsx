@@ -44,6 +44,7 @@ const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
 
 export type SectionStoryScreenProps = {
   sectionId: any;
+  sectionKey?: string;
   tabIndex?: number;
   currentIndex?: number;
   childInfo: TopMenuItemType[];
@@ -53,6 +54,7 @@ export type SectionStoryScreenProps = {
 
 export const SectionStoryScreen = React.memo(({
   sectionId,
+  sectionKey,
   tabIndex,
   currentIndex,
   childInfo,

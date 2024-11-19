@@ -1,7 +1,10 @@
 module.exports = function (api) {
   api.cache(false);
   return {
-    presets: ['module:metro-react-native-babel-preset'],
+    presets: [
+      'module:@react-native/babel-preset',
+      '@babel/preset-typescript',
+    ],
     plugins: [
       [
         'module-resolver',
@@ -9,15 +12,18 @@ module.exports = function (api) {
           root: ['.'],
           alias: {
             src: './src',
-            '~': './src'
+            '~': './src',
           },
         },
       ],
       'react-native-reanimated/plugin',
+      ['@babel/plugin-transform-class-properties', { loose: true }],
+      ['@babel/plugin-transform-private-methods', { loose: true }],
+      ['@babel/plugin-transform-private-property-in-object', { loose: true }],
     ],
     env: {
       production: {
-        plugins: ["transform-remove-console"],     //removing consoles.log from app during release (production) versions
+        plugins: ['transform-remove-console'],
       },
     },
   };

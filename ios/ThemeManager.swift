@@ -14,7 +14,7 @@ class ThemeManager: NSObject {
     if(!theme.isEmpty) {
       DispatchQueue.main.sync {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        appDelegate.window?.overrideUserInterfaceStyle = theme == "light" ? .light : .dark
+        appDelegate.window.overrideUserInterfaceStyle = theme == "light" ? .light : .dark
       }
     }
  }

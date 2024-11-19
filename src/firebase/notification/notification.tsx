@@ -74,51 +74,53 @@ export const GetFCMToken = () => {
     const { isSkipped, loginData } = store.getState().login;
     const isLoggedIn = loginData?.token?.access_token ? true : false
     if (isLoggedIn || isSkipped) {
-      switch (remoteMessage.data?.type) {
-        case notification.ARTICLE:
-          navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {
-            nid: remoteMessage.data.data_key,
-          });
-          break
-        case notification.OPINION:
-          navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, {
-            nid: remoteMessage.data.data_key,
-          });
-          break
-        case notification.ALBUM:
-          navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
-            nid: remoteMessage.data.data_key,
-          });
-          break
-        case notification.PODCAST:
-          navigate(ScreensConstants.PODCAST_EPISODE_MODAL, {
-            data: {
+      if (remoteMessage.data.data_key) {
+        switch (remoteMessage.data?.type) {
+          case notification.ARTICLE:
+            navigate(ScreensConstants.ARTICLE_DETAIL_SCREEN, {
               nid: remoteMessage.data.data_key,
-              isNotification: true
+            });
+            break
+          case notification.OPINION:
+            navigate(ScreensConstants.OPINION_ARTICLE_DETAIL_SCREEN, {
+              nid: remoteMessage.data.data_key,
+            });
+            break
+          case notification.ALBUM:
+            navigate(ScreensConstants.PHOTO_GALLERY_DETAIL_SCREEN, {
+              nid: remoteMessage.data.data_key,
+            });
+            break
+          case notification.PODCAST:
+            navigate(ScreensConstants.PODCAST_EPISODE_MODAL, {
+              data: {
+                nid: remoteMessage.data.data_key,
+                isNotification: true
+              }
+            });
+            break
+          case notification.DYNAMIC_SECTION:
+            navigate(ScreensConstants.SectionArticlesScreen, {
+              title: '', // will replace sectionTitle once payload is ready
+              keyName: notification.KEYNAME,
+              sectionId: remoteMessage.data.data_key,
+            });
+            break
+          case notification.ENTITY_QUEUE:
+            navigate(ScreensConstants.EntityQueueListScreen, {
+              title: '',  // will replace sectionTitle once payload is ready
+              id: remoteMessage.data.data_key,
+            });
+            break
+          default:
+            const customData = {
+              type: remoteMessage.data.type,
+              data_key: remoteMessage.data.data_key,
+              notification_id: remoteMessage.data.id
             }
-          });
-          break
-        case notification.DYNAMIC_SECTION:
-          navigate(ScreensConstants.SectionArticlesScreen, {
-            title: '', // will replace sectionTitle once payload is ready
-            keyName: notification.KEYNAME,
-            sectionId: remoteMessage.data.data_key,
-          });
-          break
-        case notification.ENTITY_QUEUE:
-          navigate(ScreensConstants.EntityQueueListScreen, {
-            title: '',  // will replace sectionTitle once payload is ready
-            id: remoteMessage.data.data_key,
-          });
-          break
-        default:
-          const customData = {
-            type: remoteMessage.data.type,
-            data_key: remoteMessage.data.data_key,
-            notification_id: remoteMessage.data.id
-          }
-          recordLogEvent(AnalyticsEvents.UNHANDLED_NOTIFICATION, customData);
-          return
+            recordLogEvent(AnalyticsEvents.UNHANDLED_NOTIFICATION, customData);
+            return
+        }
       }
     }
   }

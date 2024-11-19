@@ -29,7 +29,6 @@ import { AnimatedHeader } from 'src/components/atoms';
 import { useTheme } from 'src/shared/styles/ThemeProvider';
 import { HOME_UNIT_ID } from 'src/hooks/useAds'
 import { AdContainer } from 'src/components/atoms/adContainer/AdContainer';
-import { USElectionsScreen } from '../usElections/USElectionsScreen';
 
 export enum TabType {
   opinion = 'opinion',
@@ -38,7 +37,6 @@ export enum TabType {
   section = 'section',
   games = 'games',
   main = 'section-main-tab',
-  usElections = 'us_elections',
   photos = 'photos',
 }
 
@@ -71,12 +69,11 @@ export const SectionsScreen = () => {
         return <PhotoGalleryScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
       case TabType.main:
         return <MainSectionScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
-      case TabType.usElections:
-        return <USElectionsScreen currentIndex={index} tabIndex={parseInt(tabIndex[0])} scrollY={scrollY[index]} />
       default:
         return (
           <SectionStoryScreen sectionId={route.field_sections}
             currentIndex={index}
+            sectionKey={route.key}
             tabIndex={parseInt(tabIndex[0])}
             childInfo={route.child}
             onUpdateChildSection={(data) => onUpdateChildSection(data, index)}
