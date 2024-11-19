@@ -46,7 +46,7 @@ extension PDFEdition {
             if PDFFileManager.isPDFFileExisitForIssueNumber(self.issueNumber) {
                 center.post(descriptor: PDFEdition.readPDFEditionNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
             } else {
-                let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+              let destination: DownloadRequest.Destination = { _, _ in
                     let baseURL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                     let editionsURL = baseURL.appendingPathComponent("Editions")
                     let fileURL = editionsURL.appendingPathComponent("\(editionNumber).pdf")
@@ -55,9 +55,9 @@ extension PDFEdition {
                 
                 cell.setDownloadingStatus(hideProgerssView: false)
                                 
-              let downloadTask = Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
+              let downloadTask = AF.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
                 }).response { response in
-                    if response.error == nil, let _ = response.destinationURL?.path {
+                  if response.error == nil, let _ = response.fileURL?.path {
                         center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
                         cell.setDownloadComplete()
                     }
@@ -108,7 +108,7 @@ extension PDFEdition {
             if PDFFileManager.isPDFFileExisitForIssueNumber(self.issueNumber) {
                 center.post(descriptor: PDFEdition.readPDFEditionNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
             } else {
-                let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+              let destination: DownloadRequest.Destination = { _, _ in
                     let baseURL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                     let editionsURL = baseURL.appendingPathComponent("Editions")
                     let fileURL = editionsURL.appendingPathComponent("\(editionNumber).pdf")
@@ -117,10 +117,10 @@ extension PDFEdition {
                 
                 cell.setDownloadingStatus(hideProgerssView: false)
                 
-                let downloadTask = Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
+                let downloadTask = AF.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
                     cell.downloadProgressView.progress = Float(prog.fractionCompleted)
                 }).response { response in
-                    if response.error == nil, let _ = response.destinationURL?.path {
+                  if response.error == nil, let _ = response.fileURL?.path {
                         center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
                         cell.setDownloadComplete()
                     }
@@ -172,7 +172,7 @@ extension PDFEdition {
             if PDFFileManager.isPDFFileExisitForIssueNumber(self.issueNumber) {
                 center.post(descriptor: PDFEdition.readPDFEditionNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
             } else {
-                let destination: DownloadRequest.DownloadFileDestination = { _, _ in
+              let destination: DownloadRequest.Destination = { _, _ in
                     let baseURL = try! FileManager.default.url(for: .cachesDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
                     let editionsURL = baseURL.appendingPathComponent("Editions")
                     let fileURL = editionsURL.appendingPathComponent("\(editionNumber).pdf")
@@ -181,10 +181,10 @@ extension PDFEdition {
                 
                 cell.setDownloadingStatus(hideProgerssView: false)
                 
-                let downloadTask = Alamofire.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
+                let downloadTask = AF.download(editionURL, to: destination).downloadProgress(closure: { (prog) in
                     cell.downloadProgressView.progress = Float(prog.fractionCompleted)
                 }).response { response in
-                    if response.error == nil, let _ = response.destinationURL?.path {
+                  if response.error == nil, let _ = response.fileURL?.path {
                         center.post(descriptor: PDFFileManager.downloadCompleteNotification, value: PDFEditionNotificationInfoPayload(pdfEditon: self, localPDFFilePath: PDFFileManager.getLocalPDFFileURLForIssueNumber(self.issueNumber)!))
                         cell.setDownloadComplete()
                     }

@@ -180,7 +180,7 @@ final class Cache {
     
     func load<A>(_ endpoint: Endpoint<A>) -> A? {
         guard case .get = endpoint.method else { return nil }
-        if let offlineBrowsingSetting = Defaults[.offlineBrowsingSetting], offlineBrowsingSetting == false {
+        if Defaults[\.offlineBrowsingSetting] == false {
             return nil
         }
         let data = storage[endpoint.cacheKey]
@@ -189,7 +189,7 @@ final class Cache {
     
     func save<A>(_ data: Data, for endpoint: Endpoint<A>) {
         guard case .get = endpoint.method else { return }
-        if let offlineBrowsingSetting = Defaults[.offlineBrowsingSetting], offlineBrowsingSetting == false {
+        if Defaults[\.offlineBrowsingSetting] == false {
             return
         }
         storage[endpoint.cacheKey] = data

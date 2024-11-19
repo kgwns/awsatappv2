@@ -6,15 +6,15 @@
 //
 
 import Foundation
-import ReachabilitySwift
+import Reachability
 
 
 final class ReachibilityManager {
     
-    static let reachability = Reachability()!
+    static let reachability = try! Reachability()
     
     static func startMonitoring() {
-        NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: ReachabilityChangedNotification,object: reachability)
+      NotificationCenter.default.addObserver(self, selector: #selector(self.reachabilityChanged),name: Notification.Name.reachabilityChanged,object: reachability)
         do{
             try reachability.startNotifier()
         }catch{
@@ -26,8 +26,8 @@ final class ReachibilityManager {
         
         let reachability = note.object as! Reachability
         
-        if reachability.isReachable {
-            if reachability.isReachableViaWiFi {
+      if reachability.connection != .unavailable {
+        if reachability.connection == .wifi {
                 print("Reachable via WiFi")
                 shouldCheckBeforeNetworkRequest = false
             } else {

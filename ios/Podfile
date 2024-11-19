@@ -1,3 +1,5 @@
+source 'https://github.com/CocoaPods/Specs.git'
+
 # Resolve react_native_pods.rb with node to allow for hoisting
 require Pod::Executable.execute_command('node', ['-p',
   'require.resolve(
@@ -20,33 +22,35 @@ target 'Awsatapp' do
   config = use_native_modules!
 
   permissions_path = '../node_modules/react-native-permissions/ios'
-  # Pods For PDF Download Feature
-  pod 'SwiftyUserDefaults',         '~> 3.0'
-  pod 'SwiftyJSON',                 '~> 4.0'
-  pod 'Kingfisher',                 '~> 4.0'
-  pod 'ReachabilitySwift',          '~> 3.0'
-  pod 'Alamofire',                  '~> 4.7'
-  pod 'SwiftLocation',              '~> 3.2.3'
-  pod 'SVProgressHUD', :git => 'https://github.com/SVProgressHUD/SVProgressHUD.git', :commit => 'd860511'
-  pod 'CryptoSwift', :git => 'https://github.com/krzyzanowskim/CryptoSwift', :commit => '8742801'
-  pod 'DateToolsSwift', :git => 'https://github.com/MatthewYork/DateTools', :commit => '76ba8ba'
+    
+  pod 'SwiftyUserDefaults', '~> 5.0'
+  pod 'SwiftyJSON', '~> 5.0'
+  pod 'Kingfisher', '~> 7.0'
+  pod 'ReachabilitySwift', '~> 3.2'
+  pod 'Alamofire', '~> 5.6'
+  pod 'SwiftLocation', '~> 4.0'
+
+  pod 'SVProgressHUD',      '~> 2.2.5'
+  pod 'CryptoSwift',        '~> 1.5'
+  pod 'DateToolsSwift',     '~> 4.0'
   
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse"
 
-  pod 'Firebase', :modular_headers => true
-  pod 'FirebaseCore', :modular_headers => true
-  pod 'FirebaseCrashlytics', :modular_headers => true
-  pod 'FirebaseRemoteConfig', :modular_headers => true
-  pod 'FirebaseSessions', :modular_headers => true
-  pod 'FirebaseCoreInternal', :modular_headers => true
-  pod 'FirebaseInstallations', :modular_headers => true
-  pod 'GoogleDataTransport', :modular_headers => true
-  pod 'FirebaseABTesting', :modular_headers => true
-  pod 'FirebaseCoreExtension', :modular_headers => true
-  pod 'nanopb', :modular_headers => true
-  pod 'GoogleUtilities', :modular_headers => true
+  pod 'Firebase', '~> 10.29.0', :modular_headers => true
+  pod 'FirebaseCore', '~> 10.29.0', :modular_headers => true
+  pod 'FirebaseCrashlytics', '~> 10.29.0', :modular_headers => true
+  pod 'FirebaseRemoteConfig', '~> 10.29.0', :modular_headers => true
+  pod 'FirebaseSessions', '~> 10.29.0', :modular_headers => true
+  pod 'FirebaseCoreInternal', '~> 10.29.0', :modular_headers => true
+  pod 'FirebaseInstallations', '~> 10.29.0', :modular_headers => true
+  pod 'GoogleDataTransport', '~> 9.2', :modular_headers => true
+  pod 'FirebaseABTesting', '~> 10.29.0', :modular_headers => true
+  pod 'FirebaseCoreExtension', '~> 10.29.0', :modular_headers => true
+  pod 'nanopb', '~> 2.0', :modular_headers => true
+  pod 'GoogleUtilities', '~> 7.8', :modular_headers => true
+  
   pod 'RNScreens', :path => '../node_modules/react-native-screens'
-  pod 'Google-Mobile-Ads-SDK'
+  pod 'Google-Mobile-Ads-SDK', '~> 11.2.0'
   #pod 'Adjust', '~> 4.37.0'
   
   use_react_native!(
@@ -104,8 +108,7 @@ end
 
 
 target 'AsharqalawsatNotificationExtension' do
-  # pod 'Firebase/Messaging', '~> VERSION_NUMBER' 
-  pod 'FirebaseCoreInternal', :modular_headers => true
-  pod 'Firebase/Messaging', :modular_headers => true
-  pod 'GoogleUtilities', :modular_headers => true
+  pod 'Firebase/Messaging', '~> 10.29.0', :modular_headers => true
+  pod 'FirebaseCoreInternal', '~> 10.29.0', :modular_headers => true
+  pod 'GoogleUtilities', '~> 7.8', :modular_headers => true
 end
