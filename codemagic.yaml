@@ -1,0 +1,35 @@
+workflows:
+  react-native-app:
+    name: Build React Native Android App
+    max_build_duration: 30
+    environment:
+      vars:
+        NODE_ENV: production
+      node: 20
+      java: 17
+    scripts:
+      - name: Clean node_modules and reinstall dependencies
+        script: |
+          rm -rf node_modules package-lock.json
+          npm install --legacy-peer-deps || { echo "npm install failed"; exit 1; }
+      - name: Ensure @react-native-community/cli-platform-android is installed
+        script: |
+          npm install --save-dev @react-native-community/cli  --legacy-peer-deps || { echo "Failed to install cli-platform-android"; exit 1; }
+          npm install  @react-native-community/cli-platform-android --legacy-peer-deps || { echo "Failed to install cli-platform-android"; exit 1; }
+          ls -la node_modules/@react-native-community || true
+      - name: Check for native_modules.gradle path
+        script: |
+          find node_modules -name "native_modules.gradle"
+      - name: Set Gradle wrapper permissions
+        script: |
+          chmod +x android/gradlew
+      - name: Build Android release
+        script: |
+          cd android
+          ./gradlew assembleRelease
+    artifacts:
+      - android/app/build/outputs/**/*.apk
+    publishing:
+      email:
+        recipients:
+          - kirolos.nakhla@jordanclouds.com
